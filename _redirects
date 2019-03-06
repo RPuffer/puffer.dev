@@ -1,2 +1,0 @@
-# Redirect domain aliases to primary domain
-https://ryne.info/* https://puffer.dev/:splat 301!
