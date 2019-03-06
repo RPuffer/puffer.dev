@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import base from './base.png';
+import logo from './rotate-logo.png';
 import './App.css';
 
 class App extends Component {
@@ -7,18 +8,13 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <div className="App-logo-container">
+            <img src={base} className="App-logo-base" alt="base" />
+            <img src={logo} className="App-logo" alt="logo" />
+          </div>
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            Under construction.
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
       </div>
     );
