@@ -8,6 +8,7 @@ import favicon from './favicon.ico'
 const link = document.createElement('link');
 link.rel = 'shortcut icon';
 link.href = favicon;
+document.head.appendChild(link);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
