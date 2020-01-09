@@ -27,7 +27,18 @@ class Sail extends React.Component {
 	state = {
 		mousein: false,
 		button: btn,
-		audio: new Audio(sail),
+		audio: [
+			new Audio(sail),
+			new Audio(sail),
+			new Audio(sail),
+			new Audio(sail),
+			new Audio(sail),
+			new Audio(sail),
+			new Audio(sail),
+			new Audio(sail),
+			new Audio(sail),
+		],
+		index: 0,
 		opacity: '0.1'
 	}
 
@@ -38,8 +49,9 @@ class Sail extends React.Component {
 		this.setState({ button: btnHover, mousein: true, opacity: '0.4' })
 	}
 	handleMouseDown = () => {
-		this.state.audio.play()
-		this.setState({ button: btnClick })
+		const { audio, index } = this.state
+		audio[index].play()
+		this.setState({ button: btnClick, index: (index+1) % audio.length })
 	}
 	handleMouseUp = () => {
 		const { mousein } = this.state;
