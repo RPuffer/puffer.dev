@@ -10,7 +10,7 @@ import Sail from './Sail';
 import Home from './Home';
 
 const Nav = styled.div`
-  position: absolute
+  position: fixed
   display: flex;
   flex-direction: row-reverse;
   right: 20px;
@@ -19,6 +19,7 @@ const Nav = styled.div`
     padding: 10px;
     width: 24px;
     height: 24px;
+    opacity: 0.75;
   }
 `
 

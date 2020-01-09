@@ -19,7 +19,7 @@ const FancyBtn = styled.img`
 	border: 10px solid rgba(255,255,255,${p => p.opacity});
 	border-radius: 10px;
 	box-shadow: -10px 10px 25px -13px rgba(0,0,0,1);
-	width: 200px;
+	width: 30vmin;
 `
 
 
