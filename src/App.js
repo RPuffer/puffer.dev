@@ -1,82 +1,65 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import base from './base.png';
-import logo from './rotate-logo.png';
-import gh from './GitHub-Mark-Light.png';
-import home from './home.png';
-import sail from './sail.png';
-import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from "react-router-dom";
-import './App.css';
-import SailBtn from './Sail';
+import Sail from './Sail';
+import Home from './Home';
 
-const GH = styled.a`
-  position: absolute;
-  left: 10px;
-  top: 10px;
-
+const Nav = styled.div`
+  position: absolute
+  display: flex;
+  flex-direction: row-reverse;
+  right: 20px;
+  bottom: 20px;
   img {
+    padding: 10px;
     width: 24px;
     height: 24px;
   }
 `
-const Home = styled.a`
-  position: absolute;
-  left: 10px;
-  top: 52px;
 
-  img {
-    width: 24px;
-    height: 24px;
-  }
-`
-const Sail = styled.a`
-  position: absolute;
-  left: 10px;
-  top: 89px;
-
-  img {
-    width: 24px;
-    height: 24px;
-  }
+const Base = styled.header`
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  text-align: center;
 `
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <div className="App-logo-container">
-                    <img src={base} className="App-logo-base" alt="base" />
-                    <img src={logo} className="App-logo" alt="logo" />
-                  </div>
-                  <p>
-                    Under construction.
-                  </p>
-              </Route>
-              <Route path="/sail">
-                <SailBtn />
-              </Route>
-            </Switch>
-          </Router>
-          <GH href="https://github.com/RPuffer/puffer.dev">
-            <img src={gh} alt="github source"/>
-          </GH>
-          <Home href="/">
-            <img src={home} alt="github source"/>
-          </Home>
-          <Sail href="/sail">
-            <img src={sail} alt="github source"/>
-          </Sail>
-        </header>
-      </div>
+      <Base>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/sail">
+              <Sail />
+            </Route>
+          </Switch>
+        <Nav>
+          <a href="https://github.com/RPuffer/puffer.dev">
+            <img src="/GH.png" alt="Source"/>
+          </a>
+          <Link to="/">
+            <img src="/home.png" alt="Home"/>
+          </Link>
+          <Link to="/sail">
+            <img src="/sail.png" alt="Sail"/>
+          </Link>
+        </Nav>
+        </Router>
+      </Base>
     );
   }
 }

@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import sail from './sail.mp3'
 import btn from './btn.png'
 import btnHover from './btn-hover.png'
-// import btnClick from './btn-click.png'
-import btnClick from './btn-click-2.png'
+import btnClick from './btn-click.png'
 
 const Container = styled.div`
 	width: 100%;
