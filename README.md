@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c4840a63-fa22-4121-8448-065c0e19da04/deploy-status)](https://app.netlify.com/sites/zealous-brown-b87171/deploys)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
