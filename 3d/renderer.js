@@ -59,6 +59,7 @@ export function createRenderer(container = document.body) {
       scene.add(decor.group);
       spinners = decor.spinners;
       hero = buildCharacter(1);
+      hero.visible = state.params.hero !== "0";
       scene.add(hero);
       bounds = levelScreenBounds(L, state.proj);
       resize();

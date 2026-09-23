@@ -32,6 +32,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `tileH` | World height of one stack level, default 1 |
 | `zoom` | Pixels per world unit; 0 or absent fits the level to the viewport |
 | `spawn` | `x,z` start cell override |
+| `hero` | `0` hides the hero, for reference comparisons |
 | `dpad` | `1` forces the on-screen d-pad |
 | `view` | Root page only: `both`, `3d`, or `2d` |
 
