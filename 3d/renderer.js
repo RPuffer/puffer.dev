@@ -12,7 +12,7 @@ export function createRenderer(container = document.body) {
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
-  let S, pickables = [], spinners = [], hero, bounds, zoom = 60;
+  let spinT = 0, S, pickables = [], spinners = [], hero, bounds, zoom = 60;
   const focus = new THREE.Vector3();
 
   const resize = () => {
@@ -74,7 +74,8 @@ export function createRenderer(container = document.body) {
       const a = state.actor;
       hero.position.set(a.pos.x, a.y * state.view.tileH, a.pos.z);
       hero.userData.animate(a, dt);
-      for (const s of spinners) s.rotation.y += dt * 2;
+      spinT += dt;
+      for (const s of spinners) s.rotation.y = -(s.userData.decor.rot || 0) * (Math.PI / 2) + Math.sin(spinT * 1.6 + s.position.x) * 0.6;
       const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * 4) : 1;
       focus.lerp(t, k);
     },
