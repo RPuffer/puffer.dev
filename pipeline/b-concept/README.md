@@ -63,8 +63,43 @@ The loop hit its round cap. A 1.19x bird scored worse (NCC 0.743) and a 0.93x zo
 
 Walk check (`walk.mjs`, 900x800): spawn (3,4), then W (3,2), A (1,2) up the stair to h 2, A (0,2), D back down the stair to (4,2) h 1, S (5,3), A (3,3), S (3,5), no page errors.
 
-Final renders: `out/forest-b-351.png`, `out/forest-b-900.png`, concept compare `out/forest-b/final-side.jpg`.
+The first-pass renders are now `out/forest-b-small-*.png`.
+
+
+## Second pass: the larger island (levels/forest-b.json)
+
+The coordinator asked for a larger world. I kept the 6x6 island as `levels/forest-b-small.json` (concept `concept-small.png`, spec `measure-small.json`); both levels share `3d/pieces/forest-b.js`.
+
+```sh
+CONCEPT_CELLS=10x8 CONCEPT_ASPECT=1:1 node pipeline/b-concept/concept.mjs pipeline/seed/forest.png pipeline/seed/brief.json pipeline/b-concept/candidates 5 -r3
+node pipeline/b-concept/transcribe.mjs pipeline/b-concept/measure.json
+pipeline/b-concept/round.sh <tag> [measure.json]
+node pipeline/b-concept/clear.mjs levels/forest-b.json
+```
+
+I picked `cand-r3-4` (1024x1024). It draws the most regular lattice of the five, 8x8 cells with trunks walling the back and both sides, the bird on a knoll, a stone stair, a pale path, roots and logs in front, and mist behind the trunks. It keeps thin outlines. `cand-r3-1` and `cand-r3-5` follow the drawing's mood as closely, but their tiles change size across the island and no single lattice fits them. Lattice: tile half steps 57 x 34 px, terrace step 60 px, so pitch 36.6 deg and tileH 0.927. The island has a plateau (h 2) at the back and sides and a lower front (h 1) with the pale path, joined by a stone ramp at (4,4).
+
+Changes to the shared pieces:
+- Mist: `transcribe.mjs` now places each cloud on the camera ray through its concept pixel, at the depth that puts it 0.75 behind every trunk it overlaps on screen (`behind: true`). `clear.mjs` checks that no cloud plane passes within 0.4 of a trunk or the bird; both levels report clear.
+- Bird: longer four-tier neck, crest, tail and wings built as thin stacked flame wedges.
+- Roots: radius 0.085 to 0.12, reach cut to 0.72 to 0.94 so they stay on their cell.
+- Leaning trunk: `top` gives the concept pixel of its tip; `transcribe.mjs` slides the tip along that pixel's ray until it touches a back trunk below that trunk's top, and adds a fork to the supporting trunk.
+
+| Round | Level | Change | MAD | NCC | Silhouette | Critic high (351 / 900) |
+| --- | --- | --- | --- | --- | --- | --- |
+| L1 | forest-b | first transcription of cand-r3-4 | 15.5 | 0.677 | 91.8% | |
+| L2 | forest-b | trunk height and radius, root, moss and mist swatches | 15.1 | 0.687 | 93.7% | |
+| L3 | forest-b | mist moved behind the trunks | 15.6 | 0.666 | 93.3% | 1 / 1 (leaning trunk) |
+| L4 | forest-b | leaning trunk solved against a back trunk | 15.6 | 0.667 | 93.4% | 1 / 1 (leaning trunk, stump at its base) |
+| final | forest-b | fork on the support, stump moved | 15.6 | 0.666 | 93.4% | 1 / 1 (leaning trunk) |
+| S2 | forest-b-small | shared piece changes, mist behind trunks | 10.8 | 0.737 | 94.2% | 1 / 1 (leaning trunk) |
+
+The large island holds: its outline, terraces, stair, path and trunk rows land on the concept, but it scores worse than the small one. Its concept has thin outlines and textured tiles, and the bird and knoll differ in shape. The critic still flags the leaning trunk's upper end in every round at both sizes; at 900x800 the whole island now fits the frame, so the flag is no longer a crop artifact. The sleeker bird cost the small level about 0.04 NCC against its own concept.
+
+Walk check on forest-b: spawn (4,6), W up the ramp to (4,4) and on to (4,2) at h 2, D to (7,2), S stops at the (7,3) cliff edge, A back to (5,3).
+
+Final renders: `out/forest-b-351.png`, `out/forest-b-900.png`, `out/forest-b-small-351.png`, `out/forest-b-small-900.png`.
 
 ## Spend
 
-See `SPEND.md`: $0.405 for nine concept images and about $0.31 for 14 critic runs, $0.72 of the $12.00 allocation.
+See `SPEND.md`: $0.63 for fourteen concept images and about $0.57 for 26 critic runs, $1.20 of the $12.00 allocation.
