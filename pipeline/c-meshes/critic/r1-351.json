@@ -1,0 +1,167 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "2 high-severity faults agreed by 2+ of 3 passes: A detached piece of green tree foliage hovers in midair without a trunk; Multiple dead tree trunks heavily intersect and fuse together unnaturally.",
+  "votes": 3,
+  "high": 2,
+  "items": [
+    {
+      "issue": "A detached piece of green tree foliage hovers in midair without a trunk.",
+      "rule": 1,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        249,
+        142,
+        260,
+        154
+      ],
+      "fix_hint": "Attach the foliage element to an adjacent tree trunk or delete it."
+    },
+    {
+      "issue": "Multiple dead tree trunks heavily intersect and fuse together unnaturally.",
+      "rule": 3,
+      "severity": "high",
+      "support": "3/3",
+      "box": [
+        186,
+        263,
+        233,
+        304
+      ],
+      "fix_hint": "Separate the trunk meshes so each sits clearly on its own grid tile."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Pixelated dirt path breaks the clean geometric block styling of the target asset pack.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        125,
+        225,
+        187,
+        271
+      ]
+    },
+    {
+      "issue": "Visual aesthetic relies on dithered pixel art rather than clean low-poly flat-shaded geometry.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        0,
+        7,
+        349,
+        386
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "phoenix creature",
+      "rests_on": "block top",
+      "box": [
+        157,
+        163,
+        194,
+        205
+      ]
+    },
+    {
+      "prop": "small flame",
+      "rests_on": "block top",
+      "box": [
+        221,
+        214,
+        231,
+        231
+      ]
+    },
+    {
+      "prop": "white boulder",
+      "rests_on": "block top",
+      "box": [
+        201,
+        197,
+        226,
+        213
+      ]
+    },
+    {
+      "prop": "white boulder",
+      "rests_on": "block top",
+      "box": [
+        291,
+        229,
+        314,
+        249
+      ]
+    },
+    {
+      "prop": "cooking pot stump",
+      "rests_on": "block top",
+      "box": [
+        128,
+        214,
+        146,
+        237
+      ]
+    },
+    {
+      "prop": "detached foliage leaf",
+      "rests_on": "cliff side or air",
+      "box": [
+        249,
+        142,
+        260,
+        153
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        128,
+        93,
+        161,
+        135
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        126,
+        134,
+        152,
+        177
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        66,
+        157,
+        96,
+        202
+      ]
+    },
+    {
+      "prop": "intersecting dead trees",
+      "rests_on": "block top",
+      "box": [
+        186,
+        261,
+        232,
+        305
+      ]
+    }
+  ]
+}

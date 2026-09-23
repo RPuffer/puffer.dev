@@ -1,0 +1,389 @@
+{
+  "render": "out/forest-c-900.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "1 high-severity fault agreed by 2+ of 3 passes: Angled bare trunk clips directly through the adjacent vertical tree trunk.",
+  "votes": 3,
+  "high": 1,
+  "items": [
+    {
+      "issue": "Angled bare trunk clips directly through the adjacent vertical tree trunk.",
+      "rule": 3,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        424,
+        537,
+        495,
+        612
+      ],
+      "fix_hint": "Separate the two tree assets so their meshes do not collide."
+    },
+    {
+      "issue": "Faceted, jagged low-poly modeling across foliage and trunks contrasts with the rounded voxel style of the target.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        108,
+        117,
+        809,
+        768
+      ],
+      "fix_hint": "Replace sharp polygonal meshes with softly beveled geometric forms matching the reference pack."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Cobweb decal plane hangs over the cliff edge into empty air.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        714,
+        402,
+        809,
+        450
+      ]
+    },
+    {
+      "issue": "Spider model interpenetrates the base of the tree trunk.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        469,
+        574,
+        512,
+        602
+      ]
+    },
+    {
+      "issue": "Mushrooms attached directly to the vertical cliff side face rather than resting on top of a tile.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        359,
+        534,
+        397,
+        567
+      ]
+    },
+    {
+      "issue": "Lower cluster of mushrooms planted on the cliff face instead of the ground plane.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        355,
+        622,
+        395,
+        652
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "orange bird",
+      "rests_on": "block top",
+      "box": [
+        365,
+        294,
+        465,
+        406
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        326,
+        117,
+        371,
+        313
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        258,
+        195,
+        303,
+        357
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        156,
+        254,
+        191,
+        377
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        123,
+        314,
+        157,
+        436
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        221,
+        292,
+        263,
+        418
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        467,
+        154,
+        513,
+        289
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        563,
+        214,
+        611,
+        382
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        707,
+        294,
+        746,
+        417
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        563,
+        330,
+        611,
+        457
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        526,
+        392,
+        574,
+        554
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        470,
+        431,
+        504,
+        565
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        504,
+        535,
+        537,
+        654
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        469,
+        595,
+        509,
+        714
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        398,
+        552,
+        432,
+        672
+      ]
+    },
+    {
+      "prop": "slanted trunk",
+      "rests_on": "block top",
+      "box": [
+        420,
+        537,
+        482,
+        610
+      ]
+    },
+    {
+      "prop": "slanted trunk",
+      "rests_on": "block top",
+      "box": [
+        555,
+        566,
+        625,
+        654
+      ]
+    },
+    {
+      "prop": "slanted trunk",
+      "rests_on": "block top",
+      "box": [
+        656,
+        430,
+        734,
+        514
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        389,
+        175,
+        443,
+        268
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        464,
+        215,
+        518,
+        302
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        287,
+        302,
+        347,
+        410
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        184,
+        329,
+        234,
+        390
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        176,
+        369,
+        232,
+        470
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        384,
+        438,
+        437,
+        552
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        494,
+        295,
+        557,
+        408
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        626,
+        258,
+        680,
+        362
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        628,
+        348,
+        689,
+        450
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        597,
+        477,
+        653,
+        591
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        729,
+        358,
+        787,
+        474
+      ]
+    },
+    {
+      "prop": "stump",
+      "rests_on": "block top",
+      "box": [
+        293,
+        494,
+        338,
+        541
+      ]
+    }
+  ]
+}

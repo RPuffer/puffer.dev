@@ -1,0 +1,285 @@
+{
+  "render": "out/forest-c-900.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 1 lesser item.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "Plank ramp lacks proper framing and step details seen in reference structures.",
+      "rule": 9,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        283,
+        410,
+        356,
+        510
+      ],
+      "fix_hint": "Rebuild the transition ramp using segmented logs and rope supports."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Meshes use triangulated low-poly shading rather than voxel-aligned box geometry.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        113,
+        84,
+        797,
+        773
+      ]
+    },
+    {
+      "issue": "Tree trunks have crumpled, high-density facets instead of clean, low-poly orthogonal geometry.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        338,
+        82,
+        408,
+        310
+      ]
+    },
+    {
+      "issue": "Translucent web planes intersect irregularly through the terrain geometry.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        395,
+        242,
+        572,
+        417
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "phoenix figure",
+      "rests_on": "block top",
+      "box": [
+        371,
+        301,
+        470,
+        409
+      ]
+    },
+    {
+      "prop": "pine tree rear",
+      "rests_on": "block top",
+      "box": [
+        338,
+        84,
+        374,
+        202
+      ]
+    },
+    {
+      "prop": "bare tree rear mid",
+      "rests_on": "block top",
+      "box": [
+        365,
+        145,
+        410,
+        315
+      ]
+    },
+    {
+      "prop": "green leafy tree top left",
+      "rests_on": "block top",
+      "box": [
+        253,
+        125,
+        308,
+        254
+      ]
+    },
+    {
+      "prop": "foliage tree left",
+      "rests_on": "block top",
+      "box": [
+        260,
+        243,
+        315,
+        358
+      ]
+    },
+    {
+      "prop": "bare tree left edge",
+      "rests_on": "block top",
+      "box": [
+        130,
+        282,
+        173,
+        406
+      ]
+    },
+    {
+      "prop": "bare tree left front",
+      "rests_on": "block top",
+      "box": [
+        158,
+        341,
+        206,
+        463
+      ]
+    },
+    {
+      "prop": "small leafy tree mid-left",
+      "rests_on": "block top",
+      "box": [
+        213,
+        362,
+        272,
+        455
+      ]
+    },
+    {
+      "prop": "small leafy tree center",
+      "rests_on": "block top",
+      "box": [
+        293,
+        318,
+        342,
+        412
+      ]
+    },
+    {
+      "prop": "tall bare tree center",
+      "rests_on": "block top",
+      "box": [
+        463,
+        186,
+        516,
+        331
+      ]
+    },
+    {
+      "prop": "bare trunk mid right",
+      "rests_on": "block top",
+      "box": [
+        502,
+        261,
+        543,
+        442
+      ]
+    },
+    {
+      "prop": "tall trunk back right",
+      "rests_on": "block top",
+      "box": [
+        570,
+        222,
+        611,
+        418
+      ]
+    },
+    {
+      "prop": "bare trunk far right rear",
+      "rests_on": "block top",
+      "box": [
+        639,
+        258,
+        685,
+        384
+      ]
+    },
+    {
+      "prop": "leafy tree far right",
+      "rests_on": "block top",
+      "box": [
+        704,
+        311,
+        769,
+        411
+      ]
+    },
+    {
+      "prop": "bare trunk far right mid",
+      "rests_on": "block top",
+      "box": [
+        746,
+        358,
+        782,
+        480
+      ]
+    },
+    {
+      "prop": "bare trunk right center",
+      "rests_on": "block top",
+      "box": [
+        671,
+        362,
+        716,
+        482
+      ]
+    },
+    {
+      "prop": "bare trunk foreground right",
+      "rests_on": "block top",
+      "box": [
+        635,
+        417,
+        680,
+        536
+      ]
+    },
+    {
+      "prop": "bare trunk foreground path",
+      "rests_on": "block top",
+      "box": [
+        590,
+        510,
+        653,
+        590
+      ]
+    },
+    {
+      "prop": "bare tree front center",
+      "rests_on": "block top",
+      "box": [
+        343,
+        476,
+        422,
+        616
+      ]
+    },
+    {
+      "prop": "leafy tree foreground left",
+      "rests_on": "block top",
+      "box": [
+        427,
+        470,
+        495,
+        578
+      ]
+    },
+    {
+      "prop": "leafy tree foreground center",
+      "rests_on": "block top",
+      "box": [
+        517,
+        495,
+        586,
+        597
+      ]
+    },
+    {
+      "prop": "small tree front corner",
+      "rests_on": "block top",
+      "box": [
+        464,
+        619,
+        518,
+        710
+      ]
+    }
+  ]
+}

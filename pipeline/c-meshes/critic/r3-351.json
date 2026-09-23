@@ -1,0 +1,366 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "Render uses low-resolution chunky pixel art instead of the target's clean, smooth-shaded low-poly vector look.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        8,
+        46,
+        343,
+        379
+      ],
+      "fix_hint": "Increase asset rendering resolution and eliminate coarse pixelation."
+    },
+    {
+      "issue": "Dirt path segment terminates abruptly into empty block borders without ramps or continuations.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        65,
+        224,
+        153,
+        310
+      ],
+      "fix_hint": "Connect path endpoints logically across accessible tiles."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "The fire bird interpenetrates the tree trunk directly behind it.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        134,
+        143,
+        183,
+        198
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        14,
+        133,
+        38,
+        213
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        62,
+        83,
+        86,
+        200
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        81,
+        55,
+        102,
+        116
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        97,
+        85,
+        117,
+        184
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        132,
+        46,
+        154,
+        121
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        181,
+        74,
+        202,
+        151
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        198,
+        125,
+        224,
+        206
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        234,
+        105,
+        253,
+        197
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        267,
+        124,
+        284,
+        222
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        297,
+        144,
+        326,
+        207
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        48,
+        173,
+        71,
+        271
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        114,
+        190,
+        134,
+        250
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        186,
+        190,
+        205,
+        244
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        233,
+        201,
+        254,
+        283
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        185,
+        249,
+        199,
+        294
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        219,
+        270,
+        235,
+        329
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        252,
+        252,
+        268,
+        310
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        283,
+        188,
+        305,
+        250
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        131,
+        72,
+        162,
+        122
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        146,
+        124,
+        173,
+        170
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        79,
+        180,
+        110,
+        227
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        72,
+        222,
+        103,
+        271
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        145,
+        214,
+        176,
+        270
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        188,
+        231,
+        220,
+        282
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        177,
+        292,
+        203,
+        346
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        262,
+        225,
+        290,
+        281
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        313,
+        176,
+        340,
+        233
+      ]
+    },
+    {
+      "prop": "phoenix",
+      "rests_on": "block top",
+      "box": [
+        134,
+        142,
+        183,
+        197
+      ]
+    },
+    {
+      "prop": "fire sprite",
+      "rests_on": "block top",
+      "box": [
+        220,
+        209,
+        234,
+        231
+      ]
+    },
+    {
+      "prop": "stump",
+      "rests_on": "block top",
+      "box": [
+        147,
+        269,
+        169,
+        295
+      ]
+    },
+    {
+      "prop": "stump",
+      "rests_on": "block top",
+      "box": [
+        203,
+        316,
+        223,
+        341
+      ]
+    }
+  ]
+}

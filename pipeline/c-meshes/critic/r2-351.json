@@ -1,0 +1,336 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The gravel path dead-ends abruptly into grass at both endpoints without connecting goals or borders.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        75,
+        225,
+        143,
+        287
+      ],
+      "fix_hint": "Extend the path to the level edge or connect it to interactive landmarks."
+    },
+    {
+      "issue": "The murky, desaturated color scheme clashes with the vibrant high-key palette of the target style.",
+      "rule": 7,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        25,
+        151,
+        343,
+        376
+      ],
+      "fix_hint": "Brighten the terrain and foliage tones to match the cheerful style palette."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "The central rock formation intersects through the elevated cliff edge geometry.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        164,
+        142,
+        204,
+        180
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        15,
+        134,
+        36,
+        213
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        48,
+        173,
+        70,
+        270
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        64,
+        83,
+        86,
+        200
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        81,
+        56,
+        102,
+        117
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        97,
+        84,
+        118,
+        182
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        132,
+        46,
+        154,
+        122
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        181,
+        74,
+        203,
+        152
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        186,
+        125,
+        224,
+        241
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        234,
+        104,
+        252,
+        196
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        267,
+        124,
+        286,
+        222
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        233,
+        162,
+        254,
+        279
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        283,
+        186,
+        307,
+        262
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        296,
+        144,
+        322,
+        203
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        185,
+        251,
+        200,
+        305
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        218,
+        270,
+        236,
+        330
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        252,
+        253,
+        267,
+        310
+      ]
+    },
+    {
+      "prop": "bush tree",
+      "rests_on": "block top",
+      "box": [
+        131,
+        72,
+        161,
+        123
+      ]
+    },
+    {
+      "prop": "bush tree",
+      "rests_on": "block top",
+      "box": [
+        80,
+        183,
+        109,
+        230
+      ]
+    },
+    {
+      "prop": "bush tree",
+      "rests_on": "block top",
+      "box": [
+        144,
+        214,
+        170,
+        268
+      ]
+    },
+    {
+      "prop": "bush tree",
+      "rests_on": "block top",
+      "box": [
+        188,
+        227,
+        220,
+        280
+      ]
+    },
+    {
+      "prop": "bush tree",
+      "rests_on": "block top",
+      "box": [
+        262,
+        225,
+        289,
+        279
+      ]
+    },
+    {
+      "prop": "bush tree",
+      "rests_on": "block top",
+      "box": [
+        313,
+        176,
+        340,
+        231
+      ]
+    },
+    {
+      "prop": "bush tree",
+      "rests_on": "block top",
+      "box": [
+        177,
+        292,
+        203,
+        346
+      ]
+    },
+    {
+      "prop": "bird figure",
+      "rests_on": "block top",
+      "box": [
+        134,
+        144,
+        183,
+        198
+      ]
+    },
+    {
+      "prop": "fire crystal",
+      "rests_on": "block top",
+      "box": [
+        220,
+        211,
+        233,
+        231
+      ]
+    },
+    {
+      "prop": "rock cluster",
+      "rests_on": "block top",
+      "box": [
+        265,
+        282,
+        297,
+        305
+      ]
+    },
+    {
+      "prop": "stump",
+      "rests_on": "block top",
+      "box": [
+        118,
+        248,
+        139,
+        271
+      ]
+    },
+    {
+      "prop": "stump",
+      "rests_on": "block top",
+      "box": [
+        142,
+        291,
+        176,
+        326
+      ]
+    }
+  ]
+}

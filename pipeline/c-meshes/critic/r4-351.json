@@ -1,0 +1,294 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The bordered dirt path terminates abruptly in the middle of the field.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        75,
+        227,
+        155,
+        309
+      ],
+      "fix_hint": "Extend the path to connect with another landmark or edge."
+    },
+    {
+      "issue": "Semi-transparent ground decals break the flat-shaded low-poly style.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        136,
+        247,
+        175,
+        281
+      ],
+      "fix_hint": "Replace soft translucent decals with opaque geometric meshes."
+    }
+  ],
+  "minority": [],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        14,
+        134,
+        39,
+        213
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        48,
+        173,
+        70,
+        270
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        62,
+        83,
+        86,
+        200
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        80,
+        55,
+        102,
+        134
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        97,
+        84,
+        118,
+        182
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        132,
+        45,
+        154,
+        79
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        130,
+        71,
+        162,
+        122
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        148,
+        96,
+        167,
+        149
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        180,
+        74,
+        203,
+        150
+      ]
+    },
+    {
+      "prop": "bird figure",
+      "rests_on": "block top",
+      "box": [
+        134,
+        144,
+        183,
+        198
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        152,
+        191,
+        169,
+        249
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        192,
+        157,
+        228,
+        238
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        234,
+        104,
+        252,
+        164
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        267,
+        124,
+        286,
+        222
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        282,
+        191,
+        306,
+        250
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        297,
+        144,
+        327,
+        202
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        313,
+        176,
+        339,
+        233
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        262,
+        225,
+        289,
+        278
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        251,
+        253,
+        268,
+        310
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        232,
+        201,
+        254,
+        280
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        164,
+        227,
+        190,
+        292
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        191,
+        232,
+        220,
+        287
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        218,
+        270,
+        235,
+        329
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        176,
+        291,
+        203,
+        346
+      ]
+    },
+    {
+      "prop": "stump",
+      "rests_on": "block top",
+      "box": [
+        141,
+        291,
+        176,
+        326
+      ]
+    }
+  ]
+}

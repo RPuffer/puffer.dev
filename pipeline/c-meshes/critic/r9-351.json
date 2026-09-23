@@ -1,0 +1,217 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "2 high-severity faults agreed by 2+ of 3 passes: The tall bare tree trunk clips through the small leafy tree canopy; The steep smooth ramp piece clips directly through the stepped cliff face.",
+  "votes": 3,
+  "high": 2,
+  "items": [
+    {
+      "issue": "The tall bare tree trunk clips through the small leafy tree canopy.",
+      "rule": 3,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        174,
+        217,
+        349,
+        379
+      ],
+      "fix_hint": "Separate the leafy tree and the bare trunk onto adjacent grid spaces."
+    },
+    {
+      "issue": "The steep smooth ramp piece clips directly through the stepped cliff face.",
+      "rule": 3,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        91,
+        194,
+        127,
+        249
+      ],
+      "fix_hint": "Use stepped blocks or ladder props aligned to the grid instead of an intersecting ramp."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Spiders are flat pixel-art sprites rather than low-poly 3D models.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        113,
+        238,
+        148,
+        261
+      ]
+    },
+    {
+      "issue": "Cobweb patches are flat, noisy pixel decals inconsistent with the clean style.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        68,
+        203,
+        104,
+        247
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "orange bird character",
+      "rests_on": "block top",
+      "box": [
+        134,
+        143,
+        183,
+        198
+      ]
+    },
+    {
+      "prop": "bare tree (back center)",
+      "rests_on": "block top",
+      "box": [
+        114,
+        57,
+        137,
+        146
+      ]
+    },
+    {
+      "prop": "bare tree (back mid)",
+      "rests_on": "block top",
+      "box": [
+        148,
+        75,
+        170,
+        146
+      ]
+    },
+    {
+      "prop": "bare tree (left edge)",
+      "rests_on": "block top",
+      "box": [
+        13,
+        153,
+        31,
+        213
+      ]
+    },
+    {
+      "prop": "bare tree (mid left)",
+      "rests_on": "block top",
+      "box": [
+        48,
+        143,
+        69,
+        231
+      ]
+    },
+    {
+      "prop": "foliage tree (mid left)",
+      "rests_on": "block top",
+      "box": [
+        94,
+        122,
+        119,
+        182
+      ]
+    },
+    {
+      "prop": "foliage tree (mid back)",
+      "rests_on": "block top",
+      "box": [
+        175,
+        105,
+        205,
+        180
+      ]
+    },
+    {
+      "prop": "bare tree (center tall)",
+      "rests_on": "block top",
+      "box": [
+        146,
+        212,
+        170,
+        329
+      ]
+    },
+    {
+      "prop": "foliage tree (center front)",
+      "rests_on": "block top",
+      "box": [
+        173,
+        216,
+        205,
+        347
+      ]
+    },
+    {
+      "prop": "bare tree (mid right front)",
+      "rests_on": "block top",
+      "box": [
+        216,
+        192,
+        236,
+        289
+      ]
+    },
+    {
+      "prop": "bare tree (right edge)",
+      "rests_on": "block top",
+      "box": [
+        234,
+        259,
+        251,
+        319
+      ]
+    },
+    {
+      "prop": "bare tree (right back)",
+      "rests_on": "block top",
+      "box": [
+        263,
+        123,
+        293,
+        213
+      ]
+    },
+    {
+      "prop": "foliage tree (far right back)",
+      "rests_on": "block top",
+      "box": [
+        312,
+        174,
+        337,
+        230
+      ]
+    },
+    {
+      "prop": "foliage tree (far right)",
+      "rests_on": "block top",
+      "box": [
+        282,
+        192,
+        307,
+        249
+      ]
+    },
+    {
+      "prop": "ramp",
+      "rests_on": "block top",
+      "box": [
+        91,
+        190,
+        129,
+        249
+      ]
+    }
+  ]
+}

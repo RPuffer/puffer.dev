@@ -1,0 +1,260 @@
+{
+  "render": "out/forest-c-900.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "1 high-severity fault agreed by 2+ of 3 passes: Rock cluster clips directly into the adjacent tree trunk geometry.",
+  "votes": 3,
+  "high": 1,
+  "items": [
+    {
+      "issue": "Rock cluster clips directly into the adjacent tree trunk geometry.",
+      "rule": 3,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        526,
+        360,
+        641,
+        449
+      ],
+      "fix_hint": "Offset the rock formation so it sits cleanly on its tile without intersecting the tree."
+    },
+    {
+      "issue": "The winding stone path terminates abruptly without connecting logically to any points of interest.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        246,
+        454,
+        388,
+        590
+      ],
+      "fix_hint": "Extend the path across the platform to create continuous navigational flow."
+    },
+    {
+      "issue": "Angular low-poly styling and dark palettes diverge significantly from the rounded pastel aesthetic.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        108,
+        94,
+        798,
+        774
+      ],
+      "fix_hint": "Soften mesh bevels and brighten the palette toward warmer tones."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Angular faceted shading deviates from the smooth voxel style of the target.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        359,
+        146,
+        424,
+        250
+      ]
+    },
+    {
+      "issue": "Color palette is desaturated and dark compared to the warm, bright style target.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        108,
+        94,
+        794,
+        774
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "phoenix creature",
+      "rests_on": "block top",
+      "box": [
+        365,
+        294,
+        465,
+        402
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        255,
+        112,
+        302,
+        239
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        219,
+        171,
+        263,
+        410
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        289,
+        184,
+        337,
+        377
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        359,
+        146,
+        424,
+        250
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        459,
+        154,
+        507,
+        318
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        572,
+        214,
+        608,
+        337
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        635,
+        255,
+        677,
+        456
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        118,
+        274,
+        168,
+        436
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        252,
+        363,
+        316,
+        473
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        185,
+        355,
+        230,
+        557
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        479,
+        335,
+        554,
+        486
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        386,
+        439,
+        443,
+        553
+      ]
+    },
+    {
+      "prop": "tall dead tree",
+      "rests_on": "block top",
+      "box": [
+        536,
+        554,
+        574,
+        677
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        451,
+        598,
+        508,
+        710
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        732,
+        359,
+        787,
+        478
+      ]
+    },
+    {
+      "prop": "grey boulder",
+      "rests_on": "block top",
+      "box": [
+        632,
+        575,
+        702,
+        625
+      ]
+    },
+    {
+      "prop": "tree stump",
+      "rests_on": "block top",
+      "box": [
+        331,
+        510,
+        378,
+        557
+      ]
+    }
+  ]
+}

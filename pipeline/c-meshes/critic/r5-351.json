@@ -1,0 +1,236 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The wooden transition ramp is an unshaded plane lacking voxelized stepping consistent with target assets.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        92,
+        201,
+        126,
+        249
+      ],
+      "fix_hint": "Replace the flat brown plane with stepped, blocky stairs or styled wooden planks."
+    },
+    {
+      "issue": "The raised dirt path terminates abruptly into the cliff edge without transition.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        43,
+        247,
+        126,
+        309
+      ],
+      "fix_hint": "Align the pathway cleanly to full grid tiles and terminate it into stairs or ground."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "The level uses pixelated textures instead of clean geometric low-poly rendering.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        9,
+        12,
+        340,
+        377
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "pine tree",
+      "rests_on": "block top",
+      "box": [
+        78,
+        60,
+        102,
+        122
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        81,
+        119,
+        107,
+        172
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        96,
+        157,
+        121,
+        203
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        57,
+        175,
+        86,
+        222
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        179,
+        89,
+        205,
+        154
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        198,
+        214,
+        221,
+        262
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        162,
+        227,
+        193,
+        279
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        206,
+        238,
+        236,
+        291
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        180,
+        301,
+        206,
+        347
+      ]
+    },
+    {
+      "prop": "foliage tree",
+      "rests_on": "block top",
+      "box": [
+        297,
+        151,
+        328,
+        201
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        118,
+        40,
+        151,
+        109
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        198,
+        127,
+        218,
+        213
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        232,
+        108,
+        251,
+        206
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        265,
+        126,
+        286,
+        186
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        316,
+        175,
+        334,
+        234
+      ]
+    },
+    {
+      "prop": "curved trunk",
+      "rests_on": "block top",
+      "box": [
+        118,
+        233,
+        158,
+        302
+      ]
+    },
+    {
+      "prop": "firebird",
+      "rests_on": "block top",
+      "box": [
+        135,
+        146,
+        182,
+        198
+      ]
+    },
+    {
+      "prop": "ramp",
+      "rests_on": "block top",
+      "box": [
+        92,
+        200,
+        126,
+        249
+      ]
+    }
+  ]
+}

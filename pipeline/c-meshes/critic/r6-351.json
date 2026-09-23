@@ -1,0 +1,259 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "2 high-severity faults agreed by 2+ of 3 passes: A small spider entity is positioned directly on the sloped ramp surface; The bordered path cantilevers out into open space over the cliff edge without support.",
+  "votes": 3,
+  "high": 2,
+  "items": [
+    {
+      "issue": "A small spider entity is positioned directly on the sloped ramp surface.",
+      "rule": 2,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        83,
+        224,
+        98,
+        236
+      ],
+      "fix_hint": "Move the creature onto a flat terrain block top."
+    },
+    {
+      "issue": "The bordered path cantilevers out into open space over the cliff edge without support.",
+      "rule": 1,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        43,
+        247,
+        125,
+        310
+      ],
+      "fix_hint": "Add supporting terrain blocks beneath the extending section of walkway."
+    },
+    {
+      "issue": "The scene displays heavy pixel-art aliasing rather than clean low-poly shaded meshes.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        11,
+        41,
+        340,
+        377
+      ],
+      "fix_hint": "Render with standard polygonal shading rather than pixelated scaling."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "The scene uses pixelated dithering and noisy texture patterns instead of clean flat-shaded faces.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        97,
+        93,
+        234,
+        205
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "Phoenix bird",
+      "rests_on": "block top",
+      "box": [
+        135,
+        146,
+        183,
+        200
+      ]
+    },
+    {
+      "prop": "Bare tree top-left",
+      "rests_on": "block top",
+      "box": [
+        78,
+        61,
+        102,
+        125
+      ]
+    },
+    {
+      "prop": "Tall bare tree",
+      "rests_on": "block top",
+      "box": [
+        118,
+        41,
+        135,
+        99
+      ]
+    },
+    {
+      "prop": "Tall bare tree center",
+      "rests_on": "block top",
+      "box": [
+        132,
+        70,
+        153,
+        160
+      ]
+    },
+    {
+      "prop": "Green tree mid-left",
+      "rests_on": "block top",
+      "box": [
+        80,
+        117,
+        106,
+        179
+      ]
+    },
+    {
+      "prop": "Green tree upper-center",
+      "rests_on": "block top",
+      "box": [
+        110,
+        122,
+        136,
+        175
+      ]
+    },
+    {
+      "prop": "Bare tree far-left",
+      "rests_on": "block top",
+      "box": [
+        16,
+        139,
+        37,
+        197
+      ]
+    },
+    {
+      "prop": "Bare tree lower-left",
+      "rests_on": "block top",
+      "box": [
+        32,
+        163,
+        52,
+        226
+      ]
+    },
+    {
+      "prop": "Green tree lower-left",
+      "rests_on": "block top",
+      "box": [
+        57,
+        175,
+        86,
+        224
+      ]
+    },
+    {
+      "prop": "Spider on ramp",
+      "rests_on": "stair",
+      "box": [
+        83,
+        224,
+        97,
+        236
+      ]
+    },
+    {
+      "prop": "Green bush tree center",
+      "rests_on": "block top",
+      "box": [
+        97,
+        156,
+        121,
+        200
+      ]
+    },
+    {
+      "prop": "Bare tree stream bank",
+      "rests_on": "block top",
+      "box": [
+        200,
+        128,
+        218,
+        220
+      ]
+    },
+    {
+      "prop": "Bare tree upper right",
+      "rests_on": "block top",
+      "box": [
+        232,
+        108,
+        251,
+        207
+      ]
+    },
+    {
+      "prop": "Green tree right edge",
+      "rests_on": "block top",
+      "box": [
+        296,
+        152,
+        326,
+        202
+      ]
+    },
+    {
+      "prop": "Bare tree right border",
+      "rests_on": "block top",
+      "box": [
+        316,
+        176,
+        334,
+        234
+      ]
+    },
+    {
+      "prop": "Curved trunk center",
+      "rests_on": "block top",
+      "box": [
+        120,
+        232,
+        156,
+        302
+      ]
+    },
+    {
+      "prop": "Stump bottom-left",
+      "rests_on": "block top",
+      "box": [
+        143,
+        294,
+        177,
+        328
+      ]
+    },
+    {
+      "prop": "Green tree foreground",
+      "rests_on": "block top",
+      "box": [
+        178,
+        301,
+        205,
+        347
+      ]
+    },
+    {
+      "prop": "Green tree cluster center",
+      "rests_on": "block top",
+      "box": [
+        208,
+        239,
+        236,
+        291
+      ]
+    }
+  ]
+}

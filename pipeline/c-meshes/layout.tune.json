@@ -1,0 +1,49 @@
+{
+  "land": [
+    0.74,
+    0.82
+  ],
+  "corridor": 2,
+  "wall": 1.4,
+  "sideCols": 2.5,
+  "backRows": 1.5,
+  "jitter": 2.0,
+  "scatter": 0.22,
+  "lightDir": [
+    0.3,
+    1,
+    0.6
+  ],
+  "ambientLift": 0.2,
+  "palette": {
+    "dirt": {
+      "top": "#7d624c",
+      "patch": "#6d523e",
+      "mottle": "#5d4432",
+      "border": "#4e3626",
+      "path": "#9a8468"
+    },
+    "cap": [
+      "#c24458",
+      "#9c2f42",
+      "#7f2535"
+    ],
+    "capGold": [
+      "#a48541",
+      "#8e7032",
+      "#775c25"
+    ],
+    "mushroomStem": [
+      "#b8a88a",
+      "#9a8c70"
+    ],
+    "capSpot": "#dddddd"
+  },
+  "spacing": true,
+  "offset": 0.08,
+  "frontX": 0.5,
+  "entrySpread": 3,
+  "edgeCost": 4,
+  "sightline": 3,
+  "tileH": 1.0
+}

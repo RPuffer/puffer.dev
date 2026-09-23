@@ -1,0 +1,246 @@
+{
+  "render": "out/forest-c-900.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "Constructed path abruptly dead-ends directly into empty grass and a tree stump.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        278,
+        463,
+        407,
+        632
+      ],
+      "fix_hint": "Extend the path smoothly across the terrain toward an intended destination."
+    },
+    {
+      "issue": "Cobweb ground overlays feature noisy, irregular multi-faceted texturing inconsistent with the style guide.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        257,
+        218,
+        770,
+        510
+      ],
+      "fix_hint": "Replace textured cobwebs with clean, flat-shaded vector-style decals."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Dead tree models use crumpled, faceted geometry inconsistent with the clean, beveled blocky target style.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        216,
+        112,
+        273,
+        410
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        118,
+        274,
+        167,
+        436
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        213,
+        170,
+        273,
+        386
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        253,
+        114,
+        302,
+        232
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        287,
+        180,
+        338,
+        377
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        359,
+        145,
+        422,
+        249
+      ]
+    },
+    {
+      "prop": "phoenix",
+      "rests_on": "block top",
+      "box": [
+        365,
+        294,
+        469,
+        401
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        462,
+        155,
+        510,
+        305
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        567,
+        213,
+        615,
+        337
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        635,
+        255,
+        680,
+        450
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        698,
+        296,
+        759,
+        419
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        733,
+        358,
+        787,
+        478
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        183,
+        355,
+        234,
+        538
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        244,
+        362,
+        311,
+        454
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        320,
+        395,
+        370,
+        517
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        385,
+        439,
+        440,
+        549
+      ]
+    },
+    {
+      "prop": "stump",
+      "rests_on": "block top",
+      "box": [
+        384,
+        550,
+        453,
+        669
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        453,
+        597,
+        507,
+        710
+      ]
+    },
+    {
+      "prop": "flame",
+      "rests_on": "block top",
+      "box": [
+        542,
+        430,
+        571,
+        473
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        536,
+        550,
+        573,
+        674
+      ]
+    }
+  ]
+}

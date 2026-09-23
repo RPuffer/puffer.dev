@@ -1,0 +1,325 @@
+{
+  "render": "out/forest-c-900.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 1 lesser item.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The winding dirt path ends abruptly in an open lawn without a destination or transition.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        246,
+        463,
+        407,
+        630
+      ],
+      "fix_hint": "Extend the path to connect to the raised platform or terminate with an explicit entrance feature."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Faceting and angular low-poly shading on the tree trunks contrasts with the style pack's flat-faced bevels.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        491,
+        254,
+        552,
+        430
+      ]
+    },
+    {
+      "issue": "Bare tree base sits over the cliff edge instead of fully resting on the tile top.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        398,
+        389,
+        437,
+        511
+      ]
+    },
+    {
+      "issue": "Cobweb mesh clips flatly into the pathway boundary and ground plane.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        368,
+        505,
+        453,
+        578
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "orange bird creature",
+      "rests_on": "block top",
+      "box": [
+        366,
+        294,
+        465,
+        402
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        119,
+        274,
+        167,
+        434
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        188,
+        356,
+        233,
+        547
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        221,
+        172,
+        267,
+        408
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        258,
+        115,
+        300,
+        270
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        289,
+        178,
+        331,
+        375
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        364,
+        93,
+        407,
+        247
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        392,
+        194,
+        433,
+        343
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        462,
+        154,
+        507,
+        317
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        494,
+        254,
+        547,
+        430
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        571,
+        214,
+        608,
+        398
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        635,
+        254,
+        680,
+        454
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        707,
+        294,
+        752,
+        414
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        676,
+        389,
+        716,
+        514
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        570,
+        413,
+        611,
+        574
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        605,
+        516,
+        641,
+        638
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        537,
+        552,
+        572,
+        674
+      ]
+    },
+    {
+      "prop": "bare tree trunk",
+      "rests_on": "block top",
+      "box": [
+        468,
+        480,
+        504,
+        620
+      ]
+    },
+    {
+      "prop": "green foliage tree",
+      "rests_on": "block top",
+      "box": [
+        357,
+        149,
+        422,
+        251
+      ]
+    },
+    {
+      "prop": "green foliage tree",
+      "rests_on": "block top",
+      "box": [
+        500,
+        476,
+        542,
+        571
+      ]
+    },
+    {
+      "prop": "green foliage tree",
+      "rests_on": "block top",
+      "box": [
+        429,
+        470,
+        476,
+        574
+      ]
+    },
+    {
+      "prop": "green foliage tree",
+      "rests_on": "block top",
+      "box": [
+        452,
+        602,
+        508,
+        710
+      ]
+    },
+    {
+      "prop": "green foliage tree",
+      "rests_on": "block top",
+      "box": [
+        631,
+        461,
+        682,
+        569
+      ]
+    },
+    {
+      "prop": "green foliage tree",
+      "rests_on": "block top",
+      "box": [
+        733,
+        358,
+        787,
+        474
+      ]
+    },
+    {
+      "prop": "stump prop",
+      "rests_on": "block top",
+      "box": [
+        381,
+        594,
+        449,
+        671
+      ]
+    },
+    {
+      "prop": "fire sprite",
+      "rests_on": "block top",
+      "box": [
+        541,
+        430,
+        570,
+        472
+      ]
+    }
+  ]
+}

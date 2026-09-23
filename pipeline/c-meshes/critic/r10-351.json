@@ -1,0 +1,349 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The bordered dirt path segment terminates abruptly at the cliff boundary.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        57,
+        243,
+        142,
+        307
+      ],
+      "fix_hint": "Blend path edges naturally into surrounding tiles or end at a defined threshold."
+    },
+    {
+      "issue": "Muddy desaturated palette lacks the bright cohesive tone of the target style.",
+      "rule": 7,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        8,
+        55,
+        343,
+        378
+      ],
+      "fix_hint": "Increase lighting brightness and adopt warmer, cleaner palette hues."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "A hollow stump clips into the diagonal ramp surface.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        80,
+        211,
+        101,
+        234
+      ]
+    },
+    {
+      "issue": "Cobweb patches and ground speckles introduce noisy dithering inconsistent with the target style.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        195,
+        158,
+        317,
+        216
+      ]
+    },
+    {
+      "issue": "Angled ramp breaks the stepped cubic tile system.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        94,
+        205,
+        127,
+        247
+      ]
+    },
+    {
+      "issue": "Tree trunks and terrain feature dithered pixel textures rather than clean flat-shaded geometric facets.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        114,
+        55,
+        136,
+        151
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "giant bird",
+      "rests_on": "block top",
+      "box": [
+        134,
+        151,
+        183,
+        205
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        13,
+        151,
+        31,
+        209
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        33,
+        121,
+        50,
+        179
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        48,
+        167,
+        66,
+        228
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        65,
+        142,
+        83,
+        202
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        81,
+        92,
+        101,
+        153
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        114,
+        53,
+        136,
+        135
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        148,
+        73,
+        170,
+        135
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        167,
+        124,
+        184,
+        180
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        175,
+        105,
+        205,
+        154
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        93,
+        123,
+        119,
+        179
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        125,
+        128,
+        155,
+        164
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        203,
+        122,
+        219,
+        181
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        234,
+        103,
+        251,
+        163
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        234,
+        160,
+        251,
+        220
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        216,
+        191,
+        239,
+        287
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        147,
+        209,
+        169,
+        275
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        147,
+        259,
+        169,
+        326
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        181,
+        247,
+        204,
+        346
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        250,
+        190,
+        270,
+        287
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        234,
+        259,
+        252,
+        318
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        262,
+        124,
+        294,
+        218
+      ]
+    },
+    {
+      "prop": "dead tree",
+      "rests_on": "block top",
+      "box": [
+        296,
+        142,
+        326,
+        204
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        282,
+        191,
+        307,
+        246
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        312,
+        172,
+        339,
+        228
+      ]
+    },
+    {
+      "prop": "leafy tree",
+      "rests_on": "block top",
+      "box": [
+        173,
+        216,
+        204,
+        252
+      ]
+    }
+  ]
+}

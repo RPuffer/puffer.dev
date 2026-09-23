@@ -1,0 +1,337 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "1 high-severity fault agreed by 2+ of 3 passes: Dead tree trunk base overhangs the edge of the upper cliff face.",
+  "votes": 3,
+  "high": 1,
+  "items": [
+    {
+      "issue": "Dead tree trunk base overhangs the edge of the upper cliff face.",
+      "rule": 1,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        167,
+        183,
+        343,
+        378
+      ],
+      "fix_hint": "Snap the trunk back onto the center of the upper tile."
+    },
+    {
+      "issue": "Cobweb geometry interpenetrates several tree trunks across the forest floor.",
+      "rule": 3,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        71,
+        72,
+        332,
+        237
+      ],
+      "fix_hint": "Adjust web planes to anchor neatly between trunks without clipping."
+    },
+    {
+      "issue": "Access ramp lacks blocky stepped transitions consistent with the style guide.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        91,
+        202,
+        127,
+        249
+      ],
+      "fix_hint": "Convert the smooth ramp into discrete stepped isometric blocks."
+    }
+  ],
+  "minority": [],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        12,
+        155,
+        38,
+        209
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        47,
+        180,
+        71,
+        228
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        32,
+        126,
+        50,
+        183
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        65,
+        145,
+        83,
+        203
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        83,
+        97,
+        102,
+        156
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        113,
+        57,
+        136,
+        149
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        99,
+        115,
+        115,
+        183
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        114,
+        156,
+        130,
+        194
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        135,
+        124,
+        152,
+        181
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        146,
+        86,
+        171,
+        133
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        183,
+        105,
+        208,
+        154
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        163,
+        126,
+        188,
+        181
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        200,
+        124,
+        218,
+        209
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        230,
+        105,
+        253,
+        202
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        261,
+        126,
+        287,
+        213
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        300,
+        143,
+        319,
+        203
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        314,
+        175,
+        338,
+        229
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        167,
+        183,
+        188,
+        241
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        148,
+        211,
+        165,
+        270
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        150,
+        268,
+        167,
+        327
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        168,
+        239,
+        185,
+        300
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        184,
+        289,
+        204,
+        347
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        200,
+        261,
+        218,
+        319
+      ]
+    },
+    {
+      "prop": "dead trunk",
+      "rests_on": "block top",
+      "box": [
+        215,
+        192,
+        236,
+        287
+      ]
+    },
+    {
+      "prop": "slanted trunk",
+      "rests_on": "block top",
+      "box": [
+        276,
+        210,
+        312,
+        250
+      ]
+    },
+    {
+      "prop": "slanted trunk",
+      "rests_on": "block top",
+      "box": [
+        225,
+        277,
+        259,
+        318
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        243,
+        193,
+        270,
+        238
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        248,
+        234,
+        274,
+        286
+      ]
+    }
+  ]
+}
