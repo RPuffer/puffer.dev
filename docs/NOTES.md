@@ -5,3 +5,10 @@
 - Gemini draws the away-facing ramp (d=w/n) as the toward-facing one on the first two tries; the third try holds the orientation but splits the slope into two planes. The 2d ramp-w/ramp-n sprites are weak; draw a placeholder wedge if they read wrong in the island.
 - Gemini returns JPEG even when asked for PNG; key magenta by flood fill from the frame edge, then drop specks under 0.4% of the main blob, or stray marks survive the key.
 - 2026-09-23 3d baseline vs ref/reference.png (351x390, placeholder decor, home.json without a view block, fit framing, `?hero=0`): MAD 52.6, NCC 0.352, silhouette 59.5%. The level fits the frame at about half the reference scale; the reference crops the island, so the next gain comes from a `view` block in home.json (zoom near 32 px per unit, a `center`, and the measured pitch).
+- ref/reference.png first shipped as promo x 174..525 (sips centres its crop); verify any crop by exact-match search against promo.png before measuring.
+- Plaza markers sit on the inner grid corners of a 3x3 panel and give the cleanest lattice: tile 44.4 x 26.0 px, width:height 1.71, true isometric. Pixel-stepped edges look 2:1 locally; measure slopes over 30+ px.
+- In true isometric, cell (x+1, z+1, h+1) projects onto (x, z, h), so screen position alone never fixes a tile's height; decide h from visible cliff faces and occlusion.
+- The reference terraces step 38.4 px (1.5 cube edges), not whole cubes; home.json encodes that as view.tileH 1.5 rather than fractional h.
+- The promo artist rescaled the water group about 1.35x and nudged the lone block 9 px off-lattice; exact pixel matching of those pieces is impossible on one grid.
+- Stålberg restarts Bad North islands on WFC failure and calls WFC "pretty bad for long, thin things"; bridges and paths belong to a rule pass, not the solver.
+- DeBroglie's ConnectedConstraint bans placements that break a path and needs backtracking; on a 200-cell grid, flood fill plus repair after generation is cheaper and exact.
