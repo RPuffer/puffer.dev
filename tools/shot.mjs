@@ -11,7 +11,7 @@ fs.mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
 const b = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   headless: true,
-  userDataDir: path.join(root, ".pp-profile"),
+  userDataDir: path.join(root, process.env.PP_PROFILE || ".pp-profile"),
   args: ["--allow-file-access-from-files", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars"],
 });
 try {

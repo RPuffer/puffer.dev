@@ -6,7 +6,7 @@ const url = process.argv[2] || "http://localhost:8765/3d/index.html?level=dev";
 const b = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   headless: true,
-  userDataDir: path.join(root, ".pp-profile"),
+  userDataDir: path.join(root, process.env.PP_PROFILE || ".pp-profile"),
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars"],
 });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));

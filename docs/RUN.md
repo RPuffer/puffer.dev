@@ -49,7 +49,7 @@ node tools/compare.mjs ref/reference.png out/home-3d.png out/home-3d
 node tools/smoke.mjs "http://localhost:8765/3d/index.html?level=dev"
 ```
 
-`shot.mjs` waits for `window.__done` and prints page errors. `compare.mjs` prints `MAD  NCC  silhouette` and writes `out/home-3d-side.jpg` and `out/home-3d-overlay.jpg`. `smoke.mjs` drives the keys and a tap and prints the hero's cell after each.
+`shot.mjs` waits for `window.__done` and prints page errors. `shot.mjs` and `smoke.mjs` launch Chrome with the profile dir named by `PP_PROFILE` (default `.pp-profile`); set `PP_PROFILE=.pp-profile-2d` so parallel agents do not collide on one profile. `compare.mjs` prints `MAD  NCC  silhouette` and writes `out/home-3d-side.jpg` and `out/home-3d-overlay.jpg`. `smoke.mjs` drives the keys and a tap and prints the hero's cell after each.
 
 ## Level view block
 
@@ -67,7 +67,8 @@ A level may carry `"view": { "pitch": 35.264, "yaw": 45, "tileH": 1, "zoom": 0, 
 A level without `view.zoom` fits its screen bounds. `2d/view.js` holds per-level 2d overrides keyed by level name.
 
 ```sh
-rm -rf .pp-profile/Default/Cache ".pp-profile/Default/Code Cache"
+export PP_PROFILE=.pp-profile-2d
+rm -rf .pp-profile-2d/Default/Cache ".pp-profile-2d/Default/Code Cache"
 node tools/shot.mjs "http://localhost:8765/2d/index.html?level=home&hero=0" out/home-2d.png 351 390
 node tools/compare.mjs ref/reference.png out/home-2d.png out/home-2d
 node tools/smoke.mjs "http://localhost:8765/2d/index.html?level=home"

@@ -1,5 +1,5 @@
 node_modules/
-.pp-profile/
+.pp-profile*/
 out/
 *.log
 2d/gen/node_modules
