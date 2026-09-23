@@ -9,6 +9,8 @@ const KEY = (() => { try { return execSync("security find-generic-password -s de
 if (!KEY) { console.error("no Gemini key"); process.exit(3); }
 const API = "https://generativelanguage.googleapis.com/v1beta";
 const PRICE = 0.045;
+const CELLS = (process.env.CONCEPT_CELLS || "").match(/^(\d+)x(\d+)$/);
+const ASPECT = process.env.CONCEPT_ASPECT || "4:5";
 
 async function pickModel() {
   if (process.env.CONCEPT_MODEL) return process.env.CONCEPT_MODEL;
@@ -38,10 +40,11 @@ const creature = brief.creatures[0];
 const text = [
   "IMAGE 1 is a charcoal drawing. IMAGE 2 and IMAGE 3 show the target art style: a cute isometric tile asset pack.",
   "Repaint the scene of IMAGE 1 as ONE compact isometric floating island built from the square tile blocks of IMAGE 2, drawn in exactly IMAGE 2's style and camera: true isometric view from the upper left, flat colours with no gradients and no outlines, rounded chunky blocks, NO black or dark outlines on any shape (edges are only colour changes between faces, as in IMAGE 2), scalloped grass fringe dripping over the cliff edges, cliff sides with vertical bevel stripes, top face brightest, left face mid, right face darkest.",
-  "The island has exactly two ground levels: a lower terrace, and a raised plateau one block higher, joined by a short stair or slope. Show the edges of the island floating over the background, like IMAGE 2: each land column is only one or two blocks deep with background below it, and the tiles form a clearly visible square grid about 8 tiles across.",
+  `The island has exactly two ground levels: a lower terrace, and a raised plateau one block higher, joined by a short stair or slope. Show the edges of the island floating over the background, like IMAGE 2: each land column is only one or two blocks deep with background below it, and the tiles form a clearly visible square grid ${CELLS ? `of about ${CELLS[1]} tiles along the right-hand edge and ${CELLS[2]} tiles along the left-hand edge, a larger open island with room to walk around` : "about 8 tiles across"}.`,
   `Keep the drawing's composition: tall bare tree trunks with stubby branches wall the back and the right side, one thick trunk leans in from the right, twisted roots and fallen logs fill the front left, a pale dirt path runs from the front up to the centre, low pale mist tiers lie between the back trunks. ${motifs}`,
   `In the centre-left, standing still on a small mound, is the fire-bird spirit: ${creature.shape.summary} It is built from chunky stacked flame shapes like the pack's trees, standing upright, about three blocks tall, facing left, the only bright warm object in the scene. A tiny flame wisp floats near its tail.`,
   `Moody dusk forest palette: ${pal}.`,
+  CELLS ? "The mist lies in thin separate bands floating behind the trunks, never overlapping a trunk. The trees stand on the island's back and side edges so the centre stays open ground." : "",
   `Plain flat background colour ${bg} filling the whole frame around the island. No text, no labels, no border, no characters other than the fire-bird and the wisp, no sky, no ground plane beyond the island.`,
 ].join("\n");
 
@@ -62,7 +65,7 @@ console.log(`model ${model}, ${n} candidates`);
 async function one(i) {
   const r = await fetch(`${API}/models/${model}:generateContent?key=${KEY}`, {
     method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ contents: [{ role: "user", parts }], generationConfig: { responseModalities: ["IMAGE"], imageConfig: { aspectRatio: "4:5" } } }),
+    body: JSON.stringify({ contents: [{ role: "user", parts }], generationConfig: { responseModalities: ["IMAGE"], imageConfig: { aspectRatio: ASPECT } } }),
   });
   const j = await r.json();
   const data = j.candidates?.[0]?.content?.parts?.find((q) => q.inlineData)?.inlineData?.data;
