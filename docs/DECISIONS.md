@@ -7,3 +7,4 @@
 - 2026-09-23 3d camera defaults to pitch 35.264 and yaw 45; a level's optional `view` block or `?pitch=` overrides it. It follows the hero but clamps to the level's screen bounds, so a level that fits the viewport stays centred.
 - 2026-09-23 Water cells render as a slab with its top at y 0; land columns reach down to y -0.4 so the island has a base under the waterline.
 - 2026-09-23 docs/REFERENCE.md had not landed when the 3d build shipped, so pitch stays at the 35.264 default; home.json can set it through its `view` block without touching engine code.
+- 2026-09-23 home.json sets view.tileH 1.5: the reference terraces step 38.4 px (1.5 cube edges), so integer h with tileH 1.5 puts sand, plateau, and pools on their measured rows. Bridge cells carry m (planks|logs) and w (water height under the deck); ramps carry m.

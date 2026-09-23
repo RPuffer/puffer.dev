@@ -126,7 +126,7 @@ sx = 232.0 + (wx - wz - 5) * 22.15
 sy = 227.1 + (wx + wz - 14) * 12.8 - (wy - 3) * 25.58
 ```
 
-The frame centre (175.5, 195) is world (6.97, 3, 4.52), which home.json stores as `view.center`, with `zoom` 31.33, pitch 35.264, yaw 45, and the 351 x 390 viewport. Checkpoints: well cell (4, 8) at (32.7, 214.3); lone block (11, 1) at (254.2, 201.5) (the reference draws it at 329.5, 205.5, off-grid); bridge-end block (12, 4) at (298.5, 265.5).
+The frame centre (175.5, 195) is world (6.97, 3, 4.52), which home.json stores as `view.center`, with `zoom` 31.33, pitch 35.264, yaw 45, and the 351 x 390 viewport. Checkpoints: well cell (4, 8) at (32.7, 214.3); lone block (11, 1) at (342.8, 214.3) (the reference draws it at 329.5, 205.5, off-grid); bridge-end block (12, 4) at (298.5, 265.5).
 
 Known snaps, all under 16 px: water tiles (the art is rescaled), the lone block, coin and fence offsets, and the ladder foot (10 px low). Islets the reference shows but no path reaches: the lone block (11, 1), the ladder foot (7, 9), and the two foreground pine tiles (15, 9) and (14, 10).
 
