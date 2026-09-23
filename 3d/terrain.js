@@ -7,7 +7,7 @@ import { mulberry32, hashSeed } from "../core/rng.js";
 export const BASE_Y = -0.4;
 export const WATER_Y = 0;
 export const LIP = 0.15;
-export const DEPTH = 1.12;
+export const DEPTH = 1.26;
 export const WATER_DROP = 0.1;
 const GAP = 0.018, R = 0.11;
 
@@ -71,7 +71,7 @@ function drips(B, x, z, y, face, hex, rnd) {
 }
 
 function specks(B, x, z, y0, y1, hex, rnd) {
-  if (rnd() < 0.35) return;
+  if (rnd() < 0.6) return;
   const n = 1 + Math.floor(rnd() * 3);
   for (let i = 0; i < n; i++) {
     const u = 0.2 + rnd() * 0.6, v = y0 + 0.2 + rnd() * Math.max(0.1, y1 - y0 - 0.5), w = 0.035, h = 0.07;
@@ -122,7 +122,6 @@ function landCell(B, L, x, z, c, T, F, rnd) {
     for (let i = 0; i < 4; i++) B.flat(circle(x + 0.15 + rnd() * 0.7, z + 0.15 + rnd() * 0.7, 0.06, 0.045, 7), top + 0.005, P.dirt.mottle);
     if (d(1, 0)) B.flat([[x + 1.006, z1], [x + 1.006, z0], [x + 0.994, z0], [x + 0.994, z1]], top + 0.006, P.dirt.mottle);
     if (d(0, 1)) B.flat([[x1, z + 1.006], [x1, z + 0.994], [x0, z + 0.994], [x0, z + 1.006]], top + 0.006, P.dirt.mottle);
-    specks(B, x, z, bot, top - LIP, P.cliffLower.speck, rnd);
     return;
   }
   if (kind === "stone") {
@@ -133,7 +132,6 @@ function landCell(B, L, x, z, c, T, F, rnd) {
   column(B, x, z, bot, top - LIP, upper);
   slab(B, x, z, top - LIP, top, tone(P.sand.top, P.sand.edge, P.sand.lip));
   dots(B, x, z, top + 0.004, P.sand.dots, rnd, 3, 0.05);
-  specks(B, x, z, bot, top - LIP, P.cliffLower.speck, rnd);
 }
 
 function stoneSlab(B, x, z, y0, y1, rnd) {
@@ -183,7 +181,7 @@ function waterCell(B, L, x, z, h, T, rnd, below) {
   const y0 = below != null ? below : top - 0.3;
   const side = tone(P.water.deep, P.water.deep, P.water.fall[2], P.water.fall[1]);
   B.prism([[x + 1, z + 1], [x + 1, z], [x, z], [x, z + 1]], y0, top - 0.06, side, { top: false });
-  B.prism(roundRect(x + 0.012, z + 0.012, x + 0.988, z + 0.988, 0.1), top - 0.06, top, tone(P.water.top, P.water.bubble, P.water.deep));
+  B.prism(roundRect(x + 0.012, z + 0.012, x + 0.988, z + 0.988, 0.1), top - 0.06, top, tone(P.water.top, P.water.deep, P.water.fall[2]));
   B.flat(roundRect(x + 0.07, z + 0.07, x + 0.93, z + 0.93, 0.08), top + 0.002, P.water.top);
   const cx = x + 0.3 + rnd() * 0.25, cz = z + 0.25 + rnd() * 0.2;
   B.flat(circle(cx, cz, 0.09, 0.07, 8), top + 0.004, P.water.bubble);
@@ -207,15 +205,15 @@ function bridgeCell(B, L, x, z, c, T, rnd) {
     Bx(0.8, 0.92, 0.02, 0.98, y - 0.26, y - 0.16, tone(P.wood.dark, P.wood.shadow, P.wood.shadow));
     return;
   }
-  const r = 0.17, n = 2;
+  const r = 0.16, n = 2;
   const logPal = tone(P.wood.light, P.wood.mid, P.wood.dark);
   for (let i = 0; i < n; i++) {
     const u = (i + 0.5) / n + (rnd() - 0.5) * 0.06;
     B.at(alongX ? x + u : x + 0.5, y - 0.02 - r, alongX ? z + 0.5 : z + u, alongX ? 0 : Math.PI / 2, () => {
       B.rot([1, 0, 0], Math.PI / 2);
-      B.cyl(r, 0.62, logPal, 0, -0.31, 0, 8, { topPal: P.wood.end });
-      B.cyl(r + 0.01, 0.05, tone(P.wood.dark, P.wood.dark, P.wood.shadow), 0, 0.2, 0, 8, { top: false });
-      B.cyl(r + 0.01, 0.05, tone(P.wood.dark, P.wood.dark, P.wood.shadow), 0, -0.25, 0, 8, { top: false });
+      B.cyl(r, 0.8, logPal, 0, -0.4, 0, 8, { topPal: P.wood.end });
+      B.cyl(r + 0.01, 0.05, tone(P.wood.dark, P.wood.dark, P.wood.shadow), 0, 0.26, 0, 8, { top: false });
+      B.cyl(r + 0.01, 0.05, tone(P.wood.dark, P.wood.dark, P.wood.shadow), 0, -0.31, 0, 8, { top: false });
       B.pop();
     });
   }

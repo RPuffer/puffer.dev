@@ -1,47 +1,42 @@
 import * as THREE from "three";
-const mats = new Map();
-const mat = (hex) => {
-  if (!mats.has(hex)) mats.set(hex, new THREE.MeshLambertMaterial({ color: hex, flatShading: true }));
-  return mats.get(hex);
-};
+import { Baker, tone, solid, bakedMaterial } from "./baker.js";
 
-const SKIN = "#ffd9b0", SHIRT = "#ff6a5a", PANTS = "#3a4a8a", DARK = "#2a2230", HAIR = "#6b3d24";
+const SKIN = tone("#ffd9b0", "#ffd9b0", "#e8b98e");
+const SHIRT = tone("#ff6a5a", "#ff6a5a", "#d9483f");
+const PANTS = tone("#4a5fb0", "#4a5fb0", "#34448a");
+const HAIR = tone("#8a4a28", "#7a3f22", "#5e2f18");
+const BOOT = tone("#6b3a1a", "#6b3a1a", "#4f2a12");
+const EYE = solid("#2a2230");
+
+const mat = bakedMaterial();
+const part = (fn) => { const b = new Baker(); fn(b); const m = new THREE.Mesh(b.geometry(), mat); m.renderOrder = 2; return m; };
 
 export function buildCharacter(scale = 1) {
   const root = new THREE.Group();
   const body = new THREE.Group();
   root.add(body);
 
-  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.17, 0.16, 3, 8), mat(SHIRT));
-  torso.position.y = 0.36;
-  body.add(torso);
+  body.add(part((b) => { b.rbox(0.34, 0.3, 0.24, 0.06, SHIRT, 0, 0.24, 0); b.box(0.36, 0.05, 0.26, tone("#6b3a1a", "#6b3a1a", "#4f2a12"), 0, 0.24, 0); }));
 
   const head = new THREE.Group();
-  head.position.y = 0.68;
-  const skull = new THREE.Mesh(new THREE.IcosahedronGeometry(0.22, 1), mat(SKIN));
-  head.add(skull);
-  const hair = new THREE.Mesh(new THREE.SphereGeometry(0.235, 8, 5, 0, Math.PI * 2, 0, Math.PI * 0.45), mat(HAIR));
-  hair.rotation.x = -0.25;
-  head.add(hair);
-  for (const s of [-1, 1]) {
-    const eye = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.07, 0.03), mat(DARK));
-    eye.position.set(0.075 * s, -0.01, 0.2);
-    head.add(eye);
-  }
+  head.position.y = 0.54;
+  head.add(part((b) => {
+    b.rbox(0.36, 0.32, 0.34, 0.08, SKIN, 0, 0, 0);
+    b.rbox(0.4, 0.12, 0.38, 0.08, HAIR, 0, 0.27, -0.01);
+    b.rbox(0.4, 0.2, 0.1, 0.04, HAIR, 0, 0.12, -0.16);
+    for (const s of [-1, 1]) b.box(0.05, 0.08, 0.02, EYE, 0.075 * s, 0.12, 0.175);
+  }));
   body.add(head);
 
-  const limb = (r, len, hex) => {
+  const limb = (w, len, pal, foot) => {
     const pivot = new THREE.Group();
-    const m = new THREE.Mesh(new THREE.CapsuleGeometry(r, len, 2, 6), mat(hex));
-    m.position.y = -len / 2 - r * 0.3;
-    pivot.add(m);
+    pivot.add(part((b) => { b.rbox(w, len, w, 0.03, pal, 0, -len, 0); if (foot) b.rbox(w + 0.02, 0.07, w + 0.06, 0.03, BOOT, 0, -len - 0.02, 0.02); }));
     return pivot;
   };
-  const legs = [-1, 1].map((s) => { const l = limb(0.075, 0.1, PANTS); l.position.set(0.085 * s, 0.22, 0); body.add(l); return l; });
-  const arms = [-1, 1].map((s) => { const a = limb(0.06, 0.12, SKIN); a.position.set(0.215 * s, 0.46, 0); a.rotation.z = 0.25 * s; body.add(a); return a; });
+  const legs = [-1, 1].map((s) => { const l = limb(0.12, 0.2, PANTS, true); l.position.set(0.085 * s, 0.25, 0); body.add(l); return l; });
+  const arms = [-1, 1].map((s) => { const a = limb(0.09, 0.22, SKIN, false); a.position.set(0.22 * s, 0.52, 0); a.rotation.z = 0.12 * s; body.add(a); return a; });
 
   root.scale.setScalar(scale);
-  root.traverse((o) => { if (o.isMesh) o.renderOrder = 2; });
 
   let yaw = 0;
   root.userData.animate = (actor, dt) => {
@@ -50,7 +45,7 @@ export function buildCharacter(scale = 1) {
     yaw += diff * Math.min(1, dt * 14);
     root.rotation.y = yaw;
     const ph = actor.walkPhase, w = actor.moving ? 1 : 0;
-    body.position.y = w * Math.abs(Math.sin(ph)) * 0.07;
+    body.position.y = w * Math.abs(Math.sin(ph)) * 0.06;
     body.rotation.z = w * Math.sin(ph) * 0.05;
     legs[0].rotation.x = w * Math.sin(ph) * 0.7;
     legs[1].rotation.x = -w * Math.sin(ph) * 0.7;

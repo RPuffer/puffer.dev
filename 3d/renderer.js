@@ -52,10 +52,6 @@ export function createRenderer(container = document.body) {
       S = state;
       const L = state.level, seed = state.params.seed;
       scene.background = new THREE.Color(L.bg || "#404040");
-      scene.add(new THREE.AmbientLight(0xffffff, 0.55 * Math.PI));
-      const sun = new THREE.DirectionalLight(0xffffff, 0.5 * Math.PI);
-      sun.position.set(0.35, 1, 0.6);
-      scene.add(sun);
       const terrain = buildTerrain(L, state.view, seed);
       scene.add(terrain.group);
       pickables = terrain.pickables;
@@ -75,7 +71,7 @@ export function createRenderer(container = document.body) {
       hero.position.set(a.pos.x, a.y * state.view.tileH, a.pos.z);
       hero.userData.animate(a, dt);
       spinT += dt;
-      for (const s of spinners) s.rotation.y = -(s.userData.decor.rot || 0) * (Math.PI / 2) + Math.sin(spinT * 1.6 + s.position.x) * 0.6;
+      for (const s of spinners) s.rotation.y = -(s.userData.decor.rot || 0) * (Math.PI / 2) + Math.sin(spinT * 1.6 + s.position.x) * 0.25;
       const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * 4) : 1;
       focus.lerp(t, k);
     },

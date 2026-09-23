@@ -6,12 +6,12 @@ const woodPal = tone(W.light, W.mid, W.dark, W.dark);
 const trunkPal = tone(P.trunk[0], P.trunk[0], P.trunk[1]);
 const tri3 = (a) => tone(a[0], a[1], a[2]);
 
-function pine(B, H, cols) {
+function pine(B, H, wk, cols) {
   const [lit, top, shade] = cols;
   const pal = tone(top, lit, shade);
   const trunk = H * 0.36;
   B.box(0.16, trunk + 0.1, 0.16, trunkPal);
-  const tiers = [[1.0, 0.55], [0.8, 0.5], [0.6, 0.45], [0.38, 0.4]];
+  const tiers = [[1, 0.55], [0.83, 0.5], [0.63, 0.45], [0.41, 0.4]].map(([w, h]) => [w * wk, h]);
   const k = (H - trunk) / tiers.reduce((a, t) => a + t[1], 0);
   let y = trunk;
   for (const [w, h] of tiers) {
@@ -66,8 +66,8 @@ function bar(B, a, b, w, pal) {
 }
 
 function flower4(B, x, z, y, petal, centre) {
-  for (const [dx, dz] of [[0.045, 0], [-0.045, 0], [0, 0.045], [0, -0.045]]) B.cyl(0.035, 0.02, solid(petal), x + dx, y, z + dz, 6);
-  B.cyl(0.028, 0.03, solid(centre), x, y, z, 6);
+  for (const [dx, dz] of [[0.06, 0], [-0.06, 0], [0, 0.06], [0, -0.06]]) B.cyl(0.05, 0.02, solid(petal), x + dx, y, z + dz, 6);
+  B.cyl(0.04, 0.03, solid(centre), x, y, z, 6);
 }
 
 function ring(B, x, z, y, r, t, pal, n = 10) {
@@ -103,7 +103,7 @@ function upright(B, pts, depth, pal, y) {
 
 export const PIECES = {
   "tree-pine"(B, H, v) {
-    pine(B, H * 1.1, [P.treeMint, P.treeLeaf, [P.treeTeal[1], P.treeTeal[2], P.treeTeal[3]]][v % 3]);
+    pine(B, H * 1.1, v % 3 ? 0.9 : 1.08, [P.treeMint, P.treeLeaf, [P.treeTeal[1], P.treeTeal[2], P.treeTeal[3]]][v % 3]);
   },
   "tree-round"(B, H, v) {
     roundTree(B, H * 1.73, [P.treeLime, P.treeLeaf, P.treeMint][v % 3]);
@@ -140,20 +140,21 @@ export const PIECES = {
   },
   well(B, H) {
     const stone = tone(P.wellStone[0], P.wellStone[1], P.wellStone[2]);
-    const base = 0.5;
-    B.rbox(0.8, base, 0.8, 0.08, stone);
-    B.rbox(0.56, 0.02, 0.56, 0.05, solid(P.wellStone[2]), 0, base, 0);
-    for (const [y, off] of [[0.14, 0], [0.3, 0.2]]) {
-      for (const u of [-0.25 + off * 0.5, 0.15 + off * 0.5]) {
-        B.vpoly([[u - 0.1, y, 0.405], [u + 0.1, y, 0.405], [u + 0.1, y + 0.08, 0.405], [u - 0.1, y + 0.08, 0.405]], P.wellStone[1]);
-        B.vpoly([[0.405, y, -u + 0.1], [0.405, y, -u - 0.1], [0.405, y + 0.08, -u - 0.1], [0.405, y + 0.08, -u + 0.1]], P.wellStone[2]);
-      }
+    const base = 0.62, w = 0.86;
+    B.rbox(w, base, w, 0.1, stone);
+    B.rbox(w + 0.04, 0.1, w + 0.04, 0.1, tone(P.wellStone[0], P.wellStone[0], P.wellStone[1]), 0, base - 0.02, 0);
+    B.rbox(w - 0.3, 0.012, w - 0.3, 0.06, solid("#9d9173"), 0, base + 0.08, 0);
+    const bricks = [[0.12, -0.24], [0.12, 0.12], [0.3, -0.06], [0.3, 0.28], [0.3, -0.36]];
+    for (const [y, u] of bricks) {
+      B.vpoly([[u - 0.1, y, w / 2 + 0.004], [u + 0.1, y, w / 2 + 0.004], [u + 0.1, y + 0.09, w / 2 + 0.004], [u - 0.1, y + 0.09, w / 2 + 0.004]], P.wellStone[2]);
+      B.vpoly([[w / 2 + 0.004, y, -u + 0.1], [w / 2 + 0.004, y, -u - 0.1], [w / 2 + 0.004, y + 0.09, -u - 0.1], [w / 2 + 0.004, y + 0.09, -u + 0.1]], "#9d9173");
     }
-    const top = Math.max(H, base + 1.0);
-    for (const x of [-0.3, 0.3]) B.box(0.1, top, 0.1, woodPal, x, 0.1, 0);
-    B.box(0.85, 0.1, 0.12, woodPal, 0.05, top, 0);
-    B.cyl(0.018, top - base - 0.25, solid(P.rope), 0, base + 0.18, 0, 5);
-    B.cyl(0.08, 0.1, tone(P.wellStone[0], P.wellStone[1], P.wellStone[2]), 0, base + 0.08, 0, 8);
+    const top = Math.max(H, 1.45);
+    for (const x of [-0.3, 0.3]) B.box(0.11, top - base, 0.11, woodPal, x, base, 0);
+    B.box(1.0, 0.11, 0.12, woodPal, 0.08, top, 0);
+    B.at(0.58, top + 0.055, 0, 0, () => { B.rot([0, 0, 1], -Math.PI / 2); B.cyl(0.056, 0.01, solid(W.end), 0, 0, 0, 8); B.pop(); });
+    B.cyl(0.02, top - base - 0.3, solid(P.rope), 0, base + 0.25, 0, 5);
+    B.cyl(0.09, 0.13, stone, 0, base + 0.1, 0, 8, { topPal: P.wellStone[2] });
   },
   fence(B, H) {
     const h = 0.45;
@@ -230,7 +231,7 @@ export const PIECES = {
   },
   marker(B) {
     B.push(0, 0, 0, Math.PI / 4);
-    B.box(0.18, 0.06, 0.18, tone(P.gold[0], P.gold[1], P.gold[1]));
+    B.box(0.22, 0.07, 0.22, tone(P.sand.top, P.gold[0], P.gold[1]));
     B.pop();
   },
   gem(B, H, v) {
@@ -263,10 +264,10 @@ export const PIECES = {
     }
     const foam = tone(P.water.bubble, "#c6f2ff", "#a0eeff");
     const k = v % 2 ? -1 : 1;
-    B.rbox(0.3, 0.14, 0.22, 0.08, foam, -0.2 * k, 0, -0.34);
-    B.rbox(0.2, 0.28, 0.16, 0.07, foam, 0.14 * k, 0, -0.4);
-    B.rbox(0.13, 0.12, 0.13, 0.05, foam, -0.04 * k, 0.12, -0.28);
-    B.rbox(0.12, 0.1, 0.12, 0.05, foam, 0.3 * k, 0, -0.2);
+    B.rbox(0.4, 0.16, 0.3, 0.1, foam, -0.18 * k, 0, -0.3);
+    B.rbox(0.26, 0.36, 0.2, 0.08, foam, 0.16 * k, 0, -0.38);
+    B.rbox(0.18, 0.16, 0.18, 0.07, foam, -0.08 * k, 0.16, -0.3);
+    B.rbox(0.16, 0.12, 0.16, 0.06, foam, 0.32 * k, 0, -0.16);
   },
   "stepping-stones"(B, H, v) {
     const pal = tone(P.stone.pebble, P.stone.rim, P.wellStone[1]);
@@ -300,7 +301,7 @@ export const PIECES = {
     const n = 4;
     for (let i = 0; i < n; i++) {
       const y = -drop + 0.2 + (i * (drop - 0.3)) / (n - 1);
-      B.at(0, y, z - 0.05, 0, () => { B.rot([0, 0, 1], Math.PI / 2); B.cyl(0.075, 0.38, tone(W.light, W.mid, W.dark), 0, -0.19, 0, 8, { topPal: W.end }); B.pop(); });
+      B.at(0, y, z - 0.05, 0, () => { B.rot([0, 0, 1], Math.PI / 2); B.cyl(0.11, 0.4, tone(W.light, W.mid, W.dark), 0, -0.2, 0, 8, { topPal: W.end }); B.pop(); });
     }
     post(B, -0.2, -0.32, 0.3, 0.09);
     post(B, 0.2, -0.32, 0.3, 0.09);
