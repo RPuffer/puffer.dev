@@ -128,7 +128,7 @@ const all = F.flat(), ground = all.filter((c) => c.t >= TB), back = all.filter((
 const q = (arr, p) => { const v = [...arr].sort((a, b) => a - b); return v[Math.min(v.length - 1, Math.floor(p * v.length))]; };
 const lumHi = q(ground.map((c) => c.lum), 0.7), edgeLo = q(ground.map((c) => c.edge), 0.5), edgeHi = q(ground.map((c) => c.edge), 0.68);
 const trunkHi = q(all.map((c) => c.trunk), 0.5), darkHi = q(all.map((c) => c.dark), 0.55), mistHi = q(back.map((c) => c.lum), 0.45);
-const WALL = 0.2, PATH_SHARE = 0.42, aboveLum = q(all.filter((c) => depthToY(c.t) < hy).map((c) => c.lum), 0.6);
+const RIM_EXP = 2.2, RIM_KEEP = 0.95, RIM_NOISE = 0.5, WALL = 0.2, PATH_SHARE = 0.42, aboveLum = q(all.filter((c) => depthToY(c.t) < hy).map((c) => c.lum), 0.6);
 
 const cells = [];
 for (let z = 0; z < D; z++) {
@@ -143,8 +143,9 @@ for (let z = 0; z < D; z++) {
     const pathScore = (f.lum - lumHi) * 3 - (f.edge - edgeLo) * 6 + (code === "P" ? 0.35 : 0) - (isBack ? 1 : 0);
     let hgt = 1;
     if (edgeCol && (f.trunk >= trunkHi || f.dark >= darkHi || code === "T")) hgt = 2;
-    if (side < 0.08 && f.dark >= darkHi) hgt = 3;
+    if (side < 0.1 && f.dark >= darkHi) hgt = 3;
     if (isBack && (code === "T" || f.trunk >= trunkHi)) hgt = Math.max(hgt, 2);
+    if (f.t < TB * 0.45 && hgt >= 2) hgt = 3;
     const motif = [];
     if (isFig(x, z)) motif.push("figure");
     else if (hgt >= 2) motif.push("trunk");
@@ -158,13 +159,45 @@ for (let z = 0; z < D; z++) {
   }
   cells.push(row);
 }
+const lumMed = q(all.map((c) => c.lum), 0.5), lumSpan = q(all.map((c) => c.lum), 0.9) - q(all.map((c) => c.lum), 0.1) || 1;
+for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
+  const c = cells[z][x];
+  const nx = (x + 0.5 - W / 2) / (W / 2), nz = (z + 0.5 - D / 2) / (D / 2);
+  const r = Math.pow(Math.abs(nx) ** RIM_EXP + Math.abs(nz) ** RIM_EXP, 1 / RIM_EXP);
+  const n = (c.lum - lumMed) / lumSpan;
+  c.rim = +r.toFixed(3);
+  if (r > RIM_KEEP - RIM_NOISE * n && !isFig(x, z)) { c.h = 0; c.s = "none"; c.motif = []; }
+}
+for (let pass = 0; pass < 3; pass++) for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
+  const c = cells[z][x];
+  if (c.h > 0 && !isFig(x, z) && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => (cells[z + dz]?.[x + dx]?.h ?? 0) > 0).length < 2) Object.assign(c, { h: 0, s: "none", motif: [] });
+}
+const snapshot = cells.map((row) => row.map((c) => c.h));
+for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (snapshot[z][x] === 2 && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => (snapshot[z + dz]?.[x + dx] ?? 0) >= 2).length >= 3) cells[z][x].h = 3;
+const near = (x, z, d) => figCells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) <= d);
+for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (near(x, z, 1)) {
+  const c = cells[z][x];
+  c.h = 2; c.s = "ground"; c.knoll = 1; c.motif = isFig(x, z) ? ["figure"] : [];
+}
+{
+  const seen = new Set(), stack = [figCells[0].join(",")];
+  while (stack.length) {
+    const kk = stack.pop();
+    if (seen.has(kk)) continue;
+    seen.add(kk);
+    const [x, z] = kk.split(",").map(Number);
+    for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const c = cells[z + dz]?.[x + dx]; if (c && c.h > 0) stack.push(x + dx + "," + (z + dz)); }
+  }
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (!seen.has(x + "," + z)) Object.assign(cells[z][x], { h: 0, s: "none", motif: [] });
+}
+const isRim = (x, z) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => (cells[z + dz]?.[x + dx]?.h ?? 0) === 0);
 const pathThr = q(cells.flat().filter((c) => c.h === 1 && c.iy >= hy).map((c) => c.path), 1 - PATH_SHARE);
 console.log("path threshold", pathThr.toFixed(2));
 const pathSet = new Set();
 const maxScore = Math.max(...cells.flat().map((c) => c.path));
 const dist = new Map(), prev = new Map(), open = [];
-for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if ((x === W - 1 || z === D - 1) && cells[z][x].h === 1) { dist.set(x + "," + z, 0); open.push([0, x, z]); }
-const goal = (x, z) => figCells.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) === 1) && !isFig(x, z);
+for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (isRim(x, z) && depthToY(cellPoint(x, z).t) >= hy && cells[z][x].h === 1 && !figCells.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) { dist.set(x + "," + z, 0); open.push([0, x, z]); }
+const goal = (x, z) => cells[z][x].h === 1 && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => cells[z + dz]?.[x + dx]?.knoll && !isFig(x + dx, z + dz));
 let end = null;
 while (open.length) {
   open.sort((a, b) => a[0] - b[0]);
@@ -189,7 +222,6 @@ while (grow.length) {
   for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const c = cells[z + dz]?.[x + dx]; if (c && c.h === 1 && c.path > pathThr && !isFig(x + dx, z + dz) && x + dx + z + dz >= figAnchor[0] + figAnchor[1] - 1) grow.push(x + dx + "," + (z + dz)); }
 }
 for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) cells[z][x].s = pathSet.has(x + "," + z) ? "path" : "ground";
-for (const [x, z] of figCells) { cells[z][x].h = 1; cells[z][x].knoll = 1; cells[z][x].s = "ground"; cells[z][x].motif = ["figure"]; }
 const wispCell = (() => {
   const c0 = tail ? imgToCell(tail.x, figBlob.foot[1] - 0.04) : [figAnchor[0] + 2, figAnchor[1]];
   const order = [];
@@ -197,7 +229,7 @@ const wispCell = (() => {
   order.sort((a, b) => a[2] - b[2]);
   for (const [dx, dz] of order) {
     const x = c0[0] + dx, z = c0[1] + dz, c = cells[z]?.[x];
-    const open = [[1, 0], [0, 1], [1, 1]].every(([a, b]) => (cells[z + b]?.[x + a]?.h ?? 0) <= 1);
+    const open = [[1, 0], [0, 1], [1, 1]].every(([a, b]) => (cells[z + b]?.[x + a]?.h ?? 0) <= 1) && !isRim(x, z);
     if (c && c.h === 1 && !c.motif.length && !c.knoll && open) { c.motif.push("wisp"); return [x, z]; }
   }
   return null;
