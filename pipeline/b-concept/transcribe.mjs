@@ -9,6 +9,8 @@ const [specPath = "pipeline/b-concept/measure.json", outPath] = process.argv.sli
 const M = JSON.parse(fs.readFileSync(specPath, "utf8"));
 const out = outPath || `levels/${M.name}.json`;
 const { a, b, ox, oy, step, base } = M.lattice;
+const zoomPx = (a / Math.SQRT1_2) * Math.cos(Math.asin(b / a));
+const tileHv = step / zoomPx;
 
 const { data, info } = await sharp(M.concept).removeAlpha().raw().toBuffer({ resolveWithObject: true });
 const CW = info.width, CH = info.height;
@@ -49,7 +51,7 @@ const palette = {
   forestB: {
     bark, lean: leanC, log: logC, logEnd: [shade(logC[0], 1.15), logC[1]], root: rootC, moss: mossC,
     stump: [shade(bark[0], 1.35), shade(bark[1], 1.2), shade(bark[2], 1.3)],
-    mist: [shade("#808c94", 1.08), "#808c94", shade("#808c94", 0.85)],
+    mist: [shade(S["forestB.mist.1"] || "#808c94", 1.08), S["forestB.mist.1"] || "#808c94", shade(S["forestB.mist.1"] || "#808c94", 0.85)],
     path: [shade(dt, 1.08), dt, shade(dt, 0.78)],
     flame: ["#fcd468", fl, "#f47824", "#e0601c"],
     beak: ["#f8c858", shade("#f8c858", 0.92), shade("#f8c858", 0.72)],
@@ -91,7 +93,7 @@ for (const p of M.props) {
   if (p.cell) {
     d.x = p.cell[0]; d.z = p.cell[1];
     if (p.px) {
-      const u = (p.px[0] - ox) / a, v = (p.px[1] + (p.y || 0) * step / (M.lattice.tileH || 1.186) - oy + (p.h - base) * step) / b;
+      const u = (p.px[0] - ox) / a, v = (p.px[1] + (p.y || 0) * zoomPx - oy + (p.h - base) * step) / b;
       d.at = [+((u + v) / 2 - d.x - 0.5).toFixed(3), 0, +((v - u) / 2 - d.z - 0.5).toFixed(3)];
     }
   }
@@ -104,7 +106,7 @@ for (const p of M.props) {
     if (Math.abs(L.fz) > 0.05) d.oz = clamp(L.fz);
     log.push(`${p.t.padEnd(14)} px ${p.px.join(",").padEnd(8)} h${p.h} -> cell ${L.x},${L.z} (${c ? c.s + c.h : "off grid"}) off ${L.fx.toFixed(2)},${L.fz.toFixed(2)}${c && c.h !== p.h ? "  HEIGHT MISMATCH" : ""}`);
   }
-  for (const k of ["v", "rot", "ht", "lean", "y", "w", "ox", "oz", "fork"]) if (p[k] != null) d[k] = p[k];
+  for (const k of ["v", "rot", "ht", "lean", "y", "w", "ox", "oz", "fork", "r"]) if (p[k] != null) d[k] = p[k];
   decor.push(d);
 }
 
@@ -120,6 +122,33 @@ const lat = (cx, cz) => proj.project(cx, base * tileH, cz, zoomC);
 const offX = ox - o.sx, offY = oy - o.sy;
 const drift = Math.hypot(lat(W, D).sx + offX - (ox + (W - D) * a), lat(W, D).sy + offY - (oy + (W + D) * b));
 for (const d of decor) if (d.t === "dirt-stairs") d.tileH = tileH;
+M.props.forEach((p, i) => {
+  if (!p.top) return;
+  const d = decor[i], bx = d.x + 0.5 + (d.ox || 0), bz = d.z + 0.5 + (d.oz || 0), by = cells[d.z][d.x].h * tileHv;
+  const u = (p.top[0] - ox) / a, V = p.top[1] - oy + (p.h - base) * step;
+  const trunkDecor = decor.filter((q) => q.t === "bare-trunk");
+  const trunks = trunkDecor.map((q) => [q.x + 0.5 + (q.ox || 0), q.z + 0.5 + (q.oz || 0), cells[q.z][q.x].h * tileHv + (q.ht || 4.6), q]);
+  let best = null;
+  for (let S = -4; S < 20; S += 0.01) {
+    const yRel = (S * b - V) / zoomPx, x = (S + u) / 2, z = (S - u) / 2, y = p.h * tileHv + yRel;
+    for (const [tx, tz, ttop, tq] of trunks) {
+      const dist = Math.hypot(tx - x, tz - z), err = Math.abs(dist - 0.44);
+      if (y < ttop - 0.25 && y > by + 1 && err < 0.04 && (!best || S > best.S)) best = { S, err, v: [x - bx, y - by, z - bz], tq, fork: [+(y - cells[tq.z][tq.x].h * tileHv - 0.12).toFixed(3), +Math.atan2(x - tx, z - tz).toFixed(3)] };
+    }
+  }
+  if (best) { d.lean = best.v.map((q) => +q.toFixed(3)); best.tq.fork = best.fork; }
+});
+M.props.forEach((p, i) => {
+  if (!p.behind) return;
+  const d = decor[i], u = (p.px[0] - ox) / a, V = p.px[1] - oy + (p.h - base) * step;
+  const half = (p.w || 1.9) / 2 + 0.35;
+  const posts = decor.filter((q) => /trunk|fire-bird/.test(q.t)).map((q) => [q.x + 0.5 + (q.ox || 0), q.z + 0.5 + (q.oz || 0)]);
+  const near = posts.filter(([x, z]) => Math.abs((x - z - u) * Math.SQRT1_2) < half);
+  const S = Math.min(...near.map(([x, z]) => x + z)) - (p.behind === true ? 0.75 : p.behind);
+  const y = (S * b - V) / zoomPx, x = (S + u) / 2, z = (S - u) / 2;
+  d.at = [+(x - d.x - 0.5).toFixed(3), 0, +(z - d.z - 0.5).toFixed(3)];
+  d.y = +y.toFixed(3);
+});
 M.props.forEach((p, i) => {
   if (!p.depth) return;
   const d = decor[i], pr = pitch * Math.PI / 180, hz = p.depth * Math.cos(pr) * Math.SQRT1_2;
