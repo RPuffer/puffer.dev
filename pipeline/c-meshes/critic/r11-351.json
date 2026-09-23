@@ -1,0 +1,278 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "Trees and bird use stepped voxel meshes instead of chamfered low-poly volumes.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        8,
+        52,
+        343,
+        318
+      ],
+      "fix_hint": "Replace voxelized foliage and figures with beveled geometric low-poly primitives."
+    },
+    {
+      "issue": "Path overlay abruptly cuts off with an unnatural raised border.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        58,
+        243,
+        142,
+        307
+      ],
+      "fix_hint": "Align path segments seamlessly with tile boundaries."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Brown dead trees use noisy, unshaded voxel clusters inconsistent with clean low-poly styling.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        110,
+        52,
+        141,
+        152
+      ]
+    },
+    {
+      "issue": "Multiple stump props clip into each other in the central clearing.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        151,
+        248,
+        201,
+        291
+      ]
+    },
+    {
+      "issue": "Adjacent dead trees and foliage intersect each other closely on the right plateau.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        254,
+        155,
+        293,
+        224
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "phoenix creature",
+      "rests_on": "block top",
+      "box": [
+        134,
+        151,
+        183,
+        205
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        110,
+        52,
+        140,
+        101
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        144,
+        74,
+        174,
+        133
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        111,
+        91,
+        141,
+        151
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        77,
+        95,
+        107,
+        156
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        28,
+        123,
+        55,
+        183
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        7,
+        150,
+        35,
+        211
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        43,
+        170,
+        71,
+        228
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        59,
+        143,
+        90,
+        204
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        198,
+        124,
+        225,
+        183
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        230,
+        105,
+        258,
+        164
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        260,
+        158,
+        293,
+        218
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        245,
+        190,
+        274,
+        250
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        210,
+        229,
+        239,
+        290
+      ]
+    },
+    {
+      "prop": "voxel brown tree",
+      "rests_on": "block top",
+      "box": [
+        236,
+        251,
+        269,
+        317
+      ]
+    },
+    {
+      "prop": "voxel green tree",
+      "rests_on": "block top",
+      "box": [
+        169,
+        102,
+        210,
+        139
+      ]
+    },
+    {
+      "prop": "voxel green tree",
+      "rests_on": "block top",
+      "box": [
+        267,
+        128,
+        290,
+        161
+      ]
+    },
+    {
+      "prop": "voxel green tree",
+      "rests_on": "block top",
+      "box": [
+        300,
+        147,
+        324,
+        182
+      ]
+    },
+    {
+      "prop": "voxel green tree",
+      "rests_on": "block top",
+      "box": [
+        278,
+        193,
+        312,
+        249
+      ]
+    },
+    {
+      "prop": "voxel green tree",
+      "rests_on": "block top",
+      "box": [
+        310,
+        176,
+        343,
+        230
+      ]
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "render": "out/forest-c-900.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 1 lesser item.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The pathway abruptly terminates at the ramp edge without connecting logically to adjacent terrain.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        207,
+        498,
+        383,
+        629
+      ],
+      "fix_hint": "Extend the path onto the ramp or align it directly to open walkable tiles."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "The assets use a granular voxel aesthetic rather than clean geometric low-poly meshes.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        99,
+        102,
+        799,
+        654
+      ]
+    },
+    {
+      "issue": "Translucent white rock meshes break the opaque flat-shaded style standard.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        510,
+        346,
+        606,
+        411
+      ]
+    },
+    {
+      "issue": "The voxel style of the brown tree trunks and foliage differs noticeably from the smoother low-poly block style of the target.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        314,
+        106,
+        385,
+        314
+      ]
+    },
+    {
+      "issue": "The ramp tile between terraces lacks edge trim and proper boundary beveling present on main platforms.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        268,
+        430,
+        356,
+        499
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "phoenix creature",
+      "rests_on": "block top",
+      "box": [
+        364,
+        309,
+        470,
+        423
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        555,
+        470,
+        646,
+        650
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        516,
+        468,
+        582,
+        596
+      ]
+    },
+    {
+      "prop": "green voxel tree",
+      "rests_on": "block top",
+      "box": [
+        658,
+        397,
+        733,
+        512
+      ]
+    },
+    {
+      "prop": "green voxel tree",
+      "rests_on": "block top",
+      "box": [
+        729,
+        358,
+        797,
+        471
+      ]
+    },
+    {
+      "prop": "green voxel tree",
+      "rests_on": "block top",
+      "box": [
+        704,
+        301,
+        759,
+        398
+      ]
+    },
+    {
+      "prop": "green voxel tree",
+      "rests_on": "block top",
+      "box": [
+        635,
+        261,
+        689,
+        329
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        608,
+        315,
+        696,
+        513
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        560,
+        211,
+        621,
+        338
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        490,
+        252,
+        552,
+        374
+      ]
+    },
+    {
+      "prop": "green voxel tree",
+      "rests_on": "block top",
+      "box": [
+        439,
+        207,
+        522,
+        298
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        386,
+        154,
+        449,
+        282
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        315,
+        165,
+        381,
+        310
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        315,
+        106,
+        380,
+        228
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        247,
+        193,
+        312,
+        317
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        210,
+        290,
+        273,
+        410
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        176,
+        355,
+        242,
+        470
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        103,
+        310,
+        164,
+        433
+      ]
+    },
+    {
+      "prop": "brown voxel tree",
+      "rests_on": "block top",
+      "box": [
+        145,
+        249,
+        207,
+        373
+      ]
+    }
+  ]
+}

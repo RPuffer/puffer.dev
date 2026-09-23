@@ -8,7 +8,7 @@
   "sideCols": 2.5,
   "backRows": 1.5,
   "jitter": 2.0,
-  "scatter": 0.22,
+  "scatter": 0.16,
   "lightDir": [
     0.3,
     1,
@@ -17,11 +17,7 @@
   "ambientLift": 0.2,
   "palette": {
     "dirt": {
-      "top": "#7d624c",
-      "patch": "#6d523e",
-      "mottle": "#5d4432",
-      "border": "#4e3626",
-      "path": "#9a8468"
+      "path": "#c9b287"
     },
     "cap": [
       "#c24458",
@@ -45,5 +41,7 @@
   "entrySpread": 3,
   "edgeCost": 4,
   "sightline": 3,
-  "tileH": 1.0
+  "tileH": 1.0,
+  "lift": 0.4,
+  "treeScale": 0.35
 }

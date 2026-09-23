@@ -1,0 +1,223 @@
+{
+  "render": "out/forest-c-900.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 1 lesser item.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The scene uses raw voxelized geometry rather than smooth low-poly primitives.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        105,
+        106,
+        797,
+        654
+      ],
+      "fix_hint": "Replace stepped voxel assets with clean low-poly meshes matching the target style."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Multiple tree stumps at the center overlap and clip into each other.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        395,
+        505,
+        507,
+        598
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        105,
+        309,
+        165,
+        434
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        149,
+        250,
+        207,
+        375
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        177,
+        342,
+        242,
+        470
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        248,
+        191,
+        312,
+        321
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        316,
+        106,
+        383,
+        310
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        386,
+        152,
+        450,
+        278
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        440,
+        209,
+        523,
+        288
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        485,
+        254,
+        554,
+        377
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        563,
+        214,
+        621,
+        337
+      ]
+    },
+    {
+      "prop": "fire bird",
+      "rests_on": "block top",
+      "box": [
+        365,
+        310,
+        467,
+        421
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        639,
+        262,
+        688,
+        330
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        612,
+        314,
+        696,
+        450
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        707,
+        301,
+        758,
+        376
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        724,
+        358,
+        796,
+        473
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        662,
+        397,
+        734,
+        510
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        595,
+        382,
+        653,
+        486
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        522,
+        467,
+        581,
+        597
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        564,
+        470,
+        651,
+        650
+      ]
+    }
+  ]
+}

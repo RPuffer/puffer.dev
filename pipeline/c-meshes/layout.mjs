@@ -3,7 +3,7 @@ import { generateLevel, reachability, frameView } from "../../core/procgen.js";
 import { registerCatalog, CATALOG, footprintCells } from "../../core/catalog.js";
 import { createRng } from "../../core/rng.js";
 import { TYPES } from "../../3d/pieces/forest-c.js";
-import { ROOT } from "./lib.mjs";
+import { ROOT, liftedPalette } from "./lib.mjs";
 
 registerCatalog(TYPES);
 const args = process.argv.slice(2);
@@ -14,6 +14,7 @@ const TUNE = JSON.parse(fs.readFileSync(new URL("layout.tune.json", import.meta.
 const META = JSON.parse(fs.readFileSync(ROOT + "3d/assets/forest-c/meta.json", "utf8"));
 const TALL = new Set(["bare-trunk-tall", "leaning-trunk", "forest-tree", "tree-round", "tree-pine", "fire-bird"]);
 const leanCell = (t, rot) => { const l = META[t]?.lean; if (!l || Math.hypot(...l) < 0.2) return null; const a = -rot * Math.PI / 2, x = l[0] * Math.cos(a) + l[1] * Math.sin(a), z = -l[0] * Math.sin(a) + l[1] * Math.cos(a); return Math.abs(x) > Math.abs(z) ? [Math.sign(x), 0] : [0, Math.sign(z)]; };
+const LIFTED = (await liftedPalette(brief, TUNE.lift ?? 0)).palette;
 const TREE_ALIAS = { "tree-round": "forest-tree" };
 const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
 const key = (x, z) => x + "," + z;
@@ -87,7 +88,7 @@ function build(seed) {
   const corridor = (x, z) => (Math.abs(x - (kx + 0.5)) <= TUNE.corridor && z >= kz - 1) || (Math.abs((x - z) - (kx - kz)) <= TUNE.sightline && x + z > kx + kz + 1);
   const trees = B.trees.types.map((t) => ({ t: TREE_ALIAS[t.type] || t.type, w: t.weight })).filter((t) => CATALOG[t.t]);
   const pickW = (list) => { const s = list.reduce((a, b) => a + b.w, 0); let u = rng.next() * s; for (const e of list) if ((u -= e.w) <= 0) return e.t; return list[list.length - 1].t; };
-  const want = Math.round(B.trees.density * landCells.length);
+  const want = Math.round(B.trees.density * (TUNE.treeScale ?? 1) * landCells.length);
   const treeSites = landCells.map(([x, z]) => ({ x, z, s: (5 - Math.min(5, edgeDist(x, z))) * TUNE.wall + (x <= 2 || x >= W - 3 ? TUNE.sideCols : 0) + (z <= 1 ? TUNE.backRows : 0) - (corridor(x, z) ? 6 : 0) + rng.next() * TUNE.jitter }))
     .sort((a, b) => b.s - a.s);
   let placed = 0;
@@ -119,7 +120,7 @@ function build(seed) {
   const lt = B.lighting;
   const out = {
     name: "forest-c", seed: String(seed), size: [W, D], cells, decor: L.decor, spawn,
-    bg: lt.bg, palette: { ...Object.fromEntries(Object.entries(brief.palette.translation).filter(([k]) => k !== "bg")), ...TUNE.palette },
+    bg: lt.bg, palette: { ...LIFTED, ...Object.fromEntries(Object.entries(TUNE.palette).map(([k, v]) => [k, v && typeof v === "object" && !Array.isArray(v) ? { ...LIFTED[k], ...v } : v])) },
     materials: { ramp: ["stone", "grass", "dirt"] },
     light: { dir: TUNE.lightDir, ambient: lt.ambient + TUNE.ambientLift, sun: lt.sun - TUNE.ambientLift },
     pieces: ["pieces/forest-c.js"],

@@ -1,0 +1,246 @@
+{
+  "render": "out/forest-c-351.png",
+  "size": [
+    351,
+    390
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 2 lesser items.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "Constructed pathway terminates abruptly at a cliff edge without steps or transition.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "3/3",
+      "box": [
+        57,
+        243,
+        141,
+        305
+      ],
+      "fix_hint": "Extend the path or add stairs connecting down to lower ground."
+    },
+    {
+      "issue": "Voxel-based asset styling deviates from the clean geometric low-poly grammar of the target pack.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        7,
+        51,
+        344,
+        377
+      ],
+      "fix_hint": "Replace voxelized foliage and meshes with simplified low-poly geometry."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Flat white mist planes clip awkwardly into the grass tiles.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        204,
+        172,
+        251,
+        200
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        7,
+        150,
+        34,
+        213
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        28,
+        121,
+        57,
+        182
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        41,
+        167,
+        77,
+        227
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        75,
+        92,
+        108,
+        154
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        110,
+        51,
+        141,
+        101
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        111,
+        90,
+        141,
+        151
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        144,
+        73,
+        175,
+        135
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        169,
+        101,
+        210,
+        135
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        196,
+        124,
+        225,
+        182
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        229,
+        104,
+        259,
+        164
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        267,
+        128,
+        291,
+        158
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        300,
+        147,
+        324,
+        182
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        309,
+        176,
+        344,
+        231
+      ]
+    },
+    {
+      "prop": "green tree",
+      "rests_on": "block top",
+      "box": [
+        278,
+        195,
+        313,
+        249
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        257,
+        153,
+        293,
+        216
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        239,
+        186,
+        275,
+        242
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        198,
+        221,
+        238,
+        291
+      ]
+    },
+    {
+      "prop": "bare tree",
+      "rests_on": "block top",
+      "box": [
+        230,
+        236,
+        274,
+        317
+      ]
+    },
+    {
+      "prop": "phoenix creature",
+      "rests_on": "block top",
+      "box": [
+        134,
+        151,
+        182,
+        207
+      ]
+    }
+  ]
+}
