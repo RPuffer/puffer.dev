@@ -6,5 +6,8 @@ date | model | count | $ | purpose
 2026-09-23 | gemini-3.1-flash-image | 18 | 0.810 | sprites.mjs: two candidates for each of 9 types
 2026-09-23 | fal-ai/trellis | 9 | 0.180 | meshes.mjs: one mesh per accepted sprite
 2026-09-23 | gemini-3.8-flash (vision) | 19 | 0.755 | critic.mjs: 10 rounds, 351x390 and 900x800 (round 1 at 351 only)
+2026-09-23 | gemini-3.1-flash-image | 8 | 0.360 | second pass: stacked-cube trunks and round tree, arched roots (two candidates each)
+2026-09-23 | fal-ai/trellis | 4 | 0.080 | second pass: re-mesh the four new picks (a 0.99 mesh_simplify try was refused, not billed)
+2026-09-23 | gemini-3.8-flash (vision) | 4 | 0.200 | critic rounds 11 and 12
 
-Total: $1.745
+Total: $2.385
