@@ -76,3 +76,16 @@ node tools/smoke.mjs "http://localhost:8765/2d/index.html?level=home"
 2026-09-23 result: MAD 30.8, NCC 0.691, silhouette 89.0%. Smoke: spawn (6,7), W to (6,6), D to (7,6), S to (7,8); taps on (9,4) and (3,3) path there, a tap on the rock at (9,2) stops at (9,3).
 
 Sprite pipeline: `node 2d/gen/generate.mjs <ids>` (Gemini, logs to 2d/gen/ledger.jsonl and costs $0.045 each), `node 2d/gen/process.mjs` (key, scale, manifest), then `node 2d/gen/ramp.mjs` and `node 2d/gen/marker.mjs`, which rebuild the composite sprites that process.mjs overwrites.
+
+## Procedural islands
+
+`?level=gen&seed=N` generates an island from seed N in both builds; `?seed=N` with no `level` does the same. `?level=home` (or no seed) loads `levels/home.json`. The same seed always gives the same island. `core/procgen.js` exports `generateLevel(seed)`, `checkLevel(level)`, and `levelStats(level)`; `loadLevel("gen", { seed })` returns a prepared level.
+
+```sh
+node tools/procgen-check.mjs 200
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=gen&seed=7&hero=0" out/gen-7.png 351 390
+```
+
+`procgen-check.mjs [count] [first-seed]` generates each seed twice and checks schema, determinism, reachability from spawn, spawn free of decor, one decor per cell, ramps one tier down, bridges spanning 1 to 3 cells with level land at both ends, waterfalls on h0 water below a cliff, grass share between 0.25 and 0.45, and one plateau. It also feeds the checker five broken levels and fails if the checker misses one. It prints size and decor-count distributions and exits 1 on any problem.
+
+`core/ui.js` exports `mountUI({ container, navigate })`: a seed field, a "new island" button (random seed), and a "home" link. Without a container it mounts a fixed overlay in the bottom-right corner and skips itself inside an iframe or when the query has `hero=0` or `ui=0`, so reference shots stay clean.
