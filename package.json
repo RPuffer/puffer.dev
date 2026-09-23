@@ -1,0 +1,15 @@
+{
+  "name": "isoworld",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "sh tools/serve.sh",
+    "shot": "node tools/shot.mjs",
+    "compare": "node tools/compare.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.12.0",
+    "sharp": "^0.35.4",
+    "three": "^0.186.0"
+  }
+}
