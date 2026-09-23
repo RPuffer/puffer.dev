@@ -3,7 +3,7 @@ import { CATALOG } from "../core/catalog.js";
 import { cellAt, DIRS } from "../core/level.js";
 import { Baker, bakedMaterial, solid } from "./baker.js";
 import { PIECES, SPIN } from "./pieces.js";
-import { surfaceY, WATER_DROP } from "./terrain.js";
+import { surfaceY, WATER_DROP, liftLevel } from "./terrain.js";
 import { applyXray } from "./xray.js";
 
 const SIDE = ["n", "e", "s", "w"];
@@ -15,7 +15,7 @@ function baseOf(L, view, d, spec) {
   if (!c) return 0;
   if (spec.attach === "under" && c.s === "bridge") return (c.w ?? 0) * T - WATER_DROP;
   if (c.s === "bridge") return c.h * T;
-  if (c.s === "stone") return c.h * T + 0.11;
+  if (c.s === "stone") return c.h * T + 0.07;
   if (c.s === "ramp" && c.m === "stone") return (c.h - 1) * T + 0.48;
   return surfaceY(L, view, d.x, d.z);
 }
@@ -40,6 +40,7 @@ function contextFor(L, view, d, spec, base) {
 }
 
 export function buildDecor(L, view) {
+  L = liftLevel(L);
   const group = new THREE.Group(), spinners = [];
   const mat = applyXray(bakedMaterial());
   const S = new Baker();

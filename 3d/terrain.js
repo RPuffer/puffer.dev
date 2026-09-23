@@ -15,6 +15,14 @@ const GAP = 0.018, R = 0.11;
 const P = PALETTE;
 const isLand = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "bridge";
 
+export function liftLevel(L) {
+  if (L.lifted) return L;
+  const cells = L.cells.map((row) => row.map((c) => (c.lift ? { ...c, h: c.h + c.lift, ...(c.w != null ? { w: c.w + c.lift } : {}) } : c)));
+  return { ...L, cells, lifted: true, explicitPatches: cells.some((row) => row.some((c) => c.patch)) };
+}
+
+export const liftAt = (L, x, z) => cellAt(L, Math.floor(x), Math.floor(z))?.lift || 0;
+
 export function floorLevel(L) {
   const n = new Map();
   for (const row of L.cells) for (const c of row) if (isLand(c)) n.set(c.h, (n.get(c.h) || 0) + 1);
@@ -106,8 +114,8 @@ function landCell(B, L, x, z, c, T, F, rnd) {
     const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
     if (!(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - GL, "z", P.grass.fringe, rnd);
     if (!(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - GL, "x", P.grass.fringeDark, rnd);
-    if (kind === "patch") B.flat(blob(x + 0.5, z + 0.5, 0.33, rnd), top + 0.003, P.dirt.patch);
-    else if (rnd() < 0.18) B.flat(blob(x + 0.4 + rnd() * 0.2, z + 0.4 + rnd() * 0.2, 0.28, rnd), top + 0.003, P.dirt.patch);
+    if (kind === "patch" || c.patch) pathPatch(B, x, z, top, rnd);
+    else if (!L.explicitPatches && rnd() < 0.18) B.flat(blob(x + 0.4 + rnd() * 0.2, z + 0.4 + rnd() * 0.2, 0.28, rnd), top + 0.003, P.dirt.patch);
     dots(B, x, z, top + 0.005, P.grass.speck, rnd, 3, 0.045);
     specks(B, x, z, bot, top - LIP, P.cliffUpper.seam, rnd);
     return;
@@ -132,8 +140,8 @@ function landCell(B, L, x, z, c, T, F, rnd) {
     return;
   }
   if (kind === "stone") {
-    column(B, x, z, bot, top - 0.25, upper);
-    stoneSlab(B, x, z, top - 0.25, top + 0.08, rnd);
+    column(B, x, z, bot, top - 0.12, upper);
+    stoneSlab(B, x, z, top - 0.12, top + 0.04, rnd);
     return;
   }
   column(B, x, z, bot, top - LIP, upper);
@@ -144,13 +152,26 @@ function landCell(B, L, x, z, c, T, F, rnd) {
   if (rnd() < 0.35 && !(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - LIP, "x", P.sand.lip, rnd, 2);
 }
 
+const COBBLE_SIDE = tone(P.stone.top, "#ddbb71", "#dab667", "#e3c583");
+const PEBBLE = tone(P.stone.pebble, P.stone.pebbleShade, "#e4c98e");
+
 function stoneSlab(B, x, z, y0, y1, rnd) {
-  slab(B, x, z, y0, y1, tone(P.stone.top, P.stone.rim, P.wellStone[1]), 0.05, 0.16);
-  const spots = [[0.3, 0.28, 0.15], [0.66, 0.3, 0.14], [0.32, 0.66, 0.14], [0.7, 0.66, 0.15], [0.5, 0.48, 0.1]];
+  slab(B, x, z, y0, y1, COBBLE_SIDE, 0.04, 0.15);
+  const spots = [[0.28, 0.27, 0.17], [0.7, 0.3, 0.16], [0.3, 0.71, 0.16], [0.72, 0.7, 0.17], [0.5, 0.5, 0.12]];
   for (const [u, v, r] of spots) {
     const cx = x + u + (rnd() - 0.5) * 0.05, cz = z + v + (rnd() - 0.5) * 0.05;
-    B.prism(circle(cx, cz, r, r * 0.8, 8), y1, y1 + 0.03, tone(P.stone.pebble, P.stone.pebbleShade, P.stone.pebbleShade));
+    B.prism(circle(cx, cz, r * 1.05, r * 0.85, 10), y1, y1 + 0.035, PEBBLE);
   }
+}
+
+function pathPatch(B, x, z, top, rnd) {
+  const n = 12, pts = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2, k = 0.4 + rnd() * 0.07;
+    pts.push([Math.min(x + 0.96, Math.max(x + 0.04, x + 0.5 + Math.sin(a) * k)), Math.min(z + 0.96, Math.max(z + 0.04, z + 0.5 + Math.cos(a) * k))]);
+  }
+  B.flat(pts, top + 0.003, "#f6d881");
+  for (let i = 0; i < 4; i++) B.flat(circle(x + 0.25 + rnd() * 0.5, z + 0.25 + rnd() * 0.5, 0.08, 0.065, 8), top + 0.005, P.dirt.patch);
 }
 
 function rampCell(B, L, x, z, c, T, F, rnd) {
@@ -159,8 +180,8 @@ function rampCell(B, L, x, z, c, T, F, rnd) {
   const m = c.m || "stone";
   if (m === "stone") {
     const mid = lowY + 0.45;
-    column(B, x, z, bot, mid - 0.3, c.h - 1 > F);
-    stoneSlab(B, x, z, mid - 0.3, mid, rnd);
+    column(B, x, z, bot, mid - 0.14, c.h - 1 > F);
+    stoneSlab(B, x, z, mid - 0.14, mid, rnd);
     return;
   }
   column(B, x, z, bot, lowY, c.h - 1 > F);
@@ -243,6 +264,7 @@ function bridgeCell(B, L, x, z, c, T, rnd) {
 }
 
 export function buildTerrain(L, view, seed) {
+  L = liftLevel(L);
   const T = view.tileH, F = floorLevel(L);
   const B = new Baker(), Wb = new Baker();
   const [W, D] = L.size;

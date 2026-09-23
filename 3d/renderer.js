@@ -4,6 +4,7 @@ import { buildDecor } from "./decor.js";
 import { buildCharacter } from "./character.js";
 import { levelScreenBounds } from "../core/iso.js";
 import { xray } from "./xray.js";
+import { liftAt } from "./terrain.js";
 
 const FRAME = [351, 390];
 
@@ -14,7 +15,7 @@ export function createRenderer(container = document.body) {
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
-  let spinT = 0, S, pickables = [], spinners = [], hero, bounds, zoom = 60;
+  let lift = 0, spinT = 0, S, pickables = [], spinners = [], hero, bounds, zoom = 60;
   const focus = new THREE.Vector3();
 
   const resize = () => {
@@ -44,7 +45,7 @@ export function createRenderer(container = document.body) {
   const heroTarget = (a) => {
     const c = S.params.hero === "0" && (String(S.params.center || "").split(",").map(Number).filter((n) => !isNaN(n)).length === 3 ? S.params.center.split(",").map(Number) : S.level.view?.center);
     if (S.params.hero === "0" && Array.isArray(c) && c.length === 3) return new THREE.Vector3(c[0], c[1], c[2]);
-    return new THREE.Vector3(a.pos.x, a.y * S.view.tileH + 0.4, a.pos.z);
+    return new THREE.Vector3(a.pos.x, (a.y + lift) * S.view.tileH + 0.4, a.pos.z);
   };
 
   return {
@@ -66,11 +67,13 @@ export function createRenderer(container = document.body) {
       bounds = levelScreenBounds(L, state.proj);
       resize();
       addEventListener("resize", resize);
+      lift = liftAt(L, state.actor.pos.x, state.actor.pos.z);
       focus.copy(heroTarget(state.actor));
     },
     update(state, dt) {
       const a = state.actor;
-      hero.position.set(a.pos.x, a.y * state.view.tileH, a.pos.z);
+      lift += (liftAt(state.level, a.pos.x, a.pos.z) - lift) * Math.min(1, dt * 12);
+      hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH, a.pos.z);
       hero.userData.animate(a, dt);
       spinT += dt;
       for (const s of spinners) s.rotation.y = -(s.userData.decor.rot || 0) * (Math.PI / 2) + Math.sin(spinT * 1.6 + s.position.x) * 0.25;
@@ -80,7 +83,7 @@ export function createRenderer(container = document.body) {
     render() {
       placeCamera(focus);
       camera.updateMatrixWorld();
-      const a = S.actor, feet = a.y * S.view.tileH, v = new THREE.Vector3(a.pos.x, feet + 0.45, a.pos.z).project(camera);
+      const a = S.actor, feet = (a.y + lift) * S.view.tileH, v = new THREE.Vector3(a.pos.x, feet + 0.45, a.pos.z).project(camera);
       const px = gl.getPixelRatio(), w = gl.domElement.width, h = gl.domElement.height;
       xray.uHero.value = [(v.x * 0.5 + 0.5) * w, (v.y * 0.5 + 0.5) * h];
       xray.uDepth.value = v.z * 0.5 + 0.5 - 0.35 / (camera.far - camera.near);
