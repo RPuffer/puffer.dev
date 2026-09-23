@@ -1,0 +1,78 @@
+{
+ "bare-trunk-tall": {
+  "faces": 300,
+  "snap": 0.5,
+  "families": [
+   [
+    "#472d26",
+    "#35221d",
+    "#241815"
+   ]
+  ]
+ },
+ "leaning-trunk": {
+  "faces": 350,
+  "snap": 0.5,
+  "families": [
+   [
+    "#472d26",
+    "#35221d",
+    "#241815"
+   ]
+  ]
+ },
+ "fallen-log": {
+  "faces": 350,
+  "snap": 0.5
+ },
+ "root-tangle": {
+  "faces": 350,
+  "snap": 0.5
+ },
+ "mist-bank": {
+  "faces": 250,
+  "snap": 0.5,
+  "families": [
+   [
+    "#dddddd",
+    "#bcbcbc",
+    "#9f9f9f"
+   ]
+  ],
+  "scaleY": 0.5,
+  "alpha": 0.6
+ },
+ "mossy-stump": {
+  "faces": 400,
+  "snap": 0.5
+ },
+ "fire-bird": {
+  "faces": 900,
+  "snap": 0.5
+ },
+ "flame-wisp": {
+  "faces": 350,
+  "snap": 0.5
+ },
+ "forest-tree": {
+  "faces": 500,
+  "snap": 0.5,
+  "families": [
+   [
+    "#478547",
+    "#3b6e3b",
+    "#2f582f"
+   ],
+   [
+    "#3d723d",
+    "#315b31",
+    "#254525"
+   ],
+   [
+    "#472d26",
+    "#35221d",
+    "#241815"
+   ]
+  ]
+ }
+}

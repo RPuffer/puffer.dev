@@ -1,0 +1,65 @@
+{
+ "bare-trunk-tall": {
+  "faces": 285,
+  "lean": [
+   0.021,
+   -0.018
+  ]
+ },
+ "leaning-trunk": {
+  "faces": 325,
+  "lean": [
+   -0.386,
+   0.166
+  ]
+ },
+ "fallen-log": {
+  "faces": 315,
+  "lean": [
+   0.034,
+   -0.022
+  ]
+ },
+ "root-tangle": {
+  "faces": 309,
+  "lean": [
+   -0.046,
+   -0.025
+  ]
+ },
+ "mist-bank": {
+  "faces": 187,
+  "lean": [
+   -0.38,
+   0.957
+  ]
+ },
+ "mossy-stump": {
+  "faces": 350,
+  "lean": [
+   -0.029,
+   -0.016
+  ]
+ },
+ "fire-bird": {
+  "faces": 866,
+  "lean": [
+   0.265,
+   -0.001
+  ]
+ },
+ "flame-wisp": {
+  "faces": 319,
+  "lean": [
+   0.024,
+   0.003
+  ]
+ },
+ "forest-tree": {
+  "faces": 447,
+  "lean": [
+   -0.016,
+   0.062
+  ]
+ }
+}
