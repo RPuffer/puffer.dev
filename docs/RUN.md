@@ -74,7 +74,9 @@ node tools/compare.mjs ref/reference.png out/home-2d.png out/home-2d
 node tools/smoke.mjs "http://localhost:8765/2d/index.html?level=home"
 ```
 
-2026-09-23 result: MAD 30.8, NCC 0.691, silhouette 89.0%. Smoke: spawn (6,7), W to (6,6), D to (7,6), S to (7,8); taps on (9,4) and (3,3) path there, a tap on the rock at (9,2) stops at (9,3).
+2026-09-23 result after the polish pass: MAD 23.2, NCC 0.807, silhouette 93.4% (from MAD 30.8, NCC 0.691, 89.0%). Smoke: spawn (6,7), W to (6,6), D to (7,6), S to (7,8); taps on (9,4), (3,3), (4,4), (4,5), (8,8) and (10,8) path there, a tap on the rock at (9,2) stops at (9,3).
+
+home.json cells may carry two optional fields both builds read: `lift` offsets a cell's drawn height by a fraction of a step (h units; on a bridge it moves only the water under the deck), and `patch: 1` draws a pale path patch on a grass top. Walking still uses `h`. The 2d build draws water-to-water drops, the log bridge, the plaza and path patches in canvas (`2d/water2d.js`, `2d/surface2d.js`) instead of sprites.
 
 Sprite pipeline: `node 2d/gen/generate.mjs <ids>` (Gemini, logs to 2d/gen/ledger.jsonl and costs $0.045 each), `node 2d/gen/process.mjs` (key, scale, manifest), then `node 2d/gen/ramp.mjs` and `node 2d/gen/marker.mjs`, which rebuild the composite sprites that process.mjs overwrites.
 
