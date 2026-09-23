@@ -3,10 +3,11 @@ import { CATALOG } from "../core/catalog.js";
 import { cellAt } from "../core/level.js";
 import { PALETTE } from "./palette.js";
 import { WATER_Y } from "./terrain.js";
+import { applyXray } from "./xray.js";
 
 const mats = new Map();
-export const mat = (hex) => {
-  if (!mats.has(hex)) mats.set(hex, new THREE.MeshLambertMaterial({ color: hex, flatShading: true }));
+const mat = (hex) => {
+  if (!mats.has(hex)) mats.set(hex, applyXray(new THREE.MeshLambertMaterial({ color: hex, flatShading: true })));
   return mats.get(hex);
 };
 

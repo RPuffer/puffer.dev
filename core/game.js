@@ -1,7 +1,7 @@
 import { createInput } from "./input.js";
 import { createActor } from "./actor.js";
 import { pathToward } from "./path.js";
-import { DIRS } from "./level.js";
+import { DIRS, isWalkable } from "./level.js";
 import { makeProjection, viewFrom } from "./iso.js";
 
 export const STEP = 1 / 60;
@@ -31,7 +31,9 @@ export function screenToWorldDir(proj, screenDir) {
 export function start(level, renderer, { params = readParams() } = {}) {
   const view = viewFrom(level, params);
   const proj = makeProjection(view);
-  const actor = createActor(level, level.spawn);
+  const sp = String(params.spawn || "").split(",").map(Number);
+  const spawn = sp.length === 2 && isWalkable(level, sp[0], sp[1]) ? sp : level.spawn;
+  const actor = createActor(level, spawn);
   const state = { level, view, proj, actor, params, time: 0, frame: 0 };
   renderer.init?.(state);
 

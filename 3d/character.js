@@ -1,5 +1,9 @@
 import * as THREE from "three";
-import { mat } from "./decor.js";
+const mats = new Map();
+const mat = (hex) => {
+  if (!mats.has(hex)) mats.set(hex, new THREE.MeshLambertMaterial({ color: hex, flatShading: true }));
+  return mats.get(hex);
+};
 
 const SKIN = "#ffd9b0", SHIRT = "#ff6a5a", PANTS = "#3a4a8a", DARK = "#2a2230", HAIR = "#6b3d24";
 

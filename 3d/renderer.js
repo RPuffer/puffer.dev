@@ -3,6 +3,7 @@ import { buildTerrain } from "./terrain.js";
 import { buildDecor } from "./decor.js";
 import { buildCharacter } from "./character.js";
 import { levelScreenBounds } from "../core/iso.js";
+import { xray } from "./xray.js";
 
 export function createRenderer(container = document.body) {
   const gl = new THREE.WebGLRenderer({ antialias: true });
@@ -74,6 +75,12 @@ export function createRenderer(container = document.body) {
     },
     render() {
       placeCamera(focus);
+      camera.updateMatrixWorld();
+      const a = S.actor, v = new THREE.Vector3(a.pos.x, a.y * S.view.tileH + 0.45, a.pos.z).project(camera);
+      const px = gl.getPixelRatio(), w = gl.domElement.width, h = gl.domElement.height;
+      xray.uHero.value = [(v.x * 0.5 + 0.5) * w, (v.y * 0.5 + 0.5) * h];
+      xray.uDepth.value = v.z * 0.5 + 0.5 - 0.0005;
+      xray.uRadius.value = 0.6 * zoom * px;
       gl.render(scene, camera);
     },
     pick(x, y, w, h) {
