@@ -59,21 +59,30 @@ export function register(style) {
   const eye = pick(P, "spiritEye", "#2a2230");
   const end = P.wood?.end || "#b88a69";
 
-  function trunk(B, H, v, lean = 0) {
-    const r0 = 0.2 - (v % 3) * 0.02, r1 = r0 * 0.62;
-    const top = [lean * H, H * 0.94, 0];
+  function trunk(B, H, v) {
+    const segs = v % 3 === 2 ? 2 : 3;
+    const widths = [0.34, 0.28, 0.23].slice(0, segs), hs = segs === 2 ? [0.55, 0.45] : [0.4, 0.33, 0.27];
+    const endPal = tone(end, bark[1], bark[2]);
     for (let i = 0; i < 4; i++) {
-      const a = (i / 4) * TAU + 0.4 + v;
-      beam(B, [Math.sin(a) * 0.08, 0.16, Math.cos(a) * 0.08], [Math.sin(a) * 0.3, -0.02, Math.cos(a) * 0.3], 0.055, rootPal, 5);
+      const a = (i / 4) * TAU + Math.PI / 4 + v * 0.5;
+      B.at(Math.sin(a) * 0.2, 0, Math.cos(a) * 0.2, a, () => B.box(0.1, 0.12, 0.14, rootPal));
     }
-    taper(B, [0, -0.05, 0], top, r0, r1, barkPal, 6);
-    B.cyl(r1 * 0.98, 0.06, tone(end, bark[1], bark[2]), top[0], top[1], 0, 6);
-    const stubs = [[0.55, 0.6, 0.3], [0.72, 2.6, 0.26], [0.84, 4.4, 0.22], [0.4, 3.5, 0.2]].slice(0, 2 + (v % 3 === 0 ? 2 : 1));
-    for (const [f, a, len] of stubs) {
-      const y = H * f, bx = lean * y, aa = a + v * 1.3;
-      const o = [bx, y, 0], tip = [bx + Math.sin(aa) * len, y + len * 0.7, Math.cos(aa) * len];
-      beam(B, o, tip, 0.05, barkPal, 5);
+    let y = 0;
+    for (let i = 0; i < segs; i++) {
+      const w = widths[i], h = H * hs[i], dx = i ? ((v + i) % 2 ? 0.025 : -0.025) : 0;
+      B.at(dx, y, 0, i * 0.18 * (v % 2 ? 1 : -1), () => B.box(w, h + 0.02, w, barkPal));
+      if (i > 0 || segs === 2) {
+        const side = (v + i) % 4, a = side * Math.PI / 2 + 0.3;
+        const len = 0.22 + 0.06 * (i % 2);
+        B.at(Math.sin(a) * (w / 2 + len / 2 - 0.02), y + h * 0.35, Math.cos(a) * (w / 2 + len / 2 - 0.02), a, () => {
+          B.box(0.12, 0.11, len, barkPal);
+          B.box(0.1, 0.16, 0.1, barkPal, 0, 0.1, len / 2 - 0.05);
+        });
+      }
+      y += h;
     }
+    B.box(widths[segs - 1] - 0.02, 0.03, widths[segs - 1] - 0.02, endPal, 0, y, 0);
+    return y;
   }
 
   function fireBird(B, H) {
@@ -113,11 +122,11 @@ export function register(style) {
   }
 
   const catalog = {
-    "bare-trunk": { footprint: [1, 1], passable: false, variants: 3, height: 2.8 },
+    "bare-trunk": { footprint: [1, 1], passable: false, variants: 3, height: 2.5 },
     "leaning-trunk": { footprint: [1, 1], passable: false, variants: 2, height: 2.4, rotates: true },
     "root-tangle": { footprint: [1, 1], passable: true, variants: 2, height: 0.3, rotates: true },
     "fallen-log": { footprint: [1, 1], passable: false, variants: 2, height: 0.5, rotates: true },
-    "mist-bank": { footprint: [1, 1], passable: true, variants: 2, height: 0.3 },
+    "mist-bank": { footprint: [1, 1], passable: true, variants: 2, height: 0.1 },
     "flame-wisp": { footprint: [1, 1], passable: false, variants: 1, height: 0.8 },
     "fire-bird": { footprint: [2, 2], passable: false, variants: 1, height: 3.0, rotates: true },
   };
@@ -130,9 +139,13 @@ export function register(style) {
     },
     "leaning-trunk"(v, rot, st, ctx) {
       const B = new Baker();
-      B.push(0, 0, 0, v ? -Math.PI / 3 : Math.PI / 3);
-      trunk(B, ctx.height, v + 1, -0.32);
-      B.pop();
+      B.box(0.6, 0.42, 0.6, barkPal);
+      B.box(0.52, 0.04, 0.52, tone(end, bark[1], bark[2]), 0, 0.42, 0);
+      for (let i = 0; i < 4; i++) { const a = (i / 4) * TAU + Math.PI / 4; B.at(Math.sin(a) * 0.36, 0, Math.cos(a) * 0.36, a, () => B.box(0.14, 0.18, 0.18, rootPal)); }
+      B.push(0, 0.4, 0, v ? -Math.PI / 3 : Math.PI / 3);
+      B.rot([0, 0, 1], 0.3);
+      trunk(B, ctx.height, v + 1);
+      B.pop(); B.pop();
       return mesh(B);
     },
     "root-tangle"(v, rot, st, ctx) {
@@ -161,10 +174,11 @@ export function register(style) {
     "mist-bank"(v, rot, st, ctx) {
       const B = new Baker();
       const pal = tone(mist[0], mist[1], mist[2]);
-      const lobes = v ? [[-0.15, -0.1, 0.3, 0.22], [0.2, 0.12, 0.24, 0.2]] : [[0, 0, 0.36, 0.26], [0.22, -0.2, 0.2, 0.16], [-0.25, 0.18, 0.18, 0.14]];
-      let y = 0.1;
-      for (const [x, z, rx, rz] of lobes) { B.prism(circle(x, z, rx, rz, 10), y, y + 0.08, pal); y += 0.06; }
-      return mesh(B);
+      const lobes = v ? [[-0.12, -0.08, 0.42, 0.3], [0.22, 0.16, 0.26, 0.22]] : [[0.02, 0.02, 0.46, 0.36], [-0.2, 0.22, 0.24, 0.18]];
+      lobes.forEach(([x, z, rx, rz], i) => B.prism(circle(x, z, rx, rz, 12), 0.02 + i * 0.03, 0.05 + i * 0.03, pal));
+      const m = new THREE.Mesh(B.geometry(), new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.5, depthWrite: false }));
+      m.userData.noMerge = true;
+      return m;
     },
     "flame-wisp"(v, rot, st, ctx) {
       const B = new Baker();
