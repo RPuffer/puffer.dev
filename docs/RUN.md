@@ -54,3 +54,25 @@ node tools/smoke.mjs "http://localhost:8765/3d/index.html?level=dev"
 ## Level view block
 
 A level may carry `"view": { "pitch": 35.264, "yaw": 45, "tileH": 1, "zoom": 0, "center": [x, y, z] }`. Query parameters override it. `center` frames reference comparisons; in play the camera follows the hero.
+
+## 2d build
+
+`http://localhost:8765/2d/index.html?level=home&seed=1` runs the canvas sprite build on the same `start(level, renderer)` contract, controls and query parameters as the 3d build (`level`, `seed`, `hero`, `spawn`, `center`, `dpad`). Extra parameters:
+
+| Param | Effect |
+| --- | --- |
+| `scale` | Screen px per sprite px at the 351x390 frame; overrides the level's `view.zoom` (zoom / 90.5) |
+| `center` | `x,y,z` world point the camera centres on when `hero=0` |
+
+A level without `view.zoom` fits its screen bounds. `2d/view.js` holds per-level 2d overrides keyed by level name.
+
+```sh
+rm -rf .pp-profile/Default/Cache ".pp-profile/Default/Code Cache"
+node tools/shot.mjs "http://localhost:8765/2d/index.html?level=home&hero=0" out/home-2d.png 351 390
+node tools/compare.mjs ref/reference.png out/home-2d.png out/home-2d
+node tools/smoke.mjs "http://localhost:8765/2d/index.html?level=home"
+```
+
+2026-09-23 result: MAD 30.8, NCC 0.691, silhouette 89.0%. Smoke: spawn (6,7), W to (6,6), D to (7,6), S to (7,8); taps on (9,4) and (3,3) path there, a tap on the rock at (9,2) stops at (9,3).
+
+Sprite pipeline: `node 2d/gen/generate.mjs <ids>` (Gemini, logs to 2d/gen/ledger.jsonl and costs $0.045 each), `node 2d/gen/process.mjs` (key, scale, manifest), then `node 2d/gen/ramp.mjs` and `node 2d/gen/marker.mjs`, which rebuild the composite sprites that process.mjs overwrites.
