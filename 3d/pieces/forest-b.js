@@ -111,7 +111,7 @@ export function register(style) {
       "bare-trunk"(v, rot, s, ctx) {
         const B = new Baker();
         const H = ctx.decor?.ht || ctx.height * [1, 0.94, 1.08][v % 3];
-        trunk(B, H, 0.21, v * 1.7);
+        trunk(B, H, ctx.decor?.r || 0.21, v * 1.7);
         const f = ctx.decor?.fork;
         if (f) {
           const dx = Math.sin(f[1]), dz = Math.cos(f[1]);
@@ -137,39 +137,44 @@ export function register(style) {
       "fire-bird"(v, rot, s, ctx) {
         const B = new Baker();
         const k = ctx.height / 3.2;
+        const wedge = (x, y, z, ang, len, w, pal, th = 0.07) => {
+          const sa = Math.sin(ang), ca = Math.cos(ang), px = -ca, pz = sa;
+          const pts = [[-px * w / 2, -pz * w / 2], [len * 0.45 * sa + px * w * 0.42, len * 0.45 * ca + pz * w * 0.42], [len * sa, len * ca], [len * 0.45 * sa - px * w * 0.3, len * 0.45 * ca - pz * w * 0.3], [px * w / 2, pz * w / 2]];
+          B.push(x, y, z, Math.PI / 2);
+          B.rot([1, 0, 0], -Math.PI / 2);
+          B.prism(pts.reverse(), -th / 2, th / 2, pal, { bottom: true });
+          B.pop(); B.pop();
+        };
         B.cyl(0.46, 0.12, tone(P.moss[1], P.moss[1], P.moss[2]), 0, 0, 0, 12, { topPal: P.moss[2] });
         B.cyl(0.3, 0.04, tone(P.moss[1], P.moss[1], P.moss[2]), 0, 0.12, 0, 12, { topPal: P.moss[1] });
         B.push(0, 0.16, 0, -Math.PI / 4, k);
-        for (const sx of [-0.15, 0.15]) {
-          beam(B, [sx, 0.02, 0.05], [sx, 0.35, -0.02], 0.055, flameLo, 6);
-          beam(B, [sx, 0.35, -0.02], [sx * 1.1, 0.72, 0.06], 0.075, flameMid, 6);
-          for (const d of [-0.5, 0, 0.5]) taper(B, [sx, 0.03, 0.05], [sx + d * 0.1, 0.02, 0.26], 0.045, 0.01, flameLo, 4);
+        for (const sx of [-0.13, 0.13]) {
+          beam(B, [sx, 0.02, 0.04], [sx, 0.42, -0.04], 0.045, flameLo, 6);
+          beam(B, [sx, 0.42, -0.04], [sx, 0.78, 0.04], 0.065, flameMid, 6);
+          for (const d of [-0.5, 0, 0.5]) taper(B, [sx, 0.03, 0.04], [sx + d * 0.1, 0.02, 0.24], 0.04, 0.01, flameLo, 4);
         }
-        B.push(0, 0.95, -0.12);
-        B.rot([1, 0, 0], -0.35);
-        B.rbox(0.66, 0.5, 0.9, 0.2, flameMid, 0, -0.25, 0);
+        B.push(0, 1.02, -0.1);
+        B.rot([1, 0, 0], -0.3);
+        B.rbox(0.54, 0.44, 0.84, 0.18, flameMid, 0, -0.22, 0);
         B.pop(); B.pop();
-        B.rbox(0.58, 0.55, 0.5, 0.18, flameLo, 0, 0.72, 0.22);
-        B.rbox(0.46, 0.38, 0.44, 0.14, flameMid, 0, 1.2, 0.34);
-        B.rbox(0.42, 0.34, 0.42, 0.13, flameLo, 0, 1.52, 0.42);
-        B.rbox(0.5, 0.46, 0.56, 0.16, flameMid, 0, 1.8, 0.5);
-        taper(B, [0, 2.12, 0.74], [0, 1.9, 1.02], 0.12, 0.06, t3(P.beak), 6);
-        taper(B, [0, 1.9, 1.02], [0, 1.66, 1.02], 0.06, 0.0, t3(P.beak), 6);
-        for (const sx of [-1, 1]) B.box(0.03, 0.09, 0.09, tone(P.eye, P.eye, P.eye), sx * 0.255, 2.02, 0.6);
-        flame(B, 0, 2.2, 0.5, 0.15, 0.6, 0, -0.18, flameHi);
-        flame(B, 0.12, 2.18, 0.4, 0.12, 0.5, 0.1, -0.28, flameMid);
-        flame(B, -0.12, 2.18, 0.4, 0.12, 0.5, -0.1, -0.28, flameMid);
-        flame(B, 0, 2.1, 0.3, 0.12, 0.42, 0, -0.42, flameHi);
-        for (const [y, z] of [[0.62, 0.48], [0.95, 0.44], [1.3, 0.56], [1.62, 0.63]]) flame(B, 0, y, z, 0.13, 0.3, 0, -0.06, flameHi);
+        B.rbox(0.46, 0.5, 0.4, 0.15, flameLo, 0, 0.9, 0.2);
+        const neck = [[0.38, 0.3, 1.34, 0.28, flameMid], [0.34, 0.3, 1.6, 0.36, flameLo], [0.31, 0.3, 1.86, 0.43, flameMid], [0.3, 0.28, 2.12, 0.5, flameLo]];
+        for (const [w, h, y, z, pal] of neck) B.rbox(w, h, w, 0.09, pal, 0, y, z);
+        B.rbox(0.4, 0.38, 0.46, 0.13, flameMid, 0, 2.36, 0.57);
+        taper(B, [0, 2.6, 0.78], [0, 2.44, 1.08], 0.1, 0.05, t3(P.beak), 6);
+        taper(B, [0, 2.44, 1.08], [0, 2.24, 1.06], 0.05, 0, t3(P.beak), 6);
+        for (const sx of [-1, 1]) B.box(0.03, 0.08, 0.08, tone(P.eye, P.eye, P.eye), sx * 0.205, 2.58, 0.66);
+        wedge(0, 2.68, 0.62, 0.15, 0.62, 0.2, flameHi);
+        wedge(0.05, 2.66, 0.5, 0.45, 0.66, 0.2, flameMid);
+        wedge(-0.05, 2.62, 0.4, 0.75, 0.6, 0.2, flameHi);
+        wedge(0, 2.52, 0.32, 1.05, 0.5, 0.18, flameLo);
+        for (const [y, z] of [[0.95, 0.42], [1.3, 0.46], [1.62, 0.54], [1.9, 0.6]]) wedge(0, y, z, -0.25, 0.26, 0.14, flameHi, 0.36);
         for (const sx of [-1, 1]) {
-          flame(B, sx * 0.34, 0.95, 0.1, 0.16, 0.62, sx * 0.1, -0.6, flameHi);
-          flame(B, sx * 0.36, 0.78, -0.05, 0.14, 0.55, sx * 0.1, -0.62, flameMid);
-          flame(B, sx * 0.3, 0.62, -0.2, 0.12, 0.45, sx * 0.08, -0.55, flameLo);
+          wedge(sx * 0.3, 1.0, 0.18, 1.05, 0.72, 0.3, flameHi);
+          wedge(sx * 0.32, 0.86, 0.05, 1.3, 0.62, 0.26, flameMid);
         }
-        flame(B, 0, 0.95, -0.62, 0.2, 1.05, 0, -0.7, flameMid);
-        flame(B, 0.16, 0.9, -0.6, 0.17, 0.9, 0.2, -0.78, flameHi);
-        flame(B, -0.16, 0.9, -0.6, 0.17, 0.9, -0.2, -0.78, flameHi);
-        flame(B, 0, 0.8, -0.6, 0.15, 0.55, 0, -1.05, flameLo);
+        const tail = [[0, 0.62, 1.35, flameMid, 0.34], [0.08, 0.8, 1.2, flameHi, 0.3], [-0.08, 0.95, 1.05, flameLo, 0.28], [0, 1.15, 0.9, flameHi, 0.24], [0.04, 1.35, 0.7, flameMid, 0.2]];
+        for (const [x, ang, len, pal, w] of tail) wedge(x, 0.95, -0.5, ang, len, w, pal);
         B.pop();
         return mesh(B);
       },
@@ -204,12 +209,12 @@ export function register(style) {
       },
       "root-tangle"(v, rot, s, ctx) {
         const B = new Baker();
-        B.ball(0.46, moss, 0, 0.22, 0, 0.85, 1);
+        B.ball(0.5, moss, 0, 0.24, 0, 0.85, 1);
         B.cyl(0.42, 0.14, moss, 0, 0, 0, 12);
         const n = 12;
         for (let i = 0; i < n; i++) {
-          const a = (i / n) * Math.PI * 2 + 0.3, R = 0.85 + 0.3 * ((i * 7) % 3) / 2;
-          arc(B, [Math.sin(a) * 0.3, 0.4, Math.cos(a) * 0.3], [Math.sin(a) * R, 0, Math.cos(a) * R], 0.3 + 0.12 * (i % 3), 0.085, root, 5);
+          const a = (i / n) * Math.PI * 2 + 0.3, R = 0.72 + 0.22 * ((i * 7) % 3) / 2;
+          arc(B, [Math.sin(a) * 0.3, 0.4, Math.cos(a) * 0.3], [Math.sin(a) * R, 0, Math.cos(a) * R], 0.3 + 0.12 * (i % 3), 0.12, root, 6);
         }
         return mesh(B);
       },
