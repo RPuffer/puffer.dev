@@ -8,3 +8,5 @@ date | model | count | $ | purpose
 2026-09-23 | gemini-3.1-flash-image | 4 | 0.18 | 2d engine: stump, ladder, scaffold, log bridge for the new catalog types (ramp-w/n, stone ramp, marker, fence-pen, bush-cluster built at $0)
 
 Total: $2.835
+
+## Pipeline
