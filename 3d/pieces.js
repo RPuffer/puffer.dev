@@ -113,7 +113,7 @@ export const PIECES = {
   },
   bush(B, H, v) {
     const c = v % 2 ? P.treeLeaf : P.bushTeal;
-    const pal = tone(c[0], c[1], c[2]);
+    const pal = tone(c[1], c[1], c[2]);
     const s = 1.35;
     for (const [x, y, z, r] of [[0, 0.2, 0, 0.2], [-0.15, 0.15, 0.08, 0.15], [0.15, 0.14, 0.05, 0.15], [0.03, 0.14, 0.18, 0.15], [-0.05, 0.13, -0.15, 0.14], [0.08, 0.3, 0.02, 0.15]]) B.ball(r * s, pal, x * s, y * s * 0.9, z * s, 0.85, 1);
     for (const [x, y, z] of [[-0.1, 0.32, 0.16], [0.14, 0.28, 0.16], [0.02, 0.42, 0.08], [0.24, 0.2, 0], [-0.22, 0.22, 0.04], [0.06, 0.22, 0.28], [-0.08, 0.4, -0.08]]) B.ball(0.04 * s, tone(P.berry[0], P.berry[0], P.berry[1]), x * s, y * s * 0.9, z * s, 1, 0);
@@ -203,7 +203,7 @@ export const PIECES = {
   },
   mushroom(B, H, v) {
     const cap = v % 2 ? P.capGold : P.cap;
-    for (const [x, z, s] of [[0, 0, 1], [0.18, 0.14, 0.65]]) {
+    for (const [x, z, s] of [[0, 0, 1.5], [0.24, 0.18, 1]]) {
       B.cyl(0.06 * s, 0.25 * s, tone("#fff0c3", "#fff0c3", "#e8dab1"), x, 0, z, 6);
       B.cone(0.2 * s, 0.05 * s, 0.14 * s, tone(cap[0], cap[1], cap[2]), x, 0.22 * s, z, 8);
       B.ball(0.03 * s, solid("#ffffff"), x + 0.08 * s, 0.3 * s, z + 0.06 * s, 0.6, 0);
@@ -230,20 +230,22 @@ export const PIECES = {
     B.pop();
   },
   marker(B) {
-    B.push(0, 0, 0, Math.PI / 4);
-    B.box(0.22, 0.07, 0.22, tone(P.sand.top, P.gold[0], P.gold[1]));
+    B.push(0, 0.07, 0, Math.PI / 4);
+    const sq = (a) => [[a, a], [a, -a], [-a, -a], [-a, a]];
+    B.prism(sq(0.14), -0.07, 0.02, tone(P.gold[0], P.gold[0], P.gold[1]));
+    B.frustum(sq(0.14), sq(0.07), 0.02, 0.07, tone(P.gold[0], P.gold[0], P.gold[1]));
     B.pop();
   },
   gem(B, H, v) {
     const c = P.gem[v % 2];
-    const y = H * 0.35;
-    B.cone(0, 0.14, 0.14, tone(c[0], c[1], c[2]), 0, y, 0, 6);
-    B.cone(0.14, 0, 0.16, tone(c[0], c[1], c[2]), 0, y + 0.14, 0, 6);
+    const y = 0.25;
+    B.cone(0, 0.2, 0.2, tone(c[0], c[1], c[2]), 0, y, 0, 6);
+    B.cone(0.2, 0.12, 0.08, tone(c[0], c[1], c[2]), 0, y + 0.2, 0, 6);
   },
   torch(B, H) {
-    B.cyl(0.05, H - 0.2, tone(W.mid, W.mid, W.dark), 0, 0, 0, 6);
-    B.cyl(0.08, 0.08, tone(W.dark, W.dark, W.shadow), 0, H - 0.28, 0, 6);
-    flame(B, 0, H - 0.2, 0, 0.1);
+    B.cyl(0.07, H - 0.3, tone(W.mid, W.mid, W.dark), 0, 0, 0, 6);
+    B.cyl(0.12, 0.1, tone(W.dark, W.dark, W.shadow), 0, H - 0.4, 0, 8, { topPal: W.shadow });
+    flame(B, 0, H - 0.3, 0, 0.12);
   },
   campfire(B, H) {
     for (let i = 0; i < 4; i++) B.at(0, 0.06, 0, (i * Math.PI) / 2 + 0.4, () => { B.rot([0, 0, 1], Math.PI / 2 - 0.25); B.cyl(0.06, 0.45, tone(W.mid, W.mid, W.dark), 0, -0.05, 0, 6, { topPal: W.end }); B.pop(); });
@@ -309,19 +311,22 @@ export const PIECES = {
   scaffold(B, H, v, ctx) {
     const top = ctx.deck, s = 0.3;
     const pal = tone(W.light, W.mid, W.dark);
-    for (const [x, z] of [[-s, -s], [s, -s], [s, s], [-s, s]]) B.box(0.09, top, 0.09, pal, x, 0, z);
-    bar(B, [-s, 0.1, s], [s, top - 0.25, s], 0.06, pal);
-    bar(B, [s, 0.1, s], [-s, top - 0.25, s], 0.06, pal);
-    bar(B, [s, 0.1, s], [s, top - 0.25, -s], 0.06, pal);
-    bar(B, [s, 0.1, -s], [s, top - 0.25, s], 0.06, pal);
-    B.rbox(0.8, 0.12, 0.8, 0.05, tone(W.light, W.mid, W.dark), 0, top - 0.12, 0);
-    for (const [x, z] of [[s, -s], [s, s], [-s, s]]) B.at(x, top, z, 0, () => post(B, 0, 0, 0.18, 0.08));
+    for (const [x, z] of [[-s, -s], [s, -s], [s, s], [-s, s]]) B.box(0.12, top, 0.12, pal, x, 0, z);
+    const lo = 0.15, hi = top - 0.3;
+    bar(B, [-s, lo, s + 0.02], [s, hi, s + 0.02], 0.08, pal);
+    bar(B, [s, lo, s + 0.02], [-s, hi, s + 0.02], 0.08, pal);
+    bar(B, [s + 0.02, lo, s], [s + 0.02, hi, -s], 0.08, pal);
+    bar(B, [s + 0.02, lo, -s], [s + 0.02, hi, s], 0.08, pal);
+    B.rbox(0.86, 0.2, 0.86, 0.06, tone(W.light, W.mid, W.dark), 0, top - 0.2, 0);
+    for (const [x, z] of [[s, -s], [s, s], [-s, s]]) B.at(x, top, z, 0, () => post(B, 0, 0, 0.2, 0.1));
+    rope(B, [s, top + 0.14, -s], [s, top + 0.14, s], 0.04, 0.02);
+    rope(B, [s, top + 0.14, s], [-s, top + 0.14, s], 0.04, 0.02);
   },
   star(B, H) {
-    upright(B, starShape(0.17, 0.075), 0.08, tone(P.gold[0], P.gold[1], P.gold[1]), H * 0.5 + 0.1);
+    upright(B, starShape(0.22, 0.1), 0.09, tone(P.gold[0], P.gold[1], P.gold[1]), H * 0.5 + 0.1);
   },
   heart(B, H) {
-    upright(B, heartShape(0.16), 0.08, tone(P.heart[0], P.heart[1], P.heart[2]), H * 0.5 + 0.1);
+    upright(B, heartShape(0.2), 0.09, tone(P.heart[0], P.heart[1], P.heart[2]), H * 0.5 + 0.1);
   },
 };
 

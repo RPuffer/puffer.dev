@@ -82,7 +82,7 @@ export function createRenderer(container = document.body) {
       const px = gl.getPixelRatio(), w = gl.domElement.width, h = gl.domElement.height;
       xray.uHero.value = [(v.x * 0.5 + 0.5) * w, (v.y * 0.5 + 0.5) * h];
       xray.uDepth.value = v.z * 0.5 + 0.5 - 0.0005;
-      xray.uRadius.value = 0.6 * zoom * px;
+      xray.uRadius.value = hero.visible ? 0.6 * zoom * px : 0;
       gl.render(scene, camera);
     },
     pick(x, y, w, h) {

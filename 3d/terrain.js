@@ -55,8 +55,8 @@ function dots(B, x, z, y, hex, rnd, count = 3, r = 0.05) {
   for (let i = 0; i < count; i++) B.flat(circle(cx + offs[i][0], cz + offs[i][1], r * (0.8 + rnd() * 0.4), r * (0.8 + rnd() * 0.4), 7), y, hex);
 }
 
-function drips(B, x, z, y, face, hex, rnd) {
-  const n = 3 + (rnd() < 0.4 ? 1 : 0);
+function drips(B, x, z, y, face, hex, rnd, count) {
+  const n = count || 3 + (rnd() < 0.4 ? 1 : 0);
   for (let i = 0; i < n; i++) {
     const c = (i + 0.5) / n + (rnd() - 0.5) * 0.08, w = 0.09 + rnd() * 0.04, d = 0.08 + rnd() * 0.1;
     const pts = [];
@@ -106,7 +106,7 @@ function landCell(B, L, x, z, c, T, F, rnd) {
     if (!(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - GL, "z", P.grass.fringe, rnd);
     if (!(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - GL, "x", P.grass.fringeDark, rnd);
     if (kind === "patch") B.flat(blob(x + 0.5, z + 0.5, 0.33, rnd), top + 0.003, P.dirt.patch);
-    else if (rnd() < 0.3) B.flat(blob(x + 0.35 + rnd() * 0.3, z + 0.35 + rnd() * 0.3, 0.2, rnd), top + 0.003, P.dirt.patch);
+    else if (rnd() < 0.18) B.flat(blob(x + 0.4 + rnd() * 0.2, z + 0.4 + rnd() * 0.2, 0.28, rnd), top + 0.003, P.dirt.patch);
     dots(B, x, z, top + 0.005, P.grass.speck, rnd, 3, 0.045);
     specks(B, x, z, bot, top - LIP, P.cliffUpper.seam, rnd);
     return;
@@ -116,12 +116,18 @@ function landCell(B, L, x, z, c, T, F, rnd) {
     const d = (dx, dz) => cellAt(L, x + dx, z + dz)?.s === "dirt";
     const e = (dx, dz) => (d(dx, dz) ? 0 : GAP);
     B.prism([[x + 1 - e(1, 0), z + 1 - e(0, 1)], [x + 1 - e(1, 0), z + e(0, -1)], [x + e(-1, 0), z + e(0, -1)], [x + e(-1, 0), z + 1 - e(0, 1)]], top - LIP, top, tone(P.sand.top, P.sand.edge, P.sand.lip));
-    const b = (dx, dz) => (d(dx, dz) ? 0 : 0.1);
+    const b = (dx, dz) => (d(dx, dz) ? 0 : 0.11);
     const x0 = x + b(-1, 0), x1 = x + 1 - b(1, 0), z0 = z + b(0, -1), z1 = z + 1 - b(0, 1);
     B.flat([[x1, z1], [x1, z0], [x0, z0], [x0, z1]], top + 0.003, P.dirt.top);
-    for (let i = 0; i < 4; i++) B.flat(circle(x + 0.15 + rnd() * 0.7, z + 0.15 + rnd() * 0.7, 0.06, 0.045, 7), top + 0.005, P.dirt.mottle);
-    if (d(1, 0)) B.flat([[x + 1.006, z1], [x + 1.006, z0], [x + 0.994, z0], [x + 0.994, z1]], top + 0.006, P.dirt.mottle);
-    if (d(0, 1)) B.flat([[x1, z + 1.006], [x1, z + 0.994], [x0, z + 0.994], [x0, z + 1.006]], top + 0.006, P.dirt.mottle);
+    const rim = tone(P.sand.top, P.sand.edge, P.sand.lip);
+    const rh = 0.07, ex = x + e(-1, 0), ex1 = x + 1 - e(1, 0), ez = z + e(0, -1), ez1 = z + 1 - e(0, 1);
+    if (!d(1, 0)) B.prism([[ex1, ez1], [ex1, ez], [x1, ez], [x1, ez1]], top, top + rh, rim);
+    if (!d(-1, 0)) B.prism([[x0, ez1], [x0, ez], [ex, ez], [ex, ez1]], top, top + rh, rim);
+    if (!d(0, 1)) B.prism([[ex1, ez1], [ex1, z1], [ex, z1], [ex, ez1]], top, top + rh, rim);
+    if (!d(0, -1)) B.prism([[ex1, z0], [ex1, ez], [ex, ez], [ex, z0]], top, top + rh, rim);
+    for (let i = 0; i < 6; i++) B.flat(circle(x + 0.15 + rnd() * 0.7, z + 0.15 + rnd() * 0.7, 0.09, 0.08, 8), top + 0.005, P.dirt.mottle);
+    if (d(1, 0)) B.flat([[x + 1.008, z1], [x + 1.008, z0], [x + 0.992, z0], [x + 0.992, z1]], top + 0.006, P.dirt.mottle);
+    if (d(0, 1)) B.flat([[x1, z + 1.008], [x1, z + 0.992], [x0, z + 0.992], [x0, z + 1.008]], top + 0.006, P.dirt.mottle);
     return;
   }
   if (kind === "stone") {
@@ -132,6 +138,9 @@ function landCell(B, L, x, z, c, T, F, rnd) {
   column(B, x, z, bot, top - LIP, upper);
   slab(B, x, z, top - LIP, top, tone(P.sand.top, P.sand.edge, P.sand.lip));
   dots(B, x, z, top + 0.004, P.sand.dots, rnd, 3, 0.05);
+  const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
+  if (rnd() < 0.35 && !(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - LIP, "z", P.sand.edge, rnd, 2);
+  if (rnd() < 0.35 && !(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - LIP, "x", P.sand.lip, rnd, 2);
 }
 
 function stoneSlab(B, x, z, y0, y1, rnd) {
@@ -183,10 +192,10 @@ function waterCell(B, L, x, z, h, T, rnd, below) {
   B.prism([[x + 1, z + 1], [x + 1, z], [x, z], [x, z + 1]], y0, top - 0.06, side, { top: false });
   B.prism(roundRect(x + 0.012, z + 0.012, x + 0.988, z + 0.988, 0.1), top - 0.06, top, tone(P.water.top, P.water.deep, P.water.fall[2]));
   B.flat(roundRect(x + 0.07, z + 0.07, x + 0.93, z + 0.93, 0.08), top + 0.002, P.water.top);
-  const cx = x + 0.3 + rnd() * 0.25, cz = z + 0.25 + rnd() * 0.2;
-  B.flat(circle(cx, cz, 0.09, 0.07, 8), top + 0.004, P.water.bubble);
-  B.flat(circle(cx + 0.17, cz + 0.02, 0.06, 0.05, 8), top + 0.004, P.water.bubble);
-  B.flat(circle(cx + 0.06, cz + 0.15, 0.05, 0.04, 8), top + 0.004, P.water.bubble);
+  const cx = x + 0.28 + rnd() * 0.12, cz = z + 0.26 + rnd() * 0.1;
+  B.flat(circle(cx, cz, 0.13, 0.1, 10), top + 0.004, P.water.bubble);
+  B.flat(circle(cx + 0.24, cz + 0.03, 0.09, 0.07, 10), top + 0.004, P.water.bubble);
+  B.flat(circle(cx + 0.08, cz + 0.22, 0.07, 0.06, 10), top + 0.004, P.water.bubble);
 }
 
 function bridgeCell(B, L, x, z, c, T, rnd) {
@@ -196,13 +205,14 @@ function bridgeCell(B, L, x, z, c, T, rnd) {
   const m = c.m || "planks";
   const Bx = (u0, u1, v0, v1, y0, y1, pal) => alongX ? B.prism(roundRect(x + u0, z + v0, x + u1, z + v1, 0.03), y0, y1, pal) : B.prism(roundRect(x + v0, z + u0, x + v1, z + u1, 0.03), y0, y1, pal);
   if (m === "planks") {
-    const n = 3, gap = 0.06, pw = (0.9 - gap * (n - 1)) / n;
+    const n = 3, gap = 0.035, pw = (0.94 - gap * (n - 1)) / n;
     for (let i = 0; i < n; i++) {
-      const v0 = 0.05 + i * (pw + gap);
-      Bx(0, 1, v0, v0 + pw, y - 0.16, y - 0.02, tone(P.wood.mid, P.wood.dark, P.wood.shadow));
+      const v0 = 0.03 + i * (pw + gap);
+      Bx(0.02, 0.98, v0, v0 + pw, y - 0.17, y + 0.01, tone(P.wood.mid, P.wood.dark, P.wood.shadow));
+      Bx(0.02, 0.98, v0 + pw * 0.15, v0 + pw * 0.3, y + 0.01, y + 0.012, tone(P.wood.light, P.wood.light, P.wood.light));
     }
-    Bx(0.08, 0.2, 0.02, 0.98, y - 0.26, y - 0.16, tone(P.wood.dark, P.wood.shadow, P.wood.shadow));
-    Bx(0.8, 0.92, 0.02, 0.98, y - 0.26, y - 0.16, tone(P.wood.dark, P.wood.shadow, P.wood.shadow));
+    Bx(0.1, 0.22, 0.02, 0.98, y - 0.27, y - 0.17, tone(P.wood.dark, P.wood.shadow, P.wood.shadow));
+    Bx(0.78, 0.9, 0.02, 0.98, y - 0.27, y - 0.17, tone(P.wood.dark, P.wood.shadow, P.wood.shadow));
     return;
   }
   const r = 0.16, n = 2;
