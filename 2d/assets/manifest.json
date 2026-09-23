@@ -1,0 +1,1141 @@
+{
+ "tileWidth": 128,
+ "topFaceHeight": 74,
+ "blockStep": 84,
+ "refTileWidth": 44,
+ "refBlockStep": 29,
+ "scaleFromRef": 2.9091,
+ "anchorNote": "anchor is the pixel of the standing cell's top-face rhombus centre (tiles: at the tile's own top plane; decor and hero: on the ground plane under them; coin and gem float 30 px above it)",
+ "sprites": [
+  {
+   "id": "tile-grass",
+   "type": "grass",
+   "variant": 0,
+   "cat": "tile",
+   "file": "tile-grass.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84
+  },
+  {
+   "id": "tile-sand",
+   "type": "sand",
+   "variant": 0,
+   "cat": "tile",
+   "file": "tile-sand.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84
+  },
+  {
+   "id": "tile-dirt",
+   "type": "dirt",
+   "variant": 0,
+   "cat": "tile",
+   "file": "tile-dirt.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84
+  },
+  {
+   "id": "tile-stone",
+   "type": "stone",
+   "variant": 0,
+   "cat": "tile",
+   "file": "tile-stone.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84
+  },
+  {
+   "id": "tile-water",
+   "type": "water",
+   "variant": 0,
+   "cat": "tile",
+   "file": "tile-water.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84
+  },
+  {
+   "id": "tile-cliff",
+   "type": "cliff",
+   "variant": 0,
+   "cat": "tile",
+   "file": "tile-cliff.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84
+  },
+  {
+   "id": "tile-ramp-s",
+   "type": "ramp",
+   "variant": "s",
+   "cat": "tile",
+   "file": "tile-ramp-s.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "dir": "s"
+  },
+  {
+   "id": "tile-ramp-e",
+   "type": "ramp",
+   "variant": "e",
+   "cat": "tile",
+   "file": "tile-ramp-e.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "dir": "e"
+  },
+  {
+   "id": "tile-ramp-w",
+   "type": "ramp",
+   "variant": "w",
+   "cat": "tile",
+   "file": "tile-ramp-w.png",
+   "w": 128,
+   "h": 121,
+   "anchor": [
+    64,
+    0
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "dir": "w"
+  },
+  {
+   "id": "tile-ramp-n",
+   "type": "ramp",
+   "variant": "n",
+   "cat": "tile",
+   "file": "tile-ramp-n.png",
+   "w": 128,
+   "h": 121,
+   "anchor": [
+    64,
+    0
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "dir": "n"
+  },
+  {
+   "id": "tile-bridge-z",
+   "type": "bridge",
+   "variant": "z",
+   "cat": "tile",
+   "file": "tile-bridge-z.png",
+   "w": 128,
+   "h": 93,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "axis": "z"
+  },
+  {
+   "id": "tile-bridge-x",
+   "type": "bridge",
+   "variant": "x",
+   "cat": "tile",
+   "file": "tile-bridge-x.png",
+   "w": 128,
+   "h": 93,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "axis": "x"
+  },
+  {
+   "id": "waterfall",
+   "type": "waterfall",
+   "variant": 0,
+   "cat": "decor",
+   "file": "waterfall.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "rot": 0
+  },
+  {
+   "id": "waterfall-r1",
+   "type": "waterfall",
+   "variant": 0,
+   "cat": "decor",
+   "file": "waterfall-r1.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "rot": 1
+  },
+  {
+   "id": "tree-pine-0",
+   "type": "tree-pine",
+   "variant": 0,
+   "cat": "decor",
+   "file": "tree-pine-0.png",
+   "w": 141,
+   "h": 234,
+   "anchor": [
+    70,
+    226
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree-pine-1",
+   "type": "tree-pine",
+   "variant": 1,
+   "cat": "decor",
+   "file": "tree-pine-1.png",
+   "w": 141,
+   "h": 227,
+   "anchor": [
+    70,
+    218
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree-pine-2",
+   "type": "tree-pine",
+   "variant": 2,
+   "cat": "decor",
+   "file": "tree-pine-2.png",
+   "w": 141,
+   "h": 233,
+   "anchor": [
+    70,
+    224
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree-round-0",
+   "type": "tree-round",
+   "variant": 0,
+   "cat": "decor",
+   "file": "tree-round-0.png",
+   "w": 149,
+   "h": 282,
+   "anchor": [
+    76,
+    275
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree-round-1",
+   "type": "tree-round",
+   "variant": 1,
+   "cat": "decor",
+   "file": "tree-round-1.png",
+   "w": 160,
+   "h": 225,
+   "anchor": [
+    86,
+    218
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree-round-2",
+   "type": "tree-round",
+   "variant": 2,
+   "cat": "decor",
+   "file": "tree-round-2.png",
+   "w": 151,
+   "h": 282,
+   "anchor": [
+    78,
+    273
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree-orange-0",
+   "type": "tree-orange",
+   "variant": 0,
+   "cat": "decor",
+   "file": "tree-orange-0.png",
+   "w": 150,
+   "h": 282,
+   "anchor": [
+    75,
+    275
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree-orange-1",
+   "type": "tree-orange",
+   "variant": 1,
+   "cat": "decor",
+   "file": "tree-orange-1.png",
+   "w": 160,
+   "h": 259,
+   "anchor": [
+    80,
+    249
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "bush-0",
+   "type": "bush",
+   "variant": 0,
+   "cat": "decor",
+   "file": "bush-0.png",
+   "w": 73,
+   "h": 70,
+   "anchor": [
+    36,
+    64
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "bush-1",
+   "type": "bush",
+   "variant": 1,
+   "cat": "decor",
+   "file": "bush-1.png",
+   "w": 72,
+   "h": 70,
+   "anchor": [
+    38,
+    55
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "rock-0",
+   "type": "rock",
+   "variant": 0,
+   "cat": "decor",
+   "file": "rock-0.png",
+   "w": 36,
+   "h": 38,
+   "anchor": [
+    18,
+    33
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "rock-1",
+   "type": "rock",
+   "variant": 1,
+   "cat": "decor",
+   "file": "rock-1.png",
+   "w": 36,
+   "h": 38,
+   "anchor": [
+    18,
+    33
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "rock-2",
+   "type": "rock",
+   "variant": 2,
+   "cat": "decor",
+   "file": "rock-2.png",
+   "w": 45,
+   "h": 38,
+   "anchor": [
+    26,
+    34
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "rock-big-0",
+   "type": "rock-big",
+   "variant": 0,
+   "cat": "decor",
+   "file": "rock-big-0.png",
+   "w": 94,
+   "h": 102,
+   "anchor": [
+    44,
+    93
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "rock-big-1",
+   "type": "rock-big",
+   "variant": 1,
+   "cat": "decor",
+   "file": "rock-big-1.png",
+   "w": 95,
+   "h": 102,
+   "anchor": [
+    59,
+    85
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "well-0",
+   "type": "well",
+   "variant": 0,
+   "cat": "decor",
+   "file": "well-0.png",
+   "w": 102,
+   "h": 162,
+   "anchor": [
+    51,
+    149
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "fence-0",
+   "type": "fence",
+   "variant": 0,
+   "cat": "decor",
+   "file": "fence-0.png",
+   "w": 56,
+   "h": 51,
+   "anchor": [
+    45,
+    45
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 0
+  },
+  {
+   "id": "fence-0-r1",
+   "type": "fence",
+   "variant": 0,
+   "cat": "decor",
+   "file": "fence-0-r1.png",
+   "w": 56,
+   "h": 51,
+   "anchor": [
+    11,
+    45
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 1
+  },
+  {
+   "id": "fence-post-0",
+   "type": "fence-post",
+   "variant": 0,
+   "cat": "decor",
+   "file": "fence-post-0.png",
+   "w": 35,
+   "h": 51,
+   "anchor": [
+    17,
+    44
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "barrel-0",
+   "type": "barrel",
+   "variant": 0,
+   "cat": "decor",
+   "file": "barrel-0.png",
+   "w": 48,
+   "h": 64,
+   "anchor": [
+    24,
+    54
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "pot-0",
+   "type": "pot",
+   "variant": 0,
+   "cat": "decor",
+   "file": "pot-0.png",
+   "w": 44,
+   "h": 49,
+   "anchor": [
+    22,
+    43
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "pot-1",
+   "type": "pot",
+   "variant": 1,
+   "cat": "decor",
+   "file": "pot-1.png",
+   "w": 42,
+   "h": 49,
+   "anchor": [
+    21,
+    41
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "crate-0",
+   "type": "crate",
+   "variant": 0,
+   "cat": "decor",
+   "file": "crate-0.png",
+   "w": 56,
+   "h": 64,
+   "anchor": [
+    28,
+    58
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "chest-0",
+   "type": "chest",
+   "variant": 0,
+   "cat": "decor",
+   "file": "chest-0.png",
+   "w": 52,
+   "h": 58,
+   "anchor": [
+    24,
+    54
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 0
+  },
+  {
+   "id": "chest-0-r1",
+   "type": "chest",
+   "variant": 0,
+   "cat": "decor",
+   "file": "chest-0-r1.png",
+   "w": 52,
+   "h": 58,
+   "anchor": [
+    28,
+    54
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 1
+  },
+  {
+   "id": "mushroom-0",
+   "type": "mushroom",
+   "variant": 0,
+   "cat": "decor",
+   "file": "mushroom-0.png",
+   "w": 43,
+   "h": 49,
+   "anchor": [
+    32,
+    45
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "mushroom-1",
+   "type": "mushroom",
+   "variant": 1,
+   "cat": "decor",
+   "file": "mushroom-1.png",
+   "w": 41,
+   "h": 49,
+   "anchor": [
+    20,
+    43
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "flower-0",
+   "type": "flower",
+   "variant": 0,
+   "cat": "decor",
+   "file": "flower-0.png",
+   "w": 46,
+   "h": 33,
+   "anchor": [
+    23,
+    22
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "flower-1",
+   "type": "flower",
+   "variant": 1,
+   "cat": "decor",
+   "file": "flower-1.png",
+   "w": 33,
+   "h": 33,
+   "anchor": [
+    16,
+    26
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "flower-2",
+   "type": "flower",
+   "variant": 2,
+   "cat": "decor",
+   "file": "flower-2.png",
+   "w": 41,
+   "h": 33,
+   "anchor": [
+    20,
+    29
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "coin-0",
+   "type": "coin",
+   "variant": 0,
+   "cat": "decor",
+   "file": "coin-0.png",
+   "w": 31,
+   "h": 46,
+   "anchor": [
+    16,
+    76
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "gem-0",
+   "type": "gem",
+   "variant": 0,
+   "cat": "decor",
+   "file": "gem-0.png",
+   "w": 41,
+   "h": 44,
+   "anchor": [
+    21,
+    74
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "gem-1",
+   "type": "gem",
+   "variant": 1,
+   "cat": "decor",
+   "file": "gem-1.png",
+   "w": 39,
+   "h": 44,
+   "anchor": [
+    20,
+    74
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "torch-0",
+   "type": "torch",
+   "variant": 0,
+   "cat": "decor",
+   "file": "torch-0.png",
+   "w": 37,
+   "h": 122,
+   "anchor": [
+    18,
+    118
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "campfire-0",
+   "type": "campfire",
+   "variant": 0,
+   "cat": "decor",
+   "file": "campfire-0.png",
+   "w": 63,
+   "h": 64,
+   "anchor": [
+    31,
+    51
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "signpost-0",
+   "type": "signpost",
+   "variant": 0,
+   "cat": "decor",
+   "file": "signpost-0.png",
+   "w": 61,
+   "h": 90,
+   "anchor": [
+    29,
+    84
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 0
+  },
+  {
+   "id": "signpost-0-r1",
+   "type": "signpost",
+   "variant": 0,
+   "cat": "decor",
+   "file": "signpost-0-r1.png",
+   "w": 61,
+   "h": 90,
+   "anchor": [
+    32,
+    84
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 1
+  },
+  {
+   "id": "stepping-stones-0",
+   "type": "stepping-stones",
+   "variant": 0,
+   "cat": "decor",
+   "file": "stepping-stones-0.png",
+   "w": 24,
+   "h": 20,
+   "anchor": [
+    6,
+    16
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "stepping-stones-1",
+   "type": "stepping-stones",
+   "variant": 1,
+   "cat": "decor",
+   "file": "stepping-stones-1.png",
+   "w": 30,
+   "h": 20,
+   "anchor": [
+    16,
+    16
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "log-0",
+   "type": "log",
+   "variant": 0,
+   "cat": "decor",
+   "file": "log-0.png",
+   "w": 54,
+   "h": 46,
+   "anchor": [
+    15,
+    40
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 0
+  },
+  {
+   "id": "log-0-r1",
+   "type": "log",
+   "variant": 0,
+   "cat": "decor",
+   "file": "log-0-r1.png",
+   "w": 54,
+   "h": 46,
+   "anchor": [
+    39,
+    40
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 1
+  },
+  {
+   "id": "lantern-0",
+   "type": "lantern",
+   "variant": 0,
+   "cat": "decor",
+   "file": "lantern-0.png",
+   "w": 36,
+   "h": 122,
+   "anchor": [
+    18,
+    117
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-front-0",
+   "type": "hero",
+   "variant": "front-0",
+   "cat": "character",
+   "file": "hero-front-0.png",
+   "w": 63,
+   "h": 109,
+   "anchor": [
+    31,
+    101
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-right-0",
+   "type": "hero",
+   "variant": "right-0",
+   "cat": "character",
+   "file": "hero-right-0.png",
+   "w": 63,
+   "h": 109,
+   "anchor": [
+    32,
+    101
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-front-1",
+   "type": "hero",
+   "variant": "front-1",
+   "cat": "character",
+   "file": "hero-front-1.png",
+   "w": 67,
+   "h": 109,
+   "anchor": [
+    31,
+    95
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-right-1",
+   "type": "hero",
+   "variant": "right-1",
+   "cat": "character",
+   "file": "hero-right-1.png",
+   "w": 67,
+   "h": 109,
+   "anchor": [
+    36,
+    95
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-back-0",
+   "type": "hero",
+   "variant": "back-0",
+   "cat": "character",
+   "file": "hero-back-0.png",
+   "w": 64,
+   "h": 109,
+   "anchor": [
+    35,
+    100
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-left-0",
+   "type": "hero",
+   "variant": "left-0",
+   "cat": "character",
+   "file": "hero-left-0.png",
+   "w": 64,
+   "h": 109,
+   "anchor": [
+    29,
+    100
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-back-1",
+   "type": "hero",
+   "variant": "back-1",
+   "cat": "character",
+   "file": "hero-back-1.png",
+   "w": 64,
+   "h": 109,
+   "anchor": [
+    29,
+    97
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "hero-left-1",
+   "type": "hero",
+   "variant": "left-1",
+   "cat": "character",
+   "file": "hero-left-1.png",
+   "w": 64,
+   "h": 109,
+   "anchor": [
+    35,
+    97
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  }
+ ]
+}
