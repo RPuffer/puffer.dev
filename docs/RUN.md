@@ -32,7 +32,8 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `tileH` | World height of one stack level, default 1 |
 | `zoom` | Pixels per world unit; 0 or absent fits the level to the viewport |
 | `spawn` | `x,z` start cell override |
-| `hero` | `0` hides the hero, for reference comparisons |
+| `hero` | `0` hides the hero, for reference comparisons; the camera then centres on `center` |
+| `center` | `x,y,z` world point the camera centres on when `hero=0`, else the level's `view.center` |
 | `dpad` | `1` forces the on-screen d-pad |
 | `view` | Root page only: `both`, `3d`, or `2d` |
 
@@ -52,4 +53,4 @@ node tools/smoke.mjs "http://localhost:8765/3d/index.html?level=dev"
 
 ## Level view block
 
-A level may carry `"view": { "pitch": 35.264, "yaw": 45, "tileH": 1, "zoom": 0 }`. Query parameters override it.
+A level may carry `"view": { "pitch": 35.264, "yaw": 45, "tileH": 1, "zoom": 0, "center": [x, y, z] }`. Query parameters override it. `center` frames reference comparisons; in play the camera follows the hero.

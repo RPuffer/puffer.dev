@@ -6,3 +6,4 @@
 - 2026-09-23 Ramp cell at h is h-1 blocks plus a wedge rising from h-1 on its downhill `d` edge to h on the opposite edge; moves are legal when both cells show the same height on the shared edge.
 - 2026-09-23 3d camera defaults to pitch 35.264 and yaw 45; a level's optional `view` block or `?pitch=` overrides it. It follows the hero but clamps to the level's screen bounds, so a level that fits the viewport stays centred.
 - 2026-09-23 Water cells render as a slab with its top at y 0; land columns reach down to y -0.4 so the island has a base under the waterline.
+- 2026-09-23 docs/REFERENCE.md had not landed when the 3d build shipped, so pitch stays at the 35.264 default; home.json can set it through its `view` block without touching engine code.

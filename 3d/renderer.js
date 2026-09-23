@@ -39,7 +39,11 @@ export function createRenderer(container = document.body) {
     camera.lookAt(px, py, pz);
   };
 
-  const heroTarget = (a) => new THREE.Vector3(a.pos.x, a.y * S.view.tileH + 0.4, a.pos.z);
+  const heroTarget = (a) => {
+    const c = S.params.hero === "0" && (String(S.params.center || "").split(",").map(Number).filter((n) => !isNaN(n)).length === 3 ? S.params.center.split(",").map(Number) : S.level.view?.center);
+    if (S.params.hero === "0" && Array.isArray(c) && c.length === 3) return new THREE.Vector3(c[0], c[1], c[2]);
+    return new THREE.Vector3(a.pos.x, a.y * S.view.tileH + 0.4, a.pos.z);
+  };
 
   return {
     element: gl.domElement,
