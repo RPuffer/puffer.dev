@@ -24,3 +24,9 @@
 - Procgen: a ramp cell loses its side edges (edgeHeight returns null across the axis), so carving a ramp can cut off its lateral neighbours. tryRamp scores each candidate by the flood size it leaves and keeps the best one.
 - Procgen: frame with decor tops in the screen bounds; land-only bounds put tall trees on the top edge of the 351x390 frame.
 - tools/shot.mjs shares .pp-profile, so a second headless Chrome fails with "browser is already running"; run a copy with its own userDataDir when another agent is shooting.
+- 2026-09-23 3d fidelity vs ref/reference.png (`?level=home&hero=0`, 351x390): MAD 28.3, NCC 0.708, silhouette 89.0%, from MAD 40.4 / NCC 0.584 / 83.3% with placeholder decor. The worst 30 px blocks left are the rescaled water group, the lone block, and the trees whose home.json cells sit a few px off the reference.
+- 3d bakes every colour into vertex colours on MeshBasicMaterial: top, +z and +x faces take the PALETTE top/left/right hexes exactly, and a Lambert light can only approximate them. Slanted normals blend toward top; the diagonal corner strip takes the `mid` (bevel) hex.
+- The reference draws each land column one block deep (about 1.26 units below the floor terrace's top) with background under it; columns above the modal land height run down to that same floor. Full-height columns to y 0 read as a wall and cost 6 MAD.
+- Round trees in the reference stand about 3.8 cube edges tall with a 1.2-wide canopy, near 1.7x the catalog's 2.2; the 3d build scales them to the picture and keeps catalog heights for everything else.
+- The x-ray shader kept dithering decor around the hidden hero's spawn with `?hero=0`; the renderer now zeroes the radius whenever the hero is invisible.
+- Chrome refuses a second launch on the shared `.pp-profile` while another agent's shot runs; retry after a few seconds rather than pointing tools at a new profile.
