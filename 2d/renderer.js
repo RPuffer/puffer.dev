@@ -1,4 +1,5 @@
 import { cellAt } from "../core/level.js";
+import { levelScreenBounds } from "../core/iso.js";
 import { CATALOG } from "../core/catalog.js";
 import { view2d } from "./view.js";
 import { scaledSprite } from "./scale.js";
@@ -26,7 +27,9 @@ export function createRenderer(container, sprites) {
     dpr = Math.min(3, devicePixelRatio || 1);
     cw = container.clientWidth || innerWidth; ch = container.clientHeight || innerHeight;
     canvas.width = Math.round(cw * dpr); canvas.height = Math.round(ch * dpr);
-    if (V) scale = V.scale * Math.min(cw / V.frame[0], ch / V.frame[1]);
+    if (!V) return;
+    if (V.fit) { const b = levelScreenBounds(S.level, S.proj, P); scale = 0.95 * Math.min(cw / (b.maxX - b.minX), ch / (b.maxY - b.minY)); }
+    else scale = V.scale * Math.min(cw / V.frame[0], ch / V.frame[1]);
   };
 
   const item = (sp, ax, ay, key, crop) => ({ sp, ax, ay, key, crop });
@@ -137,7 +140,10 @@ export function createRenderer(container, sprites) {
   const target = () => {
     const a = S.actor;
     if (S.params.hero === "0" && V.center) { const p = px(V.center[0], V.center[1], V.center[2]); return { x: p.x + V.nudge[0], y: p.y + V.nudge[1] }; }
-    return px(a.pos.x, (a.y + 0.4) * T, a.pos.z);
+    const p = px(a.pos.x, (a.y + 0.4) * T, a.pos.z);
+    const b = levelScreenBounds(S.level, S.proj, P), hw = cw / 2 / scale, hh = ch / 2 / scale;
+    const clamp = (v, lo, hi, half) => (hi - lo <= 2 * half ? (lo + hi) / 2 : Math.min(hi - half, Math.max(lo + half, v)));
+    return { x: clamp(p.x, b.minX, b.maxX, hw), y: clamp(p.y, b.minY, b.maxY, hh) };
   };
 
   const cmp = (a, b) => { for (let i = 0; i < 4; i++) if (a.key[i] !== b.key[i]) return a.key[i] - b.key[i]; return 0; };
