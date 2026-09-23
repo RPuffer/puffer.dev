@@ -42,10 +42,12 @@ if (!q.get("level")) q.set("level", q.get("seed") ? "gen" : "home");
 if (!q.get("seed")) q.set("seed", "1");
 history.replaceState(null, "", "?" + q.toString() + location.hash);
 const load = () => {
-  const s = "?" + q.toString();
+  const f = new URLSearchParams(q);
+  f.delete("view");
+  const s = "?" + f.toString();
   document.getElementById("f3d").src = "3d/index.html" + s;
   document.getElementById("f2d").src = "2d/index.html" + s;
-  history.replaceState(null, "", s + location.hash);
+  history.replaceState(null, "", "?" + q.toString() + location.hash);
 };
 const setView = (v) => {
   document.getElementById("p3d").hidden = v === "2d";
