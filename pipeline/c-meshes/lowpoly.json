@@ -1,6 +1,7 @@
 {
+ "_lift": 0.4,
  "bare-trunk-tall": {
-  "faces": 300,
+  "faces": 400,
   "snap": 0.5,
   "families": [
    [
@@ -8,25 +9,32 @@
     "#35221d",
     "#241815"
    ]
-  ]
+  ],
+  "voxel": 16
  },
  "leaning-trunk": {
-  "faces": 350,
+  "faces": 400,
   "snap": 0.5,
   "families": [
    [
     "#472d26",
     "#35221d",
     "#241815"
+   ],
+   [
+    "#478547",
+    "#3b6e3b",
+    "#2f582f"
    ]
-  ]
+  ],
+  "voxel": 14
  },
  "fallen-log": {
   "faces": 350,
   "snap": 0.5
  },
  "root-tangle": {
-  "faces": 350,
+  "faces": 320,
   "snap": 0.5
  },
  "mist-bank": {
@@ -55,8 +63,8 @@
   "snap": 0.5
  },
  "forest-tree": {
-  "faces": 500,
-  "snap": 0.5,
+  "faces": 320,
+  "snap": 0.75,
   "families": [
    [
     "#478547",
@@ -73,6 +81,7 @@
     "#35221d",
     "#241815"
    ]
-  ]
+  ],
+  "voxel": 10
  }
 }

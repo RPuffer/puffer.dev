@@ -1,16 +1,18 @@
 {
  "bare-trunk-tall": {
-  "faces": 285,
+  "faces": 716,
+  "voxel": 16,
   "lean": [
-   0.021,
-   -0.018
+   0,
+   0.003
   ]
  },
  "leaning-trunk": {
-  "faces": 325,
+  "faces": 692,
+  "voxel": 14,
   "lean": [
-   -0.386,
-   0.166
+   -0.121,
+   -0.238
   ]
  },
  "fallen-log": {
@@ -21,10 +23,10 @@
   ]
  },
  "root-tangle": {
-  "faces": 309,
+  "faces": 251,
   "lean": [
-   -0.046,
-   -0.025
+   0.032,
+   0.009
   ]
  },
  "mist-bank": {
@@ -56,10 +58,11 @@
   ]
  },
  "forest-tree": {
-  "faces": 447,
+  "faces": 476,
+  "voxel": 10,
   "lean": [
-   -0.016,
-   0.062
+   -0.039,
+   0.122
   ]
  }
 }

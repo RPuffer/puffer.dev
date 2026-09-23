@@ -75,3 +75,20 @@ export async function key(file) {
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (a[y * W + x]) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
   return sharp(rgba, { raw: { width: W, height: H, channels: 4 } }).extract({ left: x0, top: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 }).png().toBuffer();
 }
+
+const h2r = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const r2h = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, "0")).join("");
+export const mixHex = (a, b, t) => r2h(h2r(a).map((v, i) => v + (h2r(b)[i] - v) * t));
+
+export async function liftedPalette(brief, t) {
+  const { PALETTE } = await import("../../3d/palette.js");
+  const map = {}, out = {};
+  const walk = (src, ref) => {
+    if (typeof src === "string") { if (!/^#[0-9a-f]{6}$/i.test(src) || typeof ref !== "string") return src; const m = mixHex(src, ref, t); map[src.toLowerCase()] = m; return m; }
+    if (Array.isArray(src)) return src.map((v, i) => walk(v, Array.isArray(ref) ? ref[Math.min(i, ref.length - 1)] : undefined));
+    if (src && typeof src === "object") return Object.fromEntries(Object.entries(src).map(([k, v]) => [k, walk(v, ref?.[k])]));
+    return src;
+  };
+  for (const [k, v] of Object.entries(brief.palette.translation)) if (k !== "bg") out[k] = walk(v, PALETTE[k]);
+  return { palette: out, map };
+}

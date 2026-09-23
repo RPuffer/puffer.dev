@@ -1,12 +1,22 @@
 import fs from "node:fs";
 import sharp from "sharp";
-import { HERE, ROOT, TYPES, specFor } from "./lib.mjs";
+import { HERE, ROOT, TYPES, specFor, liftedPalette } from "./lib.mjs";
 
 const args = process.argv.slice(2);
 const briefPath = args.find((a) => a.endsWith(".json")) || ROOT + "pipeline/seed/brief.json";
 const ids = args.filter((a) => !a.endsWith(".json") && !a.startsWith("--"));
 const brief = JSON.parse(fs.readFileSync(briefPath, "utf8"));
 const cfg = JSON.parse(fs.readFileSync(HERE + "lowpoly.json", "utf8"));
+const LIFT = (await liftedPalette(brief, cfg._lift ?? 0)).map;
+const h2r = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const liftHex = (h) => {
+  h = h.toLowerCase();
+  if (LIFT[h]) return LIFT[h];
+  let best = null, bd = Infinity;
+  for (const k of Object.keys(LIFT)) { const d = Math.hypot(...h2r(k).map((v, i) => v - h2r(h)[i])); if (d < bd) { bd = d; best = k; } }
+  if (!best || bd > 40) return h;
+  return "#" + h2r(h).map((v, i) => Math.max(0, Math.min(255, v + h2r(LIFT[best])[i] - h2r(best)[i])).toString(16).padStart(2, "0")).join("");
+};
 const RAW = ROOT + "3d/assets/forest-c/raw/", OUT = ROOT + "3d/assets/forest-c/";
 
 const hex2rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
@@ -15,7 +25,7 @@ const luma = ([r, g, b]) => 0.3 * r + 0.59 * g + 0.11 * b;
 
 function families(type) {
   const spec = specFor(brief, type), fam = new Map();
-  if (cfg[type]?.families) return cfg[type].families.map((trip) => ({ trip, rgb: trip.map(hex2rgb) }));
+  if (cfg[type]?.families) return cfg[type].families.map((trip) => ({ trip, rgb: trip.map(hex2rgb), top: liftHex(trip[0]) }));
   for (const p of spec.shape.parts || []) {
     const t = (p.tones || []).map((x) => x.toLowerCase());
     if (!t.length) continue;
@@ -24,7 +34,7 @@ function families(type) {
   }
   if (!fam.size) { const t = [...new Set(spec.shape.parts.flatMap((p) => p.tones))]; for (let i = 0; i < t.length; i += 3) fam.set(t[i], [t[i], t[i + 1] || t[i], t[i + 2] || t[i]]); }
   for (const extra of cfg[type]?.extraFamilies || []) fam.set(extra[0], extra);
-  return [...fam.values()].map((trip) => ({ trip, rgb: trip.map(hex2rgb) }));
+  return [...fam.values()].map((trip) => ({ trip, rgb: trip.map(hex2rgb), top: liftHex(trip[0]) }));
 }
 
 function readGlb(file) {
@@ -103,6 +113,7 @@ async function one(type) {
     const ux = pos[b * 3] - pos[a * 3], uy = pos[b * 3 + 1] - pos[a * 3 + 1], uz = pos[b * 3 + 2] - pos[a * 3 + 2], vx = pos[d * 3] - pos[a * 3], vy = pos[d * 3 + 1] - pos[a * 3 + 1], vz = pos[d * 3 + 2] - pos[a * 3 + 2];
     triArea[t] = Math.hypot(uy * vz - uz * vy, uz * vx - ux * vz, ux * vy - uy * vx) / 2;
   }
+  if (c.voxel) return voxelize(type, c, pos, idx, triFam, triArea, fams);
   const target = c.faces || 400;
   let G = c.grid || 24, out;
   for (; G >= 5; G--) { out = cluster(pos, idx, G, c.snap || 0); if (out.tris.length <= target) break; }
@@ -123,15 +134,62 @@ async function one(type) {
     for (const v of tr.v) for (let f = 0; f < fams.length; f++) votes[f] += vVotes[v][f];
     let f = 0; for (let i = 1; i < fams.length; i++) if (votes[i] > votes[f]) f = i;
     famCount[f]++;
-    const top = fams[f].rgb[0].map(lin);
+    const top = hex2rgb(fams[f].top).map(lin);
     for (const v of tr.v) { const [x, y, z] = verts[v]; P.push(x * cs - z * sn, y * (c.scaleY || 1), x * sn + z * cs); C.push(...top); }
   }
   writeGlb(`${OUT}${type}.glb`, Float32Array.from(P), Float32Array.from(C), c.alpha || 1);
+  meta[type] = { faces: P.length / 9, lean: leanOf(P) };
+  return `${type}: ${T} -> ${P.length / 9} faces (${tris.length} before component filter) (grid ${G}), families ${fams.map((f, i) => `${f.trip[0]}->${f.top}x${famCount[i]}`).join(" ")}`;
+}
+
+function leanOf(P) {
   let y0 = Infinity, y1 = -Infinity; for (let i = 1; i < P.length; i += 3) { y0 = Math.min(y0, P[i]); y1 = Math.max(y1, P[i]); }
   const band = (lo, hi) => { let sx = 0, sz = 0, n = 0; for (let i = 0; i < P.length; i += 3) { const u = (P[i + 1] - y0) / (y1 - y0); if (u >= lo && u <= hi) { sx += P[i]; sz += P[i + 2]; n++; } } return [sx / (n || 1), sz / (n || 1)]; };
   const b0 = band(0, 0.15), b1 = band(0.8, 1), h = y1 - y0;
-  meta[type] = { faces: P.length / 9, lean: [+((b1[0] - b0[0]) / h).toFixed(3), +((b1[1] - b0[1]) / h).toFixed(3)] };
-  return `${type}: ${T} -> ${P.length / 9} faces (${tris.length} before component filter) (grid ${G}), families ${fams.map((f, i) => `${f.trip[0]}x${famCount[i]}`).join(" ")}`;
+  return [+((b1[0] - b0[0]) / h).toFixed(3), +((b1[1] - b0[1]) / h).toFixed(3)];
+}
+
+function voxelize(type, c, pos, idx, triFam, triArea, fams) {
+  let lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+  for (let i = 0; i < pos.length; i += 3) for (let k = 0; k < 3; k++) { lo[k] = Math.min(lo[k], pos[i + k]); hi[k] = Math.max(hi[k], pos[i + k]); }
+  const cell = Math.max(...hi.map((h, k) => h - lo[k])) / c.voxel;
+  const dim = hi.map((h, k) => Math.ceil((h - lo[k]) / cell) + 3);
+  const at = (x, y, z) => (x * dim[1] + y) * dim[2] + z;
+  const votes = new Map(), solid = new Uint8Array(dim[0] * dim[1] * dim[2]);
+  const P3 = (v) => [pos[v * 3], pos[v * 3 + 1], pos[v * 3 + 2]];
+  for (let t = 0; t < idx.length / 3; t++) {
+    const A = P3(idx[t * 3]), B = P3(idx[t * 3 + 1]), C = P3(idx[t * 3 + 2]);
+    const e = Math.max(Math.hypot(...A.map((v, i) => v - B[i])), Math.hypot(...B.map((v, i) => v - C[i])), Math.hypot(...C.map((v, i) => v - A[i])));
+    const n = Math.max(1, Math.ceil(e / (cell * 0.4)));
+    for (let i = 0; i <= n; i++) for (let j = 0; j <= n - i; j++) {
+      const u = i / n, v = j / n, w = 1 - u - v;
+      const p = [0, 1, 2].map((k) => A[k] * w + B[k] * u + C[k] * v);
+      const q = p.map((x, k) => Math.floor((x - lo[k]) / cell) + 1), id = at(...q);
+      solid[id] = 1;
+      if (!votes.has(id)) votes.set(id, new Float32Array(fams.length));
+      votes.get(id)[triFam[t]] += triArea[t] / ((n + 1) * (n + 2) / 2);
+    }
+  }
+  const out = new Uint8Array(solid.length), st = [at(0, 0, 0)]; out[st[0]] = 1;
+  while (st.length) { const id = st.pop(), z = id % dim[2], y = ((id - z) / dim[2]) % dim[1], x = Math.floor(id / (dim[1] * dim[2])); for (const [dx, dy, dz] of [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]]) { const X = x + dx, Y = y + dy, Z = z + dz; if (X < 0 || Y < 0 || Z < 0 || X >= dim[0] || Y >= dim[1] || Z >= dim[2]) continue; const j = at(X, Y, Z); if (out[j] || solid[j]) continue; out[j] = 1; st.push(j); } }
+  const P = [], C = [], rot = c.yaw ? (c.yaw * Math.PI) / 180 : 0, cs = Math.cos(rot), sn = Math.sin(rot);
+  const famCount = new Array(fams.length).fill(0);
+  const famAt = (x, y, z) => { const v = votes.get(at(x, y, z)); if (!v) return -1; let f = 0; for (let i = 1; i < v.length; i++) if (v[i] > v[f]) f = i; return f; };
+  const push = (pts, f) => { const top = hex2rgb(fams[f].top).map(lin); for (const [a, b, d] of [[0, 1, 2], [0, 2, 3]]) for (const k of [a, b, d]) { const [x, y, z] = pts[k]; P.push(x * cs - z * sn, y, x * sn + z * cs); C.push(...top); } };
+  const faces = [[[1, 0, 0], [[1, 0, 0], [1, 1, 0], [1, 1, 1], [1, 0, 1]]], [[-1, 0, 0], [[0, 0, 0], [0, 0, 1], [0, 1, 1], [0, 1, 0]]], [[0, 1, 0], [[0, 1, 0], [0, 1, 1], [1, 1, 1], [1, 1, 0]]], [[0, -1, 0], [[0, 0, 0], [1, 0, 0], [1, 0, 1], [0, 0, 1]]], [[0, 0, 1], [[0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]]], [[0, 0, -1], [[0, 0, 0], [0, 1, 0], [1, 1, 0], [1, 0, 0]]]];
+  for (let x = 1; x < dim[0] - 1; x++) for (let y = 1; y < dim[1] - 1; y++) for (let z = 1; z < dim[2] - 1; z++) {
+    if (out[at(x, y, z)]) continue;
+    let f = famAt(x, y, z);
+    if (f < 0) { const near = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]].map(([a, b, d]) => famAt(x + a, y + b, z + d)).filter((v) => v >= 0); f = near[0] ?? 0; }
+    for (const [n, quad] of faces) {
+      if (!out[at(x + n[0], y + n[1], z + n[2])]) continue;
+      push(quad.map(([a, b, d]) => [lo[0] + (x - 1 + a) * cell, (lo[1] + (y - 1 + b) * cell) * (c.scaleY || 1), lo[2] + (z - 1 + d) * cell]), f);
+      famCount[f] += 2;
+    }
+  }
+  writeGlb(`${OUT}${type}.glb`, Float32Array.from(P), Float32Array.from(C), c.alpha || 1);
+  meta[type] = { faces: P.length / 9, voxel: c.voxel, lean: leanOf(P) };
+  return `${type}: voxel ${c.voxel} -> ${P.length / 9} faces, families ${fams.map((f, i) => `${f.trip[0]}->${f.top}x${famCount[i]}`).join(" ")}`;
 }
 
 const metaFile = OUT + "meta.json";
