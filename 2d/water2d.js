@@ -2,7 +2,7 @@ import { cellAt } from "../core/level.js";
 
 const C = {
   deep: "#00d4ff", deepR: "#00c3f2", streakA: "#5fe8ff", streakB: "#a0eeff", streakC: "#00c7ff",
-  rimTop: "#00c7ff", foam: "#daf7ff", foamS: "#a0eeff", foamD: "#6fdcf5",
+  rimTop: "#00c7ff", foam: "#daf7ff", foamS: "#a0eeff", foamD: "#a0eeff",
   bark: "#dc7016", barkHi: "#ff831d", barkLo: "#bd4c0b", barkSh: "#a04b14", cap: "#f6d881", capRim: "#dc9a4a", rope: "#f1dca0",
 };
 
@@ -60,7 +60,7 @@ export function waterItems(L, T, px) {
         }
         if (dz) {
           const cx = e0[0] + 0.3, cz = e0[1] + 0.22;
-          for (const [h, r] of [[0.02, 0.4], [0.16, 0.32], [0.3, 0.22], [0.42, 0.12]]) blob(cx, cz, r, h * T);
+          for (const [h, r] of [[0.02, 0.44], [0.2, 0.32], [0.36, 0.18]]) blob(cx, cz, r, h * T);
         }
       } });
     }
