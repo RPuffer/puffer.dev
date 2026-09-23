@@ -168,10 +168,10 @@
    "cat": "tile",
    "file": "tile-ramp-w.png",
    "w": 128,
-   "h": 121,
+   "h": 158,
    "anchor": [
     64,
-    0
+    37
    ],
    "footprint": [
     1,
@@ -179,7 +179,8 @@
    ],
    "plane": "top",
    "step": 84,
-   "dir": "w"
+   "dir": "w",
+   "source": "composite of tile-grass faces, see gen/ramp.mjs"
   },
   {
    "id": "tile-ramp-n",
@@ -188,10 +189,10 @@
    "cat": "tile",
    "file": "tile-ramp-n.png",
    "w": 128,
-   "h": 121,
+   "h": 158,
    "anchor": [
     64,
-    0
+    37
    ],
    "footprint": [
     1,
@@ -199,7 +200,8 @@
    ],
    "plane": "top",
    "step": 84,
-   "dir": "n"
+   "dir": "n",
+   "source": "composite of tile-grass faces, see gen/ramp.mjs"
   },
   {
    "id": "tile-bridge-z",
