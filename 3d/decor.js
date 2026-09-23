@@ -2,7 +2,10 @@ import * as THREE from "three";
 import { CATALOG } from "../core/catalog.js";
 import { cellAt, DIRS } from "../core/level.js";
 import { Baker, bakedMaterial, solid } from "./baker.js";
-import { PIECES, SPIN } from "./pieces.js";
+import { makePieces, SPIN } from "./pieces.js";
+import { makeStyle } from "./style.js";
+import { BUILDERS, GLBS } from "./hooks.js";
+import { extractTris, bakeInto } from "./bake.js";
 import { surfaceY, WATER_DROP, liftLevel } from "./terrain.js";
 import { applyXray } from "./xray.js";
 
@@ -39,25 +42,43 @@ function contextFor(L, view, d, spec, base) {
   return ctx;
 }
 
-export function buildDecor(L, view) {
+function makerFor(d, spec, H, rot, style, pieces, extrasFor) {
+  const glb = GLBS[d.t];
+  if (glb) return (B) => { B.pushMatrix(glb.fit); bakeInto(B, glb, extrasFor(B), xrayCopy); B.pop(); };
+  const build = BUILDERS[d.t];
+  if (build) return (B, H, v, ctx) => {
+    const obj = build(v, rot, style, { ...ctx, height: H, decor: d });
+    if (obj) bakeInto(B, extractTris(obj, { shade: spec.shade ?? null }), extrasFor(B), xrayCopy);
+  };
+  return pieces[d.t] || fallback;
+}
+
+const xrayCopy = (m) => applyXray(m.clone());
+
+export function buildDecor(L, view, style = makeStyle(L)) {
   L = liftLevel(L);
+  const pieces = makePieces(style);
   const group = new THREE.Group(), spinners = [];
   const mat = applyXray(bakedMaterial());
-  const S = new Baker();
+  const S = new Baker(style.light);
+  let spinMesh = null;
+  const extrasFor = (B) => (B === S ? group : spinMesh);
   for (const d of L.decor || []) {
     const spec = CATALOG[d.t];
     if (!spec) continue;
     const H = spec.height || 0.5;
-    const make = PIECES[d.t] || fallback;
     const rot = d.rot || 0;
+    const make = makerFor(d, spec, H, rot, style, pieces, extrasFor);
     const [fw, fd] = rot % 2 ? [spec.footprint[1], spec.footprint[0]] : spec.footprint;
     const base = baseOf(L, view, d, spec);
     const x = d.x + fw / 2 + (d.ox || 0), z = d.z + fd / 2 + (d.oz || 0);
     const ctx = contextFor(L, view, d, spec, base);
-    if (SPIN.has(d.t)) {
-      const b = new Baker();
+    if (SPIN.has(d.t) || spec.spin) {
+      const b = new Baker(style.light);
+      const m = new THREE.Mesh(undefined, mat);
+      spinMesh = m;
       make(b, H, d.v || 0, ctx);
-      const m = new THREE.Mesh(b.geometry(), mat);
+      m.geometry = b.geometry();
       m.position.set(x, base, z);
       m.rotation.y = -rot * (Math.PI / 2);
       m.userData.decor = d;
