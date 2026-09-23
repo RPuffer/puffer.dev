@@ -3,6 +3,7 @@ import { Baker, roundRect, circle, tone, bakedMaterial } from "./baker.js";
 import { PALETTE } from "./palette.js";
 import { cellAt, isWalkable } from "../core/level.js";
 import { mulberry32, hashSeed } from "../core/rng.js";
+import { applyXray } from "./xray.js";
 
 export const BASE_Y = -0.4;
 export const WATER_Y = 0;
@@ -266,10 +267,9 @@ export function buildTerrain(L, view, seed) {
     if (c.s === "ramp") { rampCell(B, L, x, z, c, T, F, rnd); continue; }
     landCell(B, L, x, z, c, T, F, rnd);
   }
-  const mat = bakedMaterial();
   const group = new THREE.Group();
-  const landMesh = new THREE.Mesh(B.geometry(), mat);
-  const waterMesh = new THREE.Mesh(Wb.geometry(), mat);
+  const landMesh = new THREE.Mesh(B.geometry(), applyXray(bakedMaterial()));
+  const waterMesh = new THREE.Mesh(Wb.geometry(), bakedMaterial());
   landMesh.name = "land"; waterMesh.name = "water";
   group.add(landMesh, waterMesh);
   return { group, pickables: [landMesh, waterMesh] };

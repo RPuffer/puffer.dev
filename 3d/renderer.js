@@ -78,11 +78,13 @@ export function createRenderer(container = document.body) {
     render() {
       placeCamera(focus);
       camera.updateMatrixWorld();
-      const a = S.actor, v = new THREE.Vector3(a.pos.x, a.y * S.view.tileH + 0.45, a.pos.z).project(camera);
+      const a = S.actor, feet = a.y * S.view.tileH, v = new THREE.Vector3(a.pos.x, feet + 0.45, a.pos.z).project(camera);
       const px = gl.getPixelRatio(), w = gl.domElement.width, h = gl.domElement.height;
       xray.uHero.value = [(v.x * 0.5 + 0.5) * w, (v.y * 0.5 + 0.5) * h];
-      xray.uDepth.value = v.z * 0.5 + 0.5 - 0.0005;
-      xray.uRadius.value = hero.visible ? 0.6 * zoom * px : 0;
+      xray.uDepth.value = v.z * 0.5 + 0.5 - 0.35 / (camera.far - camera.near);
+      xray.uDepthSoft.value = 0.3 / (camera.far - camera.near);
+      xray.uFeet.value = feet;
+      xray.uRadius.value = hero.visible ? 1.2 * zoom * px : 0;
       gl.render(scene, camera);
     },
     pick(x, y, w, h) {
