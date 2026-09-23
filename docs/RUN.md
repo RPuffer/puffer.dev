@@ -35,6 +35,8 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `hero` | `0` hides the hero, for reference comparisons; the camera then centres on `center` |
 | `center` | `x,y,z` world point the camera centres on when `hero=0`, else the level's `view.center` |
 | `dpad` | `1` forces the on-screen d-pad |
+| `xray` | `0` switches off the see-through window around the hero (both builds) |
+| `ui` | `0` hides the seed overlay |
 | `view` | Root page only: `both`, `3d`, or `2d` |
 
 ## Controls
@@ -91,7 +93,7 @@ node tools/shot.mjs "http://localhost:8765/3d/index.html?level=gen&seed=7&hero=0
 
 `procgen-check.mjs [count] [first-seed]` generates each seed twice and checks schema, determinism, reachability from spawn, spawn free of decor, one decor per cell, ramps one tier down, bridges spanning 1 to 3 cells with level land at both ends, waterfalls on h0 water below a cliff, grass share between 0.25 and 0.45, and one plateau. It also feeds the checker five broken levels and fails if the checker misses one. It prints size and decor-count distributions and exits 1 on any problem.
 
-`core/ui.js` exports `mountUI({ container, navigate })`: a seed field, a "new island" button (random seed), and a "home" link. Without a container it mounts a fixed overlay in the bottom-right corner and skips itself inside an iframe or when the query has `hero=0` or `ui=0`, so reference shots stay clean.
+`core/ui.js` exports `mountUI({ container, navigate })`: a seed field, a "new island" button (random seed), and a "home" link. Both build pages mount it. Without a container it mounts a fixed overlay in the bottom-right corner (top-right below 560 px wide, clear of the d-pad) and skips itself inside an iframe or when the query has `hero=0` or `ui=0`, so reference shots stay clean.
 
 ## 3d catalog page
 
@@ -102,3 +104,29 @@ node tools/shot.mjs "http://localhost:8765/3d/catalog.html" out/catalog-3d.png 1
 ```
 
 Each type's geometry lives in its own function in `3d/pieces.js`; add a new catalog type there and it shows up on this page. The home island builds in about 25 ms into 5 draw calls and 14k triangles, plus 6 for the hero.
+
+## Functional QA
+
+```sh
+PP_PROFILE=.pp-profile-qa node tools/qa.mjs
+```
+
+`qa.mjs` drives both builds and the root page in headless Chrome at 1200x800, 400x800, and 400x800 with touch emulated. It checks `window.__done` within 10 s, zero console errors and failed requests, one cell per WASD and arrow press, a tap on a walkable cell, a tap on a decor-blocked cell (the hero stops adjacent), the see-through window at `?level=home&spawn=0,1` (one frame rendered with `xray` 0 and 1, pixel diff), the seed field, new island button and home link, the root toggle, and the d-pad under touch. It prints PASS or FAIL per check, writes screenshots to `out/qa/`, and exits 1 on any failure.
+
+## Results
+
+2026-09-23, committed `levels/home.json`, `?level=home&hero=0` at 351x390 against `ref/reference.png`:
+
+| Build | MAD | NCC | Silhouette |
+| --- | --- | --- | --- |
+| 3d | 23.3 | 0.798 | 93.0% |
+| 2d | 23.2 | 0.807 | 93.4% |
+
+```sh
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=home&hero=0" out/final-3d.png 351 390
+node tools/shot.mjs "http://localhost:8765/2d/index.html?level=home&hero=0" out/final-2d.png 351 390
+node tools/compare.mjs ref/reference.png out/final-3d.png out/final-3d
+node tools/compare.mjs ref/reference.png out/final-2d.png out/final-2d
+```
+
+`out/final-triptych.png` puts the reference, 3d and 2d side by side at 2x. `tools/qa.mjs`: 134 pass, 0 fail.
