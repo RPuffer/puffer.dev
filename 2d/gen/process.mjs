@@ -8,11 +8,11 @@ const OUT = new URL("../assets/", import.meta.url).pathname;
 fs.mkdirSync(OUT, { recursive: true });
 const TW = 128, TOP = Math.round(TW * Math.tan(Math.PI / 6) / 2), STEP = 84;
 const pick = JSON.parse(fs.existsSync(HERE + "picks.json") ? fs.readFileSync(HERE + "picks.json", "utf8") : "{}");
-const SIZE = { "tree-pine": 2.4, "tree-round": 2.2, "tree-orange": 2.2, bush: 0.55, rock: 0.3, "rock-big": 0.8, well: 1.7, fence: 0.4, "fence-post": 0.4, barrel: 0.5, pot: 0.38, crate: 0.5, chest: 0.45, mushroom: 0.38, flower: 0.26, coin: 0.36, gem: 0.34, torch: 0.95, campfire: 0.5, signpost: 0.7, "stepping-stones": 0.16, log: 0.36, lantern: 0.95, hero: 0.85 };
-const MAXW = { "tree-pine": 1.1, "tree-round": 1.25, "tree-orange": 1.25, well: 0.8, fence: 0.9, "stepping-stones": 0.9, log: 0.8, campfire: 0.75, bush: 0.7, "rock-big": 0.8 };
+const SIZE = { "tree-pine": 2.4, "tree-round": 2.2, "tree-orange": 2.2, bush: 0.55, rock: 0.3, "rock-big": 0.8, well: 1.7, fence: 0.4, "fence-post": 0.4, barrel: 0.5, pot: 0.38, crate: 0.5, chest: 0.45, mushroom: 0.38, flower: 0.26, coin: 0.36, gem: 0.34, torch: 0.95, campfire: 0.5, signpost: 0.7, "stepping-stones": 0.16, log: 0.36, lantern: 0.95, hero: 0.85, stump: 0.42, ladder: 1.35, scaffold: 1.9 };
+const MAXW = { "tree-pine": 1.1, "tree-round": 1.25, "tree-orange": 1.25, well: 0.8, fence: 0.9, "stepping-stones": 0.9, log: 0.8, campfire: 0.75, bush: 0.7, "rock-big": 0.8, stump: 0.6, ladder: 0.6, scaffold: 0.9 };
 const FLOAT = { coin: 30, gem: 30 };
-const MIRROR = { "tile-ramp-s": ["tile-ramp-e", "e"], "tile-ramp-w": ["tile-ramp-n", "n"], "tile-bridge-z": ["tile-bridge-x", "x"], "hero-front-0": ["hero-right-0", "right-0"], "hero-front-1": ["hero-right-1", "right-1"], "hero-back-0": ["hero-left-0", "left-0"], "hero-back-1": ["hero-left-1", "left-1"] };
-const ROTATES = new Set(["fence", "chest", "signpost", "waterfall", "log"]);
+const MIRROR = { "tile-ramp-s": ["tile-ramp-e", "e"], "tile-ramp-w": ["tile-ramp-n", "n"], "tile-bridge-z": ["tile-bridge-x", "x"], "tile-bridge-logs-z": ["tile-bridge-logs-x", "logs-x"], "hero-front-0": ["hero-right-0", "right-0"], "hero-front-1": ["hero-right-1", "right-1"], "hero-back-0": ["hero-left-0", "left-0"], "hero-back-1": ["hero-left-1", "left-1"] };
+const ROTATES = new Set(["fence", "chest", "signpost", "waterfall", "log", "ladder", "stump"]);
 
 const latest = (id) => { if (pick[id] != null) return `${RAW}${id}.${pick[id]}.png`; const f = fs.readdirSync(RAW).filter((n) => n.startsWith(id + ".") && n.endsWith(".png")).sort((a, b) => +b.split(".")[1] - +a.split(".")[1]); return f[0] ? RAW + f[0] : null; };
 

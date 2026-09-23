@@ -1004,6 +1004,133 @@
    ]
   },
   {
+   "id": "stump-0",
+   "type": "stump",
+   "variant": 0,
+   "cat": "decor",
+   "file": "stump-0.png",
+   "w": 43,
+   "h": 54,
+   "anchor": [
+    21,
+    44
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 0
+  },
+  {
+   "id": "stump-0-r1",
+   "type": "stump",
+   "variant": 0,
+   "cat": "decor",
+   "file": "stump-0-r1.png",
+   "w": 43,
+   "h": 54,
+   "anchor": [
+    22,
+    44
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 1
+  },
+  {
+   "id": "ladder-0",
+   "type": "ladder",
+   "variant": 0,
+   "cat": "decor",
+   "file": "ladder-0.png",
+   "w": 51,
+   "h": 173,
+   "anchor": [
+    38,
+    169
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 0
+  },
+  {
+   "id": "ladder-0-r1",
+   "type": "ladder",
+   "variant": 0,
+   "cat": "decor",
+   "file": "ladder-0-r1.png",
+   "w": 51,
+   "h": 173,
+   "anchor": [
+    13,
+    169
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "rot": 1
+  },
+  {
+   "id": "scaffold-0",
+   "type": "scaffold",
+   "variant": 0,
+   "cat": "decor",
+   "file": "scaffold-0.png",
+   "w": 115,
+   "h": 178,
+   "anchor": [
+    57,
+    172
+   ],
+   "footprint": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tile-bridge-logs-z",
+   "type": "bridge",
+   "variant": "logs-z",
+   "cat": "tile",
+   "file": "tile-bridge-logs-z.png",
+   "w": 128,
+   "h": 90,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "axis": "logs-z"
+  },
+  {
+   "id": "tile-bridge-logs-x",
+   "type": "bridge",
+   "variant": "logs-x",
+   "cat": "tile",
+   "file": "tile-bridge-logs-x.png",
+   "w": 128,
+   "h": 90,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "axis": "logs-x"
+  },
+  {
    "id": "hero-front-0",
    "type": "hero",
    "variant": "front-0",
@@ -1138,6 +1265,68 @@
     1,
     1
    ]
+  },
+  {
+   "id": "marker-0",
+   "type": "marker",
+   "variant": 0,
+   "cat": "decor",
+   "file": "marker-0.png",
+   "w": 40,
+   "h": 33,
+   "anchor": [
+    20,
+    16
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "source": "drawn by gen/marker.mjs"
+  },
+  {
+   "id": "tile-ramp-s-stone",
+   "type": "ramp",
+   "variant": "s-stone",
+   "cat": "tile",
+   "file": "tile-ramp-s-stone.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "dir": "s",
+   "m": "stone",
+   "source": "tile-ramp-s with tile-stone top warped onto the slope, see gen/ramp.mjs"
+  },
+  {
+   "id": "tile-ramp-e-stone",
+   "type": "ramp",
+   "variant": "e-stone",
+   "cat": "tile",
+   "file": "tile-ramp-e-stone.png",
+   "w": 128,
+   "h": 158,
+   "anchor": [
+    64,
+    37
+   ],
+   "footprint": [
+    1,
+    1
+   ],
+   "plane": "top",
+   "step": 84,
+   "dir": "e",
+   "m": "stone",
+   "source": "tile-ramp-s with tile-stone top warped onto the slope, see gen/ramp.mjs"
   }
  ]
 }

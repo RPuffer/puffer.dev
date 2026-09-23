@@ -2,11 +2,12 @@ import { cellAt } from "../core/level.js";
 import { CATALOG } from "../core/catalog.js";
 import { view2d } from "./view.js";
 import { scaledSprite } from "./scale.js";
+import { ALIAS, MUL, expandDecor } from "./decor2d.js";
 
 const SURFACE = { grass: "tile-grass", sand: "tile-sand", dirt: "tile-dirt", stone: "tile-stone", water: "tile-water", none: "tile-cliff" };
 const WATER_SLAB = 16;
-const STRIP_ROWS = [92, 116];
-const STRIP_FROM = 132;
+const STRIP_ROWS = [112, 120];
+const STRIP_FROM = 118;
 const FACING = ["front", "right", "back", "left"];
 
 export function createRenderer(container, sprites) {
@@ -53,7 +54,7 @@ export function createRenderer(container, sprites) {
         }
         return Math.max(base, f);
       };
-      const column = (topY, id, fillId = "tile-cliff") => {
+      const column = (topY, id, fillId = id) => {
         const fl = floorY(topY);
         const sp = sprites.get(id), fill = sprites.get(fillId);
         if (topY - B > fl + 0.02 && fill) {
@@ -65,7 +66,7 @@ export function createRenderer(container, sprites) {
         }
         push(id, topY);
       };
-      const water = (h) => (h > 0 ? column(h * T, "tile-water", "tile-water") : push("tile-water", 0, M.topFaceHeight + WATER_SLAB));
+      const water = (h) => (h > 0 ? column(h * T, "tile-water") : push("tile-water", 0, M.topFaceHeight + WATER_SLAB));
       if (c.s === "bridge") {
         if (c.w != null) water(c.w);
         const nb = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return n && n.h >= 1 && n.s !== "water"; };
@@ -85,8 +86,8 @@ export function createRenderer(container, sprites) {
         column(c.h * T, SURFACE[c.s] || "tile-cliff");
       }
     }
-    for (const [i, d] of L.decor.entries()) {
-      const spec = CATALOG[d.t];
+    for (const [i, d] of expandDecor(L.decor).entries()) {
+      const spec = CATALOG[d.base || d.t] || CATALOG[d.t];
       const c = cellAt(L, d.x, d.z);
       if (d.t === "waterfall") {
         const r = (d.rot || 0) % 4, [bx, bz] = [[0, -1], [1, 0], [0, 1], [-1, 0]][r];
@@ -100,14 +101,19 @@ export function createRenderer(container, sprites) {
         out.push(item(sp, p.x, p.y, [d.x + d.z, 0, srcY - 0.01, d.x], sp.h - 40));
         continue;
       }
-      const sp = sprites.decor(d.t, d.v || 0, d.rot || 0);
+      const al = ALIAS[d.t];
+      const sp = al && !sprites.byType.has(d.t) ? sprites.decor(al.t, al.v, d.rot || 0) : sprites.decor(d.t, d.v || 0, d.rot || 0);
       if (!sp) continue;
+      const mul = (al && !sprites.byType.has(d.t) ? al.mul : 1) * (MUL[d.t] || 1);
       const [fw, fd] = (d.rot || 0) % 2 ? [spec.footprint[1], spec.footprint[0]] : spec.footprint;
       let wx = d.x + fw / 2 + (d.ox || 0), wz = d.z + fd / 2 + (d.oz || 0), y = cellTop(c) * T;
       if (spec.attach === "cliff") { const r = (d.rot || 0) % 4, e = [[0, -0.5], [0.5, 0], [0, 0.5], [-0.5, 0]][r]; wx += e[0]; wz += e[1]; }
       if (spec.attach === "under") y = c.s === "bridge" ? (c.w ?? 0) * T : 0;
       const p = px(wx, y, wz);
-      out.push(item(sp, p.x, p.y, [frontDiag(wx, wz, y / T, d.x + d.z), 1, wx + wz, i]));
+      const it = item(sp, p.x, p.y, [frontDiag(wx, wz, y / T, d.x + d.z), 1, wx + wz, i]);
+      it.mul = mul;
+      if (spec.attach === "cliff") it.anchor = [sp.anchor[0], 6];
+      out.push(it);
     }
     return out;
   };
@@ -149,7 +155,7 @@ export function createRenderer(container, sprites) {
       addEventListener("resize", resize);
       statics = buildStatics().sort(cmp);
       const t = target(); focus.x = t.x; focus.y = t.y;
-      window.__r2d = { get focus() { return focus; }, get scale() { return scale; }, P, T };
+      window.__r2d = { get focus() { return focus; }, get scale() { return scale; }, P, T, toScreen: (x, y, z) => { const p = px(x, y, z); return [(p.x - focus.x) * scale + cw / 2, (p.y - focus.y) * scale + ch / 2]; } };
     },
     update(state, dt) {
       const t = target(), k = dt > 0 ? 1 - Math.exp(-dt * 5) : 1;
@@ -176,9 +182,10 @@ export function createRenderer(container, sprites) {
       let hx = 0, hy = 0, hr = 0, after = false;
       if (hero) { hx = ox + hero.ax * k; hy = oy + (hero.ay - hero.sp.anchor[1] * 0.55) * k; hr = hero.sp.h * 0.62 * k; }
       for (const it of list) {
-        const sc = scaledSprite(it.sp, k);
-        const dx = Math.round(ox + it.ax * k - it.sp.anchor[0] * k * sc.fx), dy = Math.round(oy + it.ay * k - it.sp.anchor[1] * k * sc.fy);
-        const sh = it.crop ? Math.min(sc.h, Math.round(it.crop * k * sc.fy)) : sc.h;
+        const km = k * (it.mul || 1), an = it.anchor || it.sp.anchor;
+        const sc = scaledSprite(it.sp, km);
+        const dx = Math.round(ox + it.ax * k - an[0] * km * sc.fx), dy = Math.round(oy + it.ay * k - an[1] * km * sc.fy);
+        const sh = it.crop ? Math.min(sc.h, Math.round(it.crop * km * sc.fy)) : sc.h;
         if (it.strip) {
           const [r0, r1, y0, y1] = it.strip, sy0 = r0 * k * sc.fy, sh2 = (r1 - r0) * k * sc.fy;
           const t0 = Math.round(oy + y0 * k), t1 = Math.round(oy + y1 * k);
