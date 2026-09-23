@@ -1,22 +1,19 @@
 import * as THREE from "three";
 import { Baker, tone, solid, bakedMaterial } from "./baker.js";
+import { HERO } from "./palette.js";
 
-const SKIN = tone("#ffd9b0", "#ffd9b0", "#e8b98e");
-const SHIRT = tone("#ff6a5a", "#ff6a5a", "#d9483f");
-const PANTS = tone("#4a5fb0", "#4a5fb0", "#34448a");
-const HAIR = tone("#8a4a28", "#7a3f22", "#5e2f18");
-const BOOT = tone("#6b3a1a", "#6b3a1a", "#4f2a12");
-const EYE = solid("#2a2230");
-
+const toneOf = (v) => (typeof v === "string" ? solid(v) : Array.isArray(v) ? tone(v[0], v[1] ?? v[0], v[2] ?? v[1] ?? v[0]) : v);
 const mat = bakedMaterial();
-const part = (fn) => { const b = new Baker(); fn(b); const m = new THREE.Mesh(b.geometry(), mat); m.renderOrder = 2; return m; };
 
-export function buildCharacter(scale = 1) {
+export function buildCharacter(scale = 1, style = null) {
+  const H = { ...HERO, ...(style?.hero || {}) };
+  const SKIN = toneOf(H.skin), SHIRT = toneOf(H.shirt), PANTS = toneOf(H.pants), HAIR = toneOf(H.hair), BOOT = toneOf(H.boot), BELT = toneOf(H.belt), EYE = toneOf(H.eye);
+  const part = (fn) => { const b = new Baker(style?.light); fn(b); const m = new THREE.Mesh(b.geometry(), mat); m.renderOrder = 2; return m; };
   const root = new THREE.Group();
   const body = new THREE.Group();
   root.add(body);
 
-  body.add(part((b) => { b.rbox(0.34, 0.3, 0.24, 0.06, SHIRT, 0, 0.24, 0); b.box(0.36, 0.05, 0.26, tone("#6b3a1a", "#6b3a1a", "#4f2a12"), 0, 0.24, 0); }));
+  body.add(part((b) => { b.rbox(0.34, 0.3, 0.24, 0.06, SHIRT, 0, 0.24, 0); b.box(0.36, 0.05, 0.26, BELT, 0, 0.24, 0); }));
 
   const head = new THREE.Group();
   head.position.y = 0.54;

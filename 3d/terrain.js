@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Baker, roundRect, circle, tone, bakedMaterial } from "./baker.js";
-import { PALETTE } from "./palette.js";
+import { makeStyle } from "./style.js";
 import { cellAt, isWalkable } from "../core/level.js";
 import { mulberry32, hashSeed } from "../core/rng.js";
 import { applyXray } from "./xray.js";
@@ -12,7 +12,6 @@ export const DEPTH = 1.26;
 export const WATER_DROP = 0.1;
 const GAP = 0.018, R = 0.11;
 
-const P = PALETTE;
 const isLand = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "bridge";
 
 export function liftLevel(L) {
@@ -40,7 +39,7 @@ export function surfaceY(L, view, x, z) {
   return c.h * T;
 }
 
-const cliffPal = (upper) => upper ? tone(P.cliffUpper.left, P.cliffUpper.left, P.cliffUpper.right, P.cliffUpper.seam) : tone(P.cliffLower.left, P.cliffLower.left, P.cliffLower.right, P.cliffLower.seam);
+const cliffPal = (P, upper) => upper ? tone(P.cliffUpper.left, P.cliffUpper.left, P.cliffUpper.right, P.cliffUpper.seam) : tone(P.cliffLower.left, P.cliffLower.left, P.cliffLower.right, P.cliffLower.seam);
 
 function contextOf(L, x, z) {
   let grass = 0, other = 0;
@@ -91,7 +90,7 @@ function specks(B, x, z, y0, y1, hex, rnd) {
 
 function column(B, x, z, y0, y1, upper) {
   if (y1 - y0 < 0.01) return;
-  B.prism(roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), y0, y1, cliffPal(upper), { top: false });
+  B.prism(roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), y0, y1, cliffPal(B.pal, upper), { top: false });
 }
 
 function slab(B, x, z, y0, y1, pal, inset = GAP, r = R) {
@@ -103,6 +102,7 @@ function bottomOf(top, h, F, T) {
 }
 
 function landCell(B, L, x, z, c, T, F, rnd) {
+  const P = B.pal;
   const top = c.h * T;
   const upper = c.h > F;
   const bot = bottomOf(top, c.h, F, T);
@@ -152,11 +152,10 @@ function landCell(B, L, x, z, c, T, F, rnd) {
   if (rnd() < 0.35 && !(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - LIP, "x", P.sand.lip, rnd, 2);
 }
 
-const COBBLE_SIDE = tone(P.stone.top, "#ddbb71", "#dab667", "#e3c583");
-const PEBBLE = tone(P.stone.pebble, P.stone.pebbleShade, "#e4c98e");
-
 function stoneSlab(B, x, z, y0, y1, rnd) {
-  slab(B, x, z, y0, y1, COBBLE_SIDE, 0.04, 0.15);
+  const S = B.pal.stone;
+  const PEBBLE = tone(S.pebble, S.pebbleShade, S.pebbleEdge);
+  slab(B, x, z, y0, y1, tone(S.top, S.side[0], S.side[1], S.side[2]), 0.04, 0.15);
   const spots = [[0.28, 0.27, 0.17], [0.7, 0.3, 0.16], [0.3, 0.71, 0.16], [0.72, 0.7, 0.17], [0.5, 0.5, 0.12]];
   for (const [u, v, r] of spots) {
     const cx = x + u + (rnd() - 0.5) * 0.05, cz = z + v + (rnd() - 0.5) * 0.05;
@@ -165,13 +164,22 @@ function stoneSlab(B, x, z, y0, y1, rnd) {
 }
 
 function pathPatch(B, x, z, top, rnd) {
+  const P = B.pal;
   const n = 12, pts = [];
   for (let i = 0; i < n; i++) {
     const a = (i / n) * Math.PI * 2, k = 0.4 + rnd() * 0.07;
     pts.push([Math.min(x + 0.96, Math.max(x + 0.04, x + 0.5 + Math.sin(a) * k)), Math.min(z + 0.96, Math.max(z + 0.04, z + 0.5 + Math.cos(a) * k))]);
   }
-  B.flat(pts, top + 0.003, "#f6d881");
+  B.flat(pts, top + 0.003, P.dirt.path);
   for (let i = 0; i < 4; i++) B.flat(circle(x + 0.25 + rnd() * 0.5, z + 0.25 + rnd() * 0.5, 0.08, 0.065, 8), top + 0.005, P.dirt.patch);
+}
+
+function rampTone(P, m) {
+  if (m === "grass") return tone(P.grass.top, P.grass.fringe, P.grass.fringeDark);
+  if (m === "dirt") return tone(P.dirt.top, P.sand.edge, P.sand.lip);
+  const q = P[m];
+  if (q && typeof q === "object" && !Array.isArray(q) && q.top) return tone(q.top, q.edge || q.fringe || q.left || q.top, q.lip || q.fringeDark || q.right || q.top);
+  return tone(P.sand.top, P.sand.edge, P.sand.lip);
 }
 
 function rampCell(B, L, x, z, c, T, F, rnd) {
@@ -185,8 +193,7 @@ function rampCell(B, L, x, z, c, T, F, rnd) {
     return;
   }
   column(B, x, z, bot, lowY, c.h - 1 > F);
-  const pal = m === "grass" ? tone(P.grass.top, P.grass.fringe, P.grass.fringeDark) : m === "dirt" ? tone(P.dirt.top, P.sand.edge, P.sand.lip) : tone(P.sand.top, P.sand.edge, P.sand.lip);
-  B.wedgeRamp(x, z, lowY, topY, c.d, pal, cliffPal(c.h - 1 > F));
+  B.wedgeRamp(x, z, lowY, topY, c.d, rampTone(B.pal, m), cliffPal(B.pal, c.h - 1 > F));
 }
 
 Baker.prototype.wedgeRamp = function (x, z, yLow, yHigh, d, topPal, sidePal) {
@@ -208,6 +215,7 @@ Baker.prototype.wedgeRamp = function (x, z, yLow, yHigh, d, topPal, sidePal) {
 };
 
 function waterCell(B, L, x, z, h, T, rnd, below) {
+  const P = B.pal;
   const top = h * T - WATER_DROP;
   const y0 = below != null ? below : top - 0.3;
   const side = tone(P.water.deep, P.water.deep, P.water.fall[2], P.water.fall[1]);
@@ -221,6 +229,7 @@ function waterCell(B, L, x, z, h, T, rnd, below) {
 }
 
 function bridgeCell(B, L, x, z, c, T, rnd) {
+  const P = B.pal;
   const y = c.h * T;
   const nb = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return n && (n.s === "bridge" || isWalkable(L, x + dx, z + dz) || isLand(n)); };
   const alongX = nb(-1, 0) || nb(1, 0) ? !(nb(0, -1) && nb(0, 1) && !(nb(-1, 0) && nb(1, 0))) : false;
@@ -263,10 +272,11 @@ function bridgeCell(B, L, x, z, c, T, rnd) {
   }
 }
 
-export function buildTerrain(L, view, seed) {
+export function buildTerrain(L, view, seed, style = makeStyle(L)) {
   L = liftLevel(L);
   const T = view.tileH, F = floorLevel(L);
-  const B = new Baker(), Wb = new Baker();
+  const B = new Baker(style.light), Wb = new Baker(style.light);
+  B.pal = Wb.pal = style.palette;
   const [W, D] = L.size;
   const lowestWater = (x, z) => {
     let y = null;

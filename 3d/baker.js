@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { lightFactor, packShade } from "./style.js";
 
 const HALF = Math.PI / 2;
 const cache = new Map();
@@ -49,7 +50,8 @@ export function circle(cx, cz, rx, rz = rx, n = 8, a0 = 0) {
 }
 
 export class Baker {
-  constructor() {
+  constructor(light = null) {
+    this.light = light;
     this.pos = []; this.col = []; this.nor = [];
     this.m = new THREE.Matrix4();
     this.stack = [];
@@ -80,9 +82,32 @@ export class Baker {
     const l = Math.hypot(nx, ny, nz);
     if (l < 1e-12) return;
     nx /= l; ny /= l; nz /= l;
-    if (cull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
+    if (cull && !this.noCull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
     const c0 = shadeFor(pal, nx, ny, nz, tmp2);
+    if (this.light) c0.multiplyScalar(lightFactor(this.light, nx, ny, nz));
     for (const P of [A, B, C]) { this.pos.push(P.x, P.y, P.z); this.col.push(c0.r, c0.g, c0.b); this.nor.push(nx, ny, nz); }
+  }
+
+  ctri(a, b, c, cols, norms = null, cull = true, shade = false) {
+    const [A, B, C] = this._v;
+    A.set(a[0], a[1], a[2]).applyMatrix4(this.m);
+    B.set(b[0], b[1], b[2]).applyMatrix4(this.m);
+    C.set(c[0], c[1], c[2]).applyMatrix4(this.m);
+    const ux = B.x - A.x, uy = B.y - A.y, uz = B.z - A.z, vx = C.x - A.x, vy = C.y - A.y, vz = C.z - A.z;
+    let nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
+    const l = Math.hypot(nx, ny, nz);
+    if (l < 1e-12) return;
+    nx /= l; ny /= l; nz /= l;
+    if (cull && !this.noCull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
+    const nm = norms ? this.nm.getNormalMatrix(this.m) : null;
+    const P = [A, B, C], n = new THREE.Vector3();
+    for (let i = 0; i < 3; i++) {
+      if (norms) n.set(norms[i][0], norms[i][1], norms[i][2]).applyMatrix3(nm).normalize(); else n.set(nx, ny, nz);
+      tmp2.copy(cols[i]);
+      if (shade) tmp2.multiplyScalar(packShade(n.x, n.y, n.z));
+      if (this.light) tmp2.multiplyScalar(lightFactor(this.light, n.x, n.y, n.z));
+      this.pos.push(P[i].x, P[i].y, P[i].z); this.col.push(tmp2.r, tmp2.g, tmp2.b); this.nor.push(n.x, n.y, n.z);
+    }
   }
 
   quad(a, b, c, d, pal) { this.tri(a, b, c, pal); this.tri(a, c, d, pal); }

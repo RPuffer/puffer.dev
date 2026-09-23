@@ -5,6 +5,7 @@ import { buildCharacter } from "./character.js";
 import { levelScreenBounds } from "../core/iso.js";
 import { xray } from "./xray.js";
 import { liftAt } from "./terrain.js";
+import { makeStyle } from "./style.js";
 
 const FRAME = [351, 390];
 
@@ -54,14 +55,15 @@ export function createRenderer(container = document.body) {
     init(state) {
       S = state;
       const L = state.level, seed = state.params.seed;
-      scene.background = new THREE.Color(L.bg || "#404040");
-      const terrain = buildTerrain(L, state.view, seed);
+      const style = makeStyle(L);
+      scene.background = new THREE.Color(style.bg);
+      const terrain = buildTerrain(L, state.view, seed, style);
       scene.add(terrain.group);
       pickables = terrain.pickables;
-      const decor = buildDecor(L, state.view);
+      const decor = buildDecor(L, state.view, style);
       scene.add(decor.group);
       spinners = decor.spinners;
-      hero = buildCharacter(1);
+      hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       scene.add(hero);
       bounds = levelScreenBounds(L, state.proj);
