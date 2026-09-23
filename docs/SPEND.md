@@ -10,3 +10,8 @@ date | model | count | $ | purpose
 Total: $2.835
 
 ## Pipeline
+
+2026-09-23 | gemini-3.8-flash (vision) | 15 | 0.35 | pipeline analyze.mjs: 9 runs on the forest seed while tuning the brief prompt (estimate from tokens at $0.50/M in, $3/M out)
+2026-09-23 | gemini-3.8-flash (vision) | 58 | 0.90 | pipeline critic.mjs: calibration on home and a planted-fault copy of home at 351x390 and 900x800 (same estimate)
+
+Running total: $4.085
