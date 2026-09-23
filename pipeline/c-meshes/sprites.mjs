@@ -64,7 +64,7 @@ const jobs = todo.flatMap((t) => Array.from({ length: N }, () => t));
 let i = 0;
 await Promise.all(Array.from({ length: 6 }, async () => { while (i < jobs.length) { const t = jobs[i++]; const r = await one(t); console.log(r ? `OK ${r}` : `FAIL ${t}`); } }));
 
-const files = fs.readdirSync(OUT).filter((f) => f.endsWith(".png")).sort();
+const files = fs.readdirSync(OUT).filter((f) => /^[a-z-]+\.\d+\.png$/.test(f)).sort();
 const cell = 200, cols = 6, rows = Math.ceil(files.length / cols);
 const comp = [];
 for (const [k, f] of files.entries()) comp.push({ input: await sharp(OUT + f).resize(cell - 20, cell - 36, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer(), left: (k % cols) * cell + 10, top: Math.floor(k / cols) * cell + 4 }, { input: Buffer.from(`<svg width="${cell}" height="24"><text x="4" y="16" font-size="13" fill="#ddd" font-family="sans-serif">${f.replace(".png", "")}</text></svg>`), left: (k % cols) * cell, top: Math.floor(k / cols) * cell + cell - 26 });

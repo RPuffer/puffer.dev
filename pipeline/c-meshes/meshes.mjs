@@ -5,6 +5,7 @@ import { HERE, ROOT, secret, charge, guard } from "./lib.mjs";
 
 const ids = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 const force = process.argv.includes("--force");
+const SIMPLIFY = +(process.argv.find((a) => a.startsWith("--simplify="))?.slice(11) || 0.98);
 const picks = JSON.parse(fs.readFileSync(HERE + "picks.json", "utf8"));
 const OUT = ROOT + "3d/assets/forest-c/raw/";
 fs.mkdirSync(OUT, { recursive: true });
@@ -22,7 +23,7 @@ async function one(type) {
   guard(PRICE);
   const t0 = Date.now();
   const image_url = await fal.storage.upload(new File([plate], `${type}.png`, { type: "image/png" }));
-  const res = await fal.subscribe("fal-ai/trellis", { input: { image_url, ss_sampling_steps: 20, slat_sampling_steps: 20, ss_guidance_strength: 7.5, slat_guidance_strength: 3, mesh_simplify: 0.98, texture_size: 512 }, logs: false });
+  const res = await fal.subscribe("fal-ai/trellis", { input: { image_url, ss_sampling_steps: 20, slat_sampling_steps: 20, ss_guidance_strength: 7.5, slat_guidance_strength: 3, mesh_simplify: SIMPLIFY, texture_size: 512 }, logs: false });
   charge({ model: "fal-ai/trellis", kind: "mesh", id: type, usd: PRICE });
   const url = res.data?.model_mesh?.url;
   if (!url) throw new Error(`${type}: ${JSON.stringify(res.data).slice(0, 200)}`);

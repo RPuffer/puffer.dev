@@ -1,11 +1,11 @@
 {
-  "bare-trunk-tall": 0,
-  "leaning-trunk": 1,
+  "bare-trunk-tall": 3,
+  "leaning-trunk": 2,
   "fallen-log": 0,
-  "root-tangle": 0,
+  "root-tangle": 3,
   "mist-bank": 0,
   "mossy-stump": 1,
   "fire-bird": 1,
   "flame-wisp": 0,
-  "forest-tree": 0
+  "forest-tree": 3
 }
