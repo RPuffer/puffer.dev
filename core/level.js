@@ -3,7 +3,15 @@ import { CATALOG, SURFACES, WALKABLE, footprintCells } from "./catalog.js";
 export const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
 export const OPPOSITE = { n: "s", s: "n", e: "w", w: "e" };
 
-export async function loadLevel(name) {
+export const isGenName = (name) => /^gen(-\d+)?$/i.test(String(name || ""));
+
+export async function loadLevel(name, opts = {}) {
+  if (isGenName(name)) {
+    const q = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
+    const seed = opts.seed ?? (String(name).match(/^gen-(\d+)$/i)?.[1]) ?? q.get("seed") ?? "1";
+    const { generateLevel } = await import("./procgen.js");
+    return prepareLevel(generateLevel(seed));
+  }
   const safe = String(name || "home").replace(/[^a-z0-9_-]/gi, "");
   const url = new URL(`../levels/${safe}.json`, import.meta.url);
   const res = await fetch(url);

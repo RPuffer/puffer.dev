@@ -8,7 +8,7 @@ export const STEP = 1 / 60;
 
 export function readParams(search = location.search) {
   const q = new URLSearchParams(search);
-  const out = { level: q.get("level") || "home", seed: q.get("seed") || "1" };
+  const out = { level: q.get("level") || (q.get("seed") ? "gen" : "home"), seed: q.get("seed") || "1" };
   for (const [k, v] of q) if (!(k in out)) out[k] = v;
   return out;
 }
