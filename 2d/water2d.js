@@ -6,7 +6,7 @@ const C = {
   bark: "#dc7016", barkHi: "#ff831d", barkLo: "#bd4c0b", barkSh: "#a04b14", cap: "#f6d881", capRim: "#dc9a4a", rope: "#f1dca0",
 };
 
-export const waterLevel = (c) => (!c ? null : c.s === "water" ? c.h : c.s === "bridge" && c.w != null ? c.w : null);
+export const waterLevel = (c) => (!c ? null : c.s === "water" ? c.h + (c.lift || 0) : c.s === "bridge" && c.w != null ? c.w + (c.lift || 0) : null);
 
 const poly = (ctx, pts) => { ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); };
 
@@ -25,7 +25,7 @@ export function waterItems(L, T, px) {
     }
     if (!faces.length) continue;
     const top = wl * T;
-    out.push({ key: [x + z, 0, top + 0.015, x], draw(ctx, ox, oy, k) {
+    if (c.s === "bridge") out.push({ key: [x + z, 0, top + 0.015, x], draw(ctx, ox, oy, k) {
       const s = S(ox, oy, k), i = 0.06;
       const q = [px(x + i, top, z + i), px(x + 1 - i, top, z + i), px(x + 1 - i, top, z + 1 - i), px(x + i, top, z + 1 - i)].map(s);
       const r = [px(x, top, z), px(x + 1, top, z), px(x + 1, top, z + 1), px(x, top, z + 1)].map(s);
@@ -60,7 +60,7 @@ export function waterItems(L, T, px) {
         }
         if (dz) {
           const cx = e0[0] + 0.3, cz = e0[1] + 0.22;
-          for (const [h, r] of [[0.02, 0.3], [0.14, 0.24], [0.26, 0.16]]) blob(cx, cz, r, h * T);
+          for (const [h, r] of [[0.02, 0.4], [0.16, 0.32], [0.3, 0.22], [0.42, 0.12]]) blob(cx, cz, r, h * T);
         }
       } });
     }

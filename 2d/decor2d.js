@@ -2,7 +2,7 @@ export const ALIAS = {
   "bush-cluster": { t: "bush", v: 1, mul: 1.7 },
 };
 
-export const MUL = { scaffold: 1.3, marker: 0.9, well: 1.15 };
+export const MUL = { scaffold: 1.3, marker: 0.9, well: 1.15, "fence-post": 0.8 };
 
 export const COMPOUND = {
   "fence-pen": [

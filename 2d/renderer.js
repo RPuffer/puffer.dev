@@ -53,10 +53,10 @@ export function createRenderer(container, sprites) {
           const void0 = (c2) => !c2 || (c2.h === 0 && c2.s === "none");
           let n = cellAt(L, x + dx, z + dz), skip = 0;
           for (let j = 2; j <= 3 && void0(n); j++) { n = cellAt(L, x + j * dx, z + j * dz); skip = B; }
-          if (void0(n)) continue;
+          if (void0(n)) { if (c.h >= 3) f = Math.min(f, 0.3 * T); continue; }
           if (skip && (n.h < 1 || n.s === "water" || (n.s === "bridge" && n.w == null))) continue;
           if (n.s === "bridge" && n.w == null) continue;
-          const ny = (n.s === "bridge" ? (n.w != null ? n.w * T : topY - B) : n.s === "ramp" ? (n.h - 1 + lf(n)) * T : (n.h + lf(n)) * T) - skip;
+          const ny = (n.s === "bridge" ? (n.w != null ? (n.w + lf(n)) * T : topY - B) : n.s === "ramp" ? (n.h - 1 + lf(n)) * T : (n.h + lf(n)) * T) - skip;
           f = Math.min(f, ny);
         }
         return Math.max(base, f);
@@ -73,7 +73,7 @@ export function createRenderer(container, sprites) {
         }
         push(id, topY);
       };
-      const water = (h) => (h > 0 ? column(h * T, "tile-water") : push("tile-water", 0, M.topFaceHeight + WATER_SLAB));
+      const water = (h0) => { const h = h0 + lf(c); return h >= 1 ? column(h * T, "tile-water") : push("tile-water", h * T, M.topFaceHeight + WATER_SLAB); };
       if (c.s === "bridge") {
         if (c.w != null) water(c.w);
         const nb = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return n && n.h >= 1 && n.s !== "water"; };
@@ -118,7 +118,7 @@ export function createRenderer(container, sprites) {
       const [fw, fd] = (d.rot || 0) % 2 ? [spec.footprint[1], spec.footprint[0]] : spec.footprint;
       let wx = d.x + fw / 2 + (d.ox || 0), wz = d.z + fd / 2 + (d.oz || 0), y = cellTop(c) * T;
       if (spec.attach === "cliff") { const r = (d.rot || 0) % 4, e = [[0, -0.5], [0.5, 0], [0, 0.5], [-0.5, 0]][r]; wx += e[0]; wz += e[1]; }
-      if (spec.attach === "under") y = c.s === "bridge" ? (c.w ?? 0) * T : 0;
+      if (spec.attach === "under") y = ((c.s === "bridge" ? (c.w ?? 0) : 0) + lf(c)) * T;
       const p = px(wx, y, wz);
       const it = item(sp, p.x, p.y, [frontDiag(wx, wz, y / T, d.x + d.z), 1, wx + wz, i]);
       it.mul = mul;
