@@ -89,7 +89,7 @@ export function createRenderer(container = document.body) {
       xray.uDepth.value = v.z * 0.5 + 0.5 - 0.35 / (camera.far - camera.near);
       xray.uDepthSoft.value = 0.3 / (camera.far - camera.near);
       xray.uFeet.value = feet;
-      xray.uRadius.value = hero.visible ? 1.2 * zoom * px : 0;
+      xray.uRadius.value = hero.visible && S.params.xray !== "0" ? 1.2 * zoom * px : 0;
       gl.render(scene, camera);
     },
     pick(x, y, w, h) {

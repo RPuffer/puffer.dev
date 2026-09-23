@@ -195,7 +195,7 @@ export function createRenderer(container, sprites) {
         list.splice(lo, 0, hero);
       }
       let hx = 0, hy = 0, hr = 0, after = false;
-      if (hero) { hx = ox + hero.ax * k; hy = oy + (hero.ay - hero.sp.anchor[1] * 0.55) * k; hr = hero.sp.h * 0.62 * k; }
+      if (hero && S.params.xray !== "0") { hx = ox + hero.ax * k; hy = oy + (hero.ay - hero.sp.anchor[1] * 0.55) * k; hr = hero.sp.h * 0.62 * k; }
       for (const it of list) {
         if (it.draw) { it.draw(ctx, ox, oy, k); continue; }
         const km = k * (it.mul || 1), an = it.anchor || it.sp.anchor;
@@ -209,7 +209,7 @@ export function createRenderer(container, sprites) {
           continue;
         }
         if (it === hero) { after = true; ctx.drawImage(sc.c, 0, 0, sc.w, sh, dx, dy, sc.w, sh); continue; }
-        if (after && it.key[1] === 1 && dx < hx + hr && dx + sc.w > hx - hr && dy < hy + hr && dy + sh > hy - hr) {
+        if (after && hr > 0 && it.key[1] === 1 && dx < hx + hr && dx + sc.w > hx - hr && dy < hy + hr && dy + sh > hy - hr) {
           off.width = sc.w; off.height = sh;
           offCtx.globalCompositeOperation = "source-over";
           offCtx.drawImage(sc.c, 0, 0);

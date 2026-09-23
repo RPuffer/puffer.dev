@@ -70,6 +70,7 @@ export function start(level, renderer, { params = readParams() } = {}) {
 
   const game = {
     state,
+    renderer,
     stop() { running = false; cancelAnimationFrame(raf); input.dispose(); },
   };
   window.__game = game;
