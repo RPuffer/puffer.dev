@@ -5,6 +5,8 @@ import { buildCharacter } from "./character.js";
 import { levelScreenBounds } from "../core/iso.js";
 import { xray } from "./xray.js";
 
+const FRAME = [351, 390];
+
 export function createRenderer(container = document.body) {
   const gl = new THREE.WebGLRenderer({ antialias: true });
   gl.setPixelRatio(Math.min(2, devicePixelRatio || 1));
@@ -19,7 +21,7 @@ export function createRenderer(container = document.body) {
     const w = container.clientWidth || innerWidth, h = container.clientHeight || innerHeight;
     gl.setSize(w, h, false);
     if (!S) return;
-    zoom = S.view.zoom > 0 ? S.view.zoom : fitZoom(w, h);
+    zoom = S.view.zoom > 0 ? S.view.zoom * (Number(S.params.zoom) > 0 ? 1 : Math.min(w / FRAME[0], h / FRAME[1])) : fitZoom(w, h);
     camera.left = -w / 2 / zoom; camera.right = w / 2 / zoom;
     camera.top = h / 2 / zoom; camera.bottom = -h / 2 / zoom;
     camera.updateProjectionMatrix();
