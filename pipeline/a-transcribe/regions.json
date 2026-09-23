@@ -1,0 +1,2798 @@
+{
+ "source": "pipeline/seed/forest.png",
+ "brief": "pipeline/seed/brief.json",
+ "size": [
+  16,
+  12
+ ],
+ "mapping": {
+  "horizon": 0.619,
+  "backDepth": 0.35,
+  "power": 0.8,
+  "note": "level cell (x,z) is read as the isometric screen sees it: lateral (x-z) spans the artwork width, depth (x+z) runs from the top of the artwork (back corner) to its bottom (front corner); depth below backDepth samples the band above the horizon, deeper cells invert a mild perspective t^power"
+ },
+ "figure": {
+  "bbox": [
+   0.292,
+   0.425,
+   0.833,
+   0.896
+  ],
+  "centroid": [
+   0.568,
+   0.599
+  ],
+  "foot": [
+   0.548,
+   0.814
+  ],
+  "pixels": 962,
+  "footCell": [
+   11,
+   8
+  ],
+  "anchor": [
+   11,
+   8
+  ],
+  "cells": [
+   [
+    11,
+    8
+   ],
+   [
+    12,
+    8
+   ],
+   [
+    11,
+    9
+   ],
+   [
+    12,
+    9
+   ]
+  ]
+ },
+ "wisp": {
+  "tail": {
+   "x": 0.7339904921700224,
+   "top": 0.43283582089552236,
+   "pixels": 298
+  },
+  "cell": [
+   12,
+   5
+  ]
+ },
+ "cells": [
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.429,
+    "iy": 0.063,
+    "lum": 0.551,
+    "edge": 0.04,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": -0.06,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.464,
+    "iy": 0.126,
+    "lum": 0.683,
+    "edge": 0.04,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": 0.33,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.5,
+    "iy": 0.19,
+    "lum": 0.767,
+    "edge": 0.055,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": 0.5,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.536,
+    "iy": 0.253,
+    "lum": 0.695,
+    "edge": 0.083,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": 0.12,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.571,
+    "iy": 0.316,
+    "lum": 0.681,
+    "edge": 0.09,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": 0.03,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.607,
+    "iy": 0.379,
+    "lum": 0.662,
+    "edge": 0.073,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": 0.08,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.643,
+    "iy": 0.442,
+    "lum": 0.624,
+    "edge": 0.067,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.01,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.679,
+    "iy": 0.505,
+    "lum": 0.566,
+    "edge": 0.104,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.4,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.714,
+    "iy": 0.569,
+    "lum": 0.438,
+    "edge": 0.193,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -1.32,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.75,
+    "iy": 0.62,
+    "lum": 0.565,
+    "edge": 0.165,
+    "trunk": 1.47,
+    "dark": 0.59,
+    "path": 0.23,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.786,
+    "iy": 0.632,
+    "lum": 0.449,
+    "edge": 0.161,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": -0.09,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.821,
+    "iy": 0.646,
+    "lum": 0.592,
+    "edge": 0.057,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.96,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.857,
+    "iy": 0.662,
+    "lum": 0.505,
+    "edge": 0.097,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.46,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.893,
+    "iy": 0.68,
+    "lum": 0.579,
+    "edge": 0.062,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": 0.9,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.929,
+    "iy": 0.699,
+    "lum": 0.401,
+    "edge": 0.069,
+    "trunk": 1.6,
+    "dark": 0.64,
+    "path": 0.32,
+    "prior": "T1"
+   },
+   {
+    "h": 3,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.964,
+    "iy": 0.718,
+    "lum": 0.277,
+    "edge": 0.088,
+    "trunk": 1.86,
+    "dark": 0.74,
+    "path": -0.17,
+    "prior": "T1"
+   }
+  ],
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.393,
+    "iy": 0.126,
+    "lum": 0.671,
+    "edge": 0.055,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.21,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.429,
+    "iy": 0.19,
+    "lum": 0.792,
+    "edge": 0.053,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": 0.93,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.464,
+    "iy": 0.253,
+    "lum": 0.762,
+    "edge": 0.05,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": 0.87,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.5,
+    "iy": 0.316,
+    "lum": 0.76,
+    "edge": 0.041,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": 0.56,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.536,
+    "iy": 0.379,
+    "lum": 0.746,
+    "edge": 0.047,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": 0.83,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.571,
+    "iy": 0.442,
+    "lum": 0.76,
+    "edge": 0.052,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": 0.49,
+    "prior": "F2"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.607,
+    "iy": 0.505,
+    "lum": 0.639,
+    "edge": 0.082,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": -0.05,
+    "prior": "F1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.643,
+    "iy": 0.569,
+    "lum": 0.551,
+    "edge": 0.176,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.87,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.679,
+    "iy": 0.62,
+    "lum": 0.603,
+    "edge": 0.179,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": 0.26,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.714,
+    "iy": 0.632,
+    "lum": 0.418,
+    "edge": 0.214,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -0.5,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.75,
+    "iy": 0.646,
+    "lum": 0.484,
+    "edge": 0.178,
+    "trunk": 1.47,
+    "dark": 0.59,
+    "path": -0.09,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.786,
+    "iy": 0.662,
+    "lum": 0.535,
+    "edge": 0.108,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": 0.48,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.821,
+    "iy": 0.68,
+    "lum": 0.483,
+    "edge": 0.086,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.46,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.857,
+    "iy": 0.699,
+    "lum": 0.462,
+    "edge": 0.089,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.38,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.893,
+    "iy": 0.718,
+    "lum": 0.462,
+    "edge": 0.065,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": 0.52,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.929,
+    "iy": 0.739,
+    "lum": 0.363,
+    "edge": 0.062,
+    "trunk": 1.6,
+    "dark": 0.64,
+    "path": 0.25,
+    "prior": "T1"
+   }
+  ],
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.357,
+    "iy": 0.19,
+    "lum": 0.843,
+    "edge": 0.045,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": 0.79,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.393,
+    "iy": 0.253,
+    "lum": 0.766,
+    "edge": 0.091,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.63,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.429,
+    "iy": 0.316,
+    "lum": 0.598,
+    "edge": 0.122,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": -0.06,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.464,
+    "iy": 0.379,
+    "lum": 0.665,
+    "edge": 0.127,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": 0.11,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.5,
+    "iy": 0.442,
+    "lum": 0.676,
+    "edge": 0.117,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": 0.2,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.536,
+    "iy": 0.505,
+    "lum": 0.619,
+    "edge": 0.207,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": -0.86,
+    "prior": "F2"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.571,
+    "iy": 0.569,
+    "lum": 0.502,
+    "edge": 0.219,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": -1.28,
+    "prior": "F1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.62,
+    "lum": 0.528,
+    "edge": 0.217,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": -0.19,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.643,
+    "iy": 0.632,
+    "lum": 0.314,
+    "edge": 0.186,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.65,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.679,
+    "iy": 0.646,
+    "lum": 0.352,
+    "edge": 0.209,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.67,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.714,
+    "iy": 0.662,
+    "lum": 0.294,
+    "edge": 0.125,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -0.34,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.75,
+    "iy": 0.68,
+    "lum": 0.51,
+    "edge": 0.106,
+    "trunk": 1.47,
+    "dark": 0.59,
+    "path": 0.42,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.786,
+    "iy": 0.699,
+    "lum": 0.339,
+    "edge": 0.128,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": -0.23,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.821,
+    "iy": 0.718,
+    "lum": 0.34,
+    "edge": 0.155,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": -0.38,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.857,
+    "iy": 0.739,
+    "lum": 0.531,
+    "edge": 0.077,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.66,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.893,
+    "iy": 0.76,
+    "lum": 0.382,
+    "edge": 0.072,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": 0.24,
+    "prior": "T1"
+   }
+  ],
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.321,
+    "iy": 0.253,
+    "lum": 0.761,
+    "edge": 0.152,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": -0.1,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.357,
+    "iy": 0.316,
+    "lum": 0.459,
+    "edge": 0.167,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": -1.1,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.393,
+    "iy": 0.379,
+    "lum": 0.364,
+    "edge": 0.186,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": -1.15,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.429,
+    "iy": 0.442,
+    "lum": 0.566,
+    "edge": 0.188,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": -0.55,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.464,
+    "iy": 0.505,
+    "lum": 0.589,
+    "edge": 0.172,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": -0.74,
+    "prior": "F2"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.5,
+    "iy": 0.569,
+    "lum": 0.519,
+    "edge": 0.269,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": -1.53,
+    "prior": "F2"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.536,
+    "iy": 0.62,
+    "lum": 0.363,
+    "edge": 0.211,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": -0.3,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.632,
+    "lum": 0.168,
+    "edge": 0.119,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": -0.68,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.607,
+    "iy": 0.646,
+    "lum": 0.339,
+    "edge": 0.137,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": -0.28,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.643,
+    "iy": 0.662,
+    "lum": 0.303,
+    "edge": 0.102,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.18,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.679,
+    "iy": 0.68,
+    "lum": 0.199,
+    "edge": 0.058,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.22,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.714,
+    "iy": 0.699,
+    "lum": 0.25,
+    "edge": 0.089,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -0.26,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.75,
+    "iy": 0.718,
+    "lum": 0.086,
+    "edge": 0.05,
+    "trunk": 1.47,
+    "dark": 0.59,
+    "path": -0.51,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.786,
+    "iy": 0.739,
+    "lum": 0.319,
+    "edge": 0.133,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": -0.31,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.821,
+    "iy": 0.76,
+    "lum": 0.408,
+    "edge": 0.108,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.1,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.857,
+    "iy": 0.781,
+    "lum": 0.333,
+    "edge": 0.086,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.01,
+    "prior": "T1"
+   }
+  ],
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.286,
+    "iy": 0.316,
+    "lum": 0.629,
+    "edge": 0.176,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": -0.64,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.321,
+    "iy": 0.379,
+    "lum": 0.528,
+    "edge": 0.196,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": -0.72,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.357,
+    "iy": 0.442,
+    "lum": 0.537,
+    "edge": 0.187,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": -0.63,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.393,
+    "iy": 0.505,
+    "lum": 0.485,
+    "edge": 0.222,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": -1,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.429,
+    "iy": 0.569,
+    "lum": 0.494,
+    "edge": 0.254,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": -1.17,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.464,
+    "iy": 0.62,
+    "lum": 0.45,
+    "edge": 0.263,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": -0.35,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.5,
+    "iy": 0.632,
+    "lum": 0.455,
+    "edge": 0.186,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": 0.13,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.536,
+    "iy": 0.646,
+    "lum": 0.423,
+    "edge": 0.161,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": 0.18,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.662,
+    "lum": 0.44,
+    "edge": 0.122,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": 0.12,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.68,
+    "lum": 0.352,
+    "edge": 0.093,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": 0.03,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.643,
+    "iy": 0.699,
+    "lum": 0.09,
+    "edge": 0.026,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.36,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.679,
+    "iy": 0.718,
+    "lum": 0.168,
+    "edge": 0.115,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.65,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.714,
+    "iy": 0.739,
+    "lum": 0.093,
+    "edge": 0.048,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -0.48,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.75,
+    "iy": 0.76,
+    "lum": 0.201,
+    "edge": 0.092,
+    "trunk": 1.47,
+    "dark": 0.59,
+    "path": -0.42,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.786,
+    "iy": 0.781,
+    "lum": 0.33,
+    "edge": 0.119,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": -0.19,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.821,
+    "iy": 0.804,
+    "lum": 0.413,
+    "edge": 0.118,
+    "trunk": 1.33,
+    "dark": 0.53,
+    "path": 0.06,
+    "prior": "T1"
+   }
+  ],
+  [
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.25,
+    "iy": 0.379,
+    "lum": 0.503,
+    "edge": 0.157,
+    "trunk": 1.28,
+    "dark": 0.79,
+    "path": -0.91,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.286,
+    "iy": 0.442,
+    "lum": 0.839,
+    "edge": 0.091,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": 0.85,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.321,
+    "iy": 0.505,
+    "lum": 0.752,
+    "edge": 0.084,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": 0.63,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.357,
+    "iy": 0.569,
+    "lum": 0.524,
+    "edge": 0.182,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": -0.64,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.393,
+    "iy": 0.62,
+    "lum": 0.452,
+    "edge": 0.144,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.37,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.429,
+    "iy": 0.632,
+    "lum": 0.385,
+    "edge": 0.182,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": -0.06,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.464,
+    "iy": 0.646,
+    "lum": 0.292,
+    "edge": 0.195,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": -0.42,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.5,
+    "iy": 0.662,
+    "lum": 0.303,
+    "edge": 0.167,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": -0.22,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.536,
+    "iy": 0.68,
+    "lum": 0.386,
+    "edge": 0.199,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": -0.16,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.699,
+    "lum": 0.435,
+    "edge": 0.126,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": 0.08,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.718,
+    "lum": 0.2,
+    "edge": 0.073,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": -0.31,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.643,
+    "iy": 0.739,
+    "lum": 0.128,
+    "edge": 0.052,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.4,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "wisp"
+    ],
+    "ix": 0.679,
+    "iy": 0.76,
+    "lum": 0.25,
+    "edge": 0.115,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.41,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.714,
+    "iy": 0.781,
+    "lum": 0.429,
+    "edge": 0.145,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -0.05,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.75,
+    "iy": 0.804,
+    "lum": 0.499,
+    "edge": 0.122,
+    "trunk": 1.47,
+    "dark": 0.59,
+    "path": 0.29,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.786,
+    "iy": 0.827,
+    "lum": 0.308,
+    "edge": 0.134,
+    "trunk": 1.39,
+    "dark": 0.55,
+    "path": -0.35,
+    "prior": "T1"
+   }
+  ],
+  [
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.214,
+    "iy": 0.442,
+    "lum": 0.717,
+    "edge": 0.072,
+    "trunk": 1.13,
+    "dark": 0.79,
+    "path": 0.25,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.25,
+    "iy": 0.505,
+    "lum": 0.619,
+    "edge": 0.109,
+    "trunk": 1.28,
+    "dark": 0.79,
+    "path": 0.08,
+    "prior": "P1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.286,
+    "iy": 0.569,
+    "lum": 0.574,
+    "edge": 0.138,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": -0.23,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.321,
+    "iy": 0.62,
+    "lum": 0.416,
+    "edge": 0.147,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": 0.24,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.357,
+    "iy": 0.632,
+    "lum": 0.523,
+    "edge": 0.135,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": 0.64,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.393,
+    "iy": 0.646,
+    "lum": 0.445,
+    "edge": 0.102,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.6,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.429,
+    "iy": 0.662,
+    "lum": 0.381,
+    "edge": 0.155,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": 0.09,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.464,
+    "iy": 0.68,
+    "lum": 0.254,
+    "edge": 0.128,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": -0.13,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.5,
+    "iy": 0.699,
+    "lum": 0.282,
+    "edge": 0.151,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": -0.18,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.536,
+    "iy": 0.718,
+    "lum": 0.388,
+    "edge": 0.125,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": 0.29,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.739,
+    "lum": 0.394,
+    "edge": 0.121,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": -0.01,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.76,
+    "lum": 0.234,
+    "edge": 0.079,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": -0.25,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.643,
+    "iy": 0.781,
+    "lum": 0.335,
+    "edge": 0.088,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": 0,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.679,
+    "iy": 0.804,
+    "lum": 0.318,
+    "edge": 0.107,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.16,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.714,
+    "iy": 0.827,
+    "lum": 0.083,
+    "edge": 0.051,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -0.53,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.75,
+    "iy": 0.85,
+    "lum": 0.072,
+    "edge": 0.041,
+    "trunk": 1.47,
+    "dark": 0.59,
+    "path": -0.5,
+    "prior": "G1"
+   }
+  ],
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.179,
+    "iy": 0.505,
+    "lum": 0.827,
+    "edge": 0.077,
+    "trunk": 1.23,
+    "dark": 0.78,
+    "path": 0.55,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "mist"
+    ],
+    "ix": 0.214,
+    "iy": 0.569,
+    "lum": 0.55,
+    "edge": 0.151,
+    "trunk": 1.13,
+    "dark": 0.79,
+    "path": -0.73,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.25,
+    "iy": 0.62,
+    "lum": 0.211,
+    "edge": 0.118,
+    "trunk": 1.28,
+    "dark": 0.79,
+    "path": -0.2,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.286,
+    "iy": 0.632,
+    "lum": 0.284,
+    "edge": 0.121,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": 0,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "log"
+    ],
+    "ix": 0.321,
+    "iy": 0.646,
+    "lum": 0.305,
+    "edge": 0.137,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": -0.03,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "log"
+    ],
+    "ix": 0.357,
+    "iy": 0.662,
+    "lum": 0.229,
+    "edge": 0.131,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": -0.22,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.393,
+    "iy": 0.68,
+    "lum": 0.301,
+    "edge": 0.108,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.13,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.429,
+    "iy": 0.699,
+    "lum": 0.43,
+    "edge": 0.103,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": 0.55,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.464,
+    "iy": 0.718,
+    "lum": 0.366,
+    "edge": 0.099,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": 0.38,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.5,
+    "iy": 0.739,
+    "lum": 0.273,
+    "edge": 0.068,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": 0.29,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.536,
+    "iy": 0.76,
+    "lum": 0.323,
+    "edge": 0.121,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": 0.12,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.781,
+    "lum": 0.275,
+    "edge": 0.059,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": 0,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.804,
+    "lum": 0.304,
+    "edge": 0.068,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": 0.03,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.643,
+    "iy": 0.827,
+    "lum": 0.261,
+    "edge": 0.104,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.31,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.679,
+    "iy": 0.85,
+    "lum": 0.27,
+    "edge": 0.114,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.35,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.714,
+    "iy": 0.874,
+    "lum": 0.334,
+    "edge": 0.122,
+    "trunk": 1.34,
+    "dark": 0.66,
+    "path": -0.2,
+    "prior": "G1"
+   }
+  ],
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.143,
+    "iy": 0.569,
+    "lum": 0.371,
+    "edge": 0.139,
+    "trunk": 1.29,
+    "dark": 0.75,
+    "path": -1.19,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.179,
+    "iy": 0.62,
+    "lum": 0.374,
+    "edge": 0.203,
+    "trunk": 1.23,
+    "dark": 0.78,
+    "path": -0.57,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.214,
+    "iy": 0.632,
+    "lum": 0.146,
+    "edge": 0.057,
+    "trunk": 1.13,
+    "dark": 0.79,
+    "path": -0.38,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.25,
+    "iy": 0.646,
+    "lum": 0.19,
+    "edge": 0.109,
+    "trunk": 1.28,
+    "dark": 0.79,
+    "path": -0.2,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "log"
+    ],
+    "ix": 0.286,
+    "iy": 0.662,
+    "lum": 0.212,
+    "edge": 0.132,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": -0.28,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "log"
+    ],
+    "ix": 0.321,
+    "iy": 0.68,
+    "lum": 0.197,
+    "edge": 0.131,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": -0.32,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.357,
+    "iy": 0.699,
+    "lum": 0.12,
+    "edge": 0.055,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": -0.09,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.393,
+    "iy": 0.718,
+    "lum": 0.204,
+    "edge": 0.077,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.02,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.429,
+    "iy": 0.739,
+    "lum": 0.271,
+    "edge": 0.07,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": 0.27,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.464,
+    "iy": 0.76,
+    "lum": 0.363,
+    "edge": 0.129,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": 0.19,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "root"
+    ],
+    "ix": 0.5,
+    "iy": 0.781,
+    "lum": 0.289,
+    "edge": 0.146,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": -0.13,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "figure"
+    ],
+    "ix": 0.536,
+    "iy": 0.804,
+    "lum": 0.269,
+    "edge": 0.086,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": 0.17,
+    "prior": "P1",
+    "knoll": 1
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "figure"
+    ],
+    "ix": 0.571,
+    "iy": 0.827,
+    "lum": 0.255,
+    "edge": 0.039,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": 0.06,
+    "prior": "G1",
+    "knoll": 1
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.85,
+    "lum": 0.255,
+    "edge": 0.088,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": -0.23,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.643,
+    "iy": 0.874,
+    "lum": 0.056,
+    "edge": 0.019,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.42,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.679,
+    "iy": 0.898,
+    "lum": 0.08,
+    "edge": 0.041,
+    "trunk": 1.08,
+    "dark": 0.74,
+    "path": -0.48,
+    "prior": "G1"
+   }
+  ],
+  [
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.107,
+    "iy": 0.62,
+    "lum": 0.329,
+    "edge": 0.171,
+    "trunk": 1.23,
+    "dark": 0.75,
+    "path": -0.51,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.143,
+    "iy": 0.632,
+    "lum": 0.287,
+    "edge": 0.18,
+    "trunk": 1.29,
+    "dark": 0.75,
+    "path": -0.69,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.179,
+    "iy": 0.646,
+    "lum": 0.401,
+    "edge": 0.194,
+    "trunk": 1.23,
+    "dark": 0.78,
+    "path": -0.43,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.214,
+    "iy": 0.662,
+    "lum": 0.222,
+    "edge": 0.12,
+    "trunk": 1.13,
+    "dark": 0.79,
+    "path": -0.53,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.25,
+    "iy": 0.68,
+    "lum": 0.142,
+    "edge": 0.052,
+    "trunk": 1.28,
+    "dark": 0.79,
+    "path": -0.01,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "log"
+    ],
+    "ix": 0.286,
+    "iy": 0.699,
+    "lum": 0.325,
+    "edge": 0.176,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": -0.2,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.321,
+    "iy": 0.718,
+    "lum": 0.168,
+    "edge": 0.065,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": -0.01,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.357,
+    "iy": 0.739,
+    "lum": 0.233,
+    "edge": 0.087,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": 0.06,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.393,
+    "iy": 0.76,
+    "lum": 0.261,
+    "edge": 0.071,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.23,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.429,
+    "iy": 0.781,
+    "lum": 0.218,
+    "edge": 0.064,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": 0.15,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.464,
+    "iy": 0.804,
+    "lum": 0.182,
+    "edge": 0.068,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": 0.02,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "figure"
+    ],
+    "ix": 0.5,
+    "iy": 0.827,
+    "lum": 0.276,
+    "edge": 0.104,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": 0.08,
+    "prior": "P1",
+    "knoll": 1
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [
+     "figure"
+    ],
+    "ix": 0.536,
+    "iy": 0.85,
+    "lum": 0.177,
+    "edge": 0.035,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": -0.15,
+    "prior": "G1",
+    "knoll": 1
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.874,
+    "lum": 0.156,
+    "edge": 0.072,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": -0.44,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.898,
+    "lum": 0.061,
+    "edge": 0.022,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": -0.42,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.643,
+    "iy": 0.923,
+    "lum": 0.102,
+    "edge": 0.054,
+    "trunk": 1.11,
+    "dark": 0.77,
+    "path": -0.49,
+    "prior": "G1"
+   }
+  ],
+  [
+   {
+    "h": 3,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.071,
+    "iy": 0.632,
+    "lum": 0.357,
+    "edge": 0.222,
+    "trunk": 1.37,
+    "dark": 0.73,
+    "path": -0.73,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.107,
+    "iy": 0.646,
+    "lum": 0.203,
+    "edge": 0.063,
+    "trunk": 1.23,
+    "dark": 0.75,
+    "path": -0.24,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.143,
+    "iy": 0.662,
+    "lum": 0.277,
+    "edge": 0.154,
+    "trunk": 1.29,
+    "dark": 0.75,
+    "path": -0.57,
+    "prior": "G1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.179,
+    "iy": 0.68,
+    "lum": 0.17,
+    "edge": 0.06,
+    "trunk": 1.23,
+    "dark": 0.78,
+    "path": -0.32,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.214,
+    "iy": 0.699,
+    "lum": 0.154,
+    "edge": 0.052,
+    "trunk": 1.13,
+    "dark": 0.79,
+    "path": -0.32,
+    "prior": "T1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.25,
+    "iy": 0.718,
+    "lum": 0.392,
+    "edge": 0.166,
+    "trunk": 1.28,
+    "dark": 0.79,
+    "path": 0.06,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.286,
+    "iy": 0.739,
+    "lum": 0.162,
+    "edge": 0.101,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": -0.24,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.321,
+    "iy": 0.76,
+    "lum": 0.186,
+    "edge": 0.111,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": -0.23,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.357,
+    "iy": 0.781,
+    "lum": 0.209,
+    "edge": 0.073,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": 0.07,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.393,
+    "iy": 0.804,
+    "lum": 0.123,
+    "edge": 0.035,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.04,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.429,
+    "iy": 0.827,
+    "lum": 0.143,
+    "edge": 0.049,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": 0.01,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.464,
+    "iy": 0.85,
+    "lum": 0.18,
+    "edge": 0.075,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": -0.03,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.5,
+    "iy": 0.874,
+    "lum": 0.29,
+    "edge": 0.123,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": -0.34,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.536,
+    "iy": 0.898,
+    "lum": 0.173,
+    "edge": 0.063,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": -0.33,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.923,
+    "lum": 0.317,
+    "edge": 0.117,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": -0.22,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.607,
+    "iy": 0.948,
+    "lum": 0.45,
+    "edge": 0.118,
+    "trunk": 1.24,
+    "dark": 0.7,
+    "path": 0.17,
+    "prior": "G1"
+   }
+  ],
+  [
+   {
+    "h": 3,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.036,
+    "iy": 0.646,
+    "lum": 0.344,
+    "edge": 0.145,
+    "trunk": 1.88,
+    "dark": 0.68,
+    "path": -0.31,
+    "prior": "T1"
+   },
+   {
+    "h": 3,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.071,
+    "iy": 0.662,
+    "lum": 0.252,
+    "edge": 0.073,
+    "trunk": 1.37,
+    "dark": 0.73,
+    "path": -0.15,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.107,
+    "iy": 0.68,
+    "lum": 0.322,
+    "edge": 0.148,
+    "trunk": 1.23,
+    "dark": 0.75,
+    "path": -0.39,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.143,
+    "iy": 0.699,
+    "lum": 0.178,
+    "edge": 0.072,
+    "trunk": 1.29,
+    "dark": 0.75,
+    "path": -0.37,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.179,
+    "iy": 0.718,
+    "lum": 0.272,
+    "edge": 0.093,
+    "trunk": 1.23,
+    "dark": 0.78,
+    "path": -0.21,
+    "prior": "T1"
+   },
+   {
+    "h": 2,
+    "s": "ground",
+    "motif": [
+     "trunk"
+    ],
+    "ix": 0.214,
+    "iy": 0.739,
+    "lum": 0.201,
+    "edge": 0.076,
+    "trunk": 1.13,
+    "dark": 0.79,
+    "path": -0.32,
+    "prior": "T1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.25,
+    "iy": 0.76,
+    "lum": 0.189,
+    "edge": 0.088,
+    "trunk": 1.28,
+    "dark": 0.79,
+    "path": -0.08,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "ground",
+    "motif": [],
+    "ix": 0.286,
+    "iy": 0.781,
+    "lum": 0.175,
+    "edge": 0.068,
+    "trunk": 1.4,
+    "dark": 0.77,
+    "path": -0.01,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.321,
+    "iy": 0.804,
+    "lum": 0.135,
+    "edge": 0.027,
+    "trunk": 1.41,
+    "dark": 0.74,
+    "path": 0.12,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.357,
+    "iy": 0.827,
+    "lum": 0.16,
+    "edge": 0.055,
+    "trunk": 1.47,
+    "dark": 0.71,
+    "path": 0.03,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.393,
+    "iy": 0.85,
+    "lum": 0.424,
+    "edge": 0.133,
+    "trunk": 1.58,
+    "dark": 0.63,
+    "path": 0.35,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.429,
+    "iy": 0.874,
+    "lum": 0.185,
+    "edge": 0.071,
+    "trunk": 1.61,
+    "dark": 0.6,
+    "path": 0,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.464,
+    "iy": 0.898,
+    "lum": 0.215,
+    "edge": 0.077,
+    "trunk": 1.48,
+    "dark": 0.65,
+    "path": 0.06,
+    "prior": "P1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.5,
+    "iy": 0.923,
+    "lum": 0.619,
+    "edge": 0.113,
+    "trunk": 1.42,
+    "dark": 0.66,
+    "path": 0.71,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.536,
+    "iy": 0.948,
+    "lum": 0.708,
+    "edge": 0.093,
+    "trunk": 1.37,
+    "dark": 0.65,
+    "path": 1.1,
+    "prior": "G1"
+   },
+   {
+    "h": 1,
+    "s": "path",
+    "motif": [],
+    "ix": 0.571,
+    "iy": 0.974,
+    "lum": 0.699,
+    "edge": 0.06,
+    "trunk": 1.24,
+    "dark": 0.64,
+    "path": 1.27,
+    "prior": "G1"
+   }
+  ]
+ ]
+}
