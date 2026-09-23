@@ -25,8 +25,8 @@ export async function pickModel() {
   return (cached = ok[0][0]);
 }
 
-export async function imagePart(file, max = 1024) {
-  const buf = await sharp(file).flatten({ background: "#ffffff" }).resize(max, max, { fit: "inside", withoutEnlargement: true }).jpeg({ quality: 90 }).toBuffer();
+export async function imagePart(file, max = 1024, enlarge = false) {
+  const buf = await sharp(file).flatten({ background: "#ffffff" }).resize(max, max, { fit: "inside", withoutEnlargement: !enlarge, kernel: enlarge ? "nearest" : "lanczos3" }).jpeg({ quality: 90 }).toBuffer();
   return { inlineData: { mimeType: "image/jpeg", data: buf.toString("base64") } };
 }
 
