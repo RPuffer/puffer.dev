@@ -10,13 +10,21 @@ export async function loadLevel(name, opts = {}) {
     const q = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
     const seed = opts.seed ?? (String(name).match(/^gen-(\d+)$/i)?.[1]) ?? q.get("seed") ?? "1";
     const { generateLevel } = await import("./procgen.js");
-    return prepareLevel(generateLevel(seed));
+    const raw = generateLevel(seed);
+    if (opts.beforePrepare) await opts.beforePrepare(raw);
+    return prepareLevel(raw);
   }
   const safe = String(name || "home").replace(/[^a-z0-9_-]/gi, "");
-  const url = new URL(`../levels/${safe}.json`, import.meta.url);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`level ${safe}: HTTP ${res.status}`);
-  return prepareLevel(await res.json());
+  if (!safe) throw new Error(`Level name "${name}" has no usable characters; use letters, digits, - or _.`);
+  const file = `levels/${safe}.json`;
+  let res;
+  try { res = await fetch(new URL(`../${file}`, import.meta.url)); } catch (e) { throw new Error(`Could not fetch ${file}: ${e.message || e}`); }
+  if (res.status === 404) throw new Error(`Level "${safe}" not found: ${file} does not exist.`);
+  if (!res.ok) throw new Error(`Level "${safe}" failed to load: ${file} returned HTTP ${res.status}.`);
+  let raw;
+  try { raw = await res.json(); } catch (e) { throw new Error(`Level "${safe}": ${file} is not valid JSON (${e.message || e}).`); }
+  if (opts.beforePrepare) await opts.beforePrepare(raw);
+  return prepareLevel(raw);
 }
 
 export function validateLevel(L) {
@@ -46,7 +54,7 @@ export function validateLevel(L) {
 export function prepareLevel(raw) {
   const { errors, warnings } = validateLevel(raw);
   if (errors.length) throw new Error("level invalid: " + errors.slice(0, 5).join("; "));
-  const L = { bg: "#404040", ...raw, warnings };
+  const L = { bg: raw.palette?.bg || "#404040", ...raw, warnings };
   const [W, D] = L.size;
   L.decor = (raw.decor || []).filter((d) => CATALOG[d.t] && d.x >= 0 && d.x < W && d.z >= 0 && d.z < D);
   L.blocked = new Set();

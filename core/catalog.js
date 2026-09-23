@@ -64,6 +64,11 @@ export const PALETTE = {
   gold: ["#f1b900", "#dd9200", "#ffe082"],
 };
 
+export function registerCatalog(entries = {}) {
+  for (const [t, e] of Object.entries(entries)) CATALOG[t] = { cat: "decor", footprint: [1, 1], passable: false, variants: 1, height: 1, ...e };
+  return CATALOG;
+}
+
 export const footprintCells = (t, x, z, rot = 0) => {
   const [w, d] = CATALOG[t].footprint;
   const [fw, fd] = rot % 2 ? [d, w] : [w, d];
