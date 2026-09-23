@@ -4,6 +4,8 @@ import { CATALOG } from "../core/catalog.js";
 import { view2d } from "./view.js";
 import { scaledSprite } from "./scale.js";
 import { ALIAS, MUL, expandDecor } from "./decor2d.js";
+import { waterItems, bridgeLogItems } from "./water2d.js";
+import { surfaceItems, plazaDirt } from "./surface2d.js";
 
 const SURFACE = { grass: "tile-grass", sand: "tile-sand", dirt: "tile-dirt", stone: "tile-stone", water: "tile-water", none: "tile-cliff" };
 const WATER_SLAB = 16;
@@ -34,7 +36,9 @@ export function createRenderer(container, sprites) {
 
   const item = (sp, ax, ay, key, crop) => ({ sp, ax, ay, key, crop });
 
-  const cellTop = (c) => (c.s === "ramp" ? c.h - 0.5 : c.h);
+  const lf = (c) => (c && c.lift) || 0;
+  const cellTop = (c) => (c.s === "ramp" ? c.h - 0.5 : c.h) + lf(c);
+  const heroLift = (a) => lf(cellAt(S.level, Math.floor(a.pos.x), Math.floor(a.pos.z)));
 
   const buildStatics = () => {
     const L = S.level, [W, D] = L.size, out = [];
@@ -52,7 +56,7 @@ export function createRenderer(container, sprites) {
           if (void0(n)) continue;
           if (skip && (n.h < 1 || n.s === "water" || (n.s === "bridge" && n.w == null))) continue;
           if (n.s === "bridge" && n.w == null) continue;
-          const ny = (n.s === "bridge" ? (n.w != null ? n.w * T : topY - B) : n.s === "ramp" ? (n.h - 1) * T : n.h * T) - skip;
+          const ny = (n.s === "bridge" ? (n.w != null ? n.w * T : topY - B) : n.s === "ramp" ? (n.h - 1 + lf(n)) * T : (n.h + lf(n)) * T) - skip;
           f = Math.min(f, ny);
         }
         return Math.max(base, f);
@@ -74,25 +78,28 @@ export function createRenderer(container, sprites) {
         if (c.w != null) water(c.w);
         const nb = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return n && n.h >= 1 && n.s !== "water"; };
         const axis = nb(1, 0) || nb(-1, 0) ? "x" : "z";
-        const mat = c.m === "logs" && sprites.get("tile-bridge-logs-" + axis) ? "tile-bridge-logs-" : "tile-bridge-";
-        push(mat + axis, c.h * T, undefined, c.h * T + 0.01);
+        if (c.m === "logs") out.push(bridgeLogItems(L, T, px, x, z, axis));
+        else push("tile-bridge-" + axis, c.h * T, undefined, c.h * T + 0.01);
       } else if (c.h === 0) {
         if (c.s === "water") water(0);
         else if (c.s !== "none") push(SURFACE[c.s], 0, M.topFaceHeight + WATER_SLAB);
       } else if (c.s === "water") {
         water(c.h);
+      } else if (c.s === "ramp" && c.m === "stone") {
+        column((c.h - 0.65 + lf(c)) * T, "tile-stone");
       } else if (c.s === "ramp") {
-        column(c.h * T - B, "tile-cliff");
+        column((c.h + lf(c)) * T - B, "tile-cliff");
         const id = c.m && sprites.get(`tile-ramp-${c.d}-${c.m}`) ? `tile-ramp-${c.d}-${c.m}` : "tile-ramp-" + c.d;
-        push(id, c.h * T, undefined, c.h * T);
+        push(id, (c.h + lf(c)) * T, undefined, (c.h + lf(c)) * T);
       } else {
-        column(c.h * T, SURFACE[c.s] || "tile-cliff");
+        column((c.h + lf(c)) * T, c.s === "dirt" && !plazaDirt(L, x, z) ? "tile-grass" : SURFACE[c.s] || "tile-cliff");
       }
     }
     for (const [i, d] of expandDecor(L.decor).entries()) {
       const spec = CATALOG[d.base || d.t] || CATALOG[d.t];
       const c = cellAt(L, d.x, d.z);
-      if (d.t === "waterfall") {
+      if (d.t === "waterfall") continue;
+      if (d.t === "waterfall-sprite") {
         const r = (d.rot || 0) % 4, [bx, bz] = [[0, -1], [1, 0], [0, 1], [-1, 0]][r];
         const src = cellAt(L, d.x + bx, d.z + bz);
         const srcY = src ? (src.s === "bridge" ? (src.w ?? 0) : src.h) * T : c.h * T + 1;
@@ -118,6 +125,7 @@ export function createRenderer(container, sprites) {
       if (spec.attach === "cliff") it.anchor = [sp.anchor[0], 6];
       out.push(it);
     }
+    out.push(...waterItems(L, T, px), ...surfaceItems(L, T, px, cellTop));
     return out;
   };
 
@@ -140,7 +148,7 @@ export function createRenderer(container, sprites) {
   const target = () => {
     const a = S.actor;
     if (S.params.hero === "0" && V.center) { const p = px(V.center[0], V.center[1], V.center[2]); return { x: p.x + V.nudge[0], y: p.y + V.nudge[1] }; }
-    const p = px(a.pos.x, (a.y + 0.4) * T, a.pos.z);
+    const p = px(a.pos.x, (a.y + heroLift(a) + 0.4) * T, a.pos.z);
     const b = levelScreenBounds(S.level, S.proj, P), hw = cw / 2 / scale, hh = ch / 2 / scale;
     const clamp = (v, lo, hi, half) => (hi - lo <= 2 * half ? (lo + hi) / 2 : Math.min(hi - half, Math.max(lo + half, v)));
     return { x: clamp(p.x, b.minX, b.maxX, hw), y: clamp(p.y, b.minY, b.maxY, hh) };
@@ -178,8 +186,8 @@ export function createRenderer(container, sprites) {
       const a = S.actor;
       let list = statics, hero = null;
       if (S.params.hero !== "0") {
-        const sp = heroSprite(a), p = px(a.pos.x, a.y * T, a.pos.z);
-        hero = item(sp, p.x, p.y, [frontDiag(a.pos.x, a.pos.z, a.y, Math.floor(a.pos.x) + Math.floor(a.pos.z)), 1, a.pos.x + a.pos.z, 1e9]);
+        const hl = a.y + heroLift(a), sp = heroSprite(a), p = px(a.pos.x, hl * T, a.pos.z);
+        hero = item(sp, p.x, p.y, [frontDiag(a.pos.x, a.pos.z, hl, Math.floor(a.pos.x) + Math.floor(a.pos.z)), 1, a.pos.x + a.pos.z, 1e9]);
         list = statics.slice();
         let lo = 0, hi = list.length;
         while (lo < hi) { const m = (lo + hi) >> 1; if (cmp(list[m], hero) < 0) lo = m + 1; else hi = m; }
@@ -188,6 +196,7 @@ export function createRenderer(container, sprites) {
       let hx = 0, hy = 0, hr = 0, after = false;
       if (hero) { hx = ox + hero.ax * k; hy = oy + (hero.ay - hero.sp.anchor[1] * 0.55) * k; hr = hero.sp.h * 0.62 * k; }
       for (const it of list) {
+        if (it.draw) { it.draw(ctx, ox, oy, k); continue; }
         const km = k * (it.mul || 1), an = it.anchor || it.sp.anchor;
         const sc = scaledSprite(it.sp, km);
         const dx = Math.round(ox + it.ax * k - an[0] * km * sc.fx), dy = Math.round(oy + it.ay * k - an[1] * km * sc.fy);
@@ -216,16 +225,14 @@ export function createRenderer(container, sprites) {
     pick(x, y) {
       const k = scale;
       const wx = (x - cw / 2) / k + focus.x, wy = (y - ch / 2) / k + focus.y;
-      for (let h = maxH; h >= 0; h--) {
-        for (const yy of [h, h - 0.5]) {
-          const g = S.proj.unprojectGround(wx, wy, yy * T, P);
-          const cx = Math.floor(g.x), cz = Math.floor(g.z), c = cellAt(S.level, cx, cz);
-          if (!c) continue;
-          if (yy === h && c.h === h && c.s !== "ramp" && c.s !== "none") return [cx, cz];
-          if (c.s === "ramp" && c.h - 0.5 === yy) return [cx, cz];
-        }
+      const levels = [...new Set(S.level.cells.flat().filter((c) => c.h >= 1 && c.s !== "none" && c.s !== "water").map(cellTop))].sort((a, b) => b - a);
+      let best = null;
+      for (const yy of levels) {
+        const g = S.proj.unprojectGround(wx, wy, yy * T, P);
+        const cx = Math.floor(g.x), cz = Math.floor(g.z), c = cellAt(S.level, cx, cz);
+        if (c && c.h >= 1 && c.s !== "none" && c.s !== "water" && Math.abs(cellTop(c) - yy) < 1e-6 && (!best || cx + cz > best[0] + best[1])) best = [cx, cz];
       }
-      return null;
+      return best;
     },
   };
 }
