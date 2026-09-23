@@ -2,6 +2,7 @@ import { loadLevel } from "../core/level.js";
 import { start, readParams } from "../core/game.js";
 import { loadSprites } from "./sprites.js";
 import { createRenderer } from "./renderer.js";
+import { mountUI } from "../core/ui.js";
 
 const msg = document.getElementById("msg");
 const params = readParams();
@@ -10,6 +11,7 @@ try {
   document.body.style.background = level.bg || "#404040";
   const renderer = createRenderer(document.body, sprites);
   start(level, renderer, { params });
+  mountUI();
   if (params.debug) msg.textContent = `${level.name} ${level.size.join("x")}`;
 } catch (e) {
   console.error(e);
