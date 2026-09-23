@@ -4,7 +4,7 @@ import { CATALOG } from "../core/catalog.js";
 import { view2d } from "./view.js";
 import { scaledSprite } from "./scale.js";
 import { ALIAS, MUL, expandDecor } from "./decor2d.js";
-import { waterItems, bridgeLogItems } from "./water2d.js";
+import { waterItems, bridgeLogItems, waterLevel } from "./water2d.js";
 import { surfaceItems, plazaDirt } from "./surface2d.js";
 
 const SURFACE = { grass: "tile-grass", sand: "tile-sand", dirt: "tile-dirt", stone: "tile-stone", water: "tile-water", none: "tile-cliff" };
@@ -99,10 +99,10 @@ export function createRenderer(container, sprites) {
     for (const [i, d] of expandDecor(L.decor).entries()) {
       const spec = CATALOG[d.base || d.t] || CATALOG[d.t];
       const c = cellAt(L, d.x, d.z);
-      if (d.t === "waterfall") continue;
-      if (d.t === "waterfall-sprite") {
+      if (d.t === "waterfall") {
         const r = (d.rot || 0) % 4, [bx, bz] = [[0, -1], [1, 0], [0, 1], [-1, 0]][r];
         const src = cellAt(L, d.x + bx, d.z + bz);
+        if (waterLevel(src) != null) continue;
         const srcY = src ? (src.s === "bridge" ? (src.w ?? 0) : src.h) * T : c.h * T + 1;
         const footY = cellTop(c) * T, fall = Math.max(B, srcY - footY);
         const sp = sprites.decor("waterfall", 0, r % 2);
