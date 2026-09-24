@@ -286,11 +286,12 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
     }
     return y;
   };
+  const overVoid = (x, z) => [[1, 0], [0, 1]].some(([dx, dz]) => { const n = cellAt(L, x + dx, z + dz); return !n || n.s === "none"; });
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
     const c = cellAt(L, x, z);
     const rnd = mulberry32(hashSeed(seed) ^ Math.imul(x + 1, 73856093) ^ Math.imul(z + 1, 19349663));
     if (c.s === "none") continue;
-    if (c.s === "water" || (c.h === 0 && c.s !== "bridge")) { waterCell(Wb, L, x, z, c.h, T, rnd, c.h > 0 ? (lowestWater(x, z) ?? c.h * T - 0.4) : null); continue; }
+    if (c.s === "water" || (c.h === 0 && c.s !== "bridge")) { waterCell(Wb, L, x, z, c.h, T, rnd, c.h > 0 ? (lowestWater(x, z) ?? (overVoid(x, z) ? c.h * T - WATER_DROP - DEPTH : c.h * T - 0.4)) : null); continue; }
     if (c.s === "bridge") {
       if (c.w != null) waterCell(Wb, L, x, z, c.w, T, rnd, c.w > 0 ? (lowestWater(x, z) ?? c.w * T - 0.4) : null);
       bridgeCell(B, L, x, z, c, T, rnd);
