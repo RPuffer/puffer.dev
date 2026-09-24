@@ -47,9 +47,29 @@ Interactive tiles fill one grid cell each and carry the walk: grass, sand, dirt,
 4. Rules add a dirt plaza, paths, waterfalls under cliffs, a well or campfire in the widest clearing, Poisson-disc trees, and scatter decor, and reject any piece that would cut the walkable area.
 5. `checkLevel` validates the result and the generator retries on failure; `node tools/procgen-check.mjs 200` tests 200 seeds.
 
+## Pipeline
+
+Three pipeline variants turn one artwork (`pipeline/seed/forest.png`) into a 3d level. All three start from the world brief `pipeline/analyze.mjs` writes (`pipeline/seed/brief.json`) and loop against `pipeline/critic.mjs`.
+
+- A, transcription: `pipeline/a-transcribe/` measures the drawing as a map and builds the level and its props in code, at $0.82.
+- B, concept repaint: `pipeline/b-concept/` has an image model repaint the drawing as a tile island, then transcribes the chosen concept by hand measurement, at $1.20.
+- C, generated meshes: `pipeline/c-meshes/` turns brief props into sprites, trellis meshes and palette-snapped low-poly GLBs, and lays the island out with procgen, at $2.39.
+
+```sh
+node pipeline/analyze.mjs pipeline/seed/forest.png pipeline/seed/brief.json
+node pipeline/a-transcribe/regions.mjs && node pipeline/a-transcribe/build-level.mjs
+node pipeline/b-concept/concept.mjs pipeline/seed/forest.png pipeline/seed/brief.json pipeline/b-concept/candidates 4 -r2
+node pipeline/b-concept/transcribe.mjs pipeline/b-concept/measure.json
+node pipeline/c-meshes/sprites.mjs --n=2 && node pipeline/c-meshes/meshes.mjs && node pipeline/c-meshes/lowpoly.mjs
+node pipeline/c-meshes/layout.mjs --seed=10 --write
+node pipeline/critic.mjs out/final/forest-a.png --out out/final/forest-a.json
+```
+
+The levels load at `http://localhost:8765/3d/index.html?level=forest-a`, `forest-b`, `forest-b-small` and `forest-c`, from `levels/<name>.json` with props in `3d/pieces/<name>.js`. Each variant's README under `pipeline/` has its full loop, and `docs/RUN.md` holds the results table and `out/final/bakeoff.png`.
+
 ## Spend
 
-Generative spend for the project: $2.835 of the $30.00 cap, all on 2d sprites. `docs/SPEND.md` has the log.
+Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.
 
 ## Deploy
 
