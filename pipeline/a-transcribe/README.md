@@ -94,3 +94,50 @@ Remaining critic mediums: the fire-bird reads as flat stacked shapes, which is w
 ## Outputs
 
 Final renders are `out/forest-a-351.png` and `out/forest-a-900.png`. Critic reports and annotated images are in `out/forest-a-critic/`, and the region debug image is `out/forest-a-regions.png`.
+
+## Round 2: concept levels
+
+Each concept brief runs through the same two scripts. `regions.mjs --concept <name>` reads `pipeline/seed/concepts/<name>.json` as a plan (grid cell `[z][x]` is level cell `x,z`) and writes `pipeline/a-transcribe/regions-<name>.json`. `build-level.mjs --concept <name>` hands the brief to `concept-level.mjs`, which writes `levels/forest-a-<name>.json`. It applies everything the brief says: palette translation and lighting tint, light and bg, surfaces (`biome.surfaces`), plateau share, motif cells, tree density and types, decor density and weights, water with waterfalls, and the bird at the focal cell. The literal `forest-a` build is unchanged.
+
+Commands for one concept, from the repo root, with the server running (`sh tools/serve.sh`). Replace `NAME` with `scene`, `biome`, `motif-remap` or `composition-only`, and `R` with the round number.
+
+```sh
+export PP_PROFILE=.pp-profile-NAME C=NAME
+node pipeline/a-transcribe/regions.mjs --concept $C
+node pipeline/a-transcribe/build-level.mjs --concept $C --props
+```
+
+Write `3d/pieces/forest-a-$C.js` for the listed types, following `pipeline/a-transcribe/props.md`. Then build, render and critique:
+
+```sh
+node pipeline/a-transcribe/build-level.mjs --concept $C
+mkdir -p out/forest-a-$C
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=forest-a-$C&hero=0" out/forest-a-$C/rR-351.png 351 390
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=forest-a-$C&hero=0" out/forest-a-$C/rR-900.png 900 800
+node pipeline/critic.mjs out/forest-a-$C/rR-351.png --annotate out/forest-a-$C/rR-351-ann.png --out out/forest-a-$C/rR-351.json
+node pipeline/critic.mjs out/forest-a-$C/rR-900.png --annotate out/forest-a-$C/rR-900-ann.png --out out/forest-a-$C/rR-900.json
+```
+
+Read both PNGs and the annotated copies, fix the pieces module (or the brief-reading scripts, if the fault is general), rebuild, and repeat for up to four rounds. Stop after two consecutive rounds with no agreed high item. Then check the walk and save the final render:
+
+```sh
+node tools/smoke.mjs "http://localhost:8765/3d/index.html?level=forest-a-$C"
+node tools/qa-levels.mjs http://localhost:8765 forest-a-$C
+cp out/forest-a-$C/rR-900.png out/final/forest-a-$C.png
+```
+
+Log every analyze and critic run in `pipeline/a-transcribe/SPEND.md` from the `spend:` lines. Commit `levels/forest-a-$C.json`, `3d/pieces/forest-a-$C.js` and `pipeline/a-transcribe/regions-$C.json`.
+
+The five briefs are already committed. Regenerate one only if you change its fragment in `pipeline/analyze.mjs`: `node pipeline/analyze.mjs pipeline/seed/forest.png --concept $C` (about $0.03 a call).
+
+### pack-first result
+
+`levels/forest-a-pack-first.json`: 16x12, 127 land cells (93 h1, 32 h2, 2 h3), spawn 8,10, five stone ramps, all 94 walkable cells reachable. Decor: fire-bird, 11 pack trees (6 pine, 5 round), 3 bare trunks, 3 root tangles, 1 fallen log, 2 mist wisps, and pack scatter (7 bushes, 6 flowers, 3 rocks, 3 mushrooms, 2 coins). Palette is the pack's own, lit at ambient 0.92, sun 0.18, on `#3b3d42`. `3d/pieces/forest-a-pack-first.js` reuses forest-a's bird, trunk, roots and log in the brief's pack tones and adds a two-lobe `mist-wisp`.
+
+| Round | 351 high/med | 900 high/med | Fix after the round |
+| --- | --- | --- | --- |
+| 0 (by eye) | | | Trees hid the bird; void holes inside the island; one flat slab. Added the bird's clear ring, filled small unreachable pockets from their neighbours, grew terraces to `plateau_share` |
+| 1 | 0/0 | 0/0 | None |
+| 2 | 0/0 | 0/0 | Stopped: two clean rounds |
+
+`tools/qa-levels.mjs`: 14 pass, 0 fail, including the ramp climb from 8,10 to the h3 cell at 3,3. Final render: `out/final/forest-a-pack-first.png`.
