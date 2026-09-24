@@ -16,11 +16,11 @@ const isLand = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s 
 
 export function liftLevel(L) {
   if (L.lifted) return L;
-  const cells = L.cells.map((row) => row.map((c) => (c.lift ? { ...c, h: c.h + c.lift, ...(c.w != null ? { w: c.w + c.lift } : {}) } : c)));
+  const cells = L.cells.map((row) => row.map((c) => (c.lift ? { ...c, h: c.s === "bridge" ? c.h : c.h + c.lift, ...(c.w != null ? { w: c.w + c.lift } : {}) } : c)));
   return { ...L, cells, lifted: true, explicitPatches: cells.some((row) => row.some((c) => c.patch)) };
 }
 
-export const liftAt = (L, x, z) => cellAt(L, Math.floor(x), Math.floor(z))?.lift || 0;
+export const liftAt = (L, x, z) => { const c = cellAt(L, Math.floor(x), Math.floor(z)); return c && c.s !== "bridge" ? c.lift || 0 : 0; };
 
 export function floorLevel(L) {
   const n = new Map();
