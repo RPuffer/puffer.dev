@@ -11,3 +11,4 @@
 - 2026-09-23 Generated islands: `?level=gen&seed=N`, or `?seed=N` alone, runs core/procgen.js in the page; no level file is written. The view block keeps home's pitch, yaw, and tileH 1.5 and fits zoom and center to the island's bounds, decor tops included.
 - 2026-09-23 Operator chose the 3d build; the 2d build stays as-is and the art-to-island pipeline targets 3d only.
 - 2026-09-23 Seed artwork for the pipeline bake-off is the charcoal forest with the flame spirit (puffer-assets A3F70CA1); the dragon is excluded by request.
+- 2026-09-23 Bake-off verdict: pipeline A carries forward; round 2 varies the concept step only, five strategies, forest-a kept as baseline.

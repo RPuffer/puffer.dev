@@ -29,3 +29,16 @@ Cap for this run: $50.00, on top of the $2.84 already logged. Allocations: A up 
 ## House rules
 
 Same as docs/BRIEF.md: no code comments, granular commits of your own paths only, `PP_PROFILE=.pp-profile-<yourname>` for headless runs, reports under 150 words with verdict first.
+
+## Round 2: concept variations through pipeline A (2026-09-23)
+
+Operator verdict on the bake-off: A is closest to the pack's style; the concept step is the struggle. Round 2 keeps pipeline A unchanged in spirit (artwork regions to heightmap, code-built props, pack proportions) and varies only the concept: how the drawing is read into a world brief. Five named concept strategies, each a prompt fragment in pipeline/analyze.mjs selected with `--concept <name>`, each producing `pipeline/seed/concepts/<name>.json`, each run through A into `levels/forest-a-<name>.json` with its own pieces module `3d/pieces/forest-a-<name>.js` where new props are needed. The existing `forest-a` stays as the literal baseline.
+
+Strategies:
+- `pack-first`: start from the pack's daylight look and vocabulary; the drawing contributes only its motifs (bare trunks, mist, roots, the fire-bird) as a few props on an otherwise standard bright island.
+- `scene`: read the drawing as a place with a souls-like story: a shrine clearing where the fire-bird waits, an approach path, offerings, torches, a threshold; props and layout serve the scene.
+- `biome`: read the drawing as a biome (dark pine forest with a pool) and build it from the existing pack pieces (pines, mushrooms, rocks, water, waterfall) at the drawing's density; the bird is the only new prop.
+- `motif-remap`: map the drawing's shapes and tones onto pack pieces by likeness rather than by object: the flame strokes become orange trees and ember gems, the swirling ground becomes a spiral path and terraces, the mist becomes pale sand.
+- `composition-only`: take only the drawing's masses, void, and focal point for the layout; palette and decor are the plain pack; the bird stands at the focal point.
+
+Every result must keep the pack: compact irregular island with void around it, terraces at heights 0 to 3, chunky stacked-block props, the pack's saturation in daylight or dusk. Budget for the round: $10 across all five, logged per level in pipeline/a-transcribe/SPEND.md.
