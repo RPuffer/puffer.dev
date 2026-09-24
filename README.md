@@ -67,6 +67,8 @@ node pipeline/critic.mjs out/final/forest-a.png --out out/final/forest-a.json
 
 The levels load at `http://localhost:8765/3d/index.html?level=forest-a`, `forest-b`, `forest-b-small` and `forest-c`, from `levels/<name>.json` with props in `3d/pieces/<name>.js`. Each variant's README under `pipeline/` has its full loop, and `docs/RUN.md` holds the results table and `out/final/bakeoff.png`.
 
+Round 2 kept pipeline A and varied only the analyzer's concept prompt (`node pipeline/analyze.mjs --concept <name>`, briefs in `pipeline/seed/concepts/`): `forest-a-pack-first`, `forest-a-scene`, `forest-a-biome`, `forest-a-motif-remap`, and `forest-a-composition-only` load the same way, each with its own pieces module. The six islands side by side are in `out/final/round2-concepts.jpg`, and the results table is under Round 2 results in `docs/RUN.md`.
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.

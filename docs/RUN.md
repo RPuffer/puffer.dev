@@ -185,3 +185,18 @@ node tools/compare.mjs ref/reference.png out/final-2d.png out/final-2d
 Remaining highs: forest-b's leaning trunk reads as driven into the trunk behind it (2/3), forest-b-small's leaning trunk tip hangs in air (2/3), and home's stone step and scaffold base read as floating (2/3 each). The scaffold flag is the calibration false positive noted in `pipeline/README.md`: rocks and a pine hide the tower's sand footing.
 
 `out/final/bakeoff.png` (3680x1760) puts the seed drawing, fitted to 900x800 on `#1c222b`, beside the A, B and C renders, with B's concept (`pipeline/b-concept/concept.png`) beside B's render on the second row.
+
+## Round 2 results
+
+2026-09-23, five concept strategies through pipeline A on the same seed, rendered at 900x800 with `hero=0` into `out/final/`; the literal round-1 level is the baseline. Walkable counts every cell with h >= 1 and a walkable surface. QA: `tools/qa-levels.mjs` 84 pass, 0 fail across the six levels; `tools/qa.mjs` 134 pass, 0 fail; `tools/procgen-check.mjs 50` PASS.
+
+| Level | Concept | Size | Walkable | Decor | New types | Critic high/med | $ |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| forest-a | literal reading of the drawing | 16x12 | 120 | 37 | 5 | 0/0 | 0.82 (round 1) |
+| forest-a-pack-first | pack look, drawing adds motifs | 16x12 | 127 | 43 | 5 | 0/0 | 0.14 |
+| forest-a-scene | souls-like shrine clearing | 16x12 | 120 | 37 | 4 | 0/1 | 0.21 |
+| forest-a-biome | dark pine biome from pack pieces | 16x12 | 127 | 53 | 1 | 0/2 | 0.09 |
+| forest-a-motif-remap | strokes mapped to pack pieces | 16x12 | 140 | 49 | 1 | 0/0 | 0.22 |
+| forest-a-composition-only | masses and focal point only | 16x12 | 84 | 36 | 1 | 0/0 | 0.11 |
+
+Shared round-2 brief generation: $0.27 (five analyze runs) plus $0.13 of critic pre-runs logged against two levels. Sheet: `out/final/round2-concepts.jpg`. Card: `puffer-isoworld-concept-round-2`.
