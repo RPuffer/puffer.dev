@@ -5,8 +5,13 @@ import { CATALOG, PALETTE } from "../core/catalog.js";
 import { PALETTE as PAL3D } from "../3d/palette.js";
 import { askJSON, imagePart, spend } from "./vision.mjs";
 
-const [art, out] = process.argv.slice(2);
-if (!art || !out) { console.error("usage: node pipeline/analyze.mjs <art.png> <brief.json>"); process.exit(2); }
+const argv = process.argv.slice(2);
+const ci = argv.indexOf("--concept");
+const conceptName = ci >= 0 ? argv[ci + 1] : "literal";
+const positional = argv.filter((a, i) => i !== ci && i !== ci + 1);
+const art = positional[0];
+const out = positional[1] || (ci >= 0 ? `pipeline/seed/concepts/${conceptName}.json` : null);
+if (!art || !out) { console.error("usage: node pipeline/analyze.mjs <art.png> [brief.json] [--concept literal|pack-first|scene|biome|motif-remap|composition-only]"); process.exit(2); }
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const REF = path.join(root, "ref/reference.png");
 const SHEET = path.join(root, "ref/tilesheet.png");
@@ -15,6 +20,44 @@ const DIMS = { box: 3, rbox: 4, cyl: 3, cone: 4, ball: 2, prism: 1, beam: 1 };
 const PRIMS = Object.keys(DIMS);
 const HEX = /^#[0-9a-f]{6}$/i;
 const K = 8;
+
+const CONCEPTS = {
+  literal: `Translate IMAGE 1 literally: its mood, its objects where it draws them, its composition. Palette for a dark forest: dusk and moss greens, cooled ochre sand, deep teal water, a dark blue-grey background. Motifs are the drawing's own shapes, mostly "new". surfaces: {"ground":"grass","raised":"grass","path":"dirt","shore":"grass","mist":null}.`,
+  "pack-first": `Start from the pack, not the drawing. The level is a standard bright daytime pack island like IMAGE 2; IMAGE 1 contributes only a handful of its signature shapes as props.
+- mood: the pack's sunny toy mood first (bright, cheerful words), then one or two words of the drawing's hush.
+- palette.translation: copy CURRENT PACK PALETTE almost verbatim; move any group at most 10% in value or hue toward IMAGE 1. bg and biome.lighting.bg a neutral dark grey like #3b3d42. lighting: daylight, ambient 0.9 to 1.0, sun 0.1 to 0.2, tint a pale warm white.
+- motifs: 6 to 8. At most 4 are "new" and they are only the drawing's signature shapes: a chunky bare trunk, a low mist wisp, a root tangle, a fallen log. Each new motif has count 1 to 3 and all new-motif counts together total at most 8. Every other motif reuses a catalog type as it is (type set to tree-pine, tree-round, bush, bush-cluster, flower, rock, mushroom, stump, coin...), named after what it stands for in the drawing, with counts that make a lively pack island. The fire-bird is the only creature ("becomes":"npc") and keeps the pack's flame colours.
+- composition: a pack island in IMAGE 1's layout: a grass plateau tier (R, heights 2 and some 3) where IMAGE 1's trunks mass, an open grass and sand floor at height 1 where IMAGE 1 is open ground, one pale dirt path (P) from the near rim to the bird's feet, V on a ragged rim so the island stays irregular. Keep the focal cell where IMAGE 1's bird stands. No water unless a small pool fits the open floor.
+- biome: trees.density 0.12 to 0.2, types tree-pine and tree-round (weights about even) plus the bare trunk at weight 0.2 at most; decor_weights over flower, bush, rock, mushroom, coin, gem (and the new motifs at small weights); decor_density 0.12 to 0.18; plateau_share 0.25 to 0.35; water_share 0 to 0.05; surfaces {"ground":"grass","raised":"grass","path":"dirt","shore":"sand","mist":null}. Rules keep new props few and the island bright.`,
+  scene: `Read IMAGE 1 as a place in a souls-like game with a story: a shrine clearing where the fire-bird waits. Props and layout serve that scene.
+- mood: quiet, sacred, expectant words; dusk or twilight.
+- palette.translation: pack hue families at dusk, about 75 to 85% of the pack's value, slightly cooled; stone warm grey-ochre; bg and lighting.bg a deep blue-grey. lighting: ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool lavender. The fire-bird, torches and lanterns are the only warm hot accents.
+- composition: a raised shrine clearing (R, height 2) around the focal cell where the bird waits on a dais; one approach path (P) that starts at the near rim, passes a threshold (a gap between two tall trunks or a gate) about halfway, and climbs to the clearing; the drawing's trunk walls (T, heights 2 and 3) enclose the clearing on the far and side edges; V around a ragged rim.
+- motifs: 6 to 8, in scene order: the threshold (a new "threshold-gate" or pair of trunks flanking the path), the shrine dais or altar stone under the bird (new), offerings around it (catalog pot, gem, coin, or a new offering bowl), torches or lanterns lining the approach (catalog torch and lantern, 4 to 6 total), the enclosing bare trunks (new, from the drawing), roots on the approach (new). Place every motif's cells so the scene reads: torches in pairs on both sides of the path, offerings on the clearing next to the focal cell, gate straddling the path.
+- biome: trees.density 0.15 to 0.25 of the bare trunk and tree-pine; decor_weights torch, lantern, pot, gem, rock, mushroom, the new motifs; decor_density 0.08 to 0.12; plateau_share 0.25 to 0.35; water_share 0; surfaces {"ground":"grass","raised":"stone","path":"stone","shore":"grass","mist":null}. Rules describe the approach, threshold, clearing order.`,
+  biome: `Read IMAGE 1 as a biome, a dark pine forest with a still pool, and build it from the pack's existing pieces at the drawing's density. The fire-bird is the only new prop.
+- mood: dense, dim, still, damp words.
+- palette.translation: dusk pine forest: treeMint and treeTeal and treeLeaf deep cool greens (still saturated), grass a moss green, water a deep teal, sand a cooled ochre, bg and lighting.bg a dark blue-green grey. lighting: ambient 0.65 to 0.8, sun 0.2 to 0.35, tint a cool green-blue.
+- motifs: 5 to 7, every one a catalog type (never "new"): the drawing's tall trunks become tree-pine (count 8 to 14), fallen trunks become log, roots and ground clutter become mushroom, rock, rock-big, stump, bush; the pool's drop becomes waterfall (count 1). Name each after what it stands for in the drawing. The fire-bird is the only creature and the only new shape.
+- composition: add a still pool: 8 to 14 W cells in one blob in the open lower-left foreground of IMAGE 1 (where its dark ground pools), touching the rim so it can spill into the void; the ground right behind the pool is raised one tier (R, height 2) so a waterfall can drop into it. Dense T on the far rows and both sides at heights 1 and 2; the bird on open ground near the pool at the focal cell; a thin dirt path (P) from the near rim to the bird.
+- biome: trees.density 0.35 to 0.5, types tree-pine weight 0.8 or more plus tree-round; decor_weights mushroom, rock, rock-big, stump, log, bush, waterfall; decor_density 0.15 to 0.22; water_share 0.06 to 0.1; plateau_share 0.15 to 0.25; surfaces {"ground":"grass","raised":"grass","path":"dirt","shore":"sand","mist":null}.`,
+  "motif-remap": `Map IMAGE 1's shapes and tones onto pack pieces by likeness, not by object. Ask of every stroke "which pack piece looks like this?", never "what is this?".
+- The flame strokes of the bird and its tail become tree-orange trees (orange canopies) and ember gems (catalog gem) scattered on the ground around it.
+- The swirling ground strokes become a spiral path: one continuous coil of P cells, one cell wide, each P cell 4-adjacent to the next, entering at the near rim (row 10 or 11), then circling the focal cell at a distance of 2 to 4 cells for at least three quarters of a turn before it reaches the bird. Terraces step up along the coil: the outer ring of the coil at height 1, the middle at 2, the ring touching the focal cell at 3, so the spiral climbs to the bird. Keep V on a ragged outer rim.
+- The pale mist becomes pale sand: surfaces.mist "sand" and surfaces.ground "sand" on the open floor; grass only on the terraces.
+- The dark vertical trunks become tree-pine in its darkest variant and stumps.
+- mood: warm, swirling, glowing, ember words.
+- palette.translation: warm ember dusk: sand pale cream-ochre, grass an olive green, wood and treeGold hot orange and amber, water a teal, bg and lighting.bg a dark warm brown-grey. lighting: ambient 0.75 to 0.85, sun 0.2 to 0.3, tint amber.
+- motifs: 5 to 7, every one a catalog type (tree-orange, gem, tree-pine, stump, rock, flower in flowerOrange), none "new"; name each after the stroke it stands for. The fire-bird is the only creature.
+- biome: trees.density 0.15 to 0.25, types tree-orange weight 0.6 or more plus tree-pine; decor_weights gem, flower, rock, stump, coin; decor_density 0.12 to 0.18; plateau_share 0.35 to 0.5; water_share 0; surfaces {"ground":"sand","raised":"grass","path":"dirt","shore":"sand","mist":"sand"}.`,
+  "composition-only": `Take only IMAGE 1's masses, void, and focal point for the layout. Ignore its colours, objects, and mood: the palette and decor are the plain pack of IMAGE 2.
+- mood: the pack's own mood words (bright, toy, sunny, cosy), none from the drawing.
+- palette.translation: CURRENT PACK PALETTE verbatim, every hex unchanged. bg and lighting.bg "#404040". lighting ambient 1, sun 0, tint "#ffffff".
+- composition: heavy dark masses of IMAGE 1 become raised land (R, heights 2 and, at their darkest core, 3), light open areas become open ground (G, height 1), and the palest edges and corners become V so the island is irregular with void on every side (row 0, row 11, column 0 and column 15 are mostly V). Trace IMAGE 1's real, asymmetric masses: where its dark trunk mass is heavier on one side, the raised land is heavier on that side; never mirror left and right or frame the island with a symmetric ring. The bird's position is the focal F. A plain dirt path (P) from the near rim to the focal cell.
+- motifs: 5 to 7, every one a catalog type in the reference island's mix (tree-pine, tree-round, bush, bush-cluster, flower, rock, mushroom, fence, barrel, coin), none "new", named plainly after the piece; cells follow the masses (trees on the raised masses, flowers and bushes on open ground). The fire-bird is the only creature, in flame colours, standing at the focal cell.
+- biome: trees.density 0.2 to 0.3, types tree-pine and tree-round; decor_weights over the reference mix; decor_density 0.15 to 0.2; plateau_share 0.3 to 0.4; water_share 0 to 0.06; surfaces {"ground":"sand","raised":"grass","path":"dirt","shore":"sand","mist":null}.`,
+};
+if (!CONCEPTS[conceptName]) { console.error(`unknown concept ${conceptName}; one of ${Object.keys(CONCEPTS).join(", ")}`); process.exit(2); }
 
 const hex = (c) => "#" + c.map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
 
@@ -74,7 +117,7 @@ TASK. Return ONE JSON object, no prose outside it, with exactly these keys:
 
 "palette": {
   "measured": the measured list above, same order, each item {"hex","share","role"} where role names what that colour is in IMAGE 1 (paper, mist, trunk shadow, stroke...).
-  "translation": a per-level override of the pack palette keyed by the pack palette's own keys, with the same shape per key: ${JSON.stringify(paletteShape)}, plus "bg" (hex). Rules: keep each group's three-tone ladder (top brightest, then left, then right; roughly the pack's own luminance ratios top 1.00 : left 0.88 : right 0.66); keep every group in its own hue family (grass stays green, sand stays warm yellow-ochre, water stays cyan, wood stays orange, gold stays gold, trunk stays red-brown) so it still reads as the same toy pack, and pull value, saturation, and hue temperature toward IMAGE 1's mood. If IMAGE 1 is monochrome or near-monochrome, do NOT translate to grey: a grey level no longer reads as the pack. Top tones of grass, sand, water, wood, and the tree groups keep HSL saturation of at least 30% and lightness between 42% and 78%; the background may go dark. For a dark forest: dusk and moss greens, cooled ochre sand, deep teal water, a dark blue-grey background. A figure made of flame or light in IMAGE 1 keeps the pack's warm flame colours as the one hot accent in the level. Every value is a 6-digit hex.
+  "translation": a per-level override of the pack palette keyed by the pack palette's own keys, with the same shape per key: ${JSON.stringify(paletteShape)}, plus "bg" (hex). Rules: keep each group's three-tone ladder (top brightest, then left, then right; roughly the pack's own luminance ratios top 1.00 : left 0.88 : right 0.66); keep every group in its own hue family (grass stays green, sand stays warm yellow-ochre, water stays cyan, wood stays orange, gold stays gold, trunk stays red-brown) so it still reads as the same toy pack, and pull value, saturation, and hue temperature toward the mood the CONCEPT STRATEGY below asks for. If IMAGE 1 is monochrome or near-monochrome, do NOT translate to grey: a grey level no longer reads as the pack. Top tones of grass, sand, water, wood, and the tree groups keep HSL saturation of at least 30% and lightness between 42% and 78%; the background may go dark. A figure made of flame or light in IMAGE 1 keeps the pack's warm flame colours as the one hot accent in the level. Every value is a 6-digit hex.
   "notes": one or two sentences on the translation logic.
 }
 
@@ -91,7 +134,10 @@ TASK. Return ONE JSON object, no prose outside it, with exactly these keys:
   "read": two to four sentences on the composition: framing, depth, where the eye enters and travels, what the level must preserve.
 }
 
-"biome": procgen rules another generator will follow without seeing IMAGE 1: {"trees": {"density": 0 to 1 share of land cells with a tree, "types": [{"type","variant","weight"}] using catalog types or your new motif names}, "water_share": 0 to 1 of the 16x12 grid, "plateau_share": 0 to 1 of land raised above base, "void_share": 0 to 1, "decor_weights": {type or motif name: weight}, "lighting": {"bg": hex, "ambient": 0 to 1, "sun": 0 to 1, "tint": hex, "notes": one sentence}, "rules": 3 to 6 short imperative placement rules}.`;
+"biome": procgen rules another generator will follow without seeing IMAGE 1: {"trees": {"density": 0 to 1 share of land cells with a tree, "types": [{"type","variant","weight"}] using catalog types or your new motif names}, "water_share": 0 to 1 of the 16x12 grid, "plateau_share": 0 to 1 of land raised above base, "void_share": 0 to 1, "decor_weights": {type or motif name: weight}, "lighting": {"bg": hex, "ambient": 0 to 1, "sun": 0 to 1, "tint": hex, "notes": one sentence}, "rules": 3 to 6 short imperative placement rules, "decor_density": 0 to 1 share of land cells that carry scatter decor from decor_weights, "surfaces": {"ground": surface of plain G cells, "raised": surface of R cells, "path": surface of P cells, "shore": surface of land cells beside water or void, each one of grass|sand|dirt|stone, "mist": surface for pale mist ground or null to keep mist as props}}.
+
+CONCEPT STRATEGY "${conceptName}" (it overrides any rule above it contradicts, including which features the drawing must contain):
+${CONCEPTS[conceptName]}`;
 
 const hsl = (h) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
@@ -166,7 +212,7 @@ function repair(b) {
     return h === "0" || !/[0-3]/.test(h) ? "1" : h;
   }).join(""));
   const onLand = ([x, z]) => { const g = c.grid[z]?.[x]; return g && g !== "W" && g !== "V"; };
-  for (const m of b.motifs || []) if (Array.isArray(m.cells)) { m.cells = m.cells.filter((cell) => Array.isArray(cell) && onLand(cell)); m.count = m.cells.length; }
+  for (const m of b.motifs || []) if (Array.isArray(m.cells)) { m.cells = m.cells.filter((cell) => Array.isArray(cell) && (m.type === "waterfall" ? c.grid[cell[1]]?.[cell[0]] === "W" || onLand(cell) : onLand(cell))); m.count = m.cells.length; }
   const nearestF = (x, z) => {
     let best = null, bd = Infinity;
     c.grid.forEach((row, rz) => [...row].forEach((g, rx) => { const d = (rx - x) ** 2 + (rz - z) ** 2; if (g === "F" && d < bd) { bd = d; best = [rx, rz]; } }));
@@ -235,6 +281,7 @@ function validate(b) {
   for (const k of ["water_share", "plateau_share", "void_share"]) if (typeof bi[k] !== "number") errs.push(`biome.${k} not number`);
   if (!bi.lighting || !HEX.test(bi.lighting.bg || "")) errs.push("biome.lighting.bg not hex");
   if (!bi.decor_weights || typeof bi.decor_weights !== "object") errs.push("biome.decor_weights missing");
+  for (const [k, v] of Object.entries(bi.surfaces || {})) if (v !== null && !["grass", "sand", "dirt", "stone"].includes(v)) errs.push(`biome.surfaces.${k} ${v} not grass|sand|dirt|stone|null`);
   if (Array.isArray(c.grid) && c.grid.length === 12) {
     const land = new Set("GRPFT");
     const seen = new Set(); const stack = [];
@@ -267,6 +314,7 @@ data.palette.measured = measured.map((m, i) => ({ ...m, role: data.palette.measu
 const brief = {
   source: { art: path.relative(root, path.resolve(art)), width: meta.width, height: meta.height, model, date: new Date().toISOString().slice(0, 10) },
   mood: data.mood, observations: data.observations, palette: data.palette, motifs: data.motifs, creatures: data.creatures, composition: { legend: CODES, ...data.composition }, biome: data.biome,
+  concept: { name: conceptName, fragment: CONCEPTS[conceptName] },
 };
 fs.mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
 fs.writeFileSync(out, JSON.stringify(brief, null, 2) + "\n");
