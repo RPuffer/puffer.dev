@@ -23,3 +23,17 @@ date | model | count | $ | purpose
 2026-09-23 | gemini-3.8-flash | 6 | 0.0630 | critic round 16
 
 Total: $0.82 of $5.00
+
+## Round 2: concepts
+
+Allocation: $10.00 across all five concepts. Same token rates as above.
+
+date | level | model | count | $ | purpose
+--- | --- | --- | --- | --- | ---
+2026-09-23 | all five | gemini-3.8-flash | 7 | 0.2683 | analyze.mjs first pass, five briefs (scene and motif-remap took a retry)
+2026-09-23 | motif-remap, composition-only | gemini-3.8-flash | 3 | 0.1050 | analyze.mjs rerun after tuning the spiral and void-rim fragments
+2026-09-23 | composition-only | gemini-3.8-flash | 1 | 0.0312 | analyze.mjs rerun for asymmetric masses
+2026-09-23 | forest-a-pack-first | gemini-3.8-flash | 6 | 0.0741 | critic round 1, 351 and 900 (3 votes each)
+2026-09-23 | forest-a-pack-first | gemini-3.8-flash | 6 | 0.0632 | critic round 2
+
+Round 2 total: $0.54 of $10.00 (briefs $0.40, forest-a-pack-first critic $0.14)
