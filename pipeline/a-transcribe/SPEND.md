@@ -44,3 +44,9 @@ Round 2 total: $0.54 of $10.00 (briefs $0.40, forest-a-pack-first critic $0.14)
 2026-09-23 | forest-a-biome | gemini-3.8-flash | 6 | 0.0498 | critic round 2
 
 forest-a-scene and forest-a-biome critic: $0.30 of their $2.50 share
+2026-09-23 | forest-a-motif-remap | gemini-3.8-flash | 6 | 0.0554 | critic round 1, 351 and 900 (3 votes each)
+2026-09-23 | forest-a-motif-remap | gemini-3.8-flash | 6 | 0.0497 | critic round 2
+2026-09-23 | forest-a-motif-remap | gemini-3.8-flash | 6 | 0.0500 | critic round 3
+2026-09-23 | forest-a-motif-remap | gemini-3.8-flash | 6 | 0.0687 | critic round 4
+2026-09-23 | forest-a-composition-only | gemini-3.8-flash | 6 | 0.0522 | critic round 1
+2026-09-23 | forest-a-composition-only | gemini-3.8-flash | 6 | 0.0555 | critic round 2
