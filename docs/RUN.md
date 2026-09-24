@@ -146,13 +146,19 @@ PP_PROFILE=.pp-profile-qa node tools/qa.mjs
 
 `qa.mjs` drives both builds and the root page in headless Chrome at 1200x800, 400x800, and 400x800 with touch emulated. It checks `window.__done` within 10 s, zero console errors and failed requests, one cell per WASD and arrow press, a tap on a walkable cell, a tap on a decor-blocked cell (the hero stops adjacent), the see-through window at `?level=home&spawn=0,1` (one frame rendered with `xray` 0 and 1, pixel diff), the seed field, new island button and home link, the root toggle, and the d-pad under touch. It prints PASS or FAIL per check, writes screenshots to `out/qa/`, and exits 1 on any failure.
 
+```sh
+PP_PROFILE=.pp-profile-qa node tools/qa-levels.mjs [base-url] [level,level,...]
+```
+
+`qa-levels.mjs` runs the same kind of checks on the pipeline levels in the 3d build: `forest-a`, `forest-b`, `forest-b-small`, `forest-c` and `hooks-test` by default. For each level it checks `window.__done` within 15 s (GLB loads included), zero console errors and failed requests, spawn against the level file, one step per W/D/S/A press, a click and a 400x800 touch tap on walkable cells, a key-driven climb from spawn up a ramp to the highest cell it can reach, and the see-through window with the hero spawned on the cell behind the tallest blocking piece. The 404 on `hooks-test`'s `glb-missing` counts as expected.
+
 ## Results
 
 2026-09-23, committed `levels/home.json`, `?level=home&hero=0` at 351x390 against `ref/reference.png`:
 
 | Build | MAD | NCC | Silhouette |
 | --- | --- | --- | --- |
-| 3d | 23.3 | 0.798 | 93.0% |
+| 3d | 23.7 | 0.795 | 92.6% |
 | 2d | 23.2 | 0.807 | 93.4% |
 
 ```sh
@@ -162,4 +168,20 @@ node tools/compare.mjs ref/reference.png out/final-3d.png out/final-3d
 node tools/compare.mjs ref/reference.png out/final-2d.png out/final-2d
 ```
 
-`out/final-triptych.png` puts the reference, 3d and 2d side by side at 2x. `tools/qa.mjs`: 134 pass, 0 fail.
+`out/final-triptych.png` puts the reference, 3d and 2d side by side at 2x. `tools/qa.mjs`: 134 pass, 0 fail. `tools/qa-levels.mjs`: 70 pass, 0 fail.
+
+## Pipeline results
+
+2026-09-23, 3d build, `?level=<name>&hero=0` at 900x800 in `out/final/<name>.png`, one critic run each (`node pipeline/critic.mjs out/final/<name>.png --out out/final/<name>.json`, 3 votes). Walkable counts cells where `isWalkable` holds after decor blocking. New prop types are decor types the level places that the core catalog lacks; B's count includes its path, stair and skirt pieces. Spend comes from each variant's `SPEND.md`.
+
+| Level | Size | Walkable | Decor | New prop types | Critic high / medium | Spend |
+| --- | --- | --- | --- | --- | --- | --- |
+| forest-a | 16x12 | 94 | 37 | 5 | 0 / 0 | $0.82 |
+| forest-b | 8x8 | 43 | 28 | 10 | 1 / 1 | $1.20 (shared with forest-b-small) |
+| forest-b-small | 6x6 | 22 | 24 | 11 | 1 / 1 | in forest-b |
+| forest-c | 16x12 | 112 | 46 | 9 | 0 / 2 | $2.39 |
+| home | 16x12 | 46 | 39 | 0 | 2 / 0 | n/a |
+
+Remaining highs: forest-b's leaning trunk reads as driven into the trunk behind it (2/3), forest-b-small's leaning trunk tip hangs in air (2/3), and home's stone step and scaffold base read as floating (2/3 each). The scaffold flag is the calibration false positive noted in `pipeline/README.md`: rocks and a pine hide the tower's sand footing.
+
+`out/final/bakeoff.png` (3680x1760) puts the seed drawing, fitted to 900x800 on `#1c222b`, beside the A, B and C renders, with B's concept (`pipeline/b-concept/concept.png`) beside B's render on the second row.
