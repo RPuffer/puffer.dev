@@ -1,0 +1,1392 @@
+{
+  "source": {
+    "art": "pipeline/seed/forest.png",
+    "width": 1454,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-24"
+  },
+  "mood": [
+    "sacred",
+    "twilight",
+    "solemn",
+    "expectant",
+    "mystical",
+    "hallowed"
+  ],
+  "observations": [
+    {
+      "what": "Large avian fire spirit standing upright in the center-foreground with plume of swirling flame-feathers",
+      "box": [
+        198,
+        206,
+        836,
+        822
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Pale hooked raptor-like beak glowing brightly on the creature's face",
+      "box": [
+        375,
+        277,
+        467,
+        368
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Two piercing white unblinking eyes gazing leftward from within swirling flame curls",
+      "box": [
+        342,
+        313,
+        408,
+        412
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Heavy thick horizontal fallen trunk lying on the muddy forest floor to the lower left",
+      "box": [
+        669,
+        0,
+        804,
+        381
+      ],
+      "maps_to": "log"
+    },
+    {
+      "what": "Dense vertical wall of straight bare tree trunks rising behind the creature",
+      "box": [
+        59,
+        638,
+        620,
+        992
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Slender leaning birch or pine trunk angling sharply across the upper right canopy",
+      "box": [
+        247,
+        693,
+        482,
+        998
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Twisted gnarled tree roots grasping into the dark shadowed ground on the left",
+      "box": [
+        623,
+        76,
+        715,
+        335
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Pale illuminated forest clearing floor directly behind and around the creature's legs",
+      "box": [
+        471,
+        144,
+        646,
+        375
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Misty ethereal smoke rising vertically between background tree trunks",
+      "box": [
+        74,
+        187,
+        443,
+        563
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Dark shadowy stump or burnt mound beside the left leg of the flame creature",
+      "box": [
+        538,
+        178,
+        635,
+        329
+      ],
+      "maps_to": "stump"
+    },
+    {
+      "what": "Curled flame-like tail feathers sweeping upward into the right background mist",
+      "box": [
+        426,
+        680,
+        686,
+        829
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Textured forest floor littered with ash, charcoal, and trampled leaf debris in foreground",
+      "box": [
+        793,
+        0,
+        995,
+        989
+      ],
+      "maps_to": "P"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#868686",
+        "share": 0.152,
+        "role": "mid-tone mist and soft forest backdrop"
+      },
+      {
+        "hex": "#9f9f9f",
+        "share": 0.15,
+        "role": "pale ambient clearing haze and illuminated trunk bark"
+      },
+      {
+        "hex": "#333333",
+        "share": 0.142,
+        "role": "deep trunk silhouettes and shaded forest floor"
+      },
+      {
+        "hex": "#bcbcbc",
+        "share": 0.129,
+        "role": "bright canopy mist and feather edge highlights"
+      },
+      {
+        "hex": "#181818",
+        "share": 0.119,
+        "role": "deepest charcoal shadows, roots, and burnt mulch"
+      },
+      {
+        "hex": "#6c6c6c",
+        "share": 0.116,
+        "role": "mid-ground tree bark and shaded ground foliage"
+      },
+      {
+        "hex": "#4f4f4f",
+        "share": 0.112,
+        "role": "undergrowth shadow and lower branch silhouettes"
+      },
+      {
+        "hex": "#dddddd",
+        "share": 0.079,
+        "role": "brightest glow of the beak, eye, and core spiritual flame"
+      }
+    ],
+    "translation": {
+      "bg": "#222533",
+      "grass": {
+        "top": "#679852",
+        "fringe": "#517841",
+        "fringeDark": "#3e5c31",
+        "speck": "#7bac64"
+      },
+      "sand": {
+        "top": "#bfa048",
+        "lip": "#997b2d",
+        "edge": "#a88734",
+        "dots": "#d4b35b"
+      },
+      "dirt": {
+        "top": "#755d4c",
+        "patch": "#634d3e",
+        "mottle": "#523e32",
+        "border": "#453328"
+      },
+      "stone": {
+        "top": "#8a8c88",
+        "pebble": "#a3a6a1",
+        "pebbleShade": "#747571",
+        "rim": "#5c5e5b"
+      },
+      "cliffUpper": {
+        "left": "#524c5c",
+        "right": "#3c3745",
+        "seam": "#2f2b38"
+      },
+      "cliffLower": {
+        "left": "#464052",
+        "right": "#322d3b",
+        "seam": "#282330",
+        "speck": "#1f1b26"
+      },
+      "water": {
+        "top": "#5ea4b8",
+        "bubble": "#9fd6e6",
+        "deep": "#306e80",
+        "fall": [
+          "#3d8396",
+          "#317182",
+          "#296270"
+        ],
+        "foam": "#b8e8f5"
+      },
+      "wood": {
+        "light": "#c16825",
+        "mid": "#a55418",
+        "dark": "#833e0f",
+        "shadow": "#662c08",
+        "end": "#d1a56d"
+      },
+      "treeMint": [
+        "#44886b",
+        "#377158",
+        "#295843"
+      ],
+      "treeLime": [
+        "#6e8c4b",
+        "#567039",
+        "#3e5228"
+      ],
+      "treeLeaf": [
+        "#4c8448",
+        "#3e6a3a",
+        "#2f502c"
+      ],
+      "treeTeal": [
+        "#3f8d7f",
+        "#33766a",
+        "#296257",
+        "#1e4e44"
+      ],
+      "treeGold": [
+        "#ab883a",
+        "#8f6f28",
+        "#705419"
+      ],
+      "trunk": [
+        "#59303b",
+        "#41232b"
+      ],
+      "rock": [
+        "#a8aba6",
+        "#8f918c",
+        "#6e706c",
+        "#525450"
+      ],
+      "wellStone": [
+        "#948d82",
+        "#7a746a",
+        "#615b53"
+      ],
+      "flowerOrange": [
+        "#e06b26",
+        "#b85016"
+      ],
+      "berry": [
+        "#a83e58",
+        "#822a40"
+      ],
+      "bushTeal": [
+        "#488574",
+        "#386b5c",
+        "#285246"
+      ],
+      "gold": [
+        "#d4a631",
+        "#ad8421",
+        "#f0c85d"
+      ]
+    },
+    "notes": "Palette shifts the cheerful toy aesthetic into a dusk, sacred clearing mood by muting greens and browns to twilight values while preserving the crisp three-tone shading. The fire-bird and shrine braziers provide high-contrast warm flame accents against the cool deep blue-grey atmosphere.",
+    "clamped": [
+      "grass.top #6b8e5c->#679852",
+      "grass.fringe #537346->#517841",
+      "grass.fringeDark #3f5934->#3e5c31",
+      "grass.speck #7ea36d->#7bac64",
+      "treeLeaf[0] #4a7846->#477c43",
+      "treeLeaf[1] #3a6136->#396235",
+      "treeLeaf[2] #2a4727->#2a4827",
+      "trunk[0] #4a3f42->#59303b",
+      "trunk[1] #362e30->#41232b",
+      "bushTeal[0] #488574->#488574",
+      "wood.light #b86323->#c16825",
+      "wood.mid #9c4f17->#a55418",
+      "wood.dark #7a3a0e->#833e0f",
+      "wood.shadow #5c2807->#662c08",
+      "wood.end #cfa065->#d1a56d",
+      "treeMint[0] #3f7d63->#44886b",
+      "treeMint[1] #326650->#377158",
+      "treeMint[2] #244d3b->#295843",
+      "treeLeaf[0] #477c43->#4c8448",
+      "treeLeaf[1] #396235->#3e6a3a",
+      "treeLeaf[2] #2a4827->#2f502c",
+      "treeTeal[0] #36786c->#3f8d7f",
+      "treeTeal[1] #2a6157->#33766a",
+      "treeTeal[2] #204d44->#296257",
+      "treeTeal[3] #163831->#1e4e44"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "shrine-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.4,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          4
+        ]
+      ],
+      "where": "Placed at the focal summit of the raised clearing beneath the fire spirit.",
+      "shape": {
+        "summary": "Stepped octagonal stone pedestal with engraved ritual grooves.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.48,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#a3a6a1",
+              "#8a8c88",
+              "#5c5e5b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#b5b8b2",
+              "#949691",
+              "#696b67"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.25,
+              0.05,
+              0.25,
+              0.05
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#d4a631",
+              "#ad8421",
+              "#705419"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "threshold-gate",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.6,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "where": "Two ritual arch pillars flanking the stone approach path as a sacred threshold.",
+      "shape": {
+        "summary": "Tall weathered wooden torii-style shrine post with angled bracket and rope band.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.22,
+              0.3,
+              0.22
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a8c88",
+              "#747571",
+              "#5c5e5b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.09,
+              2.2,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#a55418",
+              "#833e0f",
+              "#662c08"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.28,
+              0.08,
+              0.12
+            ],
+            "at": [
+              0,
+              2.2,
+              0
+            ],
+            "tones": [
+              "#c16825",
+              "#a55418",
+              "#662c08"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.11,
+              0.08,
+              8
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#f6d881",
+              "#dcc070",
+              "#6b3a1a"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bare-trunk",
+      "type": "new",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.7,
+      "passable": false,
+      "count": 10,
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          14,
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          13,
+          6
+        ]
+      ],
+      "where": "Dense forest boundary enclosing the clearing along the back and side flanks.",
+      "shape": {
+        "summary": "Tall slender faceted dark tree trunk with short broken branch stubs matching the charcoal forest.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              2.7,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#5c5255",
+              "#59303b",
+              "#41232b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              1.6,
+              0
+            ],
+            "to": [
+              0.3,
+              2,
+              0.1
+            ],
+            "tones": [
+              "#5c5255",
+              "#59303b",
+              "#41232b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "to": [
+              -0.25,
+              2.3,
+              -0.05
+            ],
+            "tones": [
+              "#5c5255",
+              "#59303b",
+              "#41232b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.04
+            ],
+            "at": [
+              0,
+              2.3,
+              0
+            ],
+            "to": [
+              0.2,
+              2.65,
+              -0.1
+            ],
+            "tones": [
+              "#5c5255",
+              "#59303b",
+              "#41232b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.08,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#59303b",
+              "#41232b",
+              "#282330"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "shrine-brazier",
+      "type": "torch",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.3,
+      "passable": false,
+      "count": 6,
+      "cells": [
+        [
+          6,
+          10
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      "where": "Flanking the stone path in pairs and guarding the focal dais in the clearing.",
+      "shape": {
+        "summary": "Stone pillar pedestal holding an iron dish with a glowing low-poly fire plume.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              0.25,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a8c88",
+              "#747571",
+              "#5c5e5b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.65,
+              8
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#747571",
+              "#5c5e5b",
+              "#3c3745"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.1,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#555555",
+              "#404040",
+              "#252525"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.13,
+              0.05,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              1.05,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#dc7016",
+              "#a04b14"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.07,
+              0,
+              0.2,
+              6
+            ],
+            "at": [
+              0,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#dc7016"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "twisted-roots",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.45,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          11,
+          7
+        ]
+      ],
+      "where": "Sprawling across the lower clearing sides, derived from the heavy root tangles in the artwork.",
+      "shape": {
+        "summary": "Three knobby root beams snaking along the ground from a central mossy base.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.6
+            ],
+            "at": [
+              0,
+              0.08,
+              0
+            ],
+            "tones": [
+              "#59303b",
+              "#41232b",
+              "#282330"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              0,
+              0.08,
+              0
+            ],
+            "to": [
+              0.4,
+              0.02,
+              0.25
+            ],
+            "tones": [
+              "#59303b",
+              "#41232b",
+              "#282330"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              0.08,
+              0
+            ],
+            "to": [
+              -0.35,
+              0.04,
+              0.2
+            ],
+            "tones": [
+              "#59303b",
+              "#41232b",
+              "#282330"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              0.08,
+              0
+            ],
+            "to": [
+              0.1,
+              0.03,
+              -0.38
+            ],
+            "tones": [
+              "#59303b",
+              "#41232b",
+              "#282330"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "fallen-log",
+      "type": "log",
+      "variant_of": "log",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          9
+        ],
+        [
+          11,
+          9
+        ]
+      ],
+      "where": "Lying along the approach flanks, representing the prominent angled log seen on the drawing's lower left.",
+      "shape": {
+        "summary": "Faceted fallen timber resting horizontally with cleaved stump end.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              0.85,
+              8
+            ],
+            "at": [
+              0,
+              0.14,
+              0
+            ],
+            "rot": [
+              0,
+              30,
+              90
+            ],
+            "tones": [
+              "#5c5255",
+              "#59303b",
+              "#41232b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.13,
+              0.04,
+              8
+            ],
+            "at": [
+              0.38,
+              0.14,
+              0.2
+            ],
+            "rot": [
+              0,
+              30,
+              90
+            ],
+            "tones": [
+              "#d1a56d",
+              "#a55418",
+              "#833e0f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "shrine-offering-pot",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.55,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          8,
+          3
+        ]
+      ],
+      "where": "Flanking the shrine dais at the rear of the sacred clearing as offerings.",
+      "shape": {
+        "summary": "Ceramic ritual urn containing a gleaming golden spirit offering.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#948d82",
+              "#7a746a",
+              "#615b53"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.17,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#a3a6a1",
+              "#8a8c88",
+              "#5c5e5b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f0c85d",
+              "#d4a631",
+              "#ad8421"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "spirit-firebird",
+      "source": "The majestic feathered flame avian occupying the center of IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "Cute chunky fire-bird built of layered low-poly flame teardrops with a curved pale beak and sharp glowing eyes.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.4,
+              6
+            ],
+            "at": [
+              -0.1,
+              0,
+              0
+            ],
+            "tones": [
+              "#dc7016",
+              "#bd4c0b",
+              "#833e0f"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.4,
+              6
+            ],
+            "at": [
+              0.1,
+              0,
+              0
+            ],
+            "tones": [
+              "#dc7016",
+              "#bd4c0b",
+              "#833e0f"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.32,
+              1.2
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#dc7016",
+              "#a04b14"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.24,
+              1
+            ],
+            "at": [
+              0,
+              1.15,
+              0.06
+            ],
+            "tones": [
+              "#ffb31d",
+              "#ff831d",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.04,
+              0.6,
+              6
+            ],
+            "at": [
+              0,
+              1.35,
+              0.05
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.02,
+              0.3,
+              4
+            ],
+            "at": [
+              0,
+              1.12,
+              0.26
+            ],
+            "rot": [
+              40,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e3e3e3",
+              "#ababab"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.06,
+              0.06,
+              0.04
+            ],
+            "at": [
+              -0.14,
+              1.22,
+              0.18
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffffff",
+              "#dddddd"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.06,
+              0.06,
+              0.04
+            ],
+            "at": [
+              0.14,
+              1.22,
+              0.18
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffffff",
+              "#dddddd"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.05,
+              0.7,
+              6
+            ],
+            "at": [
+              0,
+              0.65,
+              -0.25
+            ],
+            "rot": [
+              -35,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffb31d",
+              "#ff831d",
+              "#dc7016"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              1,
+              -0.35
+            ],
+            "rot": [
+              -55,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#bd4c0b"
+            ]
+          }
+        ]
+      },
+      "pose": "Stands tall atop the dais with crest feathers burning upward and glowing beak pointed slightly forward.",
+      "cell": [
+        7,
+        4
+      ],
+      "facing": "s",
+      "why": "Acts as the sacred guardian spirit waiting peacefully at the climax of the forest shrine path."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVTTTTTTTTTTTTVV",
+      "VTTTTTTTTTTTTTTV",
+      "VTTTRRRRRRRRTTTV",
+      "VTTRRRRRRRRRRTTV",
+      "VTTRRRRFRRRRRTTV",
+      "VTTRRRRPPRRRRTTV",
+      "VTTGGGGPPTGGGTTV",
+      "VVTGGGGPPTGGGVVV",
+      "VVVGGGGPPTGGGVVV",
+      "VVVVGGGPPTGGGVVV",
+      "VVVVGGGPPTGGVVVV",
+      "VVVVVVVPPTVVVVVV"
+    ],
+    "heights": [
+      "0022222222222200",
+      "0222222222222220",
+      "0222222222222220",
+      "0222222222222220",
+      "0222222222222220",
+      "0222222222222220",
+      "0221111111111220",
+      "0011111111111000",
+      "0001111111111000",
+      "0000111111111000",
+      "0000111111110000",
+      "0000000111000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 4,
+      "what": "The spirit fire-bird perched prominently atop the shrine dais in the elevated clearing"
+    },
+    "mass": "Visual weight is anchored centrally in the upper half by the raised plateau clearing and the tall perimeter tree wall, tapering down to the narrow approach path in the foreground.",
+    "read": "The viewer enters at the near edge along the twin stone road tiles flanked by torches. Moving upward through the dark forest, the path crosses the threshold gate and climbs onto the raised sacred plateau. At the center waits the glowing fire spirit, framed by towering dark trunks that close off the rear."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.22,
+      "types": [
+        {
+          "type": "bare-trunk",
+          "variant": "1",
+          "weight": 0.65
+        },
+        {
+          "type": "tree-pine",
+          "variant": "1",
+          "weight": 0.35
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.31,
+    "void_share": 0.28,
+    "decor_weights": {
+      "shrine-brazier": 0.3,
+      "twisted-roots": 0.2,
+      "fallen-log": 0.15,
+      "shrine-offering-pot": 0.15,
+      "rock": 0.1,
+      "mushroom": 0.1
+    },
+    "lighting": {
+      "bg": "#222533",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#9c96ba",
+      "notes": "Dim twilight ambient light with a soft lavender cast, allowing glowing braziers and the fire spirit to stand out crisply."
+    },
+    "rules": [
+      "Keep the stone path two cells wide leading directly from the south border up to the plateau.",
+      "Place threshold gate posts at the height transition between ground and plateau.",
+      "Cluster bare trunks along the outer edge of the upper clearing to create a solemn enclosing wall.",
+      "Reserve the dais at [7, 4] exclusively for the fire-bird creature."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "stone",
+      "shore": "grass",
+      "mist": null
+    }
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story: a shrine clearing where the fire-bird waits. Props and layout serve that scene.\n- mood: quiet, sacred, expectant words; dusk or twilight.\n- palette.translation: pack hue families at dusk, about 75 to 85% of the pack's value, slightly cooled; stone warm grey-ochre; bg and lighting.bg a deep blue-grey. lighting: ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool lavender. The fire-bird, torches and lanterns are the only warm hot accents.\n- composition: a raised shrine clearing (R, height 2) around the focal cell where the bird waits on a dais; one approach path (P) that starts at the near rim, passes a threshold (a gap between two tall trunks or a gate) about halfway, and climbs to the clearing; the drawing's trunk walls (T, heights 2 and 3) enclose the clearing on the far and side edges; V around a ragged rim.\n- motifs: 6 to 8, in scene order: the threshold (a new \"threshold-gate\" or pair of trunks flanking the path), the shrine dais or altar stone under the bird (new), offerings around it (catalog pot, gem, coin, or a new offering bowl), torches or lanterns lining the approach (catalog torch and lantern, 4 to 6 total), the enclosing bare trunks (new, from the drawing), roots on the approach (new). Place every motif's cells so the scene reads: torches in pairs on both sides of the path, offerings on the clearing next to the focal cell, gate straddling the path.\n- biome: trees.density 0.15 to 0.25 of the bare trunk and tree-pine; decor_weights torch, lantern, pot, gem, rock, mushroom, the new motifs; decor_density 0.08 to 0.12; plateau_share 0.25 to 0.35; water_share 0; surfaces {\"ground\":\"grass\",\"raised\":\"stone\",\"path\":\"stone\",\"shore\":\"grass\",\"mist\":null}. Rules describe the approach, threshold, clearing order."
+  }
+}

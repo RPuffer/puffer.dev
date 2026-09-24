@@ -1,0 +1,1197 @@
+{
+  "source": {
+    "art": "pipeline/seed/forest.png",
+    "width": 1454,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-24"
+  },
+  "mood": [
+    "ember",
+    "glowing",
+    "swirling",
+    "smouldering",
+    "dusky",
+    "mystic"
+  ],
+  "observations": [
+    {
+      "what": "Large avian entity formed of swirling flame-like ribbons standing prominently left of centre with head crest and curved beak",
+      "box": [
+        190,
+        210,
+        830,
+        810
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Curving feathered tail sweeping backward and upward in fiery filigree curls behind the bird figure",
+      "box": [
+        425,
+        595,
+        715,
+        825
+      ],
+      "maps_to": "motif flame canopy"
+    },
+    {
+      "what": "Bright vertical background glow resembling illuminated forest mist or light pillar behind the avian form",
+      "box": [
+        115,
+        140,
+        565,
+        495
+      ],
+      "maps_to": "pale mist ground sand"
+    },
+    {
+      "what": "Dense dark vertical bare tree trunks forming a claustrophobic upper forest canopy on the right",
+      "box": [
+        25,
+        680,
+        590,
+        995
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Prominent thick diagonal fallen trunk leaning from right background toward the center ground",
+      "box": [
+        250,
+        715,
+        475,
+        995
+      ],
+      "maps_to": "motif fallen trunk"
+    },
+    {
+      "what": "Horizontally fallen log on the forest floor to the lower left in front of the creature's feet",
+      "box": [
+        665,
+        0,
+        815,
+        375
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Prominent tree stump with root flares situated in the clearing behind and to the left of the creature",
+      "box": [
+        535,
+        195,
+        620,
+        315
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Gnarled roots spreading outward across the textured, swirling earthen forest floor in the foreground",
+      "box": [
+        680,
+        410,
+        930,
+        810
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Slender upright vertical tree trunks along the deep left background edge",
+      "box": [
+        270,
+        0,
+        630,
+        190
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Dark stippled ground in foreground with sweeping spiral-like charcoal tracks",
+      "box": [
+        735,
+        10,
+        990,
+        980
+      ],
+      "maps_to": "P"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#868686",
+        "share": 0.152,
+        "role": "mid-tone mist and diffuse forest background"
+      },
+      {
+        "hex": "#9f9f9f",
+        "share": 0.15,
+        "role": "bright mist glow behind creature"
+      },
+      {
+        "hex": "#333333",
+        "share": 0.142,
+        "role": "charcoal strokes of shaded plumage and deep bark"
+      },
+      {
+        "hex": "#bcbcbc",
+        "share": 0.129,
+        "role": "highlight glow on the creature's beak and crest"
+      },
+      {
+        "hex": "#181818",
+        "share": 0.119,
+        "role": "deepest shadows in the foreground roots and dense woods"
+      },
+      {
+        "hex": "#6c6c6c",
+        "share": 0.116,
+        "role": "half-tones on the tree trunks and floor debris"
+      },
+      {
+        "hex": "#4f4f4f",
+        "share": 0.112,
+        "role": "shaded body ribbons and dark undergrowth"
+      },
+      {
+        "hex": "#dddddd",
+        "share": 0.079,
+        "role": "bright paper reserve glowing at creature's eye and beak"
+      }
+    ],
+    "translation": {
+      "grass": {
+        "top": "#8ea649",
+        "fringe": "#758c38",
+        "fringeDark": "#5a6e27",
+        "speck": "#a7bf5a"
+      },
+      "sand": {
+        "top": "#ebd28f",
+        "lip": "#cca75e",
+        "edge": "#b88c42",
+        "dots": "#fae3a7"
+      },
+      "dirt": {
+        "top": "#b37b42",
+        "patch": "#9c6530",
+        "mottle": "#825022",
+        "border": "#c78d4c"
+      },
+      "stone": {
+        "top": "#c2b49b",
+        "pebble": "#ded4be",
+        "pebbleShade": "#a89b82",
+        "rim": "#94876f"
+      },
+      "cliffUpper": {
+        "left": "#784b3d",
+        "right": "#593327",
+        "seam": "#422319"
+      },
+      "cliffLower": {
+        "left": "#663e32",
+        "right": "#4d2920",
+        "seam": "#361a13",
+        "speck": "#2d140e"
+      },
+      "water": {
+        "top": "#42b8a3",
+        "bubble": "#86e3d2",
+        "deep": "#1a7566",
+        "fall": [
+          "#2fa691",
+          "#238e7b",
+          "#1b7868"
+        ],
+        "foam": "#aff2e5"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#823304",
+        "end": "#f6d881"
+      },
+      "treeMint": [
+        "#5ac48f",
+        "#44a676",
+        "#32825b"
+      ],
+      "treeLime": [
+        "#96b048",
+        "#789133",
+        "#5c7022"
+      ],
+      "treeLeaf": [
+        "#71903c",
+        "#59742c",
+        "#42581e"
+      ],
+      "treeTeal": [
+        "#2fbda3",
+        "#229c85",
+        "#197a67",
+        "#115c4d"
+      ],
+      "treeGold": [
+        "#f7941d",
+        "#d9730b",
+        "#ab5100"
+      ],
+      "trunk": [
+        "#4d312a",
+        "#36221d"
+      ],
+      "rock": [
+        "#998f8b",
+        "#827874",
+        "#665d5a",
+        "#4a423f"
+      ],
+      "wellStone": [
+        "#9e8e7c",
+        "#827362",
+        "#665747"
+      ],
+      "flowerOrange": [
+        "#ff7315",
+        "#f59e0b"
+      ],
+      "berry": [
+        "#e04128",
+        "#b82a14"
+      ],
+      "bushTeal": [
+        "#43b8a3",
+        "#319683",
+        "#216e5f"
+      ],
+      "gold": [
+        "#f5a623",
+        "#d9860b",
+        "#ffcc4d"
+      ],
+      "bg": "#241c19"
+    },
+    "notes": "Translated charcoal values into a warm smouldering forest palette. Mist translates to warm pale sand, trunks to deeply shadowed charcoal-browns, and the creature's fiery flourishes become brilliant ember golds and oranges.",
+    "clamped": [
+      "trunk[0] #4a332d->#4d312a",
+      "treeLeaf[0] #6e8c3b->#71903c",
+      "treeLeaf[1] #56702b->#59742c",
+      "treeLeaf[2] #3f541d->#42581e"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "tree-orange",
+      "type": "tree-orange",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          7,
+          4
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "where": "Representing the upward billows of tail feathers and embers flaring out behind the creature's body.",
+      "shape": {
+        "summary": "Warm faceted tree-orange with bright amber foliage globes over a dark trunk.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.8,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#4d312a",
+              "#36221d",
+              "#261612"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.7,
+              0.8,
+              0.12
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#f7941d",
+              "#d9730b",
+              "#ab5100"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.6,
+              0.65,
+              0.1
+            ],
+            "at": [
+              0.1,
+              1.2,
+              -0.05
+            ],
+            "tones": [
+              "#ffb31d",
+              "#f7941d",
+              "#d9730b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.45,
+              0.45,
+              0.08
+            ],
+            "at": [
+              -0.05,
+              1.6,
+              0.05
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#f7941d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tree-pine",
+      "type": "tree-pine",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          3,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          14,
+          2
+        ],
+        [
+          13,
+          6
+        ]
+      ],
+      "where": "Tall dark background trees standing along the upper perimeter and dense right forest.",
+      "shape": {
+        "summary": "Dark tiered conifer standing like the deep shadowed vertical forest trunks.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              0.6,
+              0.16
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#4d312a",
+              "#36221d",
+              "#261612"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.4,
+              0.9,
+              0.08
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#59742c",
+              "#42581e",
+              "#2d3d14"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.4,
+              0.75,
+              0.08
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#71903c",
+              "#59742c",
+              "#42581e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.4,
+              0.55,
+              0.07
+            ],
+            "at": [
+              0,
+              1.2,
+              0
+            ],
+            "tones": [
+              "#8ea649",
+              "#71903c",
+              "#59742c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.4,
+              0.35,
+              0.06
+            ],
+            "at": [
+              0,
+              1.55,
+              0
+            ],
+            "tones": [
+              "#a7bf5a",
+              "#8ea649",
+              "#71903c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "stump",
+      "type": "stump",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          14,
+          8
+        ],
+        [
+          2,
+          9
+        ]
+      ],
+      "where": "Located where thick felled tree bases appear in the drawing's mid-ground and foreground edges.",
+      "shape": {
+        "summary": "Faceted cut tree stump with flared base roots.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f6d881",
+              "#4d312a",
+              "#36221d"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "to": [
+              -0.35,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#4d312a",
+              "#36221d",
+              "#261612"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "to": [
+              0.32,
+              0,
+              -0.15
+            ],
+            "tones": [
+              "#4d312a",
+              "#36221d",
+              "#261612"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gem",
+      "type": "gem",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          5,
+          6
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "where": "Scattered glowing ember sparks resting around the foot of the fire-bird.",
+      "shape": {
+        "summary": "Cut jewel shape coloured as a hot glowing fire ember.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.02,
+              0.22,
+              0.22,
+              6
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.02,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              0.32,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ff831d",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0,
+              0.32,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffe082",
+              "#ffb31d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "flower",
+      "type": "flower",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.3,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          8,
+          3
+        ]
+      ],
+      "where": "Tiny glowing fiery blossom accents along the spiralling terraces.",
+      "shape": {
+        "summary": "Chunky warm orange low blossoms like small bursts of flame on the ground.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.04,
+              0.15,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8ea649",
+              "#758c38",
+              "#5a6e27"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.7
+            ],
+            "at": [
+              0,
+              0.18,
+              0
+            ],
+            "tones": [
+              "#ff7315",
+              "#f59e0b",
+              "#d9730b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.06,
+              1
+            ],
+            "at": [
+              0,
+              0.24,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock",
+      "type": "rock",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          1,
+          6
+        ],
+        [
+          11,
+          10
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "where": "Small dark stones corresponding to debris and root clumps in the drawing.",
+      "shape": {
+        "summary": "Rounded stack of low-poly river-worn pebbles in shaded stone tones.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.26,
+              0.65
+            ],
+            "at": [
+              -0.05,
+              0.14,
+              0.05
+            ],
+            "tones": [
+              "#998f8b",
+              "#827874",
+              "#665d5a"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.7
+            ],
+            "at": [
+              0.12,
+              0.11,
+              -0.06
+            ],
+            "tones": [
+              "#827874",
+              "#665d5a",
+              "#4a423f"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.13,
+              0.6
+            ],
+            "at": [
+              0.02,
+              0.26,
+              0
+            ],
+            "tones": [
+              "#ded4be",
+              "#998f8b",
+              "#827874"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "fire-bird",
+      "source": "The fiery phoenix-like swirling creature standing in the central-left clearing",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "pose": "Standing proudly upright on bird legs, turning its head slightly forward with glowing eyes and crest arched high",
+      "cell": [
+        7,
+        5
+      ],
+      "facing": "s",
+      "why": "It is the singular dramatic subject of the artwork.",
+      "shape": {
+        "summary": "Stylized toy phoenix assembled from stacked swirling flame volumes with a sharp curved beak and bright eyes.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.06,
+              0.45,
+              6
+            ],
+            "at": [
+              -0.1,
+              0,
+              0
+            ],
+            "tones": [
+              "#d9730b",
+              "#ab5100",
+              "#823304"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.06,
+              0.45,
+              6
+            ],
+            "at": [
+              0.1,
+              0,
+              0
+            ],
+            "tones": [
+              "#d9730b",
+              "#ab5100",
+              "#823304"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.48,
+              0.55,
+              0.55,
+              0.12
+            ],
+            "at": [
+              0,
+              0.42,
+              0
+            ],
+            "tones": [
+              "#f7941d",
+              "#d9730b",
+              "#ab5100"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.08,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              0.88,
+              -0.05
+            ],
+            "tones": [
+              "#ffb31d",
+              "#f7941d",
+              "#d9730b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.26,
+              1
+            ],
+            "at": [
+              0,
+              1.35,
+              -0.08
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#f7941d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0.02,
+              0.28,
+              5
+            ],
+            "at": [
+              0,
+              1.32,
+              -0.26
+            ],
+            "rot": [
+              25,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#ded4be",
+              "#cca75e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.02,
+              0.55,
+              5
+            ],
+            "at": [
+              0,
+              1.55,
+              -0.05
+            ],
+            "rot": [
+              -15,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ff831d",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.04,
+              0.65,
+              5
+            ],
+            "at": [
+              0,
+              0.5,
+              0.28
+            ],
+            "rot": [
+              -45,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffb31d",
+              "#f7941d",
+              "#ab5100"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.05,
+              1
+            ],
+            "at": [
+              -0.14,
+              1.42,
+              -0.16
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffe082",
+              "#ffb31d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.05,
+              1
+            ],
+            "at": [
+              0.14,
+              1.42,
+              -0.16
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffe082",
+              "#ffb31d"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVTTTGGGGTTTVVV",
+      "VVTGGGGGGRGGTVVV",
+      "VTGGGRRRRRRRGTTV",
+      "VTGGRRRGGGRRRGTV",
+      "TGGGRRPPPRPPRRTT",
+      "TGGRRPPFPPRRRRTT",
+      "TGGRRPPPRRRRRRTT",
+      "VTGGRRRRRRRRGGTV",
+      "VTGGGGPPPPPGRGTV",
+      "VVTTGPPGGGGGGTVV",
+      "VVVTTPGGGGGGTTTV",
+      "VVVVVPGGGGGTVVVV"
+    ],
+    "heights": [
+      "0001111111111000",
+      "0011111112111000",
+      "0111122222221110",
+      "0111222111222110",
+      "1111221112112211",
+      "1112211322222211",
+      "1112211222222211",
+      "0112222222221110",
+      "0111111111112110",
+      "0011111111111100",
+      "0001111111111110",
+      "0000011111110000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 5,
+      "what": "The flame-bird perched upon the elevated apex terrace of the ascending spiral"
+    },
+    "mass": "Visual weight is concentrated on the left-central stepped terraced hillock where the majestic flame creature stands, framed by dense tall tree banks on the right and rear.",
+    "read": "The viewer's eye enters from the near foreground path opening at [5,11], tracing an ascending clockwise spiral inward along the dirt trail and rising rock tiers. It culminates at the fiery bird on the summit tier at [5,5], backed by luminous pale mist sands and dark silhouette pine borders that replicate the charcoal drawing's forest depth."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.2,
+      "types": [
+        {
+          "type": "tree-orange",
+          "variant": "variant_0",
+          "weight": 0.65
+        },
+        {
+          "type": "tree-pine",
+          "variant": "variant_0",
+          "weight": 0.35
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.18,
+    "decor_weights": {
+      "gem": 0.35,
+      "flower": 0.25,
+      "rock": 0.2,
+      "stump": 0.2
+    },
+    "lighting": {
+      "bg": "#241c19",
+      "ambient": 0.8,
+      "sun": 0.25,
+      "tint": "#ffb86c",
+      "notes": "Dim warm dusky atmosphere lit by glowing embers, casting an amber tint across muted olive grass and creamy sands."
+    },
+    "rules": [
+      "Path P forms an unbroken ascending spiral leading from the bottom rim to the creature's summit.",
+      "Tree-orange instances must cluster closely behind and along the creature's tail trail.",
+      "Dark pine trees and stumps fringe the outer boundary edges to evoke forest depth.",
+      "Gems and flame flowers scatter along terraces directly bordering the creature's perch."
+    ],
+    "decor_density": 0.15,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "grass",
+      "path": "dirt",
+      "shore": "sand",
+      "mist": "sand"
+    }
+  },
+  "concept": {
+    "name": "motif-remap",
+    "fragment": "Map IMAGE 1's shapes and tones onto pack pieces by likeness, not by object. Ask of every stroke \"which pack piece looks like this?\", never \"what is this?\".\n- The flame strokes of the bird and its tail become tree-orange trees (orange canopies) and ember gems (catalog gem) scattered on the ground around it.\n- The swirling ground strokes become a spiral path: one continuous coil of P cells, one cell wide, each P cell 4-adjacent to the next, entering at the near rim (row 10 or 11), then circling the focal cell at a distance of 2 to 4 cells for at least three quarters of a turn before it reaches the bird. Terraces step up along the coil: the outer ring of the coil at height 1, the middle at 2, the ring touching the focal cell at 3, so the spiral climbs to the bird. Keep V on a ragged outer rim.\n- The pale mist becomes pale sand: surfaces.mist \"sand\" and surfaces.ground \"sand\" on the open floor; grass only on the terraces.\n- The dark vertical trunks become tree-pine in its darkest variant and stumps.\n- mood: warm, swirling, glowing, ember words.\n- palette.translation: warm ember dusk: sand pale cream-ochre, grass an olive green, wood and treeGold hot orange and amber, water a teal, bg and lighting.bg a dark warm brown-grey. lighting: ambient 0.75 to 0.85, sun 0.2 to 0.3, tint amber.\n- motifs: 5 to 7, every one a catalog type (tree-orange, gem, tree-pine, stump, rock, flower in flowerOrange), none \"new\"; name each after the stroke it stands for. The fire-bird is the only creature.\n- biome: trees.density 0.15 to 0.25, types tree-orange weight 0.6 or more plus tree-pine; decor_weights gem, flower, rock, stump, coin; decor_density 0.12 to 0.18; plateau_share 0.35 to 0.5; water_share 0; surfaces {\"ground\":\"sand\",\"raised\":\"grass\",\"path\":\"dirt\",\"shore\":\"sand\",\"mist\":\"sand\"}."
+  }
+}

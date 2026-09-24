@@ -1,0 +1,1189 @@
+{
+  "source": {
+    "art": "pipeline/seed/forest.png",
+    "width": 1454,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-24"
+  },
+  "mood": [
+    "bright",
+    "toy",
+    "sunny",
+    "cosy",
+    "cheerful",
+    "playful"
+  ],
+  "observations": [
+    {
+      "what": "Stylized flame-like avian creature standing facing left with swirling plume feathers and large curved beak",
+      "box": [
+        202,
+        215,
+        831,
+        795
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Bright almond-shaped glowing eye and pale curved beak on creature head",
+      "box": [
+        342,
+        281,
+        467,
+        396
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Tall dense vertical dark tree trunks in background along the right flank",
+      "box": [
+        45,
+        706,
+        618,
+        989
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Distinct diagonal fallen or leaning tree trunk angled across mid-right woods",
+      "box": [
+        252,
+        707,
+        477,
+        995
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Dark vertical tree trunks bordering the deep left background",
+      "box": [
+        178,
+        2,
+        638,
+        237
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Pale luminous clearing and mist haze rising vertically behind the creature",
+      "box": [
+        72,
+        219,
+        545,
+        686
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Gnarled roots spreading horizontally across dark left foreground soil",
+      "box": [
+        621,
+        57,
+        797,
+        410
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Fallen horizontal log segment resting on dark soil in lower left",
+      "box": [
+        672,
+        0,
+        814,
+        381
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Dark shadowy foreground soil and clearing floor directly under the creature",
+      "box": [
+        770,
+        7,
+        991,
+        882
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Lighter patch of forest floor extending back into misty right midground",
+      "box": [
+        595,
+        642,
+        735,
+        856
+      ],
+      "maps_to": "G"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#868686",
+        "share": 0.152,
+        "role": "ambient mist midtone"
+      },
+      {
+        "hex": "#9f9f9f",
+        "share": 0.15,
+        "role": "pale luminous forest haze"
+      },
+      {
+        "hex": "#333333",
+        "share": 0.142,
+        "role": "deep trunk shadows and root tangles"
+      },
+      {
+        "hex": "#bcbcbc",
+        "share": 0.129,
+        "role": "bright mist backdrop"
+      },
+      {
+        "hex": "#181818",
+        "share": 0.119,
+        "role": "darkest charcoal bark and soil crevasses"
+      },
+      {
+        "hex": "#6c6c6c",
+        "share": 0.116,
+        "role": "creature feathered contour shading"
+      },
+      {
+        "hex": "#4f4f4f",
+        "share": 0.112,
+        "role": "woodland depth and shaded ground"
+      },
+      {
+        "hex": "#dddddd",
+        "share": 0.079,
+        "role": "glowing bird face, eye, and distant highlight"
+      }
+    ],
+    "translation": {
+      "bg": "#404040",
+      "grass": {
+        "top": "#aae26c",
+        "fringe": "#8ac967",
+        "fringeDark": "#73aa4f",
+        "speck": "#c4ef86"
+      },
+      "sand": {
+        "top": "#f4c41e",
+        "lip": "#dd9200",
+        "edge": "#f1b900",
+        "dots": "#f1cd52"
+      },
+      "dirt": {
+        "top": "#ffe082",
+        "patch": "#ffe087",
+        "mottle": "#f8d87c",
+        "border": "#f4c41e"
+      },
+      "stone": {
+        "top": "#ffe082",
+        "pebble": "#fff0c3",
+        "pebbleShade": "#e8dab1",
+        "rim": "#dbc9a2"
+      },
+      "cliffUpper": {
+        "left": "#c3856c",
+        "right": "#a7695f",
+        "seam": "#915b53"
+      },
+      "cliffLower": {
+        "left": "#d6856b",
+        "right": "#a15b52",
+        "seam": "#ba695e",
+        "speck": "#905148"
+      },
+      "water": {
+        "top": "#a0eeff",
+        "bubble": "#daf7ff",
+        "deep": "#00d4ff",
+        "fall": [
+          "#00daff",
+          "#00ceff",
+          "#00c7ff"
+        ],
+        "foam": "#daf7ff"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#a04b14",
+        "end": "#f6d881"
+      },
+      "treeMint": [
+        "#68e09e",
+        "#5ac389",
+        "#44a46b"
+      ],
+      "treeLime": [
+        "#c4ef86",
+        "#8ce263",
+        "#73aa4f"
+      ],
+      "treeLeaf": [
+        "#8ce263",
+        "#64c960",
+        "#50ab46"
+      ],
+      "treeTeal": [
+        "#00ffbf",
+        "#00e09b",
+        "#00c386",
+        "#00a568"
+      ],
+      "treeGold": [
+        "#f1cd52",
+        "#f1b900",
+        "#dd9200"
+      ],
+      "trunk": [
+        "#b06a57",
+        "#9f5950"
+      ],
+      "rock": [
+        "#e3e3e3",
+        "#d4d4d4",
+        "#ababab",
+        "#8f8f8f"
+      ],
+      "wellStone": [
+        "#dbc9a2",
+        "#c7b693",
+        "#b1a483"
+      ],
+      "flowerOrange": [
+        "#ff831d",
+        "#f1b900"
+      ],
+      "berry": [
+        "#fe738f",
+        "#f45f7d"
+      ],
+      "bushTeal": [
+        "#8fffc2",
+        "#68e09e",
+        "#5ac389"
+      ],
+      "gold": [
+        "#f1b900",
+        "#dd9200",
+        "#ffe082"
+      ]
+    },
+    "notes": "Following composition-only concept strategy, the pack palette is kept verbatim in its warm, saturated toy-like values, preserving complete visual harmony with the reference island asset set."
+  },
+  "motifs": [
+    {
+      "name": "tree-pine",
+      "type": "tree-pine",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 5,
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          11,
+          4
+        ]
+      ],
+      "where": "Placed along the elevated dense forest ridges on the far left and the heavy woodland mass on the right.",
+      "shape": {
+        "summary": "Faceted trunk topped with four tapering rounded green canopy tiers.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.6,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#b06a57",
+              "#b06a57",
+              "#9f5950"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.92,
+              0.44,
+              0.92,
+              0.1
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#8ce263",
+              "#64c960",
+              "#50ab46"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.76,
+              0.42,
+              0.76,
+              0.1
+            ],
+            "at": [
+              0,
+              0.88,
+              0
+            ],
+            "tones": [
+              "#8ce263",
+              "#64c960",
+              "#50ab46"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.38,
+              0.58,
+              0.1
+            ],
+            "at": [
+              0,
+              1.24,
+              0
+            ],
+            "tones": [
+              "#8ce263",
+              "#64c960",
+              "#50ab46"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.36,
+              0.38,
+              0.08
+            ],
+            "at": [
+              0,
+              1.56,
+              0
+            ],
+            "tones": [
+              "#8ce263",
+              "#64c960",
+              "#50ab46"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tree-round",
+      "type": "tree-round",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          3,
+          3
+        ]
+      ],
+      "where": "Clustered on the plateau bluffs matching the thick tree canopies flanking the scene.",
+      "shape": {
+        "summary": "Stout reddish wood trunk holding an asymmetric cluster of rounded foliage cubes.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.75,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#b06a57",
+              "#b06a57",
+              "#9f5950"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.65,
+              0.7,
+              0.12
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#68e09e",
+              "#5ac389",
+              "#44a46b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.55,
+              0.55,
+              0.1
+            ],
+            "at": [
+              0.15,
+              1.15,
+              -0.1
+            ],
+            "tones": [
+              "#68e09e",
+              "#5ac389",
+              "#44a46b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.5,
+              0.5,
+              0.1
+            ],
+            "at": [
+              -0.15,
+              1.05,
+              0.12
+            ],
+            "tones": [
+              "#68e09e",
+              "#5ac389",
+              "#44a46b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bush",
+      "type": "bush",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          7
+        ]
+      ],
+      "where": "Scattered along the lower fringe of the elevated forest stands.",
+      "shape": {
+        "summary": "Cute cluster of low-poly teal and mint rounded balls.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.28,
+              0.8
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#8fffc2",
+              "#68e09e",
+              "#5ac389"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.85
+            ],
+            "at": [
+              -0.18,
+              0.18,
+              0.12
+            ],
+            "tones": [
+              "#8fffc2",
+              "#68e09e",
+              "#5ac389"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.2,
+              0.8
+            ],
+            "at": [
+              0.18,
+              0.16,
+              -0.1
+            ],
+            "tones": [
+              "#8fffc2",
+              "#68e09e",
+              "#5ac389"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock",
+      "type": "rock",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          10,
+          8
+        ]
+      ],
+      "where": "Located along the foreground clearings where roots and rough ground form natural mounds.",
+      "shape": {
+        "summary": "Stack of smooth pale grey faceted pebbles.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.32,
+              0.65
+            ],
+            "at": [
+              0,
+              0.15,
+              0
+            ],
+            "tones": [
+              "#e3e3e3",
+              "#d4d4d4",
+              "#ababab"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.6
+            ],
+            "at": [
+              0.18,
+              0.12,
+              0.1
+            ],
+            "tones": [
+              "#e3e3e3",
+              "#d4d4d4",
+              "#8f8f8f"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.7
+            ],
+            "at": [
+              -0.12,
+              0.28,
+              -0.08
+            ],
+            "tones": [
+              "#e3e3e3",
+              "#d4d4d4",
+              "#ababab"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "flower",
+      "type": "flower",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.3,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "where": "Dotted around the open sunny central clearing behind the focal figure.",
+      "shape": {
+        "summary": "Delicate trio of orange and yellow ground blossoms.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.03,
+              0.22,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8ce263",
+              "#64c960",
+              "#50ab46"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.6
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#f1b900",
+              "#dc7016"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              0.6
+            ],
+            "at": [
+              0.12,
+              0.14,
+              0.08
+            ],
+            "tones": [
+              "#ff831d",
+              "#f1b900",
+              "#dc7016"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "fence",
+      "type": "fence",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          2
+        ],
+        [
+          10,
+          2
+        ]
+      ],
+      "where": "Edging the upper eastern plateau opening into the rear woods.",
+      "shape": {
+        "summary": "Toy-like orange wooden fence with chunky rounded posts and cross rails.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.68,
+              6
+            ],
+            "at": [
+              -0.35,
+              0,
+              0
+            ],
+            "tones": [
+              "#f6d881",
+              "#ff831d",
+              "#dc7016"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.68,
+              6
+            ],
+            "at": [
+              0.35,
+              0,
+              0
+            ],
+            "tones": [
+              "#f6d881",
+              "#ff831d",
+              "#dc7016"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.8,
+              0.1,
+              0.06
+            ],
+            "at": [
+              0,
+              0.24,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#dc7016",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.8,
+              0.1,
+              0.06
+            ],
+            "at": [
+              0,
+              0.48,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#dc7016",
+              "#bd4c0b"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "fire-bird",
+      "source": "Prominent flame-bodied phoenix creature in foreground clearing",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "pose": "Proudly standing on glowing talons with swirling fiery tail swept upward and sharp beak pointing forward.",
+      "cell": [
+        7,
+        7
+      ],
+      "facing": "w",
+      "why": "Translates the central swirling charcoal spirit into a playful chunky low-poly fire bird standing at the clearing focal point.",
+      "shape": {
+        "summary": "Chunky avian toy figure sculpted from fiery layered cones, balls, and curved beak.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.5,
+              6
+            ],
+            "at": [
+              -0.12,
+              0,
+              0.05
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.5,
+              6
+            ],
+            "at": [
+              0.12,
+              0,
+              -0.05
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.42,
+              1.15
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.18,
+              0.75,
+              8
+            ],
+            "at": [
+              -0.08,
+              1.05,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.3,
+              0.95
+            ],
+            "at": [
+              -0.15,
+              1.62,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.38,
+              6
+            ],
+            "at": [
+              -0.34,
+              1.62,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              85
+            ],
+            "tones": [
+              "#ffffff",
+              "#f6d881",
+              "#dd9200"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              -0.22,
+              1.72,
+              0.18
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffffff",
+              "#e3e3e3"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              -0.22,
+              1.72,
+              -0.18
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffffff",
+              "#e3e3e3"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.26,
+              0.05,
+              0.68,
+              6
+            ],
+            "at": [
+              0.28,
+              0.8,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -55
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.04,
+              0.52,
+              6
+            ],
+            "at": [
+              0.42,
+              1.15,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -25
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVTRRRGGGRRRTVV",
+      "VVTRRRRGGGRRRRTV",
+      "VVTTRRRGGGRRRRTV",
+      "VVVTRRRGGGRRRTVV",
+      "VVVGGGGGGGRRTVVV",
+      "VVVGGGGGGGRTVVVV",
+      "VVVVGGGFGGGGVVVV",
+      "VVVVGGPPGGGGVVVV",
+      "VVVVVVPPTVVVVVVV",
+      "VVVVVVPPVVVVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0002222111222200",
+      "0023332111333220",
+      "0022332111333220",
+      "0002222111222200",
+      "0001111111222000",
+      "0001111111220000",
+      "0000111111110000",
+      "0000111111110000",
+      "0000001110000000",
+      "0000001100000000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 7,
+      "what": "The toy fire-bird NPC standing prominently in the clearing."
+    },
+    "mass": "Visual weight sits heavily on the elevated forested cliffs flanking both sides, especially the thicker eastern ridge, framing the lower sunny clearing.",
+    "read": "The viewer enters the island from the south along the dirt path that emerges from the void. The path leads directly to the vibrant fire-bird situated in the low clearing. Tall elevated plateaus on the left and right mirror the dense tree masses of the artwork, enclosing the clearing and guiding the eye toward the glowing creature."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.25,
+      "types": [
+        {
+          "type": "tree-pine",
+          "variant": "pine-standard",
+          "weight": 0.6
+        },
+        {
+          "type": "tree-round",
+          "variant": "round-cubes",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.35,
+    "void_share": 0.48,
+    "decor_weights": {
+      "bush": 0.3,
+      "rock": 0.25,
+      "flower": 0.3,
+      "fence": 0.15
+    },
+    "lighting": {
+      "bg": "#404040",
+      "ambient": 1,
+      "sun": 0,
+      "tint": "#ffffff",
+      "notes": "Crisp toy lighting with flat shading, bright top surfaces and consistent soft side tones."
+    },
+    "rules": [
+      "Place pine and round trees strictly on elevated grass plateau cells.",
+      "Cluster small bushes along the cliff bases where ground meets upper walls.",
+      "Scatter flowers freely across sunny sandy ground tiles.",
+      "Keep path tiles clear of all blocking props to ensure clean navigation to the focal bird."
+    ],
+    "decor_density": 0.18,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "grass",
+      "path": "dirt",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "concept": {
+    "name": "composition-only",
+    "fragment": "Take only IMAGE 1's masses, void, and focal point for the layout. Ignore its colours, objects, and mood: the palette and decor are the plain pack of IMAGE 2.\n- mood: the pack's own mood words (bright, toy, sunny, cosy), none from the drawing.\n- palette.translation: CURRENT PACK PALETTE verbatim, every hex unchanged. bg and lighting.bg \"#404040\". lighting ambient 1, sun 0, tint \"#ffffff\".\n- composition: heavy dark masses of IMAGE 1 become raised land (R, heights 2 and, at their darkest core, 3), light open areas become open ground (G, height 1), and the palest edges and corners become V so the island is irregular with void on every side (row 0, row 11, column 0 and column 15 are mostly V). Trace IMAGE 1's real, asymmetric masses: where its dark trunk mass is heavier on one side, the raised land is heavier on that side; never mirror left and right or frame the island with a symmetric ring. The bird's position is the focal F. A plain dirt path (P) from the near rim to the focal cell.\n- motifs: 5 to 7, every one a catalog type in the reference island's mix (tree-pine, tree-round, bush, bush-cluster, flower, rock, mushroom, fence, barrel, coin), none \"new\", named plainly after the piece; cells follow the masses (trees on the raised masses, flowers and bushes on open ground). The fire-bird is the only creature, in flame colours, standing at the focal cell.\n- biome: trees.density 0.2 to 0.3, types tree-pine and tree-round; decor_weights over the reference mix; decor_density 0.15 to 0.2; plateau_share 0.3 to 0.4; water_share 0 to 0.06; surfaces {\"ground\":\"sand\",\"raised\":\"grass\",\"path\":\"dirt\",\"shore\":\"sand\",\"mist\":null}."
+  }
+}

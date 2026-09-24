@@ -1,0 +1,1418 @@
+{
+  "source": {
+    "art": "pipeline/seed/forest.png",
+    "width": 1454,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-24"
+  },
+  "mood": [
+    "dense",
+    "dim",
+    "still",
+    "damp",
+    "mysterious",
+    "hallowed"
+  ],
+  "observations": [
+    {
+      "what": "Stylized, flame-feathered avian spirit standing upright with curved beak, flame crest, and spiralling plumage",
+      "box": [
+        190,
+        206,
+        825,
+        796
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Dense vertical tree trunks fading into pale misty background across upper forest canopy",
+      "box": [
+        30,
+        28,
+        595,
+        988
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Fallen diagonal log resting on the dark forest floor on the lower left",
+      "box": [
+        672,
+        3,
+        804,
+        381
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Gnarled roots spreading across the dark damp soil in front of the creature",
+      "box": [
+        628,
+        77,
+        715,
+        344
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Large weathered tree stump behind and to the left of the creature",
+      "box": [
+        542,
+        196,
+        616,
+        321
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Thick leaning trunk angling across the upper right midground",
+      "box": [
+        264,
+        706,
+        480,
+        996
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Dark, shadowy forest floor pooling in the lower left foreground",
+      "box": [
+        748,
+        4,
+        992,
+        984
+      ],
+      "maps_to": "W"
+    },
+    {
+      "what": "Swirling tail feathers and smoke plumes trailing behind the creature into the right midground",
+      "box": [
+        432,
+        608,
+        716,
+        826
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Pale atmospheric haze and vertical light shafts filtering between background trunks",
+      "box": [
+        95,
+        143,
+        566,
+        680
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Clump of mossy undergrowth and shadowed boulders on the right foreground base",
+      "box": [
+        805,
+        598,
+        936,
+        843
+      ],
+      "maps_to": "T"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#868686",
+        "share": 0.152,
+        "role": "mist midtone"
+      },
+      {
+        "hex": "#9f9f9f",
+        "share": 0.15,
+        "role": "diffuse backlight"
+      },
+      {
+        "hex": "#333333",
+        "share": 0.142,
+        "role": "deep trunk shadows"
+      },
+      {
+        "hex": "#bcbcbc",
+        "share": 0.129,
+        "role": "bright mist shafts"
+      },
+      {
+        "hex": "#181818",
+        "share": 0.119,
+        "role": "charcoal linework and dark soil"
+      },
+      {
+        "hex": "#6c6c6c",
+        "share": 0.116,
+        "role": "canopy haze"
+      },
+      {
+        "hex": "#4f4f4f",
+        "share": 0.112,
+        "role": "bark textures and underbrush"
+      },
+      {
+        "hex": "#dddddd",
+        "share": 0.079,
+        "role": "creature eye and brightest plumage rim"
+      }
+    ],
+    "translation": {
+      "bg": "#1c2628",
+      "grass": {
+        "top": "#4b8c58",
+        "fringe": "#3c7049",
+        "fringeDark": "#2e5638",
+        "speck": "#61a970"
+      },
+      "sand": {
+        "top": "#b59b56",
+        "lip": "#947b38",
+        "edge": "#a08640",
+        "dots": "#c4a962"
+      },
+      "dirt": {
+        "top": "#75593c",
+        "patch": "#634a31",
+        "mottle": "#523c26",
+        "border": "#422f1d"
+      },
+      "stone": {
+        "top": "#6b777a",
+        "pebble": "#859396",
+        "pebbleShade": "#556062",
+        "rim": "#434d4f"
+      },
+      "cliffUpper": {
+        "left": "#434b4e",
+        "right": "#31383a",
+        "seam": "#222729"
+      },
+      "cliffLower": {
+        "left": "#373e41",
+        "right": "#282d30",
+        "seam": "#1d2122",
+        "speck": "#16191a"
+      },
+      "water": {
+        "top": "#37aeae",
+        "bubble": "#6cc8c8",
+        "deep": "#228282",
+        "fall": [
+          "#43c8c8",
+          "#2fb1b1",
+          "#279c9c"
+        ],
+        "foam": "#aef3f3"
+      },
+      "wood": {
+        "light": "#a86b3e",
+        "mid": "#8d562e",
+        "dark": "#734321",
+        "shadow": "#5e3316",
+        "end": "#c19b73"
+      },
+      "treeMint": [
+        "#3f8d7c",
+        "#327667",
+        "#265c51"
+      ],
+      "treeLime": [
+        "#518b4b",
+        "#406f3c",
+        "#30562d"
+      ],
+      "treeLeaf": [
+        "#418b5f",
+        "#347750",
+        "#296040"
+      ],
+      "treeTeal": [
+        "#339992",
+        "#28847e",
+        "#21706c",
+        "#195c58"
+      ],
+      "treeGold": [
+        "#a78a3f",
+        "#8b722e",
+        "#725c22"
+      ],
+      "trunk": [
+        "#463126",
+        "#31231b"
+      ],
+      "rock": [
+        "#7b878a",
+        "#636e70",
+        "#4c5557",
+        "#373e40"
+      ],
+      "wellStone": [
+        "#5a6769",
+        "#485355",
+        "#374042"
+      ],
+      "flowerOrange": [
+        "#e07524",
+        "#bd5913"
+      ],
+      "berry": [
+        "#b03a48",
+        "#8c2834"
+      ],
+      "bushTeal": [
+        "#408c87",
+        "#327873",
+        "#27645f"
+      ],
+      "gold": [
+        "#e6a122",
+        "#be7e10",
+        "#f7be4d"
+      ]
+    },
+    "notes": "Translated the monochrome charcoal rendering into a moody dusk coniferous forest with saturated moss greens, cold teal waters, and dark basalt cliffs, preserving the fire bird as the sole radiant amber-gold light source.",
+    "clamped": [
+      "grass.top #4d7c57->#468353",
+      "grass.fringe #3b6345->#376743",
+      "grass.fringeDark #2c4a33->#294d32",
+      "grass.speck #629b6e->#59a469",
+      "treeLime[0] #4a7b45->#497d43",
+      "trunk[0] #42322a->#463126",
+      "trunk[1] #30231c->#31231b",
+      "grass.top #468353->#4b8c58",
+      "grass.fringe #376743->#3c7049",
+      "grass.fringeDark #294d32->#2e5638",
+      "grass.speck #59a469->#61a970",
+      "water.top #298282->#37aeae",
+      "water.bubble #44b5b5->#6cc8c8",
+      "water.deep #165454->#228282",
+      "water.fall[0] #2fa1a1->#43c8c8",
+      "water.fall[1] #238383->#2fb1b1",
+      "water.fall[2] #1b6d6d->#279c9c",
+      "water.foam #7bebeb->#aef3f3",
+      "wood.light #8a5833->#a86b3e",
+      "wood.mid #6e4324->#8d562e",
+      "wood.dark #543118->#734321",
+      "wood.shadow #3d210e->#5e3316",
+      "wood.end #b58757->#c19b73",
+      "treeMint[0] #36786a->#3f8d7c",
+      "treeMint[1] #296155->#327667",
+      "treeMint[2] #1d473e->#265c51",
+      "treeLime[0] #497d43->#518b4b",
+      "treeLime[1] #386134->#406f3c",
+      "treeLime[2] #284725->#30562d",
+      "treeLeaf[0] #336e4b->#418b5f",
+      "treeLeaf[1] #27593c->#347750",
+      "treeLeaf[2] #1c422c->#296040",
+      "treeTeal[0] #256f6a->#339992",
+      "treeTeal[1] #1b5955->#28847e",
+      "treeTeal[2] #144542->#21706c",
+      "treeTeal[3] #0d302e->#195c58",
+      "treeGold[0] #947b38->#a78a3f",
+      "treeGold[1] #786228->#8b722e",
+      "treeGold[2] #5e4c1c->#725c22",
+      "bushTeal[0] #316c68->#408c87",
+      "bushTeal[1] #245753->#327873",
+      "bushTeal[2] #1a423f->#27645f"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "tree-pine",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 12,
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          9,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          15,
+          2
+        ],
+        [
+          14,
+          4
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          14,
+          8
+        ],
+        [
+          15,
+          10
+        ]
+      ],
+      "where": "Dense, tall pine trees framing the background canopy and the outer right flank as observed in the artwork's dense vertical forest.",
+      "shape": {
+        "summary": "Slender dark wooden trunk topped with four layered, faceted conical tiers of needles in deep forest teal and pine leaf green.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.7,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#463126",
+              "#31231b",
+              "#1f1611"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1,
+              0.5,
+              1,
+              0.08
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#339992",
+              "#28847e",
+              "#21706c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.82,
+              0.45,
+              0.82,
+              0.08
+            ],
+            "at": [
+              0,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#339992",
+              "#28847e",
+              "#21706c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.62,
+              0.4,
+              0.62,
+              0.08
+            ],
+            "at": [
+              0,
+              1.32,
+              0
+            ],
+            "tones": [
+              "#418b5f",
+              "#347750",
+              "#296040"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.45,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0,
+              1.65,
+              0
+            ],
+            "tones": [
+              "#3f8d7c",
+              "#327667",
+              "#265c51"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "log",
+      "type": "log",
+      "variant_of": "log",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          7
+        ]
+      ],
+      "where": "Fallen diagonal timber angled across the left clearing floor matching the prominent fallen log in the lower-left drawing.",
+      "shape": {
+        "summary": "Faceted fallen timber log resting horizontally with cut ends and bark.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.95,
+              8
+            ],
+            "at": [
+              0,
+              0.11,
+              0
+            ],
+            "rot": [
+              0,
+              45,
+              90
+            ],
+            "tones": [
+              "#a86b3e",
+              "#8d562e",
+              "#734321"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.2,
+              0.05,
+              8
+            ],
+            "at": [
+              -0.35,
+              0.11,
+              -0.35
+            ],
+            "rot": [
+              0,
+              45,
+              90
+            ],
+            "tones": [
+              "#c19b73",
+              "#9e7244",
+              "#7a5530"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.08,
+              0.18,
+              0.08
+            ],
+            "at": [
+              0.1,
+              0.22,
+              0.05
+            ],
+            "rot": [
+              20,
+              30,
+              0
+            ],
+            "tones": [
+              "#8d562e",
+              "#734321",
+              "#5e3316"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "stump",
+      "type": "stump",
+      "variant_of": "stump",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          10,
+          8
+        ]
+      ],
+      "where": "Weathered tree stump behind the creature's clearing as seen directly behind its chest in the drawing.",
+      "shape": {
+        "summary": "Thick gnarled tree stump with flared base roots and an uneven top.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.42,
+              0.32,
+              0.55,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c19b73",
+              "#8d562e",
+              "#734321"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.1
+            ],
+            "at": [
+              0.2,
+              0,
+              0.2
+            ],
+            "to": [
+              0.45,
+              0,
+              0.45
+            ],
+            "tones": [
+              "#463126",
+              "#31231b",
+              "#1f1611"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              -0.2,
+              0,
+              0.15
+            ],
+            "to": [
+              -0.42,
+              0,
+              0.35
+            ],
+            "tones": [
+              "#463126",
+              "#31231b",
+              "#1f1611"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock-big",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          11,
+          6
+        ],
+        [
+          12,
+          10
+        ]
+      ],
+      "where": "Dark moss-rimmed boulder heaps in the midground and lower right edge corresponding to shadowed woodland mounds.",
+      "shape": {
+        "summary": "Cluster of three faceted rounded boulders resting firmly together on the ground.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.55,
+              0.65,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#7b878a",
+              "#636e70",
+              "#4c5557"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.42,
+              0.45,
+              0.1
+            ],
+            "at": [
+              0.22,
+              0.35,
+              -0.15
+            ],
+            "tones": [
+              "#859396",
+              "#7b878a",
+              "#636e70"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.28,
+              0.35,
+              0.08
+            ],
+            "at": [
+              -0.22,
+              0.12,
+              0.2
+            ],
+            "tones": [
+              "#636e70",
+              "#4c5557",
+              "#373e40"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock",
+      "type": "rock",
+      "variant_of": "rock",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          4,
+          9
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          12,
+          2
+        ]
+      ],
+      "where": "Scattered low field pebbles and weathered rocks framing the central forest glade.",
+      "shape": {
+        "summary": "Two small stacked low-poly stones embedded in mossy ground.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.48,
+              0.28,
+              0.42,
+              0.09
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#7b878a",
+              "#636e70",
+              "#4c5557"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.22,
+              0.28,
+              0.07
+            ],
+            "at": [
+              0.1,
+              0.22,
+              0.05
+            ],
+            "tones": [
+              "#859396",
+              "#7b878a",
+              "#636e70"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "mushroom",
+      "type": "mushroom",
+      "variant_of": "mushroom",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          11,
+          8
+        ]
+      ],
+      "where": "Damp fungi clusters emerging near roots and fallen wood in the shadowy loam.",
+      "shape": {
+        "summary": "Pair of rounded toy mushrooms with cream stems and deep crimson caps.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.3,
+              6
+            ],
+            "at": [
+              -0.12,
+              0,
+              0
+            ],
+            "tones": [
+              "#fff0c3",
+              "#e8dab1",
+              "#dbc9a2"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.26,
+              0.08,
+              0.2,
+              8
+            ],
+            "at": [
+              -0.12,
+              0.24,
+              0
+            ],
+            "tones": [
+              "#fe738f",
+              "#f45f7d",
+              "#d9435f"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.06,
+              0.2,
+              6
+            ],
+            "at": [
+              0.15,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#fff0c3",
+              "#e8dab1",
+              "#dbc9a2"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.05,
+              0.14,
+              8
+            ],
+            "at": [
+              0.15,
+              0.16,
+              0.1
+            ],
+            "tones": [
+              "#fe738f",
+              "#f45f7d",
+              "#d9435f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "waterfall",
+      "type": "waterfall",
+      "variant_of": "waterfall",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          2,
+          8
+        ]
+      ],
+      "where": "Plunging waterfall spill dropping down from the raised plateau tier into the still foreground pool.",
+      "shape": {
+        "summary": "Blocky cascading sheet of bright teal water pouring vertically into frothing foam.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.85,
+              1.05,
+              0.18
+            ],
+            "at": [
+              0,
+              -0.95,
+              0.42
+            ],
+            "tones": [
+              "#6cc8c8",
+              "#43c8c8",
+              "#279c9c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.16,
+              0.42,
+              0.06
+            ],
+            "at": [
+              0,
+              -1,
+              0.5
+            ],
+            "tones": [
+              "#aef3f3",
+              "#6cc8c8",
+              "#37aeae"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.7
+            ],
+            "at": [
+              -0.25,
+              -0.92,
+              0.52
+            ],
+            "tones": [
+              "#daf7ff",
+              "#aef3f3",
+              "#6cc8c8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.16,
+              0.7
+            ],
+            "at": [
+              0.25,
+              -0.92,
+              0.52
+            ],
+            "tones": [
+              "#daf7ff",
+              "#aef3f3",
+              "#6cc8c8"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "fire-bird",
+      "source": "The mythical flaming spirit bird drawn centrally in swirling charcoal fire strokes with large curved beak and upright flame plumes",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "Chunky toy fire-bird spirit composed of warm amber and gold stacked flame cones, glowing eyes, a prominent beak, and swept tail feathers.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.12,
+              0.5,
+              8
+            ],
+            "at": [
+              -0.12,
+              0,
+              0
+            ],
+            "rot": [
+              5,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#dc7016"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.12,
+              0.5,
+              8
+            ],
+            "at": [
+              0.12,
+              0,
+              0
+            ],
+            "rot": [
+              5,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#dc7016"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.75,
+              0.65,
+              0.15
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f1b900",
+              "#dc7016",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.15,
+              0.65,
+              8
+            ],
+            "at": [
+              -0.02,
+              1.05,
+              -0.05
+            ],
+            "tones": [
+              "#ffe082",
+              "#f1b900",
+              "#dc7016"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.04,
+              0.35,
+              6
+            ],
+            "at": [
+              -0.02,
+              1.5,
+              -0.02
+            ],
+            "rot": [
+              -10,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffe082",
+              "#f1b900"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.38,
+              4
+            ],
+            "at": [
+              -0.02,
+              1.35,
+              -0.32
+            ],
+            "rot": [
+              75,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e3e3e3",
+              "#ababab"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              -0.18,
+              1.42,
+              -0.15
+            ],
+            "tones": [
+              "#ffffff",
+              "#e0e0e0",
+              "#b0b0b0"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0.14,
+              1.42,
+              -0.15
+            ],
+            "tones": [
+              "#ffffff",
+              "#e0e0e0",
+              "#b0b0b0"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.08,
+              0.6,
+              6
+            ],
+            "at": [
+              0.02,
+              0.75,
+              0.35
+            ],
+            "rot": [
+              -45,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.05,
+              0.5,
+              6
+            ],
+            "at": [
+              0.02,
+              0.95,
+              0.55
+            ],
+            "rot": [
+              -70,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffb31d",
+              "#dc7016",
+              "#a04b14"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.06,
+              0.45,
+              6
+            ],
+            "at": [
+              -0.3,
+              0.65,
+              0.05
+            ],
+            "rot": [
+              15,
+              -20,
+              20
+            ],
+            "tones": [
+              "#f1cd52",
+              "#f1b900",
+              "#dd9200"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.06,
+              0.45,
+              6
+            ],
+            "at": [
+              0.3,
+              0.65,
+              0.05
+            ],
+            "rot": [
+              15,
+              20,
+              -20
+            ],
+            "tones": [
+              "#f1cd52",
+              "#f1b900",
+              "#dd9200"
+            ]
+          }
+        ]
+      },
+      "pose": "Stands tall with head held proud, crest of flame licking upward and plumage curling backward toward the forest edge.",
+      "cell": [
+        8,
+        7
+      ],
+      "facing": "s",
+      "why": "Acts as the central mystical focal character of the dark pine forest level, matching the glowing avian figure in IMAGE 1."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "TTTTTTTTTTTTTTTT",
+      "TGGRRRRRRRRGGTTT",
+      "TGGRRRRRRRRGGTTT",
+      "TGGGRRRRRRGGGTTT",
+      "TGGGGRRRRGGGGTTT",
+      "TGGGGGRRGGGGGTTT",
+      "TTRRRGGGGGGGGTTT",
+      "TTRRRGGGFGGGGTTT",
+      "TTRRRGGGPGGGGTTT",
+      "WWWWRGGGPGGGGTTT",
+      "WWWWGGGGPPTTTTTT",
+      "WWWWGGGGPPTTTTTT"
+    ],
+    "heights": [
+      "1111111111111111",
+      "1112222222211111",
+      "1112222222211111",
+      "1111222222111111",
+      "1111122221111111",
+      "1111112211111111",
+      "1222211111111111",
+      "1222211111111111",
+      "1222211111111111",
+      "0000211111111111",
+      "0000111111111111",
+      "0000111111111111"
+    ],
+    "focal": {
+      "x": 8,
+      "z": 7,
+      "what": "fire-bird standing in the clearing clearing beside the pond"
+    },
+    "mass": "Visual weight is anchored on the dense dark canopy along the top and right edges, balanced by the luminous flame bird and the cool pool in the foreground.",
+    "read": "The viewer enters via the subtle dirt footpath at the near bottom-centre leading directly up to the fiery bird spirit. From the bright bird, the eye takes in the still deep pond on the leftfed by a cliffside waterfallbefore drifting back into the tall vertical pines and misty upper backdrop."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.42,
+      "types": [
+        {
+          "type": "tree-pine",
+          "variant": "dense",
+          "weight": 0.85
+        },
+        {
+          "type": "tree-round",
+          "variant": "mossy",
+          "weight": 0.15
+        }
+      ]
+    },
+    "water_share": 0.0625,
+    "plateau_share": 0.18,
+    "void_share": 0,
+    "decor_weights": {
+      "mushroom": 0.25,
+      "rock": 0.22,
+      "rock-big": 0.16,
+      "stump": 0.14,
+      "log": 0.13,
+      "bush": 0.08,
+      "waterfall": 0.02
+    },
+    "lighting": {
+      "bg": "#1c2628",
+      "ambient": 0.72,
+      "sun": 0.28,
+      "tint": "#4a6c74",
+      "notes": "Dim twilight canopy wash with soft cyan-blue ambient fill that lets the warm fire bird glow brilliantly."
+    },
+    "rules": [
+      "Keep the still pond clustered strictly in the lower-left foreground abutting the edge.",
+      "Raise the terrain directly behind the pond to level 2 to support the single cliff waterfall.",
+      "Place tree-pine densely along rows 0 to 2 and down the entire right perimeter columns 14 to 15.",
+      "Leave cell [7,7] clear for the central focal creature with a dirt path connecting to the bottom edge."
+    ],
+    "decor_density": 0.18,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "grass",
+      "path": "dirt",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "concept": {
+    "name": "biome",
+    "fragment": "Read IMAGE 1 as a biome, a dark pine forest with a still pool, and build it from the pack's existing pieces at the drawing's density. The fire-bird is the only new prop.\n- mood: dense, dim, still, damp words.\n- palette.translation: dusk pine forest: treeMint and treeTeal and treeLeaf deep cool greens (still saturated), grass a moss green, water a deep teal, sand a cooled ochre, bg and lighting.bg a dark blue-green grey. lighting: ambient 0.65 to 0.8, sun 0.2 to 0.35, tint a cool green-blue.\n- motifs: 5 to 7, every one a catalog type (never \"new\"): the drawing's tall trunks become tree-pine (count 8 to 14), fallen trunks become log, roots and ground clutter become mushroom, rock, rock-big, stump, bush; the pool's drop becomes waterfall (count 1). Name each after what it stands for in the drawing. The fire-bird is the only creature and the only new shape.\n- composition: add a still pool: 8 to 14 W cells in one blob in the open lower-left foreground of IMAGE 1 (where its dark ground pools), touching the rim so it can spill into the void; the ground right behind the pool is raised one tier (R, height 2) so a waterfall can drop into it. Dense T on the far rows and both sides at heights 1 and 2; the bird on open ground near the pool at the focal cell; a thin dirt path (P) from the near rim to the bird.\n- biome: trees.density 0.35 to 0.5, types tree-pine weight 0.8 or more plus tree-round; decor_weights mushroom, rock, rock-big, stump, log, bush, waterfall; decor_density 0.15 to 0.22; water_share 0.06 to 0.1; plateau_share 0.15 to 0.25; surfaces {\"ground\":\"grass\",\"raised\":\"grass\",\"path\":\"dirt\",\"shore\":\"sand\",\"mist\":null}."
+  }
+}
