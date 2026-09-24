@@ -5,11 +5,14 @@ import sharp from "sharp";
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
 const args = process.argv.slice(2);
 const flag = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
-const art = path.resolve(root, args[0] || "pipeline/seed/forest.png");
-const briefPath = path.resolve(root, args[1] || "pipeline/seed/brief.json");
-const outPath = path.resolve(root, flag("--out", "pipeline/a-transcribe/regions.json"));
-const debugPath = path.resolve(root, flag("--debug", "out/forest-a-regions.png"));
+const pos = args.filter((a, i) => !a.startsWith("--") && !(i > 0 && args[i - 1].startsWith("--")));
+const conceptArg = flag("--concept", null);
+const art = path.resolve(root, pos[0] || "pipeline/seed/forest.png");
+const briefPath = path.resolve(root, pos[1] || (conceptArg ? `pipeline/seed/concepts/${conceptArg}.json` : "pipeline/seed/brief.json"));
 const brief = JSON.parse(fs.readFileSync(briefPath, "utf8"));
+const concept = brief.concept && brief.concept.name !== "literal" ? brief.concept.name : null;
+const outPath = path.resolve(root, flag("--out", concept ? `pipeline/a-transcribe/regions-${concept}.json` : "pipeline/a-transcribe/regions.json"));
+const debugPath = path.resolve(root, flag("--debug", concept ? `out/forest-a-${concept}/regions.png` : "out/forest-a-regions.png"));
 const grid = brief.composition.grid, heights = brief.composition.heights;
 const D = grid.length, W = grid[0].length;
 const TB = 0.35, P = 0.8;
@@ -102,8 +105,12 @@ while (legY < h - 4) {
   legY += 4;
 }
 const figBlob = { ...blobInfo(main), foot: [+(legX / w).toFixed(3), +(legY / h).toFixed(3)] };
-const footCell = imgToCell(...figBlob.foot);
-const footF = imgToCellF(...figBlob.foot);
+const focal = brief.composition.focal;
+const planToCell = (u, t) => [Math.min(W - 1, Math.floor(u * W)), Math.min(D - 1, Math.floor(t * D))];
+const focalPt = concept ? [(focal.x + 0.5) / W, (focal.z + 0.5) / D] : figBlob.foot;
+const footCell = concept ? planToCell(...focalPt) : imgToCell(...focalPt);
+const fNear = concept ? grid.flatMap((row, z) => [...row].map((g, x) => [g, x, z])).filter(([g, x, z]) => g === "F" && Math.abs(x - focal.x) <= 1 && Math.abs(z - focal.z) <= 1) : [];
+const footF = concept ? [Math.min(...fNear.map((f) => f[1])) + 1, Math.min(...fNear.map((f) => f[2])) + 1] : imgToCellF(...focalPt);
 const figAnchor = [Math.max(1, Math.min(W - 3, Math.round(footF[0]) - 1)), Math.max(1, Math.min(D - 3, Math.round(footF[1]) - 1))];
 const figCells = [[0, 0], [1, 0], [0, 1], [1, 1]].map(([dx, dz]) => [figAnchor[0] + dx, figAnchor[1] + dz]);
 const isFig = (x, z) => figCells.some(([a, b]) => a === x && b === z);
@@ -128,14 +135,14 @@ const all = F.flat(), ground = all.filter((c) => c.t >= TB), back = all.filter((
 const q = (arr, p) => { const v = [...arr].sort((a, b) => a - b); return v[Math.min(v.length - 1, Math.floor(p * v.length))]; };
 const lumHi = q(ground.map((c) => c.lum), 0.7), edgeLo = q(ground.map((c) => c.edge), 0.5), edgeHi = q(ground.map((c) => c.edge), 0.68);
 const trunkHi = q(all.map((c) => c.trunk), 0.5), darkHi = q(all.map((c) => c.dark), 0.55), mistHi = q(back.map((c) => c.lum), 0.45);
-const RIM_EXP = 2.2, RIM_KEEP = 0.95, RIM_NOISE = 0.5, WALL = 0.2, PATH_SHARE = 0.42, aboveLum = q(all.filter((c) => depthToY(c.t) < hy).map((c) => c.lum), 0.6);
+const RIM_EXP = 2.2, RIM_KEEP = concept ? 1.08 : 0.95, RIM_NOISE = concept ? 0.35 : 0.5, WALL = 0.2, PATH_SHARE = 0.42, aboveLum = q(all.filter((c) => depthToY(c.t) < hy).map((c) => c.lum), 0.6);
 
 const cells = [];
 for (let z = 0; z < D; z++) {
   const row = [];
   for (let x = 0; x < W; x++) {
     const f = F[z][x];
-    const gz = Math.min(D - 1, Math.floor(depthToY(f.t) * D)), gxI = Math.min(W - 1, Math.floor(f.ix * W));
+    const gz = concept ? z : Math.min(D - 1, Math.floor(depthToY(f.t) * D)), gxI = concept ? x : Math.min(W - 1, Math.floor(f.ix * W));
     const code = grid[gz][gxI], prior = +heights[gz][gxI];
     const side = Math.min(f.ix, 1 - f.ix);
     const edgeCol = side < WALL || (side < WALL + 0.06 && code === "T");
@@ -146,6 +153,12 @@ for (let z = 0; z < D; z++) {
     if (side < 0.1 && f.dark >= darkHi) hgt = 3;
     if (isBack && (code === "T" || f.trunk >= trunkHi)) hgt = Math.max(hgt, 2);
     if (f.t < TB * 0.45 && hgt >= 2) hgt = 3;
+    if (concept) {
+      const iyC = depthToY(f.t), mist = hgt >= 0 && iyC < hy && f.lum >= mistHi;
+      const ch = code === "W" || code === "V" ? 0 : Math.max(1, Math.min(3, prior || 1));
+      row.push({ h: ch, s: code === "W" ? "water" : code === "V" ? "none" : code === "P" ? "path" : "ground", code, motif: isFig(x, z) ? ["figure"] : mist && ch === 1 && code !== "P" ? ["mist"] : [], ix: +f.ix.toFixed(3), iy: +iyC.toFixed(3), lum: +f.lum.toFixed(3), edge: +f.edge.toFixed(3), path: code === "P" ? 1 : 0, prior: code + prior });
+      continue;
+    }
     const motif = [];
     if (isFig(x, z)) motif.push("figure");
     else if (hgt >= 2) motif.push("trunk");
@@ -166,18 +179,25 @@ for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
   const r = Math.pow(Math.abs(nx) ** RIM_EXP + Math.abs(nz) ** RIM_EXP, 1 / RIM_EXP);
   const n = (c.lum - lumMed) / lumSpan;
   c.rim = +r.toFixed(3);
-  if (r > RIM_KEEP - RIM_NOISE * n && !isFig(x, z)) { c.h = 0; c.s = "none"; c.motif = []; }
+  if (isFig(x, z)) continue;
+  if (concept && c.s === "water") { if (r > 1.3) Object.assign(c, { h: 0, s: "none", motif: [] }); continue; }
+  if (r > RIM_KEEP - RIM_NOISE * n) { c.h = 0; c.s = "none"; c.motif = []; }
 }
+const landish = (c) => c && (c.h > 0 || c.s === "water");
 for (let pass = 0; pass < 3; pass++) for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
   const c = cells[z][x];
-  if (c.h > 0 && !isFig(x, z) && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => (cells[z + dz]?.[x + dx]?.h ?? 0) > 0).length < 2) Object.assign(c, { h: 0, s: "none", motif: [] });
+  if (landish(c) && !isFig(x, z) && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => landish(cells[z + dz]?.[x + dx])).length < 2) Object.assign(c, { h: 0, s: "none", motif: [] });
 }
 const snapshot = cells.map((row) => row.map((c) => c.h));
-for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (snapshot[z][x] === 2 && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => (snapshot[z + dz]?.[x + dx] ?? 0) >= 2).length >= 3) cells[z][x].h = 3;
+const briefHas3 = heights.some((r) => r.includes("3"));
+const need3 = concept ? 4 : 3;
+if (!concept || !briefHas3) for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (snapshot[z][x] === 2 && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => (snapshot[z + dz]?.[x + dx] ?? 0) >= 2).length >= need3) cells[z][x].h = 3;
 const near = (x, z, d) => figCells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) <= d);
+const knollH = concept ? Math.max(1, Math.min(3, +heights[focal.z][focal.x] || 1)) : 2;
 for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (near(x, z, 1)) {
   const c = cells[z][x];
-  c.h = 2; c.s = "ground"; c.knoll = 1; c.motif = isFig(x, z) ? ["figure"] : [];
+  if (concept && !isFig(x, z) && (c.s === "path" || (c.h === 0 && !near(x, z, 0)))) { if (c.s === "path") { c.h = knollH; c.knoll = 1; } continue; }
+  c.h = knollH; c.s = "ground"; c.knoll = 1; c.motif = isFig(x, z) ? ["figure"] : [];
 }
 {
   const seen = new Set(), stack = [figCells[0].join(",")];
@@ -188,7 +208,14 @@ for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (near(x, z, 1)) {
     const [x, z] = kk.split(",").map(Number);
     for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const c = cells[z + dz]?.[x + dx]; if (c && c.h > 0) stack.push(x + dx + "," + (z + dz)); }
   }
-  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (!seen.has(x + "," + z)) Object.assign(cells[z][x], { h: 0, s: "none", motif: [] });
+  const wetOk = (x, z) => cells[z][x].s === "water" && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => seen.has(x + dx + "," + (z + dz)) || (cells[z + dz]?.[x + dx]?.s === "water"));
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (!seen.has(x + "," + z) && !(concept && wetOk(x, z))) Object.assign(cells[z][x], { h: 0, s: "none", motif: [] });
+}
+const wetSeen = new Set(), wq = [];
+if (concept) {
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (cells[z][x].s === "water" && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => (cells[z + dz]?.[x + dx]?.h ?? 0) > 0)) { wetSeen.add(x + "," + z); wq.push([x, z]); }
+  while (wq.length) { const [x, z] = wq.pop(); for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const kk = x + dx + "," + (z + dz); if (cells[z + dz]?.[x + dx]?.s === "water" && !wetSeen.has(kk)) { wetSeen.add(kk); wq.push([x + dx, z + dz]); } } }
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (cells[z][x].s === "water" && !wetSeen.has(x + "," + z)) Object.assign(cells[z][x], { h: 0, s: "none", motif: [] });
 }
 const isRim = (x, z) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => (cells[z + dz]?.[x + dx]?.h ?? 0) === 0);
 const pathThr = q(cells.flat().filter((c) => c.h === 1 && c.iy >= hy).map((c) => c.path), 1 - PATH_SHARE);
@@ -196,8 +223,9 @@ console.log("path threshold", pathThr.toFixed(2));
 const pathSet = new Set();
 const maxScore = Math.max(...cells.flat().map((c) => c.path));
 const dist = new Map(), prev = new Map(), open = [];
-for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (isRim(x, z) && depthToY(cellPoint(x, z).t) >= hy && cells[z][x].h === 1 && !figCells.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) { dist.set(x + "," + z, 0); open.push([0, x, z]); }
-const goal = (x, z) => cells[z][x].h === 1 && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => cells[z + dz]?.[x + dx]?.knoll && !isFig(x + dx, z + dz));
+const isP = (c) => c.code === "P";
+for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (isRim(x, z) && depthToY(cellPoint(x, z).t) >= hy && (concept ? cells[z][x].h > 0 : cells[z][x].h === 1) && !figCells.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) { const d0 = concept && !isP(cells[z][x]) ? 4 : 0; dist.set(x + "," + z, d0); open.push([d0, x, z]); }
+const goal = concept ? (x, z) => cells[z][x].h > 0 && !isFig(x, z) && (cells[z][x].knoll || [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => isFig(x + dx, z + dz))) : (x, z) => cells[z][x].h === 1 && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => cells[z + dz]?.[x + dx]?.knoll && !isFig(x + dx, z + dz));
 let end = null;
 while (open.length) {
   open.sort((a, b) => a[0] - b[0]);
@@ -206,14 +234,15 @@ while (open.length) {
   if (goal(x, z)) { end = [x, z]; break; }
   for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
     const X = x + dx, Z = z + dz, c = cells[Z]?.[X];
-    if (!c || c.h !== 1 || isFig(X, Z)) continue;
-    const nd = d + 1 + Math.max(0, maxScore - c.path) * 1.5, kk = X + "," + Z;
+    if (!c || isFig(X, Z) || (concept ? c.h === 0 || Math.abs(c.h - cells[z][x].h) > 1 : c.h !== 1)) continue;
+    const nd = d + 1 + (concept ? (isP(c) ? 0 : 3) + Math.abs(c.h - cells[z][x].h) * 2 : Math.max(0, maxScore - c.path) * 1.5), kk = X + "," + Z;
     if (nd < (dist.get(kk) ?? Infinity)) { dist.set(kk, nd); prev.set(kk, x + "," + z); open.push([nd, X, Z]); }
   }
 }
 const route = [];
 for (let kk = end && end.join(","); kk; kk = prev.get(kk)) route.push(kk);
-const grow = [...route];
+const grow = concept ? [] : [...route];
+if (concept) { for (const kk of route) pathSet.add(kk); for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (cells[z][x].h > 0 && isP(cells[z][x]) && !isFig(x, z)) pathSet.add(x + "," + z); }
 while (grow.length) {
   const kk = grow.pop();
   if (pathSet.has(kk)) continue;
@@ -221,8 +250,9 @@ while (grow.length) {
   const [x, z] = kk.split(",").map(Number);
   for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const c = cells[z + dz]?.[x + dx]; if (c && c.h === 1 && c.path > pathThr && !isFig(x + dx, z + dz) && x + dx + z + dz >= figAnchor[0] + figAnchor[1] - 1) grow.push(x + dx + "," + (z + dz)); }
 }
-for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) cells[z][x].s = pathSet.has(x + "," + z) ? "path" : "ground";
-const wispCell = (() => {
+for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (cells[z][x].s !== "water" || !concept) cells[z][x].s = cells[z][x].h === 0 ? (cells[z][x].s === "water" && concept ? "water" : "none") : pathSet.has(x + "," + z) ? "path" : "ground";
+const gridMap = grid.map((row, gz) => [...row].map((_, gx) => (concept ? planToCell : imgToCell)((gx + 0.5) / W, (gz + 0.5) / D)));
+const wispCell = concept ? null : (() => {
   const c0 = tail ? imgToCell(tail.x, figBlob.foot[1] - 0.04) : [figAnchor[0] + 2, figAnchor[1]];
   const order = [];
   for (let dz = -2; dz <= 2; dz++) for (let dx = -2; dx <= 2; dx++) order.push([dx, dz, Math.abs(dx) + Math.abs(dz)]);
@@ -237,15 +267,17 @@ const wispCell = (() => {
 
 const out = {
   source: path.relative(root, art), brief: path.relative(root, briefPath), size: [W, D],
-  mapping: { horizon: +hy.toFixed(3), backDepth: TB, power: P, note: "level cell (x,z) is read as the isometric screen sees it: lateral (x-z) spans the artwork width, depth (x+z) runs from the top of the artwork (back corner) to its bottom (front corner); depth below backDepth samples the band above the horizon, deeper cells invert a mild perspective t^power" },
-  figure: { ...figBlob, footCell, anchor: figAnchor, cells: figCells },
+  mapping: concept ? { plan: "the brief grid is a plan: grid[z][x] is level cell (x,z); row 0 is the back-right edge on screen, column 0 the back-left edge", horizon: +hy.toFixed(3) } : { horizon: +hy.toFixed(3), backDepth: TB, power: P, note: "level cell (x,z) is read as the isometric screen sees it: lateral (x-z) spans the artwork width, depth (x+z) runs from the top of the artwork (back corner) to its bottom (front corner); depth below backDepth samples the band above the horizon, deeper cells invert a mild perspective t^power" },
+  concept,
+  figure: { ...figBlob, focal: concept ? { grid: [focal.x, focal.z], point: focalPt.map((v) => +v.toFixed(3)) } : undefined, footCell, anchor: figAnchor, cells: figCells },
+  gridMap,
   wisp: { tail, cell: wispCell },
   cells,
 };
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, JSON.stringify(out, null, 1));
 
-const sym = (c) => c.motif.includes("figure") ? "F" : c.motif.includes("trunk") ? "T" : c.motif.includes("log") ? "L" : c.motif.includes("root") ? "r" : c.motif.includes("mist") ? "m" : c.motif.includes("wisp") ? "w" : c.s === "path" ? "P" : ".";
+const sym = (c) => c.s === "water" ? "~" : c.motif.includes("figure") ? "F" : c.motif.includes("trunk") ? "T" : c.motif.includes("log") ? "L" : c.motif.includes("root") ? "r" : c.motif.includes("mist") ? "m" : c.motif.includes("wisp") ? "w" : c.s === "path" ? "P" : ".";
 console.log(`horizon ${hy.toFixed(3)}  figure foot ${figBlob.foot} -> cell ${footCell}, anchor ${figAnchor}  wisp ${wispCell}`);
 for (let z = 0; z < D; z++) console.log(cells[z].map((c) => c.h).join("") + "  " + cells[z].map(sym).join(""));
 
@@ -254,7 +286,7 @@ const svg = [];
 for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
   const [x0, y0, x1, y1] = cellRect(x, z).map((v, i) => (i % 2 ? v / h * AH : v / w * AW));
   const c = cells[z][x], s = sym(c);
-  const fill = { F: "#ff831d", T: "#472d26", L: "#a26843", r: "#8c5432", m: "#c8d6e5", w: "#ffe082", P: "#e8dab1", ".": "none" }[s];
+  const fill = { "~": "#3ba1ab", F: "#ff831d", T: "#472d26", L: "#a26843", r: "#8c5432", m: "#c8d6e5", w: "#ffe082", P: "#e8dab1", ".": "none" }[s];
   svg.push(`<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" fill="${fill}" fill-opacity="0.45" stroke="#00ffbf" stroke-width="0.6"/>`);
   svg.push(`<text x="${x0 + 2}" y="${y0 + 11}" font-size="10" fill="#ff0" font-family="monospace">${c.h}${s}</text>`);
 }
