@@ -132,7 +132,7 @@ The five briefs are already committed. Regenerate one only if you change its fra
 
 ### pack-first result
 
-`levels/forest-a-pack-first.json`: 16x12, 127 land cells (93 h1, 32 h2, 2 h3), spawn 8,10, five stone ramps, all 94 walkable cells reachable. Decor: fire-bird, 11 pack trees (6 pine, 5 round), 3 bare trunks, 3 root tangles, 1 fallen log, 2 mist wisps, and pack scatter (7 bushes, 6 flowers, 3 rocks, 3 mushrooms, 2 coins). Palette is the pack's own, lit at ambient 0.92, sun 0.18, on `#3b3d42`. `3d/pieces/forest-a-pack-first.js` reuses forest-a's bird, trunk, roots and log in the brief's pack tones and adds a two-lobe `mist-wisp`.
+`levels/forest-a-pack-first.json`: 16x12, 127 land cells (93 h1, 32 h2, 2 h3), spawn 8,10, five stone ramps, all 94 walkable cells reachable. Decor: fire-bird, 12 pack trees (6 pine, 6 round), 3 bare trunks, 3 root tangles, 1 fallen log, 2 mist wisps, and pack scatter (7 bushes, 6 flowers, 3 rocks, 3 mushrooms, 2 coins). Palette is the pack's own, lit at ambient 0.92, sun 0.18, on `#3b3d42`. `3d/pieces/forest-a-pack-first.js` reuses forest-a's bird, trunk, roots and log in the brief's pack tones and adds a two-lobe `mist-wisp`.
 
 | Round | 351 high/med | 900 high/med | Fix after the round |
 | --- | --- | --- | --- |
