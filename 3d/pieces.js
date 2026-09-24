@@ -317,10 +317,11 @@ export function makePieces(style) {
       post(B, 0.2, -0.32, 0.3, 0.09);
     },
     scaffold(B, H, v, ctx) {
-      const top = ctx.deck, s = 0.3;
+      const top = ctx.deck, s = 0.3, foot = 0.3;
       const pal = tone(W.light, W.mid, W.dark);
-      for (const [x, z] of [[-s, -s], [s, -s], [s, s], [-s, s]]) B.box(0.12, top, 0.12, pal, x, 0, z);
-      const lo = 0.15, hi = top - 0.3;
+      B.rbox(0.9, foot, 0.9, 0.08, tone(P.sand.top, P.sand.edge, P.sand.lip), 0, 0, 0);
+      for (const [x, z] of [[-s, -s], [s, -s], [s, s], [-s, s]]) B.box(0.12, top - foot, 0.12, pal, x, foot, z);
+      const lo = foot + 0.15, hi = top - 0.3;
       bar(B, [-s, lo, s + 0.02], [s, hi, s + 0.02], 0.08, pal);
       bar(B, [s, lo, s + 0.02], [-s, hi, s + 0.02], 0.08, pal);
       bar(B, [s + 0.02, lo, s], [s + 0.02, hi, -s], 0.08, pal);
