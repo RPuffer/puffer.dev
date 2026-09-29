@@ -122,3 +122,6 @@ date | level | model | count | $ | purpose
 2026-09-29 | swallow-composition | gemini-3.8-flash | 24 | 0.1780 | critic rounds 1 to 4: 0, 0, 1, 0 high
 
 Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6200).
+2026-09-29 | ember-medium | gemini-3.8-flash | 18 | ~0.12 | critic rounds 1, 2, 4 at 351 and 900 (3 votes each): 0, 0, 0 high; round 3 changed only subject and composition
+2026-09-29 | ember-subject | gemini-3.8-flash | 24 | ~0.19 | critic rounds 1 to 4: 3, 0, 0, 0 high (bone piles beside vents read as critters clipping into props)
+2026-09-29 | ember-composition | gemini-3.8-flash | 24 | ~0.17 | critic rounds 1 to 4: 0, 1, 0, 0 high (horn gate beam floated off the curled posts)
