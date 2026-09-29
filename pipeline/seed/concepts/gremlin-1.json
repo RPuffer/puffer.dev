@@ -7,113 +7,113 @@
     "date": "2026-09-29"
   },
   "mood": [
-    "serene",
-    "contemplative",
-    "biomechanical",
-    "reverent",
-    "secluded",
-    "sunlit"
+    "domestic",
+    "peaceful",
+    "quirky",
+    "sunlit",
+    "curious",
+    "craftsman"
   ],
   "observations": [
     {
-      "what": "Smooth, egg-like featureless humanoid head tilted downward without facial features",
+      "what": "Smooth, egg-shaped featureless humanoid head tilted downward to inspect an orb, with a thin sinuous neck",
       "box": [
         217,
         287,
-        420,
-        485
+        421,
+        483
       ],
-      "maps_to": "alien-artisan creature head"
+      "maps_to": "npc"
     },
     {
-      "what": "Curved segmented mechanical conduit arching overhead from neck/spine holding a sensor or tool",
+      "what": "Cranial flexible conduit arching over the head into a multi-jointed mechanical ocular arm dangling a lens",
       "box": [
-        164,
-        115,
-        431,
-        442
+        168,
+        119,
+        421,
+        401
       ],
-      "maps_to": "biomechanical crane arm"
+      "maps_to": "npc"
     },
     {
-      "what": "Thin left hand with elongated clawed digits cradling a smooth spherical orb",
+      "what": "Delicate clawed hand holding a perfectly spherical bright orb directly beneath the dangling lens",
       "box": [
         421,
-        110,
-        534,
+        108,
+        545,
         252
       ],
-      "maps_to": "crystal orb story prop and grasping claw"
+      "maps_to": "npc"
     },
     {
-      "what": "Slender, emaciated humanoid torso with exposed spinal column and ribbed chitinous flanks",
+      "what": "Slender, emaciated torso with faint ribbed breastplate segments and sunken abdomen",
       "box": [
         454,
-        347,
-        667,
-        502
+        345,
+        664,
+        486
       ],
-      "maps_to": "slender torso of the perched creature"
+      "maps_to": "npc"
     },
     {
-      "what": "Elongated jointed quadrupedal limbs bent at acute angles in a low, resting crouch",
+      "what": "Long digitigrade hind limbs and elongated forearms ending in wide, webbed amphibian feet resting flat",
       "box": [
-        549,
-        497,
-        856,
-        755
+        648,
+        257,
+        988,
+        792
       ],
-      "maps_to": "crouching hindquarters and limb structure"
+      "maps_to": "npc"
     },
     {
-      "what": "Broad webbed aquatic or avian foot gripping the lower ground surface",
+      "what": "Upcurved prehensile tail or dorsal tube arcing gracefully behind the back with ribbed collars",
       "box": [
-        798,
-        506,
-        1000,
-        750
-      ],
-      "maps_to": "webbed base feet resting upon the stone dais"
-    },
-    {
-      "what": "Long looping dorsal tube or tail reaching upward behind the creature in a sweeping arc",
-      "box": [
-        178,
-        419,
-        584,
+        121,
+        411,
+        574,
         725
       ],
-      "maps_to": "arching tail armature"
+      "maps_to": "npc"
     },
     {
-      "what": "Secondary flared organic funnel or horn appendage sprouting sharp petal teeth and an inner eye-stalk",
+      "what": "Serrated fin or ribbed webbed vane fanning out from the mid-conduit arch like a spiny sail",
+      "box": [
+        46,
+        421,
+        143,
+        747
+      ],
+      "maps_to": "conduit-trellis-arch"
+    },
+    {
+      "what": "Secondary carnivorous funnel mouth with sharp inward teeth extending outward from a ribbed flower-like casing",
       "box": [
         94,
-        650,
-        314,
-        969
+        659,
+        298,
+        970
       ],
-      "maps_to": "symbiotic horn-spire perched atop high terrace"
+      "maps_to": "snapping-horn-bloom"
     },
     {
-      "what": "Delicate ribbed fin or wing webbing supported by slender spines above the dorsal junction",
+      "what": "Horizontally ribbed lumbar spine section connecting upper pelvis to digitigrade knee joints",
       "box": [
-        48,
-        408,
-        149,
-        738
+        569,
+        488,
+        646,
+        638
       ],
-      "maps_to": "fin-crest banner and threshold archway accent"
+      "maps_to": "ribbed-perch-cushion"
     },
     {
-      "what": "Bare white paper background surrounding the solitary pencil-shaded biomechanical study",
+      "what": "Clean, pale empty background field without ground lines, implying a solitary elevated vantage",
       "box": [
         0,
         0,
         1000,
         1000
       ],
-      "maps_to": "open terrace sky and warm void rim"
+      "maps_to": "R"
     }
   ],
   "palette": {
@@ -121,168 +121,164 @@
       {
         "hex": "#dfdfdf",
         "share": 0.221,
-        "role": "paper base highlights and smooth head"
+        "role": "sunlit creature skin highlights"
       },
       {
         "hex": "#e9e9e9",
         "share": 0.185,
-        "role": "bright open background"
+        "role": "pale background paper and polished orb"
       },
       {
         "hex": "#d3d3d3",
         "share": 0.18,
-        "role": "soft pencil shading across limbs"
+        "role": "smooth head and shoulder mid-tones"
       },
       {
         "hex": "#c4c4c4",
         "share": 0.143,
-        "role": "mid-tone contour shading on neck and ribs"
+        "role": "ribbed conduit plates and spine facets"
       },
       {
         "hex": "#aeaeae",
         "share": 0.093,
-        "role": "conduit tube body and joint shadows"
+        "role": "soft pencil shading under torso and thighs"
       },
       {
         "hex": "#919191",
         "share": 0.083,
-        "role": "deep joint recesses and mechanical bands"
+        "role": "deep joint crevices and mechanical sockets"
       },
       {
         "hex": "#606060",
         "share": 0.05,
-        "role": "dark linework and deep shadow folds"
+        "role": "dense mechanical arm hatching"
       },
       {
         "hex": "#2c2c2c",
         "share": 0.045,
-        "role": "dense graphite outlines, claws, and mouthpiece interior"
+        "role": "darkest contour line accents and inner mouth cavity"
       }
     ],
     "translation": {
-      "bg": "#2b2a33",
+      "bg": "#2b2f38",
       "grass": {
-        "top": "#b2e374",
-        "fringe": "#92cb61",
-        "fringeDark": "#74a847",
-        "speck": "#c9f08d"
+        "top": "#8ecf55",
+        "fringe": "#74b344",
+        "fringeDark": "#5d9633",
+        "speck": "#a7e372"
       },
       "sand": {
-        "top": "#f5c83b",
-        "lip": "#dc9407",
-        "edge": "#f2bd16",
-        "dots": "#f7d668"
+        "top": "#f2cb42",
+        "lip": "#d89c1e",
+        "edge": "#e2b129",
+        "dots": "#fae068"
       },
       "dirt": {
-        "top": "#edd58e",
-        "patch": "#e0c479",
-        "mottle": "#d5b463",
-        "border": "#c6a24e"
+        "top": "#e5bb6e",
+        "patch": "#deb05d",
+        "mottle": "#ce9e4b",
+        "border": "#be8b39"
       },
       "stone": {
-        "top": "#ebe1cf",
-        "pebble": "#f7f1e6",
-        "pebbleShade": "#ded1ba",
-        "rim": "#cdbea2"
+        "top": "#e2ded2",
+        "pebble": "#f0ede5",
+        "pebbleShade": "#cac5b6",
+        "rim": "#b5af9f"
       },
       "cliffUpper": {
-        "left": "#a68d7e",
-        "right": "#8d7466",
-        "seam": "#745d50"
+        "left": "#a8816c",
+        "right": "#8d6452",
+        "seam": "#754f3e"
       },
       "cliffLower": {
-        "left": "#947b6d",
-        "right": "#7a6255",
-        "seam": "#654e42",
-        "speck": "#584236"
+        "left": "#99735e",
+        "right": "#7f5746",
+        "seam": "#6a4535",
+        "speck": "#5b392b"
       },
       "water": {
-        "top": "#8be9fd",
-        "bubble": "#cbf6ff",
-        "deep": "#3dc2ec",
+        "top": "#7ee6ea",
+        "bubble": "#c8f8fa",
+        "deep": "#3cc5cc",
         "fall": [
-          "#52d3f5",
-          "#3ec4eb",
-          "#28aede"
+          "#46d0d8",
+          "#38b9c0",
+          "#2aa2a8"
         ],
-        "foam": "#e6fbff"
+        "foam": "#dcfcff"
       },
       "wood": {
-        "light": "#ff8e32",
-        "mid": "#e0771e",
-        "dark": "#b85410",
-        "shadow": "#913d08",
-        "end": "#fed78f"
+        "light": "#e88f38",
+        "mid": "#c97422",
+        "dark": "#a75913",
+        "shadow": "#87430a",
+        "end": "#f8d18b"
       },
       "treeMint": [
-        "#78e5ab",
-        "#60cb94",
-        "#43ab74"
+        "#72d8a0",
+        "#59be87",
+        "#419e6e"
       ],
       "treeLime": [
-        "#c7f288",
-        "#93e565",
-        "#73ab48"
+        "#bde464",
+        "#99cf46",
+        "#7db033"
       ],
       "treeLeaf": [
-        "#90e367",
-        "#69cb62",
-        "#4fab46"
+        "#96d557",
+        "#76ba3a",
+        "#5a962a"
       ],
       "treeTeal": [
-        "#24f5c9",
-        "#14d8ad",
-        "#0cba93",
-        "#059977"
+        "#4cdac3",
+        "#33beab",
+        "#259f8e",
+        "#1b8173"
       ],
       "treeGold": [
-        "#fae075",
-        "#f5c83b",
-        "#dc9407"
+        "#f7d55b",
+        "#dfb32b",
+        "#bf921b"
       ],
       "trunk": [
-        "#a7725c",
-        "#8a5e4a"
+        "#9c6753",
+        "#824f3e"
       ],
       "rock": [
-        "#ede8df",
-        "#ded7ca",
-        "#b5ac9d",
-        "#8e8577"
+        "#e8e8e8",
+        "#d2d2d2",
+        "#a8a8a8",
+        "#7a7a7a"
       ],
       "wellStone": [
-        "#ded5c0",
-        "#c8bea6",
-        "#ad9e83"
+        "#d8d3c5",
+        "#bfbaa9",
+        "#a49f8e"
       ],
       "flowerOrange": [
-        "#ff9238",
-        "#f7c42f"
+        "#f58e27",
+        "#e57410"
       ],
       "berry": [
-        "#ff7799",
-        "#ea5e82"
+        "#ff7393",
+        "#e34f71"
       ],
       "bushTeal": [
-        "#9efad2",
-        "#73e3b3",
-        "#50c595"
+        "#6de5bf",
+        "#4bcda3",
+        "#37aa84"
       ],
       "gold": [
-        "#fbe47e",
-        "#f4c41e",
-        "#dd9200"
+        "#ffd542",
+        "#e8b824",
+        "#ffe978"
       ]
     },
-    "notes": "Translates the monochrome graphite biomechanical drawing into the toy pack's saturated tactile aesthetic by using chalk-ivory and warm limestone tones for the creature and its roost, surrounded by warm golden-sand paths, lime-grass terraces, and amber-gold focal accents.",
-    "clamped": [
-      "trunk[0] #9c7768->#a7725c",
-      "trunk[1] #816153->#8a5e4a"
-    ]
+    "notes": "IMAGE 1's pencil sketch is translated into a sunlit artisan homestead. Warm ochre sands and creamy soft stone dominate the climbing terraces, accented by lush meadow grass and warm golden wood props, while the creature itself keeps pale silver-grey and bone tones from the drawing."
   },
   "motifs": [
     {
-      "name": "ribbed-arch-threshold",
+      "name": "conduit-trellis-arch",
       "type": "new",
       "variant_of": null,
       "footprint": [
@@ -290,27 +286,27 @@
         1
       ],
       "height": 2.2,
-      "passable": false,
+      "passable": true,
       "count": 2,
       "cells": [
         [
-          6,
-          6
+          8,
+          7
         ],
         [
-          8,
-          6
+          9,
+          7
         ]
       ],
-      "where": "Straddles the winding path at the entry to the second terrace, reflecting the creature's arched spinal crest.",
+      "where": "Straddles the winding approach path at the switchback threshold between the lower garden terrace and the upper residential tier.",
       "shape": {
-        "summary": "An ivory carved arch pillar ribbed with conduit rings and topped with a fan-like bone fin.",
+        "summary": "An archway fashioned from bundled ribbed conduits and segmented fan ribs inspired by the creature's back vane.",
         "parts": [
           {
             "prim": "cyl",
             "dims": [
-              0.22,
-              1.6,
+              0.12,
+              1.8,
               8
             ],
             "at": [
@@ -319,128 +315,147 @@
               0
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#e8e8e8",
+              "#d2d2d2",
+              "#a8a8a8"
             ]
           },
           {
-            "prim": "cyl",
+            "prim": "rbox",
             "dims": [
-              0.26,
-              0.15,
-              8
+              0.28,
+              0.16,
+              0.28,
+              0.06
             ],
             "at": [
               0,
-              0.6,
+              0.45,
               0
             ],
             "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
+              "#e88f38",
+              "#c97422",
+              "#a75913"
             ]
           },
           {
-            "prim": "cyl",
+            "prim": "rbox",
             "dims": [
-              0.26,
-              0.15,
-              8
+              0.28,
+              0.16,
+              0.28,
+              0.06
             ],
             "at": [
               0,
-              1.1,
+              1.15,
               0
             ],
             "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
+              "#e88f38",
+              "#c97422",
+              "#a75913"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "beam",
             "dims": [
-              0.25,
-              0.8
-            ],
-            "at": [
-              0,
-              1.7,
-              0
-            ],
-            "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
-            ]
-          },
-          {
-            "prim": "prism",
-            "dims": [
-              0.4
-            ],
-            "outline": [
-              [
-                -0.1,
-                0
-              ],
-              [
-                0.1,
-                0
-              ],
-              [
-                0.2,
-                0.4
-              ],
-              [
-                -0.2,
-                0.4
-              ]
+              0.08
             ],
             "at": [
               0,
               1.8,
               0
             ],
+            "to": [
+              0.35,
+              2.15,
+              0
+            ],
             "tones": [
-              "#c7f288",
-              "#93e565",
-              "#73ab48"
+              "#e8e8e8",
+              "#d2d2d2",
+              "#a8a8a8"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0.1,
+              1.6,
+              0
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                0.35,
+                0.4
+              ],
+              [
+                0.05,
+                0.5
+              ]
+            ],
+            "tones": [
+              "#ffd542",
+              "#e8b824",
+              "#ffe978"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              0.9
+            ],
+            "at": [
+              0.35,
+              2.18,
+              0
+            ],
+            "tones": [
+              "#f0ede5",
+              "#cac5b6",
+              "#b5af9f"
             ]
           }
         ]
       }
     },
     {
-      "name": "sun-perch-dais",
+      "name": "ribbed-perch-cushion",
       "type": "new",
       "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 0.4,
+      "height": 0.45,
       "passable": true,
       "count": 1,
       "cells": [
         [
-          7,
+          8,
           3
         ]
       ],
-      "where": "Sits directly beneath the focal creature on the highest terrace, providing a smooth stone resting slab.",
+      "where": "Placed on the highest height-3 shelf directly beneath the creature's folded webbed feet.",
       "shape": {
-        "summary": "A smooth rounded octagonal limestone pedestal embossed with a concentric golden sun circle.",
+        "summary": "A low woven terrace dais with ribbed lumbar segments forming a comfortable nesting platform.",
         "parts": [
           {
             "prim": "cyl",
             "dims": [
-              0.48,
-              0.25,
-              8
+              0.46,
+              0.2,
+              10
             ],
             "at": [
               0,
@@ -448,125 +463,200 @@
               0
             ],
             "tones": [
-              "#ebe1cf",
-              "#f7f1e6",
-              "#cdbea2"
+              "#f2cb42",
+              "#d89c1e",
+              "#e2b129"
             ]
           },
           {
-            "prim": "cyl",
+            "prim": "rbox",
             "dims": [
-              0.4,
-              0.1,
-              8
-            ],
-            "at": [
-              0,
-              0.25,
-              0
-            ],
-            "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
+              0.74,
               0.12,
-              0.4
+              0.74,
+              0.08
             ],
             "at": [
               0,
-              0.35,
+              0.18,
               0
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#e2ded2",
+              "#cac5b6",
+              "#b5af9f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.14,
+              0.12,
+              0.05
+            ],
+            "at": [
+              0,
+              0.28,
+              -0.22
+            ],
+            "tones": [
+              "#e88f38",
+              "#c97422",
+              "#a75913"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.14,
+              0.12,
+              0.05
+            ],
+            "at": [
+              0,
+              0.28,
+              0
+            ],
+            "tones": [
+              "#e88f38",
+              "#c97422",
+              "#a75913"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.14,
+              0.12,
+              0.05
+            ],
+            "at": [
+              0,
+              0.28,
+              0.22
+            ],
+            "tones": [
+              "#e88f38",
+              "#c97422",
+              "#a75913"
             ]
           }
         ]
       }
     },
     {
-      "name": "orb-polishing-station",
+      "name": "snapping-horn-bloom",
       "type": "new",
       "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 0.8,
+      "height": 1.25,
       "passable": false,
       "count": 2,
       "cells": [
         [
-          9,
-          3
-        ],
-        [
           6,
           2
+        ],
+        [
+          11,
+          4
         ]
       ],
-      "where": "Flanks the creature's high perch where it stores and refines its glowing light spheres.",
+      "where": "Planted in domestic garden beds bordering the creature's high roost, echoing the second head of IMAGE 1.",
       "shape": {
-        "summary": "A low wooden workbench holding a brass basin and three small glowing spheres.",
+        "summary": "A bulbous domestic potted trumpet plant with segmented shell plates and soft tooth fringes.",
         "parts": [
-          {
-            "prim": "box",
-            "dims": [
-              0.7,
-              0.35,
-              0.55
-            ],
-            "at": [
-              0,
-              0,
-              0
-            ],
-            "tones": [
-              "#ff8e32",
-              "#e0771e",
-              "#b85410"
-            ]
-          },
           {
             "prim": "cyl",
             "dims": [
-              0.22,
-              0.15,
+              0.32,
+              0.35,
               8
             ],
             "at": [
-              -0.1,
-              0.35,
+              0,
+              0,
               0
             ],
             "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
+              "#c97422",
+              "#a75913",
+              "#87430a"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "beam",
             "dims": [
-              0.12,
-              1
+              0.08
             ],
             "at": [
-              -0.1,
-              0.5,
+              0,
+              0.35,
+              0
+            ],
+            "to": [
+              0.1,
+              0.75,
+              0.05
+            ],
+            "tones": [
+              "#74b344",
+              "#5d9633",
+              "#419e6e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.28,
+              0.45,
+              8
+            ],
+            "at": [
+              0.1,
+              0.75,
+              0.05
+            ],
+            "rot": [
+              15,
+              20,
               0
             ],
             "tones": [
-              "#cbf6ff",
-              "#8be9fd",
-              "#3dc2ec"
+              "#e2ded2",
+              "#cac5b6",
+              "#b5af9f"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.26,
+              0.15,
+              0.2,
+              8
+            ],
+            "at": [
+              0.18,
+              1.08,
+              0.08
+            ],
+            "rot": [
+              15,
+              20,
+              0
+            ],
+            "tones": [
+              "#ff7393",
+              "#e34f71",
+              "#a75913"
             ]
           },
           {
@@ -576,71 +666,47 @@
               1
             ],
             "at": [
-              0.2,
-              0.35,
-              -0.1
+              0.22,
+              1.15,
+              0.1
             ],
             "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.09,
-              1
-            ],
-            "at": [
-              0.18,
-              0.35,
-              0.12
-            ],
-            "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#ffd542",
+              "#e8b824",
+              "#ffe978"
             ]
           }
         ]
       }
     },
     {
-      "name": "conduit-lantern-post",
+      "name": "geode-work-basin",
       "type": "new",
-      "variant_of": "lantern",
+      "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 1.4,
+      "height": 0.8,
       "passable": false,
-      "count": 3,
+      "count": 1,
       "cells": [
         [
-          8,
-          9
-        ],
-        [
-          5,
-          8
-        ],
-        [
           9,
-          7
+          3
         ]
       ],
-      "where": "Guards and illuminates the switchbacks of the stone stairway climbing up the terraces.",
+      "where": "Resting directly beside the creature's perch where it sorts and polishes translucent glass spheres.",
       "shape": {
-        "summary": "A curved mechanical stem holding an illuminated orb lantern in a coiled bronze claw.",
+        "summary": "A shallow stone tinkering tub filled with unfinished orbs and wooden lapidary chisels.",
         "parts": [
           {
-            "prim": "cyl",
+            "prim": "rbox",
             "dims": [
-              0.16,
-              0.2,
-              8
+              0.72,
+              0.45,
+              0.65,
+              0.08
             ],
             "at": [
               0,
@@ -648,51 +714,27 @@
               0
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#e2ded2",
+              "#cac5b6",
+              "#b5af9f"
             ]
           },
           {
-            "prim": "beam",
+            "prim": "box",
             "dims": [
-              0.06
+              0.55,
+              0.05,
+              0.48
             ],
             "at": [
               0,
-              0.2,
-              0
-            ],
-            "to": [
-              0.1,
-              1,
+              0.42,
               0
             ],
             "tones": [
-              "#ff8e32",
-              "#e0771e",
-              "#b85410"
-            ]
-          },
-          {
-            "prim": "beam",
-            "dims": [
-              0.05
-            ],
-            "at": [
-              0.1,
-              1,
-              0
-            ],
-            "to": [
-              -0.05,
-              1.25,
-              0
-            ],
-            "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
+              "#7ee6ea",
+              "#3cc5cc",
+              "#2aa2a8"
             ]
           },
           {
@@ -702,14 +744,144 @@
               1
             ],
             "at": [
-              -0.05,
-              1.15,
+              -0.14,
+              0.52,
+              -0.1
+            ],
+            "tones": [
+              "#f0ede5",
+              "#cac5b6",
+              "#7a7a7a"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1
+            ],
+            "at": [
+              0.12,
+              0.5,
+              0.1
+            ],
+            "tones": [
+              "#ffd542",
+              "#e8b824",
+              "#ffe978"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.03
+            ],
+            "at": [
+              0.2,
+              0.48,
+              -0.15
+            ],
+            "to": [
+              0.32,
+              0.55,
+              -0.22
+            ],
+            "tones": [
+              "#e88f38",
+              "#c97422",
+              "#a75913"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "lantern",
+      "type": "lantern",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          11,
+          10
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "where": "Placed in flanking pairs along the switchbacking terrace stairs leading up to the roost.",
+      "shape": {
+        "summary": "Catalog low-poly standing wooden lantern post illuminating the climb.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.12,
+              0.7,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
               0
             ],
             "tones": [
-              "#cbf6ff",
-              "#8be9fd",
-              "#3dc2ec"
+              "#e88f38",
+              "#c97422",
+              "#a75913"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.26,
+              0.26,
+              0.26,
+              0.06
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#ffd542",
+              "#e8b824",
+              "#ffe978"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.02,
+              0.15,
+              4
+            ],
+            "at": [
+              0,
+              0.88,
+              0
+            ],
+            "tones": [
+              "#a8816c",
+              "#8d6452",
+              "#754f3e"
             ]
           }
         ]
@@ -718,41 +890,33 @@
     {
       "name": "tree-round",
       "type": "tree-round",
-      "variant_of": "tree-round",
+      "variant_of": null,
       "footprint": [
         1,
         1
       ],
       "height": 2.2,
       "passable": false,
-      "count": 4,
+      "count": 2,
       "cells": [
         [
           2,
-          2
-        ],
-        [
-          3,
-          1
-        ],
-        [
-          12,
-          2
-        ],
-        [
-          13,
           4
+        ],
+        [
+          4,
+          1
         ]
       ],
-      "where": "Frames the background terrace cliffs and upper sanctuary rim.",
+      "where": "Clustered along the rear rim and steep terrace edges, providing shelter to the elevated homestead.",
       "shape": {
-        "summary": "Rounded leafy tree with reddish-buff bark and golden-lime clustered foliage.",
+        "summary": "Catalog rounded crown tree with warm ochre and lime foliage cubes.",
         "parts": [
           {
             "prim": "cyl",
             "dims": [
-              0.16,
-              1,
+              0.15,
+              1.1,
               6
             ],
             "at": [
@@ -761,176 +925,190 @@
               0
             ],
             "tones": [
-              "#a7725c",
-              "#8a5e4a",
-              "#654e42"
+              "#9c6753",
+              "#824f3e",
+              "#754f3e"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.7,
-              0.7,
-              0.7,
+              0.95,
+              0.85,
+              0.95,
               0.12
             ],
             "at": [
               0,
-              0.9,
+              0.95,
               0
             ],
             "tones": [
-              "#c7f288",
-              "#93e565",
-              "#73ab48"
+              "#bde464",
+              "#99cf46",
+              "#7db033"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.55,
-              0.6,
-              0.55,
+              0.72,
+              0.65,
+              0.72,
               0.1
             ],
             "at": [
               0.1,
-              1.4,
+              1.45,
               0.05
             ],
             "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
+              "#f7d55b",
+              "#dfb32b",
+              "#bf921b"
             ]
           }
         ]
       }
     },
     {
-      "name": "rock",
-      "type": "rock",
-      "variant_of": "rock",
+      "name": "chest",
+      "type": "chest",
+      "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 0.5,
+      "height": 0.6,
       "passable": false,
-      "count": 2,
+      "count": 1,
       "cells": [
         [
-          4,
-          4
-        ],
-        [
-          11,
-          5
+          7,
+          2
         ]
       ],
-      "where": "Natural limestone boulders anchoring terrace corners along terrace edges.",
+      "where": "Tucked snugly on the top terrace against the rear rock wall, storing cut gems and spare ocular cables.",
       "shape": {
-        "summary": "Stacked smooth rounded stones matching the chalky ivory mineral look.",
+        "summary": "Catalog wooden supply chest with brass fittings.",
         "parts": [
           {
-            "prim": "ball",
+            "prim": "box",
             "dims": [
+              0.65,
+              0.32,
+              0.45
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e88f38",
+              "#c97422",
+              "#a75913"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.68,
+              0.18,
+              0.48,
+              0.06
+            ],
+            "at": [
+              0,
               0.3,
-              0.6
-            ],
-            "at": [
-              0,
-              0.15,
               0
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#c97422",
+              "#a75913",
+              "#87430a"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "box",
             "dims": [
-              0.2,
-              0.55
-            ],
-            "at": [
-              0.12,
-              0.28,
-              -0.08
-            ],
-            "tones": [
-              "#ebe1cf",
-              "#f7f1e6",
-              "#cdbea2"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "flower",
-      "type": "flower",
-      "variant_of": "flower",
-      "footprint": [
-        1,
-        1
-      ],
-      "height": 0.3,
-      "passable": true,
-      "count": 3,
-      "cells": [
-        [
-          5,
-          4
-        ],
-        [
-          10,
-          4
-        ],
-        [
-          4,
-          7
-        ]
-      ],
-      "where": "Dotted across grassy patches around the upper home terrace.",
-      "shape": {
-        "summary": "Tiny starburst blossoms in vibrant gold with jade green leaves.",
-        "parts": [
-          {
-            "prim": "cyl",
-            "dims": [
-              0.03,
-              0.2,
-              6
-            ],
-            "at": [
-              0,
-              0,
-              0
-            ],
-            "tones": [
-              "#90e367",
-              "#69cb62",
-              "#4fab46"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.12,
-              0.4
+              0.1,
+              0.14,
+              0.05
             ],
             "at": [
               0,
               0.22,
-              0
+              0.24
             ],
             "tones": [
-              "#ff9238",
-              "#f7c42f",
-              "#dc9407"
+              "#ffd542",
+              "#e8b824",
+              "#ffe978"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "stepping-stones",
+      "type": "stepping-stones",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.1,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          4
+        ]
+      ],
+      "where": "Embedded into path thresholds marking terrace stair steps.",
+      "shape": {
+        "summary": "Catalog smooth flat river-stone pavers.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.08,
+              7
+            ],
+            "at": [
+              -0.15,
+              0,
+              -0.1
+            ],
+            "tones": [
+              "#e2ded2",
+              "#cac5b6",
+              "#b5af9f"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.08,
+              8
+            ],
+            "at": [
+              0.12,
+              0,
+              0.12
+            ],
+            "tones": [
+              "#f0ede5",
+              "#cac5b6",
+              "#a49f8e"
             ]
           }
         ]
@@ -939,8 +1117,8 @@
   ],
   "creatures": [
     {
-      "name": "ivory-sphere-artisan",
-      "source": "The primary biomechanical being in IMAGE 1, with smooth oval head, ribbed body, crane sensor arm, webbed feet, and clutching a polished sphere.",
+      "name": "Artisan Stalker",
+      "source": "IMAGE 1's main biomechanical entity with a faceless egg head, flexible overhead optic lens, and frog-like posture holding a sphere.",
       "becomes": "npc",
       "type": "new",
       "footprint": [
@@ -948,166 +1126,163 @@
         1
       ],
       "height": 2.4,
+      "pose": "Sitting relaxed on its haunches in its sunny terrace workshop, calmly turning and inspecting a polished sphere beneath its overhead camera lens.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "Acts as the peaceful resident hermit of the high perch, unalarmed by visitors as it attends to its daily craft.",
       "shape": {
-        "summary": "A peaceful biomechanical artisan sitting perched on webbed claws, inspecting a polished teal crystal sphere with its overhead crane eyepiece.",
+        "summary": "Chunky toy translation of the biomechanical stalker crouching on wide webbed feet, inspecting a floating globe under an arcing head camera.",
         "parts": [
           {
-            "prim": "prism",
+            "prim": "rbox",
             "dims": [
-              0.12
-            ],
-            "outline": [
-              [
-                -0.3,
-                -0.2
-              ],
-              [
-                0,
-                0.3
-              ],
-              [
-                0.3,
-                -0.2
-              ],
-              [
-                0.15,
-                -0.1
-              ],
-              [
-                -0.15,
-                -0.1
-              ]
+              0.38,
+              0.22,
+              0.42,
+              0.06
             ],
             "at": [
               0,
               0,
-              0.05
+              0
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#8e8577"
+              "#e8e8e8",
+              "#d2d2d2",
+              "#a8a8a8"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.08,
+              0.55,
+              0.03
+            ],
+            "at": [
+              0,
+              0.02,
+              0.12
+            ],
+            "tones": [
+              "#d2d2d2",
+              "#a8a8a8",
+              "#7a7a7a"
             ]
           },
           {
             "prim": "beam",
             "dims": [
-              0.08
+              0.1
             ],
             "at": [
               -0.15,
-              0.1,
-              0
-            ],
-            "to": [
-              -0.2,
-              0.7,
+              0.15,
               -0.1
             ],
+            "to": [
+              -0.18,
+              0.65,
+              0.08
+            ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#e8e8e8",
+              "#d2d2d2",
+              "#a8a8a8"
             ]
           },
           {
             "prim": "beam",
             "dims": [
-              0.08
+              0.1
             ],
             "at": [
               0.15,
-              0.1,
-              0
-            ],
-            "to": [
-              0.2,
-              0.7,
+              0.15,
               -0.1
             ],
-            "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.3,
-              0.55,
-              0.25,
+            "to": [
+              0.18,
+              0.65,
               0.08
             ],
-            "at": [
-              0,
+            "tones": [
+              "#e8e8e8",
+              "#d2d2d2",
+              "#a8a8a8"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.26,
               0.65,
-              -0.05
-            ],
-            "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
-            ]
-          },
-          {
-            "prim": "cyl",
-            "dims": [
-              0.16,
-              0.3,
-              8
+              0.22,
+              0.07
             ],
             "at": [
               0,
-              0.75,
-              -0.06
+              0.6,
+              0
             ],
-            "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
-            ]
-          },
-          {
-            "prim": "cyl",
-            "dims": [
-              0.1,
-              0.4,
-              6
-            ],
-            "at": [
+            "rot": [
+              12,
               0,
-              1.15,
               0
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#f0ede5",
+              "#d2d2d2",
+              "#a8a8a8"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
               0.3,
-              0.52,
-              0.32,
-              0.12
+              0.42,
+              0.24,
+              0.09
             ],
             "at": [
               0,
-              1.5,
-              0.05
+              1.25,
+              0.08
             ],
             "rot": [
-              10,
-              0,
+              20,
+              -10,
               0
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#e8e8e8",
+              "#d2d2d2",
+              "#a8a8a8"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0.02,
+              1.45,
+              -0.05
+            ],
+            "to": [
+              0,
+              1.95,
+              -0.35
+            ],
+            "tones": [
+              "#a8a8a8",
+              "#7a7a7a",
+              "#2c2c2c"
             ]
           },
           {
@@ -1116,19 +1291,63 @@
               0.05
             ],
             "at": [
-              -0.15,
-              1.1,
-              0
+              0,
+              1.95,
+              -0.35
             ],
             "to": [
-              -0.22,
-              0.8,
-              0.2
+              -0.08,
+              1.55,
+              -0.15
             ],
             "tones": [
-              "#ede8df",
-              "#ded7ca",
-              "#b5ac9d"
+              "#a8a8a8",
+              "#7a7a7a",
+              "#2c2c2c"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.14,
+              6
+            ],
+            "at": [
+              -0.08,
+              1.42,
+              -0.15
+            ],
+            "rot": [
+              -30,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffd542",
+              "#e8b824",
+              "#ffe978"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.14,
+              1.05,
+              0.05
+            ],
+            "to": [
+              -0.12,
+              1.15,
+              -0.22
+            ],
+            "tones": [
+              "#e8e8e8",
+              "#d2d2d2",
+              "#a8a8a8"
             ]
           },
           {
@@ -1138,85 +1357,39 @@
               1
             ],
             "at": [
-              -0.22,
-              0.82,
-              0.25
+              -0.1,
+              1.28,
+              -0.24
             ],
             "tones": [
-              "#cbf6ff",
-              "#8be9fd",
-              "#3dc2ec"
+              "#ffd542",
+              "#f2cb42",
+              "#ffe978"
             ]
           },
           {
             "prim": "beam",
             "dims": [
-              0.04
+              0.06
             ],
             "at": [
               0,
-              1.3,
-              -0.15
+              0.55,
+              -0.12
             ],
             "to": [
-              -0.1,
-              1.85,
-              -0.1
-            ],
-            "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
-            ]
-          },
-          {
-            "prim": "beam",
-            "dims": [
-              0.04
-            ],
-            "at": [
-              -0.1,
-              1.85,
-              -0.1
-            ],
-            "to": [
-              -0.22,
-              1.35,
-              0.15
-            ],
-            "tones": [
-              "#ff8e32",
-              "#e0771e",
-              "#b85410"
-            ]
-          },
-          {
-            "prim": "cyl",
-            "dims": [
-              0.06,
               0.1,
-              6
-            ],
-            "at": [
-              -0.22,
-              1.25,
-              0.18
+              1.35,
+              -0.45
             ],
             "tones": [
-              "#fae075",
-              "#f5c83b",
-              "#dc9407"
+              "#d2d2d2",
+              "#a8a8a8",
+              "#7a7a7a"
             ]
           }
         ]
-      },
-      "pose": "The creature sits comfortably perched on its high terrace dais, holding a crystal sphere near its chest while its dorsal sensor arm inspects the surface.",
-      "cell": [
-        7,
-        3
-      ],
-      "facing": "s",
-      "why": "It lives peacefully in its sunlit mountain sanctuary, spending quiet hours carving and polishing luminous spherical lenses."
+      }
     }
   ],
   "composition": {
@@ -1231,99 +1404,105 @@
     },
     "grid": [
       "VVVVVVVVVVVVVVVV",
-      "VVVTTTRRRRTTTVVV",
-      "VVTTRRRRRRRRTTVV",
-      "VVTRRRRFTRRRRTVV",
-      "VVTRRRRPPRRRRTVV",
-      "VVVTRRPPPPRRTVVV",
-      "VVVVTTPPPPTTVVVV",
-      "VVVVTTPPPPTTVVVV",
-      "VVVVVTTPPTTVVVVV",
-      "VVVVVTTPPTTVVVVV",
-      "VVVVVVTGPTVVVVVV",
-      "VVVVVVVGPVVVVVVV"
+      "VVVTRRRRRRRTVVVV",
+      "VVTTRRRFRRRRTVVV",
+      "VVTRRRFFRRPPTTVV",
+      "VVTRRRRPPPPGTVVV",
+      "VVTGGGGPPPPTTVVV",
+      "VVVGGGPPPPGGTVVV",
+      "VVVGGTPPPPGGVVVV",
+      "VVVVGPPPPPTTVVVV",
+      "VVVVGGPPPPGGTVVV",
+      "VVVVVGGPPPPGVVVV",
+      "VVVVVVVPPPGVVVVV"
     ],
     "heights": [
       "0000000000000000",
-      "0001113333111000",
-      "0011333333331100",
-      "0013333333333100",
-      "0013333223333100",
-      "0001332222331000",
-      "0000112222110000",
-      "0000112222110000",
-      "0000011111100000",
-      "0000011111100000",
-      "0000001111000000",
-      "0000000110000000"
+      "0001333333310000",
+      "0011333333331000",
+      "0013333333221100",
+      "0013333222211000",
+      "0012222222211000",
+      "0002222222111000",
+      "0001112222110000",
+      "0000111111110000",
+      "0000111111111000",
+      "0000011111110000",
+      "0000000111100000"
     ],
     "focal": {
       "x": 7,
       "z": 3,
-      "what": "The ivory-sphere-artisan creature perched quietly upon its sun dais at the terrace summit."
+      "what": "The Artisan Stalker perched on its woven lumbar cushion examining an amber orb"
     },
-    "mass": "Visual weight is anchored on the broad height-3 sanctuary terrace in the upper half of the grid, flanked by clustered trees and tapering downward along a zigzagging stairway to the south.",
-    "read": "The viewer's eye enters from the narrow path at the southern base (row 11), moves upward along switchbacking stone stairs past conduit lanterns, passes through the bone-ribbed threshold arch at row 6, and culminates at the bright sun-perch where the serene alien artisan sits examining its luminous orb."
+    "mass": "Visual weight is anchored on the upper-central terrace at rows 1 to 4, where the steep height-3 rock bluff supports the artisan's workshop and canopy trees.",
+    "read": "The player enters at the near south-east cliff trail (row 11, col 9-11) and follows a sunlit switchback path that climbs westward across height-1 meadows. At row 7, the path turns eastward under the conduit-trellis threshold, scaling height-2 terrace steps before making a final switchback right into the open workshop roost of the creature at height 3. The open void perimeter ensures clear silhouette framing against the dark background."
   },
   "biome": {
     "trees": {
-      "density": 0.18,
+      "density": 0.16,
       "types": [
         {
           "type": "tree-round",
-          "variant": "tree-round",
-          "weight": 0.7
+          "variant": "0",
+          "weight": 0.6
         },
         {
           "type": "tree-pine",
-          "variant": "tree-pine",
-          "weight": 0.3
+          "variant": "1",
+          "weight": 0.4
         }
       ]
     },
     "water_share": 0,
     "plateau_share": 0.42,
-    "void_share": 0.46,
+    "void_share": 0.48,
     "decor_weights": {
-      "conduit-lantern-post": 0.35,
-      "orb-polishing-station": 0.2,
-      "rock": 0.25,
-      "flower": 0.2
+      "lantern": 0.28,
+      "snapping-horn-bloom": 0.22,
+      "geode-work-basin": 0.12,
+      "chest": 0.1,
+      "stepping-stones": 0.18,
+      "pot": 0.1
     },
     "lighting": {
-      "bg": "#2b2a33",
+      "bg": "#2b2f38",
       "ambient": 0.9,
       "sun": 0.15,
-      "tint": "#fffbe8",
-      "notes": "Bright, warm midday sunlight bathes the mountaintop terrace in clear golden highlights, offsetting the dark atmospheric sky."
+      "tint": "#fff6e3",
+      "notes": "Bright, warm midday sunlight bathes the terraces with cheerful creamy highlights, keeping the mood hospitable and tranquil."
     },
     "rules": [
-      "The approach path begins at row 11 offset to the right and switchbacks upward across terraces to the summit.",
-      "The ribbed threshold arch must span across the path entrance at the transition from terrace 2 to terrace 3.",
-      "Conduit lanterns must be paired along the stone stairs at terrace corners.",
-      "The focal creature rests on a dedicated dais on the highest height-3 plateau, surrounded by workbenches."
+      "Always wind the approach path across terrace elevations using double switchbacks before reaching the workshop.",
+      "Place lantern props in aligned pairs flanking terrace elevation transitions.",
+      "Cluster snapping horn blooms within 2 tiles of the height-3 workshop rim.",
+      "Reserve height 3 exclusively for the artisan creature, its nesting dais, and craft storage props."
     ],
-    "decor_density": 0.1,
+    "decor_density": 0.11,
     "surfaces": {
       "ground": "grass",
       "raised": "stone",
       "path": "sand",
-      "shore": "stone",
+      "shore": "grass",
       "mist": null
     }
   },
   "scene": {
-    "place": "The Sun-Perch Roost, an elevated open-air stone sanctuary where the solitary creature makes its home.",
-    "approach": "The wanderer ascends a winding stone stairway framed by conduit lanterns before passing beneath a pair of arched bone pillars into the private terrace.",
-    "creature_doing": "Sitting unguarded in the afternoon warmth, delicately turning and polishing a newly formed light sphere while its mechanical ocular arm checks for flaws.",
-    "palette_key": "Sun-drenched ivory, golden ochre sands, and spring lime foliage illuminated by gentle warm midday light against a deep slate backdrop.",
-    "terrain": "Stacked limestone terraces stepping steeply from a narrow lower entrance up to an expansive, high cliff-top living platform.",
-    "summary": "The solitary biomechanical figure is envisioned at home in its high mountain workshop, enjoying a peaceful moment crafting glowing curios in the warm midday sun."
+    "place": "The Geode-Graver's Roost, a sunny cliffside terrace home and workshop built high upon stepped stone ledges.",
+    "approach": "The visitor climbs an off-centre winding sand trail that ascends two stepped plateau switchbacks, stepping beneath a ribbed conduit-trellis archway to enter the quiet upper terrace.",
+    "creature_doing": "The stalker sits comfortably upon a woven ribbed cushion, holding an amber orb close to its overhead optic lens to buff out imperfections in the midday sun.",
+    "palette_key": "Warm midday palette featuring buttercup sand paths, crisp jade meadow grass, and creamy stone masonry beneath a mild warm-white sun.",
+    "terrain": "Stacked hillside terraces with nearly half the landmass elevated to height 2 and 3, forming a stepped domestic haven with zero water.",
+    "summary": "An intimate souls-like home encounter where a normally menacing biomechanical entity is found in relaxed domesticity, peacefully crafting polished glass relics atop its sun-drenched roost."
   },
   "concept": {
     "name": "scene",
     "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
     "variant": 1,
-    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand.",
+    "avoid": [
+      "pipeline/seed/concepts/gremlin-2.json",
+      "pipeline/seed/concepts/gremlin-3.json"
+    ]
   }
 }

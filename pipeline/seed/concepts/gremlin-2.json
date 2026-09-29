@@ -7,113 +7,123 @@
     "date": "2026-09-29"
   },
   "mood": [
-    "solemn",
-    "nocturnal",
     "reverent",
+    "nocturnal",
+    "biomechanical",
+    "still",
     "sacred",
-    "chitinous",
-    "tranquil"
+    "mysterious"
   ],
   "observations": [
     {
-      "what": "Slender, biomechanical bipedal creature crouched on low digitigrade or quadrupedal limbs with large splayed webbed feet",
+      "what": "Featureless smooth white ovular mask head facing left with curved jawline",
       "box": [
-        220,
-        114,
-        995,
-        804
+        223,
+        290,
+        417,
+        492
       ],
-      "maps_to": "the focal creature / enshrined guardian"
+      "maps_to": "creature_head"
     },
     {
-      "what": "Smooth, featureless ovoid cranium curving upward into an elegant, chinless alien profile",
+      "what": "Curving biomechanical conduit arching over the head terminating in an ocular lens aperture",
       "box": [
-        222,
-        287,
-        421,
-        489
-      ],
-      "maps_to": "the creature head and cowl"
-    },
-    {
-      "what": "Thin arched mechanical dorsal conduit looping high over the skull, sprouting rib-like vertebrae collars",
-      "box": [
-        51,
-        396,
-        563,
-        730
-      ],
-      "maps_to": "creature spinal arch / lantern harness"
-    },
-    {
-      "what": "Articulated mechanical appendage ending in a suspended eyepiece or sensor claw aimed directly down at a held sphere",
-      "box": [
-        174,
+        172,
         116,
-        427,
-        439
+        426,
+        429
       ],
-      "maps_to": "overhead sensor claw focusing on the relic"
+      "maps_to": "optical_conduit_gantry"
     },
     {
-      "what": "Delicate three-fingered hand holding a luminous, perfectly circular white orb or pearl aloft",
+      "what": "Left claw-like hand cupping a perfect pale spherical relic orb",
       "box": [
-        425,
+        424,
         110,
-        529,
-        252
+        532,
+        256
       ],
-      "maps_to": "sacred relic orb held in hand"
+      "maps_to": "oracle_orb_offering"
     },
     {
-      "what": "Ribbed, segment-plated abdomen and hollowed spine showing chitinous segments",
+      "what": "Slender attenuated ribcage and abdomen with horizontal biomechanical segmentations",
       "box": [
-        468,
-        351,
-        665,
-        483
+        471,
+        350,
+        668,
+        508
       ],
-      "maps_to": "creature ribbed chassis"
+      "maps_to": "creature_torso"
     },
     {
-      "what": "Large webbed, paddle-like front and hind feet anchoring firmly to the ground surface",
+      "what": "Thin segmented whip-like tail arching upwards from the sacrum",
       "box": [
-        795,
-        252,
-        995,
+        211,
+        442,
+        574,
+        725
+      ],
+      "maps_to": "cable_tail_loop"
+    },
+    {
+      "what": "Crouched quadrupedal stance with bent digitigrade insectoid hind limbs",
+      "box": [
+        552,
+        484,
+        804,
+        720
+      ],
+      "maps_to": "jointed_hind_limbs"
+    },
+    {
+      "what": "Large splayed webbed paddle-like foot resting firmly on lower ground",
+      "box": [
+        803,
+        508,
+        996,
         755
       ],
-      "maps_to": "creature splayed webbed base"
+      "maps_to": "webbed_pedestal_anchor"
     },
     {
-      "what": "Secondary detached mechanical pod or organism in upper right, sporting a toothy trumpet funnel and an internal eye",
+      "what": "Crouched left hand or forefoot planted flatly on the ground surface",
       "box": [
-        99,
-        655,
+        795,
+        251,
+        902,
+        388
+      ],
+      "maps_to": "grounded_forepaw"
+    },
+    {
+      "what": "Secondary detached mechanical flower-shaped maw with sharp teeth and interior eye-stalk",
+      "box": [
+        98,
+        659,
         360,
         977
       ],
-      "maps_to": "secondary votive effigy / horn brazier"
+      "maps_to": "biopump_spire"
     },
     {
-      "what": "Spiked fin or sail ray protruding horizontally from the dorsal spine junction",
+      "what": "Fin-like ribbed fan appendage sprouting from upper back conduit junction",
       "box": [
-        49,
-        417,
+        50,
+        401,
         147,
-        730
+        735
       ],
-      "maps_to": "dorsal crest fin"
+      "maps_to": "finned_sanctuary_crest"
     },
     {
-      "what": "Smooth, stark white background void isolating the solitary drawing",
+      "what": "Empty stark pale background with soft graphite haze framing the creature",
       "box": [
-        0,
-        0,
-        998,
-        1000
+        10,
+        10,
+        986,
+        986
       ],
-      "maps_to": "ambient nighttime void surrounding the shrine island"
+      "maps_to": "sanctuary_water_pool"
     }
   ],
   "palette": {
@@ -121,172 +131,171 @@
       {
         "hex": "#dfdfdf",
         "share": 0.221,
-        "role": "ambient paper field"
+        "role": "paper background upper wash"
       },
       {
         "hex": "#e9e9e9",
         "share": 0.185,
-        "role": "unshaded white highlights and orb"
+        "role": "unmarked parchment white"
       },
       {
         "hex": "#d3d3d3",
         "share": 0.18,
-        "role": "pale skin midtone"
+        "role": "smooth head highlight and pale mist"
       },
       {
         "hex": "#c4c4c4",
         "share": 0.143,
-        "role": "soft shadow on torso and cranial dome"
+        "role": "midtone body pencil shading"
       },
       {
         "hex": "#aeaeae",
         "share": 0.093,
-        "role": "conduit tube shading"
+        "role": "limb junction shading"
       },
       {
         "hex": "#919191",
         "share": 0.083,
-        "role": "deep joint graphite shading"
+        "role": "deep joint shadows and cable ridges"
       },
       {
         "hex": "#606060",
         "share": 0.05,
-        "role": "dark articulation crevices"
+        "role": "dark muscle contour accents"
       },
       {
         "hex": "#2c2c2c",
         "share": 0.045,
-        "role": "pure black ink line accents"
+        "role": "dense black graphite outlines"
       }
     ],
     "translation": {
-      "bg": "#1c222b",
+      "bg": "#1c222c",
       "grass": {
-        "top": "#79ab63",
-        "fringe": "#5f8c4b",
-        "fringeDark": "#4c6f3c",
-        "speck": "#93bf81"
+        "top": "#78b874",
+        "fringe": "#5ba358",
+        "fringeDark": "#488246",
+        "speck": "#94cb90"
       },
       "sand": {
-        "top": "#d6b54d",
-        "lip": "#b89432",
-        "edge": "#a58124",
-        "dots": "#e3c76d"
+        "top": "#d8b668",
+        "lip": "#ba9343",
+        "edge": "#cfa855",
+        "dots": "#e3c67f"
       },
       "dirt": {
-        "top": "#ab8a5b",
-        "patch": "#96754a",
-        "mottle": "#7d5f39",
-        "border": "#bfa06f"
+        "top": "#cca066",
+        "patch": "#d9b07a",
+        "mottle": "#b88a51",
+        "border": "#a4763e"
       },
       "stone": {
-        "top": "#a9b9c9",
-        "pebble": "#c5d3e0",
-        "pebbleShade": "#8898a8",
-        "rim": "#728191"
+        "top": "#d8e1e8",
+        "pebble": "#f0f5fa",
+        "pebbleShade": "#b5c4ce",
+        "rim": "#9db0bc"
       },
       "cliffUpper": {
-        "left": "#5a6676",
-        "right": "#434d5a",
-        "seam": "#343d48"
+        "left": "#6a7d8c",
+        "right": "#536372",
+        "seam": "#41505d"
       },
       "cliffLower": {
-        "left": "#4a5462",
-        "right": "#363e49",
-        "seam": "#29303a",
-        "speck": "#242a33"
+        "left": "#5c6d7c",
+        "right": "#475562",
+        "seam": "#37434e",
+        "speck": "#2d3741"
       },
       "water": {
-        "top": "#6ed7ed",
-        "bubble": "#a9effa",
-        "deep": "#2daecb",
+        "top": "#6ce3e8",
+        "bubble": "#b4f4f7",
+        "deep": "#2cb1bb",
         "fall": [
-          "#3fc0df",
-          "#2cb1d1",
-          "#229bb8"
+          "#3ac6cf",
+          "#2ab4be",
+          "#1fa0aa"
         ],
-        "foam": "#c7f6ff"
+        "foam": "#dcf9fa"
       },
       "wood": {
-        "light": "#cf7834",
-        "mid": "#b05e22",
-        "dark": "#8c4414",
-        "shadow": "#6d320b",
-        "end": "#e3a86c"
+        "light": "#e08838",
+        "mid": "#be6b20",
+        "dark": "#9b5111",
+        "shadow": "#773a07",
+        "end": "#f3c178"
       },
       "treeMint": [
-        "#50b59b",
-        "#3c9780",
-        "#2a7562"
+        "#68cfb0",
+        "#4eb597",
+        "#39967b"
       ],
       "treeLime": [
-        "#7da65b",
-        "#628943",
-        "#4b6e31"
+        "#86be68",
+        "#6da251",
+        "#55843c"
       ],
       "treeLeaf": [
-        "#4d9472",
-        "#377759",
-        "#245b42"
+        "#5da86e",
+        "#478e56",
+        "#347341"
       ],
       "treeTeal": [
-        "#35b8af",
-        "#239c94",
-        "#177e77",
-        "#0f605b"
+        "#42c8b7",
+        "#2fb0a0",
+        "#219688",
+        "#177b6f"
       ],
       "treeGold": [
-        "#d1a33f",
-        "#b5882b",
-        "#946c19"
+        "#dab24e",
+        "#c49c36",
+        "#a68022"
       ],
       "trunk": [
-        "#654237",
-        "#482f27"
+        "#7c4e43",
+        "#603c34"
       ],
       "rock": [
-        "#b8c4d1",
-        "#9ca9b7",
-        "#7d8a98",
-        "#5f6a76"
+        "#e8eef2",
+        "#ccd7df",
+        "#a3b5c2",
+        "#7e92a1"
       ],
       "wellStone": [
-        "#9aaab8",
-        "#81909e",
-        "#677481"
+        "#c2d1db",
+        "#a7bac6",
+        "#8b9fae"
       ],
       "flowerOrange": [
-        "#de7c31",
-        "#c26217"
+        "#e57e32",
+        "#cc9b3d"
       ],
       "berry": [
-        "#d9526e",
-        "#b63651"
+        "#da5f7a",
+        "#bd4660"
       ],
       "bushTeal": [
-        "#5ed4be",
-        "#43b59f",
-        "#2f9480"
+        "#72dbc9",
+        "#56c2af",
+        "#3fa593"
       ],
       "gold": [
-        "#f0cf65",
-        "#d4af42",
-        "#f7e399"
+        "#ffd257",
+        "#e5b634",
+        "#fff09c"
       ]
     },
-    "notes": "The monochrome graphite palette is transposed into a solemn nocturnal aquatic sanctuary. Cool slate-blue stones and cyan ceremonial waters honour the drawing's pale values while preserving the toy pack's required saturation and warm golden accents.",
+    "notes": "Translated the monochrome graphite drawing into a nocturnal moonlit shrine. Cool limestone greys and luminescent pale cyan water anchor the sacred cistern, while warm gilded accents honour the oracle creature.",
     "clamped": [
-      "grass.top #7ca36b->#79ab63",
-      "grass.fringe #628552->#5f8c4b",
-      "grass.fringeDark #4d6b3f->#4c6f3c",
-      "treeLime[0] #7da65b->#7da65b",
-      "trunk[0] #5e463e->#654237",
-      "trunk[1] #45312a->#482f27"
+      "grass.fringe #5ea05b->#5ba358",
+      "grass.fringeDark #488246->#488246",
+      "treeLeaf[0] #5ea76e->#5da86e",
+      "trunk[0] #6e5650->#7c4e43",
+      "trunk[1] #57423d->#603c34"
     ]
   },
   "motifs": [
     {
-      "name": "fluted-stele-portal",
+      "name": "shrine-gate-spires",
       "type": "new",
       "variant_of": null,
       "footprint": [
@@ -299,24 +308,23 @@
       "cells": [
         [
           6,
-          7
+          6
         ],
         [
           9,
-          7
+          6
         ]
       ],
-      "where": "Pairs across the central causeway at row 7, forming the solemn entry threshold into the shrine pool.",
+      "where": "Erected as twin biomechanical ribbed gateposts straddling the axial causeway approach before crossing the sacred cistern.",
       "shape": {
-        "summary": "Tall fluted stele pillar carved from stacked stone blocks crowned with a curved biometric capital.",
+        "summary": "Tall segmented ribbed pylon with curving biomechanical arm hooks at top.",
         "parts": [
           {
-            "prim": "rbox",
+            "prim": "cyl",
             "dims": [
-              0.8,
-              0.3,
-              0.8,
-              0.08
+              0.35,
+              0.4,
+              8
             ],
             "at": [
               0,
@@ -324,70 +332,112 @@
               0
             ],
             "tones": [
-              "#c5d3e0",
-              "#a9b9c9",
-              "#728191"
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
             ]
           },
           {
             "prim": "cyl",
             "dims": [
-              0.28,
-              1.4,
+              0.22,
+              1.2,
               8
             ],
             "at": [
               0,
-              0.3,
+              0.4,
               0
             ],
             "tones": [
-              "#c5d3e0",
-              "#a9b9c9",
-              "#8898a8"
+              "#ccd7df",
+              "#a3b5c2",
+              "#7e92a1"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.65,
-              0.2,
-              0.65,
-              0.06
+              0.32,
+              0.15,
+              0.32,
+              0.05
             ],
             "at": [
               0,
-              1.7,
+              0.8,
               0
             ],
             "tones": [
-              "#c5d3e0",
-              "#a9b9c9",
-              "#728191"
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "rbox",
             "dims": [
-              0.22,
-              1
+              0.32,
+              0.15,
+              0.32,
+              0.05
+            ],
+            "at": [
+              0,
+              1.2,
+              0
+            ],
+            "tones": [
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.05,
+              0.5,
+              8
+            ],
+            "at": [
+              0,
+              1.6,
+              0
+            ],
+            "tones": [
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
             ],
             "at": [
               0,
               2,
               0
             ],
+            "to": [
+              0.25,
+              2.2,
+              0
+            ],
             "tones": [
-              "#f7e399",
-              "#f0cf65",
-              "#d4af42"
+              "#a3b5c2",
+              "#7e92a1",
+              "#6a7d8c"
             ]
           }
         ]
       }
     },
     {
-      "name": "reliquary-lotus-dais",
+      "name": "oracle-cistern-dais",
       "type": "new",
       "variant_of": null,
       "footprint": [
@@ -407,15 +457,15 @@
           3
         ]
       ],
-      "where": "Forms the low ceremonial plinth directly beneath the guardian figure at rows 3-4.",
+      "where": "Forms the elevated stone ceremonial platform in the inner sanctum upon which the focal entity crouches.",
       "shape": {
-        "summary": "Tiered polygonal stone plinth with ribbed aquatic molding.",
+        "summary": "Carved octagonal stone plinth ringed with conduit runnels and gilded inlays.",
         "parts": [
           {
             "prim": "cyl",
             "dims": [
               0.48,
-              0.25,
+              0.3,
               8
             ],
             "at": [
@@ -424,36 +474,36 @@
               0
             ],
             "tones": [
-              "#c5d3e0",
-              "#a9b9c9",
-              "#8898a8"
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
             ]
           },
           {
             "prim": "cyl",
             "dims": [
-              0.4,
-              0.2,
+              0.42,
+              0.15,
               8
             ],
             "at": [
               0,
-              0.25,
+              0.3,
               0
             ],
             "tones": [
-              "#c5d3e0",
-              "#8898a8",
-              "#728191"
+              "#f0f5fa",
+              "#d8e1e8",
+              "#b5c4ce"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.6,
-              0.08,
-              0.6,
-              0.04
+              0.55,
+              0.05,
+              0.55,
+              0.05
             ],
             "at": [
               0,
@@ -461,54 +511,45 @@
               0
             ],
             "tones": [
-              "#f7e399",
-              "#f0cf65",
-              "#d4af42"
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
             ]
           }
         ]
       }
     },
     {
-      "name": "pilgrim-lantern-pylon",
+      "name": "biopump-spire",
       "type": "new",
       "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 1.4,
+      "height": 2.4,
       "passable": false,
-      "count": 4,
+      "count": 2,
       "cells": [
         [
-          6,
-          9
+          4,
+          2
         ],
         [
-          9,
-          9
-        ],
-        [
-          6,
-          5
-        ],
-        [
-          9,
-          5
+          11,
+          2
         ]
       ],
-      "where": "Flanks the straight causeway path in matched pairs before and after the portal.",
+      "where": "Placed on the flanking sanctum corners like the trumpet-mouthed feeding siphon drawn in the upper-right of Image 1.",
       "shape": {
-        "summary": "Low stone bollard mounting a curved conduit arm holding an illuminated glass droplet.",
+        "summary": "Vertical ribbed siphon column topped with a flared petal funnel facing the central sanctum.",
         "parts": [
           {
-            "prim": "rbox",
+            "prim": "cyl",
             "dims": [
-              0.4,
+              0.3,
               0.5,
-              0.4,
-              0.06
+              8
             ],
             "at": [
               0,
@@ -516,9 +557,218 @@
               0
             ],
             "tones": [
-              "#c5d3e0",
-              "#a9b9c9",
-              "#728191"
+              "#ccd7df",
+              "#a3b5c2",
+              "#7e92a1"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              1.2,
+              8
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#a3b5c2",
+              "#7e92a1",
+              "#6a7d8c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.38,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.8
+            ],
+            "at": [
+              0,
+              2.2,
+              0
+            ],
+            "tones": [
+              "#6ce3e8",
+              "#2cb1bb",
+              "#1fa0aa"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          6,
+          10
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          8
+        ]
+      ],
+      "where": "Flanks the straight axial processional approach path in pairs leading worshippers toward the sacred cistern.",
+      "shape": {
+        "summary": "Carved stone pedestal post holding a soft warm lantern light.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.24,
+              0.6,
+              0.24,
+              0.05
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.18,
+              0.25,
+              0.18,
+              0.05
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.02,
+              0.15,
+              4
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#e08838",
+              "#be6b20",
+              "#9b5111"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "offering-well",
+      "type": "well",
+      "variant_of": "well",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.6,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          10,
+          4
+        ]
+      ],
+      "where": "Placed adjacent to the inner sanctum clearing as a sacred donation receptacle filled with pristine cistern water.",
+      "shape": {
+        "summary": "Square stone well basin filled with glowing turquoise spring water.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.7,
+              0.8,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.05,
+              0.6,
+              0.02
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#6ce3e8",
+              "#2cb1bb",
+              "#1fa0aa"
             ]
           },
           {
@@ -527,51 +777,175 @@
               0.06
             ],
             "at": [
-              0,
-              0.5,
+              -0.3,
+              0.7,
               0
             ],
             "to": [
-              0,
-              1.1,
+              -0.3,
+              1.4,
               0
             ],
             "tones": [
-              "#5a6676",
-              "#434d5a",
-              "#343d48"
+              "#be6b20",
+              "#9b5111",
+              "#773a07"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "beam",
             "dims": [
-              0.16,
-              1.2
+              0.06
             ],
             "at": [
-              0,
-              1.2,
+              0.3,
+              0.7,
+              0
+            ],
+            "to": [
+              0.3,
+              1.4,
               0
             ],
             "tones": [
-              "#f7e399",
-              "#f0cf65",
-              "#d4af42"
+              "#be6b20",
+              "#9b5111",
+              "#773a07"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.1,
+              0.35,
+              0.05
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#e08838",
+              "#be6b20",
+              "#9b5111"
             ]
           }
         ]
       }
     },
     {
-      "name": "votive-trough",
-      "type": "new",
-      "variant_of": null,
+      "name": "tree-teal",
+      "type": "tree-round",
+      "variant_of": "tree-round",
       "footprint": [
         1,
         1
       ],
-      "height": 0.7,
+      "height": 2.2,
       "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          13,
+          7
+        ]
+      ],
+      "where": "Stands at the outer sanctuary flanks providing cool canopy shelter over the stone ruins.",
+      "shape": {
+        "summary": "Toy-like rounded foliage cluster atop a stout wood trunk.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              1,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#7c4e43",
+              "#603c34",
+              "#41505d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.45,
+              0.9
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#42c8b7",
+              "#2fb0a0",
+              "#219688"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.32,
+              0.85
+            ],
+            "at": [
+              0.15,
+              1.6,
+              0
+            ],
+            "tones": [
+              "#68cfb0",
+              "#4eb597",
+              "#39967b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.25,
+              0.9
+            ],
+            "at": [
+              -0.15,
+              1.7,
+              0.1
+            ],
+            "tones": [
+              "#72dbc9",
+              "#56c2af",
+              "#3fa593"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "shrine-stepping-stones",
+      "type": "stepping-stones",
+      "variant_of": "stepping-stones",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.1,
+      "passable": true,
       "count": 2,
       "cells": [
         [
@@ -580,261 +954,47 @@
         ],
         [
           10,
-          4
+          3
         ]
       ],
-      "where": "Placed at the corners of the raised shrine platform directly beside the creature dais.",
+      "where": "Smooth pale limestone pavers laid along the shrine court rim.",
       "shape": {
-        "summary": "Elongated stone basin filled with still consecrated water and a single gleaming gold offering.",
+        "summary": "Smooth flat circular stone pads embedded flush into the stone floor.",
         "parts": [
           {
-            "prim": "rbox",
+            "prim": "cyl",
             "dims": [
-              0.7,
-              0.4,
-              0.5,
-              0.05
+              0.22,
+              0.08,
+              8
             ],
             "at": [
+              -0.15,
               0,
-              0,
-              0
+              -0.15
             ],
             "tones": [
-              "#c5d3e0",
-              "#a9b9c9",
-              "#728191"
+              "#f0f5fa",
+              "#d8e1e8",
+              "#b5c4ce"
             ]
           },
           {
-            "prim": "box",
+            "prim": "cyl",
             "dims": [
-              0.55,
-              0.05,
-              0.35
+              0.26,
+              0.08,
+              8
             ],
             "at": [
+              0.15,
               0,
-              0.38,
-              0
+              0.12
             ],
             "tones": [
-              "#a9effa",
-              "#6ed7ed",
-              "#2daecb"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.1,
-              1
-            ],
-            "at": [
-              0,
-              0.42,
-              0
-            ],
-            "tones": [
-              "#f7e399",
-              "#f0cf65",
-              "#d4af42"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "tree-pine",
-      "type": "tree-pine",
-      "variant_of": null,
-      "footprint": [
-        1,
-        1
-      ],
-      "height": 2.4,
-      "passable": false,
-      "count": 3,
-      "cells": [
-        [
-          3,
-          2
-        ],
-        [
-          12,
-          1
-        ],
-        [
-          2,
-          8
-        ]
-      ],
-      "where": "Enclosing the sanctuary perimeter in deep evergreen silhouettes at the far wings.",
-      "shape": {
-        "summary": "Tiered cypress-pine tree with stylized geometric skirt foliage.",
-        "parts": [
-          {
-            "prim": "box",
-            "dims": [
-              0.16,
-              0.6,
-              0.16
-            ],
-            "at": [
-              0,
-              0,
-              0
-            ],
-            "tones": [
-              "#654237",
-              "#482f27",
-              "#34241e"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              1,
-              0.45,
-              1,
-              0.1
-            ],
-            "at": [
-              0,
-              0.5,
-              0
-            ],
-            "tones": [
-              "#50b59b",
-              "#3c9780",
-              "#2a7562"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.83,
-              0.45,
-              0.83,
-              0.1
-            ],
-            "at": [
-              0,
-              0.9,
-              0
-            ],
-            "tones": [
-              "#50b59b",
-              "#3c9780",
-              "#2a7562"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.63,
-              0.45,
-              0.63,
-              0.1
-            ],
-            "at": [
-              0,
-              1.3,
-              0
-            ],
-            "tones": [
-              "#50b59b",
-              "#3c9780",
-              "#2a7562"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.41,
-              0.45,
-              0.41,
-              0.1
-            ],
-            "at": [
-              0,
-              1.7,
-              0
-            ],
-            "tones": [
-              "#50b59b",
-              "#3c9780",
-              "#2a7562"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "rock-big",
-      "type": "rock-big",
-      "variant_of": null,
-      "footprint": [
-        1,
-        1
-      ],
-      "height": 0.9,
-      "passable": false,
-      "count": 3,
-      "cells": [
-        [
-          2,
-          5
-        ],
-        [
-          13,
-          5
-        ],
-        [
-          13,
-          8
-        ]
-      ],
-      "where": "Submerged boulder clusters jutting along the outer banks of the moat pool.",
-      "shape": {
-        "summary": "Stacked low-poly weathered stone boulders with chiseled edges.",
-        "parts": [
-          {
-            "prim": "rbox",
-            "dims": [
-              0.7,
-              0.5,
-              0.6,
-              0.1
-            ],
-            "at": [
-              0,
-              0,
-              0
-            ],
-            "tones": [
-              "#b8c4d1",
-              "#9ca9b7",
-              "#7d8a98"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.45,
-              0.4,
-              0.4,
-              0.08
-            ],
-            "at": [
-              0.1,
-              0.45,
-              -0.05
-            ],
-            "tones": [
-              "#c5d3e0",
-              "#b8c4d1",
-              "#7d8a98"
+              "#f0f5fa",
+              "#d8e1e8",
+              "#b5c4ce"
             ]
           }
         ]
@@ -843,117 +1003,194 @@
   ],
   "creatures": [
     {
-      "name": "pearl-warden",
-      "source": "Biomechanical humanoid crouched with cranial curve, webbed feet, and overhead sensor conduit in Image 1",
+      "name": "sightless-oracle",
+      "source": "The pale featureless biomechanical stalker holding an orb while an overhead optic cable examines it",
       "becomes": "npc",
       "type": "new",
       "footprint": [
         2,
-        2
+        1
       ],
-      "height": 2.2,
+      "height": 2.5,
+      "pose": "The oracle sits in perpetual vigil on its cistern dais, balancing the radiant pearl relic in its left claw as its crane-like sensor cable gazes downward.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "The revered focal deity of this sunken baptistery, receiving quiet petitions and prayers from worshippers who walk the axial causeway.",
       "shape": {
-        "summary": "Crouched biomechanical guardian with curved cranial cowl, digitigrade limbs, arching dorsal conduit, and glowing orb.",
+        "summary": "Attenuated toy-like biomechanical humanoid with a smooth pale oval face, webbed feet, curved spine tail, and overhead sensor conduit.",
         "parts": [
           {
             "prim": "rbox",
             "dims": [
-              0.7,
-              0.15,
-              0.8,
-              0.05
+              0.45,
+              0.3,
+              0.35,
+              0.08
             ],
             "at": [
               0,
               0,
-              0.1
+              0
             ],
             "tones": [
-              "#c5d3e0",
-              "#8898a8",
-              "#728191"
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.3,
-              0.65,
-              0.45,
-              0.08
+              0.28,
+              0.7,
+              0.22,
+              0.06
             ],
             "at": [
               0,
-              0.15,
+              0.3,
               0
             ],
             "tones": [
-              "#c5d3e0",
-              "#a9b9c9",
-              "#8898a8"
+              "#f0f5fa",
+              "#d8e1e8",
+              "#b5c4ce"
             ]
           },
           {
-            "prim": "cyl",
+            "prim": "rbox",
             "dims": [
-              0.14,
-              0.4,
-              6
+              0.32,
+              0.12,
+              0.24,
+              0.04
             ],
             "at": [
               0,
-              0.75,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.12,
+              0.24,
+              0.04
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              1.25
+            ],
+            "at": [
+              -0.08,
+              1.15,
               0.05
             ],
             "tones": [
-              "#a9b9c9",
-              "#8898a8",
-              "#728191"
-            ]
-          },
-          {
-            "prim": "cone",
-            "dims": [
-              0.22,
-              0.08,
-              0.75,
-              6
-            ],
-            "at": [
-              0,
-              1.1,
-              0.1
-            ],
-            "rot": [
-              -25,
-              0,
-              0
-            ],
-            "tones": [
-              "#e9e9e9",
-              "#c5d3e0",
-              "#a9b9c9"
+              "#f0f5fa",
+              "#d8e1e8",
+              "#b5c4ce"
             ]
           },
           {
             "prim": "beam",
             "dims": [
-              0.07
+              0.05
             ],
             "at": [
-              0,
-              0.8,
+              0.05,
+              0.95,
+              -0.05
+            ],
+            "to": [
+              0.15,
+              1.6,
+              -0.15
+            ],
+            "tones": [
+              "#b5c4ce",
+              "#9db0bc",
+              "#7e92a1"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0.15,
+              1.6,
               -0.15
             ],
             "to": [
-              0,
-              1.9,
-              -0.1
+              -0.15,
+              1.85,
+              0.1
             ],
             "tones": [
-              "#5a6676",
-              "#434d5a",
-              "#343d48"
+              "#b5c4ce",
+              "#9db0bc",
+              "#7e92a1"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.09,
+              0.04,
+              0.2,
+              8
+            ],
+            "at": [
+              -0.15,
+              1.85,
+              0.1
+            ],
+            "tones": [
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              1
+            ],
+            "at": [
+              -0.28,
+              0.9,
+              0.22
+            ],
+            "tones": [
+              "#ffd257",
+              "#e5b634",
+              "#fff09c"
             ]
           },
           {
@@ -962,90 +1199,63 @@
               0.06
             ],
             "at": [
-              0,
-              1.9,
-              -0.1
+              -0.08,
+              0.8,
+              0.08
             ],
             "to": [
-              -0.2,
-              1.6,
-              0.3
+              -0.28,
+              0.75,
+              0.22
             ],
             "tones": [
-              "#5a6676",
-              "#434d5a",
-              "#343d48"
+              "#d8e1e8",
+              "#b5c4ce",
+              "#9db0bc"
             ]
           },
           {
-            "prim": "cone",
+            "prim": "beam",
             "dims": [
-              0.12,
-              0.04,
-              0.2,
-              6
+              0.07
             ],
             "at": [
-              -0.2,
-              1.4,
-              0.3
+              0.15,
+              0.25,
+              -0.05
+            ],
+            "to": [
+              0.3,
+              0.1,
+              0.15
             ],
             "tones": [
-              "#8898a8",
-              "#5a6676",
-              "#343d48"
+              "#b5c4ce",
+              "#9db0bc",
+              "#7e92a1"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.15,
-              0.5,
-              0.15,
-              0.03
+              0.35,
+              0.08,
+              0.25,
+              0.04
             ],
             "at": [
-              -0.2,
-              0.4,
-              0.25
-            ],
-            "rot": [
-              -20,
-              10,
-              0
+              0.3,
+              0,
+              0.15
             ],
             "tones": [
-              "#a9b9c9",
-              "#8898a8",
-              "#728191"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.22,
-              1
-            ],
-            "at": [
-              -0.2,
-              0.9,
-              0.35
-            ],
-            "tones": [
-              "#f7e399",
-              "#f0cf65",
-              "#d4af42"
+              "#a3b5c2",
+              "#7e92a1",
+              "#6a7d8c"
             ]
           }
         ]
-      },
-      "pose": "Crouched in silent vigil atop the lotus dais, gently cradling the glowing golden pearl while its sensor stalk arches overhead.",
-      "cell": [
-        7,
-        4
-      ],
-      "facing": "s",
-      "why": "It represents the revered biomechanical entity enshrined within the nocturnal cistern sanctuary."
+      }
     }
   ],
   "composition": {
@@ -1059,90 +1269,97 @@
       "P": "path"
     },
     "grid": [
-      "VVVVTTGGTTGGVVVV",
-      "VVVTTTGGGTTTTVVV",
-      "VVTGGGGGGGGGGTVV",
-      "VVGGGGFRRFGGGGVV",
-      "VVGWWGFFFFGWWGVV",
-      "VVGWWGPPPPGWWGVV",
-      "VVGWWGPPPPGWWGVV",
-      "VVGWWTPPPPTWWGVV",
-      "VVGWWGPPPPGWWGVV",
+      "VVVVVVVVVVVVVVVV",
+      "VVTGGGGGGGGTTVVV",
+      "VVTGGRRRRRRGTVVV",
+      "VVGGGRFFRRRGGGVV",
+      "VVGGRRRRRRRRGGVV",
+      "VVWWWWPPPPWWWWVV",
+      "VVWWWWPPPPWWWWVV",
+      "VVTGGWPPPPWGGTVV",
       "VVGGGGPPPPGGGGVV",
-      "VVVTGGPPPPGTVVVV",
+      "VVGGGGPPPPGGGGVV",
+      "VVGGGGPPPPGGGGVV",
       "VVVVVVPPPPVVVVVV"
     ],
     "heights": [
-      "0000111111110000",
-      "0001111111111000",
+      "0000000000000000",
+      "0011111111111000",
+      "0011122222211000",
+      "0011122222211100",
+      "0011222222221100",
+      "0000001111000000",
+      "0000001111000000",
+      "0011101111011100",
       "0011111111111100",
-      "0011112222111100",
-      "0010012222100100",
-      "0010011111100100",
-      "0010011111100100",
-      "0010011111100100",
-      "0010011111100100",
       "0011111111111100",
-      "0001111111110000",
+      "0011111111111100",
       "0000001111000000"
     ],
     "focal": {
       "x": 7,
-      "z": 4,
-      "what": "pearl-warden resting atop the shrine reliquary dais"
+      "z": 3,
+      "what": "sightless-oracle enthroned upon the raised inner sanctum dais overlooking the pool"
     },
-    "mass": "The visual weight anchors centrally upon the elevated sanctuary dais and the large creature, bordered symmetrically by twin pools of turquoise holy water.",
-    "read": "The viewer's eye enters from the near rim causeway at row 11, guided directly north along a straight processional path between lantern pylons. It crosses through the portal steles at row 7, traversing the sacred water basin before arriving at the raised stone dais where the warden keeps nocturnal vigil over its glowing relic."
+    "mass": "Visual weight is concentrated in the upper-centre where the elevated shrine terrace and biomechanical oracle overlook the broad cyan cistern pool.",
+    "read": "The viewer's eye enters from the near processional causeway at row 11, moving straight forward along a stately path flanked by lanterns. It passes between the twin shrine gate spires at row 6, crossing the sacred water pool that bisects the island. Beyond the pool, the path terminates at the height-2 stone terrace where the sightless oracle sits holding its radiant golden orb."
   },
   "biome": {
     "trees": {
-      "density": 0.16,
+      "density": 0.12,
       "types": [
         {
-          "type": "tree-pine",
-          "variant": 0,
-          "weight": 1
+          "type": "tree-teal",
+          "variant": "variant_0",
+          "weight": 0.7
+        },
+        {
+          "type": "tree-round",
+          "variant": "variant_1",
+          "weight": 0.3
         }
       ]
     },
     "water_share": 0.104,
-    "plateau_share": 0.08,
-    "void_share": 0.35,
+    "plateau_share": 0.28,
+    "void_share": 0.31,
     "decor_weights": {
-      "rock": 0.3,
-      "flower": 0.2,
-      "stepping-stones": 0.3,
-      "rock-big": 0.2
+      "shrine-gate-spires": 0.1,
+      "biopump-spire": 0.1,
+      "lantern": 0.3,
+      "offering-well": 0.1,
+      "shrine-stepping-stones": 0.2,
+      "tree-teal": 0.2
     },
     "lighting": {
-      "bg": "#1c222b",
-      "ambient": 0.68,
-      "sun": 0.32,
-      "tint": "#7292a8",
-      "notes": "Crisp nocturnal sanctuary illumination with cool moonlight filtering over tranquil blue stone and reflecting water."
+      "bg": "#1c222c",
+      "ambient": 0.72,
+      "sun": 0.28,
+      "tint": "#c8e2f0",
+      "notes": "Cool nocturnal moonlight bathed in soft turquoise shadows with golden light glinting from the sacred lanterns and oracle orb."
     },
     "rules": [
-      "The axial processional path must run unhindered from row 11 up to row 4.",
-      "Water cells must flank the central causeway symmetrically without severing island land connectivity.",
-      "The shrine portal steles must squarely straddle the walkway at row 7.",
-      "The guardian creature sits enthroned at the elevated height-2 terrace."
+      "The axial processional path runs uninterrupted from row 11 through row 6 across the water causeway into the inner sanctum.",
+      "Water cells are strictly clustered in the middle moat band (rows 5 to 7) flanking the causeway.",
+      "Shrine gate spires must straddle the causeway immediately before the water crossing at row 6.",
+      "The focal creature rests at height 2 on the sanctum dais facing southward down the path."
     ],
-    "decor_density": 0.1,
+    "decor_density": 0.11,
     "surfaces": {
       "ground": "stone",
       "raised": "stone",
-      "path": "stone",
+      "path": "sand",
       "shore": "stone",
       "mist": null
     }
   },
   "scene": {
-    "place": "The Sunken Reliquary of the Pearl Warden, an ancient aquatic court consecrated to honor a solitary biomechanical sentinel.",
-    "approach": "The wanderer advances along a straight stone causeway flanked by water basins, passing through a pair of fluted portal steles to reach the raised sanctuary.",
-    "creature_doing": "The creature maintains a silent nocturnal vigil, turning and scanning a gleaming golden orb held aloft beneath its overhead ocular arm.",
-    "palette_key": "Cool slate-blue masonry and bright cyan spring waters under tranquil dusk illumination, punctuated by warm golden lamplight and relic shine.",
-    "terrain": "A ceremonial stone plaza split by a symmetrical sunken holy pool and rising into an elevated rear dais.",
-    "summary": "A solemn souls-like nocturnal water shrine where pilgrims petition a serene, biomechanoid guardian watching over a sacred relic."
+    "place": "The Moonlit Cistern Baptistery, an ancient subterranean water shrine where supplicants seek communion with an enigmatic biomechanical seer.",
+    "approach": "The traveler walks an axial limestone causeway illuminated by stone lanterns, passing through twin ribbed spires to cross a luminescent turquoise pool into the inner court.",
+    "creature_doing": "The Sightless Oracle maintains a silent nocturnal vigil upon its plinth, holding an amber pearl before its overhead optic sensor.",
+    "palette_key": "Cool nocturnal sanctuary palette dominated by moonlit ash-grey stone and turquoise cistern water, highlighted by warm golden embers.",
+    "terrain": "A level forecourt and central sacred pool crossed by a solid land causeway, stepping up to a raised height-2 sanctum terrace.",
+    "summary": "An ancient water sanctuary built to revere and consult a sightless biomechanical oracle keeping vigil above a sacred subterranean pool."
   },
   "concept": {
     "name": "scene",
@@ -1150,7 +1367,8 @@
     "variant": 2,
     "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
     "avoid": [
-      "pipeline/seed/concepts/gremlin-1.json"
+      "pipeline/seed/concepts/gremlin-1.json",
+      "pipeline/seed/concepts/gremlin-3.json"
     ]
   }
 }
