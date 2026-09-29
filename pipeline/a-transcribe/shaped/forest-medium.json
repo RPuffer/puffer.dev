@@ -1,0 +1,1356 @@
+{
+ "source": {
+  "art": "pipeline/seed/forest.png",
+  "width": 1454,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "smoldering",
+  "sooty",
+  "spectral",
+  "nocturnal",
+  "curled",
+  "dense"
+ ],
+ "observations": [
+  {
+   "what": "Tall avian entity constructed from spiraling calligraphic flame scrolls and Rococo tendrils standing in profile-left",
+   "box": [
+    175,
+    208,
+    836,
+    794
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Razor-clean erased triangular beak and oval eye standing out as stark negative paper white",
+   "box": [
+    308,
+    276,
+    471,
+    412
+   ],
+   "maps_to": "creature_beak_eye"
+  },
+  {
+   "what": "High curving scroll tail feather curling upward with spiraled tips",
+   "box": [
+    435,
+    626,
+    686,
+    818
+   ],
+   "maps_to": "tail_volute"
+  },
+  {
+   "what": "Thick fallen tree trunk with scumbled charcoal bark lying diagonally across the lower left forest floor",
+   "box": [
+    665,
+    0,
+    804,
+    386
+   ],
+   "maps_to": "fallen_scumble_log"
+  },
+  {
+   "what": "Dense knot of exposed roots clawing into gritty textured soil beneath the bird's talons",
+   "box": [
+    608,
+    76,
+    715,
+    334
+   ],
+   "maps_to": "charcoal_root_tangle"
+  },
+  {
+   "what": "Dense vertical dry strokes of charcoal indicating bare upright tree trunks in the left background",
+   "box": [
+    188,
+    0,
+    607,
+    230
+   ],
+   "maps_to": "vertical_charcoal_trunk"
+  },
+  {
+   "what": "Heavy upright tree trunks and diagonal branch fork on the right midground",
+   "box": [
+    108,
+    680,
+    608,
+    994
+   ],
+   "maps_to": "vertical_charcoal_trunk"
+  },
+  {
+   "what": "Pale atmospheric haze and diffuse eraser glow surrounding the creature's crest and neck",
+   "box": [
+    82,
+    218,
+    555,
+    664
+   ],
+   "maps_to": "eraser_mist_bank"
+  },
+  {
+   "what": "Scratched, stippled clearing floor showing paper tooth texture in the foreground",
+   "box": [
+    744,
+    4,
+    990,
+    894
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Faint vertical stump and pale charcoal clearing opening up behind the bird's lower legs",
+   "box": [
+    538,
+    206,
+    617,
+    320
+   ],
+   "maps_to": "stump"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#868686",
+    "share": 0.152,
+    "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+   },
+   {
+    "hex": "#9f9f9f",
+    "share": 0.15,
+    "role": "Light gray diffused background wash and middle-value forest canopy"
+   },
+   {
+    "hex": "#333333",
+    "share": 0.142,
+    "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+   },
+   {
+    "hex": "#bcbcbc",
+    "share": 0.129,
+    "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+   },
+   {
+    "hex": "#181818",
+    "share": 0.119,
+    "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+   },
+   {
+    "hex": "#6c6c6c",
+    "share": 0.116,
+    "role": "Transitional blending tones across the creature's breast and shaded soil"
+   },
+   {
+    "hex": "#4f4f4f",
+    "share": 0.112,
+    "role": "Dark gray bark textures and deep secondary folds of the plumage"
+   },
+   {
+    "hex": "#dddddd",
+    "share": 0.079,
+    "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+   }
+  ],
+  "translation": {
+   "bg": "#222026",
+   "grass": {
+    "top": "#6da95f",
+    "fringe": "#548849",
+    "fringeDark": "#3f6736",
+    "speck": "#8fc57e"
+   },
+   "sand": {
+    "top": "#d4aa48",
+    "lip": "#ab8129",
+    "edge": "#bf9534",
+    "dots": "#dec06b"
+   },
+   "dirt": {
+    "top": "#9a7d60",
+    "patch": "#896d52",
+    "mottle": "#785f47",
+    "border": "#68503b"
+   },
+   "stone": {
+    "top": "#d2d0c8",
+    "pebble": "#e4e2db",
+    "pebbleShade": "#b2afa5",
+    "rim": "#969288"
+   },
+   "cliffUpper": {
+    "left": "#5c504a",
+    "right": "#483e39",
+    "seam": "#362e2a"
+   },
+   "cliffLower": {
+    "left": "#463d38",
+    "right": "#352e2a",
+    "seam": "#26201c",
+    "speck": "#554b44"
+   },
+   "water": {
+    "top": "#7ec9dc",
+    "bubble": "#b5e8f4",
+    "deep": "#4493a7",
+    "fall": [
+     "#5fb4c9",
+     "#4d9eaf",
+     "#3e8b9b"
+    ],
+    "foam": "#d7f4fa"
+   },
+   "wood": {
+    "light": "#d8742b",
+    "mid": "#b85c1c",
+    "dark": "#92440f",
+    "shadow": "#703108",
+    "end": "#e8b870"
+   },
+   "treeMint": [
+    "#50a475",
+    "#3f895f",
+    "#2d6b47"
+   ],
+   "treeLime": [
+    "#7ebc52",
+    "#669b3f",
+    "#4e7a2d"
+   ],
+   "treeLeaf": [
+    "#5b9b4b",
+    "#477f39",
+    "#346328"
+   ],
+   "treeTeal": [
+    "#3aa68b",
+    "#2b876f",
+    "#1e6955",
+    "#134c3c"
+   ],
+   "treeGold": [
+    "#cfa43c",
+    "#b08627",
+    "#8c6717"
+   ],
+   "trunk": [
+    "#674637",
+    "#4c3329"
+   ],
+   "rock": [
+    "#dedcd7",
+    "#bdbab3",
+    "#8f8c85",
+    "#6b6861"
+   ],
+   "wellStone": [
+    "#b4aba0",
+    "#9b9288",
+    "#7e756c"
+   ],
+   "flowerOrange": [
+    "#e07525",
+    "#c76118"
+   ],
+   "berry": [
+    "#db516f",
+    "#b63652"
+   ],
+   "bushTeal": [
+    "#4ca38b",
+    "#3a8771",
+    "#2a6b57"
+   ],
+   "gold": [
+    "#e5b63b",
+    "#c29424",
+    "#f5d168"
+   ]
+  },
+  "notes": "The pack's saturated chromatic identities are retained in dark, ash-tinted values: foliage is shifted to shadowy muted viridian and olive, cliffs carry cold dark carbon umber, while untouched paper highlights are rendered as chalky stone grey and vibrant amber-orange marks.",
+  "clamped": [
+   "grass.top #6ea860->#6da95f",
+   "grass.fringe #55874a->#548849",
+   "trunk[0] #594b45->#674637",
+   "trunk[1] #433732->#4c3329"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "charcoal_trunk",
+   "type": "new",
+   "variant_of": "tree-round",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.5,
+   "passable": false,
+   "count": 7,
+   "cells": [
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     11,
+     1
+    ],
+    [
+     12,
+     2
+    ],
+    [
+     13,
+     3
+    ],
+    [
+     12,
+     3
+    ]
+   ],
+   "where": "Tall, upright charcoal drag-marks lining the rear and flanking rim of the hollowed clearing.",
+   "shape": {
+    "summary": "Faceted soot-bark trunk shooting upright with stubby, broken boughs resembling dry charcoal sweeps.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.22,
+       2.5,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       1.6,
+       0
+      ],
+      "to": [
+       0.35,
+       2.05,
+       0.15
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       0,
+       1.9,
+       0
+      ],
+      "to": [
+       -0.3,
+       2.3,
+       -0.1
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.35,
+       0.45,
+       0.08
+      ],
+      "at": [
+       0,
+       2.35,
+       0
+      ],
+      "tones": [
+       "#50a475",
+       "#3f895f",
+       "#2d6b47"
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "scumble_log",
+   "type": "new",
+   "variant_of": "log",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.45,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     3,
+     8
+    ],
+    [
+     4,
+     7
+    ],
+    [
+     5,
+     6
+    ]
+   ],
+   "where": "Positioned diagonally across the lower left ground, directly mirroring the heavy fallen timber in the drawing.",
+   "shape": {
+    "summary": "Tilted fallen log with coarse charcoal striations and snapped stump ends.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       1.1,
+       8
+      ],
+      "at": [
+       0,
+       0.15,
+       0
+      ],
+      "rot": [
+       0,
+       45,
+       82
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.24,
+       0.15,
+       0.24,
+       0.05
+      ],
+      "at": [
+       0.35,
+       0.05,
+       -0.3
+      ],
+      "tones": [
+       "#9a7d60",
+       "#896d52",
+       "#785f47"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.2,
+       6
+      ],
+      "at": [
+       -0.38,
+       0.28,
+       0.38
+      ],
+      "rot": [
+       0,
+       45,
+       -70
+      ],
+      "tones": [
+       "#e8b870",
+       "#b85c1c",
+       "#92440f"
+      ]
+     }
+    ]
+   },
+   "role": "approach"
+  },
+  {
+   "name": "charcoal_root_arch",
+   "type": "new",
+   "variant_of": "rock",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.55,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     5,
+     7
+    ],
+    [
+     6,
+     8
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     10,
+     7
+    ]
+   ],
+   "where": "Clustered around the lower base of the clearing where gnnarled roots burst from dark soil.",
+   "shape": {
+    "summary": "Curving loop of dark wood root that arches out of the ground like a single charcoal gesture.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.09
+      ],
+      "at": [
+       -0.35,
+       0,
+       -0.2
+      ],
+      "to": [
+       0,
+       0.42,
+       0
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       0.42,
+       0
+      ],
+      "to": [
+       0.38,
+       0,
+       0.25
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       0.8
+      ],
+      "at": [
+       0.1,
+       0.05,
+       -0.1
+      ],
+      "tones": [
+       "#4c3329",
+       "#352e2a",
+       "#26201c"
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  },
+  {
+   "name": "eraser_mist_slab",
+   "type": "new",
+   "variant_of": "stepping-stones",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.2,
+   "passable": true,
+   "count": 5,
+   "cells": [
+    [
+     7,
+     1
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     10,
+     1
+    ],
+    [
+     11,
+     2
+    ],
+    [
+     11,
+     3
+    ]
+   ],
+   "where": "Floats in the basin hollow behind the creature where kneaded eraser created glowing diffused clouds.",
+   "shape": {
+    "summary": "Flat, smooth-edged pale chalky slab representing soft kneaded eraser marks.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.12,
+       0.85,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#dedcd7",
+       "#bdbab3",
+       "#8f8c85"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.08,
+       0.55,
+       0.1
+      ],
+      "at": [
+       0.1,
+       0.1,
+       -0.05
+      ],
+      "tones": [
+       "#e4e2db",
+       "#dedcd7",
+       "#bdbab3"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.5
+      ],
+      "at": [
+       -0.2,
+       0.08,
+       0.2
+      ],
+      "tones": [
+       "#ffffff",
+       "#dedcd7",
+       "#bdbab3"
+      ]
+     }
+    ]
+   },
+   "role": "light"
+  },
+  {
+   "name": "charcoal_stump",
+   "type": "stump",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.6,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     5,
+     4
+    ],
+    [
+     12,
+     6
+    ]
+   ],
+   "where": "Located at the forest clearing edge as visible in the drawing's middle ground.",
+   "shape": {
+    "summary": "Faceted blackened stump with jagged splintered top.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.28,
+       0.5,
+       7
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.15,
+       0.02,
+       0.18,
+       5
+      ],
+      "at": [
+       0.08,
+       0.48,
+       -0.06
+      ],
+      "tones": [
+       "#9a7d60",
+       "#896d52",
+       "#785f47"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.18,
+       0.08,
+       0.18,
+       0.04
+      ],
+      "at": [
+       -0.1,
+       0.46,
+       0.08
+      ],
+      "tones": [
+       "#4c3329",
+       "#352e2a",
+       "#26201c"
+      ]
+     }
+    ]
+   },
+   "role": "threshold"
+  },
+  {
+   "name": "tooth_pebble_scatter",
+   "type": "rock",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.25,
+   "passable": true,
+   "count": 4,
+   "cells": [
+    [
+     8,
+     8
+    ],
+    [
+     9,
+     9
+    ],
+    [
+     13,
+     7
+    ],
+    [
+     13,
+     9
+    ]
+   ],
+   "where": "Scattered across foreground duff reflecting the granular paper tooth texture.",
+   "shape": {
+    "summary": "Trio of smooth rounded pebbles reminiscent of coarse charcoal paper grains.",
+    "parts": [
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.7
+      ],
+      "at": [
+       -0.15,
+       0.08,
+       0.1
+      ],
+      "tones": [
+       "#bdbab3",
+       "#8f8c85",
+       "#6b6861"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.1,
+       0.8
+      ],
+      "at": [
+       0.15,
+       0.06,
+       -0.1
+      ],
+      "tones": [
+       "#dedcd7",
+       "#bdbab3",
+       "#8f8c85"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.08,
+       0.6
+      ],
+      "at": [
+       0.05,
+       0.05,
+       0.18
+      ],
+      "tones": [
+       "#8f8c85",
+       "#6b6861",
+       "#483e39"
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  }
+ ],
+ "creatures": [
+  {
+   "name": "charcoal_scroll_raptor",
+   "source": "Central avian entity formed from spiraling smoke volutes and flame feathers in middle-left frame",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.4,
+   "pose": "Poised in an S-curve stance with head turned sharply left, breast puffed out in flame curls, and scrolled tail feathers swept high.",
+   "cell": [
+    8,
+    5
+   ],
+   "facing": "w",
+   "why": "It is the sole focal entity of the artwork, translating the charcoal sweeps and blank eraser highlights into a toy figure.",
+   "shape": {
+    "summary": "Toy-like rooster raptor composed of interlocking warm flame plumes, a solid charcoal core, and a stark white beak.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.65,
+       0.55,
+       0.12
+      ],
+      "at": [
+       0,
+       0.65,
+       0
+      ],
+      "rot": [
+       0,
+       -15,
+       10
+      ],
+      "tones": [
+       "#674637",
+       "#4c3329",
+       "#352e2a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.08,
+       0.65,
+       7
+      ],
+      "at": [
+       -0.15,
+       0.35,
+       0.15
+      ],
+      "rot": [
+       15,
+       0,
+       5
+      ],
+      "tones": [
+       "#4c3329",
+       "#352e2a",
+       "#26201c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.08,
+       0.65,
+       7
+      ],
+      "at": [
+       -0.1,
+       0.35,
+       -0.15
+      ],
+      "rot": [
+       -15,
+       0,
+       5
+      ],
+      "tones": [
+       "#4c3329",
+       "#352e2a",
+       "#26201c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.32,
+       0.95
+      ],
+      "at": [
+       -0.1,
+       1.35,
+       0.05
+      ],
+      "tones": [
+       "#d8742b",
+       "#b85c1c",
+       "#92440f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.42,
+       6
+      ],
+      "at": [
+       -0.36,
+       1.3,
+       0.05
+      ],
+      "rot": [
+       0,
+       0,
+       95
+      ],
+      "tones": [
+       "#ffffff",
+       "#e4e2db",
+       "#dedcd7"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.08,
+       0.9
+      ],
+      "at": [
+       -0.22,
+       1.48,
+       0.18
+      ],
+      "tones": [
+       "#ffffff",
+       "#dedcd7",
+       "#bdbab3"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.05,
+       0.55,
+       6
+      ],
+      "at": [
+       -0.05,
+       1.7,
+       0.05
+      ],
+      "rot": [
+       0,
+       -10,
+       -25
+      ],
+      "tones": [
+       "#f5d168",
+       "#e5b63b",
+       "#c29424"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.03,
+       0.45,
+       6
+      ],
+      "at": [
+       0.08,
+       1.85,
+       0.02
+      ],
+      "rot": [
+       0,
+       -15,
+       -45
+      ],
+      "tones": [
+       "#e07525",
+       "#d8742b",
+       "#b85c1c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       0.2,
+       0.95,
+       -0.05
+      ],
+      "to": [
+       0.55,
+       1.55,
+       -0.1
+      ],
+      "tones": [
+       "#e5b63b",
+       "#d8742b",
+       "#b85c1c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.16,
+       0.7
+      ],
+      "at": [
+       0.58,
+       1.58,
+       -0.1
+      ],
+      "tones": [
+       "#f5d168",
+       "#e5b63b",
+       "#c29424"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.38,
+       0.42,
+       0.16,
+       0.06
+      ],
+      "at": [
+       -0.05,
+       0.88,
+       0.3
+      ],
+      "rot": [
+       -10,
+       20,
+       15
+      ],
+      "tones": [
+       "#d8742b",
+       "#b85c1c",
+       "#92440f"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVVVRRRRGVVVV",
+   "VVVRRRGGRRRRGVVV",
+   "VVRRRGGGGGGGGGVV",
+   "VRRRGGGGGGGGGGVV",
+   "VRRGGGGGFFGGGGVV",
+   "VRRGGGGGFFGGGGVV",
+   "VGRRGGGGPGGGGGVV",
+   "VVGRRGGGPGGGGGVV",
+   "VVVRRGGGPGGGGGVV",
+   "VVVGGGGGPPGVVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000000222210000",
+   "0002221122221000",
+   "0022211111111100",
+   "0222111111111100",
+   "0221111111111100",
+   "0221111111111100",
+   "0122111111111100",
+   "0012211111111100",
+   "0002211111111100",
+   "0001111111100000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 8,
+   "z": 5,
+   "what": "The flame-scrolled raptor entity standing in the central forest opening"
+  },
+  "mass": "Visual weight concentrates in the lower-central and mid-left area with the creature's dense figure framed by dark raised forest cliffs.",
+  "read": "The viewer enters the forest clearing from the lower-left approach along a gritty dirt path flanked by a heavy fallen log. The eye is guided along the diagonal timber toward the raised dais where the creature stands. High charcoal tree trunks and elevated rim rock close in behind, echoing the claustrophobic woodland depth of the charcoal drawing.",
+  "shaped": {
+   "name": "basin",
+   "params": {
+    "floor": 1,
+    "wall": 2,
+    "open": "se",
+    "pool": false,
+    "focal": "floor"
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VTTTRRRRRRRTTTTV",
+    "TTTRRRRRRRRRTTTT",
+    "TTRRRGGGGGGRRTTT",
+    "TTRGGGGGGGGGGRTT",
+    "TRGGGGGGGGGGGGRT",
+    "TRGGGGGGGGGGGGGT",
+    "TRGGGGFFGGGGGGGT",
+    "TRPPGGFFGGGGGGGT",
+    "TRRPPPGGGGGGGGGT",
+    "TRRPPPPGGGGGGGGT",
+    "VRRRRPPPGGGGGTVV",
+    "VVRRRRPPGGGTVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.28,
+   "types": [
+    {
+     "type": "charcoal_trunk",
+     "variant": "charcoal_trunk",
+     "weight": 0.65
+    },
+    {
+     "type": "tree-round",
+     "variant": "treeMint",
+     "weight": 0.2
+    },
+    {
+     "type": "bush-cluster",
+     "variant": "bushTeal",
+     "weight": 0.15
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.1,
+  "decor_weights": {
+   "charcoal_root_arch": 0.35,
+   "eraser_mist_slab": 0.25,
+   "tooth_pebble_scatter": 0.25,
+   "charcoal_stump": 0.15
+  },
+  "lighting": {
+   "bg": "#222026",
+   "ambient": 0.64,
+   "sun": 0.26,
+   "tint": "#dcd8ce",
+   "notes": "paper white showing through dense charcoal haze: Drawn directly from ANALYSIS.palette.value_structure, contrasting heavy carbon shadow with pure untouched cold-press paper whites."
+  },
+  "rules": [
+   "Line the elevated rim cells strictly with vertical charcoal trunks to create the dense woodland boundary.",
+   "Cluster charcoal roots and scumble logs near the diagonal entry path.",
+   "Keep the clearing centre flat around the creature with pale mist slabs floating behind."
+  ],
+  "decor_density": 0.24,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "grass",
+   "path": "dirt",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "Charcoal and reductive kneaded eraser marks on heavy textured tooth paper",
+  "place": "A soot-choked deadfall hollow where smoldering embers take avian form",
+  "summary": "Dense dry charcoal drags form looming peripheral trunks while reductive eraser cuts carve out pale mist slabs and the creature's unyielding white beak.",
+  "differs": "Unlike readings focused on water temples or high grassy terraces, this level is an enclosed, dark charcoal basin paved in gritty earth and chalk highlights."
+ },
+ "shaper": {
+  "name": "basin",
+  "params": {
+   "floor": 1,
+   "wall": 2,
+   "open": "se",
+   "pool": false,
+   "focal": "floor"
+  },
+  "why": "The drawing's dark charcoal canopy and framing vertical trunks cup around a central cleared depression containing the glowing bird."
+ },
+ "surface_mix": {
+  "pattern": "patches",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "dirt",
+    "share": 0.55
+   },
+   {
+    "s": "grass",
+    "share": 0.3
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Matches the scumbled, gritty tooth of charcoal on cold-press paper with patches of dark forest duff and pale rubbed chalk."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#5c504a",
+   "#483e39",
+   "#362e2a"
+  ],
+  "lower": [
+   "#463d38",
+   "#352e2a",
+   "#26201c"
+  ],
+  "why": "Compressed black charcoal strokes produce steep, matte-dark edges that frame the hollow."
+ },
+ "lighting": {
+  "time": "paper white showing through dense charcoal haze",
+  "ambient": 0.64,
+  "sun": 0.26,
+  "tint": "#dcd8ce",
+  "bg": "#222026",
+  "why": "Drawn directly from ANALYSIS.palette.value_structure, contrasting heavy carbon shadow with pure untouched cold-press paper whites."
+ },
+ "figure_pose": {
+  "pose": "Poised in an S-curve stance with head turned sharply left, breast puffed out in flame curls, and scrolled tail feathers swept high.",
+  "action": "vigilant pause",
+  "facing": "left",
+  "why": "Directly matches ANALYSIS.subject.pose, translating calligraphic soot arabesques into low-poly flame tiers."
+ },
+ "approach": {
+  "from": "southwest rim",
+  "passes": [
+   "diagonal scumble log",
+   "charcoal root arch",
+   "splintered stump threshold",
+   "pale eraser mist slab"
+  ],
+  "shape": "A rising diagonal walk from the lower-left fallen timber toward the sunken clearing core."
+ },
+ "threshold": {
+  "kind": "A splintered charcoal stump and arching root gate that mark the perimeter of the spirit's hollow",
+  "prop": "charcoal_stump"
+ },
+ "analysis": "pipeline/seed/analysis/forest.json",
+ "concept": {
+  "name": "lens-medium",
+  "lens": "medium",
+  "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+ }
+}
