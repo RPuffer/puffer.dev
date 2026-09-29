@@ -53,3 +53,27 @@ node tools/shot.mjs "http://localhost:8765/3d/index.html?level=forest-a-<name>&h
 ```
 
 The first command fails with `does not register: ...` if a type is missing. The second frames one prop close up: set `center` to the prop's cell. Read the PNG before you run the critic.
+
+## Round 3: one module per artwork
+
+`build-level.mjs --art <slug> --brief <path> --level <slug>-<k> --pieces <slug>` loads `3d/pieces/<slug>.js` for all three of that artwork's levels. The three briefs name their types differently (`chromatic-calico-cat`, `The Calico Vigil-Keeper`, `prismatic-calico-stalker`), so do not hard-code names. `style.palette.props[type]` gives each new type's `role`, `footprint`, `height`, `passable` and `variant_of`; build the catalog from it and pick a builder by role, as `3d/pieces/cat.js` does. The roles are `lead` (the artwork's creature), `threshold`, `dais`, `light`, `offering`, `mass` and `detail`. The engine hands the same palette to `register` at runtime, so the module works in the browser without the brief.
+
+Export `finish(level, brief, h)` and do every placement fix there with the helpers listed in the README (`h.approach`, `h.path`, `h.gate`, `h.lights`, `h.dais`, `h.plateau`, `h.stairs`, `h.repair`). A rerun of `build-level.mjs` then reproduces the level. Never edit `levels/<slug>-<k>.json` by hand.
+
+## Building the creature
+
+The creature is the artwork's subject as a still toy figure:
+
+- Stack flat blocks and wedges: `B.box` and `B.rbox` for body, haunches, legs, paws, head and muzzle; a wedge (a triangular prism, see `wedge()` in `cat.js`) for chests, snouts and beaks; `B.cone(r, 0, h, pal, x, y, z, 4)` for four-sided ears, horns, fins and flame tips; `B.prism` outlines for flat silhouettes. At most a few tiny boxes for eyes and teeth. No balls for bodies, no beams for limbs.
+- Paint each block one flat colour from the artwork. Split the body left and right, or top and bottom, where the artwork's colour patches split; keep the artwork's saturation.
+- Stand it 1.5 to 3 tiles tall on the 2x2 footprint, on its own low plinth or perch built into the prop (use the `dais` type's tones). `finish` should remove the separate dais prop, because the creature and a dais cannot share the focal cell.
+- Face it +z (the cell's front, screen lower-left) and turn the head 0.3 to 0.5 rad toward +x so the camera sees it three-quarter. Round 3 builds place the creature at `rot` 0, so the pose you build is the pose on screen.
+- The bird-facing trap: a builder that sets `rotation` on the mesh it returns does nothing, because the engine bakes geometry relative to the returned root. Rotate inside the `Baker` (`B.at(x, y, z, rotY, fn)`) or wrap the mesh in a `THREE.Group` and rotate a child. A flat upright silhouette seen edge-on reads as a spike; give every creature depth on both axes.
+
+Check it close up before you run the critic:
+
+```sh
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=<slug>-1&hero=0&zoom=70&center=X,2,Z" out/<slug>-1/creature.png 700 700
+```
+
+with `X,Z` the creature's anchor plus 1.

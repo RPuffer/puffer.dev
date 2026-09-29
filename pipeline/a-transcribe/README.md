@@ -141,3 +141,78 @@ The five briefs are already committed. Regenerate one only if you change its fra
 | 2 | 0/0 | 0/0 | Stopped: two clean rounds |
 
 `tools/qa-levels.mjs`: 14 pass, 0 fail, including the ramp climb from 8,10 to the h3 cell at 3,3. Final render: `out/final/forest-a-pack-first.png`.
+
+## Round 3: one artwork, three scene readings
+
+Each artwork agent runs this sequence from the repo root with the server up (`sh tools/serve.sh`). The briefs `pipeline/seed/concepts/<slug>-1..3.json` are already committed; do not regenerate them. Set `S` to your slug (`dragon`, `ember`, `chimera`, `wizard`, `swallow`, `cosmos`, `sharkbear`, `gremlin`, `mindbloom`, `eagle`).
+
+1. List the new prop types all three briefs need:
+
+```sh
+export PP_PROFILE=.pp-profile-$S
+for k in 1 2 3; do node pipeline/a-transcribe/build-level.mjs --art $S --brief pipeline/seed/concepts/$S-$k.json --level $S-$k --pieces $S --props; done
+```
+
+Each line names a type, its role (`lead`, `threshold`, `dais`, `light`, `offering`, `mass`, `detail`), footprint, height and the brief's one-line shape.
+
+2. Write `3d/pieces/$S.js` by following `props.md`. Copy the structure of `3d/pieces/cat.js`: `register(style)` builds the catalog from `style.palette.props` and picks a builder by role, so one module covers all three briefs. Export `finish(level, brief, h)` and place the threshold, lights and path through the helpers; never edit a level file by hand.
+
+3. Build, render and critique each level, up to four rounds, stopping after two rounds in a row with no agreed high item (`R` is the round):
+
+```sh
+for k in 1 2 3; do
+  node pipeline/a-transcribe/build-level.mjs --art $S --brief pipeline/seed/concepts/$S-$k.json --level $S-$k --pieces $S
+  for sz in "351 390" "900 800"; do set -- $sz
+    node tools/shot.mjs "http://localhost:8765/3d/index.html?level=$S-$k&hero=0" out/$S-$k/r$R-$1.png $sz
+    node pipeline/critic.mjs out/$S-$k/r$R-$1.png --annotate out/$S-$k/r$R-$1-ann.png --out out/$S-$k/r$R-$1.json
+  done
+done
+```
+
+The build must end with `PASS: checkLevel + prepareLevel clean` and `reach N/N`. Read every PNG and annotated copy yourself before you trust the critic; fix faults in `3d/pieces/$S.js`, then rerun the loop.
+
+4. Check the walk and save the final renders:
+
+```sh
+node tools/qa-levels.mjs http://localhost:8765 $S-1,$S-2,$S-3
+for k in 1 2 3; do node tools/shot.mjs "http://localhost:8765/3d/index.html?level=$S-$k&hero=0" out/final/$S-$k.png 900 800; done
+```
+
+5. Log each critic run's `spend:` line in `SPEND.md` under your slug, then commit `3d/pieces/$S.js`, `levels/$S-1.json`, `levels/$S-2.json`, `levels/$S-3.json` and `pipeline/a-transcribe/regions/$S-*.json`.
+
+### Script flags
+
+- `analyze.mjs <art.png> [brief.json] [--concept scene] [--variant 1|2|3] [--avoid a.json,b.json]`: `scene` is the default. Variant 1 reads the creature's home (terraces to a height 3 perch, a winding path, warm midday), variant 2 a shrine (a pool of 12 to 24 water cells, an axial causeway, dusk or night), variant 3 an encounter (a flat arena walled by height 3 cliffs, a diagonal path from a near corner, golden hour or a strange sky). `--avoid` hands the named briefs' `scene` summaries and motif names to the model as readings to steer away from. With `--variant` and no output path the brief lands at `pipeline/seed/concepts/<slug>-<k>.json`. Each brief carries a `scene` block: place, approach, creature_doing, palette_key, terrain, summary.
+- `regions.mjs --art <slug> --brief <path> [--out ...]`: reads `pipeline/seed/<slug>.png`, writes `pipeline/a-transcribe/regions/<brief>.json` and `out/<brief>/regions.png`. Round 3 briefs describe an invented place, so the artwork's luminance no longer bites the rim.
+- `build-level.mjs --art <slug> --brief <path> --level <name> --pieces <module>`: reruns `regions.mjs` first, then builds `levels/<name>.json` with `3d/pieces/<module>.js`. `--props` lists the new types; `--no-finish` skips the module's `finish`.
+
+### Finish helpers
+
+When the pieces module exports `finish(level, brief, h)` with at least one parameter, `concept-level.mjs` calls it after layout, then repairs terrain and decor and reframes the view. The helpers in `finish-helpers.mjs`:
+
+| Helper | Does |
+| --- | --- |
+| `h.approach()` | cells from spawn to the ring around the creature, preferring path cells and straight runs; steps of one height become stairs |
+| `h.path(cells, {s})` | paints the cells with the path surface, clears blocking props, and turns each one-height step into a stone ramp when the path runs straight through it |
+| `h.stairs(x, z, d)` | makes a stone ramp at a cell, down toward `d` |
+| `h.plateau(x0, z0, x1, z1, {h, s})` | raises or lowers a rectangle of land to one height and surface |
+| `h.dais({ring, h, s})` | flattens the creature's cells and a ring around them to one stone platform |
+| `h.gate(type, {route, frac})` | sets a pair of posts astride the approach near `frac` of its length, two cells clear of the creature when it can; levels or builds up a flank cell when that is the only way; posts get `side` and `axis` for the lintel |
+| `h.lights(type, {route, every, max, keep})` | lanterns or torches beside the approach, never next to a ramp or within two cells of the creature |
+| `h.put(type, x, z)`, `h.clear(x, z)`, `h.removeDecor(pred)` | direct placement |
+| `h.ofRole(role)`, `h.role(type)` | new types by role from the brief |
+| `h.repair({keep})` | removes the fewest props that restore full reachability, never the creature or `keep` types |
+
+Every helper that places a prop checks reachability and undoes itself if the prop would cut the island.
+
+### cat result
+
+`3d/pieces/cat.js` builds the cat from about 35 flat blocks, wedges and four-sided pyramid ears in the painting's fauvist colours (magenta, yellow, orange, blue-violet, teal), seated on a plinth in the brief's dais tones, 2.6 tall, facing +z with the head turned 0.38 rad toward the camera. Threshold posts, lanterns, offerings and spires come from the same role builders in each brief's tones.
+
+| Level | Reading | Land h1/h2/h3 | Critic highs by round (r1..r4, final) |
+| --- | --- | --- | --- |
+| cat-1 | Sun-Perch garden terrace, the cat basking on a cushion at midday | 23/8/23 | 0, 0, 0, 0, 0 |
+| cat-2 | Moon-Mirror water shrine at night, the cat keeping vigil beyond a causeway and torii | 74/24/0, 16 water | 0, 0, 0, not run, 0 |
+| cat-3 | Howling Caldera boss arena at golden hour, the cat hissing between bone fangs | 73/37/3 | 0, 1, 0, 0, 0 |
+
+The one high (cat-3 round 2) was a torch beside a ramp, which the critic read as standing on it; `lights` now skips cells beside ramps. Every round flagged the cat's saturated colours as a medium palette clash; the brief asks for the painting's fauvist colours, so the cat keeps them. cat-1 has the smallest island (46 walkable cells) because its brief grid holds 70 land cells. `tools/qa-levels.mjs cat-1,cat-2,cat-3`: 42 pass, 0 fail. Final renders: `out/final/cat-1.png`, `cat-2.png`, `cat-3.png`.

@@ -50,3 +50,17 @@ forest-a-scene and forest-a-biome critic: $0.30 of their $2.50 share
 2026-09-23 | forest-a-motif-remap | gemini-3.8-flash | 6 | 0.0687 | critic round 4
 2026-09-23 | forest-a-composition-only | gemini-3.8-flash | 6 | 0.0522 | critic round 1
 2026-09-23 | forest-a-composition-only | gemini-3.8-flash | 6 | 0.0555 | critic round 2
+
+## Round 3: every artwork, best of three
+
+Allocation: $15.00 across the round. Same token rates as above. Artwork agents log their critic runs below under their slug.
+
+date | level | model | count | $ | purpose
+--- | --- | --- | --- | --- | ---
+2026-09-29 | cat-1..3 | gemini-3.8-flash | 16 | 0.5120 | analyze.mjs: first three readings, tuning the variant approach shapes, retries after invalid JSON and a bad catalog type
+2026-09-29 | 10 artworks x 3 | gemini-3.8-flash | 60 | 1.9285 | analyze.mjs: 30 briefs with the avoid chain (32 runs, validation retries included)
+2026-09-29 | cat-1 | gemini-3.8-flash | 30 | 0.1838 | critic rounds 1 to 4 and final, 351 and 900 (3 votes each)
+2026-09-29 | cat-2 | gemini-3.8-flash | 24 | 0.2001 | critic rounds 1 to 3 and final
+2026-09-29 | cat-3 | gemini-3.8-flash | 30 | 0.2087 | critic rounds 1 to 4 and final
+
+Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
