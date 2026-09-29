@@ -97,6 +97,151 @@ function rocks(B, H, c0, c1, v) {
   B.box(0.18, 0.16, 0.18, pal(NEB.cyan), v % 2 ? -0.2 : 0.2, 0, 0.26);
 }
 
+const LENS_KINDS = [
+  ["lash", /lash/i],
+  ["nebula", /nebula|cloud/i],
+  ["striation", /striation|fibre|fiber/i],
+  ["flare", /flare|beacon|star/i],
+  ["asteroid", /asteroid|meteor|boulder|chunk|tumbler/i],
+  ["capillary", /capillar|vein|vascul|tendril|creeper/i],
+];
+const lensKind = (t) => (LENS_KINDS.find(([, re]) => re.test(t)) || [null])[0];
+
+function starburst(B, y, s = 1) {
+  B.at(0, y, 0, -Math.PI / 4, () => {
+    B.box(0.2 * s, 0.2 * s, 0.2 * s, pal(NEB.cyan), 0, -0.1 * s, 0);
+    B.box(0.07 * s, 1.0 * s, 0.07 * s, pal(NEB.star), 0, -0.5 * s, 0);
+    B.box(0.9 * s, 0.07 * s, 0.07 * s, pal(NEB.star), 0, -0.035 * s, 0);
+    B.rot([0, 0, 1], Math.PI / 4, 0, 0, 0);
+    B.box(0.05 * s, 0.46 * s, 0.05 * s, pal(NEB.cyan), 0, -0.23 * s, 0);
+    B.box(0.46 * s, 0.05 * s, 0.05 * s, pal(NEB.cyan), 0, -0.025 * s, 0);
+    B.pop();
+  });
+}
+
+function zigzag(B, r, y, n, c, s = 1) {
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2, rr = i % 2 ? r * 0.8 : r, hh = i % 2 ? 0.1 : 0.2;
+    B.box(0.16 * s, hh * s, 0.16 * s, pal(c), Math.cos(a) * rr, y, Math.sin(a) * rr);
+  }
+}
+
+function pupilMonolith(B, H) {
+  const s = H / 2.7;
+  B.push(0, 0, 0, 0, s);
+  B.prism(circle(0, 0, 0.98, 0.98, 8, Math.PI / 8), 0, 0.14, pal(NEB.sclera));
+  B.prism(circle(0, 0, 0.8, 0.8, 8, Math.PI / 8), 0.14, 0.3, pal(NEB.ring));
+  B.prism(circle(0, 0, 0.64, 0.64, 8, Math.PI / 8), 0.3, 0.48, pal(NEB.iris));
+  B.prism(circle(0, 0, 0.5, 0.5, 8, Math.PI / 8), 0.48, 0.64, pal(NEB.irisDeep));
+  B.cyl(0.4, 1.7, pal(NEB.pupil), 0, 0.64, 0, 10);
+  B.cyl(0.44, 0.12, pal(NEB.indigo), 0, 1.4, 0, 10);
+  zigzag(B, 0.5, 2.06, 14, NEB.lime);
+  B.cyl(0.3, 0.1, pal(NEB.pupil), 0, 2.34, 0, 10);
+  B.rbox(0.22, 0.22, 0.22, 0.08, pal(NEB.star), -0.2, 1.9, 0.28);
+  B.rbox(0.1, 0.1, 0.1, 0.04, pal(NEB.star), -0.3, 1.72, 0.3);
+  B.pop();
+}
+
+function coronalSentinel(B, H) {
+  const s = H / 2.7;
+  B.push(0, 0, 0, 0, s);
+  B.prism(circle(0, 0, 1.0, 1.0, 12, 0), 0, 0.08, pal(NEB.irisDeep));
+  zigzag(B, 0.9, 0.08, 18, NEB.lime);
+  B.prism(circle(0, 0, 0.74, 0.74, 12, 0), 0.08, 0.2, pal(NEB.iris));
+  B.cyl(0.58, 0.9, pal(NEB.pupil), 0, 0.2, 0, 12);
+  B.cyl(0.62, 0.14, pal(NEB.lime), 0, 0.72, 0, 12);
+  B.cyl(0.5, 0.5, pal(NEB.pupil), 0, 1.1, 0, 12);
+  B.cyl(0.36, 0.08, pal(NEB.iris), 0, 1.6, 0, 12);
+  B.rbox(0.18, 0.18, 0.18, 0.06, pal(NEB.star), -0.3, 1.24, 0.42);
+  B.at(0, 0.1, 0, Math.PI / 4, () => {
+    B.box(2.4, 0.06, 0.12, pal(NEB.star), 0.5, 0, 0);
+    B.box(1.6, 0.05, 0.2, pal(NEB.cyan), 0.9, 0.06, 0);
+  });
+  B.at(0.7, 0, 0.7, 0, () => starburst(B, 1.3, 1.1));
+  B.pop();
+}
+
+const LENS_BUILD = {
+  lash(B, H, v, { c0, d, gate }) {
+    B.rbox(0.62, 0.2, 0.56, 0.08, pal(NEB.lid), 0, 0, 0);
+    B.rbox(0.44, 0.12, 0.4, 0.06, pal(NEB.lidLow), 0, 0.2, 0);
+    const dir = gate && d.side ? -d.side : v % 2 ? 1 : -1;
+    const ax = gate && d.axis === "x" ? "z" : "x";
+    const n = 7, seg = (H - 0.36) / n;
+    for (let i = 0; i < n; i++) {
+      const k = i / (n - 1), off = dir * 0.62 * k * k, w = 0.34 * (1 - k * 0.7);
+      const x = ax === "x" ? off : 0, z = ax === "z" ? off : 0;
+      B.box(w, seg * 1.05, w, pal(i % 3 === 2 ? NEB.lidLow : NEB.lash), x, 0.32 + i * seg, z);
+    }
+    const tx = ax === "x" ? dir * 0.7 : 0, tz = ax === "z" ? dir * 0.7 : 0;
+    B.cone(0.06, 0, 0.26, pal(NEB.lash), tx, H - 0.06, tz, 4);
+    if (gate && d.side) {
+      const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.2, th, reach + 0.2, pal(c), 0, y, -d.side * (reach / 2)) : B.box(reach + 0.2, th, 0.2, pal(c), -d.side * (reach / 2), y, 0);
+      beam(H * 0.5, 0.14, NEB.lid);
+      beam(H * 0.5 + 0.14, 0.06, NEB.lime);
+    }
+  },
+  nebula(B, H, v, { spire }) {
+    const cols = v % 2 ? [NEB.teal, NEB.lime, NEB.cyan, NEB.gold] : [NEB.lime, NEB.teal, NEB.gold, NEB.cyan];
+    let y = 0;
+    if (spire) {
+      B.box(0.36, 0.1, 0.36, pal(NEB.indigo));
+      B.box(0.18, H * 0.4, 0.18, pal(NEB.lash), 0, 0.1, 0);
+      y = H * 0.4;
+    }
+    const rest = H - y, puffs = [[0.82, 0.34, 0, 0], [0.62, 0.3, 0.14, -0.08], [0.5, 0.26, -0.14, 0.1], [0.3, 0.2, 0.04, 0.02]];
+    const tot = puffs.reduce((a, p) => a + p[1], 0);
+    for (let i = 0; i < puffs.length; i++) {
+      const [w, h, x, z] = puffs[i], hh = (h / tot) * rest;
+      B.rbox(w, hh * 1.08, w * 0.9, Math.min(0.12, hh * 0.4), pal(cols[i]), x, y, z);
+      y += hh;
+    }
+    B.box(0.08, 0.08, 0.08, pal(NEB.star), 0.3, H * 0.7, 0.3);
+  },
+  striation(B, H, v) {
+    B.rbox(0.66, 0.1, 0.6, 0.05, pal(NEB.irisDeep), 0, 0, 0);
+    const sp = v % 2 ? [[0, 0, 1, NEB.cyan], [0.2, 0.14, 0.7, NEB.teal], [-0.18, 0.12, 0.6, NEB.iris]] : [[0.04, -0.04, 1, NEB.teal], [-0.2, 0.1, 0.72, NEB.cyan], [0.18, 0.16, 0.55, NEB.iris]];
+    for (const [x, z, k, c] of sp) B.cone(0.2, 0, (H - 0.1) * k, pal(c), x, 0.1, z, 3);
+  },
+  flare(B, H) {
+    B.box(0.56, 0.14, 0.56, pal(NEB.gold));
+    B.box(0.42, 0.14, 0.42, pal(NEB.gold), 0, 0.14, 0);
+    B.box(0.3, 0.12, 0.3, pal(NEB.indigo), 0, 0.28, 0);
+    B.box(0.16, H * 0.4, 0.16, pal(NEB.indigo), 0, 0.4, 0);
+    B.rbox(0.3, 0.3, 0.3, 0.12, pal(NEB.gold), 0, 0.4 + H * 0.4, 0);
+    starburst(B, H - 0.05, H / 2.2);
+  },
+  asteroid(B, H, v, { big }) {
+    B.rbox(0.84, 0.06, 0.7, 0.05, pal(NEB.ring), 0, 0, 0);
+    B.box(0.5, 0.02, 0.3, pal(NEB.pupil), 0.16, 0.06, 0.22);
+    let y = 0.06;
+    if (big) {
+      B.rbox(0.3, 0.2, 0.3, 0.06, pal(NEB.rock), -0.18, y, 0.1);
+      B.rbox(0.22, 0.16, 0.22, 0.05, pal(NEB.rock), 0.2, y, -0.12);
+      y += 0.2;
+    }
+    const r = H - y;
+    B.box(0.5, r * 0.45, 0.46, pal(NEB.rock), v % 2 ? 0.04 : -0.04, y, 0);
+    wedge(B, 0.5, r * 0.35, 0.46, NEB.rock, v % 2 ? 0.04 : -0.04, y + r * 0.45, 0);
+    B.box(0.26, r * 0.3, 0.24, pal(NEB.lash), v % 2 ? -0.1 : 0.12, y + r * 0.45, v % 2 ? 0.08 : -0.08);
+    B.box(0.12, 0.08, 0.12, pal(NEB.cyan), v % 2 ? 0.2 : -0.18, y + r * 0.45, 0.2);
+  },
+  capillary(B, H, v) {
+    const red = ["#ff5a6e", "#e0405a", "#b82a46"];
+    const th = Math.min(0.08, H * 0.3);
+    const seg = (x0, z0, x1, z1, w) => {
+      const dx = x1 - x0, dz = z1 - z0, L = Math.hypot(dx, dz);
+      B.at((x0 + x1) / 2, 0, (z0 + z1) / 2, -Math.atan2(dz, dx), () => B.box(L, th, w, pal(red), 0, 0, 0));
+    };
+    const m = v % 2 ? 1 : -1;
+    seg(-0.34, 0.24 * m, 0.0, 0.0, 0.1);
+    seg(0.0, 0.0, 0.34, -0.16 * m, 0.08);
+    seg(0.0, 0.0, 0.1, 0.3 * m, 0.06);
+    seg(0.16, -0.08 * m, 0.24, -0.3 * m, 0.05);
+    seg(-0.2, 0.13 * m, -0.26, -0.16 * m, 0.05);
+  },
+};
+
 export function register(style) {
   const P = style.palette;
   const props = P.props || {};
@@ -113,9 +258,14 @@ export function register(style) {
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, NEB.indigo), c1 = pick(tn, 1, NEB.violet);
     const rocky = /crag|asteroid|meteor|boulder|rock|barrier|rampart/i.test(t);
+    const pose = String(p.pose || "");
+    const kind = lead ? null : lensKind(t);
+    const figure = /coronal ring|within/i.test(pose) ? coronalSentinel : /monolith/i.test(pose) || /singularity/i.test(t) ? pupilMonolith : null;
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
-      if (lead) eye(B, H, look, v);
+      if (lead && figure) figure(B, H);
+      else if (lead) eye(B, H, look, v);
+      else if (kind) LENS_BUILD[kind](B, H, v, { c0, d, gate: role === "threshold", spire: /spire|stalk/i.test(t), big: /tumbler|big/i.test(t) || H > 1 });
       else if (role === "threshold") {
         const ph = H * 0.66;
         B.box(0.5, 0.22, 0.5, pal(NEB.indigo));
@@ -337,7 +487,256 @@ function thin(level, h, target) {
   if (n) h.log.push(`thin: removed ${n} blockers, reach ${h.reach().reached}`);
 }
 
+const LOOK = {
+  medium: {
+    grass: { top: "#5b7fe0", fringe: "#4866c4", fringeDark: "#34509e", speck: "#c4f25e" },
+    sand: { top: "#f6e2c8", lip: "#dcbd9c", edge: "#e8cdb0", dots: "#fff4e4" },
+    dirt: { top: "#eaa994", patch: "#f2bfae", mottle: "#d48c7c", border: "#b86e62" },
+    stone: { top: "#5a9ee8", pebble: "#8cc4ff", pebbleShade: "#3a6cc0", rim: "#2c4f94" },
+    cliffUpper: { left: "#3fa0a4", right: "#2c7c82", seam: "#1e5a60" },
+    cliffLower: { left: "#3c4a78", right: "#2c3660", seam: "#1e264a", speck: "#5a6ca0" },
+    bg: "#101626",
+    light: { dir: [-0.35, 1, 0.55], ambient: 0.9, sun: 0.2 },
+  },
+  subject: {
+    grass: { top: "#62d68e", fringe: "#3fb872", fringeDark: "#2a9058", speck: "#c4f25e" },
+    dirt: { top: "#f0d8c0", patch: "#e2c4a6", mottle: "#caa888", border: "#a88a6e" },
+    cliffUpper: { left: "#5a7ec0", right: "#44609e", seam: "#304680" },
+    cliffLower: { left: "#4a3c7a", right: "#382c60", seam: "#281e48", speck: "#6ad8c0" },
+    bg: "#2a1a30",
+    light: { dir: [0.7, 1, 0.2], ambient: 0.66, sun: 0.45 },
+  },
+  composition: {
+    dirt: { top: "#5a86e4", patch: "#6e9cf0", mottle: "#4670cc", border: "#3558a8" },
+    sand: { top: "#f4e6d2", lip: "#dac6aa", edge: "#e6d4bc", dots: "#fffaf0" },
+    stone: { top: "#fffaf0", pebble: "#ffffff", pebbleShade: "#d8d0c0", rim: "#b8b0a0" },
+    cliffUpper: { left: "#2e4878", right: "#22365c", seam: "#172644" },
+    cliffLower: { left: "#262040", right: "#1c1830", seam: "#120e20", speck: "#c4f25e" },
+    bg: "#08070e",
+    light: { dir: [0.6, 1, -0.3], ambient: 0.6, sun: 0.5 },
+  },
+};
+
+function lensLook(level, lens) {
+  const L = LOOK[lens];
+  if (!L) return;
+  for (const [k, v] of Object.entries(L)) {
+    if (k === "bg") level.bg = level.palette.bg = v;
+    else if (k === "light") level.light = { ...(level.light || {}), ...v };
+    else level.palette[k] = { ...(level.palette[k] || {}), ...v };
+  }
+}
+
+function frontSpawn(level, h, lo, hi, score = (x, z) => z * 1.2 + x * 0.4) {
+  let best = null;
+  const blocked = h.blockedSet();
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || blocked.has(h.key(x, z))) continue;
+    if (![[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => { const q = h.cell(x + a, z + b); return !q || q.s === "none"; })) continue;
+    const q = h.approach({ from: [x, z] });
+    if (q.length < lo || q.length > hi) continue;
+    const sc = score(x, z) + q.length * 0.1;
+    if (!best || sc > best[0]) best = [sc, x, z];
+  }
+  if (best) { h.clear(best[1], best[2]); level.spawn = [best[1], best[2]]; h.log.push(`frontSpawn ${level.spawn}`); }
+  return h.approach();
+}
+
+function scatter(level, h, t, n, pred) {
+  if (!t || !level.palette?.props?.[t]) return 0;
+  const onR = new Set(h.approach().map(([x, z]) => h.key(x, z)));
+  const cand = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || h.decorAt(x, z).length || onR.has(h.key(x, z))) continue;
+    if (h.figure.cells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) <= 1)) continue;
+    if (level.palette.props[t].passable && [[1, 0], [0, 1]].some(([dx, dz]) => { const q = h.cell(x + dx, z + dz); return !h.land(q) || q.h < c.h; })) continue;
+    const sc = pred(x, z, c);
+    if (sc != null) cand.push([sc, x, z]);
+  }
+  cand.sort((a, b) => a[0] - b[0]);
+  let k = 0;
+  for (const [, x, z] of cand) {
+    if (k >= n) break;
+    const miss = h.reach().missing.length, got = h.reach().reached;
+    if (!h.put(t, x, z, { v: (x + z) % 2 })) continue;
+    const r = h.reach();
+    if (r.missing.length > miss || r.reached < got - (level.palette.props[t].passable ? 0 : 1)) { level.decor.pop(); continue; }
+    k++;
+  }
+  h.log.push(`scatter ${t} x${k}`);
+  return k;
+}
+
+function streak(level, h) {
+  const [ax, az] = h.figure.anchor;
+  let n = 0;
+  for (let k = 2; k < 14; k++) {
+    const x = ax + 1 + k, z = az + Math.round(k * 0.35);
+    const c = h.cell(x, z);
+    if (!c || c.s === "none") { if (n) break; continue; }
+    if (!h.land(c) || c.s === "ramp" || c.s === "water") continue;
+    c.s = "stone";
+    n++;
+  }
+  h.log.push(`streak ${n} cells`);
+}
+
+function levelRamps(h) {
+  let n = 0;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!c || c.s !== "ramp") continue;
+    const [dx, dz] = h.DIRS[c.d], up = h.cell(x - dx, z - dz), dn = h.cell(x + dx, z + dz);
+    if (h.land(up) && up.s !== "ramp" && up.h === c.h && h.land(dn) && dn.h === c.h - 1) continue;
+    h.set(x, z, { h: c.h, s: c.m && c.m !== "stone" ? c.m : h.surf.ground });
+    n++;
+  }
+  if (n) h.log.push(`levelRamps ${n}`);
+}
+
+function gradient(level, h, keep) {
+  const by = { 1: "sand", 2: "dirt", 3: "grass" };
+  let n = 0;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || keep.has(h.key(x, z))) continue;
+    const near = h.figure.cells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) === 1);
+    const to = by[c.h] || "sand";
+    if (c.s !== to) { c.s = to; n++; }
+  }
+  h.log.push(`gradient ${n}`);
+}
+
+function disc(level, h, rad, min) {
+  const [ax, az] = h.figure.anchor, cx = ax + 0.5, cz = az + 0.5;
+  const cells = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp") continue;
+    const d = Math.hypot(x - cx, (z - cz) * 1.15);
+    if (d > rad) cells.push([d, x, z]);
+  }
+  cells.sort((a, b) => b[0] - a[0]);
+  let n = 0;
+  for (const [, x, z] of cells) {
+    if (level.spawn[0] === x && level.spawn[1] === z) continue;
+    if ([[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => h.cell(x + dx, z + dz)?.s === "ramp")) continue;
+    if (h.walkN() <= min) break;
+    const saved = { ...h.cell(x, z) }, dec = h.decorAt(x, z);
+    const r0 = h.reach();
+    h.removeDecor((d) => dec.includes(d));
+    h.set(x, z, { h: 0, s: "none" });
+    const r1 = h.reach();
+    if (r1.missing.length > r0.missing.length || h.walkN() < min) { h.set(x, z, saved); level.decor.push(...dec); continue; }
+    n++;
+  }
+  h.log.push(`disc: bit ${n} cells, walk ${h.walkN()}`);
+}
+
+function frontStairs(level, h) {
+  const [ax, az] = h.figure.anchor;
+  const flat = (x, z, hh) => { const c = h.cell(x, z); return h.land(c) && c.s !== "ramp" && c.h === hh; };
+  const steps = [];
+  for (const hh of [2, 3]) {
+    let best = null;
+    for (let z = az + 1; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+      if (!flat(x, z, hh) || !flat(x, z - 1, hh) || !flat(x, z + 1, hh - 1) || h.isFig(x, z)) continue;
+      const prev = steps[steps.length - 1];
+      const sc = Math.abs(x - ax - 0.5) + (prev ? Math.abs(x - prev[0]) * 2 : 0) - z * 0.2;
+      if (!best || sc < best[0]) best = [sc, x, z];
+    }
+    if (best) { h.stairs(best[1], best[2], "s", { m: hh === 3 ? "grass" : "dirt" }); steps.push([best[1], best[2]]); }
+  }
+  h.log.push(`frontStairs ${JSON.stringify(steps)}`);
+  return steps;
+}
+
+function flareAt(level, h, t) {
+  if (!t || level.decor.some((d) => d.t === t)) return;
+  const [ax, az] = h.figure.anchor;
+  const fc = h.cell(ax, az);
+  for (const [x, z] of [[ax + 2, az + 1], [ax + 2, az], [ax + 2, az + 2], [ax + 3, az + 1], [ax + 1, az + 2], [ax - 1, az - 1]]) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || c.h < fc.h - 1 || h.decorAt(x, z).length) continue;
+    const r0 = h.reach().missing.length;
+    if (!h.put(t, x, z)) continue;
+    if (h.reach().missing.length > r0) { level.decor.pop(); continue; }
+    h.log.push(`flareAt ${x},${z}`);
+    return;
+  }
+}
+
+function finishLens(level, brief, h) {
+  const lens = brief.concept?.lens || (typeof brief.lens === "string" ? brief.lens : "");
+  lensLook(level, lens);
+  h.dryRim();
+  resurface(level, h);
+  fillPits(level, h);
+  const props = level.palette.props || {};
+  const types = Object.keys(props);
+  const find = (re) => types.find((t) => re.test(t));
+  const daisTypes = h.ofRole("dais");
+  h.removeDecor((d) => daisTypes.includes(d.t));
+  const gateT = brief.threshold?.prop && props[brief.threshold.prop] ? brief.threshold.prop : h.ofRole("threshold")[0];
+  const lightT = h.ofRole("light")[0] || find(/flare|beacon/);
+  const capT = find(/capillar|creeper|tendril|ridge/);
+  const nebT = find(/nebula/);
+  const astT = find(/asteroid/);
+  const passT = h.passes().filter((t) => t !== gateT && t !== lightT && t !== capT && !daisTypes.includes(t));
+  h.removeDecor((d) => d.t === gateT || d.t === lightT || d.t === capT || passT.includes(d.t) || d.t === "lantern");
+  if (astT) h.removeDecor((d) => d.t === astT);
+  let stairs = [];
+  if (lens === "medium") { disc(level, h, 5.2, 84); stairs = frontStairs(level, h); }
+  const st0 = stairs[0] || [0, 0];
+  const side = { medium: (x, z) => z * 0.6 - Math.abs(x - st0[0]) * 1.5, subject: (x, z) => z * 1.2 + x * 0.4, composition: (x, z) => z * 1.2 - x * 0.8 }[lens];
+  let r = frontSpawn(level, h, { medium: 5, subject: 10, composition: 12 }[lens] || 9, lens === "composition" ? 22 : 18, side);
+  if (r.length) h.path(r);
+  r = h.approach();
+  if (lens === "composition") streak(level, h);
+  const f0 = lens === "medium" ? 0.45 : lens === "subject" ? 0.6 : 0.7;
+  let g = null;
+  for (const gap of [2, 1]) for (const frac of [f0, 0.3, 0.55, 0.7, 0.2, 0.85]) if (!g && gateT) g = h.gate(gateT, { route: r, frac, figGap: gap });
+  for (const at of r.slice(0, 3)) if (!g && gateT) g = h.gate(gateT, { route: r, at });
+  const [ax, az] = h.figure.anchor;
+  for (const [x, z] of [[ax - 1, az], [ax - 1, az + 1], [ax - 1, az + 2], [ax - 2, az + 1], [ax, az + 2], [ax + 1, az + 2], [ax + 2, az], [ax + 2, az + 1]]) h.removeDecor((d) => d.t !== gateT && d.x === x && d.z === z);
+  const posts = level.decor.filter((d) => d.t === gateT);
+  h.removeDecor((d) => d.t !== gateT && !props[d.t]?.passable && posts.some((q) => Math.abs(q.x - d.x) <= 1 && Math.abs(q.z - d.z) <= 1));
+  h.along(passT.filter((t) => !props[t]?.passable), { route: r });
+  if (lightT) h.lights(lightT, { route: r, every: 4, skip: 2, max: lens === "composition" ? 2 : 3, avoid: g ? [g] : [], keep: [gateT, ...passT] });
+  if (lens === "medium") {
+    flareAt(level, h, lightT);
+    gradient(level, h, new Set(h.approach().map(([x, z]) => h.key(x, z))));
+    scatter(level, h, capT, 5, (x, z, c) => (c.h <= 2 && (x * 3 + z) % 3 === 0 ? -c.h * 3 + Math.abs(x - ax) + Math.abs(z - az) : null));
+    scatter(level, h, astT, 4, (x, z, c) => { const dd = Math.max(Math.abs(x - ax), Math.abs(z - az)); return dd >= 4 && x >= ax ? -dd - z * 0.1 : null; });
+  } else if (lens === "subject") {
+    scatter(level, h, nebT, 3, (x, z, c) => { const dx = x - ax, dz = z - az; return dx >= 2 && dx <= 6 && Math.abs(dz) <= 3 ? Math.abs(dx - 4) + Math.abs(dz) * 0.5 : null; });
+    scatter(level, h, capT, 5, (x, z, c) => (c.s === "dirt" && (x + z) % 2 === 0 ? -(x + z) : null));
+    scatter(level, h, astT, 4, (x, z, c) => (x - ax + z - az >= 5 ? -(x + z) + (x % 3) * 0.4 : null));
+  } else if (lens === "composition") {
+    scatter(level, h, astT, 5, (x, z, c) => (x > ax + 3 ? -z + (x % 2) * 0.3 : null));
+    scatter(level, h, capT, 4, (x, z, c) => (c.s === "sand" && x <= ax + 1 && (x * 3 + z) % 2 === 0 ? -z : null));
+  }
+  h.ledges({ keep: [gateT, lightT] });
+  h.repair({ keep: [gateT] });
+  h.pruneRamps({ route: h.approach() });
+  h.pruneRamps({ all: true, slotsOnly: true });
+  h.openRamps();
+  h.pruneRamps({ all: true, nearFig: 1 });
+  levelRamps(h);
+  if (lens === "medium") {
+    spareRamps(level, h, h.approach());
+    gradient(level, h, new Set(h.approach().map(([x, z]) => h.key(x, z))));
+  }
+  backed(level, h);
+  if (h.walkN() < 86) h.thin(86, { keep: [gateT, lightT] });
+  if (h.walkN() < 86) h.grow(86);
+  h.rampTone();
+}
+
 export function finish(level, brief, h) {
+  if (brief.lens) return finishLens(level, brief, h);
   nebula(level);
   resurface(level, h);
   flattenSpikes(level, h);
@@ -368,6 +767,7 @@ export function finish(level, brief, h) {
   r = h.approach();
   let g = null;
   for (const gap of [3, 1]) for (const frac of [0.55, 0.4, 0.7, 0.25, 0.85]) if (!g && gateT) g = h.gate(gateT, { route: r, frac, figGap: gap });
+  for (const at of r.slice(0, 3)) if (!g && gateT) g = h.gate(gateT, { route: r, at });
   if (g) h.removeDecor((d) => /^tree/.test(d.t) && d.x - g[0] >= -1 && d.x - g[0] <= 2 && d.z - g[1] >= -1 && d.z - g[1] <= 2);
   if (!h.lights(lightT, { route: r, every: 3, skip: 1, max: 6, avoid: g ? [g] : [], keep: [gateT] })) torches(level, h, r, lightT, g);
   const lit = level.decor.filter((d) => d.t === lightT || d.t === "torch" || d.t === "lantern");
