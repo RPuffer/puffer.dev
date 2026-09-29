@@ -8,122 +8,92 @@
   },
   "mood": [
     "solemn",
+    "reverent",
+    "nocturnal",
     "sacred",
-    "ancient",
     "mystic",
-    "tranquil",
-    "armored"
+    "stony"
   ],
   "observations": [
     {
-      "what": "Massive multi-horned reptilian head with spiked crest and bared fangs",
+      "what": "Massive armored cranium with jagged calcified crest and multiple horn protrusions",
       "box": [
-        18,
-        51,
-        436,
-        608
+        19,
+        58,
+        432,
+        574
       ],
-      "maps_to": "chitin-chimera"
+      "maps_to": "creature_head"
     },
     {
-      "what": "Multiple stacked eyes along the upper crest and temple of the skull",
+      "what": "Clusters of multiple watchful eyes nestled along the creature's neck and temples",
       "box": [
-        179,
-        626,
-        264,
-        807
+        184,
+        587,
+        434,
+        804
       ],
-      "maps_to": "chitin-chimera"
+      "maps_to": "shrine_talisman_eyes"
     },
     {
-      "what": "Large solitary eye set inside an armored slit on the neck",
+      "what": "Heavily ribbed, segmented carapace covering the chest and lower abdomen",
       "box": [
-        336,
-        584,
-        428,
-        661
-      ],
-      "maps_to": "chitin-chimera"
-    },
-    {
-      "what": "Massive rounded abdominal plate segmented with horizontal chitinous ribs",
-      "box": [
-        458,
-        335,
+        454,
+        345,
         755,
-        786
+        775
       ],
-      "maps_to": "chitin-chimera"
+      "maps_to": "sanctum_altar_platform"
     },
     {
-      "what": "Right foreleg clad in interlocking pointed quill-like armor scales",
+      "what": "Spiked, heavily armored foreleg resting firmly on stony crags on the right",
       "box": [
-        515,
-        759,
-        843,
-        989
+        516,
+        706,
+        989,
+        996
       ],
-      "maps_to": "chitin-chimera"
+      "maps_to": "shrine_guardian_pillar_east"
     },
     {
-      "what": "Right foreclaw with five hooked talons gripping rough stone",
+      "what": "Thick, clawed foreleg planted firmly on uneven bedrock on the left",
       "box": [
-        808,
-        616,
-        995,
-        998
+        514,
+        76,
+        866,
+        365
       ],
-      "maps_to": "chitin-chimera"
+      "maps_to": "shrine_guardian_pillar_west"
     },
     {
-      "what": "Left forelimb with spiked gauntlet scales and curved sharp claws",
+      "what": "Arched segmented spine-tail curving upward behind the left flank",
       "box": [
-        517,
-        72,
-        874,
-        381
+        398,
+        134,
+        614,
+        307
       ],
-      "maps_to": "chitin-chimera"
+      "maps_to": "arched_relic_steles"
     },
     {
-      "what": "Spined serrated tail curving upward behind the creature's left flank",
+      "what": "Fan-like neck plates and layered spinal crest ridges rising along the back",
       "box": [
-        403,
-        137,
-        608,
-        305
+        28,
+        563,
+        319,
+        874
       ],
-      "maps_to": "chitin-chimera"
+      "maps_to": "sacred_crest_monoliths"
     },
     {
-      "what": "Vestigial ragged wing horn or carapace mantle rising on the creature's right shoulder",
+      "what": "Rough fractured rock shelf beneath the heavy claws",
       "box": [
-        164,
-        783,
-        401,
-        966
-      ],
-      "maps_to": "chitin-chimera"
-    },
-    {
-      "what": "Slanted rocky precipice in the left foreground where the beast perches",
-      "box": [
-        529,
+        685,
         0,
-        785,
-        203
+        994,
+        990
       ],
-      "maps_to": "shrine-dais"
-    },
-    {
-      "what": "Dark stippled charcoal shading across the cavern floor at the beast's base",
-      "box": [
-        748,
-        4,
-        997,
-        989
-      ],
-      "maps_to": "sacred-spring"
+      "maps_to": "stone_causeway_and_basin"
     }
   ],
   "palette": {
@@ -131,169 +101,168 @@
       {
         "hex": "#e4e4da",
         "share": 0.219,
-        "role": "bone-white carapace highlight"
+        "role": "highlight bone plates and crest"
       },
       {
         "hex": "#d8d5c8",
         "share": 0.148,
-        "role": "pale smooth belly shell"
+        "role": "smooth carapace chest segments"
       },
       {
         "hex": "#4d4741",
         "share": 0.116,
-        "role": "deep joint and crevice shadows"
+        "role": "deep joint crevices and shadow underbelly"
       },
       {
         "hex": "#89847a",
         "share": 0.116,
-        "role": "mid-tone scale shading"
+        "role": "textured bedrock floor and foreleg shadows"
       },
       {
         "hex": "#6c665f",
         "share": 0.111,
-        "role": "carapace plates in penumbra"
+        "role": "neck scales and midtone shading"
       },
       {
         "hex": "#a4a095",
         "share": 0.104,
-        "role": "stone rock floor beneath claws"
+        "role": "calcified plates and shoulder ridge"
       },
       {
         "hex": "#bfbbb1",
         "share": 0.1,
-        "role": "dappled rock light"
+        "role": "tail ridge and midtone stone shelf"
       },
       {
         "hex": "#2d251f",
         "share": 0.086,
-        "role": "darkest hollows and eyes"
+        "role": "deepest hollows, pupils, and mouth gap"
       }
     ],
     "translation": {
-      "bg": "#1c2226",
+      "bg": "#1c222b",
       "grass": {
-        "top": "#78b874",
-        "fringe": "#5a9f56",
-        "fringeDark": "#447a42",
-        "speck": "#9cd498"
+        "top": "#4ea667",
+        "fringe": "#3f8955",
+        "fringeDark": "#306b43",
+        "speck": "#62c47e"
       },
       "sand": {
-        "top": "#e0b44a",
-        "lip": "#b8882b",
-        "edge": "#cfa03c",
-        "dots": "#edd074"
+        "top": "#e0af36",
+        "lip": "#be8922",
+        "edge": "#d19a28",
+        "dots": "#ebd159"
       },
       "dirt": {
-        "top": "#8a755d",
-        "patch": "#7b6750",
-        "mottle": "#6e5a45",
-        "border": "#5c4936"
+        "top": "#cfa068",
+        "patch": "#ba8b54",
+        "mottle": "#a87844",
+        "border": "#8f6233"
       },
       "stone": {
-        "top": "#cdc9bc",
-        "pebble": "#e2ded2",
-        "pebbleShade": "#b5b0a3",
-        "rim": "#9b968a"
+        "top": "#d6d8db",
+        "pebble": "#eaecf0",
+        "pebbleShade": "#bec2c7",
+        "rim": "#a4a9b0"
       },
       "cliffUpper": {
-        "left": "#6a6660",
-        "right": "#54504b",
-        "seam": "#423e3a"
+        "left": "#6a7685",
+        "right": "#515c6b",
+        "seam": "#414a57"
       },
       "cliffLower": {
-        "left": "#55524d",
-        "right": "#413e3a",
-        "seam": "#33302c",
-        "speck": "#272522"
+        "left": "#586270",
+        "right": "#444d59",
+        "seam": "#353d47",
+        "speck": "#2d343d"
       },
       "water": {
-        "top": "#7ae5f5",
+        "top": "#7ae3f5",
         "bubble": "#c8f6fc",
-        "deep": "#3abfd4",
+        "deep": "#2ab9dd",
         "fall": [
-          "#5ed4e8",
-          "#4ac5dc",
-          "#38b2ca"
+          "#42cae8",
+          "#2bbce0",
+          "#18a8cc"
         ],
         "foam": "#e6fbff"
       },
       "wood": {
-        "light": "#e0782b",
-        "mid": "#bf601b",
-        "dark": "#9c480f",
-        "shadow": "#7b3406",
-        "end": "#ecd094"
+        "light": "#e07d2b",
+        "mid": "#c46419",
+        "dark": "#a14d0c",
+        "shadow": "#7d3905",
+        "end": "#f3b96e"
       },
       "treeMint": [
-        "#50b896",
-        "#3c9a7b",
-        "#2c7d62"
+        "#5ac998",
+        "#43ab7e",
+        "#2f8a63"
       ],
       "treeLime": [
-        "#96c95a",
-        "#7baa43",
-        "#5e8830"
+        "#7bbd50",
+        "#639e3f",
+        "#4c7e2f"
       ],
       "treeLeaf": [
-        "#6da852",
-        "#538c3c",
-        "#3d6e29"
+        "#509e5b",
+        "#3e8248",
+        "#2d6636"
       ],
       "treeTeal": [
-        "#42bfae",
-        "#339e8f",
-        "#278174",
-        "#1c6459"
+        "#3dc7b4",
+        "#2da898",
+        "#1f877a",
+        "#15695f"
       ],
       "treeGold": [
-        "#dcb042",
-        "#be9229",
-        "#9c7316"
+        "#dfa838",
+        "#c48c22",
+        "#a67111"
       ],
       "trunk": [
-        "#7e5244",
-        "#643e32"
+        "#845347",
+        "#633f36"
       ],
       "rock": [
-        "#d5d2c8",
-        "#bfbbb0",
-        "#9c988e",
-        "#7c7870"
+        "#e0e2e6",
+        "#c3c7cc",
+        "#9ea3aa",
+        "#7e838c"
       ],
       "wellStone": [
-        "#bab6aa",
-        "#a29e92",
-        "#89857a"
+        "#c2c6cd",
+        "#a6abb3",
+        "#8b9099"
       ],
       "flowerOrange": [
-        "#ea7e32",
-        "#d89e2c"
+        "#e57a2d",
+        "#c9641d"
       ],
       "berry": [
-        "#e05c75",
-        "#c2425b"
+        "#d84968",
+        "#b83752"
       ],
       "bushTeal": [
-        "#6ddbc3",
-        "#50bca5",
-        "#3b9b86"
+        "#5ee0cc",
+        "#45c2af",
+        "#319e8e"
       ],
       "gold": [
-        "#e5ba37",
-        "#c89b1c",
-        "#ebd067"
+        "#f0bf3e",
+        "#d69f21",
+        "#f7d56d"
       ]
     },
-    "notes": "Keeps the toy pack's vibrant saturation while translating the ink drawing's bone and slate values into warm pale stone and cool subterranean water. A night-time cavern shrine mood illuminated by pale moon cyan waters and glowing offering lanterns.",
+    "notes": "Nighttime shrine palette anchored by pale cool stone slabs and luminous sacred water pools. The creature's calcified shell translates into pale stone and ivory hues illuminated under a cool moonlit ambiance.",
     "clamped": [
-      "grass.fringe #5e9b5a->#5a9f56",
-      "grass.fringeDark #467844->#447a42",
-      "trunk[0] #7d5345->#7e5244"
+      "trunk[0] #7d574e->#845347",
+      "trunk[1] #614038->#633f36"
     ]
   },
   "motifs": [
     {
-      "name": "shrine-gate-pillars",
+      "name": "shrine-gate-monoliths",
       "type": "new",
       "variant_of": null,
       "footprint": [
@@ -306,112 +275,95 @@
       "cells": [
         [
           6,
-          8
+          7
         ],
         [
           9,
-          8
+          7
         ]
       ],
-      "where": "Flanking the causeway approach path right before entering the sacred inner sanctum.",
+      "where": "Flanking the axial stone causeway immediately before crossing the sacred spring basin.",
       "shape": {
-        "summary": "Stepped megalithic stone pillar carved like ancient ribbed bone.",
+        "summary": "Stepped calcified obelisks carved with tiered ridges mirroring the creature's dorsal horns.",
         "parts": [
           {
             "prim": "box",
             "dims": [
-              0.8,
-              0.4,
-              0.8
-            ],
-            "at": [
-              0,
-              0,
-              0
-            ],
-            "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
-            ]
-          },
-          {
-            "prim": "cyl",
-            "dims": [
-              0.3,
-              1.4,
-              8
-            ],
-            "at": [
-              0,
-              0.4,
-              0
-            ],
-            "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
-            ]
-          },
-          {
-            "prim": "box",
-            "dims": [
               0.7,
-              0.2,
+              0.4,
               0.7
             ],
             "at": [
               0,
-              1.8,
+              0,
               0
             ],
             "tones": [
-              "#e2ded2",
-              "#cdc9bc",
-              "#b5b0a3"
+              "#d6d8db",
+              "#6a7685",
+              "#515c6b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              1.2,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#eaecf0",
+              "#bec2c7",
+              "#a4a9b0"
             ]
           },
           {
             "prim": "cone",
             "dims": [
-              0.35,
-              0.02,
-              0.5,
+              0.28,
+              0.05,
+              0.6,
               6
             ],
             "at": [
               0,
-              2,
+              1.6,
               0
             ],
             "tones": [
-              "#e2ded2",
-              "#cdc9bc",
-              "#b5b0a3"
+              "#eaecf0",
+              "#bec2c7",
+              "#a4a9b0"
             ]
           },
           {
             "prim": "ball",
             "dims": [
-              0.15,
+              0.12,
               1
             ],
             "at": [
               0,
-              1.2,
-              0.25
+              1.1,
+              0.26
             ],
             "tones": [
-              "#e5ba37",
-              "#c89b1c",
-              "#9c7316"
+              "#7ae3f5",
+              "#2ab9dd",
+              "#18a8cc"
             ]
           }
         ]
       }
     },
     {
-      "name": "sanctum-vigil-dais",
+      "name": "sanctum-altar-dais",
       "type": "new",
       "variant_of": null,
       "footprint": [
@@ -419,21 +371,21 @@
         1
       ],
       "height": 0.4,
-      "passable": true,
+      "passable": false,
       "count": 2,
       "cells": [
         [
           7,
-          4
+          2
         ],
         [
           8,
-          4
+          2
         ]
       ],
-      "where": "Directly under the chimera guardian at the focal heart of the raised shrine.",
+      "where": "Directly supporting the great horned chimera on its raised sanctum platform.",
       "shape": {
-        "summary": "Low wide ceremonial plinth carved with smooth rounded runic trim.",
+        "summary": "Wide scalloped ritual plinth with carved runic grooves filled with glowing water.",
         "parts": [
           {
             "prim": "rbox",
@@ -449,9 +401,9 @@
               0
             ],
             "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
+              "#d6d8db",
+              "#bec2c7",
+              "#a4a9b0"
             ]
           },
           {
@@ -468,50 +420,34 @@
               0
             ],
             "tones": [
-              "#e2ded2",
-              "#cdc9bc",
-              "#b5b0a3"
+              "#eaecf0",
+              "#d6d8db",
+              "#bec2c7"
             ]
           },
           {
-            "prim": "prism",
+            "prim": "cyl",
             "dims": [
-              0.05
+              0.25,
+              0.05,
+              8
             ],
             "at": [
               0,
               0.4,
               0
             ],
-            "outline": [
-              [
-                -0.3,
-                -0.3
-              ],
-              [
-                0.3,
-                -0.3
-              ],
-              [
-                0.3,
-                0.3
-              ],
-              [
-                -0.3,
-                0.3
-              ]
-            ],
             "tones": [
-              "#e5ba37",
-              "#c89b1c",
-              "#9c7316"
+              "#7ae3f5",
+              "#2ab9dd",
+              "#18a8cc"
             ]
           }
         ]
       }
     },
     {
-      "name": "shrine-lantern",
+      "name": "votive-lantern-post",
       "type": "lantern",
       "variant_of": "lantern",
       "footprint": [
@@ -520,27 +456,117 @@
       ],
       "height": 1,
       "passable": false,
-      "count": 2,
+      "count": 4,
       "cells": [
+        [
+          6,
+          10
+        ],
         [
           9,
           10
         ],
         [
+          6,
+          4
+        ],
+        [
           9,
-          6
+          4
         ]
       ],
-      "where": "Placed in symmetric pairs along both flanks of the axial processional pathway.",
+      "where": "Arranged symmetrically in pairs along the causeway approach to illuminate the pilgrim path.",
       "shape": {
-        "summary": "Toy stone-cairn lantern with a warm glowing golden inner core.",
+        "summary": "Faceted stone pedestals holding glowing ceremonial water-lantern urns.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.2,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d6d8db",
+              "#bec2c7",
+              "#a4a9b0"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.35,
+              0.32,
+              0.05
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#f0bf3e",
+              "#d69f21",
+              "#a67111"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#c8f6fc",
+              "#7ae3f5",
+              "#2ab9dd"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sacred-relic-chest",
+      "type": "chest",
+      "variant_of": "chest",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          2
+        ],
+        [
+          9,
+          2
+        ]
+      ],
+      "where": "Placed on either side of the creature's dais holding offerings from worshippers.",
+      "shape": {
+        "summary": "Heavy stone coffer bound in gilded bronze trim.",
         "parts": [
           {
             "prim": "rbox",
             "dims": [
-              0.3,
+              0.65,
               0.4,
-              0.3,
+              0.45,
               0.05
             ],
             "at": [
@@ -549,17 +575,18 @@
               0
             ],
             "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
+              "#c2c6cd",
+              "#a6abb3",
+              "#8b9099"
             ]
           },
           {
-            "prim": "box",
+            "prim": "rbox",
             "dims": [
-              0.24,
-              0.3,
-              0.24
+              0.67,
+              0.18,
+              0.47,
+              0.06
             ],
             "at": [
               0,
@@ -567,35 +594,122 @@
               0
             ],
             "tones": [
-              "#ffe082",
-              "#ffb31d",
-              "#ff831d"
+              "#f0bf3e",
+              "#d69f21",
+              "#a67111"
             ]
           },
           {
-            "prim": "cone",
+            "prim": "box",
             "dims": [
-              0.22,
-              0.04,
-              0.25,
-              4
+              0.1,
+              0.15,
+              0.06
             ],
             "at": [
               0,
-              0.7,
-              0
+              0.32,
+              0.24
             ],
             "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
+              "#eaecf0",
+              "#bec2c7",
+              "#a4a9b0"
             ]
           }
         ]
       }
     },
     {
-      "name": "votive-urn",
+      "name": "chitin-shrine-spire",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          4,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          7,
+          0
+        ]
+      ],
+      "where": "Standing tall around the rear perimeter of the sanctum as an enclosing sanctified palisade.",
+      "shape": {
+        "summary": "Tall spires modeled on the creature's spiked thoracic armor fins.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.8,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#6a7685",
+              "#515c6b",
+              "#414a57"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.32,
+              0.18,
+              0.9,
+              6
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#d6d8db",
+              "#bec2c7",
+              "#a4a9b0"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.04,
+              0.8,
+              6
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#eaecf0",
+              "#d6d8db",
+              "#bec2c7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "prayer-pot",
       "type": "pot",
       "variant_of": "pot",
       "footprint": [
@@ -608,22 +722,22 @@
       "cells": [
         [
           5,
-          4
+          3
         ],
         [
           10,
-          4
+          3
         ]
       ],
-      "where": "Set on either side of the creature's dais holding offerings from pilgrims.",
+      "where": "Resting at the base of the dais corners filled with purified spring essence.",
       "shape": {
-        "summary": "Chunky clay pot filled with consecrated teal water crystals.",
+        "summary": "Earthen ritual jar sealed with clay and turquoise glaze.",
         "parts": [
           {
             "prim": "cyl",
             "dims": [
-              0.28,
-              0.5,
+              0.25,
+              0.45,
               8
             ],
             "at": [
@@ -632,230 +746,27 @@
               0
             ],
             "tones": [
-              "#e98b5a",
-              "#d0704a",
-              "#a95236"
+              "#cfa068",
+              "#ba8b54",
+              "#a87844"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "cyl",
             "dims": [
-              0.2,
-              0.6
+              0.15,
+              0.12,
+              8
             ],
             "at": [
               0,
-              0.5,
-              0
-            ],
-            "tones": [
-              "#7ae5f5",
-              "#3abfd4",
-              "#278174"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "sacred-monolith-pine",
-      "type": "tree-pine",
-      "variant_of": "tree-pine",
-      "footprint": [
-        1,
-        1
-      ],
-      "height": 2.4,
-      "passable": false,
-      "count": 5,
-      "cells": [
-        [
-          2,
-          2
-        ],
-        [
-          13,
-          2
-        ],
-        [
-          1,
-          5
-        ],
-        [
-          14,
-          5
-        ],
-        [
-          1,
-          9
-        ]
-      ],
-      "where": "Standing in dense solemn rows on the high flanking cliffs enclosing the shrine.",
-      "shape": {
-        "summary": "Classic toy pine with teal foliage tiers matching the sacred waters.",
-        "parts": [
-          {
-            "prim": "box",
-            "dims": [
-              0.16,
-              0.6,
-              0.16
-            ],
-            "at": [
-              0,
-              0,
-              0
-            ],
-            "tones": [
-              "#7e5244",
-              "#643e32",
-              "#4d4741"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.8,
               0.45,
-              0.8,
-              0.08
-            ],
-            "at": [
-              0,
-              0.6,
               0
             ],
             "tones": [
-              "#42bfae",
-              "#339e8f",
-              "#278174"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.65,
-              0.4,
-              0.65,
-              0.08
-            ],
-            "at": [
-              0,
-              1.05,
-              0
-            ],
-            "tones": [
-              "#42bfae",
-              "#339e8f",
-              "#278174"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.48,
-              0.35,
-              0.48,
-              0.08
-            ],
-            "at": [
-              0,
-              1.45,
-              0
-            ],
-            "tones": [
-              "#42bfae",
-              "#339e8f",
-              "#278174"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.3,
-              0.3,
-              0.3,
-              0.08
-            ],
-            "at": [
-              0,
-              1.8,
-              0
-            ],
-            "tones": [
-              "#42bfae",
-              "#339e8f",
-              "#278174"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "shrine-basin-pebbles",
-      "type": "rock",
-      "variant_of": "rock",
-      "footprint": [
-        1,
-        1
-      ],
-      "height": 0.35,
-      "passable": false,
-      "count": 4,
-      "cells": [
-        [
-          3,
-          8
-        ],
-        [
-          12,
-          8
-        ],
-        [
-          4,
-          3
-        ],
-        [
-          11,
-          3
-        ]
-      ],
-      "where": "Clustered along the edges of the pool embankment.",
-      "shape": {
-        "summary": "Rounded smooth river rocks lining the pool banks.",
-        "parts": [
-          {
-            "prim": "ball",
-            "dims": [
-              0.22,
-              0.7
-            ],
-            "at": [
-              -0.1,
-              0.15,
-              0.05
-            ],
-            "tones": [
-              "#d5d2c8",
-              "#bfbbb0",
-              "#9c988e"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.16,
-              0.6
-            ],
-            "at": [
-              0.15,
-              0.1,
-              -0.1
-            ],
-            "tones": [
-              "#bfbbb0",
-              "#9c988e",
-              "#7c7870"
+              "#7ae3f5",
+              "#2ab9dd",
+              "#18a8cc"
             ]
           }
         ]
@@ -864,176 +775,218 @@
   ],
   "creatures": [
     {
-      "name": "chitin-chimera",
-      "source": "Armored multi-eyed crested beast with ribbed belly and heavy spiked claws in IMAGE 1",
+      "name": "Vigilant Carapace Behemoth",
+      "source": "The multi-eyed, horned chimera drawn in IMAGE 1 standing over rough rock shelves",
       "becomes": "npc",
       "type": "new",
       "footprint": [
         2,
         1
       ],
-      "height": 2.2,
+      "height": 2.4,
       "shape": {
-        "summary": "Cute low-poly toy chimera beast with ribbed carapace, skull crest, and segmented tail.",
+        "summary": "Toy-like heavy reptilian guardian with an armored horned cranium, segmented shell, clawed gauntlets, and multiple watchful eyes.",
         "parts": [
           {
             "prim": "rbox",
             "dims": [
-              0.9,
+              1.1,
+              0.85,
               0.8,
-              0.9,
               0.12
             ],
             "at": [
               0,
-              0.3,
+              0.35,
               0
             ],
             "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
+              "#d6d8db",
+              "#bec2c7",
+              "#a4a9b0"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
+              0.85,
               0.7,
-              0.65,
-              0.3,
-              0.08
-            ],
-            "at": [
-              0,
-              0.35,
-              0.4
-            ],
-            "tones": [
-              "#e2ded2",
-              "#cdc9bc",
-              "#b5b0a3"
-            ]
-          },
-          {
-            "prim": "box",
-            "dims": [
               0.6,
-              0.08,
-              0.32
-            ],
-            "at": [
-              0,
-              0.45,
-              0.41
-            ],
-            "tones": [
-              "#cdc9bc",
-              "#9b968a",
-              "#6a6660"
-            ]
-          },
-          {
-            "prim": "box",
-            "dims": [
-              0.5,
-              0.08,
-              0.32
-            ],
-            "at": [
-              0,
-              0.6,
-              0.41
-            ],
-            "tones": [
-              "#cdc9bc",
-              "#9b968a",
-              "#6a6660"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.75,
-              0.65,
-              0.8,
               0.1
             ],
             "at": [
-              -0.1,
-              1.1,
-              0.15
+              0,
+              0.4,
+              0.22
+            ],
+            "tones": [
+              "#eaecf0",
+              "#d6d8db",
+              "#bec2c7"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.75,
+              0.65,
+              0.8
+            ],
+            "at": [
+              0,
+              1.25,
+              0.2
             ],
             "rot": [
               -10,
-              15,
+              0,
               0
             ],
             "tones": [
-              "#e2ded2",
-              "#cdc9bc",
-              "#b5b0a3"
+              "#eaecf0",
+              "#d6d8db",
+              "#a4a9b0"
             ]
           },
           {
             "prim": "prism",
             "dims": [
-              0.55
-            ],
-            "at": [
-              -0.1,
-              1.6,
-              -0.1
+              0.45
             ],
             "outline": [
               [
-                -0.3,
-                -0.3
+                -0.45,
+                -0.2
+              ],
+              [
+                0.45,
+                -0.2
               ],
               [
                 0.3,
-                -0.3
-              ],
-              [
-                0.1,
                 0.4
               ],
               [
-                -0.1,
+                -0.3,
                 0.4
               ]
             ],
-            "rot": [
-              20,
-              15,
-              0
+            "at": [
+              0,
+              1.85,
+              0.1
             ],
             "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
+              "#eaecf0",
+              "#bec2c7",
+              "#a4a9b0"
             ]
           },
           {
-            "prim": "box",
+            "prim": "cone",
             "dims": [
-              0.55,
-              0.22,
-              0.45
+              0.16,
+              0.04,
+              0.5,
+              6
             ],
             "at": [
-              -0.15,
-              0.95,
-              0.55
+              -0.32,
+              1.7,
+              -0.15
             ],
             "rot": [
-              -5,
+              -20,
+              -15,
+              0
+            ],
+            "tones": [
+              "#eaecf0",
+              "#d6d8db",
+              "#bec2c7"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.04,
+              0.5,
+              6
+            ],
+            "at": [
+              0.32,
+              1.7,
+              -0.15
+            ],
+            "rot": [
+              -20,
               15,
               0
             ],
             "tones": [
-              "#cdc9bc",
-              "#9b968a",
-              "#4d4741"
+              "#eaecf0",
+              "#d6d8db",
+              "#bec2c7"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.65,
+              0.35,
+              0.08
+            ],
+            "at": [
+              -0.55,
+              0,
+              0.3
+            ],
+            "tones": [
+              "#bec2c7",
+              "#a4a9b0",
+              "#7e838c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.65,
+              0.35,
+              0.08
+            ],
+            "at": [
+              0.55,
+              0,
+              0.3
+            ],
+            "tones": [
+              "#bec2c7",
+              "#a4a9b0",
+              "#7e838c"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              -0.1,
+              0.4,
+              -0.4
+            ],
+            "to": [
+              -0.4,
+              0.9,
+              -0.6
+            ],
+            "tones": [
+              "#d6d8db",
+              "#bec2c7",
+              "#a4a9b0"
             ]
           },
           {
@@ -1043,14 +996,31 @@
               1
             ],
             "at": [
-              0.1,
-              1.3,
-              0.5
+              -0.22,
+              1.45,
+              0.58
             ],
             "tones": [
-              "#e5ba37",
-              "#c89b1c",
-              "#4d4741"
+              "#7ae3f5",
+              "#2ab9dd",
+              "#18a8cc"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0.22,
+              1.45,
+              0.58
+            ],
+            "tones": [
+              "#7ae3f5",
+              "#2ab9dd",
+              "#18a8cc"
             ]
           },
           {
@@ -1060,94 +1030,25 @@
               1
             ],
             "at": [
-              0.2,
-              1.45,
-              0.3
-            ],
-            "tones": [
-              "#e5ba37",
-              "#c89b1c",
-              "#4d4741"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.35,
-              0.7,
-              0.35,
-              0.06
-            ],
-            "at": [
-              0.48,
-              0,
-              0.4
-            ],
-            "rot": [
-              0,
-              -15,
-              0
-            ],
-            "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
               0.32,
-              0.65,
-              0.32,
-              0.06
-            ],
-            "at": [
-              -0.45,
-              0,
-              0.35
-            ],
-            "rot": [
-              0,
-              20,
-              0
+              1.6,
+              0.42
             ],
             "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
-            ]
-          },
-          {
-            "prim": "beam",
-            "dims": [
-              0.1
-            ],
-            "at": [
-              -0.2,
-              0.5,
-              -0.4
-            ],
-            "to": [
-              -0.45,
-              1.2,
-              -0.6
-            ],
-            "tones": [
-              "#cdc9bc",
-              "#b5b0a3",
-              "#9b968a"
+              "#7ae3f5",
+              "#2ab9dd",
+              "#18a8cc"
             ]
           }
         ]
       },
-      "pose": "Perched motionless on the sacred plinth keeping an eternal silent vigil over the subterranean spring.",
+      "pose": "Resting proudly on its dais with heavy spiked forelimbs spread, maintaining an eternal sacred vigil over the pool.",
       "cell": [
         7,
-        4
+        2
       ],
       "facing": "s",
-      "why": "It acts as the sacred guardian of the subterranean font venerated by pilgrims."
+      "why": "It serves as the revered shrine guardian, silently receiving pilgrims along the axial causeway."
     }
   ],
   "composition": {
@@ -1161,74 +1062,81 @@
       "P": "path"
     },
     "grid": [
-      "VVVRRRRRRRRRRVVV",
-      "VVRRRRRRRRRRRRVV",
-      "VRRTRRRRRRRRTRRV",
-      "VRRGGRRRRRRGGRRV",
-      "VRRGTPFFPTTGGRRV",
-      "VTRGGPWWPGGTGTRV",
-      "VRRGGPWWPGGGGRRV",
-      "VRRGGPWWPGGGGRRV",
-      "VRRGGPTTPGGGGRRV",
-      "VTRGGPWWPGGTGTRV",
-      "VRRGGPWWPGGGGRRV",
-      "VVVGGPPPPGGGGVVV"
+      "VVVVTTRRTTTVVVVV",
+      "VVVTTRFFFFRTTVVV",
+      "VVTRRRFFFFRRRTVV",
+      "VVTRRRRRRRRRRTVV",
+      "VVGGGGPPPPGGGGVV",
+      "VVGWWWPPPPWWGWVV",
+      "VVGWWWPPPPWWGWVV",
+      "VVGGGGPPPPGGGGVV",
+      "VVVTGGPPPPGGTVVV",
+      "VVVTGGPPPPGGTVVV",
+      "VVVVGGPPPPGGVVVV",
+      "VVVVVVPPPPVVVVVV"
     ],
     "heights": [
-      "0002222222222000",
-      "0022222222222200",
-      "0222222222222220",
-      "0221122222211220",
-      "0221122222211220",
-      "0211110011111210",
-      "0211110011111120",
-      "0211110011111120",
-      "0211111111111120",
-      "0211110011111210",
-      "0211110011111120",
-      "0001111111111000"
+      "0000112222100000",
+      "0001122222211000",
+      "0012222222222100",
+      "0012222222222100",
+      "0011111111111100",
+      "0010001111001000",
+      "0010001111001000",
+      "0011111111111100",
+      "0001111111111000",
+      "0001111111111000",
+      "0000111111110000",
+      "0000001111000000"
     ],
     "focal": {
       "x": 7,
-      "z": 4,
-      "what": "chitin-chimera"
+      "z": 2,
+      "what": "Vigilant Carapace Behemoth"
     },
-    "mass": "Concentrated in the deep upper half along the raised level 2 shrine plateau where the guardian creature sits, framed by high tiered canyon walls.",
-    "read": "The viewer's eye enters from the near rim along an axial stone processional bridge crossing pale cyan sacred water. Flanking megaliths and lanterns guide sight directly toward the elevated level 2 sanctum where the chimera rests motionless. The water reflects cyan light upward, anchoring the solemn cavern shrine atmosphere."
+    "mass": "Concentrated in the rear sanctum on the elevated height-2 platform where the massive creature presides over the sacred water basin.",
+    "read": "The viewer enters via an axial stone causeway starting at the south rim. The path cuts straight between twin mirror pools of clear holy water, passes the monolith threshold gate, and ascends onto the elevated shrine terrace where the horned behemoth rests in quiet vigil."
   },
   "biome": {
     "trees": {
-      "density": 0.12,
+      "density": 0.16,
       "types": [
         {
-          "type": "sacred-monolith-pine",
-          "variant": "1",
-          "weight": 1
+          "type": "tree-pine",
+          "variant": "variant1",
+          "weight": 0.6
+        },
+        {
+          "type": "chitin-shrine-spire",
+          "variant": "variant1",
+          "weight": 0.4
         }
       ]
     },
-    "water_share": 0.1,
-    "plateau_share": 0.35,
-    "void_share": 0.18,
+    "water_share": 0.104,
+    "plateau_share": 0.28,
+    "void_share": 0.385,
     "decor_weights": {
-      "shrine-lantern": 0.4,
-      "votive-urn": 0.25,
-      "shrine-basin-pebbles": 0.35
+      "votive-lantern-post": 0.3,
+      "prayer-pot": 0.2,
+      "sacred-relic-chest": 0.15,
+      "rock": 0.2,
+      "flower": 0.15
     },
     "lighting": {
-      "bg": "#1c2226",
+      "bg": "#1c222b",
       "ambient": 0.68,
       "sun": 0.32,
-      "tint": "#7ae5f5",
-      "notes": "Cool dusk luminescence cast by subterranean water reflecting softly off bone-white stone surfaces."
+      "tint": "#92a6c2",
+      "notes": "Crisp moonlit dusk casting long cool shadows, reflecting cyan luminescence off the tranquil water pools."
     },
     "rules": [
-      "Keep the central processional path axial and unbroken from near rim row 11 to the shrine plateau at row 4.",
-      "Surround the causeway with sacred cyan water pools on both left and right.",
-      "Erect the shrine-gate-pillars in a straddling pair at row 8 across the approach.",
-      "Seat the chitin-chimera atop the raised level 2 focal plinths at [7,4] and [8,4]."
+      "Keep the central approach path (P) completely axial and level as it leads north from the entrance.",
+      "Flank both sides of the central causeway with mirrored sacred spring water cells (W).",
+      "Position the threshold gate monoliths symmetrically at the entrance to the water bridge.",
+      "Elevate the focal sanctum platform to height 2 immediately behind the water basin."
     ],
-    "decor_density": 0.1,
+    "decor_density": 0.11,
     "surfaces": {
       "ground": "stone",
       "raised": "stone",
@@ -1238,12 +1146,12 @@
     }
   },
   "scene": {
-    "place": "The Sunken Basin of the Carapace Oracle, a tranquil subterranean spring sanctuary built to venerate an ancient beast.",
-    "approach": "The pilgrim advances down an axial stone causeway crossing clear cyan waters, passing between megalithic carved bone pillars before ascending to the dais.",
-    "creature_doing": "Keeping an eternal unblinking vigil over the sacred spring while resting its armored claws upon the altar stone.",
-    "palette_key": "Cool dusk cavern tones where bone-white stone and deep slates are illuminated by pale cyan waters and golden amber lantern flame.",
-    "terrain": "Water-focused layout featuring a wide pool split by an axial stone causeway leading to a level 2 elevated shrine plateau.",
-    "summary": "A peaceful souls-like sanctum where an imposing chitinous chimera is revered as a tranquil guardian deity."
+    "place": "The Sunken Cistern Shrine, an ancient nocturnal court constructed around holy mineral waters to venerate the armored beast.",
+    "approach": "A direct stone causeway stretches across calm turquoise water basins, straddled by twin chitinous obelisks before stepping up into the elevated sanctum.",
+    "creature_doing": "Resting solemnly upon a sacred stone plinth, watching pilgrims approach with multiple glowing eyes while guarding the holy cistern.",
+    "palette_key": "Cool dusk moonlight highlighting pale bone stone and cyan waters against deep indigo-slate shadows.",
+    "terrain": "A formal stone causeway bordered by symmetrical holy pools leading to a raised ceremonial terrace.",
+    "summary": "A peaceful souls-like sanctum where travelers walk a quiet moonlit water-causeway to receive blessings from a majestic armored chimera."
   },
   "concept": {
     "name": "scene",
@@ -1251,7 +1159,8 @@
     "variant": 2,
     "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
     "avoid": [
-      "pipeline/seed/concepts/chimera-1.json"
+      "pipeline/seed/concepts/chimera-1.json",
+      "pipeline/seed/concepts/chimera-3.json"
     ]
   }
 }
