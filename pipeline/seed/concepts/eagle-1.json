@@ -1,0 +1,1188 @@
+{
+  "source": {
+    "art": "pipeline/seed/eagle.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "regal",
+    "windswept",
+    "solitary",
+    "vigilant",
+    "cozy",
+    "lofty"
+  ],
+  "observations": [
+    {
+      "what": "Curved hooked eagle beak painted in rich mustard and bright yellow with sharp downward tip",
+      "box": [
+        303,
+        30,
+        604,
+        616
+      ],
+      "maps_to": "golden aerie roost relics and bright yellow beacon details"
+    },
+    {
+      "what": "Pale blue-green watchful eye circled by dark feather shading and brow ridge",
+      "box": [
+        297,
+        542,
+        350,
+        642
+      ],
+      "maps_to": "shining roost gem clutch and watchful perch marker"
+    },
+    {
+      "what": "Crisp white and silver-grey feathery crown with directional brushstrokes sweeping backward",
+      "box": [
+        46,
+        240,
+        439,
+        994
+      ],
+      "maps_to": "windswept high aerie plateau with chalky stone cliffs and pale bleached birch accents"
+    },
+    {
+      "what": "Dense black and charcoal feathered throat and chest tapering downward",
+      "box": [
+        447,
+        137,
+        1000,
+        715
+      ],
+      "maps_to": "dark basalt terrace ramparts and shaded rock foundations"
+    },
+    {
+      "what": "Subtle golden ochre drybrushing along the base and nostril of the beak",
+      "box": [
+        336,
+        313,
+        407,
+        521
+      ],
+      "maps_to": "warm sand approach trails and straw bedding in the nest"
+    },
+    {
+      "what": "Feather fringe flaring into spiky plumage behind the nape",
+      "box": [
+        49,
+        707,
+        437,
+        1000
+      ],
+      "maps_to": "jagged alpine pines and spiky palisade fencing along the upper ridge"
+    },
+    {
+      "what": "Flat warm off-white canvas background suggesting high open sky",
+      "box": [
+        0,
+        0,
+        995,
+        344
+      ],
+      "maps_to": "open mountain air and wide valley void perimeter"
+    },
+    {
+      "what": "Dark diagonal cleft formed where the pale head feathers overlap the dark neck",
+      "box": [
+        435,
+        360,
+        610,
+        606
+      ],
+      "maps_to": "steep climbing stair ramp connecting the lower terrace to the peak eyrie"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#cfc9b9",
+        "share": 0.227,
+        "role": "pale sky canvas ground"
+      },
+      {
+        "hex": "#e6dfd4",
+        "share": 0.199,
+        "role": "bright white crown feather highlights"
+      },
+      {
+        "hex": "#b9b4a6",
+        "share": 0.156,
+        "role": "silver grey midtones in head feathers"
+      },
+      {
+        "hex": "#262622",
+        "share": 0.109,
+        "role": "deep black-brown chest plumage"
+      },
+      {
+        "hex": "#9c988d",
+        "share": 0.107,
+        "role": "shaded plumage brush marks"
+      },
+      {
+        "hex": "#515046",
+        "share": 0.08,
+        "role": "dark feather base contours"
+      },
+      {
+        "hex": "#76746a",
+        "share": 0.079,
+        "role": "neutral slate feather transitions"
+      },
+      {
+        "hex": "#bc9e3b",
+        "share": 0.044,
+        "role": "golden yellow beak and cere pigment"
+      }
+    ],
+    "translation": {
+      "bg": "#2b2e3b",
+      "grass": {
+        "top": "#82d466",
+        "fringe": "#66b54e",
+        "fringeDark": "#4d8f37",
+        "speck": "#a6eb86"
+      },
+      "sand": {
+        "top": "#f5cb47",
+        "lip": "#d89e18",
+        "edge": "#ebae26",
+        "dots": "#fae075"
+      },
+      "dirt": {
+        "top": "#e0c285",
+        "patch": "#ebcb8d",
+        "mottle": "#d1ae6b",
+        "border": "#c29c55"
+      },
+      "stone": {
+        "top": "#d5dedb",
+        "pebble": "#eef4f1",
+        "pebbleShade": "#b7c4bf",
+        "rim": "#9fadab"
+      },
+      "cliffUpper": {
+        "left": "#a66859",
+        "right": "#874d42",
+        "seam": "#703a30"
+      },
+      "cliffLower": {
+        "left": "#b86f5c",
+        "right": "#82463b",
+        "seam": "#9c5747",
+        "speck": "#6b372f"
+      },
+      "water": {
+        "top": "#7ae5f5",
+        "bubble": "#c8f6fc",
+        "deep": "#21b9db",
+        "fall": [
+          "#34cded",
+          "#1db8d9",
+          "#129bb8"
+        ],
+        "foam": "#e6fcff"
+      },
+      "wood": {
+        "light": "#ff8e30",
+        "mid": "#dc7419",
+        "dark": "#b85311",
+        "shadow": "#963e09",
+        "end": "#f8dc8e"
+      },
+      "treeMint": [
+        "#57dba1",
+        "#42bf87",
+        "#2f9c6a"
+      ],
+      "treeLime": [
+        "#9ee85d",
+        "#7dc742",
+        "#5f9e2e"
+      ],
+      "treeLeaf": [
+        "#69d45d",
+        "#4db842",
+        "#37942e"
+      ],
+      "treeTeal": [
+        "#2be6b4",
+        "#18c798",
+        "#11a37c",
+        "#0c8061"
+      ],
+      "treeGold": [
+        "#f5cf4a",
+        "#e5ad19",
+        "#c48705"
+      ],
+      "trunk": [
+        "#a35e4e",
+        "#874638"
+      ],
+      "rock": [
+        "#ebeff0",
+        "#d2d9db",
+        "#a8b3b5",
+        "#838f91"
+      ],
+      "wellStone": [
+        "#d6deda",
+        "#bcc7c2",
+        "#9ca8a3"
+      ],
+      "flowerOrange": [
+        "#ff922e",
+        "#f0a716"
+      ],
+      "berry": [
+        "#ff6e87",
+        "#e84d69"
+      ],
+      "bushTeal": [
+        "#8afcd4",
+        "#53dbaa",
+        "#39b889"
+      ],
+      "gold": [
+        "#ffcf3b",
+        "#e8a817",
+        "#ffe073"
+      ]
+    },
+    "notes": "The eagle's stark white and black portrait is translated into a sunlit mountaintop eyrie where the beak's intense golden yellow provides glowing sand trails, gold props, and rich tree accents, while alpine pines and warm clay cliffs anchor the toy pack grammar against a deep twilight-sky background."
+  },
+  "motifs": [
+    {
+      "name": "aerie-threshold-arches",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "A pair of ancient weathered timber and carved stone totems flanking the switchback trail right as it turns upward toward the high perch.",
+      "shape": {
+        "summary": "Stout stone base supporting an orange timber totem pillar capped with wing-shaped stylized eaves.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.5,
+              0.6,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d5dedb",
+              "#bcc7c2",
+              "#9ca8a3"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.3,
+              1.3,
+              0.3
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#ff8e30",
+              "#dc7419",
+              "#b85311"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.2,
+              0.35,
+              0.06
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#e8a817",
+              "#c48705"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.02,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              2,
+              0
+            ],
+            "tones": [
+              "#ebeff0",
+              "#d2d9db",
+              "#838f91"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "great-aerie-nest",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          9,
+          2
+        ]
+      ],
+      "where": "The woven cedar branch and golden straw nest foundation situated right beneath the great eagle on the highest terrace.",
+      "shape": {
+        "summary": "Large woven disc of thick interlocked logs lined with a soft heap of golden hay and soft mountain lichen.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.68,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e30",
+              "#dc7419",
+              "#b85311"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.58,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#f5cf4a",
+              "#e5ad19",
+              "#c48705"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.25,
+              0.15
+            ],
+            "at": [
+              0.2,
+              0.55,
+              -0.1
+            ],
+            "tones": [
+              "#ebeff0",
+              "#d2d9db",
+              "#a8b3b5"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.14
+            ],
+            "at": [
+              -0.18,
+              0.55,
+              0.12
+            ],
+            "tones": [
+              "#ebeff0",
+              "#d2d9db",
+              "#a8b3b5"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.15,
+              0.1,
+              0.03
+            ],
+            "at": [
+              0.4,
+              0.3,
+              0.2
+            ],
+            "rot": [
+              10,
+              35,
+              0
+            ],
+            "tones": [
+              "#ff8e30",
+              "#dc7419",
+              "#963e09"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "roost-cache-chest",
+      "type": "chest",
+      "variant_of": "chest",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          11,
+          2
+        ]
+      ],
+      "where": "Beside the aerie nest on the highest tier, holding gathered mountain trinkets and feathers.",
+      "shape": {
+        "summary": "Toy iron-banded timber chest with a polished golden lock latch.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.4,
+              0.5,
+              0.05
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e30",
+              "#dc7419",
+              "#b85311"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.68,
+              0.18,
+              0.52,
+              0.06
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#dc7419",
+              "#963e09"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.15,
+              0.16,
+              0.06
+            ],
+            "at": [
+              0,
+              0.32,
+              0.26
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#e8a817",
+              "#c48705"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "switchback-trail-lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          4,
+          9
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "where": "Positioned in pairs at corners along the switchback path illuminating the winding rock ascent.",
+      "shape": {
+        "summary": "Carved wood lamppost with a golden beacon box resting on a stone shoe.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.2,
+              0.35,
+              0.04
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d5dedb",
+              "#bcc7c2",
+              "#9ca8a3"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.65,
+              6
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#ff8e30",
+              "#dc7419",
+              "#b85311"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.28,
+              0.3,
+              0.28,
+              0.05
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#e8a817",
+              "#c48705"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "eyrie-mountain-pine",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          2,
+          3
+        ]
+      ],
+      "where": "Flanking the rear cliff perimeter and shielding the eagle's roost from harsh canyon winds.",
+      "shape": {
+        "summary": "Sturdy alpine pine with four graduated tiers of chunky scalloped foliage.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.7,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#a35e4e",
+              "#874638",
+              "#703a30"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.1
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#57dba1",
+              "#42bf87",
+              "#2f9c6a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.78,
+              0.42,
+              0.78,
+              0.09
+            ],
+            "at": [
+              0,
+              1.05,
+              0
+            ],
+            "tones": [
+              "#57dba1",
+              "#42bf87",
+              "#2f9c6a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.4,
+              0.58,
+              0.08
+            ],
+            "at": [
+              0,
+              1.47,
+              0
+            ],
+            "tones": [
+              "#69d45d",
+              "#4db842",
+              "#37942e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.38,
+              0.38,
+              0.07
+            ],
+            "at": [
+              0,
+              1.87,
+              0
+            ],
+            "tones": [
+              "#9ee85d",
+              "#7dc742",
+              "#5f9e2e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "eyrie-cliff-boulder",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.85,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          2
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "where": "Heavy stacked granite boulders anchoring the high terrace drops.",
+      "shape": {
+        "summary": "Stacked low-poly chalk-grey boulders with chamfered faces.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.5,
+              0.65,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ebeff0",
+              "#d2d9db",
+              "#a8b3b5"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.38,
+              0.45,
+              0.08
+            ],
+            "at": [
+              0.1,
+              0.48,
+              -0.05
+            ],
+            "tones": [
+              "#ebeff0",
+              "#d2d9db",
+              "#838f91"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "sovereign-bald-eagle",
+      "source": "The noble eagle portrait in IMAGE 1 with bold hooked golden beak, piercing pale eye, white crown, and dark feathered body",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "pose": "Perched calmly atop the great woven aerie nest, head turned slightly southward to watch over its high mountain territory.",
+      "cell": [
+        10,
+        2
+      ],
+      "facing": "s",
+      "why": "The majestic focal creature of the mountain sanctuary, relaxed and at home in its summit roost.",
+      "shape": {
+        "summary": "Chunky toy eagle built from rounded charcoal body blocks, crisp snow-white plumage head, large hooked golden beak, and yellow talons.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.18,
+              0.4,
+              0.04
+            ],
+            "at": [
+              -0.18,
+              0,
+              0.05
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#e8a817",
+              "#c48705"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.18,
+              0.4,
+              0.04
+            ],
+            "at": [
+              0.18,
+              0,
+              0.05
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#e8a817",
+              "#c48705"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.85,
+              0.68,
+              0.12
+            ],
+            "at": [
+              0,
+              0.18,
+              0
+            ],
+            "tones": [
+              "#515046",
+              "#262622",
+              "#191917"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.25,
+              0.7,
+              0.55,
+              0.08
+            ],
+            "at": [
+              -0.38,
+              0.22,
+              -0.05
+            ],
+            "rot": [
+              5,
+              -8,
+              -12
+            ],
+            "tones": [
+              "#76746a",
+              "#515046",
+              "#262622"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.25,
+              0.7,
+              0.55,
+              0.08
+            ],
+            "at": [
+              0.38,
+              0.22,
+              -0.05
+            ],
+            "rot": [
+              5,
+              8,
+              12
+            ],
+            "tones": [
+              "#76746a",
+              "#515046",
+              "#262622"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.62,
+              0.62,
+              0.58,
+              0.1
+            ],
+            "at": [
+              0,
+              0.98,
+              0.05
+            ],
+            "rot": [
+              0,
+              -12,
+              0
+            ],
+            "tones": [
+              "#ebeff0",
+              "#d2d9db",
+              "#a8b3b5"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0.06,
+              0.48,
+              6
+            ],
+            "at": [
+              0.02,
+              1.18,
+              0.36
+            ],
+            "rot": [
+              75,
+              -12,
+              0
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#e8a817",
+              "#c48705"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.22,
+              5
+            ],
+            "at": [
+              0.03,
+              1.06,
+              0.68
+            ],
+            "rot": [
+              115,
+              -12,
+              0
+            ],
+            "tones": [
+              "#ffcf3b",
+              "#e8a817",
+              "#c48705"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              0.09
+            ],
+            "at": [
+              -0.28,
+              1.32,
+              0.22
+            ],
+            "tones": [
+              "#7ae5f5",
+              "#21b9db",
+              "#129bb8"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.45,
+              0.12,
+              0.04
+            ],
+            "at": [
+              0,
+              0.15,
+              -0.38
+            ],
+            "rot": [
+              28,
+              0,
+              0
+            ],
+            "tones": [
+              "#ebeff0",
+              "#d2d9db",
+              "#838f91"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVTTTRRRRRTVVVV",
+      "VVTRRRRRRRFPTVVV",
+      "VVTRRRRRRRPPTVVV",
+      "VVVRRRRRRPPPPVVV",
+      "VVVTTRRPPPPTTVVV",
+      "VVVVVRRPPTTRTVVV",
+      "VVVVTTPPPPTTVVVV",
+      "VVVVVPPPPPTVVVVV",
+      "VVVVTTPPPPGTVVVV",
+      "VVVVVGPPGGTVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0001113333310000",
+      "0013333333331000",
+      "0013333333321000",
+      "0003333332222000",
+      "0001122222111000",
+      "0000022221111000",
+      "0000112221110000",
+      "0000011111100000",
+      "0000111111110000",
+      "0000011111100000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 10,
+      "z": 2,
+      "what": "sovereign-bald-eagle perched on great-aerie-nest at peak height tier 3"
+    },
+    "mass": "The main visual weight anchors strongly in the upper-right quadrant where tiered cliffs reach height 3 to support the great eagle nest.",
+    "read": "The viewer enters at the lower center along an off-centre golden path in row 10, winding up through gentle grass terraces. The trail doglegs left past path lanterns, passes through twin threshold totem arches around row 6, and climbs a stone cliff stair up to height 3 where the eagle stands regal and serene against the open dark sky backdrop."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.2,
+      "types": [
+        {
+          "type": "eyrie-mountain-pine",
+          "variant": "pine",
+          "weight": 0.7
+        },
+        {
+          "type": "tree-gold",
+          "variant": "round",
+          "weight": 0.3
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.45,
+    "decor_weights": {
+      "switchback-trail-lantern": 0.35,
+      "eyrie-cliff-boulder": 0.3,
+      "roost-cache-chest": 0.15,
+      "flower": 0.2
+    },
+    "lighting": {
+      "bg": "#2b2e3b",
+      "ambient": 0.9,
+      "sun": 0.15,
+      "tint": "#fff9eb",
+      "notes": "Crisp warm midday sunlight washing over high alpine plateaus, casting soft neat shadows on the clay-hued canyon faces."
+    },
+    "rules": [
+      "Approach path P enters at row 10 column 6-7 and winds back and forth across terraces",
+      "Threshold totem pillars stand straddling the path at height 2",
+      "Focal eagle nest sits securely on the height-3 plateau at column 9 row 2",
+      "Cliffs step down cleanly into the void around all island edges"
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The High Talon Eyrie, a sun-drenched alpine roost built on stacked stone terraces above the clouds.",
+    "approach": "The wanderer ascends an off-centre winding sand switchback, climbing through weathered totem archways to reach the eagle's sunlit roost.",
+    "creature_doing": "Resting peacefully in its woven log aerie beside its clutch of treasures, preening and gazing out across the vast valley below.",
+    "palette_key": "Sunlit midday alpine warmth with glowing golden beaks, golden paths, fresh mint pines, and clean chalk stone under soft amber sun.",
+    "terrain": "Tiered mesa cliffs stepping upward from lush grassy footings to a broad height-3 stone aerie platform.",
+    "summary": "An everyday domestic sanctuary for the giant eagle, reimagined as a tiered mountain home level from the cute isometric asset pack."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

@@ -1,0 +1,1265 @@
+{
+  "source": {
+    "art": "pipeline/seed/gremlin.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "Tense",
+    "Predatory",
+    "Stalking",
+    "Arid",
+    "Twilight",
+    "Biomechanical"
+  ],
+  "observations": [
+    {
+      "what": "Smooth faceless ivory head tapering to an angular jaw with no visible sensory features",
+      "box": [
+        220,
+        290,
+        420,
+        490
+      ],
+      "maps_to": "creature_head"
+    },
+    {
+      "what": "Segmented mechanical conduit cable arching overhead from the base of the skull forward to an ocular crane",
+      "box": [
+        170,
+        115,
+        425,
+        430
+      ],
+      "maps_to": "optic_armature"
+    },
+    {
+      "what": "Three-clawed hand cupping a perfect glowing circular sphere or core beneath the ocular lens",
+      "box": [
+        425,
+        105,
+        540,
+        255
+      ],
+      "maps_to": "core_hand"
+    },
+    {
+      "what": "Slender, emaciated torso with distinct chest plate and ribbed abdominal carapace bands",
+      "box": [
+        465,
+        345,
+        670,
+        520
+      ],
+      "maps_to": "ribbed_torso"
+    },
+    {
+      "what": "Long serpentine spinal tail arching high over the back terminating in a flared fin-like membrane",
+      "box": [
+        48,
+        395,
+        300,
+        740
+      ],
+      "maps_to": "spine_fin_cable"
+    },
+    {
+      "what": "Secondary detached mechanical intake or blooming tooth-lined siphon hovering in upper right",
+      "box": [
+        100,
+        650,
+        360,
+        975
+      ],
+      "maps_to": "predatory_bloom_spire"
+    },
+    {
+      "what": "Broad webbed digitigrade three-toed frog-like hind foot planted flat on the lower right ground",
+      "box": [
+        715,
+        500,
+        995,
+        805
+      ],
+      "maps_to": "webbed_hind_limb"
+    },
+    {
+      "what": "Forelimb crouching low with knuckles and claws braced against the lower left terrain",
+      "box": [
+        655,
+        250,
+        900,
+        520
+      ],
+      "maps_to": "braced_forelimb"
+    },
+    {
+      "what": "Segmented ring couplers wrapping the thick cables at stress and pivot points",
+      "box": [
+        100,
+        395,
+        240,
+        580
+      ],
+      "maps_to": "cable_couplers"
+    },
+    {
+      "what": "Serrated fin crest with delicate spines protruding upward from the topmost tail arch",
+      "box": [
+        45,
+        405,
+        145,
+        735
+      ],
+      "maps_to": "crest_fin"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#dfdfdf",
+        "share": 0.221,
+        "role": "smooth pale chitin and white ground highlights"
+      },
+      {
+        "hex": "#e9e9e9",
+        "share": 0.185,
+        "role": "unshaded parchment background and energy sphere"
+      },
+      {
+        "hex": "#d3d3d3",
+        "share": 0.18,
+        "role": "mid-tone skin shading and lit cable joints"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.143,
+        "role": "shaded body flanks and ribbed plates"
+      },
+      {
+        "hex": "#aeaeae",
+        "share": 0.093,
+        "role": "darker mechanical casings and tendon valleys"
+      },
+      {
+        "hex": "#919191",
+        "share": 0.083,
+        "role": "deep pencil crosshatching on lower limbs"
+      },
+      {
+        "hex": "#606060",
+        "share": 0.05,
+        "role": "recessed shadows beneath claws and belly"
+      },
+      {
+        "hex": "#2c2c2c",
+        "share": 0.045,
+        "role": "dense black outlines, joints, and mouth maw"
+      }
+    ],
+    "translation": {
+      "bg": "#221a29",
+      "grass": {
+        "top": "#82b842",
+        "fringe": "#669c30",
+        "fringeDark": "#4d7a22",
+        "speck": "#9cd455"
+      },
+      "sand": {
+        "top": "#e09f28",
+        "lip": "#ba7d15",
+        "edge": "#cc8e1e",
+        "dots": "#ebb03d"
+      },
+      "dirt": {
+        "top": "#c9823e",
+        "patch": "#b36e2d",
+        "mottle": "#9e5c20",
+        "border": "#b87330"
+      },
+      "stone": {
+        "top": "#bfa07e",
+        "pebble": "#d4b898",
+        "pebbleShade": "#a88969",
+        "rim": "#947657"
+      },
+      "cliffUpper": {
+        "left": "#784b42",
+        "right": "#59332c",
+        "seam": "#45241e"
+      },
+      "cliffLower": {
+        "left": "#663e37",
+        "right": "#472822",
+        "seam": "#361c17",
+        "speck": "#2b1410"
+      },
+      "water": {
+        "top": "#42d9e8",
+        "bubble": "#8beef5",
+        "deep": "#1a9fb0",
+        "fall": [
+          "#28c0cf",
+          "#1baab8",
+          "#148e9c"
+        ],
+        "foam": "#d2fcff"
+      },
+      "wood": {
+        "light": "#e06c19",
+        "mid": "#ba540f",
+        "dark": "#943e06",
+        "shadow": "#6e2a00",
+        "end": "#f0a667"
+      },
+      "treeMint": [
+        "#4cb87e",
+        "#3ca16b",
+        "#2c8254"
+      ],
+      "treeLime": [
+        "#9ec73e",
+        "#82a82e",
+        "#678a1f"
+      ],
+      "treeLeaf": [
+        "#68a83e",
+        "#538c2e",
+        "#3f7020"
+      ],
+      "treeTeal": [
+        "#3ab89c",
+        "#2aa186",
+        "#1c826b",
+        "#126350"
+      ],
+      "treeGold": [
+        "#e09f28",
+        "#ba7d15",
+        "#945e07"
+      ],
+      "trunk": [
+        "#6e382d",
+        "#52261e"
+      ],
+      "rock": [
+        "#c7b6a7",
+        "#aba093",
+        "#857b70",
+        "#61584f"
+      ],
+      "wellStone": [
+        "#b09b85",
+        "#94816c",
+        "#786653"
+      ],
+      "flowerOrange": [
+        "#e66b17",
+        "#d48817"
+      ],
+      "berry": [
+        "#d43b60",
+        "#b3294c"
+      ],
+      "bushTeal": [
+        "#52c7aa",
+        "#3ea68c",
+        "#2d856f"
+      ],
+      "gold": [
+        "#f0a624",
+        "#c98514",
+        "#ffd066"
+      ]
+    },
+    "notes": "The monochrome graphite illustration is translated into an evocative amber-dusk wasteland where dirt and rich ochre sands dominate the arena floor, enclosed by jagged dark-clay basalt palisades under an eerie violet-slate sky."
+  },
+  "motifs": [
+    {
+      "name": "ribbed-bone-spires",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          7
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "where": "Straddles the diagonal approach path halfway into the arena as a natural bone-like threshold gate derived from the creature's arched spine ribbing.",
+      "shape": {
+        "summary": "A tapered, bowed ivory monolith wrapped with dark ribbed collars simulating segmented spinal bone.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.08,
+              2,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "rot": [
+              -6,
+              0,
+              8
+            ],
+            "tones": [
+              "#d4b898",
+              "#aba093",
+              "#857b70"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.12,
+              0.3,
+              0.05
+            ],
+            "at": [
+              0.02,
+              0.5,
+              -0.02
+            ],
+            "tones": [
+              "#784b42",
+              "#59332c",
+              "#45241e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.26,
+              0.1,
+              0.26,
+              0.05
+            ],
+            "at": [
+              0.04,
+              1.1,
+              -0.04
+            ],
+            "tones": [
+              "#784b42",
+              "#59332c",
+              "#45241e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.2,
+              0.08,
+              0.2,
+              0.05
+            ],
+            "at": [
+              0.07,
+              1.6,
+              -0.06
+            ],
+            "tones": [
+              "#784b42",
+              "#59332c",
+              "#45241e"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              1
+            ],
+            "at": [
+              0.09,
+              2.05,
+              -0.08
+            ],
+            "tones": [
+              "#ffd066",
+              "#f0a624",
+              "#c98514"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "fractured-stalker-crag",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.45,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          8,
+          4
+        ]
+      ],
+      "where": "Rests directly beneath the hunting creature's crouch at the focal point of the arena.",
+      "shape": {
+        "summary": "A broad, cracked hexagonal stone dais with ribbed peripheral edging marking the creature's perch.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.48,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#aba093",
+              "#857b70",
+              "#61584f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.12,
+              0.7,
+              0.06
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "rot": [
+              0,
+              25,
+              0
+            ],
+            "tones": [
+              "#c7b6a7",
+              "#aba093",
+              "#857b70"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.08,
+              0.5,
+              0.05
+            ],
+            "at": [
+              0,
+              0.37,
+              0
+            ],
+            "tones": [
+              "#d4b898",
+              "#aba093",
+              "#61584f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "torch",
+      "type": "torch",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          8
+        ],
+        [
+          5,
+          9
+        ]
+      ],
+      "where": "Flanks the diagonal entry path in paired beacons leading up toward the gateway spires.",
+      "shape": {
+        "summary": "Standard toy-like standing wood torch with stacked amber flame cubes.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.14,
+              0.8,
+              0.14
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e06c19",
+              "#ba540f",
+              "#943e06"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.24,
+              0.14,
+              0.24,
+              0.05
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#61584f",
+              "#472822",
+              "#361c17"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.28,
+              6
+            ],
+            "at": [
+              0,
+              0.94,
+              0
+            ],
+            "tones": [
+              "#ffd066",
+              "#f0a624",
+              "#c98514"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "chest",
+      "type": "chest",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Sits discarded in the sand behind the creature's perch as scavenged battlefield salvage.",
+      "shape": {
+        "summary": "Chunky brass-reinforced treasure chest tucked against the cliff wall.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.38,
+              0.4,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ba540f",
+              "#943e06",
+              "#6e2a00"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.18,
+              0.42,
+              0.06
+            ],
+            "at": [
+              0,
+              0.38,
+              0
+            ],
+            "tones": [
+              "#e06c19",
+              "#ba540f",
+              "#943e06"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.1,
+              0.12,
+              0.06
+            ],
+            "at": [
+              0,
+              0.32,
+              0.21
+            ],
+            "tones": [
+              "#ffd066",
+              "#f0a624",
+              "#c98514"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gem",
+      "type": "gem",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          10,
+          4
+        ],
+        [
+          7,
+          2
+        ]
+      ],
+      "where": "Dropped luminous energy shards shimmering near the creature's scavenging zone.",
+      "shape": {
+        "summary": "Faceted crystalline energy crystal glowing brightly.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.02,
+              0.2,
+              0.3,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffd066",
+              "#f0a624",
+              "#c98514"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.02,
+              0.3,
+              6
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#ffd066",
+              "#f0a624",
+              "#c98514"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock-big",
+      "type": "rock-big",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          4
+        ],
+        [
+          11,
+          6
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "where": "Rough boulders framing the arena clearing and defining the combat boundaries.",
+      "shape": {
+        "summary": "Stacked polygonal boulders with sharp top planar facets.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.55,
+              0.65,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#aba093",
+              "#857b70",
+              "#61584f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.35,
+              0.45,
+              0.08
+            ],
+            "at": [
+              0.08,
+              0.55,
+              -0.05
+            ],
+            "rot": [
+              0,
+              30,
+              0
+            ],
+            "tones": [
+              "#c7b6a7",
+              "#aba093",
+              "#857b70"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "stepping-stones",
+      "type": "stepping-stones",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.1,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          10
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "where": "Embedded flat flagstones guiding the diagonal approach path across the sandy arena floor.",
+      "shape": {
+        "summary": "Low rounded stepping tiles flush with the ground.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.08,
+              8
+            ],
+            "at": [
+              -0.12,
+              0,
+              -0.1
+            ],
+            "tones": [
+              "#d4b898",
+              "#aba093",
+              "#857b70"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.2,
+              0.08,
+              8
+            ],
+            "at": [
+              0.14,
+              0,
+              0.12
+            ],
+            "tones": [
+              "#d4b898",
+              "#aba093",
+              "#857b70"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "Conduit Stalker",
+      "source": "The central biomechanical predator crouching on webbed feet, clutching a glowing sphere while an overhead ocular probe tracks prey.",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.5,
+      "pose": "Crouched in an alert predatory stance atop the crag, grasping a gleaming core in one claw while its overhead optic sensor sweeps southward.",
+      "cell": [
+        7,
+        4
+      ],
+      "facing": "s",
+      "why": "Acts as the solitary biomechanical guardian encountered mid-hunt in this windswept caldera arena.",
+      "shape": {
+        "summary": "Chunky toy-like biomechanical stalker with an ivory head, arched back conduit, clutching hand, and splayed legs.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.48,
+              0.1,
+              0.42,
+              0.05
+            ],
+            "at": [
+              0,
+              0,
+              -0.08
+            ],
+            "tones": [
+              "#aba093",
+              "#857b70",
+              "#61584f"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.16,
+              0.08,
+              -0.08
+            ],
+            "to": [
+              0.12,
+              0.65,
+              0.05
+            ],
+            "tones": [
+              "#c7b6a7",
+              "#aba093",
+              "#857b70"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              -0.16,
+              0.08,
+              -0.02
+            ],
+            "to": [
+              -0.1,
+              0.55,
+              0.08
+            ],
+            "tones": [
+              "#c7b6a7",
+              "#aba093",
+              "#857b70"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.28,
+              0.6,
+              0.22,
+              0.06
+            ],
+            "at": [
+              0,
+              0.6,
+              0.05
+            ],
+            "rot": [
+              18,
+              0,
+              0
+            ],
+            "tones": [
+              "#d4b898",
+              "#aba093",
+              "#857b70"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.28,
+              0.26,
+              0.06
+            ],
+            "at": [
+              0,
+              0.7,
+              0.04
+            ],
+            "tones": [
+              "#784b42",
+              "#59332c",
+              "#45241e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.24,
+              0.45,
+              0.3,
+              0.08
+            ],
+            "at": [
+              0,
+              1.25,
+              0.12
+            ],
+            "rot": [
+              -12,
+              15,
+              0
+            ],
+            "tones": [
+              "#dfdfdf",
+              "#c4c4c4",
+              "#919191"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              1.3,
+              -0.02
+            ],
+            "to": [
+              0,
+              2.1,
+              -0.2
+            ],
+            "tones": [
+              "#61584f",
+              "#472822",
+              "#361c17"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              2.1,
+              -0.2
+            ],
+            "to": [
+              -0.12,
+              1.8,
+              0.18
+            ],
+            "tones": [
+              "#784b42",
+              "#59332c",
+              "#45241e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.04,
+              0.22,
+              6
+            ],
+            "at": [
+              -0.12,
+              1.75,
+              0.22
+            ],
+            "rot": [
+              75,
+              -20,
+              0
+            ],
+            "tones": [
+              "#857b70",
+              "#61584f",
+              "#472822"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              -0.1,
+              1.05,
+              0.12
+            ],
+            "to": [
+              -0.2,
+              1.3,
+              0.26
+            ],
+            "tones": [
+              "#c7b6a7",
+              "#aba093",
+              "#857b70"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              1
+            ],
+            "at": [
+              -0.2,
+              1.38,
+              0.28
+            ],
+            "tones": [
+              "#ffd066",
+              "#f0a624",
+              "#c98514"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.03,
+                0
+              ],
+              [
+                0.03,
+                0
+              ],
+              [
+                0,
+                -0.25
+              ]
+            ],
+            "at": [
+              0,
+              2.05,
+              -0.1
+            ],
+            "tones": [
+              "#dfdfdf",
+              "#c4c4c4",
+              "#aba093"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVRRRRRRRRRVVVV",
+      "VVRRRRGGTRRRRRVV",
+      "VRRTGGGGGGRRRRVV",
+      "VRGGGGGGGGTRRRVV",
+      "VRGGGGFFPGRRRRVV",
+      "VRGGGPPRGGRRRRVV",
+      "VRRTGPGGGRRRRVVV",
+      "VRRTGPPGGTRRRVVV",
+      "VVRGPGGGGRRRVVVV",
+      "VVRPGGGGGRRVVVVV",
+      "VVPGGGGGGRVVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0003333333330000",
+      "0033331113333300",
+      "0331111111333300",
+      "0311111111133300",
+      "0311112211333300",
+      "0311111111333300",
+      "0311111111333000",
+      "0331111111333000",
+      "0031111113330000",
+      "0031111113300000",
+      "0011111113000000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 4,
+      "what": "The Conduit Stalker poised crouched on the crag holding the glowing core"
+    },
+    "mass": "Mass sits heavily along the high jagged cliffs running across the back and right perimeter, with the open flat arena floor opening wide to the lower left.",
+    "read": "The viewer's eye enters at the lower left path notch [2,10], follows the stepped diagonal path through the bone-spire threshold, and locks onto the hunched biomechanical stalker framed starkly against the towering rear cliff palisade."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "tree-round",
+          "variant": "0",
+          "weight": 0.6
+        },
+        {
+          "type": "tree-orange",
+          "variant": "0",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.22,
+    "void_share": 0.38,
+    "decor_weights": {
+      "rock": 0.45,
+      "rock-big": 0.2,
+      "gem": 0.15,
+      "torch": 0.1,
+      "chest": 0.1
+    },
+    "lighting": {
+      "bg": "#221a29",
+      "ambient": 0.78,
+      "sun": 0.28,
+      "tint": "#e09f28",
+      "notes": "Low warm amber sunlight casts crisp angled shadows against deep dusky slate-violet voids."
+    },
+    "rules": [
+      "Approach path enters from bottom-left rim and advances northeast diagonally across the arena floor.",
+      "The threshold bone spires straddle the diagonal approach at mid-distance.",
+      "Tall height-3 cliff blocks strictly wall off the north and east borders, leaving the center clear.",
+      "Focal creature occupies the height-2 rocky outcrop at the head of the path.",
+      "Void bites deeply into southern and western edges, giving the arena a precarious precipice feel."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "stone",
+      "path": "dirt",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Scavenger's Crag Caldera, a windswept high-altitude hunting amphitheater overlooking the edge of the world.",
+    "approach": "The wanderer ascends from a narrow southwestern cliff notch, following an amber dirt trail past twin bone spires onto the open arena floor.",
+    "creature_doing": "The biomechanical stalker crouches tense and alert atop its rock shelf, holding aloft a purloined power core as its cranial optic arm swivels to track the intruder.",
+    "palette_key": "Amber golden-hour wasteland tones of ochre sand and weathered stone bathed in warm golden light against deep violet abyss.",
+    "terrain": "A broad, flat arena floor at height 1 walled by towering height-3 cliff palisades with zero water.",
+    "summary": "An intense encounter arena where the player interrupts a solitary biomechanical stalker examining its scavenged prize."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 3,
+    "variantFragment": "READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.",
+    "avoid": [
+      "pipeline/seed/concepts/gremlin-1.json",
+      "pipeline/seed/concepts/gremlin-2.json"
+    ]
+  }
+}

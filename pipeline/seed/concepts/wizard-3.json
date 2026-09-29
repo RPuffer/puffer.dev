@@ -1,0 +1,1193 @@
+{
+  "source": {
+    "art": "pipeline/seed/wizard.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "defiant",
+    "eccentric",
+    "crackling",
+    "dramatic",
+    "windblown",
+    "mystic"
+  ],
+  "observations": [
+    {
+      "what": "A tall, slender hot dog wiener character with a curved tip stands upright on two spindly sausage legs.",
+      "box": [
+        356,
+        396,
+        762,
+        558
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "A pointed, crumpled blue wizard's hat with a five-pointed star emblem sits atop the sausage head.",
+      "box": [
+        259,
+        329,
+        388,
+        663
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "A midnight-blue wizard robe decorated with tiny yellow star constellations draping over the sausage torso.",
+      "box": [
+        486,
+        313,
+        853,
+        698
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "An exaggerated upright white pop-up collar framing the wiener's face.",
+      "box": [
+        426,
+        347,
+        599,
+        589
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "A whimsical face with two tiny dot eyes and a curved '3'-shaped mouth drawn on the frankfurter skin.",
+      "box": [
+        409,
+        419,
+        453,
+        477
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "An outstretched right wiener arm holding a miniature swirling blue flame over an open palm.",
+      "box": [
+        510,
+        240,
+        626,
+        340
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "A thin, curving wooden walking stick or staff held in the left hand.",
+      "box": [
+        419,
+        638,
+        804,
+        701
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Playful hand-lettered text reading 'you're A Glizard 'ARRY' in thick ink strokes.",
+      "box": [
+        117,
+        169,
+        298,
+        819
+      ],
+      "maps_to": "lore"
+    },
+    {
+      "what": "Blank white empty backdrop framing the eccentric magical encounter.",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "V"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ffffff",
+        "share": 0.835,
+        "role": "background paper"
+      },
+      {
+        "hex": "#122346",
+        "share": 0.063,
+        "role": "wizard robe and pointed hat"
+      },
+      {
+        "hex": "#644b48",
+        "share": 0.026,
+        "role": "deep ink lines and staff bark"
+      },
+      {
+        "hex": "#c2674e",
+        "share": 0.025,
+        "role": "sausage wiener skin tone"
+      },
+      {
+        "hex": "#7f878b",
+        "share": 0.015,
+        "role": "collar shadow tone"
+      },
+      {
+        "hex": "#f6f7f7",
+        "share": 0.014,
+        "role": "high collar bright white"
+      },
+      {
+        "hex": "#b4b7b8",
+        "share": 0.012,
+        "role": "mid grey boundary shading"
+      },
+      {
+        "hex": "#dbdede",
+        "share": 0.01,
+        "role": "pale parchment highlight"
+      }
+    ],
+    "translation": {
+      "bg": "#101626",
+      "grass": {
+        "top": "#82b84c",
+        "fringe": "#659438",
+        "fringeDark": "#4d7329",
+        "speck": "#9cd45e"
+      },
+      "sand": {
+        "top": "#d4972c",
+        "lip": "#ad7317",
+        "edge": "#bf8420",
+        "dots": "#e3b04b"
+      },
+      "dirt": {
+        "top": "#b86e42",
+        "patch": "#c97f52",
+        "mottle": "#9e5c33",
+        "border": "#854924"
+      },
+      "stone": {
+        "top": "#9da4b0",
+        "pebble": "#bcc4d1",
+        "pebbleShade": "#7f8691",
+        "rim": "#656a73"
+      },
+      "cliffUpper": {
+        "left": "#6a4540",
+        "right": "#52332f",
+        "seam": "#402623"
+      },
+      "cliffLower": {
+        "left": "#784d47",
+        "right": "#4d302d",
+        "seam": "#38201e",
+        "speck": "#2e1917"
+      },
+      "water": {
+        "top": "#42c8e8",
+        "bubble": "#a3eeff",
+        "deep": "#1a8cb0",
+        "fall": [
+          "#28b0d4",
+          "#1e9ec0",
+          "#178dae"
+        ],
+        "foam": "#d4f7ff"
+      },
+      "wood": {
+        "light": "#cf691d",
+        "mid": "#b05210",
+        "dark": "#8a3a06",
+        "shadow": "#692900",
+        "end": "#e39a58"
+      },
+      "treeMint": [
+        "#4cb886",
+        "#3da173",
+        "#2d825b"
+      ],
+      "treeLime": [
+        "#98c94b",
+        "#7ea83b",
+        "#62852b"
+      ],
+      "treeLeaf": [
+        "#68aa4a",
+        "#508f36",
+        "#3c6e26"
+      ],
+      "treeTeal": [
+        "#20aca6",
+        "#19928d",
+        "#127c78",
+        "#0d6562"
+      ],
+      "treeGold": [
+        "#d49d28",
+        "#b88219",
+        "#96650c"
+      ],
+      "trunk": [
+        "#6b433a",
+        "#54322a"
+      ],
+      "rock": [
+        "#c2c8d1",
+        "#a3abb8",
+        "#7d8591",
+        "#5e646e"
+      ],
+      "wellStone": [
+        "#a8a092",
+        "#8c8477",
+        "#6e675c"
+      ],
+      "flowerOrange": [
+        "#f07324",
+        "#d95a0f"
+      ],
+      "berry": [
+        "#e64063",
+        "#c7284b"
+      ],
+      "bushTeal": [
+        "#2dbda6",
+        "#219e8a",
+        "#177a6a"
+      ],
+      "gold": [
+        "#f0b724",
+        "#d49c15",
+        "#fae06b"
+      ]
+    },
+    "notes": "The palette shifts to an intense twilight battleground under a strange navy-indigo sky (#101626) borrowed from the Glizard's robes, contrasted with scorched terracotta dirt floors and rich sausage-cliff walls.",
+    "clamped": [
+      "trunk[0] #6b433a->#6b433a",
+      "treeTeal[0] #1b8f8a->#20aca6",
+      "treeTeal[1] #147571->#19928d",
+      "treeTeal[2] #0e5e5b->#127c78",
+      "treeTeal[3] #094745->#0d6562"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "dueling_boundary_markers",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          8,
+          6
+        ],
+        [
+          10,
+          8
+        ]
+      ],
+      "where": "Twin weathered threshold runic spires straddling the diagonal entryway where challengers must halt before facing the wizard.",
+      "shape": {
+        "summary": "Stacked polygonal stone pillar inscribed with deep cobalt arcane notches and capped with a pointed pyramid.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.3,
+              0.5,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#bcc4d1",
+              "#a3abb8",
+              "#7d8591"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.34,
+              1,
+              0.34
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#9da4b0",
+              "#7f8691",
+              "#656a73"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.26,
+              0.02,
+              0.3,
+              4
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "rot": [
+              0,
+              45,
+              0
+            ],
+            "tones": [
+              "#f0b724",
+              "#d49c15",
+              "#fae06b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "arena_runic_slab",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.25,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "where": "A scorched ritual dueling flagstone lying directly beneath the Glizard's combat stance.",
+      "shape": {
+        "summary": "Low bevelled stone octagon carved with deep mystic star lines echoing the robe stars.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.48,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#bcc4d1",
+              "#9da4b0",
+              "#7f8691"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              0.05,
+              0.2
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "rot": [
+              0,
+              45,
+              0
+            ],
+            "tones": [
+              "#f0b724",
+              "#d49c15",
+              "#fae06b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "wild_crag_pillar",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.8,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          1,
+          5
+        ]
+      ],
+      "where": "Sheer jagged natural rock needles enclosing the windy combat arena on the cliffs.",
+      "shape": {
+        "summary": "Towering jagged low-poly rock spire formed of three stacked tapering irregular blocks.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.55,
+              0.4,
+              1.1,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#7d8591",
+              "#6a4540",
+              "#52332f"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.4,
+              0.26,
+              1,
+              6
+            ],
+            "at": [
+              0,
+              1.05,
+              0
+            ],
+            "rot": [
+              5,
+              20,
+              -5
+            ],
+            "tones": [
+              "#a3abb8",
+              "#784d47",
+              "#4d302d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.26,
+              0.08,
+              0.7,
+              5
+            ],
+            "at": [
+              0.04,
+              2,
+              0
+            ],
+            "rot": [
+              -4,
+              10,
+              6
+            ],
+            "tones": [
+              "#c2c8d1",
+              "#a3abb8",
+              "#7d8591"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "roasted_brazier",
+      "type": "new",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          11,
+          9
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "where": "A flanking sequence of iron pyre braziers burning with eerie blue flames guiding the combat path.",
+      "shape": {
+        "summary": "Heavy tripod iron stand holding a wide iron firebowl containing faceted cyan flame spikes.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.24,
+              0.6,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#7d8591",
+              "#5e646e",
+              "#402623"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.16,
+              0.25,
+              8
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#a3abb8",
+              "#5e646e",
+              "#38201e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#a3eeff",
+              "#42c8e8",
+              "#1a8cb0"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sorcery_crystal",
+      "type": "gem",
+      "variant_of": "gem",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.7,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Cluster of humming azure arcane crystals embedded in the dirt around the duel zone.",
+      "shape": {
+        "summary": "Angled gem clusters glowing in icy cyan hues.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.02,
+              0.7,
+              5
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "rot": [
+              10,
+              15,
+              -5
+            ],
+            "tones": [
+              "#a3eeff",
+              "#42c8e8",
+              "#1a8cb0"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.45,
+              5
+            ],
+            "at": [
+              0.15,
+              0,
+              -0.1
+            ],
+            "rot": [
+              -12,
+              40,
+              14
+            ],
+            "tones": [
+              "#d4f7ff",
+              "#42c8e8",
+              "#28b0d4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "wizard_cache_barrel",
+      "type": "barrel",
+      "variant_of": "barrel",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.7,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "where": "Wooden provisions barrels banded with brass tucked behind the dueling arena perimeter.",
+      "shape": {
+        "summary": "Bulging faceted wooden barrel with dark metal hoops.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.7,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e39a58",
+              "#cf691d",
+              "#b05210"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.34,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#a3abb8",
+              "#7d8591",
+              "#5e646e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "twisted_scrub_tree",
+      "type": "tree-round",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          2
+        ],
+        [
+          13,
+          6
+        ]
+      ],
+      "where": "Stunted windblown crag trees surviving along the cliff periphery.",
+      "shape": {
+        "summary": "Twisted dark trunk supporting bunched rounded teal-leafed canopy boxes.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              1.2,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#6b433a",
+              "#54322a",
+              "#402623"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.8,
+              0.9,
+              0.15
+            ],
+            "at": [
+              0,
+              1.1,
+              0
+            ],
+            "tones": [
+              "#20aca6",
+              "#19928d",
+              "#127c78"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.6,
+              0.65,
+              0.12
+            ],
+            "at": [
+              0.1,
+              1.7,
+              -0.05
+            ],
+            "tones": [
+              "#2dbda6",
+              "#20aca6",
+              "#19928d"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "glizard_combatant",
+      "source": "Glizard 'Arry the wiener wizard in robe and hat holding staff and flame in center of artwork",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "shape": {
+        "summary": "Chunky sausage sorcerer in a midnight-blue star-draped robe, tall popped white collar, gnarled staff, and pointy wizard hat holding a blue flame.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              1.3,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#c97f52",
+              "#c2674e",
+              "#9e5c33"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.07,
+              0.4,
+              6
+            ],
+            "at": [
+              -0.1,
+              0,
+              0
+            ],
+            "tones": [
+              "#c97f52",
+              "#c2674e",
+              "#9e5c33"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.07,
+              0.4,
+              6
+            ],
+            "at": [
+              0.1,
+              0,
+              0.05
+            ],
+            "tones": [
+              "#c97f52",
+              "#c2674e",
+              "#9e5c33"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.26,
+              1.1,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#1a2c54",
+              "#122346",
+              "#0c1730"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.65,
+              0.2,
+              0.1
+            ],
+            "at": [
+              0,
+              0.95,
+              -0.08
+            ],
+            "rot": [
+              -15,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#dbdede",
+              "#b4b7b8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.04,
+              1
+            ],
+            "at": [
+              -0.06,
+              1.35,
+              0.19
+            ],
+            "tones": [
+              "#101626",
+              "#101626",
+              "#101626"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.04,
+              1
+            ],
+            "at": [
+              0.06,
+              1.35,
+              0.19
+            ],
+            "tones": [
+              "#101626",
+              "#101626",
+              "#101626"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.46,
+              0.36,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              1.5,
+              0
+            ],
+            "tones": [
+              "#1a2c54",
+              "#122346",
+              "#0c1730"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.32,
+              0.04,
+              0.65,
+              7
+            ],
+            "at": [
+              0,
+              1.6,
+              -0.04
+            ],
+            "rot": [
+              -10,
+              0,
+              -5
+            ],
+            "tones": [
+              "#1a2c54",
+              "#122346",
+              "#0c1730"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.04
+            ],
+            "at": [
+              0.3,
+              0,
+              0.15
+            ],
+            "to": [
+              0.25,
+              1.7,
+              0.1
+            ],
+            "tones": [
+              "#cf691d",
+              "#b05210",
+              "#8a3a06"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0,
+              0.25,
+              5
+            ],
+            "at": [
+              -0.3,
+              0.95,
+              0.25
+            ],
+            "tones": [
+              "#a3eeff",
+              "#42c8e8",
+              "#1a8cb0"
+            ]
+          }
+        ]
+      },
+      "pose": "The Glizard stands planted firmly in a dueling posture, left hand gripping his tall curved staff while his right hand unleashes a ready cyan firebolt.",
+      "cell": [
+        6,
+        4
+      ],
+      "facing": "s",
+      "why": "This is the legendary sausage wizard met mid-challenge at the windswept boundary of his high crag."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVRRRRRVVVVVV",
+      "VVVTRRRRRRRTVVVV",
+      "VVTRRRGGGGRRTVVV",
+      "VVRRGGGGGGGGRRVV",
+      "VRRGGGFGGGGGRRRV",
+      "VRGGGGGGGGGGGGVV",
+      "VRGGGGGGGGPGGGVV",
+      "VRRGGGGGGPGGGGVV",
+      "VVVRRGGGPGGGGVVV",
+      "VVVVRRGPGGGRVVVV",
+      "VVVVVVPPRRVVVVVV",
+      "VVVVVVVPVVVVVVVV"
+    ],
+    "heights": [
+      "0000033333000000",
+      "0002333333320000",
+      "0023331111332000",
+      "0033111111113300",
+      "0331111111113330",
+      "0311111111111100",
+      "0311111111111100",
+      "0331111111111100",
+      "0003311111111000",
+      "0000331111120000",
+      "0000001122000000",
+      "0000000100000000"
+    ],
+    "focal": {
+      "x": 6,
+      "z": 4,
+      "what": "Glizard 'Arry awaiting challengers mid-spell on his arena slab."
+    },
+    "mass": "The visual weight anchors heavily along the high northern and flank perimeter cliffs at height 3, cradling a flat sunken dueling arena floor at height 1.",
+    "read": "The hero enters from the lower edge near row 11 on a diagonal stepped dirt path that winds up past braziers and stone spires into an open rocky arena. The eye travels along the blue flames directly to the sausage wizard who commands the clearing from rows 4 and 5."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "twisted_scrub_tree",
+          "variant": "twisted_scrub_tree",
+          "weight": 0.6
+        },
+        {
+          "type": "wild_crag_pillar",
+          "variant": "wild_crag_pillar",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.22,
+    "void_share": 0.48,
+    "decor_weights": {
+      "roasted_brazier": 0.35,
+      "sorcery_crystal": 0.25,
+      "wizard_cache_barrel": 0.2,
+      "dueling_boundary_markers": 0.2
+    },
+    "lighting": {
+      "bg": "#101626",
+      "ambient": 0.78,
+      "sun": 0.28,
+      "tint": "#243b6e",
+      "notes": "A dramatic twilight strange-sky lighting scheme where deep indigo ambient shadows contrast with radiant amber sunlight and cool cyan flame highlights."
+    },
+    "rules": [
+      "Diagonal path P must wind from bottom rim cell [7,11] toward the central combat clearing.",
+      "Flank the entrance of the dueling floor with twin boundary markers at [8,6] and [10,8].",
+      "Place roasted braziers in an alternating diagonal stagger along path edges.",
+      "The focal creature Glizard 'Arry occupies the focal cell [7,4] facing south toward the incoming challenger."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Windswept Glizard Gap, a desolate wind-scoured clifftop arena where travelers must prove their mettle against the master of sausage sorcery.",
+    "approach": "The traveler ascends from the southern cliff edge up a diagonal sand-and-dirt trace, passing between burning azure braziers and twin rune pillars that mark the point of no return.",
+    "creature_doing": "Glizard 'Arry stands braced against the mountain gusts, staff grounded into the rock as he charges a swirling bolt of blue flame in his open hand.",
+    "palette_key": "Twilight strange-sky with indigo-blue shadows, rich terracotta cliff flanks, and vibrant cyan sparks casting an eerie dueling glow over dusty dirt terrain.",
+    "terrain": "A wide, flat height-1 dirt fighting ring bordered by deep chasms of void and ringed by jagged height-3 rock crags.",
+    "summary": "A tense boss-arena encounter where the comic sausage wizard is reimagined as a formidable high-pass spellcaster challenging anyone who dares ascend his windy crag."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 3,
+    "variantFragment": "READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.",
+    "avoid": [
+      "pipeline/seed/concepts/wizard-1.json",
+      "pipeline/seed/concepts/wizard-2.json"
+    ]
+  }
+}

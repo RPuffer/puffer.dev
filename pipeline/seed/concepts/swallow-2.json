@@ -1,0 +1,1292 @@
+{
+  "source": {
+    "art": "pipeline/seed/swallow.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "solemn",
+    "nocturnal",
+    "sacred",
+    "serene",
+    "austere",
+    "lunar"
+  ],
+  "observations": [
+    {
+      "what": "Long, tapered outer left wingtip reaching toward upper-left quadrant in a sharp scythe curve",
+      "box": [
+        90,
+        210,
+        480,
+        502
+      ],
+      "maps_to": "wing-torii-gate"
+    },
+    {
+      "what": "High vertical dorsal wing pointing toward top center with elegant calligraphic feather contours",
+      "box": [
+        62,
+        480,
+        478,
+        680
+      ],
+      "maps_to": "pinion-dais"
+    },
+    {
+      "what": "Swallow head with circular spiral crown and sharp triangular beak facing right",
+      "box": [
+        342,
+        685,
+        526,
+        892
+      ],
+      "maps_to": "swift-shrine-idol"
+    },
+    {
+      "what": "Curving chest contour looping inward to form a spiral neck and breast pocket",
+      "box": [
+        408,
+        685,
+        532,
+        816
+      ],
+      "maps_to": "swift-shrine-idol"
+    },
+    {
+      "what": "Broad lower breast and belly sweeping down in a heavy crescent stroke with graphite cross-shading",
+      "box": [
+        510,
+        488,
+        850,
+        834
+      ],
+      "maps_to": "swift-shrine-idol"
+    },
+    {
+      "what": "Long elongated outer tail streamer tapering to a needle-sharp point in lower left",
+      "box": [
+        516,
+        40,
+        828,
+        412
+      ],
+      "maps_to": "wing-torii-gate"
+    },
+    {
+      "what": "Inner recurved tail fork blade arcing upward below the primary streamer",
+      "box": [
+        598,
+        230,
+        936,
+        414
+      ],
+      "maps_to": "wing-torii-gate"
+    },
+    {
+      "what": "Deep shaded graphite core along the belly cavity emphasizing volumetric depth",
+      "box": [
+        520,
+        360,
+        726,
+        680
+      ],
+      "maps_to": "pinion-dais"
+    },
+    {
+      "what": "Warm sepia ink outlining the upper wing rim and skull brow",
+      "box": [
+        345,
+        688,
+        420,
+        836
+      ],
+      "maps_to": "swift-shrine-idol"
+    },
+    {
+      "what": "Empty pale cream parchment background enveloping the soaring avian silhouette",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "sanctum-water-pool"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#bfbeb7",
+        "share": 0.283,
+        "role": "cream paper ground midtone"
+      },
+      {
+        "hex": "#c5c5c1",
+        "share": 0.229,
+        "role": "bright paper ground highlights"
+      },
+      {
+        "hex": "#b9b6ab",
+        "share": 0.153,
+        "role": "aged parchment tint"
+      },
+      {
+        "hex": "#ccccc9",
+        "share": 0.124,
+        "role": "outer paper halo"
+      },
+      {
+        "hex": "#ada89a",
+        "share": 0.1,
+        "role": "light graphite shading"
+      },
+      {
+        "hex": "#989085",
+        "share": 0.049,
+        "role": "medium body feather shading"
+      },
+      {
+        "hex": "#695b59",
+        "share": 0.036,
+        "role": "sepia wash transition"
+      },
+      {
+        "hex": "#3f2723",
+        "share": 0.027,
+        "role": "dark espresso ink strokes"
+      }
+    ],
+    "translation": {
+      "bg": "#1c202a",
+      "grass": {
+        "top": "#5ea87a",
+        "fringe": "#4a8a62",
+        "fringeDark": "#376d4d",
+        "speck": "#7bc698"
+      },
+      "sand": {
+        "top": "#d6af65",
+        "lip": "#b88e40",
+        "edge": "#a07730",
+        "dots": "#e4c682"
+      },
+      "dirt": {
+        "top": "#bfa078",
+        "patch": "#a8875e",
+        "mottle": "#92714a",
+        "border": "#7d5d38"
+      },
+      "stone": {
+        "top": "#cad0d8",
+        "pebble": "#dfe4eb",
+        "pebbleShade": "#9fa6b2",
+        "rim": "#868e9c"
+      },
+      "cliffUpper": {
+        "left": "#747b8a",
+        "right": "#59606e",
+        "seam": "#444b58"
+      },
+      "cliffLower": {
+        "left": "#5c6372",
+        "right": "#454b57",
+        "seam": "#353a44",
+        "speck": "#292d36"
+      },
+      "water": {
+        "top": "#6edbf4",
+        "bubble": "#b4f4ff",
+        "deep": "#2ca8d0",
+        "fall": [
+          "#4ac4e4",
+          "#34b2d4",
+          "#229ec0"
+        ],
+        "foam": "#d2faff"
+      },
+      "wood": {
+        "light": "#ff8e32",
+        "mid": "#dc7318",
+        "dark": "#b8560e",
+        "shadow": "#8e3e07",
+        "end": "#f8dc94"
+      },
+      "treeMint": [
+        "#62d49c",
+        "#4cb783",
+        "#369a6a"
+      ],
+      "treeLime": [
+        "#9cdb68",
+        "#7fc24b",
+        "#63a435"
+      ],
+      "treeLeaf": [
+        "#58bf66",
+        "#42a450",
+        "#2f873c"
+      ],
+      "treeTeal": [
+        "#3ce6c0",
+        "#29c7a2",
+        "#1ba885",
+        "#118568"
+      ],
+      "treeGold": [
+        "#edc44a",
+        "#cfa228",
+        "#ab7e12"
+      ],
+      "trunk": [
+        "#89574a",
+        "#6e4135"
+      ],
+      "rock": [
+        "#e1e4ea",
+        "#c7cbd4",
+        "#9da3b0",
+        "#757b88"
+      ],
+      "wellStone": [
+        "#c2c8d2",
+        "#a2aab6",
+        "#848c9a"
+      ],
+      "flowerOrange": [
+        "#ff922e",
+        "#e57512"
+      ],
+      "berry": [
+        "#f86f8a",
+        "#dc4d6b"
+      ],
+      "bushTeal": [
+        "#6af4c8",
+        "#4dd4aa",
+        "#34b28c"
+      ],
+      "gold": [
+        "#f6c738",
+        "#dba71a",
+        "#b78408"
+      ]
+    },
+    "notes": "Translated into a serene nocturnal shrine palette: cool silver-slate masonry and crystalline nocturnal waters take center stage, while warm espresso browns and deep timber ochres honor the ink-stroke origins without desaturating the pack's toy aesthetic.",
+    "clamped": [
+      "grass.top #5ea87a->#5ea87a",
+      "trunk[0] #88574a->#89574a"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "wing-torii-gate",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          8
+        ]
+      ],
+      "where": "Erected at the threshold where the land causeway steps across the ceremonial pool, evoking the soaring wing tips of IMAGE 1.",
+      "shape": {
+        "summary": "Tall stylized swallow-wing pillar of carved stone and lacquered wood with sweeping crescent bracket fins.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.3,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#cad0d8",
+              "#9fa6b2",
+              "#868e9c"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              1.6,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#ff8e32",
+              "#dc7318",
+              "#b8560e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.15,
+              0.4,
+              0.06
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#cad0d8",
+              "#9fa6b2",
+              "#868e9c"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.3,
+                -0.1
+              ],
+              [
+                0.3,
+                -0.1
+              ],
+              [
+                0.45,
+                0.1
+              ],
+              [
+                -0.15,
+                0.1
+              ]
+            ],
+            "at": [
+              0,
+              2.05,
+              0
+            ],
+            "tones": [
+              "#f6c738",
+              "#dba71a",
+              "#b78408"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "pinion-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ]
+      ],
+      "where": "Resting beneath the sanctum idol, providing a tiered tiered altar pedestal carved like layered feather vanes.",
+      "shape": {
+        "summary": "Tiered stone pedestal with curved step relief inspired by the cross-shaded body belly in IMAGE 1.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.96,
+              0.25,
+              0.96,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dfe4eb",
+              "#cad0d8",
+              "#9fa6b2"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.2,
+              0.8,
+              0.06
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#cad0d8",
+              "#9fa6b2",
+              "#868e9c"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.15,
+              0.7
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#89574a",
+              "#6e4135",
+              "#444b58"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "pot",
+      "type": "pot",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          3
+        ],
+        [
+          10,
+          3
+        ]
+      ],
+      "where": "Flanking the shrine terrace to hold ceremonial incense and sweet spring water offerings.",
+      "shape": {
+        "summary": "Earthen ritual urn glazed in deep terracotta.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.3,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e32",
+              "#dc7318",
+              "#b8560e"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f8dc94",
+              "#dc7318",
+              "#8e3e07"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "lantern",
+      "type": "lantern",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          6,
+          10
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      "where": "Stationed in pairs along the causeway entrance and shrine terrace steps to cast peaceful sacred light.",
+      "shape": {
+        "summary": "Stone pillar topped with an amber glowing lantern box.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.25,
+              0.55,
+              0.25,
+              0.05
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#cad0d8",
+              "#9fa6b2",
+              "#868e9c"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.22,
+              0.3,
+              0.22
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#f6c738",
+              "#dba71a",
+              "#b78408"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.04,
+              0.15,
+              6
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#89574a",
+              "#6e4135",
+              "#444b58"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tree-pine",
+      "type": "tree-pine",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 6,
+      "cells": [
+        [
+          1,
+          2
+        ],
+        [
+          14,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          14,
+          5
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          14,
+          8
+        ]
+      ],
+      "where": "Bordering the outer perimeter cliffs, creating a secluded sanctuary enclosure around the sacred pool.",
+      "shape": {
+        "summary": "Chunky four-tiered low-poly pine tree in deep mint hues.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              0.7,
+              0.16
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#89574a",
+              "#6e4135",
+              "#444b58"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1,
+              0.45,
+              1,
+              0.1
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#62d49c",
+              "#4cb783",
+              "#369a6a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.83,
+              0.42,
+              0.83,
+              0.09
+            ],
+            "at": [
+              0,
+              1.05,
+              0
+            ],
+            "tones": [
+              "#62d49c",
+              "#4cb783",
+              "#369a6a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.63,
+              0.38,
+              0.63,
+              0.08
+            ],
+            "at": [
+              0,
+              1.47,
+              0
+            ],
+            "tones": [
+              "#62d49c",
+              "#4cb783",
+              "#369a6a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.41,
+              0.35,
+              0.41,
+              0.06
+            ],
+            "at": [
+              0,
+              1.85,
+              0
+            ],
+            "tones": [
+              "#62d49c",
+              "#4cb783",
+              "#369a6a"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "stepping-stones",
+      "type": "stepping-stones",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.1,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          7,
+          9
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      "where": "Smooth pale flagstones embedded into the processional causeway paving.",
+      "shape": {
+        "summary": "Cluster of flat rounded stone pavers.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.42,
+              0.08,
+              0.42,
+              0.08
+            ],
+            "at": [
+              -0.18,
+              0,
+              -0.15
+            ],
+            "tones": [
+              "#dfe4eb",
+              "#cad0d8",
+              "#9fa6b2"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.36,
+              0.07,
+              0.36,
+              0.07
+            ],
+            "at": [
+              0.2,
+              0,
+              0.18
+            ],
+            "tones": [
+              "#dfe4eb",
+              "#cad0d8",
+              "#9fa6b2"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.28,
+              0.06,
+              0.28,
+              0.06
+            ],
+            "at": [
+              -0.15,
+              0,
+              0.2
+            ],
+            "tones": [
+              "#dfe4eb",
+              "#cad0d8",
+              "#9fa6b2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock",
+      "type": "rock",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          6
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          4,
+          9
+        ]
+      ],
+      "where": "Natural mossy boulders resting along the pond shore and outer lawn.",
+      "shape": {
+        "summary": "Rounded multifaceted granite boulder cluster.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.35,
+              0.7
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#e1e4ea",
+              "#c7cbd4",
+              "#9da3b0"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.8
+            ],
+            "at": [
+              0.18,
+              0.12,
+              -0.12
+            ],
+            "tones": [
+              "#c7cbd4",
+              "#9da3b0",
+              "#757b88"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "swift-shrine-idol",
+      "source": "The calligraphic swallow in IMAGE 1, enthroned as a sacred guardian totem",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "Chunky toy swallow statue with sweeping wedge wings, curled circular crest, and sharp golden beak.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.7,
+              1.1,
+              0.14
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#89574a",
+              "#6e4135",
+              "#444b58"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.68,
+              0.55,
+              0.7,
+              0.12
+            ],
+            "at": [
+              0,
+              0.7,
+              0.3
+            ],
+            "tones": [
+              "#cad0d8",
+              "#9fa6b2",
+              "#868e9c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.42,
+              0.9
+            ],
+            "at": [
+              0,
+              1.1,
+              0.5
+            ],
+            "tones": [
+              "#89574a",
+              "#6e4135",
+              "#444b58"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.45,
+              6
+            ],
+            "at": [
+              0,
+              1.08,
+              0.88
+            ],
+            "rot": [
+              90,
+              0,
+              0
+            ],
+            "tones": [
+              "#f6c738",
+              "#dba71a",
+              "#b78408"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0.16,
+              1.2,
+              0.65
+            ],
+            "tones": [
+              "#1c202a",
+              "#1c202a",
+              "#1c202a"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              -0.16,
+              1.2,
+              0.65
+            ],
+            "tones": [
+              "#1c202a",
+              "#1c202a",
+              "#1c202a"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.22
+            ],
+            "outline": [
+              [
+                -0.1,
+                0
+              ],
+              [
+                0.1,
+                0
+              ],
+              [
+                0.8,
+                -0.9
+              ],
+              [
+                0.5,
+                -1.1
+              ]
+            ],
+            "at": [
+              0.35,
+              0.8,
+              0.1
+            ],
+            "tones": [
+              "#89574a",
+              "#6e4135",
+              "#444b58"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.22
+            ],
+            "outline": [
+              [
+                0.1,
+                0
+              ],
+              [
+                -0.1,
+                0
+              ],
+              [
+                -0.8,
+                -0.9
+              ],
+              [
+                -0.5,
+                -1.1
+              ]
+            ],
+            "at": [
+              -0.35,
+              0.8,
+              0.1
+            ],
+            "tones": [
+              "#89574a",
+              "#6e4135",
+              "#444b58"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.12,
+              0.4,
+              -0.5
+            ],
+            "to": [
+              0.35,
+              0.15,
+              -1.25
+            ],
+            "tones": [
+              "#6e4135",
+              "#444b58",
+              "#292d36"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.12,
+              0.4,
+              -0.5
+            ],
+            "to": [
+              -0.35,
+              0.15,
+              -1.25
+            ],
+            "tones": [
+              "#6e4135",
+              "#444b58",
+              "#292d36"
+            ]
+          }
+        ]
+      },
+      "pose": "Vigilant guardian perched upon the sanctum dais, head turned southwest toward the causeway, watchful and serene.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "Enshrined deity representing the swift celestial swallow, honored by priests with offerings across the reflecting pool."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVTTTTTTTTTTVVV",
+      "VVTTRRRRRRRRTTVV",
+      "VTTRRRRFFRRRRTTV",
+      "VTRRRRRFFRRRRRTV",
+      "VTRRRRRPPRRRRRTV",
+      "VTGGWWWPPWWWGGTV",
+      "VTGGWWWPPWWWGGTV",
+      "VTGGWWWPPWWWGGTV",
+      "VTGGGGGPPGGGGGTV",
+      "VVTGGGGPPGGGGTTV",
+      "VVVGGGGPPGGGGVVV",
+      "VVVVGGGPPGGGVVVV"
+    ],
+    "heights": [
+      "0001111111111000",
+      "0011222222221100",
+      "0112222222222110",
+      "0122222222222210",
+      "0122222112222210",
+      "0111000110001110",
+      "0111000110001110",
+      "0111000110001110",
+      "0111111111111110",
+      "0011111111111110",
+      "0001111111111000",
+      "0000111111110000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "swift-shrine-idol"
+    },
+    "mass": "Visual weight sits symmetrically on the high rear terrace at rows 2-3, anchored by the reflecting sacred pool in rows 5-7.",
+    "read": "The viewer enters at the near southern rim along a central processional causeway. The path crosses a calm reflecting pool straddled by avian wing pillars, then ascends stone stairs onto the sanctum terrace where the enshrined swift idol watches over the waters."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.16,
+      "types": [
+        {
+          "type": "tree-pine",
+          "variant": "treeMint",
+          "weight": 1
+        }
+      ]
+    },
+    "water_share": 0.09375,
+    "plateau_share": 0.35,
+    "void_share": 0.22,
+    "decor_weights": {
+      "rock": 0.4,
+      "pot": 0.3,
+      "stepping-stones": 0.3
+    },
+    "lighting": {
+      "bg": "#1c202a",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#b9cce2",
+      "notes": "Cool moonlit dusk with pale silver blue cast reflecting brightly off the calm pool surface and clean ashlar paving."
+    },
+    "rules": [
+      "Processional causeway path must run axially north-south down columns 7 and 8.",
+      "The sacred reflecting pool must hug both sides of the central causeway across rows 5 through 7.",
+      "Threshold wing-pillars must frame the causeway entry at row 8.",
+      "The sanctum idol sits enthroned at the crest of the height-2 stone plateau."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "stone",
+      "raised": "stone",
+      "path": "stone",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sanctum of the Silver Pinion, a moated nocturnal water shrine built to venerate the herald of seasonal winds.",
+    "approach": "A straight axial stone causeway crosses between twin reflecting pools and passes beneath wing-shaped gateway pillars before mounting the temple terrace.",
+    "creature_doing": "Enthroned in eternal stone repose, keeping a calm vigil over the nocturnal spring and offerings left by pilgrims.",
+    "palette_key": "Cool dusk stone and luminous cyan pool waters illuminated by pale lunar light and warm copper-lantern accents.",
+    "terrain": "A sunken sacred moat carved with crisp stone embankments leading to an elevated ceremonial shrine terrace.",
+    "summary": "An austere yet charming souls-like water shrine honoring the swift avian spirit with a straight processional causeway and mirror-clear pools."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 2,
+    "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
+    "avoid": [
+      "pipeline/seed/concepts/swallow-1.json"
+    ]
+  }
+}

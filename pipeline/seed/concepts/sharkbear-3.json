@@ -1,0 +1,1218 @@
+{
+  "source": {
+    "art": "pipeline/seed/sharkbear.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "predatory",
+    "territorial",
+    "taut",
+    "volcanic",
+    "chunky",
+    "confrontational"
+  ],
+  "observations": [
+    {
+      "what": "Smooth, pale domed cranial shell resembling a shark snout or helmet covering the creature's head",
+      "box": [
+        60,
+        48,
+        563,
+        375
+      ],
+      "maps_to": "creature head and shark-snout carapace"
+    },
+    {
+      "what": "Prominent upright dorsal fin protruding from the top apex of the smooth skull plate",
+      "box": [
+        56,
+        116,
+        319,
+        396
+      ],
+      "maps_to": "dorsal blade fin"
+    },
+    {
+      "what": "Sharp, toothy grin with a menacing slit mouth exposed beneath the cranial helmet",
+      "box": [
+        486,
+        122,
+        597,
+        290
+      ],
+      "maps_to": "fanged jawline"
+    },
+    {
+      "what": "Narrow dark eye slit situated along the lower lateral edge of the pale head shield",
+      "box": [
+        426,
+        227,
+        497,
+        297
+      ],
+      "maps_to": "predatory ocular visor"
+    },
+    {
+      "what": "Massive, densely furred hunched quad bear-like torso with heavy muscular shoulders",
+      "box": [
+        126,
+        281,
+        486,
+        825
+      ],
+      "maps_to": "beast torso and shoulder hump"
+    },
+    {
+      "what": "Thick pillared forelimbs covered in coarse graphite hatching ending in clawed paws planted firmly",
+      "box": [
+        384,
+        82,
+        822,
+        521
+      ],
+      "maps_to": "stout front limbs and clawed treads"
+    },
+    {
+      "what": "Stout hind leg planted backward providing braced, predatory leverage",
+      "box": [
+        287,
+        638,
+        686,
+        869
+      ],
+      "maps_to": "braced hindquarter stance"
+    },
+    {
+      "what": "Long, sweeping heterocercal shark tail curving from the rump around toward the lower foreground",
+      "box": [
+        272,
+        301,
+        938,
+        963
+      ],
+      "maps_to": "curved shark tail whip"
+    },
+    {
+      "what": "Blank, clean paper field framing the creature with no background scenery",
+      "box": [
+        0,
+        0,
+        995,
+        995
+      ],
+      "maps_to": "open caldera arena floor"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e0e0e0",
+        "share": 0.215,
+        "role": "pale cranial shell and fin highlights"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.171,
+        "role": "light midtones on tail and skull flank"
+      },
+      {
+        "hex": "#d2d2d2",
+        "share": 0.162,
+        "role": "paper background ambience"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.107,
+        "role": "outer fur hatching transitions"
+      },
+      {
+        "hex": "#9e9e9e",
+        "share": 0.102,
+        "role": "deep body shading and core fur"
+      },
+      {
+        "hex": "#626262",
+        "share": 0.089,
+        "role": "underbelly and inner limb shadow"
+      },
+      {
+        "hex": "#848484",
+        "share": 0.089,
+        "role": "contour shading along flank"
+      },
+      {
+        "hex": "#3c3c3c",
+        "share": 0.066,
+        "role": "darkest pencil outlines, mouth line and eye"
+      }
+    ],
+    "translation": {
+      "bg": "#221c24",
+      "grass": {
+        "top": "#78b84d",
+        "fringe": "#5e963b",
+        "fringeDark": "#467329",
+        "speck": "#92ce64"
+      },
+      "sand": {
+        "top": "#e0a843",
+        "lip": "#bf7f18",
+        "edge": "#d09228",
+        "dots": "#eec065"
+      },
+      "dirt": {
+        "top": "#b86a3d",
+        "patch": "#9c542b",
+        "mottle": "#7e401c",
+        "border": "#cb7b4b"
+      },
+      "stone": {
+        "top": "#c2b4a3",
+        "pebble": "#ded6cb",
+        "pebbleShade": "#9e9080",
+        "rim": "#827568"
+      },
+      "cliffUpper": {
+        "left": "#6e4242",
+        "right": "#543030",
+        "seam": "#3f2020"
+      },
+      "cliffLower": {
+        "left": "#5c3333",
+        "right": "#452424",
+        "seam": "#341717",
+        "speck": "#2b1212"
+      },
+      "water": {
+        "top": "#3ec0d6",
+        "bubble": "#97ebf7",
+        "deep": "#1a8599",
+        "fall": [
+          "#2cb1c7",
+          "#229bb0",
+          "#1a8599"
+        ],
+        "foam": "#dcf9fd"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#a04b14",
+        "end": "#f6d881"
+      },
+      "treeMint": [
+        "#5cc494",
+        "#43a879",
+        "#2f875e"
+      ],
+      "treeLime": [
+        "#98cf4c",
+        "#78ab35",
+        "#5a8523"
+      ],
+      "treeLeaf": [
+        "#78ab35",
+        "#5d8c24",
+        "#436916"
+      ],
+      "treeTeal": [
+        "#32b596",
+        "#24967a",
+        "#177860",
+        "#0d5945"
+      ],
+      "treeGold": [
+        "#f5bf38",
+        "#dc9c1c",
+        "#aa7109"
+      ],
+      "trunk": [
+        "#874a36",
+        "#6b3625"
+      ],
+      "rock": [
+        "#a39b98",
+        "#827a77",
+        "#665e5b",
+        "#4d4543"
+      ],
+      "wellStone": [
+        "#bda78e",
+        "#9c846e",
+        "#7a6450"
+      ],
+      "flowerOrange": [
+        "#ff7e24",
+        "#e86207"
+      ],
+      "berry": [
+        "#ff526b",
+        "#d9324c"
+      ],
+      "bushTeal": [
+        "#5cc494",
+        "#43a879",
+        "#2f875e"
+      ],
+      "gold": [
+        "#f7c436",
+        "#d99f16",
+        "#fff180"
+      ]
+    },
+    "notes": "Translated the monochrome pencil sketch into a harsh golden-hour caldera boss arena. The rich charcoal hide and bone-white skull of the apex predator become toy-solid charcoal blocks and ivory plates, set against ochre sand, volcanic rust dirt, and deep umber cliff faces under warm atmospheric light."
+  },
+  "motifs": [
+    {
+      "name": "jagged-fang-monoliths",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          6,
+          10
+        ]
+      ],
+      "where": "Twin sharp volcanic basalt columns frame the entrance approach from the near path, standing like predatory fangs.",
+      "shape": {
+        "summary": "Tapered polygonal basalt fangs stacked in three chunky angled tiers.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.42,
+              0.7,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#827a77",
+              "#665e5b",
+              "#4d4543"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.22,
+              0.9,
+              6
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#a39b98",
+              "#827a77",
+              "#665e5b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.02,
+              0.6,
+              5
+            ],
+            "at": [
+              0,
+              1.6,
+              0
+            ],
+            "tones": [
+              "#ded6cb",
+              "#a39b98",
+              "#827a77"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cracked-hunting-plinth",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 0.45,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          6,
+          3
+        ]
+      ],
+      "where": "Raised octagonal flagstone platform in the arena center where the chimera plants its forepaws.",
+      "shape": {
+        "summary": "Wide low beveled slab of fractured weathered limestone with pale perimeter studs.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.8,
+              0.3,
+              1.8,
+              0.1
+            ],
+            "at": [
+              0.5,
+              0,
+              0.5
+            ],
+            "tones": [
+              "#ded6cb",
+              "#c2b4a3",
+              "#9e9080"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.4,
+              0.15,
+              1.4,
+              0.08
+            ],
+            "at": [
+              0.5,
+              0.3,
+              0.5
+            ],
+            "tones": [
+              "#fff0c3",
+              "#ded6cb",
+              "#c2b4a3"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.1
+            ],
+            "at": [
+              0.5,
+              0.45,
+              0.5
+            ],
+            "outline": [
+              [
+                -0.4,
+                -0.4
+              ],
+              [
+                0.4,
+                -0.4
+              ],
+              [
+                0.4,
+                0.4
+              ],
+              [
+                -0.4,
+                0.4
+              ]
+            ],
+            "tones": [
+              "#ded6cb",
+              "#9e9080",
+              "#827568"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "torch",
+      "type": "torch",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          4,
+          9
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "where": "Braziers flanking the stepped diagonal trail alerting the challenger to the arena threshold.",
+      "shape": {
+        "summary": "Stout timber post tipped with an iron sconce and bright orange flame.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.1,
+              0.8,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dc7016",
+              "#bd4c0b",
+              "#a04b14"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.14,
+              0.2,
+              6
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#8f8f8f",
+              "#6f6f6f",
+              "#555555"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.3,
+              5
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bone-trophy-stump",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          4
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      "where": "Remains of a slain leviathan skull mounted on petrified wood marking the beast's territory.",
+      "shape": {
+        "summary": "Petrified log stump holding a carved horn or jawbone remnant.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#874a36",
+              "#6b3625",
+              "#543030"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.02,
+              0.45,
+              5
+            ],
+            "at": [
+              0.08,
+              0.45,
+              0
+            ],
+            "rot": [
+              15,
+              0,
+              20
+            ],
+            "tones": [
+              "#fff0c3",
+              "#ded6cb",
+              "#c2b4a3"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.4,
+              5
+            ],
+            "at": [
+              -0.08,
+              0.45,
+              0
+            ],
+            "rot": [
+              -15,
+              0,
+              -20
+            ],
+            "tones": [
+              "#fff0c3",
+              "#ded6cb",
+              "#c2b4a3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock-big",
+      "type": "rock-big",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          7
+        ],
+        [
+          12,
+          5
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "where": "Dense jagged boulders scattered along the arena edges thrown down from the high caldera walls.",
+      "shape": {
+        "summary": "Cluster of three faceted chiseled boulders stacked together.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.55,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#a39b98",
+              "#827a77",
+              "#665e5b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.35,
+              0.45,
+              0.08
+            ],
+            "at": [
+              0.12,
+              0.55,
+              -0.05
+            ],
+            "tones": [
+              "#ded6cb",
+              "#a39b98",
+              "#827a77"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.25,
+              0.05,
+              0.35,
+              5
+            ],
+            "at": [
+              -0.15,
+              0.4,
+              0.1
+            ],
+            "tones": [
+              "#c2b4a3",
+              "#9e9080",
+              "#665e5b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tree-gold-stout",
+      "type": "new",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          8,
+          1
+        ]
+      ],
+      "where": "Hardy golden-crowned ridge trees clinging to the elevated rocky caldera perimeter.",
+      "shape": {
+        "summary": "Thick reddish-brown trunk topped with stepped interlocking rounded foliage cubes in warm amber tones.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.22,
+              1.1,
+              0.22
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#874a36",
+              "#6b3625",
+              "#543030"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.55,
+              0.95,
+              0.12
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#f5bf38",
+              "#dc9c1c",
+              "#aa7109"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.72,
+              0.45,
+              0.72,
+              0.1
+            ],
+            "at": [
+              0,
+              1.5,
+              0
+            ],
+            "tones": [
+              "#f7c436",
+              "#f5bf38",
+              "#dc9c1c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.48,
+              0.35,
+              0.48,
+              0.08
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#fff180",
+              "#f7c436",
+              "#dc9c1c"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "shark-bear-chimera",
+      "source": "The massive hunched predator with a shark's skull and dorsal fin atop a thick bear torso with tail in Image 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.5,
+      "shape": {
+        "summary": "Large hunched quadruped with a sleek domed ivory shark head, dorsal crest, dark charcoal furred body, and curling shark tail.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.3,
+              0.85,
+              1.2,
+              0.15
+            ],
+            "at": [
+              0.5,
+              0.75,
+              0.4
+            ],
+            "tones": [
+              "#665e5b",
+              "#4d4543",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.42,
+              0.9,
+              0.45,
+              0.1
+            ],
+            "at": [
+              0.1,
+              0,
+              0.85
+            ],
+            "tones": [
+              "#827a77",
+              "#665e5b",
+              "#4d4543"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.42,
+              0.9,
+              0.45,
+              0.1
+            ],
+            "at": [
+              0.9,
+              0,
+              0.85
+            ],
+            "tones": [
+              "#827a77",
+              "#665e5b",
+              "#4d4543"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.75,
+              0.42,
+              0.1
+            ],
+            "at": [
+              0.15,
+              0,
+              -0.1
+            ],
+            "tones": [
+              "#665e5b",
+              "#4d4543",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.75,
+              0.42,
+              0.1
+            ],
+            "at": [
+              0.85,
+              0,
+              -0.1
+            ],
+            "tones": [
+              "#665e5b",
+              "#4d4543",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.48,
+              0.18,
+              1.05,
+              7
+            ],
+            "at": [
+              0.5,
+              1.15,
+              0.9
+            ],
+            "rot": [
+              40,
+              0,
+              0
+            ],
+            "tones": [
+              "#fff0c3",
+              "#ded6cb",
+              "#c2b4a3"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0.44,
+              1.7,
+              0.55
+            ],
+            "rot": [
+              0,
+              90,
+              0
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                0.45,
+                0
+              ],
+              [
+                0.12,
+                0.7
+              ]
+            ],
+            "tones": [
+              "#fff0c3",
+              "#ded6cb",
+              "#9e9080"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.18,
+              0.35,
+              0.05
+            ],
+            "at": [
+              0.5,
+              0.88,
+              1.28
+            ],
+            "tones": [
+              "#ded6cb",
+              "#c2b4a3",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              0.6
+            ],
+            "at": [
+              0.76,
+              1.22,
+              1.12
+            ],
+            "tones": [
+              "#3c3c3c",
+              "#221c24",
+              "#000000"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.15
+            ],
+            "at": [
+              0.5,
+              1.1,
+              -0.1
+            ],
+            "to": [
+              1.35,
+              0.65,
+              -0.65
+            ],
+            "tones": [
+              "#827a77",
+              "#665e5b",
+              "#4d4543"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              1.35,
+              0.45,
+              -0.65
+            ],
+            "rot": [
+              0,
+              -35,
+              0
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                -0.3,
+                0.65
+              ],
+              [
+                0.45,
+                0.4
+              ],
+              [
+                0.1,
+                -0.45
+              ]
+            ],
+            "tones": [
+              "#ded6cb",
+              "#c2b4a3",
+              "#9e9080"
+            ]
+          }
+        ]
+      },
+      "pose": "Hunched forward in a predatory crouch atop the arena plinth, jaws parted to hiss a challenge at the approaching challenger.",
+      "cell": [
+        6,
+        3
+      ],
+      "facing": "s",
+      "why": "The encounter boss confronting the player upon completing the diagonal climb into the caldera."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVRRRRRRRRRRRRVV",
+      "VRRRTTTTRRRRRRRV",
+      "VRRTGGGGGGTRRRRV",
+      "VRTGGFFGGGGGTRRV",
+      "VRTGGFFGGGGGTRRV",
+      "VRGGGGGGGGGGGGTV",
+      "VRGGGGGGPPGGGGRV",
+      "VVGGGGGGPPGGGGTV",
+      "VVGGGGPPGGGGGVVV",
+      "VVVGGPPGGGGGVVVV",
+      "VVVVPPGGGGVVVVVV",
+      "VVVVPPVVVVVVVVVV"
+    ],
+    "heights": [
+      "0033333333333300",
+      "0222111111112220",
+      "0211111111111220",
+      "0211122111111120",
+      "0211122111111120",
+      "0111111111111110",
+      "0111111111111110",
+      "0011111111111110",
+      "0011111111111000",
+      "0001111111110000",
+      "0000111111000000",
+      "0000110000000000"
+    ],
+    "focal": {
+      "x": 6,
+      "z": 3,
+      "what": "shark-bear-chimera boss prowling on its elevated arena plinth"
+    },
+    "mass": "Visual weight is anchored on the elevated rear wall and the muscular, shark-headed chimera dominating the center-left clearing.",
+    "read": "The player enters at the near left corner via a stepped dirt path, proceeding through a threshold of jagged fang monoliths into a broad open caldera floor. The eye is carried diagonally up and right across the arena straight to the hunched chimera standing taut against the tall cliff boundary. Deep void chasms carve the perimeter, framing the confrontation with dramatic drop-offs."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "tree-gold-stout",
+          "variant": "0",
+          "weight": 0.6
+        },
+        {
+          "type": "bush-cluster",
+          "variant": "0",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.206,
+    "void_share": 0.292,
+    "decor_weights": {
+      "torch": 0.35,
+      "rock-big": 0.3,
+      "bone-trophy-stump": 0.2,
+      "pot": 0.15
+    },
+    "lighting": {
+      "bg": "#221c24",
+      "ambient": 0.78,
+      "sun": 0.28,
+      "tint": "#dc9c1c",
+      "notes": "A dramatic golden-hour sky washes the volcanic arena in rich coppery light while deep purple void shadows frame the cliffs."
+    },
+    "rules": [
+      "Keep the arena floor strictly flat at height 1 to preserve an uncluttered combat stage.",
+      "Anchor the rear perimeter with tall height 2 and 3 cliff walls.",
+      "Place torch braziers symmetrically along the diagonal entry path.",
+      "Position bone trophies and shattered rocks as boundary markers around the clearing."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Ashen Ridge Caldera, an exposed volcanic crag where the landshark apex predator stalks its territory.",
+    "approach": "The traveler ascends a diagonal stepped path from the southwestern chasm, passing through a threshold of jagged basalt monoliths onto the open arena floor.",
+    "creature_doing": "Crouched in a tense hunting stance atop a cracked limestone plinth, flaring its dorsal fin and parting its needle teeth in territorial challenge.",
+    "palette_key": "Warm copper and amber golden-hour illumination contrasting against charcoal beast fur, bone white armour plates, and deep volcanic umber cliffs.",
+    "terrain": "A wide flat dirt arena floor framed by jagged height-3 basalt walls with deep void chasms eating into the edges.",
+    "summary": "A tense boss encounter level translating the predatory landshark chimera into a toy-low-poly volcanic colosseum showdown."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 3,
+    "variantFragment": "READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.",
+    "avoid": [
+      "pipeline/seed/concepts/sharkbear-1.json",
+      "pipeline/seed/concepts/sharkbear-2.json"
+    ]
+  }
+}

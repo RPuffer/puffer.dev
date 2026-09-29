@@ -1,0 +1,1281 @@
+{
+  "source": {
+    "art": "pipeline/seed/cosmos.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "celestial",
+    "observant",
+    "serene",
+    "radiant",
+    "ancient",
+    "whimsical"
+  ],
+  "observations": [
+    {
+      "what": "Massive human-like eye dominating the frame with deep blue iris and dark pupil",
+      "box": [
+        0,
+        0,
+        1000,
+        720
+      ],
+      "maps_to": "Astral Watcher creature resting at the observatory perch"
+    },
+    {
+      "what": "Intricate golden-green jagged corona or crown-like ring surrounding the pupil",
+      "box": [
+        280,
+        360,
+        690,
+        650
+      ],
+      "maps_to": "Crown of radiant star-petals around creature core"
+    },
+    {
+      "what": "Bright planetary ring system arcing around the eye into deep space",
+      "box": [
+        470,
+        700,
+        890,
+        996
+      ],
+      "maps_to": "Arched orbital ring terrace and curving stone balustrade"
+    },
+    {
+      "what": "Dark rocky asteroids floating along the sweeping ring arc",
+      "box": [
+        710,
+        700,
+        920,
+        980
+      ],
+      "maps_to": "Floating meteor stones and cosmic rock clusters"
+    },
+    {
+      "what": "Eyelashes rendered as curved dark segmented spines",
+      "box": [
+        70,
+        0,
+        420,
+        520
+      ],
+      "maps_to": "Spined celestial pine trees and star-arch pillars"
+    },
+    {
+      "what": "Lower eyelid with dark lashes framing the bottom rim",
+      "box": [
+        720,
+        0,
+        990,
+        400
+      ],
+      "maps_to": "Curved terrace cliff edge with spiky perimeter shrubbery"
+    },
+    {
+      "what": "Luminous starburst flare at the ring attachment point on the limb",
+      "box": [
+        450,
+        690,
+        560,
+        790
+      ],
+      "maps_to": "Starlight threshold lantern on pillar"
+    },
+    {
+      "what": "Green and golden nebulous cloud floating in the deep starfield at upper right",
+      "box": [
+        0,
+        660,
+        510,
+        1000
+      ],
+      "maps_to": "Glowing teal and mint canopy grove"
+    },
+    {
+      "what": "Pale sclera with fine red capillary threads",
+      "box": [
+        150,
+        70,
+        840,
+        580
+      ],
+      "maps_to": "Pale sand and stone terraced switchback path"
+    },
+    {
+      "what": "Inner corner tear duct showing flesh tone and curved fold",
+      "box": [
+        360,
+        0,
+        590,
+        120
+      ],
+      "maps_to": "Southern entryway terrace shelf"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#14120b",
+        "share": 0.236,
+        "role": "void space backdrop"
+      },
+      {
+        "hex": "#252118",
+        "share": 0.213,
+        "role": "eyelash shadow and deep orbital crevice"
+      },
+      {
+        "hex": "#343831",
+        "share": 0.124,
+        "role": "nebula base and outer iris rim"
+      },
+      {
+        "hex": "#baa08a",
+        "share": 0.103,
+        "role": "warm sclera and skin midtones"
+      },
+      {
+        "hex": "#416262",
+        "share": 0.087,
+        "role": "deep teal iris ring and nebula tint"
+      },
+      {
+        "hex": "#e6caaa",
+        "share": 0.085,
+        "role": "highlight on ring and eyelid rim"
+      },
+      {
+        "hex": "#877966",
+        "share": 0.083,
+        "role": "asteroid body and shaded ring dust"
+      },
+      {
+        "hex": "#654739",
+        "share": 0.07,
+        "role": "warm fleshy eyelid fold"
+      }
+    ],
+    "translation": {
+      "bg": "#1c1824",
+      "grass": {
+        "top": "#7ae092",
+        "fringe": "#55bf70",
+        "fringeDark": "#3da156",
+        "speck": "#9cf0b0"
+      },
+      "sand": {
+        "top": "#f5c538",
+        "lip": "#d89616",
+        "edge": "#efa81d",
+        "dots": "#fae06b"
+      },
+      "dirt": {
+        "top": "#f0b875",
+        "patch": "#e09f58",
+        "mottle": "#cca062",
+        "border": "#be7b38"
+      },
+      "stone": {
+        "top": "#ebd8be",
+        "pebble": "#f7eedf",
+        "pebbleShade": "#d5be9e",
+        "rim": "#be9f7b"
+      },
+      "cliffUpper": {
+        "left": "#a86470",
+        "right": "#884a56",
+        "seam": "#703541"
+      },
+      "cliffLower": {
+        "left": "#94525e",
+        "right": "#753945",
+        "seam": "#5d2732",
+        "speck": "#4c1a24"
+      },
+      "water": {
+        "top": "#64d7ff",
+        "bubble": "#b4f0ff",
+        "deep": "#1aa5db",
+        "fall": [
+          "#2ec2f5",
+          "#16a8df",
+          "#0d8ec0"
+        ],
+        "foam": "#dcf8ff"
+      },
+      "wood": {
+        "light": "#ff8e32",
+        "mid": "#e07218",
+        "dark": "#b84f09",
+        "shadow": "#8e3802",
+        "end": "#fbe094"
+      },
+      "treeMint": [
+        "#5ee2b8",
+        "#38c499",
+        "#249d79"
+      ],
+      "treeLime": [
+        "#c2ee74",
+        "#8de250",
+        "#67b835"
+      ],
+      "treeLeaf": [
+        "#7fe07d",
+        "#51bd53",
+        "#38943a"
+      ],
+      "treeTeal": [
+        "#1fe3ce",
+        "#11baa7",
+        "#0d9485",
+        "#087367"
+      ],
+      "treeGold": [
+        "#f7d54a",
+        "#e8b820",
+        "#c4920c"
+      ],
+      "trunk": [
+        "#914e56",
+        "#6e3940"
+      ],
+      "rock": [
+        "#e0e0ea",
+        "#c2c2cf",
+        "#9898aa",
+        "#6e6e80"
+      ],
+      "wellStone": [
+        "#dbcab0",
+        "#bfa88b",
+        "#9e8568"
+      ],
+      "flowerOrange": [
+        "#ff952b",
+        "#f7b731"
+      ],
+      "berry": [
+        "#ff6088",
+        "#e63e68"
+      ],
+      "bushTeal": [
+        "#68f0cb",
+        "#38d4a9",
+        "#1ca883"
+      ],
+      "gold": [
+        "#ffd54f",
+        "#e6b022",
+        "#fff085"
+      ]
+    },
+    "notes": "Maintains saturated toy-pack grass and sand hues while tinting cliffs with the warm reddish-terracotta undertones of eyelids and infusing trees with radiant nebula teals, gold, and mint.",
+    "clamped": [
+      "trunk[0] #8e5158->#914e56"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "orbital_threshold_arch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "where": "Pairs across the winding path at the middle terrace threshold before entering the inner sanctuary.",
+      "shape": {
+        "summary": "Stepped celestial pillar topped with an angled crescent prism and golden starburst.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.4,
+              0.6,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ebd8be",
+              "#f7eedf",
+              "#be9f7b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.24,
+              1.2,
+              8
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#ebd8be",
+              "#d5be9e",
+              "#be9f7b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.2,
+              0.55,
+              0.05
+            ],
+            "at": [
+              0,
+              1.6,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.28,
+              1
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#64d7ff",
+              "#2ec2f5",
+              "#0d8ec0"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.02,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              2.05,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "iris_star_perch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          3
+        ]
+      ],
+      "where": "Centered on the highest plateau under the focal creature, mirroring the sunburst pattern around the pupil.",
+      "shape": {
+        "summary": "Large circular stepped stone dais with radial golden star teeth and deep teal center inlays.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.95,
+              0.3,
+              10
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ebd8be",
+              "#d5be9e",
+              "#be9f7b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.8,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.65,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#1fe3ce",
+              "#11baa7",
+              "#0d9485"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.15,
+              0.45,
+              0.05
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#1c1824",
+              "#343831",
+              "#252118"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "floating_asteroid_cluster",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          11,
+          2
+        ],
+        [
+          12,
+          5
+        ],
+        [
+          13,
+          8
+        ]
+      ],
+      "where": "Arranged along the eastern cliff perimeter echoing the asteroid stream floating alongside the planetary ring.",
+      "shape": {
+        "summary": "Tumbled stack of faceted grey-lavender meteor rocks perched in a dynamic clump.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.45,
+              0.65,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e0e0ea",
+              "#c2c2cf",
+              "#9898aa"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.35,
+              0.45,
+              0.1
+            ],
+            "at": [
+              0.1,
+              0.4,
+              -0.05
+            ],
+            "tones": [
+              "#c2c2cf",
+              "#9898aa",
+              "#6e6e80"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.8
+            ],
+            "at": [
+              -0.2,
+              0.55,
+              0.1
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "celestial_lantern_post",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          4,
+          9
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "where": "Flanking the winding switchback pathway at turns to light the way upward.",
+      "shape": {
+        "summary": "Wooden curved stake holding a floating faceted glass lantern in warm brass.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.85,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e32",
+              "#e07218",
+              "#b84f09"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "to": [
+              0.25,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#e07218",
+              "#b84f09",
+              "#8e3802"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.25,
+              0.35,
+              0.25,
+              0.05
+            ],
+            "at": [
+              0.25,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#fae06b",
+              "#ffd54f",
+              "#e6b022"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "spined_nebula_pine",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          11,
+          1
+        ]
+      ],
+      "where": "Clustered along upper edge and terraces recalling the upward sweeping dark eyelashes and nebula.",
+      "shape": {
+        "summary": "Segmented conical pine with teal-mint tiers and clean angular silhouette.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.6,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#914e56",
+              "#6e3940",
+              "#5d2732"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1,
+              0.45,
+              1,
+              0.08
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#5ee2b8",
+              "#38c499",
+              "#249d79"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.42,
+              0.8,
+              0.08
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#1fe3ce",
+              "#11baa7",
+              "#0d9485"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.4,
+              0.6,
+              0.07
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#5ee2b8",
+              "#38c499",
+              "#249d79"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.35,
+              0.02,
+              0.45,
+              6
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#c2ee74",
+              "#8de250",
+              "#67b835"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "astronomer_cache",
+      "type": "chest",
+      "variant_of": "chest",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.65,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          8,
+          4
+        ]
+      ],
+      "where": "Resting right next to the watcher's perch containing starry relics and cosmic lenses.",
+      "shape": {
+        "summary": "Toy-styled wooden chest reinforced with bright gold bands and gem clasp.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.35,
+              0.45,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e32",
+              "#e07218",
+              "#b84f09"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.62,
+              0.2,
+              0.47,
+              0.08
+            ],
+            "at": [
+              0,
+              0.32,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              1
+            ],
+            "at": [
+              0,
+              0.28,
+              0.24
+            ],
+            "tones": [
+              "#64d7ff",
+              "#2ec2f5",
+              "#0d8ec0"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "ocular_astral_guardian",
+      "source": "The giant celestial eye gazing calmly from deep space with radiant iris corona and trailing orbital rings",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "Spherical winged astral eye perched on three stumpy golden claws, crowned by radiant pointed star crests.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.3,
+              0.4,
+              0.08
+            ],
+            "at": [
+              -0.3,
+              0,
+              -0.1
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.3,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0.3,
+              0,
+              -0.1
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.25,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0.25
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.85,
+              0.95
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#ebd8be",
+              "#f7eedf",
+              "#d5be9e"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.55,
+              0.12,
+              10
+            ],
+            "at": [
+              0,
+              0.9,
+              0.75
+            ],
+            "rot": [
+              80,
+              0,
+              0
+            ],
+            "tones": [
+              "#1fe3ce",
+              "#11baa7",
+              "#0d9485"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.38,
+              0.14,
+              8
+            ],
+            "at": [
+              0,
+              0.9,
+              0.78
+            ],
+            "rot": [
+              80,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              1
+            ],
+            "at": [
+              0,
+              0.9,
+              0.82
+            ],
+            "tones": [
+              "#1c1824",
+              "#343831",
+              "#252118"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0.02,
+              0.45,
+              4
+            ],
+            "at": [
+              0,
+              1.75,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b022",
+              "#c4920c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.38,
+              4
+            ],
+            "at": [
+              -0.35,
+              1.6,
+              -0.05
+            ],
+            "rot": [
+              0,
+              0,
+              25
+            ],
+            "tones": [
+              "#1fe3ce",
+              "#11baa7",
+              "#0d9485"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.38,
+              4
+            ],
+            "at": [
+              0.35,
+              1.6,
+              -0.05
+            ],
+            "rot": [
+              0,
+              0,
+              -25
+            ],
+            "tones": [
+              "#1fe3ce",
+              "#11baa7",
+              "#0d9485"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.1,
+              0.3,
+              0.05
+            ],
+            "at": [
+              -0.7,
+              0.9,
+              -0.2
+            ],
+            "rot": [
+              15,
+              -20,
+              20
+            ],
+            "tones": [
+              "#5ee2b8",
+              "#38c499",
+              "#249d79"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.1,
+              0.3,
+              0.05
+            ],
+            "at": [
+              0.7,
+              0.9,
+              -0.2
+            ],
+            "rot": [
+              15,
+              20,
+              -20
+            ],
+            "tones": [
+              "#5ee2b8",
+              "#38c499",
+              "#249d79"
+            ]
+          }
+        ]
+      },
+      "pose": "Resting serenely on its star dais while gazing toward the approaching path with radiant curiosity.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "This is the soul of the artwork: the living cosmic eye settled in its terraced sky-sanctuary."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVTTGGGGTVVVVV",
+      "VVVTTTGGGGTTVVVV",
+      "VVTTRRRRRRGTTVVV",
+      "VTTRRRFFRRRGGTVV",
+      "VTRRRRFFRRRGGTTV",
+      "VTRRRRPPPPRGGGTV",
+      "VVTRRRPRRRPGGGTV",
+      "VVTRRRPPRRPGGTVV",
+      "VVVTRRPTRRPGGTVV",
+      "VVVTPPPTTPPGGVVV",
+      "VVVVPPGGGGGGVVVV",
+      "VVVVVPPGGGGVVVVV"
+    ],
+    "heights": [
+      "0000111111100000",
+      "0001112222110000",
+      "0011223333211000",
+      "0112233333211100",
+      "0122333333211110",
+      "0122332222211110",
+      "0012222111211110",
+      "0012222222211100",
+      "0001221122111100",
+      "0001111111111000",
+      "0000111111110000",
+      "0000011111100000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "The Ocular Astral Guardian sitting on the raised star dais at height 3"
+    },
+    "mass": "Visual weight rests firmly in the north-central plateau where stacked height 3 terraces support the glowing creature, framed by perimeter trees and eastern orbital stone formations.",
+    "read": "The viewer enters at the near south rim along a winding sand trail, switchbacking through the middle gate threshold before ascending stone tiers up to the serene celestial watcher on its high perch."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.22,
+      "types": [
+        {
+          "type": "spined_nebula_pine",
+          "variant": "spined_nebula_pine",
+          "weight": 0.55
+        },
+        {
+          "type": "tree-round",
+          "variant": "1",
+          "weight": 0.25
+        },
+        {
+          "type": "bush-cluster",
+          "variant": "1",
+          "weight": 0.2
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.32,
+    "decor_weights": {
+      "celestial_lantern_post": 0.25,
+      "floating_asteroid_cluster": 0.25,
+      "flower": 0.25,
+      "gem": 0.15,
+      "astronomer_cache": 0.1
+    },
+    "lighting": {
+      "bg": "#1c1824",
+      "ambient": 0.88,
+      "sun": 0.18,
+      "tint": "#fff4e6",
+      "notes": "Bright crisp starlight bathed in gentle midday celestial ambient warmth."
+    },
+    "rules": [
+      "The winding path must enter from the southern edge and switch back across height 1 and height 2 tiers before reaching the height 3 plateau.",
+      "The threshold arch pillars straddle the path at the ascent transition near row 8.",
+      "The focal creature occupies the summit dais at height 3 surrounded by ancient astronomer relics.",
+      "Asteroids and rocky crags line the eastern drop-off to evoke the sweeping planetary ring in IMAGE 1."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Star-Gazer's Perch, a terraced sanctuary suspended above the cosmic void where an ancient astral eye dwells.",
+    "approach": "The traveler ascends a switchbacking sand path up stacked stone terraces, passing between two orbital crescent arch pillars at the midpoint.",
+    "creature_doing": "The ocular guardian rests peacefully upon its radial iris perch, turning gently to survey the visiting traveler.",
+    "palette_key": "Vibrant emerald grass, warm desert sand, and deep terracotta cliff faces illuminated by soft starlight and accented with celestial teals and golds.",
+    "terrain": "Stacked terraces forming a high summit platform surrounded by rocky asteroid rims and sheer drop-offs.",
+    "summary": "A delightful translation of the cosmic eye artwork into a serene, souls-like mountaintop home populated by a friendly toy astral entity."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

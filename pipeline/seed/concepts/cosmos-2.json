@@ -1,0 +1,1168 @@
+{
+  "source": {
+    "art": "pipeline/seed/cosmos.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "mystic",
+    "solemn",
+    "sacred",
+    "aquatic",
+    "submerged",
+    "celestial"
+  ],
+  "observations": [
+    {
+      "what": "Upper eyelid crease and fleshy brow in warm peach and terracotta shading with soft airbrushed highlights",
+      "box": [
+        0,
+        0,
+        220,
+        520
+      ],
+      "maps_to": "shrine_cliff_wall"
+    },
+    {
+      "what": "Upper cosmic nebula cloud composed of swirling streaks of emerald green, teal, and golden space dust against dark void",
+      "box": [
+        0,
+        680,
+        550,
+        1000
+      ],
+      "maps_to": "abyssal_teal_shrubbery"
+    },
+    {
+      "what": "Upper eyelid rim lined with dense, curved, tapering black eyelashes sweeping diagonally upward",
+      "box": [
+        60,
+        0,
+        395,
+        510
+      ],
+      "maps_to": "monolithic_lash_pillar"
+    },
+    {
+      "what": "Creamy ivory sclera of the eye crossed by fine branching red capillary veins and soft warm shading",
+      "box": [
+        190,
+        80,
+        860,
+        600
+      ],
+      "maps_to": "stone_processional_causeway"
+    },
+    {
+      "what": "Intense deep-blue circular iris filled with delicate radial striations and fibrous textures",
+      "box": [
+        220,
+        290,
+        780,
+        710
+      ],
+      "maps_to": "the_sunken_ocular_deity"
+    },
+    {
+      "what": "Luminescent jagged zigzag ring of lime-green and cyan glowing energy encircling the central dark pupil",
+      "box": [
+        280,
+        360,
+        710,
+        650
+      ],
+      "maps_to": "luminescent_coronet_altar"
+    },
+    {
+      "what": "Pitch-black circular pupil anchoring the center of the celestial iris",
+      "box": [
+        380,
+        420,
+        610,
+        600
+      ],
+      "maps_to": "void_pupil_core"
+    },
+    {
+      "what": "Bright white specular flare on the right rim of the iris emitting a sweeping curved starlight ring",
+      "box": [
+        400,
+        690,
+        580,
+        810
+      ],
+      "maps_to": "threshold_starlight_pylons"
+    },
+    {
+      "what": "Curving planetary ring band arcing into deep space, studded with tumbling dark rocky meteors and asteroid chunks",
+      "box": [
+        480,
+        700,
+        920,
+        1000
+      ],
+      "maps_to": "moat_asteroid_barrier"
+    },
+    {
+      "what": "Lower eyelid waterline and sweeping thick black eyelashes curving downward along the lower orbital contour",
+      "box": [
+        720,
+        0,
+        995,
+        410
+      ],
+      "maps_to": "processional_brazier_posts"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#14120b",
+        "share": 0.236,
+        "role": "deep space void background and shadow behind eyelid"
+      },
+      {
+        "hex": "#252118",
+        "share": 0.213,
+        "role": "pupil core, asteroid bodies, and deep lash shading"
+      },
+      {
+        "hex": "#343831",
+        "share": 0.124,
+        "role": "outer iris rim shadow and deep nebula undertone"
+      },
+      {
+        "hex": "#baa08a",
+        "share": 0.103,
+        "role": "sclera middle shading and skin undertones"
+      },
+      {
+        "hex": "#416262",
+        "share": 0.087,
+        "role": "teal iris fibers and upper nebula gas cloud"
+      },
+      {
+        "hex": "#e6caaa",
+        "share": 0.085,
+        "role": "bright sclera highlight and ivory eyelid rim"
+      },
+      {
+        "hex": "#877966",
+        "share": 0.083,
+        "role": "intermediate eyelid tone and asteroid midtones"
+      },
+      {
+        "hex": "#654739",
+        "share": 0.07,
+        "role": "warm peach eyelid flesh and capillary red accents"
+      }
+    ],
+    "translation": {
+      "bg": "#12141c",
+      "grass": {
+        "top": "#5cc398",
+        "fringe": "#44a47d",
+        "fringeDark": "#308061",
+        "speck": "#7ae0b7"
+      },
+      "sand": {
+        "top": "#eed59e",
+        "lip": "#cca76c",
+        "edge": "#ddbc81",
+        "dots": "#fae5b6"
+      },
+      "dirt": {
+        "top": "#bfa088",
+        "patch": "#ab8a72",
+        "mottle": "#96755e",
+        "border": "#85624b"
+      },
+      "stone": {
+        "top": "#d2d8df",
+        "pebble": "#e8ecf0",
+        "pebbleShade": "#b2bac4",
+        "rim": "#9ca4af"
+      },
+      "cliffUpper": {
+        "left": "#6f7d8c",
+        "right": "#505c6a",
+        "seam": "#3f4955"
+      },
+      "cliffLower": {
+        "left": "#5c6775",
+        "right": "#404a55",
+        "seam": "#313942",
+        "speck": "#242a31"
+      },
+      "water": {
+        "top": "#3abfd4",
+        "bubble": "#97effa",
+        "deep": "#1a849f",
+        "fall": [
+          "#28a9c2",
+          "#1a8fa6",
+          "#116d80"
+        ],
+        "foam": "#d4faff"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#a04b14",
+        "end": "#f6d881"
+      },
+      "treeMint": [
+        "#68e09e",
+        "#5ac389",
+        "#44a46b"
+      ],
+      "treeLime": [
+        "#a3f25c",
+        "#82d13e",
+        "#65ab2b"
+      ],
+      "treeLeaf": [
+        "#3da885",
+        "#2f8a6c",
+        "#216c53"
+      ],
+      "treeTeal": [
+        "#40e0d0",
+        "#22bfae",
+        "#119b8c",
+        "#087065"
+      ],
+      "treeGold": [
+        "#f4c842",
+        "#dca725",
+        "#b88212"
+      ],
+      "trunk": [
+        "#905e4d",
+        "#704a3c"
+      ],
+      "rock": [
+        "#d5dbe2",
+        "#b5bdc7",
+        "#8d96a2",
+        "#636b76"
+      ],
+      "wellStone": [
+        "#cfd6dc",
+        "#aeb8c1",
+        "#8d97a1"
+      ],
+      "flowerOrange": [
+        "#ff9233",
+        "#e57519"
+      ],
+      "berry": [
+        "#3cd070",
+        "#24a654"
+      ],
+      "bushTeal": [
+        "#6ae8d6",
+        "#43c9b5",
+        "#299c8b"
+      ],
+      "gold": [
+        "#ffd54f",
+        "#ffb300",
+        "#ff8f00"
+      ]
+    },
+    "notes": "The palette is translated to a sacred sunken nocturnal shrine. Cool stone slabs and shimmering cyan-teal sacred water dominate the ground planes, while the cosmic eye's glowing green coronet and golden starlight accents illuminate architectural focal points against a deep cosmic indigo abyss.",
+    "clamped": [
+      "trunk[0] #82655b->#905e4d",
+      "trunk[1] #674e45->#704a3c"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "threshold_starlight_pylons",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          5
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "where": "Straddling the processional causeway where the axial path meets the sacred moat entrance.",
+      "shape": {
+        "summary": "A pair of carved pale-stone ceremonial obelisks crowned with glowing golden celestial crescent beacons.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.3,
+              0.65,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d2d8df",
+              "#b2bac4",
+              "#9ca4af"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              1.4,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#e8ecf0",
+              "#d2d8df",
+              "#b2bac4"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.48,
+              0.15,
+              0.48,
+              0.05
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#ffb300",
+              "#ff8f00"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.04,
+              0.45,
+              6
+            ],
+            "at": [
+              0,
+              1.85,
+              0
+            ],
+            "tones": [
+              "#fae5b6",
+              "#ffd54f",
+              "#ffb300"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "luminescent_coronet_altar",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.45,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Flanking the shrine's raised sanctum directly beside the enthroned ocular creature.",
+      "shape": {
+        "summary": "A stepped stone pedestal bearing an ornate glowing crown of cyan and lime jagged spires reminiscent of the iris coronet.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.2,
+              0.8,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d2d8df",
+              "#b2bac4",
+              "#9ca4af"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.3,
+              0.12,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#22bfae",
+              "#119b8c",
+              "#087065"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.26,
+              0.08,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0.32,
+              0
+            ],
+            "tones": [
+              "#a3f25c",
+              "#82d13e",
+              "#65ab2b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sanctum_petition_brazier",
+      "type": "torch",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          9
+        ],
+        [
+          9,
+          9
+        ]
+      ],
+      "where": "Evenly paired along both stone margins of the axial causeway crossing the pool.",
+      "shape": {
+        "summary": "A tall fluted stone brazier pole crowned with an amber vigil flame.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              0.85,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d2d8df",
+              "#b2bac4",
+              "#9ca4af"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.36,
+              0.14,
+              0.36,
+              0.04
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#ffb300",
+              "#ff8f00"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.28,
+              6
+            ],
+            "at": [
+              0,
+              0.99,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "moat_asteroid_barrier",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.85,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          12,
+          8
+        ]
+      ],
+      "where": "Stationed along the outer land rims guarding the perimeter of the holy moat.",
+      "shape": {
+        "summary": "Faceted celestial meteor boulders encrusted with stardust, directly echoing the orbiting ring stones in the painting.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.4,
+              0.7,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#636b76",
+              "#505c6a",
+              "#3f4955"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0.05,
+              0.4,
+              -0.05
+            ],
+            "tones": [
+              "#8d96a2",
+              "#636b76",
+              "#404a55"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.8
+            ],
+            "at": [
+              -0.15,
+              0.75,
+              0.1
+            ],
+            "tones": [
+              "#b5bdc7",
+              "#8d96a2",
+              "#636b76"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "shrine_tribute_urns",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.65,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          2
+        ],
+        [
+          10,
+          2
+        ]
+      ],
+      "where": "Placed upon the upper shrine dais corners as ancient pilgrim votive offerings.",
+      "shape": {
+        "summary": "Broad ceramic ritual jars with gilded bands holding sanctified oils.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e98b5a",
+              "#d0704a",
+              "#a95236"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.29,
+              0.08,
+              8
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#ffb300",
+              "#ff8f00"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.28,
+              0.1,
+              0.28,
+              0.05
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#d0704a",
+              "#a95236",
+              "#853e26"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sanctum_nebula_cypress",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 6,
+      "cells": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          13,
+          2
+        ]
+      ],
+      "where": "Enclosing the high rear shrine terrace like the colorful sweeping cosmic nebula backdrop.",
+      "shape": {
+        "summary": "A tall tiered cypress in celestial teal and mint tones representing cosmic dust clouds.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.6,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#905e4d",
+              "#704a3c",
+              "#4e3932"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.5,
+              0.9,
+              0.1
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#22bfae",
+              "#119b8c",
+              "#087065"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.74,
+              0.45,
+              0.74,
+              0.08
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#40e0d0",
+              "#22bfae",
+              "#119b8c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.56,
+              0.4,
+              0.56,
+              0.07
+            ],
+            "at": [
+              0,
+              1.25,
+              0
+            ],
+            "tones": [
+              "#68e09e",
+              "#5ac389",
+              "#44a46b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.36,
+              0.35,
+              0.36,
+              0.05
+            ],
+            "at": [
+              0,
+              1.6,
+              0
+            ],
+            "tones": [
+              "#a3f25c",
+              "#82d13e",
+              "#65ab2b"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "the_sunken_ocular_deity",
+      "source": "The giant celestial eye artwork, resting in the solemn sunken temple sanctum",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "A massive, venerated celestial ocular idol resting horizontally on an ivory dais, gazing toward visitors with concentric vibrant blue, emerald, and midnight pupils.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.6,
+              0.35,
+              1.4,
+              0.15
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e6caaa",
+              "#baa08a",
+              "#877966"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.65,
+              0.3,
+              10
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#22bfae",
+              "#119b8c",
+              "#087065"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.52,
+              0.3,
+              10
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#40e0d0",
+              "#28a9c2",
+              "#1a8fa6"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.48,
+              0.36,
+              0.22,
+              8
+            ],
+            "at": [
+              0,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#a3f25c",
+              "#82d13e",
+              "#65ab2b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              1.17,
+              0
+            ],
+            "tones": [
+              "#252118",
+              "#14120b",
+              "#0a0906"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.9
+            ],
+            "at": [
+              -0.12,
+              1.55,
+              -0.08
+            ],
+            "tones": [
+              "#ffffff",
+              "#e8ecf0",
+              "#d2d8df"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.15
+            ],
+            "outline": [
+              [
+                -0.7,
+                -0.5
+              ],
+              [
+                -0.4,
+                -0.8
+              ],
+              [
+                0.4,
+                -0.8
+              ],
+              [
+                0.7,
+                -0.5
+              ],
+              [
+                0.5,
+                -0.4
+              ],
+              [
+                -0.5,
+                -0.4
+              ]
+            ],
+            "at": [
+              0,
+              0.35,
+              0.1
+            ],
+            "tones": [
+              "#252118",
+              "#14120b",
+              "#000000"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.2,
+              0.2,
+              0.3,
+              0.08
+            ],
+            "at": [
+              0,
+              0.2,
+              0.6
+            ],
+            "tones": [
+              "#654739",
+              "#4e3932",
+              "#352520"
+            ]
+          }
+        ]
+      },
+      "pose": "Resting enshined in eternal vigilance atop its stepped dais, bathed in the soft glow of sacred moat waters.",
+      "cell": [
+        7,
+        2
+      ],
+      "facing": "s",
+      "why": "It is the ancient ocular deity of the sunken shrine, petition seekers approaching down the central processional."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVTTRRRRRRTTVVV",
+      "VVTTRRRFFRRRTTVV",
+      "VVTTRRRFFRRRTTVV",
+      "VVTTRRRRRRRRTTVV",
+      "VVGGGGGPPGGGGGVV",
+      "VVGGWWWPPWWWGGVV",
+      "VVGGWWWPPWWWGGVV",
+      "VVGGWWWPPWWWGGVV",
+      "VVGGGGGPPGGGGGVV",
+      "VVVGGGGPPGGGGVVV",
+      "VVVVGGGPPGGGVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0002222222222000",
+      "0022222222222200",
+      "0022222222222200",
+      "0022222222222200",
+      "0011111111111100",
+      "0011000110001100",
+      "0011000110001100",
+      "0011000110001100",
+      "0011111111111100",
+      "0001111111111000",
+      "0000111111110000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 2,
+      "what": "the_sunken_ocular_deity"
+    },
+    "mass": "The visual weight sits primarily on the elevated northern sanctuary platform backed by cosmic cypress foliage, mirrored symmetrically across the central causeway by twin pools of glowing cyan water.",
+    "read": "The viewer enters at the near southern stone causeway (rows 11 and 10), drawn straight along the axial processional path that bisects the still sacred water moats. Passing between the tall starlight threshold pylons at row 5, the path steps up onto the sacred elevated stone terrace (height 2) where the great ocular deity rests enthroned amid coronet altars and temple tribute urns."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "sanctum_nebula_cypress",
+          "variant": "pine",
+          "weight": 1
+        }
+      ]
+    },
+    "water_share": 0.094,
+    "plateau_share": 0.32,
+    "void_share": 0.35,
+    "decor_weights": {
+      "sanctum_petition_brazier": 0.35,
+      "luminescent_coronet_altar": 0.2,
+      "shrine_tribute_urns": 0.2,
+      "moat_asteroid_barrier": 0.25
+    },
+    "lighting": {
+      "bg": "#12141c",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#40e0d0",
+      "notes": "Nocturnal celestial mood lit by calm ambient teal starlight with warm ember accents from the ritual braziers."
+    },
+    "rules": [
+      "Keep the central processional path completely straight and uninterrupted from the near rim to the elevated sanctum steps.",
+      "The sacred water moat must flank both left and right flanks of the stone causeway symmetrically.",
+      "The ocular deity sits squarely on the raised height-2 sanctum centered at the culmination of the processional.",
+      "Place starlight threshold pylons at the transition where the causeway enters the inner shrine terrace."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "stone",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sunken Eye Shrine, a nocturnal water temple carved into celestial slate to venerate an ancient cosmic eye.",
+    "approach": "The traveler walks an axial stone causeway crossing between two still arms of a sacred cyan moat, passing beneath twin starlight pylons before mounting the sanctum steps.",
+    "creature_doing": "The grand ocular entity keeps an eternal, unblinking vigil over the sanctum pool, humming with radial lime-green energy.",
+    "palette_key": "Night sanctum dominated by cool slate stone, shimmering cyan water, and deep indigo void, punctuated by glowing coronet teals and golden starlight.",
+    "terrain": "Stone causeway and stepped sanctuary court flanked by a sacred still-water moat.",
+    "summary": "An axial aquatic shrine dedicated to the celestial eye, where pilgrims cross a sacred water basin to petition a living ocular deity."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 2,
+    "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
+    "avoid": [
+      "pipeline/seed/concepts/cosmos-1.json"
+    ]
+  }
+}

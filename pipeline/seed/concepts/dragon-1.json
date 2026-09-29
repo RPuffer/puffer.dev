@@ -1,0 +1,1173 @@
+{
+  "source": {
+    "art": "pipeline/seed/dragon.png",
+    "width": 2048,
+    "height": 1533,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "majestic",
+    "cozy",
+    "rugged",
+    "soaring",
+    "ancient",
+    "playful"
+  ],
+  "observations": [
+    {
+      "what": "Gnarled dragon head with open snarling jaws full of needle-sharp teeth and pointed fangs",
+      "box": [
+        215,
+        226,
+        680,
+        563
+      ],
+      "maps_to": "the central dragon creature NPC perched in its lair"
+    },
+    {
+      "what": "Glowing white pupil-less eye nestled in heavy brow scales",
+      "box": [
+        255,
+        375,
+        335,
+        439
+      ],
+      "maps_to": "bright gem-like eyes on the creature toy model"
+    },
+    {
+      "what": "Elongated pointed ears and horn spikes protruding backward along the crown and jawline",
+      "box": [
+        118,
+        442,
+        332,
+        555
+      ],
+      "maps_to": "spiky ear prisms and horns along the dragon's head crest"
+    },
+    {
+      "what": "Spiny neck collar with radiating quill-like spikes framing the throat",
+      "box": [
+        292,
+        467,
+        570,
+        584
+      ],
+      "maps_to": "spiked collar trim and rock perimeter spurs"
+    },
+    {
+      "what": "Arched serpentine dorsal ridge with stacked diamond plates and dorsal crest spines",
+      "box": [
+        15,
+        526,
+        362,
+        826
+      ],
+      "maps_to": "carved roost dais and terraced ridge architecture"
+    },
+    {
+      "what": "Clawed right foreleg gripping forward with sharp segmented talons",
+      "box": [
+        418,
+        131,
+        578,
+        273
+      ],
+      "maps_to": "clutched treasure props and resting perch edge"
+    },
+    {
+      "what": "Long grasping rear talon clinging to a curving ledge or branch",
+      "box": [
+        470,
+        545,
+        822,
+        831
+      ],
+      "maps_to": "stone roosting pillars supporting the high cliff perch"
+    },
+    {
+      "what": "Thin skeletal wing finger struts folded upright near the shoulder",
+      "box": [
+        198,
+        81,
+        548,
+        198
+      ],
+      "maps_to": "spiked gateway arch forming the threshold"
+    },
+    {
+      "what": "Coiled looping tail lightly sketched looping down to the bottom left",
+      "box": [
+        665,
+        78,
+        995,
+        403
+      ],
+      "maps_to": "winding stone path climbing the layered terraces"
+    },
+    {
+      "what": "Diagonal sweeping motion lines and empty white background vignette",
+      "box": [
+        35,
+        38,
+        960,
+        962
+      ],
+      "maps_to": "open airy canyon void framing the cliff roost"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ededed",
+        "share": 0.252,
+        "role": "clean parchment background"
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.195,
+        "role": "light graphite shading and soft highlights"
+      },
+      {
+        "hex": "#f3f3f3",
+        "share": 0.176,
+        "role": "brightest paper white and eye highlight"
+      },
+      {
+        "hex": "#e5e5e5",
+        "share": 0.155,
+        "role": "subtle paper grain and mid-light tones"
+      },
+      {
+        "hex": "#303030",
+        "share": 0.072,
+        "role": "deep charcoal shadows inside the maw and scales"
+      },
+      {
+        "hex": "#5f5f5f",
+        "share": 0.057,
+        "role": "dark scale patterns and claw line-work"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.047,
+        "role": "faint sketch guidelines of tail and limbs"
+      },
+      {
+        "hex": "#8b8b8b",
+        "share": 0.046,
+        "role": "mid-tone scale cross-hatching"
+      }
+    ],
+    "translation": {
+      "bg": "#2b2a33",
+      "grass": {
+        "top": "#b2e874",
+        "fringe": "#8fcd61",
+        "fringeDark": "#6fad48",
+        "speck": "#cbf28d"
+      },
+      "sand": {
+        "top": "#f6c82e",
+        "lip": "#dc9600",
+        "edge": "#edb808",
+        "dots": "#fbe064"
+      },
+      "dirt": {
+        "top": "#ffd768",
+        "patch": "#f4c44a",
+        "mottle": "#e3aa30",
+        "border": "#cb8e1e"
+      },
+      "stone": {
+        "top": "#e0d9cf",
+        "pebble": "#f0ede6",
+        "pebbleShade": "#c5beb4",
+        "rim": "#aba49a"
+      },
+      "cliffUpper": {
+        "left": "#bf7f65",
+        "right": "#9b5f54",
+        "seam": "#834940"
+      },
+      "cliffLower": {
+        "left": "#ce7c62",
+        "right": "#944e45",
+        "seam": "#ad594e",
+        "speck": "#7a372f"
+      },
+      "water": {
+        "top": "#98ecfa",
+        "bubble": "#d8f8ff",
+        "deep": "#00caea",
+        "fall": [
+          "#00daff",
+          "#00ceff",
+          "#00b8e6"
+        ],
+        "foam": "#e6fbff"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#9b3c06",
+        "end": "#f8dc88"
+      },
+      "treeMint": [
+        "#68e09e",
+        "#54c688",
+        "#3d9f69"
+      ],
+      "treeLime": [
+        "#c6f284",
+        "#8de45e",
+        "#6eb043"
+      ],
+      "treeLeaf": [
+        "#8ee65f",
+        "#66cb5d",
+        "#4b9e40"
+      ],
+      "treeTeal": [
+        "#1ce3b7",
+        "#0ec499",
+        "#059e7a",
+        "#037a5e"
+      ],
+      "treeGold": [
+        "#fcd248",
+        "#f0b50e",
+        "#d39300"
+      ],
+      "trunk": [
+        "#ad6452",
+        "#934d43"
+      ],
+      "rock": [
+        "#e5e5e5",
+        "#cccccc",
+        "#a3a3a3",
+        "#787878"
+      ],
+      "wellStone": [
+        "#ded2b6",
+        "#c8bb9e",
+        "#ada084"
+      ],
+      "flowerOrange": [
+        "#ff8820",
+        "#f4b810"
+      ],
+      "berry": [
+        "#ff6f8c",
+        "#ee5575"
+      ],
+      "bushTeal": [
+        "#95ffc9",
+        "#6be2a2",
+        "#51bf87"
+      ],
+      "gold": [
+        "#f5be14",
+        "#dc9500",
+        "#ffe384"
+      ]
+    },
+    "notes": "Translates the monochrome wyvern sketch into a vibrant mountain lair bathed in warm midday sunshine. The dragon's dark charcoal tones inform the slate horns and dark spine details of the toys, while sunny gold and warm sand tiles reflect a cozy high-altitude roost."
+  },
+  "motifs": [
+    {
+      "name": "roost_threshold_arch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "Straddles the switchback path at the terrace step in row 6, evoking the dragon's upright wing spurs.",
+      "shape": {
+        "summary": "A sharp horn-topped stone post framing the entrance to the dragon's sunning terrace.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.4,
+              0.3,
+              0.4
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e0d9cf",
+              "#c5beb4",
+              "#aba49a"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.3,
+              1.2,
+              0.3
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#ded2b6",
+              "#c8bb9e",
+              "#ada084"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.02,
+              0.7,
+              6
+            ],
+            "at": [
+              0,
+              1.5,
+              0
+            ],
+            "tones": [
+              "#a3a3a3",
+              "#787878",
+              "#303030"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sunstone_perch_dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.4,
+      "passable": true,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          3
+        ]
+      ],
+      "where": "Sits directly beneath the resting dragon in row 3 as its cozy sun-warmed roost platform.",
+      "shape": {
+        "summary": "A smooth rounded golden stone platform etched with radiating scale facets.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.48,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f6c82e",
+              "#dc9600",
+              "#edb808"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.38,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#ffe384",
+              "#f5be14",
+              "#dc9500"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              0.8
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#ffe384",
+              "#f5be14",
+              "#dc9500"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "dragon_hoard_chest",
+      "type": "chest",
+      "variant_of": "chest",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Tucked alongside the creature's high perch to hold its favorite collected treasures.",
+      "shape": {
+        "summary": "Standard sturdy wooden chest adorned with shining brass banding.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.38,
+              0.5
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#dc7016",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.72,
+              0.22,
+              0.52,
+              0.08
+            ],
+            "at": [
+              0,
+              0.38,
+              0
+            ],
+            "tones": [
+              "#f8dc88",
+              "#dc9500",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.12,
+              0.14,
+              0.06
+            ],
+            "at": [
+              0,
+              0.28,
+              0.26
+            ],
+            "tones": [
+              "#ffe384",
+              "#f5be14",
+              "#dc9500"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "roost_stone_lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          5,
+          9
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "where": "Lined in pairs flanking the switchback path at lower and mid terraces.",
+      "shape": {
+        "summary": "Carved stone pedestal holding a warm glowing ember firebox.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.32,
+              0.5,
+              0.32
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e0d9cf",
+              "#c5beb4",
+              "#aba49a"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.26,
+              0.3,
+              0.26
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.2
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "outline": [
+              [
+                -0.2,
+                -0.2
+              ],
+              [
+                0.2,
+                -0.2
+              ],
+              [
+                0,
+                0.2
+              ]
+            ],
+            "tones": [
+              "#ded2b6",
+              "#c8bb9e",
+              "#ada084"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cliff_pine",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          2,
+          1
+        ],
+        [
+          12,
+          1
+        ]
+      ],
+      "where": "Clustering along the cliff perimeters to frame the roost against the open sky.",
+      "shape": {
+        "summary": "Classic toy pine with four stacked rboxes tapering upwards on a warm brown trunk.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.6,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ad6452",
+              "#934d43",
+              "#7a372f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.45,
+              0.9,
+              0.1
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#68e09e",
+              "#54c688",
+              "#3d9f69"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.4,
+              0.75,
+              0.1
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#68e09e",
+              "#54c688",
+              "#3d9f69"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.55,
+              0.08
+            ],
+            "at": [
+              0,
+              1.25,
+              0
+            ],
+            "tones": [
+              "#95ffc9",
+              "#6be2a2",
+              "#51bf87"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.36,
+              0.3,
+              0.36,
+              0.06
+            ],
+            "at": [
+              0,
+              1.55,
+              0
+            ],
+            "tones": [
+              "#95ffc9",
+              "#6be2a2",
+              "#51bf87"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "crag_pebbles",
+      "type": "rock",
+      "variant_of": "rock",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.4,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          5
+        ],
+        [
+          10,
+          8
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "where": "Scattered on terrace edges recalling the dragon's stony habitat.",
+      "shape": {
+        "summary": "Cluster of small rounded limestone pebbles.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.65
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "tones": [
+              "#e5e5e5",
+              "#cccccc",
+              "#a3a3a3"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.16,
+              0.6
+            ],
+            "at": [
+              0.15,
+              0.08,
+              0.12
+            ],
+            "tones": [
+              "#cccccc",
+              "#a3a3a3",
+              "#787878"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.7
+            ],
+            "at": [
+              -0.12,
+              0.06,
+              -0.08
+            ],
+            "tones": [
+              "#f0ede6",
+              "#e0d9cf",
+              "#c5beb4"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "sunning_wyvern",
+      "source": "The roaring horned wyvern drawn in graphite in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "pose": "Curled comfortably on its high stone perch, yawning widely toward the sun with its spiky wings half-folded.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "The resident dragon of this mountain home enjoying a calm, unguarded morning stretch.",
+      "shape": {
+        "summary": "Chunky toy dragon with a spiky neck crest, open smiling snout, stout body, and folded wing claws.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.55,
+              0.75,
+              0.12
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "tones": [
+              "#a3a3a3",
+              "#787878",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.5,
+              0.55,
+              0.1
+            ],
+            "at": [
+              0,
+              0.6,
+              0.1
+            ],
+            "tones": [
+              "#cccccc",
+              "#a3a3a3",
+              "#787878"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.4,
+              0.3,
+              0.45
+            ],
+            "at": [
+              0,
+              0.7,
+              0.4
+            ],
+            "tones": [
+              "#e5e5e5",
+              "#cccccc",
+              "#787878"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.34,
+              0.18,
+              0.28
+            ],
+            "at": [
+              0,
+              0.65,
+              0.42
+            ],
+            "tones": [
+              "#ff6f8c",
+              "#ee5575",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0.01,
+              0.35,
+              4
+            ],
+            "at": [
+              -0.2,
+              1.1,
+              -0.1
+            ],
+            "tones": [
+              "#ffe384",
+              "#f5be14",
+              "#dc9500"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0.01,
+              0.35,
+              4
+            ],
+            "at": [
+              0.2,
+              1.1,
+              -0.1
+            ],
+            "tones": [
+              "#ffe384",
+              "#f5be14",
+              "#dc9500"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.07,
+              0.8
+            ],
+            "at": [
+              -0.16,
+              0.9,
+              0.28
+            ],
+            "tones": [
+              "#ffffff",
+              "#f0ede6",
+              "#e0d9cf"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.07,
+              0.8
+            ],
+            "at": [
+              0.16,
+              0.9,
+              0.28
+            ],
+            "tones": [
+              "#ffffff",
+              "#f0ede6",
+              "#e0d9cf"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.06,
+              0.01,
+              0.25,
+              4
+            ],
+            "at": [
+              0,
+              1.05,
+              -0.25
+            ],
+            "tones": [
+              "#ffe384",
+              "#f5be14",
+              "#dc9500"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.06,
+              0.01,
+              0.22,
+              4
+            ],
+            "at": [
+              0,
+              0.65,
+              -0.42
+            ],
+            "tones": [
+              "#ffe384",
+              "#f5be14",
+              "#dc9500"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.14,
+              0.45,
+              0.3
+            ],
+            "at": [
+              -0.4,
+              0.35,
+              0.05
+            ],
+            "tones": [
+              "#a3a3a3",
+              "#787878",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.14,
+              0.45,
+              0.3
+            ],
+            "at": [
+              0.4,
+              0.35,
+              0.05
+            ],
+            "tones": [
+              "#a3a3a3",
+              "#787878",
+              "#303030"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVTTRRRRRRRTTVVV",
+      "VVRRRRRRRRRRRVVV",
+      "VVRRRRRFGRRRRVVV",
+      "VVVRRRRPPRRRRVVV",
+      "VVVTRRPPPPTTVVVV",
+      "VVVVRPPPRRRVVVVV",
+      "VVVVRPPPRRRVVVVV",
+      "VVVVRPPTTRRVVVVV",
+      "VVVVVPPGGGGVVVVV",
+      "VVVVVGPGGGGVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0011333333311000",
+      "0033333333333000",
+      "0033333333333000",
+      "0002222222222000",
+      "0001222222110000",
+      "0000222222200000",
+      "0000222222200000",
+      "0000111111100000",
+      "0000011111100000",
+      "0000011111100000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "The sunning wyvern seated atop its elevated height-3 roost terrace."
+    },
+    "mass": "Visual weight is anchored on the high central-northern crag plateau rising to height 3, framed by surrounding void.",
+    "read": "The viewer's eye enters from the lower-left trail on row 10, following the cobblestone path as it winds right and climbs onto the height-2 plateau. It crosses through the threshold pillars at row 6, turns upward, and culminates at the high sunny roost platform where the friendly wyvern stretches."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "cliff_pine",
+          "variant": "tree-pine",
+          "weight": 1
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.44,
+    "void_share": 0.45,
+    "decor_weights": {
+      "crag_pebbles": 0.45,
+      "roost_stone_lantern": 0.35,
+      "dragon_hoard_chest": 0.2
+    },
+    "lighting": {
+      "bg": "#2b2a33",
+      "ambient": 0.88,
+      "sun": 0.15,
+      "tint": "#fffbf0",
+      "notes": "Bright, warm midday sunlight fills the high alpine perch, emphasizing friendly toy volumes against a dusky atmospheric drop."
+    },
+    "rules": [
+      "The player enters at the off-centre path at the southern base terrace.",
+      "The path ascends in a distinct two-turn switchback through height 1 and 2 terraces.",
+      "A paired threshold of wing-like stone arch pillars guards the entrance to the height 2 terrace.",
+      "The high plateau rises to height 3 where the focal dragon perches upon its sunstone dais."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Wyvern's Cloud Roost, a cozy cliff-top terrace of sun-bleached stone and alpine greenery high above the chasm.",
+    "approach": "The visitor climbs a winding switchback trail bordered by stone lanterns and passes between a pair of spired threshold pillars.",
+    "creature_doing": "The dragon lounges comfortably on its warm dais, giving a sleepy midday yawn and enjoying the open mountain breeze.",
+    "palette_key": "Warm alpine midday sun washing across sunny stone tiles, crisp pines, and amber-gold treasure accents.",
+    "terrain": "Tiered terraces carving up from lush grass to a towering height-3 sunning crag wrapped in open void.",
+    "summary": "A peaceful souls-like home haven where the terrifying beast of the sketch becomes a contented guardian sunning on its rocky nest."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

@@ -1,0 +1,1127 @@
+{
+  "source": {
+    "art": "pipeline/seed/mindbloom.png",
+    "width": 1280,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "tranquil",
+    "psychedelic",
+    "mystical",
+    "dreamlike",
+    "introspective",
+    "secluded"
+  ],
+  "observations": [
+    {
+      "what": "Serene lavender-toned sleeping face with peaceful closed eyes and gentle closed mouth",
+      "box": [
+        485,
+        290,
+        680,
+        672
+      ],
+      "maps_to": "Oracle of the Slumbering Mind NPC"
+    },
+    {
+      "what": "Vertical flame-shaped third eye opening on the forehead radiating glowing ripples",
+      "box": [
+        458,
+        422,
+        570,
+        555
+      ],
+      "maps_to": "Third-eye beacon flame and crest"
+    },
+    {
+      "what": "A glass jar candle at the base radiating an undulating wisp of fragrant smoke upward",
+      "box": [
+        832,
+        418,
+        960,
+        575
+      ],
+      "maps_to": "Ceremonial tallow candle threshold lantern"
+    },
+    {
+      "what": "Sprawling jagged black psychedelic mind-crown with pointed lobes framing the head",
+      "box": [
+        98,
+        118,
+        622,
+        876
+      ],
+      "maps_to": "Obsidian terraced cliff framing and canopy"
+    },
+    {
+      "what": "Spotted psychedelic mushrooms clustered within the left foliage of the aura",
+      "box": [
+        245,
+        318,
+        365,
+        416
+      ],
+      "maps_to": "Bioluminescent cap mushroom props"
+    },
+    {
+      "what": "Floating concentric spheres, neon orbs, and planetary bubbles in the upper aura",
+      "box": [
+        140,
+        480,
+        315,
+        678
+      ],
+      "maps_to": "Glowing floating dream orbs on pedestals"
+    },
+    {
+      "what": "Stylized open eyes with concentric irises embedded amidst wavy tendrils",
+      "box": [
+        420,
+        202,
+        508,
+        332
+      ],
+      "maps_to": "Carved eye-motif boundary ward stones"
+    },
+    {
+      "what": "Curving DNA helices, serpents, and neon zigzags bridging different zones",
+      "box": [
+        360,
+        298,
+        478,
+        372
+      ],
+      "maps_to": "Winding stepped ramp paths and railings"
+    },
+    {
+      "what": "Solid periwinkle lilac background void holding the central floating icon",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "Void chasm and lavender ambient backdrop"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#c3bdff",
+        "share": 0.724,
+        "role": "paper"
+      },
+      {
+        "hex": "#2e3536",
+        "share": 0.078,
+        "role": "mind cavity"
+      },
+      {
+        "hex": "#0c0d0e",
+        "share": 0.071,
+        "role": "silhouette edge"
+      },
+      {
+        "hex": "#4d5e5e",
+        "share": 0.053,
+        "role": "trunk shadow"
+      },
+      {
+        "hex": "#787b9c",
+        "share": 0.024,
+        "role": "face contour"
+      },
+      {
+        "hex": "#a5a2cf",
+        "share": 0.022,
+        "role": "face base"
+      },
+      {
+        "hex": "#7ea572",
+        "share": 0.015,
+        "role": "green line accents"
+      },
+      {
+        "hex": "#d0c9fa",
+        "share": 0.013,
+        "role": "smoke mist"
+      }
+    ],
+    "translation": {
+      "bg": "#222035",
+      "grass": {
+        "top": "#8be47a",
+        "fringe": "#6ec25d",
+        "fringeDark": "#529f44",
+        "speck": "#b3f59e"
+      },
+      "sand": {
+        "top": "#f5c53a",
+        "lip": "#d89613",
+        "edge": "#e9b522",
+        "dots": "#fce06e"
+      },
+      "dirt": {
+        "top": "#efc687",
+        "patch": "#e2b26c",
+        "mottle": "#cca059",
+        "border": "#deb371"
+      },
+      "stone": {
+        "top": "#d8d3f7",
+        "pebble": "#ece8ff",
+        "pebbleShade": "#b5b0da",
+        "rim": "#9f99c7"
+      },
+      "cliffUpper": {
+        "left": "#524d6d",
+        "right": "#3c3852",
+        "seam": "#2a273b"
+      },
+      "cliffLower": {
+        "left": "#46415e",
+        "right": "#322e45",
+        "seam": "#232032",
+        "speck": "#1c1928"
+      },
+      "water": {
+        "top": "#8eeaff",
+        "bubble": "#d8f8ff",
+        "deep": "#00bfe6",
+        "fall": [
+          "#2ee0ff",
+          "#00cbee",
+          "#00b2d6"
+        ],
+        "foam": "#e6fbff"
+      },
+      "wood": {
+        "light": "#ff8e38",
+        "mid": "#dc7421",
+        "dark": "#b85412",
+        "shadow": "#963d08",
+        "end": "#f8dc93"
+      },
+      "treeMint": [
+        "#68e5a3",
+        "#4fc486",
+        "#379c65"
+      ],
+      "treeLime": [
+        "#c7f272",
+        "#98dc4e",
+        "#72b036"
+      ],
+      "treeLeaf": [
+        "#7fe66e",
+        "#5ac34c",
+        "#419934"
+      ],
+      "treeTeal": [
+        "#1fe7c5",
+        "#0ec6a5",
+        "#079e83",
+        "#047964"
+      ],
+      "treeGold": [
+        "#fbd856",
+        "#f1b918",
+        "#ce9304"
+      ],
+      "trunk": [
+        "#8d4c7d",
+        "#65375a"
+      ],
+      "rock": [
+        "#e8e5fa",
+        "#d4cef3",
+        "#b0a8d6",
+        "#8d85b6"
+      ],
+      "wellStone": [
+        "#cac5eb",
+        "#b3addb",
+        "#9790be"
+      ],
+      "flowerOrange": [
+        "#ff7f32",
+        "#f0ae24"
+      ],
+      "berry": [
+        "#ff599c",
+        "#ea3b7f"
+      ],
+      "bushTeal": [
+        "#97ffd2",
+        "#5ee3a6",
+        "#44b982"
+      ],
+      "gold": [
+        "#ffd54f",
+        "#f2ae1c",
+        "#ffe68a"
+      ]
+    },
+    "notes": "The pack's saturated toy palette is preserved while infusing mystical periwinkle and lilac into stones and cliffs, echoing the artwork's dreamscape background and midnight head canopy. Vibrant neon limes and mints provide the bioluminescent plant accents.",
+    "clamped": [
+      "trunk[0] #7d5c75->#8d4c7d",
+      "trunk[1] #5c4055->#65375a"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "Dreamfire Pylon Threshold",
+      "type": "new",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          7
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "where": "Framing the approach path directly before the middle terrace switchback climb.",
+      "shape": {
+        "summary": "Chunky wax candle pillar standing upon an octagonal plinth, topped by a glowing flame cone and ascending lilac smoke curls.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.25,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#cac5eb",
+              "#b3addb",
+              "#9790be"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.9,
+              8
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#ece8ff",
+              "#d8d3f7",
+              "#b5b0da"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#f2ae1c",
+              "#ff7f32"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "to": [
+              0.08,
+              1.65,
+              0.05
+            ],
+            "tones": [
+              "#ece8ff",
+              "#d8d3f7",
+              "#b5b0da"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Lotus Meditation Hearth",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 0.45,
+      "passable": true,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          3
+        ]
+      ],
+      "where": "The raised sacred dais on the uppermost terrace where the dreaming oracle sits.",
+      "shape": {
+        "summary": "Wide stepped octagonal stone dais inlayed with concentric gold rings and lilac petals.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.95,
+              0.2,
+              8
+            ],
+            "at": [
+              0.5,
+              0,
+              0.5
+            ],
+            "tones": [
+              "#d8d3f7",
+              "#b5b0da",
+              "#9f99c7"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.75,
+              0.15,
+              8
+            ],
+            "at": [
+              0.5,
+              0.2,
+              0.5
+            ],
+            "tones": [
+              "#ffd54f",
+              "#f2ae1c",
+              "#ce9304"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.55,
+              0.1,
+              8
+            ],
+            "at": [
+              0.5,
+              0.35,
+              0.5
+            ],
+            "tones": [
+              "#8be47a",
+              "#6ec25d",
+              "#529f44"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Spotted Spore Fungus",
+      "type": "mushroom",
+      "variant_of": "mushroom",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.65,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          2
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "where": "Sprouting abundantly along the moist rocky garden terraces flanking the sleeper's sanctuary.",
+      "shape": {
+        "summary": "Chunky mushroom cluster with a thick cream stem and vibrant dotted dome cap.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ece8ff",
+              "#d8d3f7",
+              "#b5b0da"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.05,
+              0.28,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#ff599c",
+              "#ea3b7f",
+              "#b85412"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.06,
+              0.6
+            ],
+            "at": [
+              0.12,
+              0.5,
+              0.12
+            ],
+            "tones": [
+              "#ffd54f",
+              "#f2ae1c",
+              "#ce9304"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.05,
+              0.6
+            ],
+            "at": [
+              -0.14,
+              0.48,
+              -0.08
+            ],
+            "tones": [
+              "#1fe7c5",
+              "#0ec6a5",
+              "#079e83"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Dream Orb Lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          6,
+          9
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "where": "Pairing along the approach switchbacks to guide visitors up the terrace path.",
+      "shape": {
+        "summary": "Slender wooden post supporting a floating sphere in electric teal.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.7,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e38",
+              "#dc7421",
+              "#b85412"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.08,
+              0.32,
+              0.02
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#f8dc93",
+              "#dc7421",
+              "#963d08"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              1
+            ],
+            "at": [
+              0,
+              0.92,
+              0
+            ],
+            "tones": [
+              "#1fe7c5",
+              "#0ec6a5",
+              "#079e83"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Slumber Canopy Tree",
+      "type": "new",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.3,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          10,
+          5
+        ]
+      ],
+      "where": "Clustering along the peripheral edges to form the dark silhouette framing the sanctuary.",
+      "shape": {
+        "summary": "Deep purple trunk holding stacked stylized foliage blocks of mint and teal.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              1.1,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8d4c7d",
+              "#65375a",
+              "#3c3852"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.1
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#0ec6a5",
+              "#079e83",
+              "#047964"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.45,
+              0.75,
+              0.08
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#68e5a3",
+              "#4fc486",
+              "#379c65"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.4,
+              0.45,
+              0.06
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#97ffd2",
+              "#5ee3a6",
+              "#44b982"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Eye Sigil Stepping Stone",
+      "type": "stepping-stones",
+      "variant_of": "stepping-stones",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.08,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          6,
+          11
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      "where": "Paving key turning points along the switchback path.",
+      "shape": {
+        "summary": "Carved pale flagstone embedded with a stylized turquoise eye motif.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.38,
+              0.08,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ece8ff",
+              "#d8d3f7",
+              "#b5b0da"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.03,
+              8
+            ],
+            "at": [
+              0,
+              0.07,
+              0
+            ],
+            "tones": [
+              "#1fe7c5",
+              "#0ec6a5",
+              "#079e83"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "Oracle of the Slumbering Mind",
+      "source": "The serene lavender face meditating under the vast psychedelic mind-crown in Image 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "Serene lavender-skinned mystic seated cross-legged, crowned with an expansive scalloped mind-mantle and an upright third-eye flame gem.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.4,
+              0.6,
+              0.1
+            ],
+            "at": [
+              0.5,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#787b9c",
+              "#524d6d",
+              "#3c3852"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.65,
+              0.55,
+              0.12
+            ],
+            "at": [
+              0.5,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#d8d3f7",
+              "#a5a2cf",
+              "#787b9c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.5,
+              0.5,
+              0.12
+            ],
+            "at": [
+              0.5,
+              1.3,
+              0.02
+            ],
+            "tones": [
+              "#ece8ff",
+              "#d8d3f7",
+              "#a5a2cf"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              0.03,
+              0.02
+            ],
+            "at": [
+              0.35,
+              1.45,
+              0.28
+            ],
+            "tones": [
+              "#3c3852",
+              "#2a273b",
+              "#1c1928"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              0.03,
+              0.02
+            ],
+            "at": [
+              0.65,
+              1.45,
+              0.28
+            ],
+            "tones": [
+              "#3c3852",
+              "#2a273b",
+              "#1c1928"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.25
+            ],
+            "outline": [
+              [
+                -0.6,
+                0
+              ],
+              [
+                1.6,
+                0
+              ],
+              [
+                1.8,
+                -0.3
+              ],
+              [
+                -0.8,
+                -0.3
+              ]
+            ],
+            "at": [
+              0,
+              1.4,
+              -0.1
+            ],
+            "tones": [
+              "#222035",
+              "#1c1928",
+              "#0c0d0e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0,
+              0.38,
+              6
+            ],
+            "at": [
+              0.5,
+              1.7,
+              0.15
+            ],
+            "tones": [
+              "#ffd54f",
+              "#f2ae1c",
+              "#ff7f32"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              0.7
+            ],
+            "at": [
+              0.5,
+              1.82,
+              0.18
+            ],
+            "tones": [
+              "#1fe7c5",
+              "#0ec6a5",
+              "#079e83"
+            ]
+          }
+        ]
+      },
+      "pose": "Hovering motionless in an eternal tranquil trance atop the sanctuary hearth, softly dreaming the garden into existence.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "Acts as the peaceful shrine master and patron of the mountain sanctuary whom the player climbs the terraces to consult."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVVTTTTTTTTVVVV",
+      "VVVTRRRRRRRRTVVV",
+      "VVTTRRRFFRRRRTTV",
+      "VVTTRRPPRRRRRTTV",
+      "VVTRPPPTRRRRTTVV",
+      "VVTGPRRRRRRRTTTV",
+      "VVTGPPPPPPGGGTVV",
+      "VVGGGGGPPGGGTVVV",
+      "VVVGGPPPPGGGGVVV",
+      "VVVVGGPGGGGGVVVV",
+      "VVVVVVPGGVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0000333333330000",
+      "0003333333333000",
+      "0033333333333330",
+      "0033333333333330",
+      "0033333333333300",
+      "0021322222222220",
+      "0021222222111200",
+      "0011111221111000",
+      "0001111111111000",
+      "0000111111110000",
+      "0000001110000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "Oracle of the Slumbering Mind"
+    },
+    "mass": "Visual weight is heavily anchored at the rear summit plateau (height 3) between rows 2 and 5, cradled by flanking dark vegetation.",
+    "read": "The player enters at the southern low rim at row 11 on an off-centre paved trail. The path meanders through an initial meadow, turns sharply east, climbs through a stone candle threshold, and executes two distinct terrace switchbacks before arriving at the high meditation perch where the serene oracle hovers."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.22,
+      "types": [
+        {
+          "type": "Slumber Canopy Tree",
+          "variant": "1",
+          "weight": 0.7
+        },
+        {
+          "type": "tree-round",
+          "variant": "1",
+          "weight": 0.3
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.46,
+    "void_share": 0.42,
+    "decor_weights": {
+      "Spotted Spore Fungus": 0.35,
+      "Dream Orb Lantern": 0.25,
+      "Eye Sigil Stepping Stone": 0.2,
+      "flower": 0.2
+    },
+    "lighting": {
+      "bg": "#222035",
+      "ambient": 0.9,
+      "sun": 0.15,
+      "tint": "#eee9ff",
+      "notes": "Generous warm noon ambient light suffuses the mountain garden, softly tinted by high-altitude lavender haze."
+    },
+    "rules": [
+      "Approach path must enter off-centre from the southern rim and switch back twice while climbing terraces.",
+      "Candle threshold pillars must flank the primary ramp ascending to the tier 2 plateau.",
+      "Tier 3 plateau holds the focal hearth and oracle, surrounded by dense canopy trees on the far perimeter."
+    ],
+    "decor_density": 0.12,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "grass",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Slumbering Hermitage, a tranquil tiered mountaintop garden where botanical dream-spores are cultivated.",
+    "approach": "A winding mountain stairway flanked by wax pylon arches and glowing orb posts ascending stacked lilac cliffs.",
+    "creature_doing": "Floating peacefully in mid-air atop a sacred lotus hearth, deep in visionary meditation.",
+    "palette_key": "Gentle noon sunlight bathing vivid spring greens and gold sands against lavender cliffs and dark midnight foliage.",
+    "terrain": "Stacked concentric terraces climbing three elevation tiers toward a secluded sacred high perch.",
+    "summary": "A souls-like secluded haven translating the surreal dreaming artwork into a comforting mountain sanctuary of contemplation."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

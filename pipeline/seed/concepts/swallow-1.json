@@ -1,0 +1,1156 @@
+{
+  "source": {
+    "art": "pipeline/seed/swallow.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "aerodynamic",
+    "sanctuary",
+    "poised",
+    "sunlit",
+    "windblown",
+    "warm"
+  ],
+  "observations": [
+    {
+      "what": "Graceful arched upper wingtip pointing toward upper left corner",
+      "box": [
+        88,
+        211,
+        480,
+        563
+      ],
+      "maps_to": "sweeping decorative perch boughs"
+    },
+    {
+      "what": "Second primary wing reaching sharply upward toward the top center",
+      "box": [
+        62,
+        482,
+        477,
+        686
+      ],
+      "maps_to": "tall stylized timber roost spires"
+    },
+    {
+      "what": "Curled spiral head with dark bead eye and sharp pointed beak facing right",
+      "box": [
+        345,
+        686,
+        529,
+        893
+      ],
+      "maps_to": "sculpted avian swallow guardian figure"
+    },
+    {
+      "what": "Broad swoop of breast curving downward into belly and lower flank",
+      "box": [
+        504,
+        381,
+        747,
+        725
+      ],
+      "maps_to": "terrace contour and woven nest basin"
+    },
+    {
+      "what": "Deep shaded loop contour enclosing the inner underbelly and wing fold",
+      "box": [
+        507,
+        439,
+        847,
+        836
+      ],
+      "maps_to": "curved stone retaining wall steps"
+    },
+    {
+      "what": "Long bifurcated tail fork sweeping back toward lower-left corner",
+      "box": [
+        517,
+        39,
+        937,
+        331
+      ],
+      "maps_to": "forked wood entrance gateposts"
+    },
+    {
+      "what": "Inner tail feather curve arcing gracefully downward to a sharp point",
+      "box": [
+        602,
+        230,
+        937,
+        321
+      ],
+      "maps_to": "curving border path stones"
+    },
+    {
+      "what": "Warm dark umber and burnt sienna pencil strokes defining the primary silhouettes",
+      "box": [
+        345,
+        686,
+        839,
+        848
+      ],
+      "maps_to": "burnished dark wood and warm stone accents"
+    },
+    {
+      "what": "Soft warm cream textured paper ground underlying the entire composition",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "warm sand terraces and sunlit cliff tops"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#bfbeb7",
+        "share": 0.283,
+        "role": "paper midtone base"
+      },
+      {
+        "hex": "#c5c5c1",
+        "share": 0.229,
+        "role": "paper highlight"
+      },
+      {
+        "hex": "#b9b6ab",
+        "share": 0.153,
+        "role": "paper warm shade"
+      },
+      {
+        "hex": "#ccccc9",
+        "share": 0.124,
+        "role": "bright paper ground"
+      },
+      {
+        "hex": "#ada89a",
+        "share": 0.1,
+        "role": "soft pencil shading under wing"
+      },
+      {
+        "hex": "#989085",
+        "share": 0.049,
+        "role": "shadowed paper grain"
+      },
+      {
+        "hex": "#695b59",
+        "share": 0.036,
+        "role": "medium brown pencil lines"
+      },
+      {
+        "hex": "#3f2723",
+        "share": 0.027,
+        "role": "deep espresso core contours and eye"
+      }
+    ],
+    "translation": {
+      "bg": "#2b2628",
+      "grass": {
+        "top": "#a8dc6e",
+        "fringe": "#88c45a",
+        "fringeDark": "#689c44",
+        "speck": "#c6f08c"
+      },
+      "sand": {
+        "top": "#f0c656",
+        "lip": "#d8961c",
+        "edge": "#e2a926",
+        "dots": "#fce088"
+      },
+      "dirt": {
+        "top": "#e0a866",
+        "patch": "#cca052",
+        "mottle": "#ba7d38",
+        "border": "#8f5726"
+      },
+      "stone": {
+        "top": "#ded6c8",
+        "pebble": "#ede6da",
+        "pebbleShade": "#c4baa8",
+        "rim": "#9e917d"
+      },
+      "cliffUpper": {
+        "left": "#9c6352",
+        "right": "#7a483a",
+        "seam": "#5e3226"
+      },
+      "cliffLower": {
+        "left": "#855141",
+        "right": "#63372c",
+        "seam": "#4c261e",
+        "speck": "#3f1e18"
+      },
+      "water": {
+        "top": "#8ee6f5",
+        "bubble": "#d8f8fd",
+        "deep": "#30bcd6",
+        "fall": [
+          "#36c5df",
+          "#2ab0c9",
+          "#1e9bb3"
+        ],
+        "foam": "#edfaff"
+      },
+      "wood": {
+        "light": "#e07e2c",
+        "mid": "#b85c18",
+        "dark": "#883a0a",
+        "shadow": "#5c2404",
+        "end": "#f8c776"
+      },
+      "treeMint": [
+        "#6edaa2",
+        "#54bd87",
+        "#399968"
+      ],
+      "treeLime": [
+        "#c2e86a",
+        "#96cf48",
+        "#72aa30"
+      ],
+      "treeLeaf": [
+        "#7ec957",
+        "#5ba83c",
+        "#418228"
+      ],
+      "treeTeal": [
+        "#42d4b4",
+        "#28b595",
+        "#198e74",
+        "#0e6b56"
+      ],
+      "treeGold": [
+        "#f0be42",
+        "#d99723",
+        "#b06e0e"
+      ],
+      "trunk": [
+        "#734538",
+        "#542f25"
+      ],
+      "rock": [
+        "#ded8cc",
+        "#c5bdb0",
+        "#9c9485",
+        "#736b5e"
+      ],
+      "wellStone": [
+        "#d8cebf",
+        "#b5a896",
+        "#8f816f"
+      ],
+      "flowerOrange": [
+        "#e87320",
+        "#f2a638"
+      ],
+      "berry": [
+        "#e84a5f",
+        "#c42d42"
+      ],
+      "bushTeal": [
+        "#7ae8c0",
+        "#54c9a0",
+        "#399e7b"
+      ],
+      "gold": [
+        "#f4be38",
+        "#d69818",
+        "#ffdc78"
+      ]
+    },
+    "notes": "Image 1 is drawn in warm sepia and deep umber on natural cream parchment. The translation retains the joyful, saturated toy-like palette while tilting trunks, rock shadows, and wood toward Image 1's signature warm chocolate and terracotta values."
+  },
+  "motifs": [
+    {
+      "name": "forked-roost-gate",
+      "type": "new",
+      "variant_of": "scaffold",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "where": "Straddles the entrance path where the lower terrace ascends toward the mid-plateau.",
+      "shape": {
+        "summary": "Paired timber posts crowned with sweeping swallowtail curved finials.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.24,
+              1.8,
+              0.24
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e07e2c",
+              "#b85c18",
+              "#883a0a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.2,
+              0.32,
+              0.06
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#f8c776",
+              "#e07e2c",
+              "#b85c18"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.45
+            ],
+            "at": [
+              0,
+              2,
+              0
+            ],
+            "outline": [
+              [
+                -0.2,
+                -0.1
+              ],
+              [
+                0.2,
+                -0.1
+              ],
+              [
+                0.28,
+                0.2
+              ],
+              [
+                0,
+                0.05
+              ],
+              [
+                -0.28,
+                0.2
+              ]
+            ],
+            "tones": [
+              "#e07e2c",
+              "#b85c18",
+              "#883a0a"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "high-perch-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          8,
+          3
+        ]
+      ],
+      "where": "Located at the highest terrace where the nesting swallow perches overlooking the island.",
+      "shape": {
+        "summary": "An oval woven cedar and polished stone roosting platform with rim bevels.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.8,
+              0.3,
+              0.9,
+              0.12
+            ],
+            "at": [
+              0.5,
+              0,
+              0
+            ],
+            "tones": [
+              "#f0c656",
+              "#e2a926",
+              "#d8961c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.5,
+              0.2,
+              0.7,
+              0.1
+            ],
+            "at": [
+              0.5,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#e07e2c",
+              "#b85c18",
+              "#883a0a"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.1,
+              8
+            ],
+            "at": [
+              0.5,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#ded6c8",
+              "#c4baa8",
+              "#9e917d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "roost-lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          7,
+          10
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          10,
+          5
+        ]
+      ],
+      "where": "Placed in pairs along the switchback path guiding the ascent up the three terrace tiers.",
+      "shape": {
+        "summary": "Warm wooden pedestal post topped by an amber glow lantern box.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              0.7,
+              0.16
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e07e2c",
+              "#b85c18",
+              "#883a0a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.32,
+              0.32,
+              0.05
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#ffdc78",
+              "#f4be38",
+              "#d69818"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.04,
+              0.15,
+              6
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#b85c18",
+              "#883a0a",
+              "#5c2404"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "nest-cache",
+      "type": "chest",
+      "variant_of": "chest",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          2
+        ]
+      ],
+      "where": "Resting right beside the swallow dais containing glistening trinkets and straw.",
+      "shape": {
+        "summary": "Rounded wood treasure trunk bound with dark brass brackets.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.45,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e07e2c",
+              "#b85c18",
+              "#883a0a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.72,
+              0.18,
+              0.52,
+              0.08
+            ],
+            "at": [
+              0,
+              0.42,
+              0
+            ],
+            "tones": [
+              "#f8c776",
+              "#e07e2c",
+              "#b85c18"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.12,
+              0.15,
+              0.05
+            ],
+            "at": [
+              0,
+              0.28,
+              0.26
+            ],
+            "tones": [
+              "#ffdc78",
+              "#f4be38",
+              "#d69818"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "feather-bough-tree",
+      "type": "new",
+      "variant_of": "tree-orange",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.3,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          5,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          12,
+          5
+        ]
+      ],
+      "where": "Enclosing the sanctuary on outer boundary clifftops.",
+      "shape": {
+        "summary": "Slender deep-brown trunk topped by layered rounded amber foliage cushions.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              1.2,
+              0.2
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#734538",
+              "#542f25",
+              "#3f1e18"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.15
+            ],
+            "at": [
+              0,
+              1.1,
+              0
+            ],
+            "tones": [
+              "#f0be42",
+              "#d99723",
+              "#b06e0e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.45,
+              0.75,
+              0.12
+            ],
+            "at": [
+              0,
+              1.5,
+              0
+            ],
+            "tones": [
+              "#f4be38",
+              "#d99723",
+              "#b06e0e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.35,
+              0.5,
+              0.1
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#ffdc78",
+              "#f4be38",
+              "#d99723"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "streamer-bush",
+      "type": "bush",
+      "variant_of": "bush",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.65,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          4,
+          2
+        ],
+        [
+          10,
+          6
+        ],
+        [
+          6,
+          9
+        ]
+      ],
+      "where": "Accent greenery along terrace embankments.",
+      "shape": {
+        "summary": "Rounded compact cluster of moss-green and mint foliage balls.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.38,
+              0.85
+            ],
+            "at": [
+              0,
+              0.28,
+              0
+            ],
+            "tones": [
+              "#c2e86a",
+              "#96cf48",
+              "#72aa30"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.28,
+              0.85
+            ],
+            "at": [
+              0.22,
+              0.22,
+              0.1
+            ],
+            "tones": [
+              "#6edaa2",
+              "#54bd87",
+              "#399968"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.25,
+              0.8
+            ],
+            "at": [
+              -0.18,
+              0.2,
+              -0.1
+            ],
+            "tones": [
+              "#a8dc6e",
+              "#88c45a",
+              "#689c44"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "soaring-swallow-guardian",
+      "source": "The dynamic stylized flying swallow rendered with fluid sepia contour strokes and spiral eye in IMAGE 1.",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "A stylized low-poly swallow figurine resting atop the high perch, with swept-back wings and signature split-fork tail.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.75,
+              0.95,
+              0.18
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#9c6352",
+              "#7a483a",
+              "#5e3226"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.55,
+              0.55,
+              0.14
+            ],
+            "at": [
+              0,
+              1.05,
+              0.3
+            ],
+            "tones": [
+              "#ded6c8",
+              "#c4baa8",
+              "#9e917d"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.25
+            ],
+            "at": [
+              0,
+              1.05,
+              0.58
+            ],
+            "outline": [
+              [
+                -0.12,
+                0
+              ],
+              [
+                0.12,
+                0
+              ],
+              [
+                0,
+                0.3
+              ]
+            ],
+            "tones": [
+              "#f0c656",
+              "#e2a926",
+              "#d8961c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0.25,
+              1.2,
+              0.35
+            ],
+            "tones": [
+              "#3f1e18",
+              "#2b2628",
+              "#1a1516"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              -0.25,
+              1.2,
+              0.35
+            ],
+            "tones": [
+              "#3f1e18",
+              "#2b2628",
+              "#1a1516"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0.25,
+              0.85,
+              0
+            ],
+            "to": [
+              0.85,
+              1.85,
+              -0.4
+            ],
+            "tones": [
+              "#7a483a",
+              "#5e3226",
+              "#4c261e"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              -0.25,
+              0.85,
+              0
+            ],
+            "to": [
+              -0.85,
+              1.85,
+              -0.4
+            ],
+            "tones": [
+              "#7a483a",
+              "#5e3226",
+              "#4c261e"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.6
+            ],
+            "at": [
+              0.15,
+              0.35,
+              -0.4
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                0.15,
+                -0.6
+              ],
+              [
+                -0.1,
+                -0.2
+              ]
+            ],
+            "tones": [
+              "#5e3226",
+              "#4c261e",
+              "#3f1e18"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.6
+            ],
+            "at": [
+              -0.15,
+              0.35,
+              -0.4
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                -0.15,
+                -0.6
+              ],
+              [
+                0.1,
+                -0.2
+              ]
+            ],
+            "tones": [
+              "#5e3226",
+              "#4c261e",
+              "#3f1e18"
+            ]
+          }
+        ]
+      },
+      "pose": "Resting gracefully in its roost with wings folded upward and its head tilted playfully toward arriving visitors.",
+      "cell": [
+        8,
+        3
+      ],
+      "facing": "s",
+      "why": "It acts as the venerable aerie guardian of the cliff sanctuary, content in its high terrace home."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVVTTTRRRRTTTVV",
+      "VVVTTTRRRRRRRTVV",
+      "VVVTRRRRFFRRRTVV",
+      "VVVTTRRRRPPRRTVV",
+      "VVVTTRRRRRPPTTVV",
+      "VVVTTPPPPPPPTTVV",
+      "VVVGGPPPPTRRTTTV",
+      "VVVGGPPPTGGGGGTV",
+      "VVVGGPPTTGGGGTVV",
+      "VVVVGGPPPPTTTVVV",
+      "VVVVVVGPGGGVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0000111333311100",
+      "0001113333333100",
+      "0001333333333100",
+      "0001133332233100",
+      "0001133333221100",
+      "0001122222221100",
+      "0001122221221110",
+      "0001111111111110",
+      "0001111111111100",
+      "0000111111111000",
+      "0000001111100000"
+    ],
+    "focal": {
+      "x": 8,
+      "z": 3,
+      "what": "The Soaring Swallow perched proudly on its high terrace woven dais."
+    },
+    "mass": "Visual weight is gathered in the upper-central plateau where stacked cliff terraces rise to height 3 crowned by the avian roost.",
+    "read": "The player steps onto the island from the southern trail at row 11. The path climbs steadily through switchbacks on lush grassy steps, crosses between the forked wooden threshold gate at row 8, traverses the mid terrace at height 2, and culminates at the high sunny roost where the swallow rests."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.22,
+      "types": [
+        {
+          "type": "feather-bough-tree",
+          "variant": "tree-gold",
+          "weight": 0.6
+        },
+        {
+          "type": "tree-round",
+          "variant": "default",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.38,
+    "decor_weights": {
+      "roost-lantern": 0.3,
+      "streamer-bush": 0.35,
+      "nest-cache": 0.15,
+      "rock": 0.2
+    },
+    "lighting": {
+      "bg": "#2b2628",
+      "ambient": 0.88,
+      "sun": 0.18,
+      "tint": "#fff4e2",
+      "notes": "Crisp midday alpine sunshine casting clean geometric shadows down tiered cliffs."
+    },
+    "rules": [
+      "The path enters at the south margin and snakes upward across the lower grass tier.",
+      "A pair of forked gateposts frames the transition between tier 1 and tier 2.",
+      "Lanterns stand in pairs at every switchback curve.",
+      "The focal creature sits centered at the summit tier overlooking the ascent."
+    ],
+    "decor_density": 0.12,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "sand",
+      "path": "dirt",
+      "shore": "grass",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sunlit Eyrie Roost, an ancient high-altitude terrace garden where wild swifts dwell.",
+    "approach": "The traveler ascends an off-center zigzagging stone trail that passes beneath carved timber swallowtail posts before arriving at the sunny crest.",
+    "creature_doing": "Resting serenely on its woven platform after a long flight, watching the mountain breeze with bright curious eyes.",
+    "palette_key": "Parchment whites and deep espresso lines translated into sun-drenched golden terraces, lush green fringes, and umber timber framing under bright midday light.",
+    "terrain": "Stacked concentric cliffs that step up from low mossy pastures to a panoramic sandy roost plateau.",
+    "summary": "An inviting, windswept high roost translating the sweeping dynamic strokes of the swallow drawing into an architected cliffside home."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

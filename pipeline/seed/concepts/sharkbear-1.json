@@ -1,0 +1,1254 @@
+{
+  "source": {
+    "art": "pipeline/seed/sharkbear.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "cozy",
+    "basking",
+    "sturdy",
+    "warm",
+    "beastly",
+    "peaceful"
+  ],
+  "observations": [
+    {
+      "what": "Smooth, pale domed shark-like head with a pointed snout and distinct gill slit slits on the side",
+      "box": [
+        62,
+        45,
+        574,
+        381
+      ],
+      "maps_to": "focal creature head and upper crest"
+    },
+    {
+      "what": "Prominent curved dorsal fin emerging from the creature's nape and spine",
+      "box": [
+        59,
+        137,
+        240,
+        410
+      ],
+      "maps_to": "focal creature dorsal fin"
+    },
+    {
+      "what": "Open grinning jaw lined with sharp triangular teeth",
+      "box": [
+        486,
+        128,
+        608,
+        298
+      ],
+      "maps_to": "focal creature snout and maw"
+    },
+    {
+      "what": "Small dark oval eye positioned laterally above the jawline",
+      "box": [
+        429,
+        227,
+        497,
+        299
+      ],
+      "maps_to": "focal creature eye"
+    },
+    {
+      "what": "Heavily textured, dark furred or bristled muscular quadruped torso and arched shoulder hump",
+      "box": [
+        128,
+        290,
+        483,
+        762
+      ],
+      "maps_to": "focal creature main body block"
+    },
+    {
+      "what": "Thick, pillar-like front left foreleg resting heavily on a flat paw with stubby toes",
+      "box": [
+        355,
+        307,
+        831,
+        552
+      ],
+      "maps_to": "focal creature foreleg and claw"
+    },
+    {
+      "what": "Second stout front leg planted forward on wide spreading knuckles",
+      "box": [
+        543,
+        85,
+        792,
+        273
+      ],
+      "maps_to": "focal creature support paw"
+    },
+    {
+      "what": "Powerful curved hind leg bending back and stepping firmly onto the floor",
+      "box": [
+        223,
+        563,
+        688,
+        867
+      ],
+      "maps_to": "focal creature hind leg"
+    },
+    {
+      "what": "Long tapering heterocercal shark tail sweeping downward in an arc along the lower right",
+      "box": [
+        257,
+        309,
+        942,
+        966
+      ],
+      "maps_to": "focal creature caudal tail fin"
+    },
+    {
+      "what": "Empty pale paper background indicating an open, airy vertical space around the subject",
+      "box": [
+        0,
+        0,
+        310,
+        996
+      ],
+      "maps_to": "open terrace void and sunny sky backdrop"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e0e0e0",
+        "share": 0.215,
+        "role": "paper background and pale head dome highlight"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.171,
+        "role": "soft pencil shading and fin midtones"
+      },
+      {
+        "hex": "#d2d2d2",
+        "share": 0.162,
+        "role": "underbelly and soft body fill"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.107,
+        "role": "hatched flank tone and mid-fur shading"
+      },
+      {
+        "hex": "#9e9e9e",
+        "share": 0.102,
+        "role": "deep coat shading"
+      },
+      {
+        "hex": "#626262",
+        "share": 0.089,
+        "role": "heavy graphite contours and muscle folds"
+      },
+      {
+        "hex": "#848484",
+        "share": 0.089,
+        "role": "paw pads and tail rim accents"
+      },
+      {
+        "hex": "#3c3c3c",
+        "share": 0.066,
+        "role": "darkest core shadow, eye pupil, and inner mouth"
+      }
+    ],
+    "translation": {
+      "bg": "#32353b",
+      "grass": {
+        "top": "#82d654",
+        "fringe": "#6cb842",
+        "fringeDark": "#559434",
+        "speck": "#a3ea72"
+      },
+      "sand": {
+        "top": "#f5cb40",
+        "lip": "#d89e0e",
+        "edge": "#e2b31f",
+        "dots": "#fae06d"
+      },
+      "dirt": {
+        "top": "#e6bb67",
+        "patch": "#f0c978",
+        "mottle": "#cca04e",
+        "border": "#be8b32"
+      },
+      "stone": {
+        "top": "#f0dbab",
+        "pebble": "#fff3d4",
+        "pebbleShade": "#dfc38a",
+        "rim": "#cfb076"
+      },
+      "cliffUpper": {
+        "left": "#c7866d",
+        "right": "#a36452",
+        "seam": "#8b4f40"
+      },
+      "cliffLower": {
+        "left": "#d48d73",
+        "right": "#9e5c4a",
+        "seam": "#b06c57",
+        "speck": "#824637"
+      },
+      "water": {
+        "top": "#8beeff",
+        "bubble": "#d8faff",
+        "deep": "#00bceb",
+        "fall": [
+          "#00ccf5",
+          "#00bceb",
+          "#00a8d6"
+        ],
+        "foam": "#d8faff"
+      },
+      "wood": {
+        "light": "#ff8e2b",
+        "mid": "#dc7418",
+        "dark": "#b8510f",
+        "shadow": "#913b0c",
+        "end": "#f8dc8b"
+      },
+      "treeMint": [
+        "#62df9a",
+        "#50bf82",
+        "#3ca06a"
+      ],
+      "treeLime": [
+        "#bce975",
+        "#82d654",
+        "#66b33f"
+      ],
+      "treeLeaf": [
+        "#7fd354",
+        "#5ab843",
+        "#449234"
+      ],
+      "treeTeal": [
+        "#32e8b6",
+        "#1fc99b",
+        "#14a87e",
+        "#0f8a65"
+      ],
+      "treeGold": [
+        "#f6d45e",
+        "#e5b722",
+        "#c9960a"
+      ],
+      "trunk": [
+        "#a8614f",
+        "#8c4d3e"
+      ],
+      "rock": [
+        "#eaeaea",
+        "#d2d2d2",
+        "#adadad",
+        "#898989"
+      ],
+      "wellStone": [
+        "#dec99f",
+        "#cbb284",
+        "#b49a6a"
+      ],
+      "flowerOrange": [
+        "#ff8e2b",
+        "#f5cb40"
+      ],
+      "berry": [
+        "#ff6f8c",
+        "#ed5071"
+      ],
+      "bushTeal": [
+        "#89f9c7",
+        "#5ad39b",
+        "#43ab7b"
+      ],
+      "gold": [
+        "#f5cb40",
+        "#d89e0e",
+        "#fae06d"
+      ]
+    },
+    "notes": "Translates the sketch's soft graphite gradients into warm, crisp toy tones. The monster's slate coat and alabaster shark plating are preserved via pale limestone and warm quartz rock palettes, framed by vibrant meadow greens and sunny ochre sands."
+  },
+  "motifs": [
+    {
+      "name": "bone-arch-threshold",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          5
+        ],
+        [
+          7,
+          5
+        ]
+      ],
+      "where": "Straddles the winding terrace path at the mid-level climb to mark the creature's den entrance.",
+      "shape": {
+        "summary": "Carved monolith pillar resembling an upright shark tooth totem with wood bracing.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.3,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f0dbab",
+              "#dfc38a",
+              "#cfb076"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.35,
+              1.4,
+              0.35
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#eaeaea",
+              "#d2d2d2",
+              "#adadad"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.02,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#eaeaea",
+              "#d2d2d2"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              1.2,
+              0
+            ],
+            "to": [
+              0.25,
+              1.5,
+              0.15
+            ],
+            "tones": [
+              "#ff8e2b",
+              "#dc7418",
+              "#b8510f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sunbasking-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.4,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          8,
+          2
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Forms the wide elevated stone plinth on the high tier where the creature lounges in the midday sun.",
+      "shape": {
+        "summary": "Chunky smoothed flagstone slab with inset pebble inlays.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.96,
+              0.25,
+              0.96,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f0dbab",
+              "#dfc38a",
+              "#cfb076"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.2,
+              0.06,
+              8
+            ],
+            "at": [
+              0.2,
+              0.25,
+              0.2
+            ],
+            "tones": [
+              "#fff3d4",
+              "#dfc38a",
+              "#cfb076"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.15,
+              0.06,
+              8
+            ],
+            "at": [
+              -0.22,
+              0.25,
+              -0.18
+            ],
+            "tones": [
+              "#fff3d4",
+              "#dfc38a",
+              "#cfb076"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          4,
+          10
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "where": "Paired along the snaking ascent to illuminate the stone steps.",
+      "shape": {
+        "summary": "A squat timber lamp post holding an amber glow prism.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.7,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e2b",
+              "#dc7418",
+              "#b8510f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.3,
+              0.3,
+              0.05
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#f6d45e",
+              "#e5b722",
+              "#c9960a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.04,
+              0.15,
+              6
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#ff8e2b",
+              "#dc7418",
+              "#b8510f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gnawed-driftwood",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          10,
+          3
+        ],
+        [
+          7,
+          2
+        ]
+      ],
+      "where": "Scattered beside the creature's basking perch, chewed during its afternoon rest.",
+      "shape": {
+        "summary": "A chunky timber log with carved wedge tooth marks and bark fringes.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.8,
+              8
+            ],
+            "at": [
+              0,
+              0.18,
+              0
+            ],
+            "rot": [
+              0,
+              35,
+              90
+            ],
+            "tones": [
+              "#f8dc8b",
+              "#dc7418",
+              "#b8510f"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0,
+              0.16,
+              5
+            ],
+            "at": [
+              0.15,
+              0.25,
+              -0.1
+            ],
+            "tones": [
+              "#ffffff",
+              "#eaeaea",
+              "#adadad"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.2,
+              0.15,
+              0.2,
+              0.04
+            ],
+            "at": [
+              -0.25,
+              0.08,
+              0.15
+            ],
+            "tones": [
+              "#ff8e2b",
+              "#dc7418",
+              "#913b0c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tree-round",
+      "type": "tree-round",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          2
+        ]
+      ],
+      "where": "Dense, rounded green foliage framing the terrace perimeter.",
+      "shape": {
+        "summary": "Chunky round tree with stacked buoyant leaf canopies.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.15,
+              1.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#a8614f",
+              "#a8614f",
+              "#8c4d3e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.8,
+              0.9,
+              0.15
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#82d654",
+              "#6cb842",
+              "#559434"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.6,
+              0.65,
+              0.12
+            ],
+            "at": [
+              0.1,
+              1.5,
+              -0.05
+            ],
+            "tones": [
+              "#bce975",
+              "#82d654",
+              "#66b33f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "barrel",
+      "type": "barrel",
+      "variant_of": "barrel",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.7,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          10,
+          4
+        ],
+        [
+          11,
+          4
+        ]
+      ],
+      "where": "Placed near the den shelter, holding fresh bait and harvested sea moss.",
+      "shape": {
+        "summary": "Toy wooden barrel banded with iron hoops.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.65,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e2b",
+              "#dc7418",
+              "#b8510f"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.34,
+              0.08,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#898989",
+              "#6f6f6f",
+              "#555555"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.34,
+              0.08,
+              8
+            ],
+            "at": [
+              0,
+              0.48,
+              0
+            ],
+            "tones": [
+              "#898989",
+              "#6f6f6f",
+              "#555555"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "flower",
+      "type": "flower",
+      "variant_of": "flower",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.3,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          4,
+          8
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          11,
+          6
+        ]
+      ],
+      "where": "Cheerful yellow and orange coastal blossoms dotting the green terrace edges.",
+      "shape": {
+        "summary": "Three low-poly flower blossoms clustered on green stems.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.04,
+              0.2,
+              5
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#82d654",
+              "#6cb842",
+              "#559434"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              0.6
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#ff8e2b",
+              "#f5cb40",
+              "#d89e0e"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.11,
+              0.6
+            ],
+            "at": [
+              0.12,
+              0.18,
+              0.1
+            ],
+            "tones": [
+              "#f5cb40",
+              "#e2b31f",
+              "#d89e0e"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "basking-beastshark",
+      "source": "The quadrupedal shark-headed apex creature resting heavily in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "Chunky toy hybrid creature with dark charcoal limbs, a curved dorsal crest, and a smooth ivory shark head.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.1,
+              0.7,
+              0.8,
+              0.15
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "rot": [
+              -10,
+              15,
+              0
+            ],
+            "tones": [
+              "#898989",
+              "#626262",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.65,
+              0.9,
+              0.14
+            ],
+            "at": [
+              -0.3,
+              0.8,
+              0.4
+            ],
+            "rot": [
+              15,
+              20,
+              -5
+            ],
+            "tones": [
+              "#ffffff",
+              "#eaeaea",
+              "#d2d2d2"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.55
+            ],
+            "at": [
+              -0.1,
+              1.1,
+              0.1
+            ],
+            "rot": [
+              0,
+              15,
+              10
+            ],
+            "outline": [
+              [
+                -0.1,
+                -0.3
+              ],
+              [
+                0.1,
+                -0.3
+              ],
+              [
+                0.05,
+                0.4
+              ],
+              [
+                -0.1,
+                0.2
+              ]
+            ],
+            "tones": [
+              "#ffffff",
+              "#eaeaea",
+              "#d2d2d2"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              -0.5,
+              0.95,
+              0.65
+            ],
+            "tones": [
+              "#3c3c3c",
+              "#3c3c3c",
+              "#1a1a1a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.65,
+              0.35,
+              0.08
+            ],
+            "at": [
+              -0.45,
+              0,
+              0.4
+            ],
+            "tones": [
+              "#898989",
+              "#626262",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.65,
+              0.35,
+              0.08
+            ],
+            "at": [
+              0.3,
+              0,
+              0.35
+            ],
+            "tones": [
+              "#898989",
+              "#626262",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.6,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0.45,
+              0,
+              -0.35
+            ],
+            "tones": [
+              "#898989",
+              "#626262",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.14
+            ],
+            "at": [
+              0.35,
+              0.7,
+              -0.4
+            ],
+            "to": [
+              0.8,
+              0.4,
+              -0.8
+            ],
+            "tones": [
+              "#eaeaea",
+              "#d2d2d2",
+              "#adadad"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.4
+            ],
+            "at": [
+              0.75,
+              0.2,
+              -0.85
+            ],
+            "outline": [
+              [
+                -0.1,
+                -0.2
+              ],
+              [
+                0.2,
+                -0.1
+              ],
+              [
+                0,
+                0.3
+              ]
+            ],
+            "tones": [
+              "#ffffff",
+              "#eaeaea",
+              "#d2d2d2"
+            ]
+          }
+        ]
+      },
+      "pose": "Lounging lazily on its stone perch in the noon sun, paws splayed comfortably and head tilted downward as it idly inspects visitors.",
+      "cell": [
+        8,
+        3
+      ],
+      "facing": "s",
+      "why": "This is the creature from Image 1 in its home den, docile and basking rather than hunting."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVTTTRRRRRTTVV",
+      "VVVTTTRRRRRRTTTV",
+      "VVTTTRRRFFFRRTTV",
+      "VVVTTRRRFFFRRRTV",
+      "VVVTTRRRPPPRRRTV",
+      "VVVTTRRPPPPRRRVV",
+      "VVVTTRPPPRRRRRVV",
+      "VVVTRPPPGRRRRRVV",
+      "VVVTRPPGGRRRRRVV",
+      "VVVTRPPGGGGRRRVV",
+      "VVVTTPGGGGGGTVVV",
+      "VVVVVPGGGGGTVVVV"
+    ],
+    "heights": [
+      "0000111333331100",
+      "0001113333331110",
+      "0011133333332210",
+      "0001133333332210",
+      "0001122222222210",
+      "0001122222222200",
+      "0001122222222200",
+      "0001222112222200",
+      "0001221112222200",
+      "0001211111122200",
+      "0001111111111000",
+      "0000011111110000"
+    ],
+    "focal": {
+      "x": 8,
+      "z": 3,
+      "what": "basking-beastshark"
+    },
+    "mass": "Visual mass concentrates along the upper-right plateau tiers where the bulky creature reclines on its dais above cascading green clifftops.",
+    "read": "The viewer enters at the near-left opening along row 11. The path climbs and zigzags northeast through gentle grassy terraces, passes between two bone-tooth monoliths at row 5, and delivers the eye directly up to the sunny summit where the landshark rests."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.16,
+      "types": [
+        {
+          "type": "tree-round",
+          "variant": "tree-round",
+          "weight": 0.7
+        },
+        {
+          "type": "tree-pine",
+          "variant": "tree-pine",
+          "weight": 0.3
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.28,
+    "decor_weights": {
+      "lantern": 0.25,
+      "flower": 0.35,
+      "gnawed-driftwood": 0.15,
+      "barrel": 0.15,
+      "rock": 0.1
+    },
+    "lighting": {
+      "bg": "#32353b",
+      "ambient": 0.9,
+      "sun": 0.18,
+      "tint": "#fff8e7",
+      "notes": "Generous warm noon sunlight accentuating clean low-poly facets and casting sharp ochre-amber shadows."
+    },
+    "rules": [
+      "Keep the highest terrace at height 3 grouped behind and beneath the focal creature cells.",
+      "Route the gravel path with two distinct switchbacks as it climbs through the cliff terraces.",
+      "Place bone-arch-threshold totems strictly on both sides of the path where it crests from height 1 to height 2.",
+      "Cluster story props like barrels and gnawed logs near the basking dais perimeter.",
+      "Edge the outer cliff drop-offs with void tiles to create a dramatic floating terrace island."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Basking Roost of the Landshark, a sun-drenched coastal rock terrace where the apex chimera keeps its quiet highland den.",
+    "approach": "The traveler ascends a winding sandy path up stepped cliff gardens, entering between two carved megalithic bone teeth at the terrace threshold.",
+    "creature_doing": "Sunning its massive muscular frame on flat limestone slabs while idly chewing on sea-drift timber.",
+    "palette_key": "Vibrant emerald grass, warm sunny sand, and pale limestone lit by bright midday sun to offset the creature's charcoal and ivory hide.",
+    "terrain": "Tiered terraces climbing from lower meadow ground up to a broad height-3 stone sunning plinth.",
+    "summary": "A peaceful souls-like den encounter where the predatory shark-beast of Image 1 is recontextualized as a relaxed, sun-loving toy guardian at home."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

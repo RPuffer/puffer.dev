@@ -1,0 +1,1241 @@
+{
+  "source": {
+    "art": "pipeline/seed/mindbloom.png",
+    "width": 1280,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "mystical",
+    "submerged",
+    "contemplative",
+    "hypnotic",
+    "ceremonial",
+    "nocturnal"
+  ],
+  "observations": [
+    {
+      "what": "Pale lavender serene face with eyes closed in slumber or deep meditation, with small gentle smiling mouth and nose",
+      "box": [
+        504,
+        303,
+        680,
+        679
+      ],
+      "maps_to": "creature"
+    },
+    {
+      "what": "Burning candle in a glass votive container at the base emitting a single vertical curling wisp of grey smoke",
+      "box": [
+        837,
+        419,
+        954,
+        574
+      ],
+      "maps_to": "vigil_candle_altar"
+    },
+    {
+      "what": "Curling thread of translucent smoke rising from the candle flame upward toward the meditating head's nostrils",
+      "box": [
+        665,
+        373,
+        856,
+        599
+      ],
+      "maps_to": "sacred_vapour_causeway"
+    },
+    {
+      "what": "Third eye marking blazing with stylized black flame borders open wide on the forehead between the brows",
+      "box": [
+        454,
+        427,
+        532,
+        545
+      ],
+      "maps_to": "third_eye_crest"
+    },
+    {
+      "what": "Massive jagged black fan-shaped headdress/aura brimming with neon psychedelic biological doodles and patterns",
+      "box": [
+        98,
+        126,
+        617,
+        876
+      ],
+      "maps_to": "oneiric_aegis_canopy"
+    },
+    {
+      "what": "Clusters of spotted dome mushrooms and bioluminescent toadstools in teal, cyan, and lilac sprouting inside the mind crown",
+      "box": [
+        246,
+        321,
+        381,
+        442
+      ],
+      "maps_to": "dream_cap_fungus"
+    },
+    {
+      "what": "Floating watchful disembodied eyes framed by radiating lashes and radiant geometric halos throughout the aura",
+      "box": [
+        439,
+        206,
+        501,
+        314
+      ],
+      "maps_to": "watcher_pillar_threshold"
+    },
+    {
+      "what": "Constellations of vibrant pastel circular dots and orbs orbiting across the upper aura in lime, teal, magenta, and cyan",
+      "box": [
+        174,
+        506,
+        312,
+        671
+      ],
+      "maps_to": "chromatic_basin_reflectors"
+    },
+    {
+      "what": "Pale uniform lavender/periwinkle background filling the negative space completely",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "ambient_void_and_shrine_hues"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#c3bdff",
+        "share": 0.724,
+        "role": "periwinkle field background and face skin"
+      },
+      {
+        "hex": "#2e3536",
+        "share": 0.078,
+        "role": "deep slate shadow tones in hair canopy"
+      },
+      {
+        "hex": "#0c0d0e",
+        "share": 0.071,
+        "role": "black silhouette aura ground and clean linework"
+      },
+      {
+        "hex": "#4d5e5e",
+        "share": 0.053,
+        "role": "dark mineral green shading within canopy patterns"
+      },
+      {
+        "hex": "#787b9c",
+        "share": 0.024,
+        "role": "cool slate lavender shadow undertones"
+      },
+      {
+        "hex": "#a5a2cf",
+        "share": 0.022,
+        "role": "soft periwinkle midtones of facial features"
+      },
+      {
+        "hex": "#7ea572",
+        "share": 0.015,
+        "role": "muted lime green organic accents"
+      },
+      {
+        "hex": "#d0c9fa",
+        "share": 0.013,
+        "role": "pale lavender highlighted smoke ribbons"
+      }
+    ],
+    "translation": {
+      "bg": "#1c1a2e",
+      "grass": {
+        "top": "#73c89b",
+        "fringe": "#55a67c",
+        "fringeDark": "#3c7e5c",
+        "speck": "#8fe8ba"
+      },
+      "sand": {
+        "top": "#d8b24e",
+        "lip": "#b99031",
+        "edge": "#cf9f3b",
+        "dots": "#ebd57c"
+      },
+      "dirt": {
+        "top": "#e0c878",
+        "patch": "#e8d28a",
+        "mottle": "#d4b868",
+        "border": "#c9a64a"
+      },
+      "stone": {
+        "top": "#bcb6eb",
+        "pebble": "#d7d2fc",
+        "pebbleShade": "#9f97d9",
+        "rim": "#867ec4"
+      },
+      "cliffUpper": {
+        "left": "#7872a8",
+        "right": "#595383",
+        "seam": "#464169"
+      },
+      "cliffLower": {
+        "left": "#6a6498",
+        "right": "#4d4875",
+        "seam": "#3b365e",
+        "speck": "#2d294a"
+      },
+      "water": {
+        "top": "#6ce3ff",
+        "bubble": "#b4f4ff",
+        "deep": "#2cb0e0",
+        "fall": [
+          "#3ac2e8",
+          "#24a8cf",
+          "#178cae"
+        ],
+        "foam": "#d8faff"
+      },
+      "wood": {
+        "light": "#e88028",
+        "mid": "#c96515",
+        "dark": "#9e4308",
+        "shadow": "#782e03",
+        "end": "#fed788"
+      },
+      "treeMint": [
+        "#7bf0b5",
+        "#5cd196",
+        "#3fa872"
+      ],
+      "treeLime": [
+        "#bdf075",
+        "#92d948",
+        "#6fb532"
+      ],
+      "treeLeaf": [
+        "#7fe65e",
+        "#5ac73c",
+        "#419e27"
+      ],
+      "treeTeal": [
+        "#5df2d6",
+        "#32d6b7",
+        "#1db094",
+        "#0e856e"
+      ],
+      "treeGold": [
+        "#ffd54f",
+        "#e6b325",
+        "#bd8e13"
+      ],
+      "trunk": [
+        "#874877",
+        "#67385b"
+      ],
+      "rock": [
+        "#e2defc",
+        "#c6c0e8",
+        "#a69ec9",
+        "#78729e"
+      ],
+      "wellStone": [
+        "#bcb6eb",
+        "#a49dd6",
+        "#877fbf"
+      ],
+      "flowerOrange": [
+        "#ff7f36",
+        "#e8a020"
+      ],
+      "berry": [
+        "#ff5990",
+        "#e03870"
+      ],
+      "bushTeal": [
+        "#78ffe0",
+        "#4eedc8",
+        "#2fc7a4"
+      ],
+      "gold": [
+        "#ffd54f",
+        "#e6b325",
+        "#ffea88"
+      ]
+    },
+    "notes": "The level is immersed in nocturnal periwinkle and lilac tones matching the illustration's dominant background. Stones, cliffs, and votives adopt serene cool lavender gradients while still preserving the pack's distinct three-tone luminance ladder, punctuated by bioluminescent teal foliage and vivid amber vigil flames.",
+    "clamped": [
+      "trunk[0] #7d5272->#874877",
+      "trunk[1] #633c59->#67385b"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "all_seeing_stele_threshold",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          6,
+          7
+        ]
+      ],
+      "where": "Flanks the axial stone causeway just before the sunken reflecting pool, translating the open watchful eyes on either flank of the face.",
+      "shape": {
+        "summary": "Tall monolithic lavender stone pillar topped with an open carved mystical eye disc and gilded trim.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.6,
+              0.3,
+              0.6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d7d2fc",
+              "#bcb6eb",
+              "#867ec4"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.4,
+              1.4,
+              0.4
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#bcb6eb",
+              "#9f97d9",
+              "#867ec4"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b325",
+              "#bd8e13"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              1
+            ],
+            "at": [
+              0,
+              1.95,
+              0
+            ],
+            "tones": [
+              "#e2defc",
+              "#a69ec9",
+              "#78729e"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.15,
+              6
+            ],
+            "at": [
+              0,
+              1.95,
+              0.18
+            ],
+            "tones": [
+              "#1c1a2e",
+              "#1c1a2e",
+              "#1c1a2e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "vigil_candle_pedestal",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          9
+        ],
+        [
+          9,
+          9
+        ]
+      ],
+      "where": "Arranged symmetrically along the processional causeway and temple rim, mirroring the cylindrical candle votive at the base of the drawing.",
+      "shape": {
+        "summary": "Tubular frosted wax container resting on stone base with a flicking golden flame.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.3,
+              0.4,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#bcb6eb",
+              "#9f97d9",
+              "#867ec4"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#e2defc",
+              "#d7d2fc",
+              "#a69ec9"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.03,
+              0.15,
+              6
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#3b365e",
+              "#2d294a",
+              "#1c1a2e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0,
+              0.28,
+              6
+            ],
+            "at": [
+              0,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "oneiric_sacrarium_dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          7,
+          2
+        ],
+        [
+          8,
+          2
+        ]
+      ],
+      "where": "Lies directly beneath the great sleeping figure on the raised shrine terrace, supporting the monumental head.",
+      "shape": {
+        "summary": "Wide stepped ritual platform of polished periwinkle stone with an inset obsidian basin.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.96,
+              0.25,
+              0.96
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d7d2fc",
+              "#bcb6eb",
+              "#867ec4"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.8,
+              0.2,
+              0.8
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#2e3536",
+              "#1c1a2e",
+              "#0c0d0e"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.25,
+              0.05,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b325",
+              "#bd8e13"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bioluminescent_fungus_cluster",
+      "type": "mushroom",
+      "variant_of": "mushroom",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.7,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          2
+        ],
+        [
+          10,
+          2
+        ]
+      ],
+      "where": "Sprouting beside the sacred font and altar corners, derived from the psychedelic spotted mushrooms drawn within the crown.",
+      "shape": {
+        "summary": "Group of three low-poly rounded cap mushrooms glowing with turquoise caps and spotted rings.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.4,
+              6
+            ],
+            "at": [
+              -0.15,
+              0,
+              0
+            ],
+            "tones": [
+              "#fff0c3",
+              "#e8dab1",
+              "#c9a64a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0.06,
+              0.25,
+              8
+            ],
+            "at": [
+              -0.15,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#5df2d6",
+              "#32d6b7",
+              "#1db094"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.06,
+              0.3,
+              6
+            ],
+            "at": [
+              0.18,
+              0,
+              0.12
+            ],
+            "tones": [
+              "#fff0c3",
+              "#e8dab1",
+              "#c9a64a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.04,
+              0.2,
+              8
+            ],
+            "at": [
+              0.18,
+              0.3,
+              0.12
+            ],
+            "tones": [
+              "#ff5990",
+              "#e03870",
+              "#bd4c0b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "censer_urn",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Placed adjacent to the focal shrine platform to burn mystical incense, mirroring the candle and smoke tendrils.",
+      "shape": {
+        "summary": "Heavy bronze ceremonial pot billowing faint frozen smoke rings.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.5,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e6b325",
+              "#bd8e13",
+              "#9e4308"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#1c1a2e",
+              "#1c1a2e",
+              "#1c1a2e"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.7
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#d0c9fa",
+              "#bcb6eb",
+              "#9f97d9"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "oneiric_canopy_tree",
+      "type": "tree-round",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.3,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          13,
+          2
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          12,
+          8
+        ]
+      ],
+      "where": "Stands at the shrine perimeter corners, framing the sacred pond with deep midnight-plum wood and luminous foliage.",
+      "shape": {
+        "summary": "Slender purple-barked tree bearing rounded stepped blocks of mint and teal leaves.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.15,
+              1.2,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#874877",
+              "#67385b",
+              "#464169"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.1,
+              0.7,
+              1.1,
+              0.1
+            ],
+            "at": [
+              0,
+              1.2,
+              0
+            ],
+            "tones": [
+              "#5df2d6",
+              "#32d6b7",
+              "#1db094"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.6,
+              0.8,
+              0.08
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#7bf0b5",
+              "#5cd196",
+              "#3fa872"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "slumbering_oracle_colossus",
+      "source": "The giant serene meditating face with closed eyes, third eye, and soaring black psychedelic crown in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 2.8,
+      "shape": {
+        "summary": "Monumental pale lavender head with serene closed eyes, an open gold-rimmed forehead eye, and a towering black fan headdress dotted with neon rosettes.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.4,
+              0.9,
+              0.8,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d7d2fc",
+              "#bcb6eb",
+              "#9f97d9"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.2,
+              0.8,
+              0.7,
+              0.1
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#d7d2fc",
+              "#bcb6eb",
+              "#9f97d9"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.35,
+              0.06,
+              0.08
+            ],
+            "at": [
+              -0.32,
+              0.75,
+              0.36
+            ],
+            "tones": [
+              "#3b365e",
+              "#2d294a",
+              "#1c1a2e"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.35,
+              0.06,
+              0.08
+            ],
+            "at": [
+              0.32,
+              0.75,
+              0.36
+            ],
+            "tones": [
+              "#3b365e",
+              "#2d294a",
+              "#1c1a2e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0,
+              0.22,
+              4
+            ],
+            "at": [
+              0,
+              0.62,
+              0.4
+            ],
+            "tones": [
+              "#d7d2fc",
+              "#bcb6eb",
+              "#867ec4"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.28,
+              0.06,
+              0.06
+            ],
+            "at": [
+              0,
+              0.38,
+              0.38
+            ],
+            "tones": [
+              "#ff5990",
+              "#e03870",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.08
+            ],
+            "outline": [
+              [
+                -0.2,
+                0
+              ],
+              [
+                0,
+                0.3
+              ],
+              [
+                0.2,
+                0
+              ],
+              [
+                0,
+                -0.15
+              ]
+            ],
+            "at": [
+              0,
+              1.25,
+              0.36
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b325",
+              "#bd8e13"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.8
+            ],
+            "at": [
+              0,
+              1.35,
+              0.39
+            ],
+            "tones": [
+              "#e2defc",
+              "#78729e",
+              "#1c1a2e"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.9,
+                0
+              ],
+              [
+                -1.2,
+                0.8
+              ],
+              [
+                -0.7,
+                1.6
+              ],
+              [
+                0,
+                2.1
+              ],
+              [
+                0.7,
+                1.6
+              ],
+              [
+                1.2,
+                0.8
+              ],
+              [
+                0.9,
+                0
+              ]
+            ],
+            "at": [
+              0,
+              0.8,
+              -0.15
+            ],
+            "tones": [
+              "#2e3536",
+              "#1c1a2e",
+              "#0c0d0e"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              1
+            ],
+            "at": [
+              -0.6,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#5df2d6",
+              "#32d6b7",
+              "#1db094"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1
+            ],
+            "at": [
+              0.55,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#ff5990",
+              "#e03870",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              1
+            ],
+            "at": [
+              0,
+              2.3,
+              0
+            ],
+            "tones": [
+              "#ffd54f",
+              "#e6b325",
+              "#bd8e13"
+            ]
+          }
+        ]
+      },
+      "pose": "Resting serenely upon the raised shrine platform in eternal trance, silent and unmoving while receiving sacred vapor from the causeway.",
+      "cell": [
+        7,
+        2
+      ],
+      "facing": "s",
+      "why": "This is the revered divinity of the shrine, preserved in slumber as pilgrims cross the sacred moat to seek its dream visions."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVGGGGGGGGGGGGVV",
+      "VTTRRRFFRRRRTTVV",
+      "VGGGRRPPRRGGGGVV",
+      "VGGWWWWWWWWGGGVV",
+      "VGWWWWPPWWWWGGVV",
+      "VGWWWWPPWWWWGGVV",
+      "VGGWWTPPTWGGGGVV",
+      "VVTGGGPPTGGGTTVV",
+      "VVGGGGPPGGGGGGVV",
+      "VVVVGGPPGGGGVVVV",
+      "VVVVVVPPVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0011111111111100",
+      "0112222222211100",
+      "0111222222111100",
+      "0110000000011100",
+      "0100001100001100",
+      "0100001100001100",
+      "0110011110111100",
+      "0011111111111100",
+      "0011111111111100",
+      "0000111111110000",
+      "0000001100000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 2,
+      "what": "slumbering_oracle_colossus"
+    },
+    "mass": "Visual weight is anchored on the upper-central raised stone sanctum where the wide headdress of the colossal face dominates, balanced by the serene cyan expanse of the reflecting pool below.",
+    "read": "The viewer enters from the bottom rim along a straight processional causeway flanked by sentinel candle urns. The path crosses directly through a still ceremonial reflecting pool before passing through a twin eye-stele threshold. Beyond the threshold, the path ascends onto the elevated stone sanctum where the immense slumbering face of the oracle sits enthroned."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "oneiric_canopy_tree",
+          "variant": "oneiric_canopy_tree",
+          "weight": 0.6
+        },
+        {
+          "type": "tree-round",
+          "variant": "tree-round",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0.11,
+    "plateau_share": 0.15,
+    "void_share": 0.32,
+    "decor_weights": {
+      "all_seeing_stele_threshold": 0.15,
+      "vigil_candle_pedestal": 0.35,
+      "bioluminescent_fungus_cluster": 0.25,
+      "censer_urn": 0.15,
+      "rock": 0.1
+    },
+    "lighting": {
+      "bg": "#1c1a2e",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#c3bdff",
+      "notes": "Deep dusk sanctuary illuminated by a cool periwinkle moonbeam tint and warm focal glow from ritual candle wicks."
+    },
+    "rules": [
+      "Processional stone path (P) runs strictly in an axial line along columns 7 and 8 from the near entry to the raised sanctuary.",
+      "The sacred reflecting pool (W) surrounds the causeway on both sides between rows 4 and 7 without bisecting the walkable land.",
+      "All-seeing stele threshold props must stand exactly on cells [6, 7] and [9, 7] to frame the portal crossing out of the waters.",
+      "The focal creature sits on the elevated plateau (R) at height 2 overlooking the tranquil water court."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "stone",
+      "raised": "stone",
+      "path": "stone",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sunken Font of the Slumbering Seer, a secluded aquatic temple where pilgrims offer burning wax to glimpse prophetic dreams.",
+    "approach": "An axial paved stone causeway pierces a deep reflecting pool, passing between twin All-Seeing Stelae to reach the raised altar.",
+    "creature_doing": "Resting in a timeless visionary slumber upon the sacred stone dais, absorbing the drift of fragrant candle smoke into its dreamscape.",
+    "palette_key": "Periwinkle dusk drenched in cool lavender stone tones, deep violet waters, and intense golden candle-flame sparks.",
+    "terrain": "A ceremonial stone island bisected by an axial causeway and framed by a tranquil reflecting pool leading to an elevated sanctum.",
+    "summary": "A solemn souls-like water shrine honouring a colossal dreaming head crowned by a cosmic headdress, approached over a candlelit sacred pool."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 2,
+    "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
+    "avoid": [
+      "pipeline/seed/concepts/mindbloom-1.json"
+    ]
+  }
+}

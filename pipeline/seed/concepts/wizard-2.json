@@ -1,0 +1,1237 @@
+{
+  "source": {
+    "art": "pipeline/seed/wizard.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "mystical",
+    "serene",
+    "nocturnal",
+    "sacred",
+    "whimsical",
+    "solemn"
+  ],
+  "observations": [
+    {
+      "what": "Pointed wizard hat in midnight navy blue with a star emblem drawn on the front brim fold",
+      "box": [
+        259,
+        329,
+        381,
+        663
+      ],
+      "maps_to": "creature hat and star crest"
+    },
+    {
+      "what": "Slender cylindrical frankfurter sausage body with smooth rounded tips and warm terracotta skin",
+      "box": [
+        363,
+        411,
+        762,
+        555
+      ],
+      "maps_to": "creature body core"
+    },
+    {
+      "what": "Minimalist facial features with two tiny black dot eyes and a curved '3' style mouth",
+      "box": [
+        409,
+        427,
+        448,
+        477
+      ],
+      "maps_to": "creature face"
+    },
+    {
+      "what": "High stiff white upturned wizard collar flaring behind the sausage neck",
+      "box": [
+        426,
+        347,
+        630,
+        592
+      ],
+      "maps_to": "creature high collar"
+    },
+    {
+      "what": "Midnight blue wizard robe patterned with small pale yellow star constellations and wide drooping sleeves",
+      "box": [
+        492,
+        308,
+        856,
+        701
+      ],
+      "maps_to": "creature celestial robes"
+    },
+    {
+      "what": "Floating bright cyan teardrop flame wisp hovering just above the outstretched right hand",
+      "box": [
+        507,
+        258,
+        563,
+        295
+      ],
+      "maps_to": "ceremonial font flame props"
+    },
+    {
+      "what": "Gnarled natural bent wooden walking staff held vertically in the left hand",
+      "box": [
+        419,
+        636,
+        804,
+        702
+      ],
+      "maps_to": "shrine staves and threshold boundary"
+    },
+    {
+      "what": "Spindly sausage-skin legs and paddle feet standing in a stable grounded posture",
+      "box": [
+        709,
+        397,
+        922,
+        592
+      ],
+      "maps_to": "creature legs on stone plinth"
+    },
+    {
+      "what": "Black brush script lettering declaring 'you're A Glizard 'ARRY' across the upper air",
+      "box": [
+        121,
+        172,
+        297,
+        814
+      ],
+      "maps_to": "monumental shrine rune plinths"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ffffff",
+        "share": 0.835,
+        "role": "parchment void background"
+      },
+      {
+        "hex": "#122346",
+        "share": 0.063,
+        "role": "wizard robe and hat midnight navy"
+      },
+      {
+        "hex": "#644b48",
+        "share": 0.026,
+        "role": "deep garment shading and staff shadow"
+      },
+      {
+        "hex": "#c2674e",
+        "share": 0.025,
+        "role": "frankfurter sausage skin and staff"
+      },
+      {
+        "hex": "#7f878b",
+        "share": 0.015,
+        "role": "neutral slate underbelly midtones"
+      },
+      {
+        "hex": "#f6f7f7",
+        "share": 0.014,
+        "role": "high white collar highlight"
+      },
+      {
+        "hex": "#b4b7b8",
+        "share": 0.012,
+        "role": "faint cool ambient rimlight"
+      },
+      {
+        "hex": "#dbdede",
+        "share": 0.01,
+        "role": "robe lining and pale stone tones"
+      }
+    ],
+    "translation": {
+      "bg": "#121829",
+      "grass": {
+        "top": "#78b868",
+        "fringe": "#5e9b50",
+        "fringeDark": "#467b3c",
+        "speck": "#94cb86"
+      },
+      "sand": {
+        "top": "#deb438",
+        "lip": "#c0921e",
+        "edge": "#b08012",
+        "dots": "#ecc858"
+      },
+      "dirt": {
+        "top": "#cda66a",
+        "patch": "#b78d52",
+        "mottle": "#9a7039",
+        "border": "#855d28"
+      },
+      "stone": {
+        "top": "#e2e6ea",
+        "pebble": "#f0f3f6",
+        "pebbleShade": "#c2c9d1",
+        "rim": "#9fa8b3"
+      },
+      "cliffUpper": {
+        "left": "#a85d46",
+        "right": "#88422f",
+        "seam": "#6e3122"
+      },
+      "cliffLower": {
+        "left": "#ba6a52",
+        "right": "#964c38",
+        "seam": "#7c3726",
+        "speck": "#612719"
+      },
+      "water": {
+        "top": "#6ce3f8",
+        "bubble": "#b4f4ff",
+        "deep": "#1a9cb8",
+        "fall": [
+          "#2ec2de",
+          "#1eaec9",
+          "#139bb5"
+        ],
+        "foam": "#dcf9ff"
+      },
+      "wood": {
+        "light": "#ff8826",
+        "mid": "#dc6e18",
+        "dark": "#b84f0e",
+        "shadow": "#8f3806",
+        "end": "#fed17f"
+      },
+      "treeMint": [
+        "#5acfa2",
+        "#48b289",
+        "#35906d"
+      ],
+      "treeLime": [
+        "#96d45e",
+        "#7bb847",
+        "#5c9431"
+      ],
+      "treeLeaf": [
+        "#72bf54",
+        "#5aa13e",
+        "#43802b"
+      ],
+      "treeTeal": [
+        "#18b4a6",
+        "#119a8e",
+        "#0d7d73",
+        "#086159"
+      ],
+      "treeGold": [
+        "#ebb836",
+        "#c8971f",
+        "#9f730c"
+      ],
+      "trunk": [
+        "#8e5443",
+        "#6e3e30"
+      ],
+      "rock": [
+        "#e0e4e8",
+        "#c8ced5",
+        "#9ea7b2",
+        "#79838f"
+      ],
+      "wellStone": [
+        "#d3d8de",
+        "#b5bcc6",
+        "#949da9"
+      ],
+      "flowerOrange": [
+        "#ff7d1a",
+        "#e89f14"
+      ],
+      "berry": [
+        "#25bce8",
+        "#1298c4"
+      ],
+      "bushTeal": [
+        "#62d6b8",
+        "#43bca0",
+        "#2c9e83"
+      ],
+      "gold": [
+        "#f7d348",
+        "#dbae23",
+        "#fbe278"
+      ]
+    },
+    "notes": "The palette is translated for a cool, moonlit sacred shrine. Pale silvery flagstones and deep midnight teal-blues dominate the sacred architecture, while the warm terracotta cliff tones echo the Glizard's frankfurter casing, lit by vivid cyan magical sparks.",
+    "clamped": [
+      "treeTeal[0] #16a89b->#18b4a6",
+      "treeTeal[1] #108d82->#119a8e",
+      "treeTeal[2] #0c7067->#0d7d73",
+      "treeTeal[3] #07544d->#086159"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "shrine_gate_pillars",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "where": "Flanking the processional stone causeway at the entrance threshold before stepping onto the shrine platform.",
+      "shape": {
+        "summary": "Stepped pale stone ceremonial pillar topped with an indigo celestial star cap.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.3,
+              0.7
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e2e6ea",
+              "#c2c9d1",
+              "#9fa8b3"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.5,
+              1.4,
+              0.5
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#f0f3f6",
+              "#e2e6ea",
+              "#c2c9d1"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.65,
+              0.2,
+              0.65
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#e2e6ea",
+              "#c2c9d1",
+              "#9fa8b3"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.3,
+              0.05,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#253b68",
+              "#182747",
+              "#101b33"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "votive_spark_basin",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          6,
+          9
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      "where": "Positioned in pairs along both sides of the straight axial approach across the sacred pool.",
+      "shape": {
+        "summary": "Carved stone pedestal font holding a levitating pure cyan mystical fire droplet.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e2e6ea",
+              "#c2c9d1",
+              "#9fa8b3"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.2,
+              0.5,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#f0f3f6",
+              "#e2e6ea",
+              "#c2c9d1"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.36,
+              0.3,
+              8
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#e2e6ea",
+              "#c2c9d1",
+              "#9fa8b3"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#b4f4ff",
+              "#6ce3f8",
+              "#1a9cb8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "celestial_altar_plinth",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          2
+        ]
+      ],
+      "where": "Centered on the raised shrine platform directly underneath the Glizard guardian.",
+      "shape": {
+        "summary": "Dual-tier polished white stone altar decorated with inset golden star corners.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.8,
+              0.25,
+              1.8,
+              0.08
+            ],
+            "at": [
+              0.5,
+              0,
+              0.5
+            ],
+            "tones": [
+              "#e2e6ea",
+              "#c2c9d1",
+              "#9fa8b3"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.4,
+              0.25,
+              1.4,
+              0.08
+            ],
+            "at": [
+              0.5,
+              0.25,
+              0.5
+            ],
+            "tones": [
+              "#f0f3f6",
+              "#e2e6ea",
+              "#c2c9d1"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              0.04,
+              0.2
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#fbe278",
+              "#f7d348",
+              "#dbae23"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              0.04,
+              0.2
+            ],
+            "at": [
+              1,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#fbe278",
+              "#f7d348",
+              "#dbae23"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              0.04,
+              0.2
+            ],
+            "at": [
+              0,
+              0.5,
+              1
+            ],
+            "tones": [
+              "#fbe278",
+              "#f7d348",
+              "#dbae23"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              0.04,
+              0.2
+            ],
+            "at": [
+              1,
+              0.5,
+              1
+            ],
+            "tones": [
+              "#fbe278",
+              "#f7d348",
+              "#dbae23"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sacred_relic_urn",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          2
+        ],
+        [
+          10,
+          2
+        ]
+      ],
+      "where": "Placed upon the high sanctuary terrace beside the celestial altar.",
+      "shape": {
+        "summary": "Glazed terracotta ceramic offering vessel containing sacred blue oils.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ba6a52",
+              "#964c38",
+              "#7c3726"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.32,
+              1.1
+            ],
+            "at": [
+              0,
+              0.28,
+              0
+            ],
+            "tones": [
+              "#ba6a52",
+              "#a85d46",
+              "#88422f"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.48,
+              0
+            ],
+            "tones": [
+              "#d3d8de",
+              "#b5bcc6",
+              "#949da9"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cypress_sentinel_tree",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          2
+        ]
+      ],
+      "where": "Bordering the high rear cliffs and framing the outer shrine perimeter.",
+      "shape": {
+        "summary": "Slender tiered nocturnal pine in deep teal and midnight tones.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.6,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8e5443",
+              "#6e3e30",
+              "#542f24"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.1
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#18b4a6",
+              "#119a8e",
+              "#0d7d73"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.78,
+              0.45,
+              0.78,
+              0.1
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#18b4a6",
+              "#119a8e",
+              "#0d7d73"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.45,
+              0.58,
+              0.1
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#5acfa2",
+              "#48b289",
+              "#35906d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.5,
+              0.38,
+              0.08
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#5acfa2",
+              "#48b289",
+              "#35906d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "monument_tablet",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          3
+        ],
+        [
+          10,
+          3
+        ]
+      ],
+      "where": "Erected at the back of the pool flanking the shrine steps.",
+      "shape": {
+        "summary": "Upright carved stone stele engraved with dark blue magical glyphs.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.6,
+              0.2,
+              0.4
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e2e6ea",
+              "#c2c9d1",
+              "#9fa8b3"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.45,
+              1.1,
+              0.2
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#f0f3f6",
+              "#e2e6ea",
+              "#c2c9d1"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.15
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "outline": [
+              [
+                -0.22,
+                -0.1
+              ],
+              [
+                0.22,
+                -0.1
+              ],
+              [
+                0,
+                0.1
+              ]
+            ],
+            "tones": [
+              "#f0f3f6",
+              "#e2e6ea",
+              "#c2c9d1"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "Glizard the Grand Frankfurter",
+      "source": "Main whimsical sausage wizard in midnight blue hat and celestial robes holding staff and cyan spark",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.5,
+      "pose": "Standing erect upon his plinth in quiet night vigil, holding his bent stave with a cyan spark hovering beside his right sleeve.",
+      "cell": [
+        7,
+        2
+      ],
+      "facing": "s",
+      "why": "He is the ancient sausage sage presiding over the sunken pool of the sacred blue spark.",
+      "shape": {
+        "summary": "Chunky toy sausage sorcerer with blue pointed hat, flare collar, starry robes, and a wooden crook.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.45,
+              6
+            ],
+            "at": [
+              -0.15,
+              0,
+              -0.05
+            ],
+            "tones": [
+              "#ba6a52",
+              "#a85d46",
+              "#88422f"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.45,
+              6
+            ],
+            "at": [
+              0.15,
+              0,
+              0.05
+            ],
+            "tones": [
+              "#ba6a52",
+              "#a85d46",
+              "#88422f"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.25,
+              1.1,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#253b68",
+              "#182747",
+              "#101b33"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.2,
+              0.95,
+              8
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#ba6a52",
+              "#a85d46",
+              "#88422f"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.36,
+              0.18,
+              0.5,
+              8
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#f6f7f7",
+              "#e2e6ea",
+              "#c2c9d1"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.48,
+              0.22,
+              0.25,
+              8
+            ],
+            "at": [
+              0,
+              1.85,
+              0
+            ],
+            "tones": [
+              "#253b68",
+              "#182747",
+              "#101b33"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.02,
+              0.65,
+              8
+            ],
+            "at": [
+              0,
+              2.05,
+              0
+            ],
+            "rot": [
+              12,
+              0,
+              -5
+            ],
+            "tones": [
+              "#253b68",
+              "#182747",
+              "#101b33"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0.35,
+              0,
+              0.1
+            ],
+            "to": [
+              0.32,
+              1.5,
+              0.1
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e18",
+              "#b84f0e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0,
+              0.2,
+              6
+            ],
+            "at": [
+              -0.4,
+              1.15,
+              0.1
+            ],
+            "tones": [
+              "#b4f4ff",
+              "#6ce3f8",
+              "#1a9cb8"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVTTTTTTTTVVVV",
+      "VVVTRRRRRRRRTVVV",
+      "VVTRRRFFRRRRGTVV",
+      "VVTRRRFFRRRRGGTV",
+      "VVGGWWPPRRWWGGTV",
+      "VVGGWWPPRRWWGGVV",
+      "VVGGWWPPRRWWGGVV",
+      "VVGGWWPPRRWWGGVV",
+      "VVGGWWPPRRWWGGVV",
+      "VVGGWWPPRRWWGGVV",
+      "VVVVGGPPPPGGVVVV",
+      "VVVVVVPPPPVVVVVV"
+    ],
+    "heights": [
+      "0000111111110000",
+      "0001222222221000",
+      "0012222222221100",
+      "0012222222221110",
+      "0011001122001110",
+      "0011001122001100",
+      "0011001122001100",
+      "0011001122001100",
+      "0011001122001100",
+      "0011001122001100",
+      "0000111111110000",
+      "0000001111000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 2,
+      "what": "Glizard 'Arry enthroned upon the elevated stone shrine plinth above the sacred spring"
+    },
+    "mass": "Visual weight sits symmetrically on the high rear platform and plinth, balanced by the processional causeway bisecting the sunken blue reflecting pools.",
+    "read": "The viewer's eye enters from the near rim along the straight processional stone path, travels across the reflective sunken moat between the votive braziers, steps through the twin gate pillars, and ascends to the illuminated raised dais where the Glizard wizard presides."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "cypress_sentinel_tree",
+          "variant": "cypress_sentinel_tree",
+          "weight": 0.7
+        },
+        {
+          "type": "tree-teal",
+          "variant": "tree-teal",
+          "weight": 0.3
+        }
+      ]
+    },
+    "water_share": 0.14,
+    "plateau_share": 0.26,
+    "void_share": 0.38,
+    "decor_weights": {
+      "votive_spark_basin": 0.35,
+      "sacred_relic_urn": 0.25,
+      "monument_tablet": 0.2,
+      "stone": 0.2
+    },
+    "lighting": {
+      "bg": "#121829",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#7aa0db",
+      "notes": "Luminous twilight lighting cast by an azure full moon, emphasizing soft silvery highlights on pale stone and shimmering cyan water."
+    },
+    "rules": [
+      "Place water tiles exclusively in the recessed central flanking basins between columns 4-5 and 10-11.",
+      "Align the processional path strictly along central columns 7 and 8 from row 11 up to the elevated shrine.",
+      "Position votive spark basins in matched symmetrical pairs along the causeway banks.",
+      "Keep the rear elevated platform at height 2 with Glizard 'Arry centered on the focal cell."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "stone",
+      "raised": "stone",
+      "path": "stone",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sunken Font of the Blue Spark, a midnight water temple built by ancient devotees to venerate the sacred Glizard's eternal flame.",
+    "approach": "An axial processional stone causeway skirts calm cyan reflecting pools, passing between pairs of votive spark basins and twin monolith pillars to reach the high shrine terrace.",
+    "creature_doing": "Glizard 'Arry stands in silent twilight vigil upon his carved star plinth, clutching his gnarled walking staff while a magical cyan flame droplet hovers steadily over his outstretched right palm.",
+    "palette_key": "Moonlit midnight indigo and silvery white stone lead the palette, accented by the frankfurter's rich terracotta casing and cold cyan water surfaces.",
+    "terrain": "A ceremonial sanctuary featuring a sunken reflecting spring of sixteen water cells crossed by a raised stone causeway that ascends to an elevated rear shrine terrace.",
+    "summary": "A solemn and endearing night shrine where pilgrims approach along a straight water-bound causeway to petition the wise sausage sorcerer guarding the font of blue fire."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 2,
+    "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
+    "avoid": [
+      "pipeline/seed/concepts/wizard-1.json"
+    ]
+  }
+}

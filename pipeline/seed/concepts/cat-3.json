@@ -1,0 +1,1372 @@
+{
+  "source": {
+    "art": "pipeline/seed/cat.png",
+    "width": 1587,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "defiant",
+    "electric",
+    "windswept",
+    "prismatic",
+    "tense",
+    "feral"
+  ],
+  "observations": [
+    {
+      "what": "Pink and orange upright triangular cat ear on the upper right with sharp tips",
+      "box": [
+        42,
+        539,
+        348,
+        856
+      ],
+      "maps_to": "creature ear structure and angled crag spires"
+    },
+    {
+      "what": "Deep royal blue and violet left ear tip and forehead crest",
+      "box": [
+        134,
+        0,
+        372,
+        275
+      ],
+      "maps_to": "creature ear structure and shadowy caldera ridge"
+    },
+    {
+      "what": "Striking yellow-chartreuse cat eye with dark round pupil on the right",
+      "box": [
+        326,
+        497,
+        423,
+        638
+      ],
+      "maps_to": "glowing watcher eyes and amber braziers"
+    },
+    {
+      "what": "Round yellow-chartreuse eye on the left rimmed in bold indigo and magenta",
+      "box": [
+        336,
+        218,
+        437,
+        347
+      ],
+      "maps_to": "amber sentinel braziers and focal gaze"
+    },
+    {
+      "what": "Open feline maw displaying white fangs against a dark pink and black oral cavity",
+      "box": [
+        564,
+        321,
+        667,
+        521
+      ],
+      "maps_to": "focal creature challenge pose and roar"
+    },
+    {
+      "what": "Lavender-grey feline nose pad with dark nostrils dividing the muzzle",
+      "box": [
+        465,
+        344,
+        549,
+        483
+      ],
+      "maps_to": "creature snout block and central rock perch"
+    },
+    {
+      "what": "Vibrant split muzzle with bright marigold yellow right cheek and fiery orange chin",
+      "box": [
+        409,
+        451,
+        665,
+        792
+      ],
+      "maps_to": "creature fur palette and sun-baked arena sands"
+    },
+    {
+      "what": "Magenta, violet, and green brushwork down the neck and left flank",
+      "box": [
+        629,
+        159,
+        1000,
+        527
+      ],
+      "maps_to": "prismatic crag strata and arena perimeter stones"
+    },
+    {
+      "what": "Broad golden-yellow and bright orange chest fur swept toward the lower right",
+      "box": [
+        611,
+        483,
+        1000,
+        903
+      ],
+      "maps_to": "golden hour dirt apron and sun-scorched path"
+    },
+    {
+      "what": "Plain neutral off-white textured canvas framing the entire figure",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "vast open sky and deep void chasm surrounding arena"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e8dfce",
+        "share": 0.233,
+        "role": "canvas background tone"
+      },
+      {
+        "hex": "#d5cbbd",
+        "share": 0.165,
+        "role": "canvas midtone grain"
+      },
+      {
+        "hex": "#df9e0c",
+        "share": 0.131,
+        "role": "golden yellow fur sweep and cheek highlights"
+      },
+      {
+        "hex": "#363a56",
+        "share": 0.124,
+        "role": "deep indigo crown, eye shadow, and mouth cavern"
+      },
+      {
+        "hex": "#cf610d",
+        "share": 0.099,
+        "role": "hot cinnabar orange chin and ear accents"
+      },
+      {
+        "hex": "#9c3541",
+        "share": 0.088,
+        "role": "rich crimson-magenta forehead and neck streaks"
+      },
+      {
+        "hex": "#c6b19c",
+        "share": 0.082,
+        "role": "pale warm canvas under-shading"
+      },
+      {
+        "hex": "#c4616d",
+        "share": 0.077,
+        "role": "rose-pink inner ear and muzzle blush"
+      }
+    ],
+    "translation": {
+      "bg": "#221d28",
+      "grass": {
+        "top": "#5ac389",
+        "fringe": "#44a46b",
+        "fringeDark": "#357f53",
+        "speck": "#8ce263"
+      },
+      "sand": {
+        "top": "#f2ab0d",
+        "lip": "#e26a0e",
+        "edge": "#cb5e08",
+        "dots": "#f2d265"
+      },
+      "dirt": {
+        "top": "#c87b32",
+        "patch": "#b26824",
+        "mottle": "#9a5418",
+        "border": "#7f4210"
+      },
+      "stone": {
+        "top": "#8a7e93",
+        "pebble": "#ad9fb8",
+        "pebbleShade": "#6e6378",
+        "rim": "#574e60"
+      },
+      "cliffUpper": {
+        "left": "#6a4358",
+        "right": "#4d2f40",
+        "seam": "#391f2f"
+      },
+      "cliffLower": {
+        "left": "#4a2d3e",
+        "right": "#351e2c",
+        "seam": "#26131f",
+        "speck": "#5b374c"
+      },
+      "water": {
+        "top": "#60cde8",
+        "bubble": "#b4effa",
+        "deep": "#2593b0",
+        "fall": [
+          "#38b8d9",
+          "#269ebd",
+          "#197e99"
+        ],
+        "foam": "#dcf9ff"
+      },
+      "wood": {
+        "light": "#d8650e",
+        "mid": "#b95105",
+        "dark": "#923c00",
+        "shadow": "#6d2b00",
+        "end": "#fbc000"
+      },
+      "treeMint": [
+        "#5ac389",
+        "#44a46b",
+        "#357f53"
+      ],
+      "treeLime": [
+        "#c4ef86",
+        "#8ce263",
+        "#73aa4f"
+      ],
+      "treeLeaf": [
+        "#df9e0c",
+        "#cf610d",
+        "#9c3541"
+      ],
+      "treeTeal": [
+        "#2ec4b6",
+        "#20a396",
+        "#177e74",
+        "#105d56"
+      ],
+      "treeGold": [
+        "#f1cd52",
+        "#df9e0c",
+        "#cf610d"
+      ],
+      "trunk": [
+        "#703d58",
+        "#512b40"
+      ],
+      "rock": [
+        "#b5abbf",
+        "#8a7e93",
+        "#6e6378",
+        "#4e4555"
+      ],
+      "wellStone": [
+        "#ad9fb8",
+        "#8a7e93",
+        "#6e6378"
+      ],
+      "flowerOrange": [
+        "#cf610d",
+        "#df9e0c"
+      ],
+      "berry": [
+        "#c4616d",
+        "#9c3541"
+      ],
+      "bushTeal": [
+        "#2ec4b6",
+        "#20a396",
+        "#177e74"
+      ],
+      "gold": [
+        "#f1cd52",
+        "#df9e0c",
+        "#cf610d"
+      ]
+    },
+    "notes": "The palette translates the painting's electric multi-hued brushwork into a windswept mountain caldera at dusk. Sand and dirt carry the radiant gold and cinnabar fur tones, cliff faces borrow the deep plum-magenta of the neck strokes, while the ambient darkness echoes the indigo brushstrokes.",
+    "clamped": [
+      "trunk[0] #6a4358->#703d58",
+      "trunk[1] #4d2f40->#512b40",
+      "sand.top #df9e0c->#f2ab0d",
+      "sand.lip #cf610d->#e26a0e",
+      "sand.edge #b85507->#cb5e08",
+      "sand.dots #f1cd52->#f2d265",
+      "wood.light #cf610d->#d8650e",
+      "wood.mid #b04d05->#b95105",
+      "wood.dark #883800->#923c00",
+      "wood.shadow #632700->#6d2b00",
+      "wood.end #f1b900->#fbc000"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "bone-fang-threshold",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "where": "Flanks the entrance neck of the arena path where the diagonal trail opens onto the combat plateau.",
+      "shape": {
+        "summary": "A pair of pointed bone-and-timber monoliths jutting like jagged cat fangs from stone sockets.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.6,
+              0.4,
+              0.6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a7e93",
+              "#6e6378",
+              "#574e60"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.05,
+              1.8,
+              6
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#e8dfce",
+              "#c6b19c",
+              "#8a7e93"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.15,
+              0.6,
+              0
+            ],
+            "to": [
+              0.2,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#d8650e",
+              "#b95105",
+              "#923c00"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.2,
+              0.3,
+              0.2,
+              0.05
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d8650e",
+              "#9c3541"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "prismatic-roost-crag",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          3
+        ]
+      ],
+      "where": "Directly beneath the cat figure, serving as the elevated rocky boss perch in the centre of the arena.",
+      "shape": {
+        "summary": "A stepped jagged crag of striated volcanic rock splashed with bold mineral hues.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.6,
+              0.95,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a7e93",
+              "#6e6378",
+              "#4e4555"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.5,
+              0.75,
+              0.08
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d8650e",
+              "#9c3541"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.55,
+              0.3,
+              0.55
+            ],
+            "at": [
+              0,
+              1.1,
+              0
+            ],
+            "tones": [
+              "#f2d265",
+              "#f2ab0d",
+              "#b95105"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "claw-scarred-stump",
+      "type": "stump",
+      "variant_of": "stump",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          4
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "where": "Stands at the arena flanks near the focal crag as scratch markers defining the territory.",
+      "shape": {
+        "summary": "A thick orange-timber trunk stump scored with deep jagged rake gouges.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.5,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8650e",
+              "#b95105",
+              "#923c00"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              -0.2,
+              0.1,
+              0.25
+            ],
+            "to": [
+              -0.15,
+              0.45,
+              0.25
+            ],
+            "tones": [
+              "#f2d265",
+              "#f2ab0d",
+              "#b95105"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              0.12,
+              0.28
+            ],
+            "to": [
+              0.05,
+              0.48,
+              0.28
+            ],
+            "tones": [
+              "#f2d265",
+              "#f2ab0d",
+              "#b95105"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0.18,
+              0.08,
+              0.24
+            ],
+            "to": [
+              0.22,
+              0.42,
+              0.24
+            ],
+            "tones": [
+              "#f2d265",
+              "#f2ab0d",
+              "#b95105"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "amber-stalker-brazier",
+      "type": "torch",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          8
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          10
+        ]
+      ],
+      "where": "Paired along both flanks of the diagonal approach stair guiding the player toward the threshold.",
+      "shape": {
+        "summary": "A stone plinth bearing an iron-banded post topped with an open firepot burning chartreuse-amber.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.4,
+              0.2,
+              0.4
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a7e93",
+              "#6e6378",
+              "#574e60"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.1,
+              0.6,
+              6
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#d8650e",
+              "#b95105",
+              "#923c00"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.1,
+              0.2,
+              6
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#6e6378",
+              "#4e4555",
+              "#351e2c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#f2d265",
+              "#f2ab0d",
+              "#d8650e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ridge-pinnacle-spire",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          1,
+          4
+        ],
+        [
+          14,
+          5
+        ]
+      ],
+      "where": "Rises along the far high perimeter cliffs to wall the arena against the empty abyss.",
+      "shape": {
+        "summary": "A soaring prismatic basalt pillar narrowing into sharp angular crags like cat ears.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              1,
+              0.85,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#703d58",
+              "#512b40",
+              "#391f2f"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.65,
+              0.9,
+              0.65
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#4a2d3e",
+              "#351e2c",
+              "#26131f"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.35,
+              0.08,
+              0.7,
+              4
+            ],
+            "rot": [
+              0,
+              45,
+              0
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#9c3541",
+              "#703d58",
+              "#391f2f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "caldera-fire-pot",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          8,
+          5
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "where": "Placed on the arena dirt floor adjacent to the boss crag as battle debris.",
+      "shape": {
+        "summary": "A squat terracotta cauldron glazed with cinnabar bands containing glowing coal residue.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8650e",
+              "#b95105",
+              "#923c00"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.36,
+              0.08,
+              0.36,
+              0.04
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d8650e",
+              "#b95105"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.7
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#f2d265",
+              "#f2ab0d",
+              "#d8650e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "prismatic-lichen-rocks",
+      "type": "rock",
+      "variant_of": "rock",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          11,
+          4
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "where": "Scattered across the combat floor edges to break up the flat sand plain.",
+      "shape": {
+        "summary": "A cluster of faceted boulders stained with streaks of orange, violet, and chartreuse mineral growth.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.45,
+              0.1
+            ],
+            "at": [
+              -0.1,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a7e93",
+              "#6e6378",
+              "#4e4555"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.25,
+              0.35,
+              0.08
+            ],
+            "at": [
+              0.2,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d8650e",
+              "#9c3541"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.8
+            ],
+            "at": [
+              0.05,
+              0.3,
+              -0.05
+            ],
+            "tones": [
+              "#5ac389",
+              "#44a46b",
+              "#357f53"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "prismatic-calico-stalker",
+      "source": "The roaring calico cat from IMAGE 1 with wide eyes, bared fangs, and patchwork fur.",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.3,
+      "shape": {
+        "summary": "A chunky, toy-like calico feline reared up on a rocky roost with jaws parted in a sharp hiss.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.75,
+              0.55,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d8650e",
+              "#9c3541"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.5,
+              0.35,
+              0.08
+            ],
+            "at": [
+              0.08,
+              0.45,
+              0.1
+            ],
+            "tones": [
+              "#f2d265",
+              "#f2ab0d",
+              "#d8650e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.58,
+              0.52,
+              0.48,
+              0.1
+            ],
+            "at": [
+              0,
+              0.85,
+              0.05
+            ],
+            "tones": [
+              "#363a56",
+              "#221d28",
+              "#17141d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.28,
+              0.22,
+              0.05
+            ],
+            "at": [
+              0.1,
+              0.88,
+              0.22
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d8650e",
+              "#b95105"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.24,
+              0.14,
+              0.12
+            ],
+            "at": [
+              0,
+              0.86,
+              0.26
+            ],
+            "tones": [
+              "#221d28",
+              "#17141d",
+              "#0c0a10"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0.01,
+              0.07,
+              4
+            ],
+            "rot": [
+              180,
+              0,
+              0
+            ],
+            "at": [
+              -0.07,
+              0.94,
+              0.3
+            ],
+            "tones": [
+              "#e8dfce",
+              "#c6b19c",
+              "#8a7e93"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0.01,
+              0.07,
+              4
+            ],
+            "rot": [
+              180,
+              0,
+              0
+            ],
+            "at": [
+              0.07,
+              0.94,
+              0.3
+            ],
+            "tones": [
+              "#e8dfce",
+              "#c6b19c",
+              "#8a7e93"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0.01,
+              0.07,
+              4
+            ],
+            "at": [
+              -0.06,
+              0.86,
+              0.3
+            ],
+            "tones": [
+              "#e8dfce",
+              "#c6b19c",
+              "#8a7e93"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0.01,
+              0.07,
+              4
+            ],
+            "at": [
+              0.06,
+              0.86,
+              0.3
+            ],
+            "tones": [
+              "#e8dfce",
+              "#c6b19c",
+              "#8a7e93"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              0.9
+            ],
+            "at": [
+              -0.16,
+              1.15,
+              0.2
+            ],
+            "tones": [
+              "#c4ef86",
+              "#8ce263",
+              "#73aa4f"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              0.9
+            ],
+            "at": [
+              0.16,
+              1.15,
+              0.2
+            ],
+            "tones": [
+              "#c4ef86",
+              "#8ce263",
+              "#73aa4f"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.12,
+                -0.08
+              ],
+              [
+                0.12,
+                -0.08
+              ],
+              [
+                0,
+                0.16
+              ]
+            ],
+            "rot": [
+              10,
+              -15,
+              0
+            ],
+            "at": [
+              -0.22,
+              1.35,
+              0
+            ],
+            "tones": [
+              "#363a56",
+              "#221d28",
+              "#9c3541"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.38
+            ],
+            "outline": [
+              [
+                -0.12,
+                -0.08
+              ],
+              [
+                0.12,
+                -0.08
+              ],
+              [
+                0,
+                0.16
+              ]
+            ],
+            "rot": [
+              10,
+              15,
+              0
+            ],
+            "at": [
+              0.24,
+              1.35,
+              0
+            ],
+            "tones": [
+              "#c4616d",
+              "#9c3541",
+              "#d8650e"
+            ]
+          }
+        ]
+      },
+      "pose": "Poised atop the roost crag with bared needle teeth and blazing yellow eyes, letting out a territorial battle hiss at the intruding hero.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "Acts as the formidable wild boss of the ridge arena, confronting the player as they breach the bone-fang threshold."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVRRRRRVVVVVV",
+      "VVRRRRGGGRRRRVVV",
+      "VRRGGGGGGGGGRRVV",
+      "VRGGGGGFGGGGGGRV",
+      "VRGGGGGGGGGGGGTV",
+      "VRGGGGGGGGGGGGTV",
+      "VRGGPGPGGGGGGRVV",
+      "VVRRPGPRGGGGGRVV",
+      "VVVRPGPVRRGGGVVV",
+      "VVVRGPPVRRRVVVVV",
+      "VVVVRGPVVVVVVVVV",
+      "VVVVVVPVVVVVVVVV"
+    ],
+    "heights": [
+      "0000033333000000",
+      "0033321112333000",
+      "0321111111112200",
+      "0211111211111120",
+      "0211111111111110",
+      "0211111111111110",
+      "0211111111111200",
+      "0022111211111200",
+      "0002111022111000",
+      "0001111022100000",
+      "0000111000000000",
+      "0000001000000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "The Prismatic Calico Stalker perched threateningly atop the crag at the back-center of the combat clearing."
+    },
+    "mass": "The main visual mass anchors along the high rear cliff ramparts (rows 0-2) and the central roost crag, while the near right and far corners drop away into deep void chasms.",
+    "read": "The player enters at the near edge (column 6, row 11) onto a narrow diagonal rock ramp that climbs between flaming braziers. Stepping between twin fang-like pillars at rows 6-7, the space suddenly opens into a wide, golden combat arena enclosed by purple crags, focusing immediately on the snarling calico stalker glaring forward from its roost."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "ridge-pinnacle-spire",
+          "variant": "spire",
+          "weight": 0.6
+        },
+        {
+          "type": "claw-scarred-stump",
+          "variant": "stump",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.22,
+    "void_share": 0.38,
+    "decor_weights": {
+      "prismatic-lichen-rocks": 0.35,
+      "caldera-fire-pot": 0.25,
+      "amber-stalker-brazier": 0.25,
+      "flowerOrange": 0.15
+    },
+    "lighting": {
+      "bg": "#221d28",
+      "ambient": 0.78,
+      "sun": 0.28,
+      "tint": "#f2ab0d",
+      "notes": "A stark sunset glow washes across the arena sands with fierce marigold light, while deep purple twilight shadows cling to the jagged cliff spires."
+    },
+    "rules": [
+      "The diagonal approach path enters from the southern perimeter and leads through the bone-fang threshold.",
+      "The boss arena floor is flat height 1 sand and dirt surrounded by sheer dropoffs and height 3 pillars.",
+      "Amber braziers must line the ascending path in mirrored pairs.",
+      "The focal creature commands the highest central rock mound facing directly down the approach."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "stone",
+      "path": "dirt",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Howling Caldera of the Prismatic Stalker, a wind-battered mountain arena hanging over an abyss.",
+    "approach": "The adventurer climbs a stepped dirt trail lined with amber fire braziers and passes through a threshold of twin towering bone fangs into the open ring.",
+    "creature_doing": "Hissing loudly with bared fangs and pinned ears, squaring up in a tense feral standoff.",
+    "palette_key": "Strange-sky dusk where intense marigold amber sunlight strikes warm terracotta dirt against deep indigo and plum-magenta crags.",
+    "terrain": "An elevated, wide circular combat platform at height 1 ringed by jagged height 3 basalt teeth and deep void drops.",
+    "summary": "A tense boss encounter arena where the blazing colours and ferocious snarl of the painted cat manifest as a territorial apex predator guarding a high mountain divide."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 3,
+    "variantFragment": "READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.",
+    "avoid": [
+      "pipeline/seed/concepts/cat-1.json",
+      "pipeline/seed/concepts/cat-2.json"
+    ]
+  }
+}

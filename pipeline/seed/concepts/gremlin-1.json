@@ -1,0 +1,1329 @@
+{
+  "source": {
+    "art": "pipeline/seed/gremlin.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "serene",
+    "contemplative",
+    "biomechanical",
+    "reverent",
+    "secluded",
+    "sunlit"
+  ],
+  "observations": [
+    {
+      "what": "Smooth, egg-like featureless humanoid head tilted downward without facial features",
+      "box": [
+        217,
+        287,
+        420,
+        485
+      ],
+      "maps_to": "alien-artisan creature head"
+    },
+    {
+      "what": "Curved segmented mechanical conduit arching overhead from neck/spine holding a sensor or tool",
+      "box": [
+        164,
+        115,
+        431,
+        442
+      ],
+      "maps_to": "biomechanical crane arm"
+    },
+    {
+      "what": "Thin left hand with elongated clawed digits cradling a smooth spherical orb",
+      "box": [
+        421,
+        110,
+        534,
+        252
+      ],
+      "maps_to": "crystal orb story prop and grasping claw"
+    },
+    {
+      "what": "Slender, emaciated humanoid torso with exposed spinal column and ribbed chitinous flanks",
+      "box": [
+        454,
+        347,
+        667,
+        502
+      ],
+      "maps_to": "slender torso of the perched creature"
+    },
+    {
+      "what": "Elongated jointed quadrupedal limbs bent at acute angles in a low, resting crouch",
+      "box": [
+        549,
+        497,
+        856,
+        755
+      ],
+      "maps_to": "crouching hindquarters and limb structure"
+    },
+    {
+      "what": "Broad webbed aquatic or avian foot gripping the lower ground surface",
+      "box": [
+        798,
+        506,
+        1000,
+        750
+      ],
+      "maps_to": "webbed base feet resting upon the stone dais"
+    },
+    {
+      "what": "Long looping dorsal tube or tail reaching upward behind the creature in a sweeping arc",
+      "box": [
+        178,
+        419,
+        584,
+        725
+      ],
+      "maps_to": "arching tail armature"
+    },
+    {
+      "what": "Secondary flared organic funnel or horn appendage sprouting sharp petal teeth and an inner eye-stalk",
+      "box": [
+        94,
+        650,
+        314,
+        969
+      ],
+      "maps_to": "symbiotic horn-spire perched atop high terrace"
+    },
+    {
+      "what": "Delicate ribbed fin or wing webbing supported by slender spines above the dorsal junction",
+      "box": [
+        48,
+        408,
+        149,
+        738
+      ],
+      "maps_to": "fin-crest banner and threshold archway accent"
+    },
+    {
+      "what": "Bare white paper background surrounding the solitary pencil-shaded biomechanical study",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "open terrace sky and warm void rim"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#dfdfdf",
+        "share": 0.221,
+        "role": "paper base highlights and smooth head"
+      },
+      {
+        "hex": "#e9e9e9",
+        "share": 0.185,
+        "role": "bright open background"
+      },
+      {
+        "hex": "#d3d3d3",
+        "share": 0.18,
+        "role": "soft pencil shading across limbs"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.143,
+        "role": "mid-tone contour shading on neck and ribs"
+      },
+      {
+        "hex": "#aeaeae",
+        "share": 0.093,
+        "role": "conduit tube body and joint shadows"
+      },
+      {
+        "hex": "#919191",
+        "share": 0.083,
+        "role": "deep joint recesses and mechanical bands"
+      },
+      {
+        "hex": "#606060",
+        "share": 0.05,
+        "role": "dark linework and deep shadow folds"
+      },
+      {
+        "hex": "#2c2c2c",
+        "share": 0.045,
+        "role": "dense graphite outlines, claws, and mouthpiece interior"
+      }
+    ],
+    "translation": {
+      "bg": "#2b2a33",
+      "grass": {
+        "top": "#b2e374",
+        "fringe": "#92cb61",
+        "fringeDark": "#74a847",
+        "speck": "#c9f08d"
+      },
+      "sand": {
+        "top": "#f5c83b",
+        "lip": "#dc9407",
+        "edge": "#f2bd16",
+        "dots": "#f7d668"
+      },
+      "dirt": {
+        "top": "#edd58e",
+        "patch": "#e0c479",
+        "mottle": "#d5b463",
+        "border": "#c6a24e"
+      },
+      "stone": {
+        "top": "#ebe1cf",
+        "pebble": "#f7f1e6",
+        "pebbleShade": "#ded1ba",
+        "rim": "#cdbea2"
+      },
+      "cliffUpper": {
+        "left": "#a68d7e",
+        "right": "#8d7466",
+        "seam": "#745d50"
+      },
+      "cliffLower": {
+        "left": "#947b6d",
+        "right": "#7a6255",
+        "seam": "#654e42",
+        "speck": "#584236"
+      },
+      "water": {
+        "top": "#8be9fd",
+        "bubble": "#cbf6ff",
+        "deep": "#3dc2ec",
+        "fall": [
+          "#52d3f5",
+          "#3ec4eb",
+          "#28aede"
+        ],
+        "foam": "#e6fbff"
+      },
+      "wood": {
+        "light": "#ff8e32",
+        "mid": "#e0771e",
+        "dark": "#b85410",
+        "shadow": "#913d08",
+        "end": "#fed78f"
+      },
+      "treeMint": [
+        "#78e5ab",
+        "#60cb94",
+        "#43ab74"
+      ],
+      "treeLime": [
+        "#c7f288",
+        "#93e565",
+        "#73ab48"
+      ],
+      "treeLeaf": [
+        "#90e367",
+        "#69cb62",
+        "#4fab46"
+      ],
+      "treeTeal": [
+        "#24f5c9",
+        "#14d8ad",
+        "#0cba93",
+        "#059977"
+      ],
+      "treeGold": [
+        "#fae075",
+        "#f5c83b",
+        "#dc9407"
+      ],
+      "trunk": [
+        "#a7725c",
+        "#8a5e4a"
+      ],
+      "rock": [
+        "#ede8df",
+        "#ded7ca",
+        "#b5ac9d",
+        "#8e8577"
+      ],
+      "wellStone": [
+        "#ded5c0",
+        "#c8bea6",
+        "#ad9e83"
+      ],
+      "flowerOrange": [
+        "#ff9238",
+        "#f7c42f"
+      ],
+      "berry": [
+        "#ff7799",
+        "#ea5e82"
+      ],
+      "bushTeal": [
+        "#9efad2",
+        "#73e3b3",
+        "#50c595"
+      ],
+      "gold": [
+        "#fbe47e",
+        "#f4c41e",
+        "#dd9200"
+      ]
+    },
+    "notes": "Translates the monochrome graphite biomechanical drawing into the toy pack's saturated tactile aesthetic by using chalk-ivory and warm limestone tones for the creature and its roost, surrounded by warm golden-sand paths, lime-grass terraces, and amber-gold focal accents.",
+    "clamped": [
+      "trunk[0] #9c7768->#a7725c",
+      "trunk[1] #816153->#8a5e4a"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "ribbed-arch-threshold",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "Straddles the winding path at the entry to the second terrace, reflecting the creature's arched spinal crest.",
+      "shape": {
+        "summary": "An ivory carved arch pillar ribbed with conduit rings and topped with a fan-like bone fin.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              1.6,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              1.1,
+              0
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.25,
+              0.8
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.4
+            ],
+            "outline": [
+              [
+                -0.1,
+                0
+              ],
+              [
+                0.1,
+                0
+              ],
+              [
+                0.2,
+                0.4
+              ],
+              [
+                -0.2,
+                0.4
+              ]
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#c7f288",
+              "#93e565",
+              "#73ab48"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sun-perch-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.4,
+      "passable": true,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          3
+        ]
+      ],
+      "where": "Sits directly beneath the focal creature on the highest terrace, providing a smooth stone resting slab.",
+      "shape": {
+        "summary": "A smooth rounded octagonal limestone pedestal embossed with a concentric golden sun circle.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.48,
+              0.25,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ebe1cf",
+              "#f7f1e6",
+              "#cdbea2"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.4
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "orb-polishing-station",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          3
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "where": "Flanks the creature's high perch where it stores and refines its glowing light spheres.",
+      "shape": {
+        "summary": "A low wooden workbench holding a brass basin and three small glowing spheres.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.35,
+              0.55
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8e32",
+              "#e0771e",
+              "#b85410"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.15,
+              8
+            ],
+            "at": [
+              -0.1,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1
+            ],
+            "at": [
+              -0.1,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#cbf6ff",
+              "#8be9fd",
+              "#3dc2ec"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0.2,
+              0.35,
+              -0.1
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              1
+            ],
+            "at": [
+              0.18,
+              0.35,
+              0.12
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "conduit-lantern-post",
+      "type": "new",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          8,
+          9
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          9,
+          7
+        ]
+      ],
+      "where": "Guards and illuminates the switchbacks of the stone stairway climbing up the terraces.",
+      "shape": {
+        "summary": "A curved mechanical stem holding an illuminated orb lantern in a coiled bronze claw.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "to": [
+              0.1,
+              1,
+              0
+            ],
+            "tones": [
+              "#ff8e32",
+              "#e0771e",
+              "#b85410"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0.1,
+              1,
+              0
+            ],
+            "to": [
+              -0.05,
+              1.25,
+              0
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              1
+            ],
+            "at": [
+              -0.05,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#cbf6ff",
+              "#8be9fd",
+              "#3dc2ec"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tree-round",
+      "type": "tree-round",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "where": "Frames the background terrace cliffs and upper sanctuary rim.",
+      "shape": {
+        "summary": "Rounded leafy tree with reddish-buff bark and golden-lime clustered foliage.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              1,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#a7725c",
+              "#8a5e4a",
+              "#654e42"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.7,
+              0.7,
+              0.12
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#c7f288",
+              "#93e565",
+              "#73ab48"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.6,
+              0.55,
+              0.1
+            ],
+            "at": [
+              0.1,
+              1.4,
+              0.05
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock",
+      "type": "rock",
+      "variant_of": "rock",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          4
+        ],
+        [
+          11,
+          5
+        ]
+      ],
+      "where": "Natural limestone boulders anchoring terrace corners along terrace edges.",
+      "shape": {
+        "summary": "Stacked smooth rounded stones matching the chalky ivory mineral look.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.3,
+              0.6
+            ],
+            "at": [
+              0,
+              0.15,
+              0
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.2,
+              0.55
+            ],
+            "at": [
+              0.12,
+              0.28,
+              -0.08
+            ],
+            "tones": [
+              "#ebe1cf",
+              "#f7f1e6",
+              "#cdbea2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "flower",
+      "type": "flower",
+      "variant_of": "flower",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.3,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          4,
+          7
+        ]
+      ],
+      "where": "Dotted across grassy patches around the upper home terrace.",
+      "shape": {
+        "summary": "Tiny starburst blossoms in vibrant gold with jade green leaves.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.03,
+              0.2,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#90e367",
+              "#69cb62",
+              "#4fab46"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.4
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#ff9238",
+              "#f7c42f",
+              "#dc9407"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "ivory-sphere-artisan",
+      "source": "The primary biomechanical being in IMAGE 1, with smooth oval head, ribbed body, crane sensor arm, webbed feet, and clutching a polished sphere.",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "shape": {
+        "summary": "A peaceful biomechanical artisan sitting perched on webbed claws, inspecting a polished teal crystal sphere with its overhead crane eyepiece.",
+        "parts": [
+          {
+            "prim": "prism",
+            "dims": [
+              0.12
+            ],
+            "outline": [
+              [
+                -0.3,
+                -0.2
+              ],
+              [
+                0,
+                0.3
+              ],
+              [
+                0.3,
+                -0.2
+              ],
+              [
+                0.15,
+                -0.1
+              ],
+              [
+                -0.15,
+                -0.1
+              ]
+            ],
+            "at": [
+              0,
+              0,
+              0.05
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#8e8577"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.15,
+              0.1,
+              0
+            ],
+            "to": [
+              -0.2,
+              0.7,
+              -0.1
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.15,
+              0.1,
+              0
+            ],
+            "to": [
+              0.2,
+              0.7,
+              -0.1
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.55,
+              0.25,
+              0.08
+            ],
+            "at": [
+              0,
+              0.65,
+              -0.05
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              0.3,
+              8
+            ],
+            "at": [
+              0,
+              0.75,
+              -0.06
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.1,
+              0.4,
+              6
+            ],
+            "at": [
+              0,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.52,
+              0.32,
+              0.12
+            ],
+            "at": [
+              0,
+              1.5,
+              0.05
+            ],
+            "rot": [
+              10,
+              0,
+              0
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              -0.15,
+              1.1,
+              0
+            ],
+            "to": [
+              -0.22,
+              0.8,
+              0.2
+            ],
+            "tones": [
+              "#ede8df",
+              "#ded7ca",
+              "#b5ac9d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.13,
+              1
+            ],
+            "at": [
+              -0.22,
+              0.82,
+              0.25
+            ],
+            "tones": [
+              "#cbf6ff",
+              "#8be9fd",
+              "#3dc2ec"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.04
+            ],
+            "at": [
+              0,
+              1.3,
+              -0.15
+            ],
+            "to": [
+              -0.1,
+              1.85,
+              -0.1
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.04
+            ],
+            "at": [
+              -0.1,
+              1.85,
+              -0.1
+            ],
+            "to": [
+              -0.22,
+              1.35,
+              0.15
+            ],
+            "tones": [
+              "#ff8e32",
+              "#e0771e",
+              "#b85410"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.06,
+              0.1,
+              6
+            ],
+            "at": [
+              -0.22,
+              1.25,
+              0.18
+            ],
+            "tones": [
+              "#fae075",
+              "#f5c83b",
+              "#dc9407"
+            ]
+          }
+        ]
+      },
+      "pose": "The creature sits comfortably perched on its high terrace dais, holding a crystal sphere near its chest while its dorsal sensor arm inspects the surface.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "It lives peacefully in its sunlit mountain sanctuary, spending quiet hours carving and polishing luminous spherical lenses."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVTTTRRRRTTTVVV",
+      "VVTTRRRRRRRRTTVV",
+      "VVTRRRRFTRRRRTVV",
+      "VVTRRRRPPRRRRTVV",
+      "VVVTRRPPPPRRTVVV",
+      "VVVVTTPPPPTTVVVV",
+      "VVVVTTPPPPTTVVVV",
+      "VVVVVTTPPTTVVVVV",
+      "VVVVVTTPPTTVVVVV",
+      "VVVVVVTGPTVVVVVV",
+      "VVVVVVVGPVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0001113333111000",
+      "0011333333331100",
+      "0013333333333100",
+      "0013333223333100",
+      "0001332222331000",
+      "0000112222110000",
+      "0000112222110000",
+      "0000011111100000",
+      "0000011111100000",
+      "0000001111000000",
+      "0000000110000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "The ivory-sphere-artisan creature perched quietly upon its sun dais at the terrace summit."
+    },
+    "mass": "Visual weight is anchored on the broad height-3 sanctuary terrace in the upper half of the grid, flanked by clustered trees and tapering downward along a zigzagging stairway to the south.",
+    "read": "The viewer's eye enters from the narrow path at the southern base (row 11), moves upward along switchbacking stone stairs past conduit lanterns, passes through the bone-ribbed threshold arch at row 6, and culminates at the bright sun-perch where the serene alien artisan sits examining its luminous orb."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.18,
+      "types": [
+        {
+          "type": "tree-round",
+          "variant": "tree-round",
+          "weight": 0.7
+        },
+        {
+          "type": "tree-pine",
+          "variant": "tree-pine",
+          "weight": 0.3
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.46,
+    "decor_weights": {
+      "conduit-lantern-post": 0.35,
+      "orb-polishing-station": 0.2,
+      "rock": 0.25,
+      "flower": 0.2
+    },
+    "lighting": {
+      "bg": "#2b2a33",
+      "ambient": 0.9,
+      "sun": 0.15,
+      "tint": "#fffbe8",
+      "notes": "Bright, warm midday sunlight bathes the mountaintop terrace in clear golden highlights, offsetting the dark atmospheric sky."
+    },
+    "rules": [
+      "The approach path begins at row 11 offset to the right and switchbacks upward across terraces to the summit.",
+      "The ribbed threshold arch must span across the path entrance at the transition from terrace 2 to terrace 3.",
+      "Conduit lanterns must be paired along the stone stairs at terrace corners.",
+      "The focal creature rests on a dedicated dais on the highest height-3 plateau, surrounded by workbenches."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sun-Perch Roost, an elevated open-air stone sanctuary where the solitary creature makes its home.",
+    "approach": "The wanderer ascends a winding stone stairway framed by conduit lanterns before passing beneath a pair of arched bone pillars into the private terrace.",
+    "creature_doing": "Sitting unguarded in the afternoon warmth, delicately turning and polishing a newly formed light sphere while its mechanical ocular arm checks for flaws.",
+    "palette_key": "Sun-drenched ivory, golden ochre sands, and spring lime foliage illuminated by gentle warm midday light against a deep slate backdrop.",
+    "terrain": "Stacked limestone terraces stepping steeply from a narrow lower entrance up to an expansive, high cliff-top living platform.",
+    "summary": "The solitary biomechanical figure is envisioned at home in its high mountain workshop, enjoying a peaceful moment crafting glowing curios in the warm midday sun."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

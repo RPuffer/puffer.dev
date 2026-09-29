@@ -1,0 +1,1356 @@
+{
+  "source": {
+    "art": "pipeline/seed/swallow.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "tempestuous",
+    "windswept",
+    "aerial",
+    "fierce",
+    "chivalric",
+    "vast"
+  ],
+  "observations": [
+    {
+      "what": "Stylized swallow in dynamic flight, sweeping curve of back and belly",
+      "box": [
+        62,
+        45,
+        936,
+        895
+      ],
+      "maps_to": "aeromancer-swallow"
+    },
+    {
+      "what": "Sharp, pointed beak pointing toward the right edge",
+      "box": [
+        410,
+        831,
+        465,
+        893
+      ],
+      "maps_to": "aeromancer-swallow"
+    },
+    {
+      "what": "Swirling spiral head with dark circular eye",
+      "box": [
+        347,
+        694,
+        524,
+        839
+      ],
+      "maps_to": "aeromancer-swallow"
+    },
+    {
+      "what": "High swept upper wing pointing vertically and back",
+      "box": [
+        62,
+        483,
+        477,
+        679
+      ],
+      "maps_to": "wind-shear-pinnacle"
+    },
+    {
+      "what": "Long graceful lower wing extending backwards",
+      "box": [
+        90,
+        215,
+        692,
+        694
+      ],
+      "maps_to": "wind-shear-pinnacle"
+    },
+    {
+      "what": "Forked tail with deeply curved split tips",
+      "box": [
+        515,
+        45,
+        940,
+        489
+      ],
+      "maps_to": "forked-gale-barrier"
+    },
+    {
+      "what": "Deep shaded brown line along the underside of the belly",
+      "box": [
+        662,
+        442,
+        853,
+        765
+      ],
+      "maps_to": "aeromancer-swallow"
+    },
+    {
+      "what": "Off-white parchment texture forming the entire background field",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "arena-floor"
+    },
+    {
+      "what": "Slight reddish-copper tint on the beak and crown outlines",
+      "box": [
+        346,
+        703,
+        429,
+        834
+      ],
+      "maps_to": "brazier-pillar"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#bfbeb7",
+        "share": 0.283,
+        "role": "paper ground"
+      },
+      {
+        "hex": "#c5c5c1",
+        "share": 0.229,
+        "role": "upper field highlights"
+      },
+      {
+        "hex": "#b9b6ab",
+        "share": 0.153,
+        "role": "midtone paper wash"
+      },
+      {
+        "hex": "#ccccc9",
+        "share": 0.124,
+        "role": "bright open void"
+      },
+      {
+        "hex": "#ada89a",
+        "share": 0.1,
+        "role": "shaded paper texture"
+      },
+      {
+        "hex": "#989085",
+        "share": 0.049,
+        "role": "soft pencil shading around belly"
+      },
+      {
+        "hex": "#695b59",
+        "share": 0.036,
+        "role": "warm charcoal contours"
+      },
+      {
+        "hex": "#3f2723",
+        "share": 0.027,
+        "role": "deep espresso silhouette lines"
+      }
+    ],
+    "translation": {
+      "bg": "#221d2a",
+      "grass": {
+        "top": "#a4d65e",
+        "fringe": "#7cb842",
+        "fringeDark": "#598a28",
+        "speck": "#c6ec80"
+      },
+      "sand": {
+        "top": "#f1be38",
+        "lip": "#d89617",
+        "edge": "#e2a71f",
+        "dots": "#fbe17d"
+      },
+      "dirt": {
+        "top": "#d6985a",
+        "patch": "#be7b3d",
+        "mottle": "#a76329",
+        "border": "#8d4e1b"
+      },
+      "stone": {
+        "top": "#d2c7b5",
+        "pebble": "#ebe3d5",
+        "pebbleShade": "#b5a894",
+        "rim": "#978973"
+      },
+      "cliffUpper": {
+        "left": "#96614a",
+        "right": "#744534",
+        "seam": "#583023"
+      },
+      "cliffLower": {
+        "left": "#83523f",
+        "right": "#613627",
+        "seam": "#462217",
+        "speck": "#34170f"
+      },
+      "water": {
+        "top": "#7ae2e8",
+        "bubble": "#c8f6f8",
+        "deep": "#2ab1be",
+        "fall": [
+          "#47c5d2",
+          "#2fb3bf",
+          "#1b99a5"
+        ],
+        "foam": "#dafaff"
+      },
+      "wood": {
+        "light": "#f08e35",
+        "mid": "#cf6d17",
+        "dark": "#a74c0b",
+        "shadow": "#7d3606",
+        "end": "#fbe09e"
+      },
+      "treeMint": [
+        "#68e09e",
+        "#5ac389",
+        "#44a46b"
+      ],
+      "treeLime": [
+        "#c4ef86",
+        "#8ce263",
+        "#73aa4f"
+      ],
+      "treeLeaf": [
+        "#8ce263",
+        "#64c960",
+        "#50ab46"
+      ],
+      "treeTeal": [
+        "#2ee0b5",
+        "#19be95",
+        "#0ea07c",
+        "#087d60"
+      ],
+      "treeGold": [
+        "#f7d048",
+        "#e3aa20",
+        "#c2880d"
+      ],
+      "trunk": [
+        "#8a5240",
+        "#6d3b2c"
+      ],
+      "rock": [
+        "#e0d9cf",
+        "#c2b9ac",
+        "#9d9385",
+        "#796f62"
+      ],
+      "wellStone": [
+        "#dbc9a2",
+        "#c7b693",
+        "#b1a483"
+      ],
+      "flowerOrange": [
+        "#ff831d",
+        "#f1b900"
+      ],
+      "berry": [
+        "#fe738f",
+        "#f45f7d"
+      ],
+      "bushTeal": [
+        "#8fffc2",
+        "#68e09e",
+        "#5ac389"
+      ],
+      "gold": [
+        "#f5ca38",
+        "#d89e13",
+        "#fae37b"
+      ]
+    },
+    "notes": "The drawing's sepia strokes and parchment are translated into a dusk-lit desert mesa plateau at sunset, preserving toy-pack saturation with ochre dirt, brassy sands, and deep red-brown cliffs."
+  },
+  "motifs": [
+    {
+      "name": "forked-gale-barrier",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          7
+        ],
+        [
+          9,
+          7
+        ]
+      ],
+      "where": "Flanking the entrance threshold to the circular boss arena floor.",
+      "shape": {
+        "summary": "Tall wooden totems carved like the swallow's swept forked tail feathers to mark the combat boundary.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              1.4,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f08e35",
+              "#cf6d17",
+              "#a74c0b"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.9,
+              0.45
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              20
+            ],
+            "tones": [
+              "#fbe09e",
+              "#f08e35",
+              "#cf6d17"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.7
+            ],
+            "at": [
+              0.12,
+              1.5,
+              -0.15
+            ],
+            "rot": [
+              0,
+              0,
+              35
+            ],
+            "outline": [
+              [
+                -0.08,
+                -0.08
+              ],
+              [
+                0.08,
+                -0.08
+              ],
+              [
+                0,
+                0.35
+              ]
+            ],
+            "tones": [
+              "#f08e35",
+              "#cf6d17",
+              "#a74c0b"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.7
+            ],
+            "at": [
+              -0.12,
+              1.5,
+              0.15
+            ],
+            "rot": [
+              0,
+              0,
+              -35
+            ],
+            "outline": [
+              [
+                -0.08,
+                -0.08
+              ],
+              [
+                0.08,
+                -0.08
+              ],
+              [
+                0,
+                0.35
+              ]
+            ],
+            "tones": [
+              "#f08e35",
+              "#cf6d17",
+              "#a74c0b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sky-perch-pillar",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          4
+        ]
+      ],
+      "where": "The raised stone dais right under the swooping swift boss in the arena heart.",
+      "shape": {
+        "summary": "Faceted polygonal stone battle plinth upon which the creature perches or takes flight.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.48,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d2c7b5",
+              "#b5a894",
+              "#978973"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.4,
+              0.85,
+              0.08
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#ebe3d5",
+              "#d2c7b5",
+              "#b5a894"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.42,
+              0.28,
+              0.4,
+              8
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#f1be38",
+              "#d89617",
+              "#a76329"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "brazier-pillar",
+      "type": "new",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.5,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          8
+        ],
+        [
+          9,
+          8
+        ]
+      ],
+      "where": "Arrayed in stepping pairs along the approach toward the arena threshold.",
+      "shape": {
+        "summary": "Squared weathered sandstone columns crowned with blazing amber coals.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.36,
+              0.25,
+              0.36
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ebe3d5",
+              "#d2c7b5",
+              "#978973"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.15,
+              0.85,
+              8
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#d2c7b5",
+              "#b5a894",
+              "#978973"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.42,
+              0.18,
+              0.42
+            ],
+            "at": [
+              0,
+              1.1,
+              0
+            ],
+            "tones": [
+              "#cf6d17",
+              "#a74c0b",
+              "#7d3606"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              1.28,
+              0
+            ],
+            "tones": [
+              "#fbe09e",
+              "#f08e35",
+              "#cf6d17"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "wind-shear-pinnacle",
+      "type": "new",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.8,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          13,
+          6
+        ]
+      ],
+      "where": "Towering natural rock spikes echoing the swallow's angled wingtips flanking the clearing.",
+      "shape": {
+        "summary": "Slender, wind-carved desert spires that frame the arena edges.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.44,
+              1.1,
+              7
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d2c7b5",
+              "#96614a",
+              "#744534"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.4,
+              0.24,
+              0.9,
+              7
+            ],
+            "at": [
+              0,
+              1.1,
+              0
+            ],
+            "rot": [
+              -5,
+              0,
+              8
+            ],
+            "tones": [
+              "#ebe3d5",
+              "#83523f",
+              "#613627"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.8
+            ],
+            "at": [
+              0.05,
+              2,
+              0
+            ],
+            "rot": [
+              -8,
+              0,
+              12
+            ],
+            "outline": [
+              [
+                -0.2,
+                -0.15
+              ],
+              [
+                0.2,
+                -0.15
+              ],
+              [
+                0,
+                0.25
+              ]
+            ],
+            "tones": [
+              "#ebe3d5",
+              "#d2c7b5",
+              "#b5a894"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tree-orange",
+      "type": "tree-orange",
+      "variant_of": "tree-orange",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          3,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "where": "Scattered along the upper cliff perimeter behind the arena.",
+      "shape": {
+        "summary": "Toy block trees bearing golden and copper autumn leaves.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.8,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a5240",
+              "#8a5240",
+              "#6d3b2c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.6,
+              0.85,
+              0.12
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#f7d048",
+              "#e3aa20",
+              "#c2880d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.62,
+              0.5,
+              0.62,
+              0.1
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#fbe17d",
+              "#f7d048",
+              "#e3aa20"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "pot",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      "where": "Ceremonial urns containing bird feed offerings left at the edge of the dais.",
+      "shape": {
+        "summary": "Rounded clay jars with flared rims.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#cf6d17",
+              "#a74c0b",
+              "#7d3606"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f08e35",
+              "#cf6d17",
+              "#a74c0b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "chest",
+      "type": "chest",
+      "variant_of": "chest",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          6,
+          4
+        ]
+      ],
+      "where": "Ancient arena reward chest tucked beside the creature's perch.",
+      "shape": {
+        "summary": "Wood and copper treasure coffer.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.55,
+              0.35,
+              0.42
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f08e35",
+              "#cf6d17",
+              "#a74c0b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.21,
+              0.55,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              90
+            ],
+            "tones": [
+              "#fbe09e",
+              "#f08e35",
+              "#cf6d17"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "aeromancer-swallow",
+      "source": "The sweeping, calligraphic swift in mid-aerial banking turn from IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "shape": {
+        "summary": "A magnificent low-poly avian guardian sculpted from sweeping wedge blocks with a long scythe-like tail and flared wings.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.42,
+              0.45,
+              0.65,
+              0.1
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "rot": [
+              -18,
+              0,
+              0
+            ],
+            "tones": [
+              "#8a5240",
+              "#6d3b2c",
+              "#34170f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.36,
+              0.42,
+              0.08
+            ],
+            "at": [
+              0,
+              0.72,
+              0.28
+            ],
+            "rot": [
+              -6,
+              12,
+              0
+            ],
+            "tones": [
+              "#ebe3d5",
+              "#8a5240",
+              "#6d3b2c"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "at": [
+              0,
+              0.82,
+              0.52
+            ],
+            "rot": [
+              85,
+              12,
+              0
+            ],
+            "outline": [
+              [
+                -0.08,
+                -0.06
+              ],
+              [
+                0.08,
+                -0.06
+              ],
+              [
+                0,
+                0.22
+              ]
+            ],
+            "tones": [
+              "#f1be38",
+              "#cf6d17",
+              "#a74c0b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.05,
+              1
+            ],
+            "at": [
+              0.15,
+              0.88,
+              0.38
+            ],
+            "tones": [
+              "#221d2a",
+              "#221d2a",
+              "#221d2a"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.05,
+              1
+            ],
+            "at": [
+              -0.15,
+              0.88,
+              0.38
+            ],
+            "tones": [
+              "#221d2a",
+              "#221d2a",
+              "#221d2a"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              1.1
+            ],
+            "at": [
+              -0.22,
+              0.6,
+              -0.05
+            ],
+            "rot": [
+              -45,
+              30,
+              40
+            ],
+            "outline": [
+              [
+                -0.12,
+                -0.05
+              ],
+              [
+                0.12,
+                -0.05
+              ],
+              [
+                0,
+                0.55
+              ]
+            ],
+            "tones": [
+              "#96614a",
+              "#744534",
+              "#583023"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              1.25
+            ],
+            "at": [
+              0.22,
+              0.65,
+              -0.05
+            ],
+            "rot": [
+              -60,
+              -25,
+              -35
+            ],
+            "outline": [
+              [
+                -0.12,
+                -0.05
+              ],
+              [
+                0.12,
+                -0.05
+              ],
+              [
+                0,
+                0.62
+              ]
+            ],
+            "tones": [
+              "#ebe3d5",
+              "#96614a",
+              "#744534"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.95
+            ],
+            "at": [
+              -0.12,
+              0.32,
+              -0.45
+            ],
+            "rot": [
+              20,
+              15,
+              -15
+            ],
+            "outline": [
+              [
+                -0.08,
+                -0.04
+              ],
+              [
+                0.08,
+                -0.04
+              ],
+              [
+                0,
+                0.7
+              ]
+            ],
+            "tones": [
+              "#744534",
+              "#583023",
+              "#34170f"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              1.05
+            ],
+            "at": [
+              0.12,
+              0.32,
+              -0.45
+            ],
+            "rot": [
+              22,
+              -15,
+              15
+            ],
+            "outline": [
+              [
+                -0.08,
+                -0.04
+              ],
+              [
+                0.08,
+                -0.04
+              ],
+              [
+                0,
+                0.75
+              ]
+            ],
+            "tones": [
+              "#8a5240",
+              "#6d3b2c",
+              "#462217"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.12,
+              0.32,
+              0.12
+            ],
+            "at": [
+              -0.12,
+              0.1,
+              0.05
+            ],
+            "tones": [
+              "#cf6d17",
+              "#a74c0b",
+              "#7d3606"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.12,
+              0.32,
+              0.12
+            ],
+            "at": [
+              0.12,
+              0.1,
+              0.05
+            ],
+            "tones": [
+              "#cf6d17",
+              "#a74c0b",
+              "#7d3606"
+            ]
+          }
+        ]
+      },
+      "pose": "Poised boldly atop the sky pillar with flared wings, scanning the incoming challenger with a cocked head before taking flight.",
+      "cell": [
+        8,
+        4
+      ],
+      "facing": "s",
+      "why": "Acts as the sentinel wind boss of the arena clearing, guarding the highland passage."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVTTTTTTTTTVVVV",
+      "VVTTRRRRRRRTTVVV",
+      "VTRRRRRRRRRRTVVV",
+      "VTRRRRGGGRRRRTVV",
+      "VTRRRGGGFGGGRTVV",
+      "VVRRRGGGGGGGRTVV",
+      "VVRRRGGGGGGGRTVV",
+      "VVRRRGGPPPGGTVVV",
+      "VVVRRGGPPGGGVVVV",
+      "VVVVRGPPPGGVVVVV",
+      "VVVVRPPGGGVVVVVV",
+      "VVVVVPGGVVVVVVVV"
+    ],
+    "heights": [
+      "0003333333330000",
+      "0033333333333000",
+      "0333222222223000",
+      "0332211112223100",
+      "0332111211123100",
+      "0032111111123100",
+      "0032111111123100",
+      "0032111111121000",
+      "0002111111110000",
+      "0000111111100000",
+      "0000111111000000",
+      "0000011100000000"
+    ],
+    "focal": {
+      "x": 8,
+      "z": 4,
+      "what": "The aeromancer-swallow poised on the elevated stone sky perch"
+    },
+    "mass": "Visual weight forms an amphitheater cliff arc along the north and northwest rows 0-3, framing the central flat combat circle.",
+    "read": "The eye enters from the narrow canyon ramp at the south rim (row 11, col 5), advances along a stepped diagonal dirt path flanked by glowing brazier pillars, and emerges into the vast flat sandy arena. The gaze is drawn immediately upward to the magnificent swallow perched upon its dais, silhouetted against the dark void and backdrop mountain peaks."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.16,
+      "types": [
+        {
+          "type": "tree-orange",
+          "variant": 1,
+          "weight": 0.6
+        },
+        {
+          "type": "tree-pine",
+          "variant": 2,
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.22,
+    "void_share": 0.46,
+    "decor_weights": {
+      "brazier-pillar": 0.28,
+      "forked-gale-barrier": 0.16,
+      "wind-shear-pinnacle": 0.22,
+      "rock": 0.18,
+      "pot": 0.11,
+      "chest": 0.05
+    },
+    "lighting": {
+      "bg": "#221d2a",
+      "ambient": 0.78,
+      "sun": 0.28,
+      "tint": "#d6985a",
+      "notes": "Late-afternoon desert dust glow casting crisp shadows toward the player's perspective."
+    },
+    "rules": [
+      "Keep the inner clearing [5..9, 3..7] free of trees to preserve combat arena readability.",
+      "Place brazier-pillars exclusively adjacent to the approach path.",
+      "Group forked-gale-barriers strictly at the arena threshold row.",
+      "Erect wind-shear-pinnacles only on elevated outer cliffs."
+    ],
+    "decor_density": 0.12,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Gale-Cleft Ring, an open windswept arena plateau suspended high over an abyss.",
+    "approach": "The adventurer hikes up a narrow southwest ramp flanked by flaming pillars, passing beneath tail-feather carved gallows into the circular fighting ground.",
+    "creature_doing": "Cocking its sharp beak and flaring its wing-spires in defiance, preparing to dive-bomb the entrant with gale-force winds.",
+    "palette_key": "Sundown desert warmth with burnt orange dirt and glowing amber embers contrasting sharp violet abyss.",
+    "terrain": "A sunken flat fighting circle encircled by steep tiered stone cliffs and dramatic drop-offs.",
+    "summary": "An intense encounter arena translating the soaring swift into a formidable avian boss awaiting battle atop an aerie mesa."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 3,
+    "variantFragment": "READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.",
+    "avoid": [
+      "pipeline/seed/concepts/swallow-1.json",
+      "pipeline/seed/concepts/swallow-2.json"
+    ]
+  }
+}

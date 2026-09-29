@@ -1,0 +1,1153 @@
+{
+  "source": {
+    "art": "pipeline/seed/dragon.png",
+    "width": 2048,
+    "height": 1533,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "solemn",
+    "nocturnal",
+    "ancient",
+    "reverent",
+    "sacred",
+    "mysterious"
+  ],
+  "observations": [
+    {
+      "what": "Vicious open maw of a serpentine dragon with needle-sharp fangs, jagged lower jaw, and outstretched tongue",
+      "box": [
+        310,
+        230,
+        680,
+        420
+      ],
+      "maps_to": "the central dragon figure's gaping toothy head"
+    },
+    {
+      "what": "Blank glowing white pupil-less eye socket framed by spiked brow ridges and scaled forehead",
+      "box": [
+        250,
+        360,
+        340,
+        440
+      ],
+      "maps_to": "the dragon's pale eerie eye"
+    },
+    {
+      "what": "Heavy collar of sharp spiny frills and quills radiating backward around the neck",
+      "box": [
+        300,
+        440,
+        580,
+        580
+      ],
+      "maps_to": "the dragon's neck crest frill"
+    },
+    {
+      "what": "Dense cross-hatched chevron patterning on the dorsal neck scales with large oval scutes along the spine",
+      "box": [
+        25,
+        490,
+        340,
+        810
+      ],
+      "maps_to": "the dragon's armored spine and dorsal ridge"
+    },
+    {
+      "what": "Slender sinuous serpentine body arching backward and tapering into an undulating torso",
+      "box": [
+        115,
+        610,
+        455,
+        840
+      ],
+      "maps_to": "the serpentine body coil"
+    },
+    {
+      "what": "Foreleg with lean muscular sinew ending in elongated spread talons grasping downward",
+      "box": [
+        505,
+        540,
+        810,
+        770
+      ],
+      "maps_to": "the clutching front claw"
+    },
+    {
+      "what": "Thin leathery wing finger and membrane struts folded tightly forward along the left flank",
+      "box": [
+        260,
+        80,
+        570,
+        270
+      ],
+      "maps_to": "the tucked wing struts"
+    },
+    {
+      "what": "Delicate pencil arc swirling across the lower plane representing a curling tail segment",
+      "box": [
+        670,
+        75,
+        995,
+        410
+      ],
+      "maps_to": "the coiled lower tail sweep"
+    },
+    {
+      "what": "Broad empty white sketch paper background surrounding the central inked graphite dragon",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "the tranquil open pool and quiet shrine void"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ededed",
+        "share": 0.252,
+        "role": "unshaded white paper ground"
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.195,
+        "role": "pale graphite wash and light body contour"
+      },
+      {
+        "hex": "#f3f3f3",
+        "share": 0.176,
+        "role": "pure paper highlight"
+      },
+      {
+        "hex": "#e5e5e5",
+        "share": 0.155,
+        "role": "subtle paper vignette"
+      },
+      {
+        "hex": "#303030",
+        "share": 0.072,
+        "role": "deepest ink shadow in mouth and underbelly"
+      },
+      {
+        "hex": "#5f5f5f",
+        "share": 0.057,
+        "role": "dark scale crosshatching"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.047,
+        "role": "mid-tone scale shading"
+      },
+      {
+        "hex": "#8b8b8b",
+        "share": 0.046,
+        "role": "firm pencil outlines along spines"
+      }
+    ],
+    "translation": {
+      "bg": "#1c222e",
+      "grass": {
+        "top": "#58a365",
+        "fringe": "#468153",
+        "fringeDark": "#35663f",
+        "speck": "#74b882"
+      },
+      "sand": {
+        "top": "#d6a938",
+        "lip": "#b5871f",
+        "edge": "#c79728",
+        "dots": "#e3be5b"
+      },
+      "dirt": {
+        "top": "#bfa267",
+        "patch": "#b29457",
+        "mottle": "#9e8146",
+        "border": "#876c35"
+      },
+      "stone": {
+        "top": "#9daec2",
+        "pebble": "#b9c7d8",
+        "pebbleShade": "#8697ac",
+        "rim": "#72849b"
+      },
+      "cliffUpper": {
+        "left": "#5c6b7d",
+        "right": "#485566",
+        "seam": "#394452"
+      },
+      "cliffLower": {
+        "left": "#4e5c6e",
+        "right": "#3c4857",
+        "seam": "#2f3945",
+        "speck": "#27303b"
+      },
+      "water": {
+        "top": "#4ec3e0",
+        "bubble": "#a6ebfb",
+        "deep": "#208ea8",
+        "fall": [
+          "#3cb4d1",
+          "#289ebc",
+          "#1b8aa6"
+        ],
+        "foam": "#d2f6ff"
+      },
+      "wood": {
+        "light": "#e07e28",
+        "mid": "#c26617",
+        "dark": "#9e4c08",
+        "shadow": "#7a3802",
+        "end": "#ebd083"
+      },
+      "treeMint": [
+        "#4ea87f",
+        "#3c8d67",
+        "#2d7050"
+      ],
+      "treeLime": [
+        "#78b350",
+        "#62993d",
+        "#4b7a2c"
+      ],
+      "treeLeaf": [
+        "#46945a",
+        "#357a46",
+        "#276136"
+      ],
+      "treeTeal": [
+        "#38a89d",
+        "#2a8f85",
+        "#1f756d",
+        "#155c55"
+      ],
+      "treeGold": [
+        "#d4a833",
+        "#b88d20",
+        "#9c7310"
+      ],
+      "trunk": [
+        "#764c3f",
+        "#5c3b32"
+      ],
+      "rock": [
+        "#b9c5d4",
+        "#9ca9b8",
+        "#7d8a99",
+        "#616d7a"
+      ],
+      "wellStone": [
+        "#9aa9ba",
+        "#8190a1",
+        "#697787"
+      ],
+      "flowerOrange": [
+        "#e87c27",
+        "#cc6614"
+      ],
+      "berry": [
+        "#d9435f",
+        "#b82e48"
+      ],
+      "bushTeal": [
+        "#52b89a",
+        "#3c9e82",
+        "#2b8068"
+      ],
+      "gold": [
+        "#e5b72e",
+        "#c99b1a",
+        "#f0ce62"
+      ]
+    },
+    "notes": "Translated into a solemn moonlit nocturnal shrine palette where cool blue-grey stone pavers and deep cyan reflective pool waters lead the eye, while preserving the pack's warm wooden shrines and gleaming sacred gold accents.",
+    "clamped": [
+      "grass.top #5c9e68->#58a365",
+      "grass.fringe #468153->#468153",
+      "trunk[0] #6e5047->#764c3f",
+      "trunk[1] #573e37->#5c3b32"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "shrine_torii_threshold",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "Placed on either side of the processional causeway where the land transitions to the sacred reflecting pool",
+      "shape": {
+        "summary": "Tall ceremonial slate pillar with stacked square brackets and an amber glowing capstone",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.5,
+              0.3,
+              0.5
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              1.5,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.48,
+              0.15,
+              0.48,
+              0.05
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.25,
+              0.3,
+              0.06
+            ],
+            "at": [
+              0,
+              1.95,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sanctum_altar_dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          1
+        ],
+        [
+          8,
+          1
+        ]
+      ],
+      "where": "Flanking the elevated shrine dais behind the reflecting pool where the wyrm is enthroned",
+      "shape": {
+        "summary": "Stepped stone ceremonial pedestal supporting offering dishes",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.2,
+              0.8,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.3,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#b9c7d8",
+              "#9daec2",
+              "#8697ac"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.16,
+              0.7
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#e5b72e",
+              "#c99b1a",
+              "#f0ce62"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "shrine_tide_lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "where": "Paired along the left and right borders of the processional path lighting the way across the water",
+      "shape": {
+        "summary": "Chunky carved stone lantern casting warm ceremonial candle glow over water",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.5,
+              0.32,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.26,
+              0.3,
+              0.26,
+              0.05
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.02,
+              0.2,
+              4
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#72849b",
+              "#5c6b7d",
+              "#485566"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "tribute_urn",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          2
+        ],
+        [
+          8,
+          2
+        ]
+      ],
+      "where": "Resting beside the dragon's vigil dais containing fragrant incense offerings",
+      "shape": {
+        "summary": "Bulbous clay ritual pot with flared rim and gold banding",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e07e28",
+              "#c26617",
+              "#9e4c08"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.1,
+              0.32,
+              0.05
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#e5b72e",
+              "#c99b1a",
+              "#f0ce62"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "temple_cypress_tree",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "where": "Standing in dense solemn groves on the lower banks flanking the entrance promenade",
+      "shape": {
+        "summary": "Slender tiered dark cypress tree framing the sanctuary grounds",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              0.6,
+              0.16
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#764c3f",
+              "#5c3b32",
+              "#5c3b32"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.45,
+              0.8,
+              0.1
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#38a89d",
+              "#2a8f85",
+              "#1f756d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.62,
+              0.45,
+              0.62,
+              0.1
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#38a89d",
+              "#2a8f85",
+              "#1f756d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.45,
+              0.45,
+              0.1
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#38a89d",
+              "#2a8f85",
+              "#1f756d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.28,
+              0.4,
+              0.28,
+              0.08
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#38a89d",
+              "#2a8f85",
+              "#1f756d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sacred_stepping_stone",
+      "type": "stepping-stones",
+      "variant_of": "stepping-stones",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.1,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          7
+        ],
+        [
+          11,
+          7
+        ]
+      ],
+      "where": "Embedded in the lawn near the water's edge for ritual purification",
+      "shape": {
+        "summary": "Smooth flat rounded flagstones resting flush in the turf",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.08,
+              0.35,
+              0.08
+            ],
+            "at": [
+              -0.15,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#b9c7d8",
+              "#9daec2",
+              "#8697ac"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.08,
+              0.3,
+              0.06
+            ],
+            "at": [
+              0.18,
+              0,
+              -0.12
+            ],
+            "tones": [
+              "#b9c7d8",
+              "#9daec2",
+              "#8697ac"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "abyssal_shrine_wyrm",
+      "source": "The inked dragon with gaping fang-filled jaw, spined neck, clutching talons, and serpentine body in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.6,
+      "shape": {
+        "summary": "Blocky serpentine dragon coiled atop the sanctum dais with toothy open snout, white eye, and spiked neck quills",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.2,
+              0.5,
+              1.2,
+              0.15
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#5c6b7d",
+              "#485566",
+              "#394452"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.8,
+              0.6,
+              0.12
+            ],
+            "at": [
+              0,
+              0.45,
+              -0.1
+            ],
+            "tones": [
+              "#5c6b7d",
+              "#485566",
+              "#394452"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.5,
+              0.85,
+              0.1
+            ],
+            "at": [
+              0,
+              1.15,
+              0.2
+            ],
+            "tones": [
+              "#485566",
+              "#394452",
+              "#27303b"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.5,
+              0.35,
+              0.55
+            ],
+            "at": [
+              0,
+              1.5,
+              0.45
+            ],
+            "tones": [
+              "#394452",
+              "#27303b",
+              "#1c222e"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.25
+            ],
+            "outline": [
+              [
+                -0.2,
+                0.2
+              ],
+              [
+                0.2,
+                0.2
+              ],
+              [
+                0,
+                0.55
+              ]
+            ],
+            "at": [
+              0,
+              1.8,
+              0.3
+            ],
+            "tones": [
+              "#b9c7d8",
+              "#9daec2",
+              "#8697ac"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.25,
+                0
+              ],
+              [
+                0.25,
+                0
+              ],
+              [
+                0,
+                -0.45
+              ]
+            ],
+            "at": [
+              0,
+              1.2,
+              -0.4
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.9
+            ],
+            "at": [
+              -0.28,
+              1.45,
+              0.35
+            ],
+            "tones": [
+              "#ffffff",
+              "#ededed",
+              "#d8d8d8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.9
+            ],
+            "at": [
+              0.28,
+              1.45,
+              0.35
+            ],
+            "tones": [
+              "#ffffff",
+              "#ededed",
+              "#d8d8d8"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.4,
+              0.3,
+              0.4
+            ],
+            "to": [
+              -0.6,
+              0,
+              0.8
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.4,
+              0.3,
+              0.4
+            ],
+            "to": [
+              0.6,
+              0,
+              0.8
+            ],
+            "tones": [
+              "#9daec2",
+              "#8697ac",
+              "#72849b"
+            ]
+          }
+        ]
+      },
+      "pose": "Perched motionless on the sacred high dais in solemn nocturnal vigil, head angled downward toward petitioning pilgrims",
+      "cell": [
+        6,
+        1
+      ],
+      "facing": "s",
+      "why": "It serves as the revered slumbering deity of the shrine, commanding silent awe from across the sacred reflecting pool."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVRRRRRRRRRVVVV",
+      "VVRRRRFFRRRRRVVV",
+      "VVRRRRFFRRRRRVVV",
+      "VVRRRRPPRRRRRVVV",
+      "VVWWWWPPWWWWWWVV",
+      "VVWWWWPPWWWWWWVV",
+      "VVGGGGPPGGGGGGVV",
+      "VVGGGGPPGGGGGGVV",
+      "VVTTGGPPGGTTTTVV",
+      "VVTTGGPPGGTTTTVV",
+      "VVVVGGPPGGVVVVVV",
+      "VVVVVVPPVVVVVVVV"
+    ],
+    "heights": [
+      "0002222222220000",
+      "0022222222222000",
+      "0022222222222000",
+      "0022222222222000",
+      "0000001100000000",
+      "0000001100000000",
+      "0011111111111100",
+      "0011111111111100",
+      "0011111111111100",
+      "0011111111111100",
+      "0000111111000000",
+      "0000001100000000"
+    ],
+    "focal": {
+      "x": 6,
+      "z": 1,
+      "what": "The abyssal shrine wyrm watching silently over the sanctuary"
+    },
+    "mass": "Visual weight rests heavily in the upper center upon the height-2 stone altar court where the monumental dragon overlooks the sunken mirror pond.",
+    "read": "The viewer enters at the near south rim along a straight paved stone processional causeway. The path crosses a threshold of twin stone pillars, bisects a tranquil reflecting pool of still blue water, and terminates at a wide elevated stone terrace where the wyrm presides in ancient silence."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.15,
+      "types": [
+        {
+          "type": "temple_cypress_tree",
+          "variant": "temple_cypress_tree",
+          "weight": 1
+        }
+      ]
+    },
+    "water_share": 0.104,
+    "plateau_share": 0.35,
+    "void_share": 0.38,
+    "decor_weights": {
+      "shrine_torii_threshold": 0.15,
+      "sanctum_altar_dais": 0.15,
+      "shrine_tide_lantern": 0.35,
+      "tribute_urn": 0.2,
+      "sacred_stepping_stone": 0.15
+    },
+    "lighting": {
+      "bg": "#1c222e",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#7a94b8",
+      "notes": "Luminous cool moonlight bathing the pale blue-grey flagstones and casting turquoise shimmer across the placid holy pool."
+    },
+    "rules": [
+      "Keep the axial causeway clear of obstructions so the straight processional route directly faces the shrine.",
+      "Flank the central water crossing with paired tide lanterns to mirror light into the sacred pool.",
+      "Erect the stone torii threshold pillars exactly where the causeway enters the water mirror.",
+      "Reserve the height-2 raised terrace exclusively for the dragon's dais and ceremonial offering vessels."
+    ],
+    "decor_density": 0.12,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "stone",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sunken Moonwell Shrine, a sequestered aquatic sanctum where priests once offered tributes to pacify the primordial lake wyrm.",
+    "approach": "A solemn paved stone causeway leads directly from the south edge through twin monolith threshold pillars across a glass-smooth sacred pool.",
+    "creature_doing": "The dark horned wyrm coils motionless atop the moonlit altar platform, holding a silent, timeless vigil over its devoted waters.",
+    "palette_key": "Cool nocturnal moonrise dominated by slate blue stones, reflective cyan pools, and warm amber lantern glows.",
+    "terrain": "An axial processional path cutting straight across an expansive sacred water pool to an elevated height-2 temple courtyard.",
+    "summary": "A moody souls-like shrine level translating the ferocious sketch into a reverent nocturnal sanctum where a solitary wyrm rests in sacred silence."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 2,
+    "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
+    "avoid": [
+      "pipeline/seed/concepts/dragon-1.json"
+    ]
+  }
+}

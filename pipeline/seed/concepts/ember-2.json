@@ -1,0 +1,1240 @@
+{
+  "source": {
+    "art": "pipeline/seed/ember.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "solemn",
+    "sacred",
+    "nocturnal",
+    "fiery",
+    "ritualistic",
+    "reverent"
+  ],
+  "observations": [
+    {
+      "what": "Upper fiery dragon head with sharp golden eyes, spiky crest, and open jaws",
+      "box": [
+        198,
+        394,
+        468,
+        604
+      ],
+      "maps_to": "shrine_guardian_drake"
+    },
+    {
+      "what": "Stream of bright amber and yellow fire descending vertically from the dragon mouth",
+      "box": [
+        404,
+        439,
+        614,
+        574
+      ],
+      "maps_to": "sacred_flame_pillar"
+    },
+    {
+      "what": "Lower demonic horned skull wreathed in roaring flame with curved ram horns",
+      "box": [
+        510,
+        277,
+        747,
+        706
+      ],
+      "maps_to": "horned_brazier_altar"
+    },
+    {
+      "what": "Glowing incandescent core inside the open mouth of the horned demon skull",
+      "box": [
+        649,
+        452,
+        742,
+        532
+      ],
+      "maps_to": "shrine_core_relic"
+    },
+    {
+      "what": "Curved dark brown and black horns sweeping outward and downward",
+      "box": [
+        595,
+        279,
+        744,
+        407
+      ],
+      "maps_to": "curved_horn_monolith"
+    },
+    {
+      "what": "Right symmetric curved horn sweeping outward framing the lower fiery face",
+      "box": [
+        593,
+        584,
+        746,
+        709
+      ],
+      "maps_to": "curved_horn_monolith"
+    },
+    {
+      "what": "Pure black void background enveloping the twin fiery entities",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "night_sanctum_abyss"
+    },
+    {
+      "what": "Warm glowing embers and fire tips flickering off the flaming mane",
+      "box": [
+        470,
+        300,
+        680,
+        687
+      ],
+      "maps_to": "ritual_lantern_post"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#080808",
+        "share": 0.885,
+        "role": "deep night void background"
+      },
+      {
+        "hex": "#42210c",
+        "share": 0.028,
+        "role": "deep shadow on dragon scales"
+      },
+      {
+        "hex": "#261509",
+        "share": 0.025,
+        "role": "horn shadow and dark trim"
+      },
+      {
+        "hex": "#a6601c",
+        "share": 0.022,
+        "role": "mid-tone amber flame body"
+      },
+      {
+        "hex": "#724012",
+        "share": 0.02,
+        "role": "dark ochre horn highlights"
+      },
+      {
+        "hex": "#d78d37",
+        "share": 0.014,
+        "role": "bright crest and flame edge"
+      },
+      {
+        "hex": "#040200",
+        "share": 0.005,
+        "role": "chasm crevices and mouth interior"
+      },
+      {
+        "hex": "#040607",
+        "share": 0.002,
+        "role": "cool slate night undertone"
+      }
+    ],
+    "translation": {
+      "bg": "#12141a",
+      "grass": {
+        "top": "#509555",
+        "fringe": "#3f7544",
+        "fringeDark": "#305935",
+        "speck": "#68ad6d"
+      },
+      "sand": {
+        "top": "#c99a42",
+        "lip": "#ab7c28",
+        "edge": "#bf8d30",
+        "dots": "#d8ae57"
+      },
+      "dirt": {
+        "top": "#674a3c",
+        "patch": "#5a4033",
+        "mottle": "#4f3629",
+        "border": "#442c22"
+      },
+      "stone": {
+        "top": "#757c8a",
+        "pebble": "#9098a6",
+        "pebbleShade": "#606775",
+        "rim": "#4e5461"
+      },
+      "cliffUpper": {
+        "left": "#4a4145",
+        "right": "#352c30",
+        "seam": "#261e22"
+      },
+      "cliffLower": {
+        "left": "#3c3539",
+        "right": "#2b2327",
+        "seam": "#1f181c",
+        "speck": "#160f13"
+      },
+      "water": {
+        "top": "#4b869b",
+        "bubble": "#8fb9c6",
+        "deep": "#2f5a6b",
+        "fall": [
+          "#3f788d",
+          "#356878",
+          "#2c5664"
+        ],
+        "foam": "#b3d7e2"
+      },
+      "wood": {
+        "light": "#c6641f",
+        "mid": "#a54c11",
+        "dark": "#853908",
+        "shadow": "#642704",
+        "end": "#d78b53"
+      },
+      "treeMint": [
+        "#4a9477",
+        "#39785f",
+        "#275744"
+      ],
+      "treeLime": [
+        "#6b8f4d",
+        "#53733b",
+        "#3d542a"
+      ],
+      "treeLeaf": [
+        "#498448",
+        "#3a6839",
+        "#2b4d2a"
+      ],
+      "treeTeal": [
+        "#3c8e90",
+        "#2c7478",
+        "#1f5d5e",
+        "#144848"
+      ],
+      "treeGold": [
+        "#d19228",
+        "#ad7215",
+        "#875309"
+      ],
+      "trunk": [
+        "#4b3228",
+        "#36221b"
+      ],
+      "rock": [
+        "#8c94a3",
+        "#737b8a",
+        "#5c6370",
+        "#454a54"
+      ],
+      "wellStone": [
+        "#7d8494",
+        "#646b7a",
+        "#4c525e"
+      ],
+      "flowerOrange": [
+        "#e8701a",
+        "#bf5208"
+      ],
+      "berry": [
+        "#e04838",
+        "#b53124"
+      ],
+      "bushTeal": [
+        "#45877f",
+        "#336b64",
+        "#234f4a"
+      ],
+      "gold": [
+        "#e5a93b",
+        "#be8322",
+        "#f0c465"
+      ]
+    },
+    "notes": "Translated the dark canvas of IMAGE 1 into a cool nocturnal temple palette with dark slate stone, obsidian cliff sides, and muted teal water, while keeping the dragon and altar flames glowing in rich saturated amber, gold, and orange.",
+    "clamped": [
+      "grass.top #5b8a5e->#509555",
+      "grass.fringe #466e4a->#3f7544",
+      "grass.fringeDark #355439->#305935",
+      "grass.speck #70a574->#68ad6d",
+      "treeLime[0] #6b8e4e->#6b8f4d",
+      "treeLeaf[0] #4f7c4e->#488347",
+      "treeLeaf[1] #3d633c->#396738",
+      "treeLeaf[2] #2c4a2b->#2a4c29",
+      "trunk[0] #4a3229->#4b3228",
+      "water.top #3a6878->#4b869b",
+      "water.bubble #6da3b5->#8fb9c6",
+      "water.deep #1f3c47->#2f5a6b",
+      "water.fall[0] #2f5a69->#3f788d",
+      "water.fall[1] #254954->#356878",
+      "water.fall[2] #1c3740->#2c5664",
+      "water.foam #8ec3d4->#b3d7e2",
+      "wood.light #b85d1d->#c6641f",
+      "wood.mid #96450f->#a54c11",
+      "wood.dark #753207->#853908",
+      "wood.shadow #542103->#642704",
+      "wood.end #d48246->#d78b53",
+      "treeLeaf[0] #488347->#498448",
+      "treeLeaf[1] #396738->#3a6839",
+      "treeLeaf[2] #2a4c29->#2b4d2a",
+      "treeTeal[0] #33787a->#3c8e90",
+      "treeTeal[1] #245e61->#2c7478",
+      "treeTeal[2] #174647->#1f5d5e",
+      "treeTeal[3] #0d3030->#144848",
+      "bushTeal[0] #3f7a73->#45877f",
+      "bushTeal[1] #2d5e58->#336b64",
+      "bushTeal[2] #1d423e->#234f4a",
+      "cliffLower.left #3b3438->#3c3539",
+      "cliffLower.right #2a2226->#2b2327",
+      "cliffLower.seam #1e171b->#1f181c",
+      "cliffLower.speck #150f12->#160f13",
+      "dirt.top #523b30->#674a3c",
+      "dirt.patch #453127->#5a4033",
+      "dirt.mottle #39271e->#4f3629",
+      "dirt.border #2e1e17->#442c22"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "shrine_gate_portal",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          6,
+          7
+        ]
+      ],
+      "where": "Stands as flanking monolithic gate pillars on either side of the axial stone causeway before entering the upper sanctum.",
+      "shape": {
+        "summary": "Stepped stone pillars topped with curved demonic horn finials and gold banding.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.4,
+              0.7,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#9098a6",
+              "#757c8a",
+              "#4e5461"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.5,
+              1.4,
+              0.5
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#757c8a",
+              "#606775",
+              "#4e5461"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.56,
+              0.15,
+              0.56,
+              0.06
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#f0c465",
+              "#e5a93b",
+              "#be8322"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.04,
+              0.6,
+              6
+            ],
+            "at": [
+              0,
+              1.95,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              15
+            ],
+            "tones": [
+              "#724012",
+              "#42210c",
+              "#261509"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ceremonial_brazier_dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          3
+        ]
+      ],
+      "where": "Directly beneath the dragon idol at the heart of the elevated sanctuary.",
+      "shape": {
+        "summary": "An octagonal tiered ceremonial stone platform inset with glowing golden runes.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.48,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#9098a6",
+              "#757c8a",
+              "#4e5461"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.3,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#f0c465",
+              "#e5a93b",
+              "#be8322"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.2,
+              0.6,
+              0.08
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#757c8a",
+              "#606775",
+              "#4e5461"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "temple_stone_urn",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Placed on the ritual plateau flanking the holy brazier as ceremonial offering vessels.",
+      "shape": {
+        "summary": "Heavy slate vessel filled with burning incense and embers.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#757c8a",
+              "#606775",
+              "#4e5461"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.05,
+              0.2,
+              6
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "temple_offering_chest",
+      "type": "chest",
+      "variant_of": "chest",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          8,
+          2
+        ]
+      ],
+      "where": "Resting behind the sacred dais containing petitions and consecrated offerings.",
+      "shape": {
+        "summary": "Dark ironwood chest banded with brass rivets.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.4,
+              0.45,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c6641f",
+              "#a54c11",
+              "#853908"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.67,
+              0.2,
+              0.47,
+              0.08
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#f0c465",
+              "#e5a93b",
+              "#be8322"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sacred_pool_lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          9
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "where": "Paired along the causeway edging the reflecting water moat to guide pilgrims.",
+      "shape": {
+        "summary": "Tall stone stanchion holding a faceted bronze lantern lit by golden flame.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.7,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#9098a6",
+              "#757c8a",
+              "#606775"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.4,
+              0.35,
+              0.05
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.25,
+              0.05,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              1.1,
+              0
+            ],
+            "tones": [
+              "#f0c465",
+              "#e5a93b",
+              "#be8322"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sanctum_sentinel_cypress",
+      "type": "tree-round",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.3,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "where": "Framing the outer boundary of the island to enclose the secluded water sanctum.",
+      "shape": {
+        "summary": "Slender dark stone-colored trunk bearing dense tiers of teal-green rounded foliage.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.15,
+              0.8,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#4b3228",
+              "#36221b",
+              "#261509"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.6,
+              0.9,
+              0.12
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#4a9477",
+              "#39785f",
+              "#275744"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.55,
+              0.7,
+              0.1
+            ],
+            "at": [
+              0,
+              1.25,
+              0
+            ],
+            "tones": [
+              "#509555",
+              "#3f7544",
+              "#305935"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.45,
+              0.45,
+              0.08
+            ],
+            "at": [
+              0,
+              1.75,
+              0
+            ],
+            "tones": [
+              "#68ad6d",
+              "#509555",
+              "#3f7544"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "shrine_reflecting_lotus",
+      "type": "flower",
+      "variant_of": "flower",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.25,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          11,
+          7
+        ],
+        [
+          12,
+          8
+        ]
+      ],
+      "where": "Floating serenely on the still surface of the moat pool flanking the stone causeway.",
+      "shape": {
+        "summary": "Petaled lotus blossom floating upon a flat green leaf pad.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.04,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#4a9477",
+              "#39785f",
+              "#275744"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.08,
+              0.15,
+              6
+            ],
+            "at": [
+              0,
+              0.04,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              0.8
+            ],
+            "at": [
+              0,
+              0.18,
+              0
+            ],
+            "tones": [
+              "#f0c465",
+              "#e5a93b",
+              "#be8322"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "Flame Drake Effigy",
+      "source": "The horned flame demon and hovering fire dragon head depicted in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 2.5,
+      "shape": {
+        "summary": "Toy-styled fiery guardian statue featuring a horned obsidian demon bust with tiered flame plumage and an erect dragon head.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.6,
+              0.65,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#724012",
+              "#42210c",
+              "#261509"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.04,
+              0.7,
+              6
+            ],
+            "at": [
+              -0.38,
+              0.45,
+              -0.05
+            ],
+            "rot": [
+              15,
+              0,
+              -50
+            ],
+            "tones": [
+              "#42210c",
+              "#261509",
+              "#040200"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.04,
+              0.7,
+              6
+            ],
+            "at": [
+              0.38,
+              0.45,
+              -0.05
+            ],
+            "rot": [
+              15,
+              0,
+              50
+            ],
+            "tones": [
+              "#42210c",
+              "#261509",
+              "#040200"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.45,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0,
+              0.55,
+              0.05
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.32,
+              0.15,
+              0.55,
+              6
+            ],
+            "at": [
+              0,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.55,
+              0.55,
+              0.08
+            ],
+            "at": [
+              0,
+              1.45,
+              0.05
+            ],
+            "tones": [
+              "#d78d37",
+              "#a6601c",
+              "#724012"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.02,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              1.95,
+              -0.05
+            ],
+            "rot": [
+              -20,
+              0,
+              0
+            ],
+            "tones": [
+              "#d78d37",
+              "#a6601c",
+              "#724012"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.3
+            ],
+            "outline": [
+              [
+                -0.2,
+                -0.2
+              ],
+              [
+                0.2,
+                -0.2
+              ],
+              [
+                0,
+                0.25
+              ]
+            ],
+            "at": [
+              0,
+              1.4,
+              0.28
+            ],
+            "tones": [
+              "#a6601c",
+              "#724012",
+              "#42210c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.06,
+              1
+            ],
+            "at": [
+              -0.14,
+              1.62,
+              0.28
+            ],
+            "tones": [
+              "#f0c465",
+              "#e5a93b",
+              "#be8322"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.06,
+              1
+            ],
+            "at": [
+              0.14,
+              1.62,
+              0.28
+            ],
+            "tones": [
+              "#f0c465",
+              "#e5a93b",
+              "#be8322"
+            ]
+          }
+        ]
+      },
+      "pose": "Standing motionless upon the altar, keeping solemn vigil over the moonlit sanctum pool with burning ember eyes.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "This monolithic guardian represents the sacred fusion of demon skull and fire dragon, revered in this secluded water temple."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVTTTRRRTTTVVVV",
+      "VVTGGRRRRRGTVVVV",
+      "VVGGRRFFRRGTVVVV",
+      "VVGGRRRRRRGTVVVV",
+      "VVTGGWPPWGGTVVVV",
+      "VVTTWWPPWWTVVVVV",
+      "VVTWWWPPWWWTVVVV",
+      "VVGWWWPPWWWGTVVV",
+      "VVGGWWPPWWGGTVVV",
+      "VVVGGPPPPGGTTVVV",
+      "VVVVVVPPVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0001112221110000",
+      "0011122222110000",
+      "0011222222210000",
+      "0011222222210000",
+      "0011101101110000",
+      "0011001100100000",
+      "0010001100010000",
+      "0010001100011000",
+      "0011001100111000",
+      "0001111111111000",
+      "0000001100000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "The towering Flame Drake Effigy mounted at the centre of the elevated stone sanctuary."
+    },
+    "mass": "Visual weight is anchored in the upper-centre on the raised stone sanctum at height 2, framed by dark waters and flanked by sentinel trees.",
+    "read": "The viewer enters from the bottom rim along a straight, symmetrical stone causeway that bridges a still ceremonial moat. Looking across the dark water reflections, the eye passes through the horned portal pillars before arriving at the raised fire shrine where the majestic flame creature watches in silent vigil."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.18,
+      "types": [
+        {
+          "type": "tree-round",
+          "variant": "temple_cypress",
+          "weight": 0.7
+        },
+        {
+          "type": "tree-pine",
+          "variant": "dark_pine",
+          "weight": 0.3
+        }
+      ]
+    },
+    "water_share": 0.11,
+    "plateau_share": 0.22,
+    "void_share": 0.45,
+    "decor_weights": {
+      "sacred_pool_lantern": 0.45,
+      "temple_stone_urn": 0.25,
+      "shrine_reflecting_lotus": 0.2,
+      "rock": 0.1
+    },
+    "lighting": {
+      "bg": "#12141a",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#4e5a70",
+      "notes": "A tranquil midnight blue tint softens the slate ruins while casting a warm dramatic glow from the central flame effigy."
+    },
+    "rules": [
+      "Lay the processional causeway along columns 7 and 8 straight from row 11 to the shrine dais.",
+      "Surround the central causeway with moat water cells between rows 5 and 9.",
+      "Place the sacred portal gate pillars symmetrically at the causeway threshold entering row 7.",
+      "Raise the inner sanctuary platform to height 2 and mount the dragon idol at row 3."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "stone",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Nocturnal Moat Sanctum, a silent water shrine built of slate and brass to venerate an ancient flame wyrm.",
+    "approach": "Pilgrims cross an axial paved stone causeway over a dark sacred reflecting pool, passing between two horned megalithic gate pillars.",
+    "creature_doing": "Enthroned upon a raised stone dais, the horned flame drake keeps an eternal motionless vigil over the reflecting waters.",
+    "palette_key": "Cool slate night tones, obsidian cliffs, and deep teal moat waters illuminated by the radiant golden-orange plumage of the idol.",
+    "terrain": "A ceremonial moat pool framing a straight axial causeway leading up to an elevated stone sanctum plateau.",
+    "summary": "A moody nocturnal water temple where travelers cross a tranquil moat to petition an ancient flame drake standing vigil over glowing sacred embers."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 2,
+    "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
+    "avoid": [
+      "pipeline/seed/concepts/ember-1.json"
+    ]
+  }
+}

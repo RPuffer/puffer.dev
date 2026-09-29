@@ -1,0 +1,1193 @@
+{
+  "source": {
+    "art": "pipeline/seed/eagle.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "windswept",
+    "golden-hour",
+    "tense",
+    "fierce",
+    "desolate",
+    "raptorial"
+  ],
+  "observations": [
+    {
+      "what": "Hooked sharp raptor beak painted in vivid gold and ochre with curved upper culmen and sharp downward tip",
+      "box": [
+        296,
+        31,
+        597,
+        616
+      ],
+      "maps_to": "creature beak, golden boss plinth accent"
+    },
+    {
+      "what": "Intense pale mint-blue eagle eye ringed by dark brow feathers and fine white highlights",
+      "box": [
+        298,
+        542,
+        349,
+        638
+      ],
+      "maps_to": "creature eye detail and bright mint accent markers"
+    },
+    {
+      "what": "Serrated crest feathers sweeping back along the crown of the head in layered chalk white and silver",
+      "box": [
+        34,
+        252,
+        290,
+        998
+      ],
+      "maps_to": "arena crag spikes and jagged feathered palisade walls"
+    },
+    {
+      "what": "Deep charcoal-black throat and mantle plumage with textured brushwork sweeping downward",
+      "box": [
+        570,
+        107,
+        998,
+        584
+      ],
+      "maps_to": "creature folded torso and dark perimeter basalt pillars"
+    },
+    {
+      "what": "Pale silvery grey feather strokes across the breast and neck with strong directional grain",
+      "box": [
+        471,
+        411,
+        998,
+        998
+      ],
+      "maps_to": "sandstone arena flagging and threshold runestones"
+    },
+    {
+      "what": "Warm parchment paper background with mottled warm neutral grey-buff washes",
+      "box": [
+        0,
+        0,
+        998,
+        381
+      ],
+      "maps_to": "dusty golden-hour arena sand floor and warm void horizon"
+    },
+    {
+      "what": "Dark shadowy cleft separating the golden beak from the chin plumage",
+      "box": [
+        398,
+        126,
+        508,
+        616
+      ],
+      "maps_to": "threshold canyon gap and arena rift notches"
+    },
+    {
+      "what": "Heavy supraorbital ridge creating a fierce, alert raptorial glare",
+      "box": [
+        273,
+        442,
+        360,
+        725
+      ],
+      "maps_to": "focal encounter boss tension and creature alert posture"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#cfc9b9",
+        "share": 0.227,
+        "role": "warm parchment background wash"
+      },
+      {
+        "hex": "#e6dfd4",
+        "share": 0.199,
+        "role": "bright white feather crest highlights"
+      },
+      {
+        "hex": "#b9b4a6",
+        "share": 0.156,
+        "role": "silver-grey neck feather midtones"
+      },
+      {
+        "hex": "#262622",
+        "share": 0.109,
+        "role": "deep charcoal throat shadow feathers"
+      },
+      {
+        "hex": "#9c988d",
+        "share": 0.107,
+        "role": "shaded wing and chest feather mass"
+      },
+      {
+        "hex": "#515046",
+        "share": 0.08,
+        "role": "dark crown and eye socket shade"
+      },
+      {
+        "hex": "#76746a",
+        "share": 0.079,
+        "role": "feather transition tones"
+      },
+      {
+        "hex": "#bc9e3b",
+        "share": 0.044,
+        "role": "vivid golden raptor beak and gape"
+      }
+    ],
+    "translation": {
+      "bg": "#2b2622",
+      "grass": {
+        "top": "#8ea656",
+        "fringe": "#758d42",
+        "fringeDark": "#596e30",
+        "speck": "#a7bf69"
+      },
+      "sand": {
+        "top": "#e0ab34",
+        "lip": "#c2871b",
+        "edge": "#a56f14",
+        "dots": "#f0be52"
+      },
+      "dirt": {
+        "top": "#b88753",
+        "patch": "#9f7041",
+        "mottle": "#875b31",
+        "border": "#6d4722"
+      },
+      "stone": {
+        "top": "#d2cbba",
+        "pebble": "#e8e3d5",
+        "pebbleShade": "#b5ae9d",
+        "rim": "#9b9484"
+      },
+      "cliffUpper": {
+        "left": "#78675c",
+        "right": "#5a4c43",
+        "seam": "#433730"
+      },
+      "cliffLower": {
+        "left": "#68574c",
+        "right": "#4e4138",
+        "seam": "#3c312a",
+        "speck": "#302620"
+      },
+      "water": {
+        "top": "#7ae2e8",
+        "bubble": "#b4f4f7",
+        "deep": "#4bb8c2",
+        "fall": [
+          "#62cfd9",
+          "#4bb8c2",
+          "#3ba2ac"
+        ],
+        "foam": "#daf7ff"
+      },
+      "wood": {
+        "light": "#cf6825",
+        "mid": "#b05018",
+        "dark": "#8f3a0e",
+        "shadow": "#6d2a09",
+        "end": "#e8995a"
+      },
+      "treeMint": [
+        "#69ae95",
+        "#51967e",
+        "#3e7462"
+      ],
+      "treeLime": [
+        "#a2b85e",
+        "#869d47",
+        "#697e33"
+      ],
+      "treeLeaf": [
+        "#739951",
+        "#5c7d3d",
+        "#46622b"
+      ],
+      "treeTeal": [
+        "#4da394",
+        "#3c877a",
+        "#2d6b60",
+        "#215148"
+      ],
+      "treeGold": [
+        "#e8ab3c",
+        "#c98e29",
+        "#a6711b"
+      ],
+      "trunk": [
+        "#6d493a",
+        "#523529"
+      ],
+      "rock": [
+        "#ded9cb",
+        "#bebaa8",
+        "#949080",
+        "#6b6759"
+      ],
+      "wellStone": [
+        "#c8beaa",
+        "#ab9f8c",
+        "#8e8371"
+      ],
+      "flowerOrange": [
+        "#e5752b",
+        "#c65e1c"
+      ],
+      "berry": [
+        "#e05c5c",
+        "#ba4141"
+      ],
+      "bushTeal": [
+        "#62aa9d",
+        "#4d8e83",
+        "#3d7067"
+      ],
+      "gold": [
+        "#e8b835",
+        "#c79822",
+        "#ffe082"
+      ]
+    },
+    "notes": "Palette captures the windswept ridge at golden hour. Sand and dirt provide dusty ochre arena floor tones inspired by the raptor's beak, while dark basalt cliffs echo its plumage under a dusty amber evening sky.",
+    "clamped": [
+      "treeMint[0] #70a793->#69ae95",
+      "treeMint[1] #5a8c7b->#51967e",
+      "treeMint[2] #446e60->#3e7462",
+      "bushTeal[0] #63a99c->#62aa9d",
+      "bushTeal[1] #4f8c81->#4d8e83",
+      "bushTeal[2] #3d7067->#3d7067"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "beak-crag-gate",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          2,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "where": "Framing the entrance threshold where the diagonal approach path enters the arena basin.",
+      "shape": {
+        "summary": "Tall angular rock spire capped with a forward-jutting hooked talon spur.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.8,
+              1.4,
+              0.8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#949080"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.6,
+              0.8,
+              0.6
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#6b6759"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.4
+            ],
+            "outline": [
+              [
+                -0.3,
+                -0.3
+              ],
+              [
+                0.3,
+                -0.3
+              ],
+              [
+                0,
+                0.5
+              ]
+            ],
+            "at": [
+              0,
+              2,
+              0
+            ],
+            "rot": [
+              15,
+              0,
+              0
+            ],
+            "tones": [
+              "#e8b835",
+              "#c79822",
+              "#ffe082"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "roost-boulder-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ]
+      ],
+      "where": "Directly under the focal raptor, forming an elevated cracked boss perch.",
+      "shape": {
+        "summary": "Wide slab of fractured plateau stone littered with snapped branches and bone fragments.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#949080"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.35,
+              0.75,
+              0.08
+            ],
+            "at": [
+              0.05,
+              0.45,
+              -0.05
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#6b6759"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              -0.3,
+              0.8,
+              0.2
+            ],
+            "to": [
+              0.3,
+              0.82,
+              -0.2
+            ],
+            "tones": [
+              "#cf6825",
+              "#b05018",
+              "#8f3a0e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "prey-cache-bones",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.7,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          8,
+          4
+        ],
+        [
+          11,
+          4
+        ]
+      ],
+      "where": "Flanking the eagle's perch within the boss arena, indicating recent feeding.",
+      "shape": {
+        "summary": "Cluster of weathered ribs and pale hunting trophies jutting from gravel.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.35,
+              0.5
+            ],
+            "at": [
+              0,
+              0.15,
+              0
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#949080"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.2,
+              0.1,
+              -0.2
+            ],
+            "to": [
+              -0.1,
+              0.65,
+              0.1
+            ],
+            "rot": [
+              -10,
+              20,
+              0
+            ],
+            "tones": [
+              "#e8e3d5",
+              "#ded9cb",
+              "#b5ae9d"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0.2,
+              0.1,
+              -0.1
+            ],
+            "to": [
+              0.1,
+              0.55,
+              0.2
+            ],
+            "rot": [
+              15,
+              -15,
+              0
+            ],
+            "tones": [
+              "#e8e3d5",
+              "#ded9cb",
+              "#b5ae9d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "windswept-brazier",
+      "type": "new",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.3,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          9
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "where": "Paired along the diagonal sand path guiding the challenger toward the arena centre.",
+      "shape": {
+        "summary": "Heavy iron-banded stone brazier column holding flickering golden ember fire.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.4,
+              0.7,
+              0.4
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#949080"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.25,
+              0.2,
+              6
+            ],
+            "at": [
+              0,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#8f8f8f",
+              "#6f6f6f",
+              "#555555"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.02,
+              0.4,
+              6
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#ffb31d",
+              "#ff831d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "crag-needle",
+      "type": "new",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.5,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          13,
+          2
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "where": "Tall serrated pillars enclosing the edges of the boss arena.",
+      "shape": {
+        "summary": "Sheer vertical basalt needle tapering to a jagged wind-carved crest.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.9,
+              1.2,
+              0.9
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#78675c",
+              "#5a4c43",
+              "#433730"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.9,
+              0.7
+            ],
+            "at": [
+              0,
+              1.2,
+              0
+            ],
+            "tones": [
+              "#78675c",
+              "#5a4c43",
+              "#433730"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.4
+            ],
+            "outline": [
+              [
+                -0.3,
+                -0.3
+              ],
+              [
+                0.3,
+                -0.3
+              ],
+              [
+                0,
+                0.3
+              ]
+            ],
+            "at": [
+              0,
+              2.1,
+              0
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#6b6759"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gale-winds-pine",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          4,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "where": "Clinging stubbornly to the outer windward perimeter ledges.",
+      "shape": {
+        "summary": "Hardy stunted mountain pine with tiered foliage windblown toward the arena interior.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.7,
+              0.18
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#6d493a",
+              "#523529",
+              "#523529"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.08
+            ],
+            "at": [
+              0.05,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#69ae95",
+              "#51967e",
+              "#3e7462"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.4,
+              0.75,
+              0.08
+            ],
+            "at": [
+              0.08,
+              1,
+              0
+            ],
+            "tones": [
+              "#69ae95",
+              "#51967e",
+              "#3e7462"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.55,
+              0.06
+            ],
+            "at": [
+              0.1,
+              1.35,
+              0
+            ],
+            "tones": [
+              "#69ae95",
+              "#51967e",
+              "#3e7462"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.3,
+              0.35,
+              0.05
+            ],
+            "at": [
+              0.12,
+              1.65,
+              0
+            ],
+            "tones": [
+              "#69ae95",
+              "#51967e",
+              "#3e7462"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "gale-raptor-sentinel",
+      "source": "Eagle portrait in IMAGE 1, showing the fierce head, massive golden hooked beak, and sweeping grey-white feathers",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "Blocky, toy-like eagle boss crouched alertly with wide feathered mantle, curved crest, and oversized golden beak.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.3,
+              0.8,
+              0.9,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#515046",
+              "#262622",
+              "#262622"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.7,
+              0.75,
+              0.1
+            ],
+            "at": [
+              -0.1,
+              0.75,
+              0.05
+            ],
+            "tones": [
+              "#ded9cb",
+              "#bebaa8",
+              "#949080"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.65,
+              0.7
+            ],
+            "at": [
+              -0.15,
+              1.4,
+              0.1
+            ],
+            "tones": [
+              "#e8e3d5",
+              "#ded9cb",
+              "#b5ae9d"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.4
+            ],
+            "outline": [
+              [
+                0,
+                0.2
+              ],
+              [
+                -0.4,
+                -0.2
+              ],
+              [
+                0.3,
+                -0.3
+              ]
+            ],
+            "at": [
+              0.15,
+              1.85,
+              -0.1
+            ],
+            "rot": [
+              -15,
+              -20,
+              0
+            ],
+            "tones": [
+              "#e8e3d5",
+              "#ded9cb",
+              "#b5ae9d"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.55
+            ],
+            "outline": [
+              [
+                -0.2,
+                -0.25
+              ],
+              [
+                0.2,
+                -0.25
+              ],
+              [
+                -0.15,
+                0.45
+              ]
+            ],
+            "at": [
+              -0.2,
+              1.35,
+              0.45
+            ],
+            "rot": [
+              25,
+              0,
+              0
+            ],
+            "tones": [
+              "#e8b835",
+              "#c79822",
+              "#a6711b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              0.8
+            ],
+            "at": [
+              -0.35,
+              1.65,
+              0.3
+            ],
+            "tones": [
+              "#7ae2e8",
+              "#4bb8c2",
+              "#3ba2ac"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              0.8
+            ],
+            "at": [
+              0.05,
+              1.65,
+              0.3
+            ],
+            "tones": [
+              "#7ae2e8",
+              "#4bb8c2",
+              "#3ba2ac"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.3,
+              0.35,
+              0.4
+            ],
+            "at": [
+              -0.35,
+              0,
+              0.35
+            ],
+            "tones": [
+              "#e8b835",
+              "#c79822",
+              "#a6711b"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.3,
+              0.35,
+              0.4
+            ],
+            "at": [
+              0.25,
+              0,
+              0.35
+            ],
+            "tones": [
+              "#e8b835",
+              "#c79822",
+              "#a6711b"
+            ]
+          }
+        ]
+      },
+      "pose": "Crouched in an aggressive predatory stance with head pitched forward, wings half-furled, staring down the challenger.",
+      "cell": [
+        9,
+        3
+      ],
+      "facing": "s",
+      "why": "This is the raptorial apex boss waiting in its windswept mountain caldera arena for the player's challenge."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVRRRRGGGGGRRRVV",
+      "VVRTRGGGGGGTRRVV",
+      "VVRGGGGGGFFGGGVV",
+      "VVGGGGGGGFFGGGVV",
+      "VTRGGPPGGGGGGTVV",
+      "VVGGPPPGGGGGGGVV",
+      "VVTPPGGGGGGGGGVV",
+      "VVPPGGGGGGGGGGVV",
+      "VVPPGGGGGGGGGGVV",
+      "VVVVGGGGGGGGVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0033331111133300",
+      "0033111111113300",
+      "0031111112211100",
+      "0011111112211100",
+      "0131111111111100",
+      "0011111111111100",
+      "0011111111111100",
+      "0011111111111100",
+      "0011111111111100",
+      "0000111111110000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 9,
+      "z": 3,
+      "what": "gale-raptor-sentinel perched on its raised combat dais"
+    },
+    "mass": "Visual weight is anchored in the upper-right quadrant by the eagle boss and its raised dais, balanced by tall crag cliffs ringing the far edge.",
+    "read": "The player enters at the lower left corner through a narrow trail of dirt and sand, ascending past windward braziers. The path passes through the twin beak-crag threshold pillars before spilling into the open dirt-and-sand arena floor where the massive raptor glares forward."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "gale-winds-pine",
+          "variant": "tree-pine",
+          "weight": 0.6
+        },
+        {
+          "type": "crag-needle",
+          "variant": "rock-big",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.18,
+    "void_share": 0.28,
+    "decor_weights": {
+      "prey-cache-bones": 0.35,
+      "rock": 0.45,
+      "flowerOrange": 0.2
+    },
+    "lighting": {
+      "bg": "#2b2622",
+      "ambient": 0.78,
+      "sun": 0.28,
+      "tint": "#bc9e3b",
+      "notes": "Low raking golden-hour sun cast across the arena, producing long harsh shadows and lighting the golden beak and braziers."
+    },
+    "rules": [
+      "Keep the arena basin flat and clear of obstacles between the threshold gate and the focal boss dais.",
+      "Place paired windswept-braziers strictly along the diagonal approach path.",
+      "Confine crag needles and pines to the perimeter cliff rims to form natural arena boundaries."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Talon Cleaver Basin, a windswept high-altitude caldera arena rimmed by sheer basalt spikes.",
+    "approach": "The warrior climbs a dusty switchback from the southwestern rim, passing between twin hooked beak crags into the wide open killing floor.",
+    "creature_doing": "Crouched on an elevated stone ledge beside scattered prey bones, the giant eagle spreads its shoulders and lowers its beak in aggressive battle readiness.",
+    "palette_key": "Harsh golden-hour light bathing rich ochre sand and charcoal plumage against dark cliff walls under an amber haze.",
+    "terrain": "An open circular arena of packed golden sand and dry dirt flanked by height-3 cliff needles and deep perimeter rifts.",
+    "summary": "A tense boss encounter arena where the challenger confronts the eagle predator at golden hour on a jagged mountain precipice."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 3,
+    "variantFragment": "READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.",
+    "avoid": [
+      "pipeline/seed/concepts/eagle-1.json",
+      "pipeline/seed/concepts/eagle-2.json"
+    ]
+  }
+}

@@ -1,0 +1,1233 @@
+{
+  "source": {
+    "art": "pipeline/seed/eagle.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "solemn",
+    "sacred",
+    "nocturnal",
+    "regal",
+    "still",
+    "vigilant"
+  ],
+  "observations": [
+    {
+      "what": "Massive hooked golden-yellow raptor beak curving sharply downward with dark open nostril slit",
+      "box": [
+        297,
+        33,
+        608,
+        606
+      ],
+      "maps_to": "golden beak totem and creature beak feature"
+    },
+    {
+      "what": "Piercing pale aquamarine or icy mint-blue eye with a black pupil beneath a heavy feathered brow",
+      "box": [
+        287,
+        532,
+        355,
+        649
+      ],
+      "maps_to": "shrine jewel eye and creature eye prism"
+    },
+    {
+      "what": "Dense bright white crown and nape feathers with textured dry-brushed brushstrokes swept backwards",
+      "box": [
+        38,
+        252,
+        423,
+        996
+      ],
+      "maps_to": "creature feathered cowl and chalky stone temple plumage"
+    },
+    {
+      "what": "Layered grey-black throat and mantle plumage sloping steeply down the lower chest",
+      "box": [
+        471,
+        129,
+        996,
+        680
+      ],
+      "maps_to": "creature dark mantle blocks and obsidian boundary stones"
+    },
+    {
+      "what": "Fine hatched feather barbs along the nape in silver and charcoal strokes",
+      "box": [
+        447,
+        532,
+        996,
+        996
+      ],
+      "maps_to": "creature folded wing planes and temple steps"
+    },
+    {
+      "what": "Gape line extending far back horizontally below the eye with a razor-thin yellow rim",
+      "box": [
+        396,
+        321,
+        467,
+        616
+      ],
+      "maps_to": "creature gold gape seam"
+    },
+    {
+      "what": "Pale parchment or warm bone-white background wash behind the eagle's head",
+      "box": [
+        0,
+        0,
+        998,
+        381
+      ],
+      "maps_to": "sacred chalk stone courtyard paving"
+    },
+    {
+      "what": "Deep shadow socket and menacing dark brow overhang shadowing the upper orbit",
+      "box": [
+        267,
+        439,
+        396,
+        735
+      ],
+      "maps_to": "creature stern brow rim"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#cfc9b9",
+        "share": 0.227,
+        "role": "mid-tone temple stone and parchment wash"
+      },
+      {
+        "hex": "#e6dfd4",
+        "share": 0.199,
+        "role": "bright white feather highlights and chalk paving"
+      },
+      {
+        "hex": "#b9b4a6",
+        "share": 0.156,
+        "role": "temple masonry shade and cool stone tiles"
+      },
+      {
+        "hex": "#262622",
+        "share": 0.109,
+        "role": "deep body feather mantle and night shadow"
+      },
+      {
+        "hex": "#9c988d",
+        "share": 0.107,
+        "role": "shadowed nape feathers and weathered carvings"
+      },
+      {
+        "hex": "#515046",
+        "share": 0.08,
+        "role": "dark feather base and submerged stone pool edge"
+      },
+      {
+        "hex": "#76746a",
+        "share": 0.079,
+        "role": "slate cliff rim and water reflection"
+      },
+      {
+        "hex": "#bc9e3b",
+        "share": 0.044,
+        "role": "radiant gold beak and altar brazier trim"
+      }
+    ],
+    "translation": {
+      "bg": "#1c212a",
+      "grass": {
+        "top": "#5fa96f",
+        "fringe": "#4b8c59",
+        "fringeDark": "#3a6d46",
+        "speck": "#82be90"
+      },
+      "sand": {
+        "top": "#d9ab44",
+        "lip": "#b58728",
+        "edge": "#996f1b",
+        "dots": "#e8c368"
+      },
+      "dirt": {
+        "top": "#ba9364",
+        "patch": "#a37e50",
+        "mottle": "#8c693f",
+        "border": "#755430"
+      },
+      "stone": {
+        "top": "#dcd8cf",
+        "pebble": "#f0ede6",
+        "pebbleShade": "#bebab0",
+        "rim": "#9e9a91"
+      },
+      "cliffUpper": {
+        "left": "#7a7d84",
+        "right": "#5a5c64",
+        "seam": "#464850"
+      },
+      "cliffLower": {
+        "left": "#62656c",
+        "right": "#484a51",
+        "seam": "#35373d",
+        "speck": "#2d2f34"
+      },
+      "water": {
+        "top": "#72d5d8",
+        "bubble": "#b4f4f7",
+        "deep": "#3ba2ab",
+        "fall": [
+          "#5ac5ca",
+          "#46b5ba",
+          "#349da3"
+        ],
+        "foam": "#dcf9fa"
+      },
+      "wood": {
+        "light": "#e07822",
+        "mid": "#c05e10",
+        "dark": "#9b4507",
+        "shadow": "#763303",
+        "end": "#f3c778"
+      },
+      "treeMint": [
+        "#78c6b8",
+        "#5aa698",
+        "#438478"
+      ],
+      "treeLime": [
+        "#88c470",
+        "#6da356",
+        "#53823f"
+      ],
+      "treeLeaf": [
+        "#57a160",
+        "#45804c",
+        "#326338"
+      ],
+      "treeTeal": [
+        "#5cd2c0",
+        "#43b09f",
+        "#2f8e80",
+        "#206d62"
+      ],
+      "treeGold": [
+        "#e5b73b",
+        "#c29420",
+        "#9e740f"
+      ],
+      "trunk": [
+        "#694539",
+        "#4d322a"
+      ],
+      "rock": [
+        "#e2ded6",
+        "#c6c2b9",
+        "#a19d94",
+        "#78756d"
+      ],
+      "wellStone": [
+        "#d5d0c7",
+        "#bab5ac",
+        "#9c978e"
+      ],
+      "flowerOrange": [
+        "#f07d24",
+        "#db9c2a"
+      ],
+      "berry": [
+        "#e86b80",
+        "#bf485d"
+      ],
+      "bushTeal": [
+        "#7be0ce",
+        "#5abfae",
+        "#3d9f8f"
+      ],
+      "gold": [
+        "#f6c738",
+        "#d9a416",
+        "#ffe27d"
+      ]
+    },
+    "notes": "Translated into a sacred nocturnal shrine palette with moonlit chalk-stone masonry, cool aquamarine spring water matching the eagle's eye, dark slate cliffs, and radiant gold temple trims derived from the raptor's beak.",
+    "clamped": [
+      "grass.top #64a472->#5fa96f",
+      "grass.fringe #50875c->#4b8c59",
+      "grass.fringeDark #3c6b47->#3a6d46",
+      "treeMint[1] #5ca497->#5aa698",
+      "treeLeaf[0] #5a9e62->#57a160",
+      "treeLeaf[1] #45804c->#45804c",
+      "trunk[0] #5b4c47->#694539",
+      "trunk[1] #443733->#4d322a"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "feather-pylon-gate",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "where": "Straddles the central causeway path immediately where it crosses the sacred moat into the raised inner court.",
+      "shape": {
+        "summary": "Tall monolithic chalk-stone pylon flanked by stylized eagle wing crests and tipped with a golden finial.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.4,
+              0.8,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dcd8cf",
+              "#bebab0",
+              "#9e9a91"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.48,
+              1.4,
+              0.48
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#f0ede6",
+              "#dcd8cf",
+              "#bebab0"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.2,
+              0.6,
+              0.06
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#dcd8cf",
+              "#bebab0",
+              "#9e9a91"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.25,
+              0.05,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              2,
+              0
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "aquila-sunken-altar",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          7,
+          2
+        ],
+        [
+          8,
+          2
+        ]
+      ],
+      "where": "Directly under the eagle's perch at the back of the elevated sanctum terrace.",
+      "shape": {
+        "summary": "Stepped marble dais adorned with ritual gold inlays and incised talons.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.96,
+              0.35,
+              0.96,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dcd8cf",
+              "#bebab0",
+              "#9e9a91"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.76,
+              0.3,
+              0.76,
+              0.06
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#f0ede6",
+              "#dcd8cf",
+              "#bebab0"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.5,
+              0.15,
+              0.5
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "moonlit-brazier-post",
+      "type": "torch",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          6,
+          10
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          8
+        ]
+      ],
+      "where": "Paired symmetrically along either flank of the straight axial approach causeway.",
+      "shape": {
+        "summary": "Carved pale stone lantern post bearing a cold turquoise ritual brazier flame.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dcd8cf",
+              "#bebab0",
+              "#9e9a91"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              0.65,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#f0ede6",
+              "#dcd8cf",
+              "#bebab0"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.15,
+              0.4,
+              0.05
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.02,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#b4f4f7",
+              "#72d5d8",
+              "#3ba2ab"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "offering-urn",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.7,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "where": "Flanking the eagle's dais in the sanctum court to receive sacred tribute.",
+      "shape": {
+        "summary": "Rounded chalky ceramic ceremonial vessel trimmed in polished gold leaf.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#bebab0",
+              "#9e9a91",
+              "#78756d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.32,
+              1.1
+            ],
+            "at": [
+              0,
+              0.38,
+              0
+            ],
+            "tones": [
+              "#f0ede6",
+              "#dcd8cf",
+              "#bebab0"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "temple-cypress-cone",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "where": "Guarding the outer stone corners of the sanctuary sanctuary platform.",
+      "shape": {
+        "summary": "Slender geometric temple conifer in cool minty foliage tones.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              0.5,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#694539",
+              "#4d322a",
+              "#35373d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.45,
+              0.9,
+              0.1
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#78c6b8",
+              "#5aa698",
+              "#438478"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.45,
+              0.7,
+              0.1
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#78c6b8",
+              "#5aa698",
+              "#438478"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.45,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#78c6b8",
+              "#5aa698",
+              "#438478"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.35,
+              0.05,
+              0.65,
+              6
+            ],
+            "at": [
+              0,
+              1.75,
+              0
+            ],
+            "tones": [
+              "#5cd2c0",
+              "#43b09f",
+              "#2f8e80"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sacred-aquila-basin",
+      "type": "well",
+      "variant_of": "well",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          4,
+          3
+        ]
+      ],
+      "where": "Placed on the western court terrace as a ceremonial holy water font.",
+      "shape": {
+        "summary": "Square limestone basin well filled with calm, glowing spring water.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.6,
+              0.9,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dcd8cf",
+              "#bebab0",
+              "#9e9a91"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.1,
+              0.7
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#b4f4f7",
+              "#72d5d8",
+              "#3ba2ab"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.35,
+              0.6,
+              0
+            ],
+            "to": [
+              -0.35,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#e07822",
+              "#c05e10",
+              "#9b4507"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.35,
+              0.6,
+              0
+            ],
+            "to": [
+              0.35,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#e07822",
+              "#c05e10",
+              "#9b4507"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.15,
+              0.4,
+              0.05
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#e07822",
+              "#c05e10",
+              "#9b4507"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "shrine-sentinel-aquila",
+      "source": "The noble bald eagle portrait with intense pale teal gaze and bold curved gold beak",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 2.6,
+      "shape": {
+        "summary": "Majestic avian colossus with folded charcoal body, pristine white mantle and neck, sharp icy pupil, and prominent curved golden beak.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.5,
+              0.6,
+              0.08
+            ],
+            "at": [
+              -0.4,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.5,
+              0.6,
+              0.08
+            ],
+            "at": [
+              0.4,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.4,
+              1,
+              1.1,
+              0.15
+            ],
+            "at": [
+              0,
+              0.4,
+              0.05
+            ],
+            "tones": [
+              "#515046",
+              "#35373d",
+              "#262622"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.2,
+              0.7,
+              0.95,
+              0.12
+            ],
+            "at": [
+              0,
+              1.3,
+              0
+            ],
+            "tones": [
+              "#f0ede6",
+              "#dcd8cf",
+              "#bebab0"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.75,
+              0.8,
+              0.1
+            ],
+            "at": [
+              0,
+              1.9,
+              -0.05
+            ],
+            "tones": [
+              "#f0ede6",
+              "#dcd8cf",
+              "#bebab0"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.45
+            ],
+            "outline": [
+              [
+                -0.25,
+                0.35
+              ],
+              [
+                0.25,
+                0.35
+              ],
+              [
+                0.1,
+                0.9
+              ],
+              [
+                -0.1,
+                0.9
+              ]
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.02,
+              0.55,
+              4
+            ],
+            "rot": [
+              55,
+              0,
+              0
+            ],
+            "at": [
+              0,
+              2,
+              0.55
+            ],
+            "tones": [
+              "#ffe27d",
+              "#f6c738",
+              "#d9a416"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.9
+            ],
+            "at": [
+              -0.42,
+              2.18,
+              0.15
+            ],
+            "tones": [
+              "#b4f4f7",
+              "#72d5d8",
+              "#3ba2ab"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.9
+            ],
+            "at": [
+              0.42,
+              2.18,
+              0.15
+            ],
+            "tones": [
+              "#b4f4f7",
+              "#72d5d8",
+              "#3ba2ab"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.95,
+              0.15,
+              0.3
+            ],
+            "rot": [
+              -12,
+              0,
+              0
+            ],
+            "at": [
+              0,
+              2.38,
+              0.2
+            ],
+            "tones": [
+              "#dcd8cf",
+              "#bebab0",
+              "#9e9a91"
+            ]
+          }
+        ]
+      },
+      "pose": "Perched rigidly atop the sanctum dais with folded charcoal wings, holding vigil and staring down the processional causeway.",
+      "cell": [
+        7,
+        2
+      ],
+      "facing": "s",
+      "why": "The guardian entity of the temple, sealed here to receive petitioners at the end of the sacred pool causeway."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVTRRRRRRRRRTVVV",
+      "VVTRRRRFFRRRTVVV",
+      "VVTRRRRRRRRRTVVV",
+      "VVTRRRRRRRRRTVVV",
+      "VVWWWWPPPPWWWWVV",
+      "VVWWWWTPPTWWWWVV",
+      "VVWWWWPPPPWWWWVV",
+      "VVGGGGTPPTGGGGVV",
+      "VVGGGGPPPPGGGGVV",
+      "VVGGGGTPPTGGGGVV",
+      "VVVVVVPPPPVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0012222222221000",
+      "0012222222221000",
+      "0012222222221000",
+      "0012222222221000",
+      "0000001111000000",
+      "0000001111000000",
+      "0000001111000000",
+      "0011111111111100",
+      "0011111111111100",
+      "0011111111111100",
+      "0000001111000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 2,
+      "what": "The shrine sentinel aquila enthroned upon the raised inner sanctuary dais"
+    },
+    "mass": "The main visual weight anchors high in the upper half upon the massive raised stone sanctuary, framed below by two symmetrical reflecting pools and a processional causeway.",
+    "read": "The viewer enters at the near southern margin along a straight chalk stone path between twin brazier posts. Crossing the narrow causeway that bisects the glowing sacred reflecting pool, the eye passes through the feather pylon gate. Beyond the threshold, the view rises up onto the height-2 sanctuary court, terminating directly at the sentinel eagle's golden beak and glowing cyan gaze."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "temple-cypress-cone",
+          "variant": "temple-cypress-cone",
+          "weight": 1
+        }
+      ]
+    },
+    "water_share": 0.125,
+    "plateau_share": 0.35,
+    "void_share": 0.28,
+    "decor_weights": {
+      "moonlit-brazier-post": 0.45,
+      "offering-urn": 0.25,
+      "sacred-aquila-basin": 0.15,
+      "rock": 0.15
+    },
+    "lighting": {
+      "bg": "#1c212a",
+      "ambient": 0.68,
+      "sun": 0.32,
+      "tint": "#72d5d8",
+      "notes": "Cool nocturnal temple light filtered through high mist, casting aquamarine luminescent sheen across still waters and chalk stone."
+    },
+    "rules": [
+      "The approach causeway must run dead straight along the central two columns across the moat pool.",
+      "The feather pylon gate must precisely frame the causeway entry into the raised inner sanctum.",
+      "Reflecting pools flank both sides of the central causeway between rows 5 and 7.",
+      "The shrine sentinel aquila occupies the central focal dais on the elevated plateau facing south."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "stone",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sunken Moon Sanctum of the Aquila, an ancient stone water-temple dedicated to the sky guardian.",
+    "approach": "The pilgrim walks an axial chalk stone causeway straddling twin moonlit reflecting pools before passing through a pair of crested feather pylons.",
+    "creature_doing": "Perched rigidly on the inner sanctum altar in deep silent vigil, fixing arriving visitors with its luminous mint-blue gaze.",
+    "palette_key": "Nocturnal temple cool with chalky white stone, cyan water, and sharp gold accents beneath a deep slate sky.",
+    "terrain": "A formal stone causeway crossing a 24-cell sacred pool moat into an elevated height-2 temple court.",
+    "summary": "A solemn souls-like water shrine where the mighty eagle is venerated as an enthroned stone sentinel overlooking a moonlit reflective pool."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 2,
+    "variantFragment": "READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.",
+    "avoid": [
+      "pipeline/seed/concepts/eagle-1.json"
+    ]
+  }
+}

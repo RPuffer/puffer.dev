@@ -1,0 +1,1267 @@
+{
+  "source": {
+    "art": "pipeline/seed/chimera.png",
+    "width": 1520,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "primeval",
+    "armored",
+    "ancient",
+    "solitary",
+    "stony",
+    "cozy"
+  ],
+  "observations": [
+    {
+      "what": "Chitinous horned head with a massive underbite, jagged mandible, and rows of overlapping carapace plates resembling a crested helm",
+      "box": [
+        15,
+        60,
+        420,
+        620
+      ],
+      "maps_to": "chitinous monster head"
+    },
+    {
+      "what": "Multiple cyclopean slit and spherical eyes embedded in armored sockets across the skull and elongated neck",
+      "box": [
+        170,
+        580,
+        435,
+        820
+      ],
+      "maps_to": "creature eye sockets and neck crests"
+    },
+    {
+      "what": "Segmented ribbed chest plate and heavy abdominal carapace with vertical suture vents and spine ridges",
+      "box": [
+        455,
+        340,
+        755,
+        785
+      ],
+      "maps_to": "monster torso and chest plates"
+    },
+    {
+      "what": "Massive right foreleg heavily armored with quill-like spines and wide talon-tipped claws gripping rock",
+      "box": [
+        505,
+        740,
+        995,
+        990
+      ],
+      "maps_to": "spiked talon foreleg"
+    },
+    {
+      "what": "Stout left forelimb with spiny scales and a broad four-taloned claw planted firmly",
+      "box": [
+        530,
+        80,
+        865,
+        355
+      ],
+      "maps_to": "stout left claw"
+    },
+    {
+      "what": "Segmented spiny tail curling upward behind the left flank of the beast",
+      "box": [
+        405,
+        135,
+        605,
+        310
+      ],
+      "maps_to": "curling armored tail"
+    },
+    {
+      "what": "Vestigial ragged membranous dorsal wing strut folded along the right shoulder",
+      "box": [
+        170,
+        785,
+        520,
+        960
+      ],
+      "maps_to": "shoulder ridge and wing spine"
+    },
+    {
+      "what": "Rough, jagged stony shelf and cracked bedrock under the creature's claws",
+      "box": [
+        725,
+        10,
+        995,
+        995
+      ],
+      "maps_to": "rocky mountain plateau and terrace"
+    },
+    {
+      "what": "Faint pale parchment background suggesting an open misty crag or sky",
+      "box": [
+        0,
+        0,
+        480,
+        985
+      ],
+      "maps_to": "open mountain air and void boundary"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e4e4da",
+        "share": 0.219,
+        "role": "sunlit parchment background"
+      },
+      {
+        "hex": "#d8d5c8",
+        "share": 0.148,
+        "role": "upper bone carapace highlight"
+      },
+      {
+        "hex": "#4d4741",
+        "share": 0.116,
+        "role": "deep shaded rocky clefts"
+      },
+      {
+        "hex": "#89847a",
+        "share": 0.116,
+        "role": "mid-tone scale plates and claw knuckles"
+      },
+      {
+        "hex": "#6c665f",
+        "share": 0.111,
+        "role": "darker armor fissures and shadows"
+      },
+      {
+        "hex": "#a4a095",
+        "share": 0.104,
+        "role": "weathered stone ledge and dorsal ridges"
+      },
+      {
+        "hex": "#bfbbb1",
+        "share": 0.1,
+        "role": "pale underbelly ribs and highlight wash"
+      },
+      {
+        "hex": "#2d251f",
+        "share": 0.086,
+        "role": "darkest line art and deep undercuts"
+      }
+    ],
+    "translation": {
+      "bg": "#2b2a29",
+      "grass": {
+        "top": "#98cc5e",
+        "fringe": "#7cb54b",
+        "fringeDark": "#629437",
+        "speck": "#b8e682"
+      },
+      "sand": {
+        "top": "#f0c132",
+        "lip": "#d89610",
+        "edge": "#e5b01c",
+        "dots": "#f7d86d"
+      },
+      "dirt": {
+        "top": "#e8b868",
+        "patch": "#dba450",
+        "mottle": "#c9903b",
+        "border": "#b87c2c"
+      },
+      "stone": {
+        "top": "#d6d2c4",
+        "pebble": "#ebe8dc",
+        "pebbleShade": "#beb9a8",
+        "rim": "#a8a290"
+      },
+      "cliffUpper": {
+        "left": "#9c8270",
+        "right": "#7e6555",
+        "seam": "#685042"
+      },
+      "cliffLower": {
+        "left": "#876e5d",
+        "right": "#6a5243",
+        "seam": "#543f32",
+        "speck": "#423024"
+      },
+      "water": {
+        "top": "#9be3f2",
+        "bubble": "#d8f8ff",
+        "deep": "#4bbcd4",
+        "fall": [
+          "#5acfe8",
+          "#45bed8",
+          "#33a9c2"
+        ],
+        "foam": "#e6fbff"
+      },
+      "wood": {
+        "light": "#e88028",
+        "mid": "#c96614",
+        "dark": "#a34b07",
+        "shadow": "#7d3600",
+        "end": "#f3c875"
+      },
+      "treeMint": [
+        "#60cf93",
+        "#4ab57d",
+        "#369965"
+      ],
+      "treeLime": [
+        "#bde05a",
+        "#9ec73e",
+        "#7ca429"
+      ],
+      "treeLeaf": [
+        "#7ec74c",
+        "#60aa31",
+        "#4a8a22"
+      ],
+      "treeTeal": [
+        "#2ee0af",
+        "#20c295",
+        "#16a37b",
+        "#0f8261"
+      ],
+      "treeGold": [
+        "#ebb834",
+        "#d19a17",
+        "#b07e0b"
+      ],
+      "trunk": [
+        "#8e5f48",
+        "#704532"
+      ],
+      "rock": [
+        "#e0ddd4",
+        "#cac5b7",
+        "#9e9888",
+        "#787263"
+      ],
+      "wellStone": [
+        "#c7c2b3",
+        "#aba594",
+        "#8c8574"
+      ],
+      "flowerOrange": [
+        "#e88028",
+        "#ebb834"
+      ],
+      "berry": [
+        "#e85870",
+        "#cc3952"
+      ],
+      "bushTeal": [
+        "#7fe6b5",
+        "#5bc995",
+        "#41a678"
+      ],
+      "gold": [
+        "#ebb834",
+        "#d19a17",
+        "#f7d86d"
+      ]
+    },
+    "notes": "The drawing's earthy bone-ivory and stone grays are honored via the stone, rock, and cliff palettes, while toy pack vitality is preserved with sunny yellow-ochre paths, mossy highland greens, and warm clay cliffs."
+  },
+  "motifs": [
+    {
+      "name": "bone-arch-gate",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          6
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "where": "Flanks the climbing approach path as a carved bone-and-horn threshold where the hero enters the upper terrace.",
+      "shape": {
+        "summary": "Paired curving megalithic ribs forming an arched threshold over stone bases.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.4,
+              0.6,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d6d2c4",
+              "#beb9a8",
+              "#a8a290"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.15
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "to": [
+              0.1,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#e0ddd4",
+              "#cac5b7",
+              "#9e9888"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0.1,
+              1.4,
+              0
+            ],
+            "to": [
+              -0.2,
+              2.1,
+              0
+            ],
+            "tones": [
+              "#ebe8dc",
+              "#d6d2c4",
+              "#beb9a8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.5,
+              6
+            ],
+            "at": [
+              -0.2,
+              1.8,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              35
+            ],
+            "tones": [
+              "#ebe8dc",
+              "#d6d2c4",
+              "#beb9a8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "carapace-basking-mound",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          2
+        ]
+      ],
+      "where": "Acts as the smoothed fossilized bedding platform directly under the basking creature at the terrace peak.",
+      "shape": {
+        "summary": "A broad, stepped stone dais layered with polished carapace fragments.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.8,
+              0.25,
+              1.8,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d6d2c4",
+              "#beb9a8",
+              "#a8a290"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.4,
+              0.2,
+              1.4,
+              0.1
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#ebe8dc",
+              "#d6d2c4",
+              "#beb9a8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.3,
+              0.4
+            ],
+            "at": [
+              0.4,
+              0.4,
+              0.3
+            ],
+            "tones": [
+              "#e0ddd4",
+              "#cac5b7",
+              "#9e9888"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.25,
+              0.4
+            ],
+            "at": [
+              -0.4,
+              0.4,
+              -0.3
+            ],
+            "tones": [
+              "#e0ddd4",
+              "#cac5b7",
+              "#9e9888"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "hoard-pot",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "where": "Sits near the basking mound filled with polished gems collected by the creature.",
+      "shape": {
+        "summary": "Terracotta earthenware pot with a bead rim.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.5,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e98b5a",
+              "#d0704a",
+              "#a95236"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "tones": [
+              "#f3c875",
+              "#e98b5a",
+              "#d0704a"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.8
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#2ee0af",
+              "#20c295",
+              "#16a37b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "way-lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          6,
+          10
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "where": "Flanks the switchback path in warm pairs to guide visitors up to the sanctuary.",
+      "shape": {
+        "summary": "Toy timber pole supporting a warm hanging boxed lantern.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.85,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e88028",
+              "#c96614",
+              "#a34b07"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "to": [
+              0.2,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#e88028",
+              "#c96614",
+              "#a34b07"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.2,
+              0.25,
+              0.2,
+              0.05
+            ],
+            "at": [
+              0.2,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#f7d86d",
+              "#ebb834",
+              "#d19a17"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "carapace-spire",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.5,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "where": "Stands around the high plateau perimeter like natural crag formations mimicking the monster's dorsal spikes.",
+      "shape": {
+        "summary": "Stacked sharp chitinous stone wedges tapering into a skyward horn.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.8,
+              0.7,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#9c8270",
+              "#7e6555",
+              "#685042"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.35,
+              0.15,
+              0.9,
+              6
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#d6d2c4",
+              "#beb9a8",
+              "#a8a290"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0.02,
+              0.9,
+              6
+            ],
+            "at": [
+              0.05,
+              1.6,
+              0
+            ],
+            "rot": [
+              5,
+              0,
+              -8
+            ],
+            "tones": [
+              "#ebe8dc",
+              "#d6d2c4",
+              "#beb9a8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "plateau-pine",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          1,
+          3
+        ],
+        [
+          11,
+          2
+        ]
+      ],
+      "where": "Dense alpine conifers ringing the cliffs to frame the den and enclose the home roost.",
+      "shape": {
+        "summary": "Tiered blocky pine tree with warm pine green needles.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              0.6,
+              0.16
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8e5f48",
+              "#704532",
+              "#543f32"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.1
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#60cf93",
+              "#4ab57d",
+              "#369965"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.45,
+              0.75,
+              0.08
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#7ec74c",
+              "#60aa31",
+              "#4a8a22"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.45,
+              0.55,
+              0.08
+            ],
+            "at": [
+              0,
+              1.25,
+              0
+            ],
+            "tones": [
+              "#98cc5e",
+              "#7cb54b",
+              "#629437"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.45,
+              0.35,
+              0.05
+            ],
+            "at": [
+              0,
+              1.65,
+              0
+            ],
+            "tones": [
+              "#bde05a",
+              "#9ec73e",
+              "#7ca429"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "gorgon-chitin-drake",
+      "source": "The multi-eyed, heavily armored draconic beast spanning the entire ink drawing",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.5,
+      "shape": {
+        "summary": "Chunky toy beast built of stacked ivory carapace blocks, a huge jagged crested head, and clawed forelegs.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.1,
+              0.7,
+              0.9,
+              0.15
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#ebe8dc",
+              "#d6d2c4",
+              "#beb9a8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.45,
+              0.3,
+              0.6,
+              6
+            ],
+            "at": [
+              0,
+              0.2,
+              -0.2
+            ],
+            "rot": [
+              15,
+              0,
+              0
+            ],
+            "tones": [
+              "#d6d2c4",
+              "#beb9a8",
+              "#a8a290"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.55,
+              0.85,
+              0.12
+            ],
+            "at": [
+              -0.15,
+              1.1,
+              0.25
+            ],
+            "rot": [
+              10,
+              -15,
+              0
+            ],
+            "tones": [
+              "#ebe8dc",
+              "#d6d2c4",
+              "#beb9a8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.3,
+              0.05,
+              0.6,
+              5
+            ],
+            "at": [
+              -0.15,
+              1.5,
+              0.1
+            ],
+            "rot": [
+              -30,
+              -15,
+              0
+            ],
+            "tones": [
+              "#d6d2c4",
+              "#beb9a8",
+              "#a8a290"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.55,
+              0.22,
+              0.6
+            ],
+            "at": [
+              -0.15,
+              0.9,
+              0.55
+            ],
+            "tones": [
+              "#cac5b7",
+              "#9e9888",
+              "#787263"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              0.6
+            ],
+            "at": [
+              0.15,
+              1.25,
+              0.45
+            ],
+            "tones": [
+              "#ebb834",
+              "#d19a17",
+              "#b07e0b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              0.6
+            ],
+            "at": [
+              0.22,
+              1.35,
+              0.25
+            ],
+            "tones": [
+              "#ebb834",
+              "#d19a17",
+              "#b07e0b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.6,
+              0.35,
+              0.08
+            ],
+            "at": [
+              -0.5,
+              0.05,
+              0.35
+            ],
+            "rot": [
+              0,
+              15,
+              -10
+            ],
+            "tones": [
+              "#cac5b7",
+              "#9e9888",
+              "#787263"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.7,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0.5,
+              0.05,
+              0.4
+            ],
+            "rot": [
+              0,
+              -20,
+              10
+            ],
+            "tones": [
+              "#cac5b7",
+              "#9e9888",
+              "#787263"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.09,
+              0.01,
+              0.25,
+              4
+            ],
+            "at": [
+              0.65,
+              0,
+              0.6
+            ],
+            "rot": [
+              0,
+              -30,
+              0
+            ],
+            "tones": [
+              "#ebe8dc",
+              "#d6d2c4",
+              "#a8a290"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0,
+              0.4,
+              -0.5
+            ],
+            "to": [
+              -0.4,
+              0.9,
+              -0.6
+            ],
+            "tones": [
+              "#cac5b7",
+              "#9e9888",
+              "#787263"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.02,
+              0.35,
+              5
+            ],
+            "at": [
+              -0.4,
+              0.9,
+              -0.6
+            ],
+            "rot": [
+              -45,
+              0,
+              0
+            ],
+            "tones": [
+              "#d6d2c4",
+              "#beb9a8",
+              "#a8a290"
+            ]
+          }
+        ]
+      },
+      "pose": "Basking contentedly upon its warm stone mound, yawning as its extra eyelids blink softly in the mountain sun.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "This formidable apex beast makes its peaceful home on this sunny crag, resting safely above the world."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVRRRRRRRRRRRRVV",
+      "VRRRRTTFFRRRRRVV",
+      "VRRGGTTFFRRRRRVV",
+      "VRRTTGPPPPPTRRVV",
+      "VVRRGGPTTTRRRVVV",
+      "VVVRRPPPPTTRRVVV",
+      "VVVTRPPGTRRRRVVV",
+      "VVVRPPGGTRRRRVVV",
+      "VVVRRPPPPTTRVVVV",
+      "VVVVRRPPPTRVVVVV",
+      "VVVVVRRPPVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0033333333333300",
+      "0333333333333300",
+      "0332233333333300",
+      "0332222222223300",
+      "0022222222222000",
+      "0002222222222000",
+      "0001221122222000",
+      "0001221122222000",
+      "0001111111110000",
+      "0000111111100000",
+      "0000011110000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "gorgon-chitin-drake on its basking mound"
+    },
+    "mass": "Concentrated at the upper-middle plateau where the high tier 3 crag supports the bulky silhouette of the drake.",
+    "read": "The viewer enters at the lower right rim via a winding golden path that doubles back across rising rocky terraces. Warm wooden lanterns and a pair of arched bone pillars frame the ascent, leading directly to the peaceful, towering drake sunning itself on the highest ledge."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.16,
+      "types": [
+        {
+          "type": "plateau-pine",
+          "variant": "1",
+          "weight": 0.6
+        },
+        {
+          "type": "carapace-spire",
+          "variant": "1",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.46,
+    "void_share": 0.38,
+    "decor_weights": {
+      "rock": 0.4,
+      "rock-big": 0.25,
+      "hoard-pot": 0.15,
+      "flowerOrange": 0.2
+    },
+    "lighting": {
+      "bg": "#2b2a29",
+      "ambient": 0.88,
+      "sun": 0.18,
+      "tint": "#fff4d9",
+      "notes": "Gentle midday alpine sun washing across stone shelves and warming the sleepy drake."
+    },
+    "rules": [
+      "The path begins on the near rim at column 7 and switchbacks up two terraced steps.",
+      "The bone-arch-gate motifs must straddle the path at the entrance to the height 2 terrace.",
+      "The focal basking mound and creature occupy the center of the highest height 3 tier.",
+      "Lanterns stand in pairs along the path corners to emphasize the switchbacks."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Crag of the Sunbasking Drake, an elevated mountain roost carved from ancestral fossil bone.",
+    "approach": "The traveler climbs a winding switchback trail of warm sand, passing between ribbed bone arches before reaching the high nest.",
+    "creature_doing": "Coiled lazily atop its favorite sun-warmed stone slab, drowsily blinking its myriad eyes at the passing breeze.",
+    "palette_key": "Sunlit bone stone and golden sand warmed by soft midday light, backed by deep crag slate.",
+    "terrain": "Tiered terraces climbing from lower stepping meadows up to an imposing level 3 rock plateau.",
+    "summary": "A peaceful high-altitude haven where an intimidating armored beast lives a gentle, cozy life in the warm mountain sun."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

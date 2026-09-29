@@ -1,0 +1,1296 @@
+{
+  "source": {
+    "art": "pipeline/seed/cat.png",
+    "width": 1587,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "vibrant",
+    "playful",
+    "sunlit",
+    "whimsical",
+    "cozy",
+    "radiant"
+  ],
+  "observations": [
+    {
+      "what": "Vibrant polychromatic cat head and upper torso painted with expressive impasto strokes on a light canvas background",
+      "box": [
+        48,
+        11,
+        994,
+        888
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Right ear of the cat, tall triangular wedge painted in bright magenta pink and orange hues",
+      "box": [
+        48,
+        545,
+        345,
+        856
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Left ear of the cat, tipped with vivid ultramarine violet and vivid deep orange underside",
+      "box": [
+        133,
+        5,
+        357,
+        241
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Bright golden-yellow round cat eyes with dark pupils and strong deep purple-black eyeliner rims",
+      "box": [
+        328,
+        502,
+        422,
+        638
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Left cat eye glowing in bright cadmium yellow surrounded by indigo and navy patches",
+      "box": [
+        342,
+        219,
+        434,
+        345
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Open smiling mouth showing lavender tongue, dark interior, and two distinct sharp white lower fangs",
+      "box": [
+        564,
+        335,
+        668,
+        517
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Soft lilac and lavender painted nose pad with deep indigo nostrils",
+      "box": [
+        454,
+        345,
+        549,
+        483
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Vivid glowing orange and marigold yellow chest fur forming a sweeping bright warm collar",
+      "box": [
+        538,
+        155,
+        715,
+        755
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Magenta and rose-pink patch extending down the cat's neck and left shoulder flank",
+      "box": [
+        645,
+        153,
+        994,
+        532
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Warm golden amber sunlit fur dominating the right side of the chest and flank",
+      "box": [
+        623,
+        524,
+        990,
+        894
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Deep royal blue and violet brushwork crowning the forehead and wrapping the outer cheeks",
+      "box": [
+        194,
+        185,
+        312,
+        608
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Emerald and teal green accent strokes under the chin and along the collar boundary",
+      "box": [
+        642,
+        381,
+        742,
+        616
+      ],
+      "maps_to": "G"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e8dfce",
+        "share": 0.233,
+        "role": "canvas background"
+      },
+      {
+        "hex": "#d5cbbd",
+        "share": 0.165,
+        "role": "canvas rim shading"
+      },
+      {
+        "hex": "#df9e0c",
+        "share": 0.131,
+        "role": "golden yellow forehead and eyes"
+      },
+      {
+        "hex": "#363a56",
+        "share": 0.124,
+        "role": "deep violet navy brow and cheek strokes"
+      },
+      {
+        "hex": "#cf610d",
+        "share": 0.099,
+        "role": "rich vermilion orange chin and chest fur"
+      },
+      {
+        "hex": "#9c3541",
+        "share": 0.088,
+        "role": "crimson magenta ear interior and shadow"
+      },
+      {
+        "hex": "#c6b19c",
+        "share": 0.082,
+        "role": "neutral lavender-grey nose and muzzle"
+      },
+      {
+        "hex": "#c4616d",
+        "share": 0.077,
+        "role": "rose pink cheek and neck patch"
+      }
+    ],
+    "translation": {
+      "grass": {
+        "top": "#b3e86c",
+        "fringe": "#94d35e",
+        "fringeDark": "#75af45",
+        "speck": "#d1f589"
+      },
+      "sand": {
+        "top": "#f7ca2b",
+        "lip": "#e29700",
+        "edge": "#f4be0a",
+        "dots": "#fce068"
+      },
+      "dirt": {
+        "top": "#f7b538",
+        "patch": "#e09119",
+        "mottle": "#c97808",
+        "border": "#f4a21d"
+      },
+      "stone": {
+        "top": "#eed5ab",
+        "pebble": "#fff3d4",
+        "pebbleShade": "#d8be93",
+        "rim": "#c9ae82"
+      },
+      "cliffUpper": {
+        "left": "#c76d49",
+        "right": "#9e4c30",
+        "seam": "#833820"
+      },
+      "cliffLower": {
+        "left": "#a85038",
+        "right": "#7f3521",
+        "seam": "#652312",
+        "speck": "#54190c"
+      },
+      "water": {
+        "top": "#9beeff",
+        "bubble": "#d8f8ff",
+        "deep": "#19caff",
+        "fall": [
+          "#1dd8ff",
+          "#08c3f2",
+          "#00ace0"
+        ],
+        "foam": "#e6faff"
+      },
+      "wood": {
+        "light": "#ff8726",
+        "mid": "#dc6f16",
+        "dark": "#b74b0d",
+        "shadow": "#973c09",
+        "end": "#f8dc8e"
+      },
+      "treeMint": [
+        "#70e8a7",
+        "#58cb8d",
+        "#3fa86e"
+      ],
+      "treeLime": [
+        "#c8f27e",
+        "#93e558",
+        "#6dbb36"
+      ],
+      "treeLeaf": [
+        "#8fe858",
+        "#64cf44",
+        "#4a9f2e"
+      ],
+      "treeTeal": [
+        "#14f4ba",
+        "#0cd69e",
+        "#08b282",
+        "#048f67"
+      ],
+      "treeGold": [
+        "#fed146",
+        "#f5ab14",
+        "#d48204"
+      ],
+      "trunk": [
+        "#b45c43",
+        "#8c3f2b"
+      ],
+      "rock": [
+        "#eae5dc",
+        "#d4cec4",
+        "#b2aba0",
+        "#8f877d"
+      ],
+      "wellStone": [
+        "#e5d3b3",
+        "#cca788",
+        "#ad8567"
+      ],
+      "flowerOrange": [
+        "#ff6f1e",
+        "#fca820"
+      ],
+      "berry": [
+        "#ff5080",
+        "#e03264"
+      ],
+      "bushTeal": [
+        "#8afcd2",
+        "#5be0ad",
+        "#3bb98a"
+      ],
+      "gold": [
+        "#f9ca24",
+        "#e09b0b",
+        "#ffe373"
+      ],
+      "bg": "#2d243b"
+    },
+    "notes": "The pack's saturated toy palette is brightened with radiant golden amber, warm sunlit marigold sand, and bold magenta and turquoise accents extracted directly from the calico cat's vibrant impasto brushstrokes, set against a dark plum-violet backdrop."
+  },
+  "motifs": [
+    {
+      "name": "sunlit-gate-threshold",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "Twin ceremonial wooden archway posts straddling the winding approach trail just before the cat's high sun terrace.",
+      "shape": {
+        "summary": "Chunky toy wooden gateway pillars carved in warm timber tones with bright golden spherical capstones.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.4,
+              0.3,
+              0.4
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#eed5ab",
+              "#d8be93",
+              "#c9ae82"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.26,
+              1.7,
+              0.26,
+              0.06
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#ff8726",
+              "#dc6f16",
+              "#b74b0d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.15,
+              0.32,
+              0.05
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "tones": [
+              "#f8dc8e",
+              "#dc6f16",
+              "#973c09"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.2,
+              1
+            ],
+            "at": [
+              0,
+              2.05,
+              0
+            ],
+            "tones": [
+              "#ffe373",
+              "#f9ca24",
+              "#e09b0b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sun-cushion-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.45,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          8,
+          3
+        ]
+      ],
+      "where": "Directly under the focal cat on the pinnacle plateau terrace, providing a plush sunny lounge perch.",
+      "shape": {
+        "summary": "Stacked rounded octagonal sun-cushion dais in warm rose and gold silk tones.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.92,
+              0.2,
+              0.92,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff5080",
+              "#e03264",
+              "#a81f44"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.78,
+              0.15,
+              0.78,
+              0.1
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#fed146",
+              "#f5ab14",
+              "#d48204"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.8
+            ],
+            "at": [
+              0.36,
+              0.08,
+              0.36
+            ],
+            "tones": [
+              "#ffe373",
+              "#f9ca24",
+              "#e09b0b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.8
+            ],
+            "at": [
+              -0.36,
+              0.08,
+              0.36
+            ],
+            "tones": [
+              "#ffe373",
+              "#f9ca24",
+              "#e09b0b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "catnip-pot",
+      "type": "new",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          9,
+          2
+        ]
+      ],
+      "where": "Beside the cat's dais on the upper sunny deck, filled with leafy mint herbs and aromatic catnip.",
+      "shape": {
+        "summary": "Chunky terracotta planter overflowing with mint-green herb balls.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.4,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8726",
+              "#dc6f16",
+              "#b74b0d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.36,
+              0.12,
+              8
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#f8dc8e",
+              "#dc6f16",
+              "#973c09"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              1
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#70e8a7",
+              "#58cb8d",
+              "#3fa86e"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.16,
+              1
+            ],
+            "at": [
+              0.14,
+              0.5,
+              0.1
+            ],
+            "tones": [
+              "#8afcd2",
+              "#5be0ad",
+              "#3bb98a"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "amber-lantern-post",
+      "type": "new",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          9,
+          10
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "where": "Lining the switchback turns of the winding path as it ascends toward the high perch.",
+      "shape": {
+        "summary": "Toy wood post suspending a bright yellow glowing cube lantern.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.14,
+              1.1,
+              0.14
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8726",
+              "#dc6f16",
+              "#b74b0d"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              1.05,
+              0
+            ],
+            "to": [
+              0.25,
+              1.05,
+              0
+            ],
+            "tones": [
+              "#f8dc8e",
+              "#dc6f16",
+              "#973c09"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.22,
+              0.26,
+              0.22,
+              0.05
+            ],
+            "at": [
+              0.25,
+              0.75,
+              0
+            ],
+            "tones": [
+              "#ffe373",
+              "#f9ca24",
+              "#e09b0b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0,
+              0.1,
+              4
+            ],
+            "at": [
+              0.25,
+              1.01,
+              0
+            ],
+            "tones": [
+              "#ff8726",
+              "#dc6f16",
+              "#b74b0d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sun-gold-tree",
+      "type": "tree-orange",
+      "variant_of": "tree-orange",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.3,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          1
+        ],
+        [
+          12,
+          1
+        ]
+      ],
+      "where": "Forming high sunny crown canopies along the back cliffs echoing the cat's brilliant yellow fur.",
+      "shape": {
+        "summary": "Round stylized autumn tree with tiered golden amber foliage cubes on a sturdy reddish trunk.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              1.1,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#b45c43",
+              "#8c3f2b",
+              "#652312"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.9,
+              0.7,
+              0.9,
+              0.15
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#fed146",
+              "#f5ab14",
+              "#d48204"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.6,
+              0.7,
+              0.12
+            ],
+            "at": [
+              0.1,
+              1.35,
+              -0.05
+            ],
+            "tones": [
+              "#fed146",
+              "#f5ab14",
+              "#d48204"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.45,
+              0.45,
+              0.08
+            ],
+            "at": [
+              -0.1,
+              1.8,
+              0.05
+            ],
+            "tones": [
+              "#ffe373",
+              "#fed146",
+              "#f5ab14"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gem-stash",
+      "type": "gem",
+      "variant_of": "gem",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          4
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "where": "Sparkling play treasures hoarded by the cat on the corners of the top terrace.",
+      "shape": {
+        "summary": "Cluster of vibrant cut crystal gems in emerald teal and hot magenta.",
+        "parts": [
+          {
+            "prim": "prism",
+            "dims": [
+              0.45
+            ],
+            "outline": [
+              [
+                -0.15,
+                -0.15
+              ],
+              [
+                0.15,
+                -0.15
+              ],
+              [
+                0.2,
+                0.15
+              ],
+              [
+                -0.2,
+                0.15
+              ]
+            ],
+            "at": [
+              -0.1,
+              0,
+              0
+            ],
+            "tones": [
+              "#8afcd2",
+              "#0cd69e",
+              "#048f67"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.55
+            ],
+            "outline": [
+              [
+                -0.12,
+                -0.12
+              ],
+              [
+                0.12,
+                -0.12
+              ],
+              [
+                0.18,
+                0.12
+              ],
+              [
+                -0.18,
+                0.12
+              ]
+            ],
+            "at": [
+              0.15,
+              0,
+              -0.08
+            ],
+            "tones": [
+              "#ff5080",
+              "#e03264",
+              "#a81f44"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "chromatic-calico-cat",
+      "source": "The brightly painted multicolored calico cat head and chest in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "A chunky low-poly toy calico cat seated happily upright, with pointed ears, open smiling jaw, and vibrant patchwork body blocks.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.74,
+              0.8,
+              0.66,
+              0.14
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#fed146",
+              "#f5ab14",
+              "#d48204"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.75,
+              0.4,
+              0.1
+            ],
+            "at": [
+              -0.2,
+              0.32,
+              0.15
+            ],
+            "tones": [
+              "#ff5080",
+              "#e03264",
+              "#a81f44"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.62,
+              0.64,
+              0.12
+            ],
+            "at": [
+              0,
+              1.05,
+              0.02
+            ],
+            "tones": [
+              "#fed146",
+              "#f5ab14",
+              "#363a56"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.42,
+              0.26,
+              0.28,
+              0.08
+            ],
+            "at": [
+              0,
+              1.08,
+              0.34
+            ],
+            "tones": [
+              "#eed5ab",
+              "#d8be93",
+              "#c9ae82"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.24,
+              0.14,
+              0.16
+            ],
+            "at": [
+              0,
+              0.98,
+              0.36
+            ],
+            "tones": [
+              "#2d243b",
+              "#201828",
+              "#140f1a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0,
+              0.08,
+              4
+            ],
+            "at": [
+              -0.08,
+              0.99,
+              0.42
+            ],
+            "tones": [
+              "#ffffff",
+              "#eae5dc",
+              "#d4cec4"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0,
+              0.08,
+              4
+            ],
+            "at": [
+              0.08,
+              0.99,
+              0.42
+            ],
+            "tones": [
+              "#ffffff",
+              "#eae5dc",
+              "#d4cec4"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              0.9
+            ],
+            "at": [
+              -0.18,
+              1.3,
+              0.32
+            ],
+            "tones": [
+              "#ffe373",
+              "#f9ca24",
+              "#e09b0b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              0.9
+            ],
+            "at": [
+              0.18,
+              1.3,
+              0.32
+            ],
+            "tones": [
+              "#ffe373",
+              "#f9ca24",
+              "#e09b0b"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.38
+            ],
+            "outline": [
+              [
+                -0.12,
+                0
+              ],
+              [
+                0.12,
+                0
+              ],
+              [
+                0,
+                0.22
+              ]
+            ],
+            "at": [
+              -0.22,
+              1.64,
+              0
+            ],
+            "rot": [
+              -12,
+              0,
+              -15
+            ],
+            "tones": [
+              "#363a56",
+              "#ff8726",
+              "#9e4c30"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.42
+            ],
+            "outline": [
+              [
+                -0.12,
+                0
+              ],
+              [
+                0.12,
+                0
+              ],
+              [
+                0,
+                0.24
+              ]
+            ],
+            "at": [
+              0.22,
+              1.64,
+              0
+            ],
+            "rot": [
+              -10,
+              0,
+              18
+            ],
+            "tones": [
+              "#ff5080",
+              "#e03264",
+              "#a81f44"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.09,
+              0.7,
+              6
+            ],
+            "at": [
+              0.3,
+              0.2,
+              -0.28
+            ],
+            "rot": [
+              40,
+              25,
+              0
+            ],
+            "tones": [
+              "#ff8726",
+              "#dc6f16",
+              "#b74b0d"
+            ]
+          }
+        ]
+      },
+      "pose": "Sitting peacefully unguarded on its high sun cushion dais, mouth open in a contented meow and tail curved up.",
+      "cell": [
+        7,
+        3
+      ],
+      "facing": "s",
+      "why": "This is the beloved chromatic cat lounging in its sun-drenched terraced home sanctuary."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVTTTVVVVVTTVVV",
+      "VVTTRRRRRRRTVVVV",
+      "VVVRRRRFRRRGTVVV",
+      "VVVTRRRRRRGGTVVV",
+      "VVVVTGGGGGGGTVVV",
+      "VVVVVTGPGPVVVVVV",
+      "VVVVVPPGPTVVVVVV",
+      "VVVVTGPVVVVVVVVV",
+      "VVVVTGGPPPTVVVVV",
+      "VVVVVTGGPPTVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0001110000011000",
+      "0011333333310000",
+      "0002333333311000",
+      "0001333333211000",
+      "0000122222211000",
+      "0000012222000000",
+      "0000011111000000",
+      "0000111000000000",
+      "0000111111100000",
+      "0000011111100000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 3,
+      "what": "The vibrant chromatic calico cat sitting atop its plush dais on the highest sunny plateau terrace."
+    },
+    "mass": "The main visual weight forms an elevated sunlit citadel in the upper-centre of the island, sloping down through stepped terraces into an approach path entering from the bottom-right.",
+    "read": "The eye enters along the near path at the lower-right rim, switchbacking across stepping stones and ascending terraced stairs flanked by amber lanterns. It passes through the sunlit gateway posts at the mid-point threshold before discovering the vibrant multicolored cat resting proudly in its high day den."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.18,
+      "types": [
+        {
+          "type": "sun-gold-tree",
+          "variant": "tree-orange",
+          "weight": 0.6
+        },
+        {
+          "type": "tree-round",
+          "variant": "treeMint",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.44,
+    "decor_weights": {
+      "amber-lantern-post": 0.3,
+      "flowerOrange": 0.25,
+      "catnip-pot": 0.15,
+      "gem-stash": 0.15,
+      "rock": 0.15
+    },
+    "lighting": {
+      "bg": "#2d243b",
+      "ambient": 0.9,
+      "sun": 0.15,
+      "tint": "#fff4d9",
+      "notes": "Generous warm noon sunlight illuminates the golden sand and grassy terraces, contrasting crisply with the soft plum void."
+    },
+    "rules": [
+      "Wind the approach path upwards across tiered height levels 1, 2, and 3 with sharp switchbacks.",
+      "Flank path turns with warm amber lantern posts.",
+      "Place the twin sunlit gate posts exactly where the path ascends into height 3.",
+      "Reserve height 3 for the focal cat and its cozy lounging accessories."
+    ],
+    "decor_density": 0.11,
+    "surfaces": {
+      "ground": "grass",
+      "raised": "sand",
+      "path": "stone",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Sun-Perch Sanctuary, an elevated garden terrace den perched atop steep golden cliffs.",
+    "approach": "The traveler winds up a switchback stone stair between glowing amber lantern posts and passes through twin timber gateposts onto the top sun deck.",
+    "creature_doing": "Lounging happily on a plush silk cushion, basking in the warm midday sun and purring contentedly.",
+    "palette_key": "Warm sunny amber and marigold sands accented by magenta and turquoise foliage bathed in gentle pale-gold midday light.",
+    "terrain": "Tiered terraces climbing to a broad height-3 plateau crowned with trees and sand paving.",
+    "summary": "A cheerful home terrace where a radiant calico cat rules in peaceful, sunlit luxury."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 1,
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+  }
+}

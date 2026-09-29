@@ -1,0 +1,1395 @@
+{
+  "source": {
+    "art": "pipeline/seed/dragon.png",
+    "width": 2048,
+    "height": 1533,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "ferocious",
+    "territorial",
+    "windswept",
+    "perilous",
+    "sun-baked",
+    "dramatic"
+  ],
+  "observations": [
+    {
+      "what": "Wide open ferocious dragon jaws lined with sharp jagged conical teeth and a prominent tongue",
+      "box": [
+        308,
+        228,
+        595,
+        403
+      ],
+      "maps_to": "creature_roaring_maw"
+    },
+    {
+      "what": "Radiating spiked quilled collar and frill framing the lower throat and neck",
+      "box": [
+        297,
+        362,
+        650,
+        582
+      ],
+      "maps_to": "creature_neck_frill"
+    },
+    {
+      "what": "Raised armored dorsal ridge running along the curved back with circular node scales",
+      "box": [
+        17,
+        519,
+        366,
+        826
+      ],
+      "maps_to": "creature_spined_crest"
+    },
+    {
+      "what": "Left forward forelimb with four sharp curved predatory talons clutching outward",
+      "box": [
+        418,
+        137,
+        582,
+        276
+      ],
+      "maps_to": "creature_grasping_talon"
+    },
+    {
+      "what": "Left wing elbow strut with folded bat-like wing membrane finger bones",
+      "box": [
+        245,
+        83,
+        565,
+        203
+      ],
+      "maps_to": "creature_wing_claw"
+    },
+    {
+      "what": "Large splayed three-clawed rear foot bracing down and gripping",
+      "box": [
+        478,
+        545,
+        822,
+        853
+      ],
+      "maps_to": "creature_braced_hindfoot"
+    },
+    {
+      "what": "Serpentine muscular tail sweeping downward and curving back up into a whip-like loop",
+      "box": [
+        662,
+        75,
+        996,
+        409
+      ],
+      "maps_to": "creature_coiled_tail"
+    },
+    {
+      "what": "Pointed backward-swept horn or ear crown sitting above a glowing white pupil-less eye",
+      "box": [
+        108,
+        439,
+        335,
+        560
+      ],
+      "maps_to": "creature_head_horn"
+    },
+    {
+      "what": "Diamond crosshatched scale patterning covering the serpentine upper torso",
+      "box": [
+        80,
+        552,
+        337,
+        792
+      ],
+      "maps_to": "creature_scale_torso"
+    },
+    {
+      "what": "Faint dynamic graphite gesture arcs swirling across empty paper indicating rushing air or motion",
+      "box": [
+        59,
+        132,
+        262,
+        477
+      ],
+      "maps_to": "wind_motion_canyon"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ededed",
+        "share": 0.252,
+        "role": "parchment backdrop and sunlight highlight"
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.195,
+        "role": "light graphite wash on underbelly and wing"
+      },
+      {
+        "hex": "#f3f3f3",
+        "share": 0.176,
+        "role": "unshaded white eye and high tooth rim"
+      },
+      {
+        "hex": "#e5e5e5",
+        "share": 0.155,
+        "role": "soft pencil shading across wing struts"
+      },
+      {
+        "hex": "#303030",
+        "share": 0.072,
+        "role": "deep graphite black in roaring gullet and scales"
+      },
+      {
+        "hex": "#5f5f5f",
+        "share": 0.057,
+        "role": "mid-tone hatching on neck collar and horns"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.047,
+        "role": "faint contour strokes and tail gesture lines"
+      },
+      {
+        "hex": "#8b8b8b",
+        "share": 0.046,
+        "role": "scale beveling and flank spine tones"
+      }
+    ],
+    "translation": {
+      "bg": "#2e2129",
+      "grass": {
+        "top": "#82b84c",
+        "fringe": "#669c3a",
+        "fringeDark": "#4d7829",
+        "speck": "#a4d66b"
+      },
+      "sand": {
+        "top": "#ffc400",
+        "lip": "#e69600",
+        "edge": "#f0a600",
+        "dots": "#ffd560"
+      },
+      "dirt": {
+        "top": "#d4864c",
+        "patch": "#e0955b",
+        "mottle": "#b86a34",
+        "border": "#9e5525"
+      },
+      "stone": {
+        "top": "#c2a98f",
+        "pebble": "#d9c5b0",
+        "pebbleShade": "#a89078",
+        "rim": "#8f7660"
+      },
+      "cliffUpper": {
+        "left": "#a8644e",
+        "right": "#874d3c",
+        "seam": "#6e3b2e"
+      },
+      "cliffLower": {
+        "left": "#945440",
+        "right": "#753e2f",
+        "seam": "#5d2f23",
+        "speck": "#4a241b"
+      },
+      "water": {
+        "top": "#62d6eb",
+        "bubble": "#b4f4ff",
+        "deep": "#19a3c7",
+        "fall": [
+          "#28badb",
+          "#1ba6c7",
+          "#1291b0"
+        ],
+        "foam": "#dcf9ff"
+      },
+      "wood": {
+        "light": "#e06c19",
+        "mid": "#be540e",
+        "dark": "#9c3f07",
+        "shadow": "#7d3003",
+        "end": "#f3ba63"
+      },
+      "treeMint": [
+        "#4eb882",
+        "#3d9669",
+        "#2c7550"
+      ],
+      "treeLime": [
+        "#a4d66b",
+        "#82b84c",
+        "#669c3a"
+      ],
+      "treeLeaf": [
+        "#75b842",
+        "#5c9c2e",
+        "#457d1f"
+      ],
+      "treeTeal": [
+        "#26c9a3",
+        "#1aa886",
+        "#118a6d",
+        "#0b6b54"
+      ],
+      "treeGold": [
+        "#f4c41e",
+        "#d89a0f",
+        "#b57a08"
+      ],
+      "trunk": [
+        "#8c4d3b",
+        "#70392b"
+      ],
+      "rock": [
+        "#d5cbbe",
+        "#baaea0",
+        "#968a7d",
+        "#73685c"
+      ],
+      "wellStone": [
+        "#baa38b",
+        "#9c846e",
+        "#7d6753"
+      ],
+      "flowerOrange": [
+        "#ff6a00",
+        "#e05500"
+      ],
+      "berry": [
+        "#f04863",
+        "#c9324a"
+      ],
+      "bushTeal": [
+        "#4ed6b2",
+        "#37b392",
+        "#239174"
+      ],
+      "gold": [
+        "#ffc82e",
+        "#e5a810",
+        "#ffe27a"
+      ]
+    },
+    "notes": "Translated into a high-contrast sunbaked canyon encounter during golden hour, with warm terracotta cliffs, sunlit golden sand pathways, and burnt-ember rock highlights that echo the dark graphite dragon's intensity.",
+    "clamped": [
+      "sand.top #f1b900->#ffc400",
+      "sand.lip #d88d00->#e69600",
+      "sand.edge #e29c00->#f0a600",
+      "sand.dots #ffd152->#ffd560"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "fang_totem_threshold",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          7
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "A pair of towering jagged stone totem obelisks carved like rearing dragon fangs that straddle the diagonal path midway into the arena.",
+      "shape": {
+        "summary": "Steep stepped stone pillar topped with an angled tooth blade.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.4,
+              0.7
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c2a98f",
+              "#baaea0",
+              "#968a7d"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.55,
+              0.8,
+              0.55
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "tones": [
+              "#c2a98f",
+              "#baaea0",
+              "#968a7d"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.6
+            ],
+            "at": [
+              0,
+              1.2,
+              0
+            ],
+            "outline": [
+              [
+                -0.2,
+                -0.2
+              ],
+              [
+                0.2,
+                -0.2
+              ],
+              [
+                0.1,
+                0.2
+              ],
+              [
+                -0.1,
+                0.2
+              ]
+            ],
+            "tones": [
+              "#d5cbbe",
+              "#baaea0",
+              "#73685c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.25,
+              0.02,
+              0.6,
+              6
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "rot": [
+              12,
+              0,
+              0
+            ],
+            "tones": [
+              "#d9c5b0",
+              "#c2a98f",
+              "#8f7660"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cleft_rostrum_dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "where": "The fractured basalt roosting platform directly under the dragon's claws at the center of the canyon clearing.",
+      "shape": {
+        "summary": "Wide faceted cracked rock plinth with layered terraced slabs.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.35,
+              0.95,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c2a98f",
+              "#baaea0",
+              "#73685c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.35,
+              0.8,
+              0.06
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#d5cbbe",
+              "#baaea0",
+              "#8f7660"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.2
+            ],
+            "at": [
+              0.05,
+              0.7,
+              0
+            ],
+            "outline": [
+              [
+                -0.3,
+                -0.3
+              ],
+              [
+                0.35,
+                -0.25
+              ],
+              [
+                0.25,
+                0.35
+              ],
+              [
+                -0.35,
+                0.2
+              ]
+            ],
+            "tones": [
+              "#d9c5b0",
+              "#c2a98f",
+              "#968a7d"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "torch",
+      "type": "torch",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          11,
+          8
+        ],
+        [
+          10,
+          9
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "where": "Paired along the diagonal sand path to frame the approach run and illuminate the boss encounter.",
+      "shape": {
+        "summary": "Wooden stake post with an iron brazier basket holding vibrant flame wedges.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.8,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#be540e",
+              "#9c3f07",
+              "#7d3003"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.26,
+              0.15,
+              0.26
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#8f7660",
+              "#73685c",
+              "#5d2f23"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#ffc82e",
+              "#e06c19",
+              "#be540e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sharp_spine_rock",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          3
+        ],
+        [
+          11,
+          4
+        ],
+        [
+          12,
+          7
+        ]
+      ],
+      "where": "Angular serrated standing boulders jutting up along the arena edge echoing the dragon's back spines.",
+      "shape": {
+        "summary": "Leaning shard of layered sandstone tapering to a sharp tilted point.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.5,
+              0.5,
+              0.05
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c2a98f",
+              "#baaea0",
+              "#73685c"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.9
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "outline": [
+              [
+                -0.25,
+                -0.15
+              ],
+              [
+                0.25,
+                -0.1
+              ],
+              [
+                0.05,
+                0.2
+              ],
+              [
+                -0.15,
+                0.15
+              ]
+            ],
+            "rot": [
+              8,
+              15,
+              -5
+            ],
+            "tones": [
+              "#d5cbbe",
+              "#baaea0",
+              "#8f7660"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "pot",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          5
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "where": "Cracked terracotta urns scattered near the roost dais containing old offerings and dust.",
+      "shape": {
+        "summary": "Chunky round terracotta pot with rolled rim.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e06c19",
+              "#be540e",
+              "#9c3f07"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f3ba63",
+              "#e06c19",
+              "#be540e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rock-big",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          1,
+          5
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "where": "Massive weathered boundary crags anchoring the corners and sides of the arena floor.",
+      "shape": {
+        "summary": "Large rounded stone monolith with carved planar facets.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.6,
+              0.8,
+              0.1
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c2a98f",
+              "#baaea0",
+              "#73685c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.4,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0.05,
+              0.55,
+              -0.05
+            ],
+            "tones": [
+              "#d5cbbe",
+              "#baaea0",
+              "#8f7660"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bush",
+      "type": "bush",
+      "variant_of": "bush",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          2
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          12,
+          5
+        ]
+      ],
+      "where": "Dry hardy desert brush clinging to cliff fissures at the back of the arena.",
+      "shape": {
+        "summary": "Low cluster of rounded shrub foliage spheres.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.32,
+              0.8
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#82b84c",
+              "#669c3a",
+              "#4d7829"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.24,
+              0.8
+            ],
+            "at": [
+              0.2,
+              0.2,
+              0.1
+            ],
+            "tones": [
+              "#a4d66b",
+              "#82b84c",
+              "#4d7829"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.8
+            ],
+            "at": [
+              -0.18,
+              0.18,
+              -0.1
+            ],
+            "tones": [
+              "#669c3a",
+              "#4d7829",
+              "#37b392"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "Bellowing Spine Wyvern",
+      "source": "The roaring horned dragon with flared neck frills, grasping talons, and coiled tail in Image 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "shape": {
+        "summary": "Fierce toy dragon standing tall on hind legs with wide-open jaw, flared collar quills, winged forelimbs, and curled tail.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.7,
+              0.5,
+              0.1
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "rot": [
+              -10,
+              0,
+              0
+            ],
+            "tones": [
+              "#73685c",
+              "#5f5f5f",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.25,
+              0.6,
+              0.3
+            ],
+            "at": [
+              0,
+              0.9,
+              -0.1
+            ],
+            "rot": [
+              15,
+              0,
+              0
+            ],
+            "tones": [
+              "#8b8b8b",
+              "#5f5f5f",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.35,
+              0.42,
+              0.06
+            ],
+            "at": [
+              0,
+              1.45,
+              -0.15
+            ],
+            "rot": [
+              5,
+              -10,
+              0
+            ],
+            "tones": [
+              "#73685c",
+              "#5f5f5f",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.28
+            ],
+            "at": [
+              0,
+              1.6,
+              -0.32
+            ],
+            "outline": [
+              [
+                -0.18,
+                -0.15
+              ],
+              [
+                0.18,
+                -0.15
+              ],
+              [
+                0.12,
+                0.15
+              ],
+              [
+                -0.12,
+                0.15
+              ]
+            ],
+            "tones": [
+              "#ededed",
+              "#b3b3b3",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.22
+            ],
+            "at": [
+              0,
+              1.42,
+              -0.34
+            ],
+            "outline": [
+              [
+                -0.14,
+                -0.12
+              ],
+              [
+                0.14,
+                -0.12
+              ],
+              [
+                0.08,
+                0.12
+              ],
+              [
+                -0.08,
+                0.12
+              ]
+            ],
+            "rot": [
+              25,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8d8d8",
+              "#8b8b8b",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0,
+              0.18,
+              5
+            ],
+            "at": [
+              0,
+              1.47,
+              -0.28
+            ],
+            "tones": [
+              "#f04863",
+              "#c9324a",
+              "#9c3f07"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0.02,
+              0.4,
+              6
+            ],
+            "at": [
+              -0.15,
+              1.72,
+              -0.05
+            ],
+            "rot": [
+              -25,
+              15,
+              -20
+            ],
+            "tones": [
+              "#8b8b8b",
+              "#5f5f5f",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0.02,
+              0.4,
+              6
+            ],
+            "at": [
+              0.15,
+              1.72,
+              -0.05
+            ],
+            "rot": [
+              -25,
+              -15,
+              20
+            ],
+            "tones": [
+              "#8b8b8b",
+              "#5f5f5f",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.45
+            ],
+            "at": [
+              0,
+              1.05,
+              -0.05
+            ],
+            "outline": [
+              [
+                -0.35,
+                -0.05
+              ],
+              [
+                0.35,
+                -0.05
+              ],
+              [
+                0.2,
+                0.1
+              ],
+              [
+                -0.2,
+                0.1
+              ]
+            ],
+            "rot": [
+              20,
+              0,
+              0
+            ],
+            "tones": [
+              "#b3b3b3",
+              "#8b8b8b",
+              "#5f5f5f"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.18,
+              0.9,
+              -0.1
+            ],
+            "to": [
+              -0.42,
+              0.45,
+              -0.28
+            ],
+            "tones": [
+              "#73685c",
+              "#5f5f5f",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0.18,
+              0.9,
+              -0.1
+            ],
+            "to": [
+              0.38,
+              0.45,
+              -0.25
+            ],
+            "tones": [
+              "#73685c",
+              "#5f5f5f",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.04,
+              0.4,
+              6
+            ],
+            "at": [
+              -0.16,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#5f5f5f",
+              "#303030",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.04,
+              0.4,
+              6
+            ],
+            "at": [
+              0.16,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#5f5f5f",
+              "#303030",
+              "#303030"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              0,
+              0.35,
+              0.2
+            ],
+            "to": [
+              -0.25,
+              0.15,
+              0.65
+            ],
+            "tones": [
+              "#8b8b8b",
+              "#5f5f5f",
+              "#303030"
+            ]
+          }
+        ]
+      },
+      "pose": "Perched defensively mid-roar atop the fractured crag, jaws gaping wide to challenge the intruder with claws poised and neck spines bristling.",
+      "cell": [
+        4,
+        4
+      ],
+      "facing": "s",
+      "why": "This directly transforms the ferocious sketched beast into a formidable yet delightfully chunky boss encounter figure."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVRRRRRRRRRRRVVV",
+      "VRRRTTTRRRTRRRVV",
+      "VRRGGGGGGGGGRRRV",
+      "RRTGGGGGGGGGGGRV",
+      "RGGFFGGGGGGGGGRV",
+      "RGGFFPGGGGGGGGRV",
+      "VGGGGPPPTGGGGGGV",
+      "VGGGGGGPPPTGGGGV",
+      "VVGGGGGGPPGGGGVV",
+      "VVGGGGGGGPPTGGVV",
+      "VVVGGGGGGGPPTGVV",
+      "VVVVVVVVVVVPVVVV"
+    ],
+    "heights": [
+      "0033333333333000",
+      "0333222333233300",
+      "0331111111113330",
+      "3321111111111320",
+      "3112211111111130",
+      "3112211111111130",
+      "0111111111111110",
+      "0111111111111110",
+      "0011111111111100",
+      "0011111111111100",
+      "0001111111111100",
+      "0000000000010000"
+    ],
+    "focal": {
+      "x": 4,
+      "z": 4,
+      "what": "The roaring spined wyvern reared on its elevated rock dais."
+    },
+    "mass": "Visual weight anchors in the upper left quadrant where the roaring wyvern perches upon an elevated height-2 rocky promontory framed by towering height-3 canyon walls.",
+    "read": "The player steps onto the map at the lower right corner and follows a stepped diagonal dirt-and-sand path across an open arena floor. Passing between twin tooth monoliths at mid-screen, the player's view opens directly onto the snarling dragon perched on its shattered crag, backed by an intimidating semicircular canyon cliff."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "bush",
+          "variant": "0",
+          "weight": 0.5
+        },
+        {
+          "type": "sharp_spine_rock",
+          "variant": "0",
+          "weight": 0.5
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.22,
+    "void_share": 0.32,
+    "decor_weights": {
+      "torch": 0.35,
+      "pot": 0.2,
+      "rock-big": 0.25,
+      "bush": 0.2
+    },
+    "lighting": {
+      "bg": "#2e2129",
+      "ambient": 0.78,
+      "sun": 0.28,
+      "tint": "#f4a84d",
+      "notes": "A dramatic low golden-hour sunbeams down the gorge, casting long warm shadows across the arena floor."
+    },
+    "rules": [
+      "The player enters from the southeast corner along the sand path and advances northwest.",
+      "The fang monolith threshold must straddle the approach path around row 6 and 7.",
+      "The focal creature stands centered on the height-2 rocky rostrum at [4,4] facing south toward the approach.",
+      "Tall height-3 perimeter cliffs wrap the north and west edges to enclose the boss arena.",
+      "Deep void notches flank the southern approach, intensifying the perilous ravine edge atmosphere."
+    ],
+    "decor_density": 0.1,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "scene": {
+    "place": "The Wyrm-Cleft Arena, a sun-baked precipice at the edge of a deep canyon where a territorial drake defends its hunting pass.",
+    "approach": "The traveler ascends from the southeastern void edge along a stepped sand trail, passing through twin fang-shaped monoliths before stepping onto the arena ground.",
+    "creature_doing": "The wyvern is caught mid-bellow, rearing aggressively on its hind claws with neck spines flared and maw wide open in challenge.",
+    "palette_key": "Bold golden-hour amber sky casting saturated bronze and ochre hues across dirt slabs with deep graphite creature tones.",
+    "terrain": "An open height-1 dirt fighting ring bordered by high height-3 layered canyon walls and steep drop-offs into the void.",
+    "summary": "A pulse-pounding boss encounter translating the feral energy and roaring fury of the dragon sketch into a vibrant, chunky low-poly showdown."
+  },
+  "concept": {
+    "name": "scene",
+    "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
+    "variant": 3,
+    "variantFragment": "READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.",
+    "avoid": [
+      "pipeline/seed/concepts/dragon-1.json",
+      "pipeline/seed/concepts/dragon-2.json"
+    ]
+  }
+}
