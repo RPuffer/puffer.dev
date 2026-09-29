@@ -105,3 +105,5 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | eagle-1 | gemini-3.8-flash | 24 | 0.2117 | critic rounds 1 to 4, 351 and 900 (3 votes each); 0 high every round
 2026-09-29 | eagle-2 | gemini-3.8-flash | 30 | 0.2313 | critic rounds 1 to 4 plus a round-5 check of the round-4 fix
 2026-09-29 | eagle-3 | gemini-3.8-flash | 24 | 0.1651 | critic rounds 1 to 4; 0 high every round, 1 medium on the engine's dirt stipple
+2026-09-29 | cat-1 | gemini-3.8-flash | 1 | 0.0236 | analyze.mjs --variant 1 --avoid cat-2,cat-3: rebuild of the pre-floor cat-1; new reading walked 97 cells before finish
+2026-09-29 | cat-1 | gemini-3.8-flash | 24 | 0.1720 | critic rounds 1 to 4, 351 and 900 (3 votes each); 0, 0, 1, 0 high; round 3 high on stone stairs read as floating pads
