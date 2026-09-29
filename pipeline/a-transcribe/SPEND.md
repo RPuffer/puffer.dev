@@ -102,3 +102,6 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | gremlin-1 | gemini-3.8-flash | 24 | 0.2299 | critic rounds 1 to 4, 351 and 900 (3 votes each)
 2026-09-29 | gremlin-2 | gemini-3.8-flash | 24 | 0.1889 | critic rounds 1 to 4
 2026-09-29 | gremlin-3 | gemini-3.8-flash | 24 | 0.1697 | critic rounds 1 to 4
+2026-09-29 | eagle-1 | gemini-3.8-flash | 24 | 0.2117 | critic rounds 1 to 4, 351 and 900 (3 votes each); 0 high every round
+2026-09-29 | eagle-2 | gemini-3.8-flash | 30 | 0.2313 | critic rounds 1 to 4 plus a round-5 check of the round-4 fix
+2026-09-29 | eagle-3 | gemini-3.8-flash | 24 | 0.1651 | critic rounds 1 to 4; 0 high every round, 1 medium on the engine's dirt stipple
