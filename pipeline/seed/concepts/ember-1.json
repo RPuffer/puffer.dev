@@ -7,16 +7,16 @@
     "date": "2026-09-29"
   },
   "mood": [
-    "smoldering",
-    "draconian",
+    "secluded",
     "cozy",
     "blazing",
-    "ancient",
-    "secluded"
+    "peaceful",
+    "domestic",
+    "warm"
   ],
   "observations": [
     {
-      "what": "Deep solid black background covering the entire perimeter and canvas framing",
+      "what": "Pitch black void encompassing the entire background canvas around the central figure",
       "box": [
         0,
         0,
@@ -26,94 +26,84 @@
       "maps_to": "V"
     },
     {
-      "what": "Upper draconian head with spiked fiery crest and pointed horned crest scales",
+      "what": "Upper head of a scaly red-brown dragon with sharp piercing yellow eyes and crest spikes",
       "box": [
-        198,
-        395,
-        471,
-        600
-      ],
-      "maps_to": "creature_crest"
-    },
-    {
-      "what": "Two piercing golden-yellow reptilian eyes gleaming from the upper dragon face",
-      "box": [
-        343,
-        442,
-        365,
-        545
-      ],
-      "maps_to": "creature_eyes"
-    },
-    {
-      "what": "Narrow open maw of the dragon releasing a steady vertical stream of liquid fire",
-      "box": [
-        404,
-        453,
-        474,
-        532
-      ],
-      "maps_to": "creature_fire_stream"
-    },
-    {
-      "what": "Turbulent billowing plume of yellow-orange fire bridging upper and lower heads",
-      "box": [
-        435,
-        305,
-        693,
-        692
-      ],
-      "maps_to": "flame_torches"
-    },
-    {
-      "what": "Lower demonic skull visage engulfed inside bright orange-yellow flame tendrils",
-      "box": [
-        568,
-        413,
-        715,
-        581
+        200,
+        390,
+        465,
+        603
       ],
       "maps_to": "F"
     },
     {
-      "what": "Massive ridged ram-like horns curving downward and outwards from lower skull",
+      "what": "Cascading stream of bright golden-yellow liquid flame flowing down from the dragon's mouth",
       "box": [
-        595,
-        276,
-        747,
-        401
+        400,
+        442,
+        608,
+        555
       ],
-      "maps_to": "creature_left_horn"
+      "maps_to": "F"
     },
     {
-      "what": "Symmetrical right ram horn curling down and outward in deep burnished charcoal",
+      "what": "Fiery mane of bright orange and golden fire flaring out around the lower entity's skull",
       "box": [
-        595,
-        584,
-        747,
-        710
+        470,
+        292,
+        706,
+        692
       ],
-      "maps_to": "creature_right_horn"
+      "maps_to": "F"
     },
     {
-      "what": "Blazing golden incandescent flame sphere nested within the lower demon jaw",
+      "what": "Massive pair of ridged ram-like horns curving downward and outwards on either side of the lower face",
       "box": [
-        662,
+        585,
+        275,
+        750,
+        712
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Dark horned demon skull face with glowing white hollow eye sockets and sharp serrated fangs",
+      "box": [
+        580,
+        412,
+        745,
+        584
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Molten glowing yellow-white core radiating intense light from inside the lower open demonic jaw",
+      "box": [
+        660,
         467,
-        741,
-        526
+        745,
+        524
       ],
-      "maps_to": "hoard_ember"
+      "maps_to": "F"
     },
     {
-      "what": "Fiery textured ridges running vertically across the dragon face and crown",
+      "what": "Dark brown leathery scales with subtle ridged texture adorning the dragon brow and snout",
       "box": [
-        200,
-        403,
-        365,
+        300,
+        400,
+        440,
         597
       ],
-      "maps_to": "rock_cliffs"
+      "maps_to": "F"
+    },
+    {
+      "what": "Wisps of fiery sparks and flickers drifting away from the bottom base of the lower jaw",
+      "box": [
+        725,
+        420,
+        755,
+        550
+      ],
+      "maps_to": "P"
     }
   ],
   "palette": {
@@ -121,164 +111,164 @@
       {
         "hex": "#080808",
         "share": 0.885,
-        "role": "void canvas background"
+        "role": "dark void background"
       },
       {
         "hex": "#42210c",
         "share": 0.028,
-        "role": "dark dragon scales and horn shadow"
+        "role": "dragon skin and horn shadow"
       },
       {
         "hex": "#261509",
         "share": 0.025,
-        "role": "deep eye sockets and mouth interior"
+        "role": "deep horn crevices and skull shadow"
       },
       {
         "hex": "#a6601c",
         "share": 0.022,
-        "role": "warm midtone dragon hide and bark"
+        "role": "outer flame plumage midtone"
       },
       {
         "hex": "#724012",
         "share": 0.02,
-        "role": "horn ridges and shaded fire boundary"
+        "role": "scaly crest and jaw ridge"
       },
       {
         "hex": "#d78d37",
         "share": 0.014,
-        "role": "bright amber flame feathers and highlights"
+        "role": "bright fiery mane accents"
       },
       {
         "hex": "#040200",
         "share": 0.005,
-        "role": "deepest horn silhouettes"
+        "role": "deep mouth cavity"
       },
       {
         "hex": "#040607",
         "share": 0.002,
-        "role": "specular horn accents"
+        "role": "deep void fringe"
       }
     ],
+    "notes": "IMAGE 1's fiery orange and rich leathery dragon-browns infuse the warm sand terraces, wooden roost perches, and autumn foliage, while the dark void is preserved in the deep charcoal abyss framing the island.",
     "translation": {
-      "bg": "#1c1410",
+      "bg": "#141216",
       "grass": {
-        "top": "#b8dc56",
-        "fringe": "#92be42",
-        "fringeDark": "#749e32",
-        "speck": "#d1f274"
+        "top": "#82b842",
+        "fringe": "#669c30",
+        "fringeDark": "#4d7824",
+        "speck": "#a6d660"
       },
       "sand": {
-        "top": "#f6c338",
-        "lip": "#df9212",
-        "edge": "#f0b41c",
-        "dots": "#fbd862"
+        "top": "#f4ae26",
+        "lip": "#d4820a",
+        "edge": "#df9414",
+        "dots": "#f8c758"
       },
       "dirt": {
-        "top": "#e09038",
-        "patch": "#eb9f46",
-        "mottle": "#ce7c26",
-        "border": "#b96617"
+        "top": "#b36834",
+        "patch": "#9e5526",
+        "mottle": "#8a451b",
+        "border": "#d28246"
       },
       "stone": {
-        "top": "#deb887",
-        "pebble": "#f0d4ad",
-        "pebbleShade": "#cba06c",
-        "rim": "#ba8c58"
+        "top": "#9a7c6a",
+        "pebble": "#b59b8b",
+        "pebbleShade": "#836555",
+        "rim": "#725647"
       },
       "cliffUpper": {
-        "left": "#a85232",
-        "right": "#883d22",
-        "seam": "#6e2e17"
+        "left": "#78432a",
+        "right": "#592e1b",
+        "seam": "#422011"
       },
       "cliffLower": {
-        "left": "#944426",
-        "right": "#743018",
-        "seam": "#5c2410",
-        "speck": "#4a1c0c"
+        "left": "#663620",
+        "right": "#482414",
+        "seam": "#36190b",
+        "speck": "#82492e"
       },
       "water": {
-        "top": "#8fe8e2",
-        "bubble": "#c8faf5",
-        "deep": "#3ec8be",
+        "top": "#60cbe8",
+        "bubble": "#a6edff",
+        "deep": "#2ba0c2",
         "fall": [
-          "#5adbd2",
-          "#47cac0",
-          "#3ec0b6"
+          "#42bade",
+          "#2ea2c4",
+          "#1b84a3"
         ],
-        "foam": "#e6fcfa"
+        "foam": "#c7f6ff"
       },
       "wood": {
         "light": "#ff8824",
-        "mid": "#e06c10",
-        "dark": "#b84c05",
-        "shadow": "#8f3600",
-        "end": "#fed17a"
+        "mid": "#d96414",
+        "dark": "#a84408",
+        "shadow": "#782d03",
+        "end": "#f5bc62"
       },
       "treeMint": [
-        "#6edaa2",
-        "#52bd88",
-        "#3ca070"
+        "#68e09e",
+        "#5ac389",
+        "#44a46b"
       ],
       "treeLime": [
-        "#cce65e",
-        "#a8cf38",
-        "#88aa24"
+        "#c4ef86",
+        "#8ce263",
+        "#73aa4f"
       ],
       "treeLeaf": [
-        "#9ad348",
-        "#78b82e",
-        "#5c941e"
+        "#96b840",
+        "#77962c",
+        "#58731d"
       ],
       "treeTeal": [
-        "#2ee0b4",
-        "#1fc298",
-        "#14a680",
-        "#0c8766"
+        "#2ec29a",
+        "#1ea380",
+        "#158265",
+        "#0d634d"
       ],
       "treeGold": [
-        "#f6c944",
-        "#e8a91a",
-        "#c88506"
+        "#f5ab2a",
+        "#d98514",
+        "#b06207"
       ],
       "trunk": [
-        "#8e4a32",
-        "#743622"
+        "#6e3b26",
+        "#542a19"
       ],
       "rock": [
-        "#e0d2c5",
-        "#c8b7a6",
-        "#9f8e7d",
-        "#7c6c5c"
+        "#948479",
+        "#7d6d62",
+        "#66574d",
+        "#52443b"
       ],
       "wellStone": [
-        "#d8be9e",
-        "#bea07e",
-        "#9e8060"
+        "#ab8f7d",
+        "#917565",
+        "#785d4f"
       ],
       "flowerOrange": [
-        "#ff7d1a",
-        "#f2a81c"
+        "#ff771a",
+        "#e8991c"
       ],
       "berry": [
-        "#ff6842",
-        "#e64b22"
+        "#fe738f",
+        "#f45f7d"
       ],
       "bushTeal": [
-        "#7fe6ba",
-        "#5ac798",
-        "#42a67a"
+        "#72d1a3",
+        "#52b585",
+        "#3a9468"
       ],
       "gold": [
-        "#fec632",
-        "#e09c12",
-        "#ffde70"
+        "#f5c238",
+        "#d99e1a",
+        "#ffdd6b"
       ]
-    },
-    "notes": "Rich ember and terra-cotta tones infuse the cliff rock and earth, while toy vegetation maintains lively lime, leafy green, and golden yellow values that sing against the warm dark roost backdrop."
+    }
   },
   "motifs": [
     {
-      "name": "roost_threshold_arch",
+      "name": "roost_timber_archway",
       "type": "new",
       "variant_of": null,
       "footprint": [
@@ -291,23 +281,23 @@
       "cells": [
         [
           6,
-          6
+          8
         ],
         [
-          8,
-          6
+          9,
+          8
         ]
       ],
-      "where": "Flanks the winding path entrance as the hero ascends onto the middle plateau terrace.",
+      "where": "Straddles the climbing switchback path as a rustic threshold entrance to the roosting terrace.",
       "shape": {
-        "summary": "Chunky basalt pillar crowned with glowing amber flame finial and curved horn brackets.",
+        "summary": "Sturdy notched timber pillar surmounted by curved horn-shaped wood corbels.",
         "parts": [
           {
             "prim": "box",
             "dims": [
-              0.4,
-              1.4,
-              0.4
+              0.3,
+              1.8,
+              0.3
             ],
             "at": [
               0,
@@ -315,47 +305,49 @@
               0
             ],
             "tones": [
-              "#a85232",
-              "#883d22",
-              "#6e2e17"
+              "#ff8824",
+              "#d96414",
+              "#a84408"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.5,
+              0.42,
               0.25,
-              0.5,
+              0.42,
               0.08
             ],
             "at": [
               0,
-              1.4,
+              1.8,
               0
             ],
             "tones": [
+              "#f5bc62",
               "#ff8824",
-              "#e06c10",
-              "#b84c05"
+              "#d96414"
             ]
           },
           {
-            "prim": "cone",
+            "prim": "beam",
             "dims": [
-              0.24,
-              0.05,
-              0.5,
-              6
+              0.1
             ],
             "at": [
               0,
-              1.65,
+              1.9,
               0
             ],
+            "to": [
+              0.25,
+              2.2,
+              0.15
+            ],
             "tones": [
-              "#fec632",
-              "#e8a91a",
-              "#c88506"
+              "#ff8824",
+              "#d96414",
+              "#a84408"
             ]
           },
           {
@@ -364,67 +356,68 @@
               0.08
             ],
             "at": [
-              -0.15,
-              1.3,
-              0
+              0.25,
+              2.2,
+              0.15
             ],
             "to": [
-              -0.35,
-              1.7,
-              0
+              0.35,
+              2.05,
+              0.25
             ],
             "tones": [
-              "#743622",
-              "#5c2410",
-              "#4a1c0c"
+              "#f5bc62",
+              "#ff8824",
+              "#d96414"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "cyl",
             "dims": [
-              0.12,
-              0.12
+              0.18,
+              0.15,
+              6
             ],
             "at": [
               0,
-              1.8,
+              0.15,
               0
             ],
             "tones": [
-              "#ffde70",
-              "#fec632",
-              "#e09c12"
+              "#948479",
+              "#7d6d62",
+              "#66574d"
             ]
           }
         ]
       }
     },
     {
-      "name": "ember_nest_dais",
+      "name": "ember_roost_hearth",
       "type": "new",
       "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 0.45,
+      "height": 0.8,
       "passable": false,
       "count": 1,
       "cells": [
         [
           7,
-          3
+          2
         ]
       ],
-      "where": "Directly under the resting dragon at the apex of the highest tier.",
+      "where": "Forms the central warm sleeping mound and glowing coal hearth directly beneath the lounging drake.",
       "shape": {
-        "summary": "Circular stacked stone rim packed with hot golden coals and rounded river-pebble clutches.",
+        "summary": "Wide stepped stone ring filled with glowing magma pebbles and hot charred logs.",
         "parts": [
           {
             "prim": "cyl",
             "dims": [
-              0.46,
-              0.25,
+              0.48,
+              0.35,
               8
             ],
             "at": [
@@ -433,9 +426,9 @@
               0
             ],
             "tones": [
-              "#deb887",
-              "#ba8c58",
-              "#9e8060"
+              "#9a7c6a",
+              "#725647",
+              "#592e1b"
             ]
           },
           {
@@ -447,71 +440,198 @@
             ],
             "at": [
               0,
-              0.25,
+              0.35,
               0
             ],
             "tones": [
-              "#fec632",
-              "#e8a91a",
-              "#c88506"
+              "#ff8824",
+              "#d96414",
+              "#a84408"
             ]
           },
           {
             "prim": "ball",
             "dims": [
-              0.12,
-              0.1
+              0.2,
+              0.5
             ],
             "at": [
-              -0.15,
-              0.4,
-              0.1
+              0.05,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f5c238",
+              "#ff771a",
+              "#d4820a"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.55,
+              0.12,
+              0.16
+            ],
+            "at": [
+              -0.05,
+              0.42,
+              0.05
+            ],
+            "rot": [
+              0,
+              25,
+              0
             ],
             "tones": [
               "#ff8824",
-              "#e06c10",
-              "#b84c05"
+              "#d96414",
+              "#782d03"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "cone",
             "dims": [
-              0.14,
-              0.11
-            ],
-            "at": [
               0.12,
-              0.4,
-              -0.08
-            ],
-            "tones": [
-              "#fec632",
-              "#e09c12",
-              "#c88506"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.1,
-              0.08
+              0.02,
+              0.28,
+              6
             ],
             "at": [
-              0,
-              0.42,
-              0.14
+              0.1,
+              0.5,
+              -0.05
             ],
             "tones": [
-              "#ffde70",
-              "#fec632",
-              "#e09c12"
+              "#ffdd6b",
+              "#f5c238",
+              "#d99e1a"
             ]
           }
         ]
       }
     },
     {
-      "name": "hoard_pot",
+      "name": "pyre_coaling_basket",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          3
+        ],
+        [
+          10,
+          3
+        ]
+      ],
+      "where": "Placed near the roosting mound to hold warm glowing coal reserves for the drake's bed.",
+      "shape": {
+        "summary": "Stout wrought bronze cage filled with warm glowing heatstones.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.3,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#725647",
+              "#592e1b",
+              "#422011"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.24,
+              0.25,
+              8
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#f5ab2a",
+              "#ff771a",
+              "#d98514"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0,
+              0.2,
+              5
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#ffdd6b",
+              "#f5c238",
+              "#ff771a"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.12,
+              0.65,
+              0.12
+            ],
+            "at": [
+              0.22,
+              0,
+              0
+            ],
+            "tones": [
+              "#ab8f7d",
+              "#917565",
+              "#785d4f"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.12,
+              0.65,
+              0.12
+            ],
+            "at": [
+              -0.22,
+              0,
+              0
+            ],
+            "tones": [
+              "#ab8f7d",
+              "#917565",
+              "#785d4f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "clay_firebelly_jug",
       "type": "pot",
       "variant_of": "pot",
       "footprint": [
@@ -523,76 +643,76 @@
       "count": 2,
       "cells": [
         [
-          6,
-          3
+          9,
+          4
         ],
         [
-          8,
-          3
+          6,
+          4
         ]
       ],
-      "where": "Placed casually beside the sleeping beast containing shiny gathered treasures.",
+      "where": "Set along the domestic perimeter of the upper terrace holding oil and aromatic tree resin.",
       "shape": {
-        "summary": "Clay urn with gold coins spilling over its lip.",
+        "summary": "Bulbous terracotta jar with flared rim and side handles.",
         "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.3,
+              0.85
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#ff8824",
+              "#d96414",
+              "#a84408"
+            ]
+          },
           {
             "prim": "cyl",
             "dims": [
-              0.28,
-              0.45,
+              0.18,
+              0.25,
               8
             ],
             "at": [
               0,
-              0,
+              0.38,
               0
             ],
             "tones": [
-              "#e09038",
-              "#ce7c26",
-              "#b96617"
+              "#f5bc62",
+              "#ff8824",
+              "#d96414"
             ]
           },
           {
             "prim": "cyl",
             "dims": [
               0.22,
-              0.1,
+              0.08,
               8
             ],
             "at": [
               0,
-              0.45,
+              0.58,
               0
             ],
             "tones": [
-              "#fec632",
-              "#e09c12",
-              "#ffde70"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.08,
-              0.08
-            ],
-            "at": [
-              0.08,
-              0.52,
-              0.04
-            ],
-            "tones": [
-              "#ffde70",
-              "#fec632",
-              "#e09c12"
+              "#ff8824",
+              "#d96414",
+              "#a84408"
             ]
           }
         ]
       }
     },
     {
-      "name": "ember_brazier_light",
+      "name": "approach_flambeau",
       "type": "torch",
       "variant_of": "torch",
       "footprint": [
@@ -604,32 +724,32 @@
       "count": 4,
       "cells": [
         [
-          10,
-          9
-        ],
-        [
-          12,
-          9
-        ],
-        [
-          6,
-          7
+          4,
+          10
         ],
         [
           9,
-          5
+          10
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          10,
+          7
         ]
       ],
-      "where": "Stands in pairs beside the zigzag path corners illuminating the hero's ascent.",
+      "where": "Flanks the switchback ramps in pairs guiding visitors up the stepped terraces toward the roost.",
       "shape": {
-        "summary": "Carved wooden stand supporting a glowing bowl of flame cones.",
+        "summary": "Rustic timber post supporting an iron-banded cup cradling a bright flame cone.",
         "parts": [
           {
-            "prim": "cyl",
+            "prim": "box",
             "dims": [
-              0.1,
-              0.7,
-              6
+              0.15,
+              0.9,
+              0.15
             ],
             "at": [
               0,
@@ -638,81 +758,85 @@
             ],
             "tones": [
               "#ff8824",
-              "#e06c10",
-              "#b84c05"
+              "#d96414",
+              "#782d03"
             ]
           },
           {
             "prim": "cone",
             "dims": [
-              0.15,
-              0.26,
-              0.2,
+              0.12,
+              0.18,
+              0.18,
               6
             ],
             "at": [
               0,
-              0.7,
+              0.85,
               0
             ],
             "tones": [
-              "#a85232",
-              "#883d22",
-              "#6e2e17"
+              "#948479",
+              "#7d6d62",
+              "#52443b"
             ]
           },
           {
             "prim": "cone",
             "dims": [
-              0.22,
+              0.12,
               0.02,
-              0.35,
+              0.32,
               6
             ],
             "at": [
               0,
-              0.88,
+              1,
               0
             ],
             "tones": [
-              "#fec632",
-              "#e8a91a",
-              "#c88506"
+              "#ffdd6b",
+              "#f5c238",
+              "#ff771a"
             ]
           }
         ]
       }
     },
     {
-      "name": "autumn_flame_pine",
-      "type": "tree-pine",
-      "variant_of": "tree-pine",
+      "name": "amber_canopy_tree",
+      "type": "tree-orange",
+      "variant_of": "tree-orange",
       "footprint": [
         1,
         1
       ],
-      "height": 2.4,
+      "height": 2.2,
       "passable": false,
-      "count": 2,
+      "count": 3,
       "cells": [
         [
-          2,
+          1,
           2
         ],
         [
           2,
-          5
+          6
+        ],
+        [
+          13,
+          6
         ]
       ],
-      "where": "Provides tall vertical backdrop framing on the high cliff boundaries.",
+      "where": "Encloses the canyon rim terraces with dense warm golden-orange leaves reflecting the drake's warmth.",
       "shape": {
-        "summary": "Tall stacked tiers of golden-yellow foliage on a warm reddish trunk.",
+        "summary": "Stout bark trunk supporting three stepped bulbous rounded boxes of rich amber foliage.",
         "parts": [
           {
             "prim": "box",
             "dims": [
               0.2,
-              0.7,
+              1.1,
               0.2
             ],
             "at": [
@@ -721,164 +845,155 @@
               0
             ],
             "tones": [
-              "#8e4a32",
-              "#743622",
-              "#5c2410"
+              "#6e3b26",
+              "#542a19",
+              "#422011"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.9,
-              0.45,
-              0.9,
-              0.1
+              0.95,
+              0.55,
+              0.95,
+              0.12
             ],
             "at": [
               0,
-              0.6,
+              0.95,
               0
             ],
             "tones": [
-              "#f6c944",
-              "#e8a91a",
-              "#c88506"
+              "#f5ab2a",
+              "#d98514",
+              "#b06207"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.72,
+              0.75,
+              0.5,
+              0.75,
+              0.12
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#ffdd6b",
+              "#f5ab2a",
+              "#d98514"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.48,
               0.42,
-              0.72,
+              0.48,
               0.1
             ],
             "at": [
               0,
-              1,
+              1.82,
               0
             ],
             "tones": [
-              "#f6c944",
-              "#e8a91a",
-              "#c88506"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.52,
-              0.38,
-              0.52,
-              0.08
-            ],
-            "at": [
-              0,
-              1.38,
-              0
-            ],
-            "tones": [
-              "#cce65e",
-              "#a8cf38",
-              "#88aa24"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.32,
-              0.32,
-              0.32,
-              0.06
-            ],
-            "at": [
-              0,
-              1.72,
-              0
-            ],
-            "tones": [
-              "#cce65e",
-              "#a8cf38",
-              "#88aa24"
+              "#ffdd6b",
+              "#f5ab2a",
+              "#d98514"
             ]
           }
         ]
       }
     },
     {
-      "name": "warm_roost_bush",
-      "type": "bush",
-      "variant_of": "bush",
+      "name": "warm_slate_rock",
+      "type": "rock",
+      "variant_of": "rock",
       "footprint": [
         1,
         1
       ],
-      "height": 0.6,
+      "height": 0.5,
       "passable": false,
-      "count": 2,
+      "count": 3,
       "cells": [
         [
-          3,
-          3
+          2,
+          4
         ],
         [
-          4,
-          8
+          13,
+          4
+        ],
+        [
+          12,
+          9
         ]
       ],
-      "where": "Softens the cliff edges around the residential ledges.",
+      "where": "Resting along cliff edges and corners as warm resting ledges.",
       "shape": {
-        "summary": "Rounded lime-green bush cluster dusted with golden flowers.",
+        "summary": "Rounded cluster of faceted sun-warmed field stones.",
         "parts": [
           {
-            "prim": "ball",
+            "prim": "rbox",
             "dims": [
-              0.26,
-              0.24
+              0.45,
+              0.25,
+              0.4,
+              0.08
             ],
             "at": [
-              -0.1,
-              0.22,
+              -0.05,
+              0,
               0
             ],
             "tones": [
-              "#b8dc56",
-              "#92be42",
-              "#749e32"
+              "#9a7c6a",
+              "#836555",
+              "#66574d"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "rbox",
             "dims": [
-              0.28,
-              0.25
+              0.35,
+              0.22,
+              0.32,
+              0.08
             ],
             "at": [
-              0.1,
-              0.25,
-              0.05
-            ],
-            "tones": [
-              "#b8dc56",
-              "#92be42",
-              "#749e32"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.1,
-              0.1
-            ],
-            "at": [
-              0,
-              0.42,
+              0.12,
+              0.2,
               -0.05
             ],
             "tones": [
-              "#fec632",
-              "#e09c12",
-              "#c88506"
+              "#b59b8b",
+              "#9a7c6a",
+              "#725647"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.22,
+              0.15,
+              0.2,
+              0.06
+            ],
+            "at": [
+              -0.15,
+              0.12,
+              0.08
+            ],
+            "tones": [
+              "#b59b8b",
+              "#9a7c6a",
+              "#836555"
             ]
           }
         ]
@@ -887,224 +1002,264 @@
   ],
   "creatures": [
     {
-      "name": "drowsing_flame_drake",
-      "source": "The horned demon skull merged with upper dragon face engulfed in fire",
+      "name": "lounging_flame_drake",
+      "source": "Upper dragon head with golden flame cascading down into the horned demon jaws in IMAGE 1",
       "becomes": "npc",
       "type": "new",
       "footprint": [
-        1,
-        1
-      ],
-      "height": 2.2,
-      "pose": "Curled contentedly on its warm ember perch, head tilted toward the sun as a low friendly flame dances harmlessly from its open snout.",
-      "cell": [
-        7,
+        2,
         2
       ],
+      "height": 2.4,
+      "pose": "Curled contentedly on its warm ember bed, softly breathing a steady ribbon of soothing campfire flame into its lower resting horn-maw while lazily eyeing visitors.",
+      "cell": [
+        7,
+        3
+      ],
       "facing": "s",
-      "why": "It represents the fire-breathing entity relaxing at home inside its comfortable nest.",
+      "why": "This is the creature living in its cliffside roost den, resting and performing its soothing everyday fire-tending routine.",
       "shape": {
-        "summary": "Chunky toy dragon with curved horns, fiery spiked spinal crest, and cheerful golden glowing snout.",
+        "summary": "Chunky toy dragon-fiend curled on a bed of warm embers, with a broad horned skull base, arched upper neck, twin curling ram horns, and flame plumes.",
         "parts": [
           {
             "prim": "rbox",
             "dims": [
-              0.65,
-              0.45,
-              0.7,
-              0.12
+              1.4,
+              0.5,
+              1.2,
+              0.15
             ],
             "at": [
               0,
-              0.1,
+              0,
               0
             ],
             "tones": [
-              "#a85232",
-              "#883d22",
-              "#6e2e17"
+              "#724012",
+              "#592e1b",
+              "#42210c"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.5,
-              0.42,
-              0.5,
+              0.95,
+              0.55,
+              0.85,
+              0.12
+            ],
+            "at": [
+              0,
+              0.45,
+              -0.05
+            ],
+            "tones": [
+              "#a6601c",
+              "#724012",
+              "#42210c"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.45,
+              0.65
+            ],
+            "at": [
+              0,
+              0.95,
+              0.1
+            ],
+            "tones": [
+              "#42210c",
+              "#261509",
+              "#040200"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.18
+            ],
+            "at": [
+              -0.35,
+              1.05,
+              0.1
+            ],
+            "to": [
+              -0.75,
+              0.75,
+              0.4
+            ],
+            "tones": [
+              "#724012",
+              "#592e1b",
+              "#42210c"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.14
+            ],
+            "at": [
+              -0.75,
+              0.75,
+              0.4
+            ],
+            "to": [
+              -0.65,
+              0.35,
+              0.6
+            ],
+            "tones": [
+              "#a6601c",
+              "#724012",
+              "#592e1b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.18
+            ],
+            "at": [
+              0.35,
+              1.05,
+              0.1
+            ],
+            "to": [
+              0.75,
+              0.75,
+              0.4
+            ],
+            "tones": [
+              "#724012",
+              "#592e1b",
+              "#42210c"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.14
+            ],
+            "at": [
+              0.75,
+              0.75,
+              0.4
+            ],
+            "to": [
+              0.65,
+              0.35,
+              0.6
+            ],
+            "tones": [
+              "#a6601c",
+              "#724012",
+              "#592e1b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.6,
+              0.6,
               0.1
             ],
             "at": [
               0,
-              0.5,
-              0.12
+              1.45,
+              -0.15
             ],
-            "tones": [
-              "#a85232",
-              "#883d22",
-              "#6e2e17"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.42,
-              0.38,
-              0.48,
-              0.08
-            ],
-            "at": [
+            "rot": [
+              12,
               0,
-              0.88,
-              0.2
+              0
             ],
             "tones": [
-              "#b96617",
-              "#944426",
-              "#743018"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.32,
-              0.22,
-              0.35,
-              0.06
-            ],
-            "at": [
-              0,
-              0.82,
-              0.42
-            ],
-            "tones": [
-              "#fec632",
-              "#e8a91a",
-              "#c88506"
-            ]
-          },
-          {
-            "prim": "beam",
-            "dims": [
-              0.08
-            ],
-            "at": [
-              -0.18,
-              1.15,
-              0.15
-            ],
-            "to": [
-              -0.48,
-              1.35,
-              -0.1
-            ],
-            "tones": [
-              "#743622",
-              "#5c2410",
-              "#4a1c0c"
-            ]
-          },
-          {
-            "prim": "beam",
-            "dims": [
-              0.08
-            ],
-            "at": [
-              0.18,
-              1.15,
-              0.15
-            ],
-            "to": [
-              0.48,
-              1.35,
-              -0.1
-            ],
-            "tones": [
-              "#743622",
-              "#5c2410",
-              "#4a1c0c"
-            ]
-          },
-          {
-            "prim": "prism",
-            "dims": [
-              0.4
-            ],
-            "outline": [
-              [
-                0,
-                -0.2
-              ],
-              [
-                -0.12,
-                0.2
-              ],
-              [
-                0.12,
-                0.2
-              ]
-            ],
-            "at": [
-              0,
-              1.15,
-              -0.05
-            ],
-            "tones": [
-              "#ff8824",
-              "#e06c10",
-              "#b84c05"
+              "#a6601c",
+              "#724012",
+              "#42210c"
             ]
           },
           {
             "prim": "cone",
             "dims": [
-              0.14,
-              0.02,
-              0.38,
+              0.25,
+              0.05,
+              0.45,
               6
             ],
             "at": [
               0,
-              1.02,
-              0.45
+              1.95,
+              -0.22
             ],
             "tones": [
-              "#ffde70",
-              "#fec632",
-              "#e8a91a"
+              "#724012",
+              "#42210c",
+              "#261509"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.04,
+              0.55,
+              6
+            ],
+            "at": [
+              0,
+              1.05,
+              0.18
+            ],
+            "rot": [
+              180,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffdd6b",
+              "#f5ab2a",
+              "#d78d37"
             ]
           },
           {
             "prim": "ball",
             "dims": [
-              0.06,
-              0.06
+              0.08,
+              1
             ],
             "at": [
-              -0.14,
-              1.05,
-              0.34
+              -0.18,
+              1.62,
+              0.12
             ],
             "tones": [
-              "#fec632",
-              "#e09c12",
-              "#c88506"
+              "#ffdd6b",
+              "#f5ab2a",
+              "#d98514"
             ]
           },
           {
             "prim": "ball",
             "dims": [
-              0.06,
-              0.06
+              0.08,
+              1
             ],
             "at": [
-              0.14,
-              1.05,
-              0.34
+              0.18,
+              1.62,
+              0.12
             ],
             "tones": [
-              "#fec632",
-              "#e09c12",
-              "#c88506"
+              "#ffdd6b",
+              "#f5ab2a",
+              "#d98514"
             ]
           }
         ]
@@ -1123,98 +1278,104 @@
     },
     "grid": [
       "VVVVVVVVVVVVVVVV",
-      "VVVVRRRRRRRRVVVV",
-      "VVTRRRRFRRRRTVVV",
-      "VVTRRRPRRPRRTVVV",
-      "VVVRRRPRRPPRVVVV",
-      "VVTRRRPPPPPPTVVV",
-      "VVVRRRPPTPPRVVVV",
-      "VVVVRRPPPPPPVVVV",
-      "VVVTGGGGGGPGTVVV",
-      "VVVGGGGGGPPGGVVV",
-      "VVVVVGGGGPGGVVVV",
-      "VVVVVVVVVPGVVVVV"
+      "VVTTRRRRRRRRTTVV",
+      "VTTRRFFFFRRRRTVV",
+      "VTRRRFFFFRRRRRTV",
+      "VTRRRPPPPRRRRRTV",
+      "VTRRPPPPPPPRRRTV",
+      "VTTRPPPPPPPTTTVV",
+      "VVGPPPPPPPGGGVVV",
+      "VVGGPPGGPPGGGVVV",
+      "VVGGPPPPPGGGGVVV",
+      "VVVTTPPGGGTTTVVV",
+      "VVVVVVPGGGVVVVVV"
     ],
     "heights": [
       "0000000000000000",
-      "0000333333330000",
-      "0013333333331000",
-      "0012222322221000",
-      "0002222322220000",
-      "0012222222221000",
-      "0002222212220000",
-      "0000222222220000",
+      "0011333333331100",
+      "0113333333333100",
+      "0133333333333310",
+      "0133322223333310",
+      "0133222222233310",
+      "0112222222211100",
+      "0011111111111000",
+      "0011111111111000",
+      "0011111111111000",
       "0001111111111000",
-      "0001111111111000",
-      "0000011111110000",
-      "0000000001100000"
+      "0000001111000000"
     ],
     "focal": {
       "x": 7,
-      "z": 2,
-      "what": "The drowsing flame drake settled atop its sunny cliffside nest"
+      "z": 3,
+      "what": "lounging_flame_drake"
     },
-    "mass": "Visual weight anchors in the upper middle where the stepped terra-cotta cliff tiers culminate in the warm resting roost of the dragon.",
-    "read": "The viewer enters at the near right corner along an earthy trail (row 11, column 9) that hooks left, switchbacks up to the middle terrace through the horn-flanked threshold at row 6, and zigzags gracefully to the sunny height-3 perch where the drowsing drake warms its scales."
+    "mass": "Visual weight concentrates in the upper central heights where stacked level 3 sandstone roost cliffs support the curled flame drake and its glowing coal mound.",
+    "read": "The viewer enters from the lower right-center at row 11 along a gentle sand path. The path zigzags northwest across a sunny orchard terrace, climbs through the twin roost timber archway at row 8, and switches back upward onto the lofty height 3 roost plateau where the peaceful beast basks warmly."
   },
   "biome": {
     "trees": {
       "density": 0.16,
       "types": [
         {
-          "type": "autumn_flame_pine",
-          "variant": "autumn_flame_pine",
-          "weight": 0.6
+          "type": "amber_canopy_tree",
+          "variant": "tree-orange",
+          "weight": 0.65
         },
         {
-          "type": "tree-gold",
-          "variant": "treeGold",
-          "weight": 0.4
+          "type": "tree-round",
+          "variant": "tree-round",
+          "weight": 0.35
         }
       ]
     },
     "water_share": 0,
-    "plateau_share": 0.48,
-    "void_share": 0.36,
+    "plateau_share": 0.44,
+    "void_share": 0.38,
     "decor_weights": {
-      "warm_roost_bush": 0.35,
-      "ember_brazier_light": 0.3,
-      "hoard_pot": 0.2,
-      "flower": 0.15
+      "approach_flambeau": 0.35,
+      "warm_slate_rock": 0.3,
+      "clay_firebelly_jug": 0.2,
+      "pyre_coaling_basket": 0.15
     },
     "lighting": {
-      "bg": "#1c1410",
+      "bg": "#141216",
       "ambient": 0.9,
-      "sun": 0.15,
-      "tint": "#fff4e6",
-      "notes": "Gentle, warm midday sun suffuses the high roost with cozy warmth."
+      "sun": 0.18,
+      "tint": "#fff4e0",
+      "notes": "Generous warm golden midday light blankets the sunlit sandstone tiers, making the beast's lair feel like an inviting mountain haven."
     },
     "rules": [
-      "The path begins at the near lower-right rim and switches back twice before reaching the highest terrace.",
-      "The threshold pillars must straddle the ascending path at the mid-terrace boundary.",
-      "The creature rests on the height 3 platform surrounded by hoard pots and warm stones."
+      "Pave the approach path exclusively across height 1 and switchback up to height 2 and 3 using sand surfaces.",
+      "Erect the roost_timber_archway pillars precisely where the trail breaches height 2 onto the roost threshold.",
+      "Reserve the height 3 plateau core for the drake's ember hearth and sleeping nook.",
+      "Station flambeau torches symmetrically along the hairpin turns of the ascending path.",
+      "Cluster amber canopy trees along the outer terrace edges to frame the warm sanctuary."
     ],
-    "decor_density": 0.1,
+    "decor_density": 0.11,
     "surfaces": {
       "ground": "grass",
       "raised": "sand",
-      "path": "dirt",
-      "shore": "stone",
+      "path": "sand",
+      "shore": "dirt",
       "mist": null
     }
   },
   "scene": {
-    "place": "The High Ember Roost, a sunlit crag where an ancient fire drake keeps its cozy nest.",
-    "approach": "The visitor climbs a winding terraced path up cliff ledges, passing through a threshold of horned flame pillars before reaching the summit.",
-    "creature_doing": "Basking comfortably under midday sun, lazily blowing gentle smoke puffs across its treasure hoard.",
-    "palette_key": "Warm terra-cotta cliffs and golden sands contrasted with crisp toy greens under an amber ambient sky.",
-    "terrain": "Stacked terraces that rise from grassy base meadows to a secluded high-perch aerie.",
-    "summary": "A fearsome fire monster reimagined as a gentle dragon lounging peacefully in its high mountain home."
+    "place": "The Amber Roost Terrace, a high sun-warmed mountain eyrie built of golden sandstone slabs and fragrant cedar.",
+    "approach": "The traveler ascends from the southeast rim along a winding switchback trail, stepping through twin horn-crested timber arches onto the roost terrace.",
+    "creature_doing": "The drake is coiled happily in its warm ember bed, taking a lazy afternoon siesta while breathing gentle heat onto its hearth stones.",
+    "palette_key": "Bright golden midday sunlight warming rich ochre sand and amber foliage against a deep mountain sky abyss.",
+    "terrain": "Tiered ascending terraces carved from warm sandstone climbing to a lofty domestic roost plateau.",
+    "summary": "A peaceful mountain sanctuary where the fierce flame drake of IMAGE 1 enjoys its domestic everyday nap on a sunlit terrace bed."
   },
   "concept": {
     "name": "scene",
     "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
     "variant": 1,
-    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand.",
+    "avoid": [
+      "pipeline/seed/concepts/ember-2.json",
+      "pipeline/seed/concepts/ember-3.json"
+    ]
   }
 }
