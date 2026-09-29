@@ -98,3 +98,7 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | sharkbear-1 | gemini-3.8-flash | 12 | 0.1049 | critic rounds 1 to 2, 351 and 900 (3 votes each); 0 high both rounds
 2026-09-29 | sharkbear-2 | gemini-3.8-flash | 12 | 0.0856 | critic rounds 1 to 2; 0 high both rounds
 2026-09-29 | sharkbear-3 | gemini-3.8-flash | 12 | 0.1002 | critic rounds 1 to 2; 0 high both rounds, 1 medium on the engine's dirt stipple
+2026-09-29 | gremlin-1, gremlin-2, gremlin-3 | gemini-3.8-flash | 4 | 0.1145 | analyze.mjs --variant k --avoid the other two: gremlin-1 walked 53 cells, gremlin-2 was cobble pads everywhere, gremlin-3 held the creature mid-arena with no 12-cell approach
+2026-09-29 | gremlin-1 | gemini-3.8-flash | 24 | 0.2299 | critic rounds 1 to 4, 351 and 900 (3 votes each)
+2026-09-29 | gremlin-2 | gemini-3.8-flash | 24 | 0.1889 | critic rounds 1 to 4
+2026-09-29 | gremlin-3 | gemini-3.8-flash | 24 | 0.1697 | critic rounds 1 to 4
