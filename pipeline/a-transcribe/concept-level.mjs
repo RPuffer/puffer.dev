@@ -15,6 +15,9 @@ const mixDeep = (v, tint, t) => typeof v === "string" && /^#[0-9a-f]{6}$/i.test(
 const chroma = (h) => { const c = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255); return Math.max(...c) - Math.min(...c); };
 const hash = (x, z, s = 0) => { let h = (x * 374761393 + z * 668265263 + s * 2147483647) >>> 0; h = ((h ^ (h >>> 13)) * 1274126177) >>> 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
 
+const HINTS = [["threshold", /gate|arch|torii|threshold|portal|door|entry|fang/i], ["dais", /dais|altar|plinth|pedestal|roost|perch|nest|throne|cushion|mat\b|platform|crag/i], ["light", /lantern|torch|brazier|lamp|candle|beacon|fire-pot|firepot/i], ["offering", /pot|basket|bowl|offering|chest|cairn|tribute|urn|jar|coin|gem/i], ["mass", /tree|pine|cypress|spire|pillar|monolith|rock|cliff|column|obelisk|totem|wall|hedge|bush|trunk/i]];
+export const hintFor = (p) => (p.kind === "lead creature" ? "lead" : p.kind === "creature" ? "creature" : (HINTS.find(([, re]) => re.test(p.type)) || HINTS.find(([, re]) => re.test(`${p.variant_of || ""} ${p.summary}`)) || ["detail"])[0]);
+
 export function newProps(brief) {
   const out = [];
   const seen = new Set();
@@ -32,14 +35,15 @@ export function newProps(brief) {
 
 export async function build({ root, flag, has, regions, brief }) {
   const concept = brief.concept.name;
-  const name = flag("--name", `forest-a-${concept}`);
+  const briefArg = flag("--brief", null);
+  const name = flag("--level", flag("--name", briefArg ? path.basename(briefArg, ".json") : `forest-a-${concept}`));
   const outPath = path.resolve(root, flag("--out", `levels/${name}.json`));
-  const piecesRel = `pieces/${name}.js`, piecesAbs = path.resolve(root, "3d", piecesRel);
+  const piecesRel = `pieces/${flag("--pieces", name)}.js`, piecesAbs = path.resolve(root, "3d", piecesRel);
   const props = newProps(brief);
 
   if (has("--props") || (props.length && !fs.existsSync(piecesAbs))) {
     console.log(`new prop types for 3d/${piecesRel} (${props.length}):`);
-    for (const p of props) console.log(`- ${p.type} [${p.kind}] footprint ${p.footprint.join("x")}, height ${p.height}, passable ${p.passable}, count ${p.count}${p.variant_of ? `, variant_of ${p.variant_of}` : ""}: ${p.summary}`);
+    for (const p of props) console.log(`- ${p.type} [${p.kind}, role ${hintFor(p)}] footprint ${p.footprint.join("x")}, height ${p.height}, passable ${p.passable}, count ${p.count}${p.variant_of ? `, variant_of ${p.variant_of}` : ""}: ${p.summary}`);
     if (!fs.existsSync(piecesAbs)) { console.log(`3d/${piecesRel} is missing: write it (pipeline/a-transcribe/props.md), then rerun`); process.exitCode = 1; }
     return;
   }
@@ -71,6 +75,7 @@ export async function build({ root, flag, has, regions, brief }) {
     for (const part of p.parts) if (Array.isArray(part.tones) && !uniq.some((u) => u.join() === part.tones.join())) uniq.push(part.tones);
     palette.tones[p.type] = uniq;
   }
+  palette.props = Object.fromEntries(props.map((p) => [p.type, { role: hintFor(p), footprint: p.footprint, height: p.height, passable: p.passable, variant_of: p.variant_of }]));
   const bg = lt.bg || T.bg;
   palette.bg = bg;
 
@@ -99,7 +104,7 @@ export async function build({ root, flag, has, regions, brief }) {
   const isPath = (x, z) => R[z][x].s === "path";
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
     const c = cells[z][x];
-    if (c.h !== 1 || isPath(x, z) || R[z][x].knoll) continue;
+    if (c.h !== 1 || c.s === "water" || isPath(x, z) || R[z][x].knoll) continue;
     const wet = N4.some(([dx, dz]) => at(x + dx, z + dz)?.s === "water");
     const rim = N4.some(([dx, dz]) => { const n = at(x + dx, z + dz); return !n || n.s === "none"; });
     if (wet || rim) c.s = surf.shore;
@@ -154,8 +159,9 @@ export async function build({ root, flag, has, regions, brief }) {
   const L = { name, size: [W, D], cells, decor: [], spawn };
   let fixes = 0;
   const report0 = [];
+  const repairTerrain = (ignore = () => new Set()) => {
   for (let pass = 0; pass < 80; pass++) {
-    const r = reachability({ ...L, cells, blocked: new Set() });
+    const ig = ignore(), r0 = reachability({ ...L, cells, blocked: new Set(figSet) }), r = { ...r0, missing: r0.missing.filter(([x, z]) => !ig.has(k(x, z))) };
     if (!r.missing.length) break;
     const miss = new Set(r.missing.map(([x, z]) => k(x, z)));
     let done = false;
@@ -179,6 +185,8 @@ export async function build({ root, flag, has, regions, brief }) {
     if (top <= 1) { for (const [a, b] of comp) if (!figSet.has(k(a, b))) cells[b][a] = { h: 0, s: "none" }; }
     fixes++;
   }
+  };
+  repairTerrain();
   const hasH3 = () => cells.flat().some((c) => walk(c) && c.h === 3 && c.s !== "ramp");
   if (!hasH3() && (+(brief.biome?.plateau_share) || 0) >= 0.15) {
     const cand = [];
@@ -191,7 +199,7 @@ export async function build({ root, flag, has, regions, brief }) {
       for (const [a, b] of grp) cells[b][a].h = 3;
       let ok = false;
       for (let z2 = 0; z2 < D && !ok; z2++) for (let x2 = 0; x2 < W && !ok; x2++) if (cells[z2][x2].h === 3 && grp.some(([p, q]) => p === x2 && q === z2)) ok = tryRampAt(x2, z2, null);
-      if (ok && !reachability({ ...L, cells, blocked: new Set() }).missing.length) { report0.push(`terrace h3 at ${grp.map((g) => g.join(",")).join(" ")}`); break; }
+      if (ok && !reachability({ ...L, cells, blocked: new Set(figSet) }).missing.length) { report0.push(`terrace h3 at ${grp.map((g) => g.join(",")).join(" ")}`); break; }
       for (let z2 = 0; z2 < D; z2++) for (let x2 = 0; x2 < W; x2++) cells[z2][x2] = saved[z2][x2];
       ramps.length = nr;
     }
@@ -246,7 +254,7 @@ export async function build({ root, flag, has, regions, brief }) {
   const lead = cr.find((c) => c.cell?.[0] === brief.composition.focal.x && c.cell?.[1] === brief.composition.focal.z) || cr[0];
   if (lead) {
     const t = typeFor(lead.name) || typeFor(lead.type);
-    const ok = t && place(t, fig.anchor[0], fig.anchor[1], { rot: { w: 0, s: 1, e: 2, n: 3 }[lead.facing] ?? 0, fig: true, v: 0 });
+    const ok = t && place(t, fig.anchor[0], fig.anchor[1], { rot: brief.concept.variant ? 0 : { w: 0, s: 1, e: 2, n: 3 }[lead.facing] ?? 0, fig: true, v: 0 });
     report.push(`${t} at focal ${fig.anchor}${ok ? "" : " FAILED"}`);
   }
   for (const c of cr) {
@@ -332,6 +340,26 @@ export async function build({ root, flag, has, regions, brief }) {
     pieces: props.length ? [piecesRel] : [],
   };
   if (!level.pieces.length) delete level.pieces;
+  if (typeof mod.finish === "function" && mod.finish.length >= 1 && !has("--no-finish")) {
+    const { makeHelpers } = await import("./finish-helpers.mjs");
+    let H;
+    const terrain = () => {
+      const before = fixes;
+      repairTerrain(() => H.blockedSet());
+      if (fixes === before) return 0;
+      H.log.push(`terrain repair: ${fixes - before} fixes`);
+      const dropped = H.removeDecor((d) => d.t !== "waterfall" && H.footprint(d).some(([a, b]) => !walk(at(a, b)) || at(a, b).s === "ramp"));
+      if (dropped) H.log.push(`dropped ${dropped} decor left off land`);
+      return fixes - before;
+    };
+    H = makeHelpers(level, { regions, brief, figure: fig, surf, terrain });
+    await mod.finish(level, brief, H);
+    H.repair();
+    blocked.clear();
+    for (const k2 of H.blockedSet()) blocked.add(k2);
+    if (!walk(at(...level.spawn)) || at(...level.spawn).s === "ramp") level.spawn = spawnPick();
+    for (const line of H.log) report.push("finish: " + line);
+  }
   level.view = frameView(level).view;
   const problems = checkLevel(level);
   const procgenOnly = problems.filter((p) => /grass share|plateau in/.test(p));
@@ -340,14 +368,14 @@ export async function build({ root, flag, has, regions, brief }) {
   const reach = reachability({ ...level, blocked });
   fs.writeFileSync(outPath, JSON.stringify(level));
   const byType = {};
-  for (const d of decor) byType[d.t] = (byType[d.t] || 0) + 1;
+  for (const d of level.decor) byType[d.t] = (byType[d.t] || 0) + 1;
   const hs = [0, 0, 0, 0];
   for (const row of cells) for (const c of row) if (c.s !== "none" && c.s !== "water") hs[c.h]++;
   const water = cells.flat().filter((c) => c.s === "water").length;
   console.log(`concept ${concept}: surfaces ${JSON.stringify(surf)}, light ${JSON.stringify(light)}, bg ${bg}${tint ? `, tint ${tint} x${tintMix}` : ""}`);
   for (const line of report) console.log("  " + line);
-  for (let z = 0; z < D; z++) console.log("  " + cells[z].map((c) => (c.s === "none" ? "." : c.s === "water" ? "~" : c.s === "ramp" ? "/" : String(c.h))).join("") + "  " + cells[z].map((c, x) => { const d = decor.find((e) => e.x === x && e.z === z); return d ? d.t[0].toUpperCase() : c.s === "none" ? " " : c.s[0]; }).join(""));
-  console.log(`wrote ${path.relative(root, outPath)}: ${W}x${D}, land h1/h2/h3 ${hs.slice(1).join("/")}, water ${water}, spawn ${spawn}, ramps ${ramps.map((r) => r.join("")).join(" ")}, repairs ${fixes}, reach ${reach.reached}/${reach.total}`);
+  for (let z = 0; z < D; z++) console.log("  " + cells[z].map((c) => (c.s === "none" ? "." : c.s === "water" ? "~" : c.s === "ramp" ? "/" : String(c.h))).join("") + "  " + cells[z].map((c, x) => { const d = level.decor.find((e) => e.x === x && e.z === z); return d ? d.t[0].toUpperCase() : c.s === "none" ? " " : c.s[0]; }).join(""));
+  console.log(`wrote ${path.relative(root, outPath)}: ${W}x${D}, land h1/h2/h3 ${hs.slice(1).join("/")}, water ${water}, spawn ${level.spawn}, ramps ${ramps.map((r) => r.join("")).join(" ")}, repairs ${fixes}, reach ${reach.reached}/${reach.total}`);
   console.log("decor " + JSON.stringify(byType));
   if (procgenOnly.length) console.log("procgen-only rules not applied: " + procgenOnly.join("; "));
   console.log(real.length ? "FAIL\n  " + real.join("\n  ") : "PASS: checkLevel + prepareLevel clean");
