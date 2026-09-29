@@ -7,103 +7,113 @@
     "date": "2026-09-29"
   },
   "mood": [
-    "whimsical",
     "cozy",
-    "arcane",
-    "culinary",
-    "sunny",
-    "enchanted"
+    "pastoral",
+    "whimsical",
+    "warm",
+    "domestic",
+    "magical"
   ],
   "observations": [
     {
-      "what": "Tall slender reddish-brown sausage or frankfurter body standing upright on thin stick-like legs",
+      "what": "Hand-lettered ink text reading 'you're A' in quirky casual black strokes",
       "box": [
-        363,
-        412,
-        792,
-        552
+        118,
+        172,
+        203,
+        292
       ],
-      "maps_to": "creature_body"
+      "maps_to": "V"
     },
     {
-      "what": "Dark midnight blue pointed wizard hat with wide brim, adorned with a pale yellow five-pointed star sketch",
+      "what": "Bold stylized ink title text 'Glizard'",
+      "box": [
+        124,
+        323,
+        230,
+        646
+      ],
+      "maps_to": "V"
+    },
+    {
+      "what": "Spiky quotation text reading ''ARRY' in black ink",
+      "box": [
+        193,
+        650,
+        298,
+        816
+      ],
+      "maps_to": "V"
+    },
+    {
+      "what": "Tall conical wizard hat in navy blue with a curved peak and a yellow five-pointed star badge",
       "box": [
         259,
         329,
-        381,
+        384,
         663
       ],
-      "maps_to": "wizard_hat"
+      "maps_to": "creature_headwear"
     },
     {
-      "what": "Deep blue wizard robe patterned with small pale yellow five-pointed stars, draping down both sides with wide cuffs",
+      "what": "Smooth frankfurter sausage head and torso with small black beady eyes and a cute w-shaped cat mouth",
       "box": [
-        488,
-        307,
-        853,
-        698
+        363,
+        412,
+        574,
+        532
       ],
-      "maps_to": "star_robe"
+      "maps_to": "F"
     },
     {
-      "what": "Exaggerated stiff upright white popped collar flaring behind the neck of the frankfurter",
+      "what": "Stiff white standing collar wrapping broadly behind the neck of the frankfurter",
       "box": [
         426,
         347,
-        608,
+        631,
         591
       ],
-      "maps_to": "high_collar"
+      "maps_to": "creature_collar"
     },
     {
-      "what": "Curved natural wooden staff held upright in the left hand with a gnarl at the top",
+      "what": "Starry midnight-blue wizard robe patterned with small pale yellow five-pointed stars and wide bell sleeves",
+      "box": [
+        492,
+        308,
+        853,
+        696
+      ],
+      "maps_to": "creature_robe"
+    },
+    {
+      "what": "Curved wooden wizard walking staff gripped in the figure's left hand",
       "box": [
         419,
-        638,
+        635,
         804,
-        701
+        700
       ],
-      "maps_to": "wooden_staff"
+      "maps_to": "creature_staff"
     },
     {
-      "what": "Small swirling cyan-blue magical flame hovering just above the open right palm",
+      "what": "Mystical cyan-blue flame droplet levitating just above the figure's outstretched right hand",
       "box": [
         510,
-        259,
-        563,
-        294
+        258,
+        566,
+        295
       ],
-      "maps_to": "blue_arcane_flame"
+      "maps_to": "creature_flame"
     },
     {
-      "what": "Minimalist expressive sausage face with two black dot eyes and a tiny tilted 'w' puckered mouth",
+      "what": "Thin spindly hot-dog skin stick legs and elongated bare sausage feet planted on the floor",
       "box": [
-        413,
-        423,
-        447,
-        475
+        712,
+        396,
+        922,
+        590
       ],
-      "maps_to": "creature_face"
-    },
-    {
-      "what": "Hand-lettered black calligraphy text reading 'you're A Glizard 'ARRY'",
-      "box": [
-        121,
-        172,
-        292,
-        814
-      ],
-      "maps_to": "lore_concept"
-    },
-    {
-      "what": "Plain empty stark white paper background surrounding the solitary character",
-      "box": [
-        0,
-        0,
-        1000,
-        1000
-      ],
-      "maps_to": "void_and_canvas"
+      "maps_to": "F"
     }
   ],
   "palette": {
@@ -111,422 +121,382 @@
       {
         "hex": "#ffffff",
         "share": 0.835,
-        "role": "canvas background"
+        "role": "paper"
       },
       {
         "hex": "#122346",
         "share": 0.063,
-        "role": "wizard robe and hat base"
+        "role": "wizard robe and hat main shade"
       },
       {
         "hex": "#644b48",
         "share": 0.026,
-        "role": "shadows on sausage body and staff"
+        "role": "casing shadow and staff shade"
       },
       {
         "hex": "#c2674e",
         "share": 0.025,
-        "role": "frankfurter sausage skin"
+        "role": "sausage frankfurter skin tone"
       },
       {
         "hex": "#7f878b",
         "share": 0.015,
-        "role": "subtle text and shadow strokes"
+        "role": "soft collar shadow"
       },
       {
         "hex": "#f6f7f7",
         "share": 0.014,
-        "role": "white popped collar fabric"
+        "role": "collar highlight"
       },
       {
         "hex": "#b4b7b8",
         "share": 0.012,
-        "role": "collar shading tone"
+        "role": "mid grey shading"
       },
       {
         "hex": "#dbdede",
         "share": 0.01,
-        "role": "faint grey ink tone"
+        "role": "pale white fill"
       }
     ],
     "translation": {
-      "bg": "#2b2a3a",
+      "bg": "#2b2a38",
       "grass": {
-        "top": "#9be368",
-        "fringe": "#7ec958",
-        "fringeDark": "#64a844",
-        "speck": "#b8f080"
+        "top": "#9be35b",
+        "fringe": "#7fc946",
+        "fringeDark": "#64a835",
+        "speck": "#b8f07a"
       },
       "sand": {
-        "top": "#f5c53b",
-        "lip": "#dc9412",
-        "edge": "#f2bc18",
-        "dots": "#f7d368"
+        "top": "#f6c838",
+        "lip": "#df990c",
+        "edge": "#f0be1a",
+        "dots": "#fae06d"
       },
       "dirt": {
-        "top": "#f0b86a",
-        "patch": "#e5a755",
-        "mottle": "#d49242",
-        "border": "#be7b30"
+        "top": "#fed978",
+        "patch": "#ffd25d",
+        "mottle": "#f2c149",
+        "border": "#e5a720"
       },
       "stone": {
-        "top": "#e0dcce",
-        "pebble": "#f0ede2",
-        "pebbleShade": "#cac5b4",
-        "rim": "#b5af9c"
+        "top": "#f0e6cf",
+        "pebble": "#fff8e8",
+        "pebbleShade": "#d8ccb0",
+        "rim": "#c7b796"
       },
       "cliffUpper": {
-        "left": "#c3735e",
-        "right": "#a25a48",
-        "seam": "#8a4838"
+        "left": "#c76d54",
+        "right": "#aa5640",
+        "seam": "#8f4431"
       },
       "cliffLower": {
-        "left": "#d47762",
-        "right": "#9e4c3c",
-        "seam": "#b25a4a",
-        "speck": "#883d30"
+        "left": "#d67a60",
+        "right": "#b75d45",
+        "seam": "#984732",
+        "speck": "#823b28"
       },
       "water": {
-        "top": "#6cebff",
-        "bubble": "#c8f8ff",
-        "deep": "#1ab8e8",
+        "top": "#8be9fd",
+        "bubble": "#d2f8ff",
+        "deep": "#00cbf7",
         "fall": [
-          "#20c4f2",
-          "#1ab2e0",
-          "#149fcc"
+          "#00d9ff",
+          "#00cbf7",
+          "#00b8e6"
         ],
-        "foam": "#dcf9ff"
+        "foam": "#e6fbff"
       },
       "wood": {
         "light": "#ff8824",
-        "mid": "#dc6e18",
-        "dark": "#b84f0e",
-        "shadow": "#963c0a",
-        "end": "#f7d686"
+        "mid": "#e06c10",
+        "dark": "#b84f09",
+        "shadow": "#923d06",
+        "end": "#f8dc8e"
       },
       "treeMint": [
-        "#68e09e",
-        "#5ac389",
-        "#44a46b"
+        "#64e49e",
+        "#4ec784",
+        "#39a667"
       ],
       "treeLime": [
-        "#c4ef86",
-        "#8ce263",
-        "#73aa4f"
+        "#c0f07a",
+        "#88df54",
+        "#6ebd3e"
       ],
       "treeLeaf": [
-        "#8ce263",
-        "#64c960",
-        "#50ab46"
+        "#8de25b",
+        "#68c94e",
+        "#4eac3b"
       ],
       "treeTeal": [
-        "#2062ac",
-        "#18508f",
-        "#123f75",
-        "#0e3060"
+        "#14f3b8",
+        "#0bd39b",
+        "#04b07f",
+        "#029168"
       ],
       "treeGold": [
-        "#f5cd50",
-        "#eeb914",
-        "#d4900a"
+        "#f6cf4c",
+        "#edb815",
+        "#d29204"
       ],
       "trunk": [
-        "#ad624f",
-        "#934e3d"
+        "#b5634d",
+        "#9c4e3a"
       ],
       "rock": [
-        "#dedede",
-        "#c8c8c8",
-        "#9e9e9e",
-        "#7e7e7e"
+        "#eaeaea",
+        "#d2d2d2",
+        "#adadad",
+        "#8a8a8a"
       ],
       "wellStone": [
-        "#dbc9a2",
-        "#c7b693",
-        "#b1a483"
+        "#decfa7",
+        "#c8b78d",
+        "#b09f75"
       ],
       "flowerOrange": [
-        "#ff831d",
-        "#f1b900"
+        "#ff8824",
+        "#f6c838"
       ],
       "berry": [
-        "#fe738f",
-        "#f45f7d"
+        "#ff6f8c",
+        "#f25272"
       ],
       "bushTeal": [
-        "#72d4ff",
-        "#3db5ea",
-        "#1f8fc2"
+        "#82ffbe",
+        "#5be098",
+        "#46bf7d"
       ],
       "gold": [
-        "#f7d054",
-        "#e8b816",
-        "#fae388"
+        "#f6cf4c",
+        "#df990c",
+        "#fce682"
       ]
     },
-    "notes": "Retains the classic chunky pack saturation while integrating the Glizard's signature sausage terracotta cliff shades, deep navy wizard robes into lush decorative accents, and bright mystic cyan sparks.",
-    "clamped": [
-      "treeTeal[0] #164478->#2062ac",
-      "treeTeal[1] #0f325a->#18508f",
-      "treeTeal[2] #0a223f->#123f75",
-      "treeTeal[3] #06152a->#0e3060"
-    ]
+    "notes": "The palette translates the hot dog's warm terracotta skin into sunny cliff edges and warm earth tones, accented by golden amber sand and rich grass to convey a sunny midday mountain homestead."
   },
   "motifs": [
     {
-      "name": "sorcerer_archway",
-      "type": "new",
-      "variant_of": null,
-      "footprint": [
-        2,
-        1
-      ],
-      "height": 2.2,
-      "passable": false,
-      "count": 1,
-      "cells": [
-        [
-          7,
-          6
-        ]
-      ],
-      "where": "Straddles the winding ascent path at mid-mountain, forming the sacred threshold before the glizard terrace.",
-      "shape": {
-        "summary": "Chunky twin timber pillars joined by a curved lintel bearing carved wooden star runes.",
-        "parts": [
-          {
-            "prim": "box",
-            "dims": [
-              0.28,
-              1.8,
-              0.28
-            ],
-            "at": [
-              -0.5,
-              0,
-              0
-            ],
-            "tones": [
-              "#ff8824",
-              "#dc6e18",
-              "#b84f0e"
-            ]
-          },
-          {
-            "prim": "box",
-            "dims": [
-              0.28,
-              1.8,
-              0.28
-            ],
-            "at": [
-              0.5,
-              0,
-              0
-            ],
-            "tones": [
-              "#ff8824",
-              "#dc6e18",
-              "#b84f0e"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              1.4,
-              0.28,
-              0.32,
-              0.08
-            ],
-            "at": [
-              0,
-              1.7,
-              0
-            ],
-            "tones": [
-              "#ff8824",
-              "#dc6e18",
-              "#b84f0e"
-            ]
-          },
-          {
-            "prim": "cone",
-            "dims": [
-              0.18,
-              0,
-              0.35,
-              6
-            ],
-            "at": [
-              -0.5,
-              1.9,
-              0
-            ],
-            "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
-            ]
-          },
-          {
-            "prim": "cone",
-            "dims": [
-              0.18,
-              0,
-              0.35,
-              6
-            ],
-            "at": [
-              0.5,
-              1.9,
-              0
-            ],
-            "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.14,
-              0.9
-            ],
-            "at": [
-              0,
-              2.05,
-              0
-            ],
-            "tones": [
-              "#f7d054",
-              "#e8b816",
-              "#d4900a"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "glizard_dais",
+      "name": "terrace_trellis_arch",
       "type": "new",
       "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 0.45,
+      "height": 2.2,
       "passable": true,
       "count": 1,
       "cells": [
         [
-          8,
-          3
+          9,
+          5
         ]
       ],
-      "where": "Forms the central ceremonial bun-shaped sunbathing podium directly beneath the resting wizard on the high terrace.",
+      "where": "Straddles the winding path as the domestic garden threshold leading onto the Glizard's top terrace.",
       "shape": {
-        "summary": "Rounded golden baked-bread style plinth decorated with star relief markings.",
+        "summary": "A rustic timber garden arbor with twin upright posts and a notched crossbeam wrapped with ivy leaves.",
         "parts": [
           {
-            "prim": "rbox",
+            "prim": "box",
             "dims": [
-              0.88,
-              0.24,
-              0.88,
-              0.12
+              0.16,
+              2,
+              0.16
             ],
             "at": [
-              0,
+              -0.36,
               0,
               0
             ],
             "tones": [
-              "#f5c53b",
-              "#dc9412",
-              "#be7b30"
+              "#ff8824",
+              "#e06c10",
+              "#b84f09"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.16,
+              2,
+              0.16
+            ],
+            "at": [
+              0.36,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8824",
+              "#e06c10",
+              "#b84f09"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              0.72,
-              0.18,
-              0.72,
-              0.1
+              0.96,
+              0.2,
+              0.22,
+              0.06
             ],
             "at": [
               0,
-              0.2,
+              2,
               0
             ],
             "tones": [
-              "#fae388",
-              "#f5cd50",
-              "#dc9412"
+              "#ff8824",
+              "#e06c10",
+              "#b84f09"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.24,
+              0.8
+            ],
+            "at": [
+              -0.2,
+              2.1,
+              0
+            ],
+            "tones": [
+              "#8de25b",
+              "#68c94e",
+              "#4eac3b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.2,
+              0.8
+            ],
+            "at": [
+              0.22,
+              2.12,
+              0
+            ],
+            "tones": [
+              "#c0f07a",
+              "#88df54",
+              "#6ebd3e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "patio_hearth_dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.35,
+      "passable": true,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          3
+        ]
+      ],
+      "where": "Forms the low sun-warmed stone cooking patio beneath Glizard 'Arry's feet.",
+      "shape": {
+        "summary": "A low octagonal paved stone cooking flag with an inset warm copper tea-kettle tripod.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.46,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f0e6cf",
+              "#d8ccb0",
+              "#c7b796"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.12,
+              0.3,
+              0.04
+            ],
+            "at": [
+              0.2,
+              0.15,
+              -0.15
+            ],
+            "tones": [
+              "#ff8824",
+              "#e06c10",
+              "#b84f09"
             ]
           },
           {
             "prim": "cone",
             "dims": [
               0.12,
-              0,
               0.08,
-              5
+              0.14,
+              6
             ],
             "at": [
-              0,
-              0.36,
-              0
+              0.2,
+              0.27,
+              -0.15
             ],
             "tones": [
-              "#6cebff",
-              "#1ab8e8",
-              "#149fcc"
+              "#8a8a8a",
+              "#6f6f6f",
+              "#555555"
             ]
           }
         ]
       }
     },
     {
-      "name": "arcane_lantern",
-      "type": "lantern",
-      "variant_of": "lantern",
+      "name": "wizard_spice_rack",
+      "type": "new",
+      "variant_of": null,
       "footprint": [
         1,
         1
       ],
-      "height": 1.1,
+      "height": 1.4,
       "passable": false,
-      "count": 4,
+      "count": 1,
       "cells": [
         [
           6,
-          8
-        ],
-        [
-          8,
-          8
-        ],
-        [
-          6,
-          5
-        ],
-        [
-          9,
-          5
+          2
         ]
       ],
-      "where": "Flanks the winding approach switchbacks in guide pairs illuminating the climb.",
+      "where": "Stands directly behind the tea patio where Glizard stores dried spices and brewing seasonings.",
       "shape": {
-        "summary": "Faceted wooden lamppost crowned with a glowing cyan cube beacon.",
+        "summary": "A chunky tiered wooden rack holding colorful ceramic jars of culinary potion powders.",
         "parts": [
           {
-            "prim": "cyl",
+            "prim": "box",
             "dims": [
-              0.08,
-              0.85,
-              6
+              0.72,
+              1.2,
+              0.28
             ],
             "at": [
               0,
@@ -535,16 +505,144 @@
             ],
             "tones": [
               "#ff8824",
-              "#dc6e18",
-              "#b84f0e"
+              "#e06c10",
+              "#b84f09"
             ]
           },
           {
+            "prim": "cyl",
+            "dims": [
+              0.1,
+              0.22,
+              6
+            ],
+            "at": [
+              -0.22,
+              0.45,
+              0.05
+            ],
+            "tones": [
+              "#8be9fd",
+              "#00cbf7",
+              "#00b8e6"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.09,
+              0.2,
+              6
+            ],
+            "at": [
+              0,
+              0.45,
+              0.05
+            ],
+            "tones": [
+              "#f6cf4c",
+              "#edb815",
+              "#d29204"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.11,
+              0.25,
+              6
+            ],
+            "at": [
+              0.22,
+              0.45,
+              0.05
+            ],
+            "tones": [
+              "#ff6f8c",
+              "#f25272",
+              "#d9435f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.68,
+              0.16,
+              0.22,
+              0.04
+            ],
+            "at": [
+              0,
+              0.85,
+              0.05
+            ],
+            "tones": [
+              "#f8dc8e",
+              "#e06c10",
+              "#b84f09"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "lantern",
+      "type": "lantern",
+      "variant_of": "lantern",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          10,
+          10
+        ],
+        [
+          12,
+          10
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "where": "Positioned in pairs flanking the switchback climbing corners to illuminate the terrace path.",
+      "shape": {
+        "summary": "A wooden post topped with an amber-glowing garden lantern.",
+        "parts": [
+          {
             "prim": "box",
             "dims": [
+              0.14,
+              0.75,
+              0.14
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8824",
+              "#e06c10",
+              "#b84f09"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
               0.26,
-              0.28,
-              0.26
+              0.25,
+              0.26,
+              0.04
             ],
             "at": [
               0,
@@ -552,9 +650,9 @@
               0
             ],
             "tones": [
-              "#c8f8ff",
-              "#6cebff",
-              "#1ab8e8"
+              "#f6cf4c",
+              "#df990c",
+              "#fce682"
             ]
           },
           {
@@ -562,193 +660,62 @@
             "dims": [
               0.2,
               0,
-              0.2,
-              6
+              0.15,
+              4
             ],
             "at": [
               0,
-              0.98,
-              0
-            ],
-            "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "condiment_cauldron",
-      "type": "pot",
-      "variant_of": "pot",
-      "footprint": [
-        1,
-        1
-      ],
-      "height": 0.75,
-      "passable": false,
-      "count": 1,
-      "cells": [
-        [
-          10,
-          3
-        ]
-      ],
-      "where": "Sits in the sunny garden nook beside the Glizard's roost for brewing mustard alchemy.",
-      "shape": {
-        "summary": "Stout clay brewing pot filled with steaming golden concoctions.",
-        "parts": [
-          {
-            "prim": "cyl",
-            "dims": [
-              0.34,
-              0.5,
-              8
-            ],
-            "at": [
-              0,
-              0,
-              0
-            ],
-            "tones": [
-              "#c3735e",
-              "#a25a48",
-              "#8a4838"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.38,
-              0.7
-            ],
-            "at": [
-              0,
-              0.26,
-              0
-            ],
-            "tones": [
-              "#c3735e",
-              "#a25a48",
-              "#8a4838"
-            ]
-          },
-          {
-            "prim": "cyl",
-            "dims": [
-              0.28,
-              0.06,
-              8
-            ],
-            "at": [
-              0,
-              0.48,
-              0
-            ],
-            "tones": [
-              "#f7d054",
-              "#e8b816",
-              "#d4900a"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "name": "relic_chest",
-      "type": "chest",
-      "variant_of": "chest",
-      "footprint": [
-        1,
-        1
-      ],
-      "height": 0.6,
-      "passable": false,
-      "count": 1,
-      "cells": [
-        [
-          6,
-          3
-        ]
-      ],
-      "where": "Nestled near the Glizard's roost containing ancient spell scrolls and spellbook recipes.",
-      "shape": {
-        "summary": "Toy ironbound wooden chest with gold star trim.",
-        "parts": [
-          {
-            "prim": "rbox",
-            "dims": [
-              0.65,
-              0.38,
-              0.45,
-              0.06
-            ],
-            "at": [
-              0,
-              0,
+              1,
               0
             ],
             "tones": [
               "#ff8824",
-              "#dc6e18",
-              "#b84f0e"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.68,
-              0.18,
-              0.48,
-              0.08
-            ],
-            "at": [
-              0,
-              0.34,
-              0
-            ],
-            "tones": [
-              "#f5c53b",
-              "#dc9412",
-              "#be7b30"
+              "#e06c10",
+              "#b84f09"
             ]
           }
         ]
       }
     },
     {
-      "name": "elder_sausage_pine",
-      "type": "tree-pine",
-      "variant_of": "tree-pine",
+      "name": "tree-orange",
+      "type": "tree-orange",
+      "variant_of": "tree-orange",
       "footprint": [
         1,
         1
       ],
-      "height": 2.5,
+      "height": 2.2,
       "passable": false,
-      "count": 2,
+      "count": 4,
       "cells": [
         [
           3,
           1
         ],
         [
-          13,
-          2
+          11,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          12,
+          4
         ]
       ],
-      "where": "Frames the background peaks and cliffsides, creating a cozy secluded magical perimeter.",
+      "where": "Clustered along the clifftop edges to shelter the outdoor homestead retreat from mountain wind.",
       "shape": {
-        "summary": "Four tiered stepped pine foliage in mystical dark teal blue over a stout trunk.",
+        "summary": "A warm golden-amber rounded deciduous tree built from stacked rounded foliage blocks.",
         "parts": [
           {
             "prim": "box",
             "dims": [
-              0.22,
-              0.7,
-              0.22
+              0.2,
+              0.9,
+              0.2
             ],
             "at": [
               0,
@@ -756,168 +723,178 @@
               0
             ],
             "tones": [
-              "#ad624f",
-              "#934e3d",
-              "#883d30"
+              "#b5634d",
+              "#9c4e3a",
+              "#823b28"
             ]
           },
           {
             "prim": "rbox",
             "dims": [
-              1,
-              0.45,
-              1,
+              0.95,
+              0.8,
+              0.95,
+              0.12
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#f6cf4c",
+              "#edb815",
+              "#d29204"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.72,
+              0.7,
+              0.72,
               0.1
             ],
             "at": [
               0,
-              0.55,
+              1.5,
               0
             ],
             "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.8,
-              0.42,
-              0.8,
-              0.08
-            ],
-            "at": [
-              0,
-              0.95,
-              0
-            ],
-            "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.6,
-              0.38,
-              0.6,
-              0.07
-            ],
-            "at": [
-              0,
-              1.32,
-              0
-            ],
-            "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.38,
-              0.35,
-              0.38,
-              0.05
-            ],
-            "at": [
-              0,
-              1.66,
-              0
-            ],
-            "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
+              "#fae06d",
+              "#f6cf4c",
+              "#edb815"
             ]
           }
         ]
       }
     },
     {
-      "name": "mustard_bush",
-      "type": "bush",
-      "variant_of": "bush",
+      "name": "pot",
+      "type": "pot",
+      "variant_of": "pot",
       "footprint": [
         1,
         1
       ],
-      "height": 0.65,
+      "height": 0.6,
       "passable": false,
-      "count": 3,
+      "count": 2,
       "cells": [
         [
-          4,
+          8,
           2
         ],
         [
-          11,
-          2
-        ],
-        [
-          3,
-          5
+          9,
+          3
         ]
       ],
-      "where": "Clustered along terrace borders to add bright herbal texture to the gardens.",
+      "where": "Resting beside the living terrace holding fermenting mustard seeds and herbal teas.",
       "shape": {
-        "summary": "Rounded bunch of yellow and teal leafy globes hugging the soil.",
+        "summary": "A rounded terracotta clay vessel with rolled clay rim.",
         "parts": [
           {
-            "prim": "ball",
-            "dims": [
-              0.32,
-              0.85
-            ],
-            "at": [
-              -0.15,
-              0.22,
-              0
-            ],
-            "tones": [
-              "#f5cd50",
-              "#eeb914",
-              "#d4900a"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.34,
-              0.9
-            ],
-            "at": [
-              0.16,
-              0.25,
-              0.1
-            ],
-            "tones": [
-              "#9be368",
-              "#7ec958",
-              "#64a844"
-            ]
-          },
-          {
-            "prim": "ball",
+            "prim": "cyl",
             "dims": [
               0.26,
-              0.8
+              0.45,
+              8
             ],
             "at": [
               0,
-              0.35,
-              -0.1
+              0,
+              0
             ],
             "tones": [
-              "#72d4ff",
-              "#3db5ea",
-              "#1f8fc2"
+              "#c76d54",
+              "#aa5640",
+              "#8f4431"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.3,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#d67a60",
+              "#c76d54",
+              "#aa5640"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "flower",
+      "type": "flower",
+      "variant_of": "flower",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.3,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          4
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          10,
+          7
+        ]
+      ],
+      "where": "Planted along the stone edges as cheerful sunny marigolds and kitchen herbs.",
+      "shape": {
+        "summary": "A cluster of three bright yellow-orange blossoms on slender green stems.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.05,
+              0.25,
+              0.05
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8de25b",
+              "#68c94e",
+              "#4eac3b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.9
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#ff8824",
+              "#f6c838",
+              "#df990c"
             ]
           }
         ]
@@ -926,8 +903,8 @@
   ],
   "creatures": [
     {
-      "name": "glizard_the_wizard",
-      "source": "Frankfurter wizard in blue starry robe holding wooden staff and blue flame from center of IMAGE 1",
+      "name": "Glizard 'Arry",
+      "source": "The frankfurter wizard in indigo robes and pointed wizard hat holding staff and conjuring blue fire",
       "becomes": "npc",
       "type": "new",
       "footprint": [
@@ -935,71 +912,61 @@
         1
       ],
       "height": 2.2,
+      "pose": "Glizard stands relaxed on his morning terrace, leaning lightly on his walking staff while casually hovering a blue fire ember above his open right hand to warm his breakfast kettle.",
+      "cell": [
+        8,
+        3
+      ],
+      "facing": "s",
+      "why": "Acts as the hospitable hot-dog hermit at home on his highest sunlit terrace retreat.",
       "shape": {
-        "summary": "Chunky frankfurter sausage body fitted with draped starry robe, tall pointed hat, upright collar, staff, and mana spark.",
+        "summary": "A low-poly frankfurter sorcerer wearing a starry blue robe, tall cone hat, wide white collar, carrying a crook staff and a hovering blue spark.",
         "parts": [
           {
-            "prim": "cyl",
+            "prim": "rbox",
             "dims": [
-              0.05,
-              0.45,
-              6
+              0.12,
+              0.32,
+              0.12,
+              0.04
             ],
             "at": [
               -0.12,
               0,
-              0.02
+              0
             ],
             "tones": [
-              "#d47762",
-              "#c3735e",
-              "#a25a48"
+              "#c76d54",
+              "#aa5640",
+              "#8f4431"
             ]
           },
           {
-            "prim": "cyl",
+            "prim": "rbox",
             "dims": [
-              0.05,
-              0.45,
-              6
+              0.12,
+              0.32,
+              0.12,
+              0.04
             ],
             "at": [
               0.12,
               0,
-              -0.02
-            ],
-            "tones": [
-              "#d47762",
-              "#c3735e",
-              "#a25a48"
-            ]
-          },
-          {
-            "prim": "rbox",
-            "dims": [
-              0.42,
-              1.25,
-              0.36,
-              0.16
-            ],
-            "at": [
-              0,
-              0.35,
               0
             ],
             "tones": [
-              "#d47762",
-              "#c3735e",
-              "#a25a48"
+              "#c76d54",
+              "#aa5640",
+              "#8f4431"
             ]
           },
           {
-            "prim": "rbox",
+            "prim": "cone",
             "dims": [
-              0.62,
-              0.95,
-              0.44,
-              0.1
+              0.38,
+              0.24,
+              0.85,
+              8
             ],
             "at": [
               0,
@@ -1007,156 +974,159 @@
               0
             ],
             "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
+              "#253b6e",
+              "#1b2c54",
+              "#12203d"
             ]
           },
           {
-            "prim": "cone",
+            "prim": "rbox",
             "dims": [
               0.34,
-              0.22,
-              0.4,
-              7
+              0.88,
+              0.3,
+              0.14
             ],
             "at": [
               0,
-              1.05,
-              -0.04
+              0.82,
+              0
             ],
             "tones": [
-              "#f6f7f7",
-              "#dbdede",
-              "#b4b7b8"
+              "#c76d54",
+              "#aa5640",
+              "#8f4431"
             ]
           },
           {
-            "prim": "ball",
+            "prim": "prism",
             "dims": [
-              0.04,
-              1
+              0.42
+            ],
+            "outline": [
+              [
+                -0.28,
+                -0.15
+              ],
+              [
+                0.28,
+                -0.15
+              ],
+              [
+                0.34,
+                0.22
+              ],
+              [
+                -0.34,
+                0.22
+              ]
             ],
             "at": [
-              -0.08,
-              1.16,
-              0.18
+              0,
+              1.25,
+              0
             ],
             "tones": [
-              "#122346",
-              "#122346",
-              "#122346"
-            ]
-          },
-          {
-            "prim": "ball",
-            "dims": [
-              0.04,
-              1
-            ],
-            "at": [
-              0.06,
-              1.16,
-              0.18
-            ],
-            "tones": [
-              "#122346",
-              "#122346",
-              "#122346"
+              "#ffffff",
+              "#f0f2f5",
+              "#d8dde3"
             ]
           },
           {
             "prim": "cone",
             "dims": [
-              0.48,
-              0.02,
+              0.55,
+              0.26,
               0.12,
               8
             ],
             "at": [
               0,
-              1.45,
+              1.62,
               0
             ],
             "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
+              "#253b6e",
+              "#1b2c54",
+              "#12203d"
             ]
           },
           {
             "prim": "cone",
             "dims": [
-              0.24,
-              0,
+              0.26,
+              0.04,
               0.58,
-              7
-            ],
-            "rot": [
-              -6,
-              0,
-              4
+              6
             ],
             "at": [
-              0,
-              1.52,
+              0.02,
+              1.74,
               0
             ],
             "tones": [
-              "#2062ac",
-              "#18508f",
-              "#123f75"
+              "#253b6e",
+              "#1b2c54",
+              "#12203d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.07,
+              0.9
+            ],
+            "at": [
+              0,
+              1.95,
+              -0.12
+            ],
+            "tones": [
+              "#f6cf4c",
+              "#edb815",
+              "#d29204"
             ]
           },
           {
             "prim": "beam",
             "dims": [
-              0.04
+              0.05
             ],
             "at": [
-              0.28,
-              0,
-              0.12
+              0.32,
+              0.2,
+              0.05
             ],
             "to": [
-              0.32,
-              1.4,
-              0.14
+              0.36,
+              1.45,
+              0
             ],
             "tones": [
-              "#ff8824",
-              "#dc6e18",
-              "#b84f0e"
+              "#b5634d",
+              "#9c4e3a",
+              "#823b28"
             ]
           },
           {
-            "prim": "cone",
+            "prim": "ball",
             "dims": [
-              0.08,
-              0,
-              0.22,
-              5
+              0.09,
+              1.2
             ],
             "at": [
-              -0.3,
-              0.9,
-              0.15
+              -0.36,
+              1.05,
+              0.14
             ],
             "tones": [
-              "#c8f8ff",
-              "#6cebff",
-              "#1ab8e8"
+              "#8be9fd",
+              "#00cbf7",
+              "#00b8e6"
             ]
           }
         ]
-      },
-      "pose": "Stands peacefully on his sunny mountain dais, balancing a docile spark of cyan fire in hand while leaning lightly on his walking stick.",
-      "cell": [
-        7,
-        3
-      ],
-      "facing": "s",
-      "why": "This is Glizard 'Arry resting at home in his tranquil mountaintop cloister."
+      }
     }
   ],
   "composition": {
@@ -1170,100 +1140,104 @@
       "P": "path"
     },
     "grid": [
-      "VVVVVVVVVVVVVVVV",
-      "VVTTRRRRRRRRTTVV",
-      "VVTRRRRRRRRRRTVV",
-      "VVTTRRRFRRRRTTVV",
-      "VVVTRRRPRRRRTVVV",
-      "VVVTRRPPPRRRTVVV",
-      "VVVVTRPPPRRTVVVV",
-      "VVVVVRPPPRTVVVVV",
-      "VVVVTRPPPPTTVVVV",
-      "VVVVVTPPPPTVVVVV",
-      "VVVVVVVPPVVVVVVV",
-      "VVVVVVVVVVVVVVVV"
+      "VVVTTTTTTTTVVVVV",
+      "VVTRRRRRRRRTTVVV",
+      "VTRRRRRRRRRRRTVV",
+      "VTRRRRPPFFRRRRTV",
+      "VTRRPPPPPRRRRTVV",
+      "VTRRRRRRRPPRRTVV",
+      "VGTRRRPPPPPRTGVV",
+      "VGTRPPRRRRRTGGVV",
+      "VGGGGPPGGGGGGGVV",
+      "VVGGGGPPPPPPGGVV",
+      "VVVGGGGGGGGPGVVV",
+      "VVVVGGGGGGGPVVVV"
     ],
     "heights": [
-      "0000000000000000",
-      "0012333333332100",
-      "0013333333333100",
-      "0012333333332100",
-      "0001222322221000",
-      "0001222222221000",
-      "0000122222110000",
-      "0000011111100000",
-      "0000111111110000",
-      "0000011111100000",
-      "0000000110000000",
-      "0000000000000000"
+      "0001222222200000",
+      "0023333333322000",
+      "0233333333333200",
+      "0233333333333210",
+      "0233333333333200",
+      "0222222223322200",
+      "0122222222222100",
+      "0112222222221100",
+      "0111112111111100",
+      "0011111111111100",
+      "0001111111111000",
+      "0000111111110000"
     ],
     "focal": {
-      "x": 7,
+      "x": 8,
       "z": 3,
-      "what": "Glizard the sausage wizard on his sunny high home dais."
+      "what": "Glizard 'Arry peacefully warming tea on his high terrace home"
     },
-    "mass": "Heaviest at the upper center where the tier-3 mountain plateau and dense pines form the sheltered backyard roost.",
-    "read": "The adventurer enters from the bottom path at column 7-8, winds gently upward through ascending grassy tiers between warm beacon lanterns, steps through the timbered star archway, and arrives at the highest sunny garden where Glizard 'Arry resides with his brewing cauldron and spell chest."
+    "mass": "Visual weight is anchored on the elevated height-3 northern clifftop terrace where the frankfurter wizard stands framed by warm golden trees.",
+    "read": "The viewer enters at the lower right foreground via an off-centre path that winds leftward across a sunlit grassy plateau, switchbacks rightward up onto a mid-height terrace through a garden trellis arch, and finishes with a gentle leftward curve onto the highest sun-drenched domestic patio."
   },
   "biome": {
     "trees": {
-      "density": 0.16,
+      "density": 0.18,
       "types": [
         {
-          "type": "elder_sausage_pine",
-          "variant": "midnight",
+          "type": "tree-orange",
+          "variant": "tree-orange",
           "weight": 0.7
         },
         {
           "type": "tree-round",
-          "variant": "gold",
+          "variant": "tree-round",
           "weight": 0.3
         }
       ]
     },
     "water_share": 0,
     "plateau_share": 0.44,
-    "void_share": 0.46,
+    "void_share": 0.32,
     "decor_weights": {
-      "arcane_lantern": 0.3,
-      "mustard_bush": 0.3,
-      "flowerOrange": 0.2,
-      "rock": 0.2
+      "flower": 0.4,
+      "pot": 0.25,
+      "lantern": 0.2,
+      "wizard_spice_rack": 0.15
     },
     "lighting": {
-      "bg": "#2b2a3a",
+      "bg": "#2b2a38",
       "ambient": 0.9,
       "sun": 0.18,
-      "tint": "#fffbf0",
-      "notes": "Crisp warm midday sunlight casting soft defined toy-like shadows across vibrant terraced stone and mustard lawns."
+      "tint": "#fff4e2",
+      "notes": "Crisp warm midday mountain sunlight with soft glowing ambient fill."
     },
     "rules": [
-      "Ensure the winding path climbs from height 1 up to height 3 smoothly across terrace steps.",
-      "Place arcane lanterns in opposite pairs along the path ascent turns.",
-      "Mount the sorcerer archway directly across the main path at the threshold of the highest terrace.",
-      "Keep the focal cell on a bun-like dais overlooking the valley from the peak plateau."
+      "The path enters off-centre at the southern rim and switchbacks twice while climbing the stepped cliffs.",
+      "Lanterns stand in pairs on either side of the path corners to mark the route up the terraces.",
+      "The trellis arch straddles the path between the second terrace and the third residential terrace.",
+      "Glizard stands in the center of the height-3 terrace with his domestic hearth and spice racks nearby."
     ],
-    "decor_density": 0.12,
+    "decor_density": 0.11,
     "surfaces": {
       "ground": "grass",
-      "raised": "grass",
+      "raised": "stone",
       "path": "sand",
       "shore": "dirt",
       "mist": null
     }
   },
   "scene": {
-    "place": "The High Mustard Sanctum, a secluded mountaintop terrace where the Glizard tends his herb garden and magical brews.",
-    "approach": "The visitor climbs an S-curved winding stone-and-sand path past twin beacon lanterns, passing under a wooden stargazing archway to reach the high summit.",
-    "creature_doing": "Glizard 'Arry basks comfortably in the midday sun on his pedestal, idly levitating a playful cyan spark in his palm.",
-    "palette_key": "Sun-drenched golden grass and mustard sands framed by the Glizard's signature midnight star-blue and frankfurter terracotta cliffs.",
-    "terrain": "Tiered ascending terraces forming a safe, cozy high mountain roost above the void.",
-    "summary": "An endearing whimsical sanctuary where an enchanted sausage wizard lives his serene, unhurried everyday life among herbs, chests, and harmless magic."
+    "place": "The Frankfurth Homestead, a sunny terraced herb garden and open-air domestic patio perched atop a warm sandstone mountain peak.",
+    "approach": "The visitor climbs an off-centre switchback path traversing grass terraces and climbing steps under a rustic garden trellis gate.",
+    "creature_doing": "Glizard 'Arry stands comfortably in his morning routine, leaning on his crook staff while playfully hovering a blue spark to brew hot herbal tea.",
+    "palette_key": "Sun-drenched golden midday light warms rich green lawns, sandy flagstones, and terracotta cliff faces, set against deep indigo robes.",
+    "terrain": "Stacked sandstone terraces that climb progressively to a broad residential clifftop at height 3.",
+    "summary": "A peaceful and heartwarming souls-like domestic sanctuary where the sausage sorcerer enjoys a quiet, sunny day tending his mountain herb home."
   },
   "concept": {
     "name": "scene",
     "fragment": "Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: \"observations\" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.\n- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.\n- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.\n- creatures: the first creature is IMAGE 1's creature (\"becomes\":\"npc\", \"type\":\"new\"), at the focal cell, facing \"s\". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, \"s\"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its \"pose\" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.\n- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are \"new\"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.\n- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.\n- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.\n- \"scene\": {\"place\": one sentence naming the place, \"approach\": one sentence on how the hero arrives and what the threshold is, \"creature_doing\": one sentence on what the creature is doing, \"palette_key\": one sentence naming the palette translation and light, \"terrain\": one sentence naming the terrain emphasis, \"summary\": one sentence that sums up the reading}.",
     "variant": 1,
-    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand."
+    "variantFragment": "READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand.",
+    "avoid": [
+      "pipeline/seed/concepts/wizard-2.json",
+      "pipeline/seed/concepts/wizard-3.json"
+    ]
   }
 }
