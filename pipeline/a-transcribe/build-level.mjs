@@ -8,7 +8,20 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../.
 const args = process.argv.slice(2);
 const flag = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
 const conceptArg = flag("--concept", null);
-const artSlug = flag("--art", null), briefArg = flag("--brief", null);
+const artSlug = flag("--art", null);
+let briefArg = flag("--brief", null);
+if (briefArg) {
+  const raw = JSON.parse(fs.readFileSync(path.resolve(root, briefArg), "utf8"));
+  if (raw.shaper) {
+    const { applyShaper } = await import("./shapers.mjs");
+    const shaped = applyShaper(raw, +flag("--seed", 1) || 1);
+    const rel = flag("--shaped", `pipeline/a-transcribe/shaped/${path.basename(briefArg)}`);
+    fs.mkdirSync(path.resolve(root, path.dirname(rel)), { recursive: true });
+    fs.writeFileSync(path.resolve(root, rel), JSON.stringify(shaped, null, 1) + "\n");
+    console.log(`shaper ${shaped.composition.shaped.name} ${JSON.stringify(shaped.composition.shaped.params)} -> ${rel}`);
+    briefArg = rel;
+  }
+}
 const stem = briefArg ? path.basename(briefArg, ".json") : null;
 const regionsRel = flag("--regions", stem ? `pipeline/a-transcribe/regions/${stem}.json` : conceptArg ? `pipeline/a-transcribe/regions-${conceptArg}.json` : "pipeline/a-transcribe/regions.json");
 if (artSlug && briefArg) {
@@ -19,7 +32,7 @@ const regions = JSON.parse(fs.readFileSync(path.resolve(root, regionsRel), "utf8
 const brief = JSON.parse(fs.readFileSync(path.resolve(root, briefArg || regions.brief), "utf8"));
 if (brief.concept && brief.concept.name !== "literal") {
   const { build } = await import("./concept-level.mjs");
-  await build({ root, flag, has: (k) => args.includes(k), regions, brief });
+  await build({ root, flag: (k, d) => (k === "--brief" ? briefArg : flag(k, d)), has: (k) => args.includes(k), regions, brief });
   process.exit(process.exitCode ?? 0);
 }
 const name = flag("--name", "forest-a");

@@ -3,6 +3,7 @@ import path from "node:path";
 import { registerCatalog, CATALOG, PALETTE as CORE } from "../../core/catalog.js";
 import { checkLevel, frameView, reachability } from "../../core/procgen.js";
 import { prepareLevel, DIRS } from "../../core/level.js";
+import { cliffPalette, cliffShape, surfaceMix, bridges } from "./lens-terrain.mjs";
 
 const BASE = new Set(Object.keys(CATALOG));
 const N4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
@@ -16,7 +17,8 @@ const chroma = (h) => { const c = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2
 const hash = (x, z, s = 0) => { let h = (x * 374761393 + z * 668265263 + s * 2147483647) >>> 0; h = ((h ^ (h >>> 13)) * 1274126177) >>> 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
 
 const HINTS = [["threshold", /gate|arch|torii|threshold|portal|door|entry|fang/i], ["dais", /dais|altar|plinth|pedestal|roost|perch|nest|throne|cushion|mat\b|platform|crag/i], ["light", /lantern|torch|brazier|lamp|candle|beacon|fire-pot|firepot/i], ["offering", /pot|basket|bowl|offering|chest|cairn|tribute|urn|jar|coin|gem/i], ["mass", /tree|pine|cypress|spire|pillar|monolith|rock|cliff|column|obelisk|totem|wall|hedge|bush|trunk/i]];
-export const hintFor = (p) => (p.kind === "lead creature" ? "lead" : p.kind === "creature" ? "creature" : (HINTS.find(([, re]) => re.test(p.type)) || HINTS.find(([, re]) => re.test(`${p.variant_of || ""} ${p.summary}`)) || ["detail"])[0]);
+const ROLES = ["threshold", "dais", "light", "offering", "mass", "detail", "approach"];
+export const hintFor = (p) => (p.kind === "lead creature" ? "lead" : ROLES.includes(p.role) ? p.role : p.kind === "creature" ? "creature" : (HINTS.find(([, re]) => re.test(p.type)) || HINTS.find(([, re]) => re.test(`${p.variant_of || ""} ${p.summary}`)) || ["detail"])[0]);
 
 export function newProps(brief) {
   const out = [];
@@ -28,7 +30,7 @@ export function newProps(brief) {
     if (e.type && e.type !== "new" && BASE.has(e.type)) continue;
     if (seen.has(e.name)) continue;
     seen.add(e.name);
-    out.push({ kind: e === lead ? "lead creature" : kind, type: e.name, footprint: e === lead ? [2, 2] : e.footprint || [1, 1], height: e.height, passable: !!e.passable, count: e.count ?? 1, variant_of: e.variant_of || null, summary: e.shape?.summary || "", parts: e.shape?.parts || [], pose: e.pose });
+    out.push({ kind: e === lead ? "lead creature" : kind, type: e.name, footprint: e === lead ? [2, 2] : e.footprint || [1, 1], height: e.height, passable: !!e.passable, count: e.count ?? 1, variant_of: e.variant_of || null, summary: e.shape?.summary || "", parts: e.shape?.parts || [], pose: e.pose, role: e.role });
   }
   return out;
 }
@@ -75,7 +77,10 @@ export async function build({ root, flag, has, regions, brief }) {
     for (const part of p.parts) if (Array.isArray(part.tones) && !uniq.some((u) => u.join() === part.tones.join())) uniq.push(part.tones);
     palette.tones[p.type] = uniq;
   }
-  palette.props = Object.fromEntries(props.map((p) => [p.type, { role: hintFor(p), footprint: p.footprint, height: p.height, passable: p.passable, variant_of: p.variant_of }]));
+  const lensOn = !!brief.concept?.lens;
+  palette.props = Object.fromEntries(props.map((p) => [p.type, { role: hintFor(p), footprint: p.footprint, height: p.height, passable: p.passable, variant_of: p.variant_of, ...(lensOn ? { summary: p.summary, parts: p.parts } : {}), ...(lensOn && hintFor(p) === "lead" && brief.figure_pose ? { pose: brief.figure_pose } : {}) }]));
+  const lensLog = [];
+  if (brief.cliff_treatment) lensLog.push(`cliff palette ${cliffPalette(palette, brief.cliff_treatment).join(" ")}`);
   const bg = lt.bg || T.bg;
   palette.bg = bg;
 
@@ -112,10 +117,12 @@ export async function build({ root, flag, has, regions, brief }) {
 
   const fig = regions.figure;
   const figSet = new Set(fig.cells.map(([x, z]) => k(x, z)));
-  const fc = [fig.anchor[0] + 0.5, fig.anchor[1] + 0.5];
+  const fc = [fig.anchor[0] + 1, fig.anchor[1] + 1];
+  if (brief.surface_mix) lensLog.push(`surface_mix ${brief.surface_mix.pattern}: ${surfaceMix(cells, brief.surface_mix, { focal: fc, shapedSurfaces: brief.composition?.shaped?.surfaces, skip: (x, z) => isPath(x, z) || figSet.has(k(x, z)) })} cells`);
+  if (brief.cliff_treatment) lensLog.push(`cliff ${brief.cliff_treatment.style}: ${cliffShape(cells, brief.cliff_treatment, (x, z) => figSet.has(k(x, z)))} cells`);
   {
     const landC = cells.flat().filter((c) => c.h >= 1 && c.s !== "water" && c.s !== "none").length;
-    const target = Math.round((+bi.plateau_share || 0) * landC);
+    const target = brief.shaper ? 0 : Math.round((+bi.plateau_share || 0) * landC);
     let raised = cells.flat().filter((c) => c.h >= 2 && c.s !== "water").length;
     while (raised < target) {
       let best = null;
@@ -155,7 +162,8 @@ export async function build({ root, flag, has, regions, brief }) {
     cand.sort((a, b) => a[2] - b[2]);
     return cand[0].slice(0, 2);
   };
-  let spawn = spawnPick();
+  const shapedStart = brief.composition?.shaped?.start;
+  let spawn = shapedStart && walk(at(...shapedStart)) && !figSet.has(k(...shapedStart)) ? shapedStart : spawnPick();
   const L = { name, size: [W, D], cells, decor: [], spawn };
   let fixes = 0;
   const report0 = [];
@@ -188,7 +196,7 @@ export async function build({ root, flag, has, regions, brief }) {
   };
   repairTerrain();
   const hasH3 = () => cells.flat().some((c) => walk(c) && c.h === 3 && c.s !== "ramp");
-  if (!hasH3() && (+(brief.biome?.plateau_share) || 0) >= 0.15) {
+  if (!brief.shaper && !hasH3() && (+(brief.biome?.plateau_share) || 0) >= 0.15) {
     const cand = [];
     for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) { const c = cells[z][x]; if (walk(c) && c.h === 2 && c.s !== "ramp" && !figSet.has(k(x, z)) && N4.every(([dx, dz]) => { const n = at(x + dx, z + dz); return walk(n) && n.h >= 2; })) cand.push([x, z]); }
     cand.sort((a, b) => hash(...a, 41) - hash(...b, 41));
@@ -205,12 +213,20 @@ export async function build({ root, flag, has, regions, brief }) {
     }
   }
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) { const c = cells[z][x]; if (c.s !== "water") continue; c.h = N4.some(([dx, dz]) => { const n = at(x + dx, z + dz); return !n || n.s === "none"; }) ? 0 : 1; }
+  if (brief.composition?.shaped?.bridge?.length && brief.shaper?.params?.bridge === "planks") {
+    const saved = cells.map((row) => row.map((c) => ({ ...c })));
+    const before = reachability({ ...L, cells, blocked: new Set(figSet) }).reached;
+    const n = bridges(cells, brief.composition.shaped.bridge.filter(([x, z]) => cells[z]?.[x]?.s !== "ramp"));
+    if (reachability({ ...L, cells, blocked: new Set(figSet) }).reached < before) { for (let z2 = 0; z2 < D; z2++) for (let x2 = 0; x2 < W; x2++) cells[z2][x2] = saved[z2][x2]; lensLog.push("bridge planks reverted: cut reach"); }
+    else lensLog.push(`bridge planks ${n}`);
+  }
   spawn = walk(at(...spawn)) && at(...spawn).s !== "ramp" ? spawn : spawnPick();
   L.spawn = spawn;
 
   const land = [];
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (walk(cells[z][x]) && cells[z][x].s !== "ramp") land.push([x, z]);
   const decor = [], used = new Set(), blocked = new Set();
+  cells.forEach((row, z) => row.forEach((c, x) => { if (c.s === "bridge") used.add(k(x, z)); }));
   L.decor = decor;
   const typeFor = (nm) => {
     if (CATALOG[nm]) return nm;
@@ -248,13 +264,13 @@ export async function build({ root, flag, has, regions, brief }) {
   };
   const rotFor = (t, x, z) => (CATALOG[t]?.rotates ? Math.floor(hash(x, z, 5) * 4) : 0);
   const near = (x, z, r, f) => { const order = []; for (let dz = -r; dz <= r; dz++) for (let dx = -r; dx <= r; dx++) order.push([x + dx, z + dz, Math.abs(dx) + Math.abs(dz) + hash(x + dx, z + dz, 9) * 0.5]); order.sort((a, b) => a[2] - b[2]); for (const [a, b] of order) if (f(a, b)) return [a, b]; return null; };
-  const report = [...report0];
+  const report = [...lensLog, ...report0];
 
   const cr = brief.creatures || [];
   const lead = cr.find((c) => c.cell?.[0] === brief.composition.focal.x && c.cell?.[1] === brief.composition.focal.z) || cr[0];
   if (lead) {
     const t = typeFor(lead.name) || typeFor(lead.type);
-    const ok = t && place(t, fig.anchor[0], fig.anchor[1], { rot: brief.concept.variant ? 0 : { w: 0, s: 1, e: 2, n: 3 }[lead.facing] ?? 0, fig: true, v: 0 });
+    const ok = t && place(t, fig.anchor[0], fig.anchor[1], { rot: brief.concept.variant || brief.concept.lens ? 0 : { w: 0, s: 1, e: 2, n: 3 }[lead.facing] ?? 0, fig: true, v: 0 });
     report.push(`${t} at focal ${fig.anchor}${ok ? "" : " FAILED"}`);
   }
   for (const c of cr) {

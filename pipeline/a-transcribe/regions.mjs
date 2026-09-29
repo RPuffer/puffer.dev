@@ -137,7 +137,8 @@ const all = F.flat(), ground = all.filter((c) => c.t >= TB), back = all.filter((
 const q = (arr, p) => { const v = [...arr].sort((a, b) => a - b); return v[Math.min(v.length - 1, Math.floor(p * v.length))]; };
 const lumHi = q(ground.map((c) => c.lum), 0.7), edgeLo = q(ground.map((c) => c.edge), 0.5), edgeHi = q(ground.map((c) => c.edge), 0.68);
 const trunkHi = q(all.map((c) => c.trunk), 0.5), darkHi = q(all.map((c) => c.dark), 0.55), mistHi = q(back.map((c) => c.lum), 0.45);
-const invented = !!brief.concept?.variant;
+const invented = !!brief.concept?.variant || !!brief.concept?.lens;
+const shaped = !!brief.shaper;
 const RIM_EXP = 2.2, RIM_KEEP = invented ? 1.3 : concept ? 1.08 : 0.95, RIM_NOISE = invented ? 0 : concept ? 0.35 : 0.5, WALL = 0.2, PATH_SHARE = 0.42, aboveLum = q(all.filter((c) => depthToY(c.t) < hy).map((c) => c.lum), 0.6);
 
 const cells = [];
@@ -184,7 +185,7 @@ for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
   c.rim = +r.toFixed(3);
   if (isFig(x, z)) continue;
   if (concept && c.s === "water") { if (r > 1.3) Object.assign(c, { h: 0, s: "none", motif: [] }); continue; }
-  if (r > RIM_KEEP - RIM_NOISE * n) { c.h = 0; c.s = "none"; c.motif = []; }
+  if (!shaped && r > RIM_KEEP - RIM_NOISE * n) { c.h = 0; c.s = "none"; c.motif = []; }
 }
 const landish = (c) => c && (c.h > 0 || c.s === "water");
 for (let pass = 0; pass < 3; pass++) for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
@@ -194,11 +195,12 @@ for (let pass = 0; pass < 3; pass++) for (let z = 0; z < D; z++) for (let x = 0;
 const snapshot = cells.map((row) => row.map((c) => c.h));
 const briefHas3 = heights.some((r) => r.includes("3"));
 const need3 = concept ? 4 : 3;
-if (!concept || !briefHas3) for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (snapshot[z][x] === 2 && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => (snapshot[z + dz]?.[x + dx] ?? 0) >= 2).length >= need3) cells[z][x].h = 3;
+if (!shaped && (!concept || !briefHas3)) for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (snapshot[z][x] === 2 && [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dz]) => (snapshot[z + dz]?.[x + dx] ?? 0) >= 2).length >= need3) cells[z][x].h = 3;
 const near = (x, z, d) => figCells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) <= d);
 const knollH = concept ? Math.max(1, Math.min(3, +heights[focal.z][focal.x] || 1)) : 2;
 for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (near(x, z, 1)) {
   const c = cells[z][x];
+  if (shaped && !isFig(x, z)) { if (c.h > 0) c.knoll = 1; continue; }
   if (concept && !isFig(x, z) && (c.s === "path" || (c.h === 0 && !near(x, z, 0)))) { if (c.s === "path") { c.h = knollH; c.knoll = 1; } continue; }
   c.h = knollH; c.s = "ground"; c.knoll = 1; c.motif = isFig(x, z) ? ["figure"] : [];
 }
@@ -222,12 +224,14 @@ if (concept) {
 }
 const isRim = (x, z) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => (cells[z + dz]?.[x + dx]?.h ?? 0) === 0);
 const pathThr = q(cells.flat().filter((c) => c.h === 1 && c.iy >= hy).map((c) => c.path), 1 - PATH_SHARE);
-console.log("path threshold", pathThr.toFixed(2));
+console.log("path threshold", (pathThr ?? 0).toFixed(2));
 const pathSet = new Set();
 const maxScore = Math.max(...cells.flat().map((c) => c.path));
 const dist = new Map(), prev = new Map(), open = [];
 const isP = (c) => c.code === "P";
-for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (isRim(x, z) && depthToY(cellPoint(x, z).t) >= hy && (concept ? cells[z][x].h > 0 : cells[z][x].h === 1) && !figCells.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) { const d0 = concept && !isP(cells[z][x]) ? 4 : 0; dist.set(x + "," + z, d0); open.push([d0, x, z]); }
+const shapedStart = brief.composition?.shaped?.start;
+if (shaped && shapedStart && cells[shapedStart[1]]?.[shapedStart[0]]?.h > 0) { dist.set(shapedStart.join(","), 0); open.push([0, shapedStart[0], shapedStart[1]]); }
+else for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (isRim(x, z) && depthToY(cellPoint(x, z).t) >= hy && (concept ? cells[z][x].h > 0 : cells[z][x].h === 1) && !figCells.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) { const d0 = concept && !isP(cells[z][x]) ? 4 : 0; dist.set(x + "," + z, d0); open.push([d0, x, z]); }
 const goal = concept ? (x, z) => cells[z][x].h > 0 && !isFig(x, z) && (cells[z][x].knoll || [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => isFig(x + dx, z + dz))) : (x, z) => cells[z][x].h === 1 && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => cells[z + dz]?.[x + dx]?.knoll && !isFig(x + dx, z + dz));
 let end = null;
 while (open.length) {
