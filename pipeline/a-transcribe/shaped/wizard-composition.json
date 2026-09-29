@@ -1,0 +1,1417 @@
+{
+ "source": {
+  "art": "pipeline/seed/wizard.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "deadpan",
+  "monumental",
+  "whimsical",
+  "poised",
+  "arcane",
+  "stark"
+ ],
+ "observations": [
+  {
+   "what": "Tall pointed wizard hat in deep midnight navy with a bent tip and hand-drawn star decoration",
+   "box": [
+    258,
+    332,
+    384,
+    660
+   ],
+   "maps_to": "motif:wizard-spire-crest"
+  },
+  {
+   "what": "Smooth frankfurter sausage head with two black bead eyes and a sidewise '3' pursed mouth",
+   "box": [
+    357,
+    411,
+    560,
+    532
+   ],
+   "maps_to": "figure:glizard-the-hotdog-mage"
+  },
+  {
+   "what": "Oversized flared white standing collar framing the neck of the hot dog wizard",
+   "box": [
+    426,
+    347,
+    622,
+    592
+   ],
+   "maps_to": "motif:flared-collar-dais"
+  },
+  {
+   "what": "Long billowing midnight-blue cloak decorated with yellow five-point star line drawings",
+   "box": [
+    492,
+    308,
+    850,
+    696
+   ],
+   "maps_to": "figure:glizard-the-hotdog-mage"
+  },
+  {
+   "what": "Right arm outstretched to the left with an open palm holding an upright stance",
+   "box": [
+    569,
+    241,
+    638,
+    350
+   ],
+   "maps_to": "figure:glizard-the-hotdog-mage"
+  },
+  {
+   "what": "Small hovering azure cyan flame levitating weightlessly above the open palm",
+   "box": [
+    510,
+    257,
+    564,
+    295
+   ],
+   "maps_to": "motif:hovering-cold-fire"
+  },
+  {
+   "what": "Slender crooked wooden wizard staff gripped in the left hand running down toward the ground",
+   "box": [
+    419,
+    637,
+    804,
+    701
+   ],
+   "maps_to": "motif:crooked-staff-pinnacle"
+  },
+  {
+   "what": "Pair of spindly frankfurter legs supporting the rounded torso with curved sausage feet",
+   "box": [
+    705,
+    396,
+    922,
+    592
+   ],
+   "maps_to": "figure:glizard-the-hotdog-mage"
+  },
+  {
+   "what": "Hand-inked comic header lettering reading 'you're A Glizard 'ARRY' across the upper canvas",
+   "box": [
+    117,
+    172,
+    298,
+    814
+   ],
+   "maps_to": "motif:ink-rune-stele"
+  },
+  {
+   "what": "Vast empty negative space encircling the character and pushing all weight into the center column",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "composition:void-gulf"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#ffffff",
+    "share": 0.835,
+    "role": "pure negative space and bright white collar lining"
+   },
+   {
+    "hex": "#122346",
+    "share": 0.063,
+    "role": "deep midnight navy wizard cloak and conical hat"
+   },
+   {
+    "hex": "#644b48",
+    "share": 0.026,
+    "role": "deep shadow crevice along the roasted frankfurter torso"
+   },
+   {
+    "hex": "#c2674e",
+    "share": 0.025,
+    "role": "cooked sausage skin tone on body, limbs, and wooden staff"
+   },
+   {
+    "hex": "#7f878b",
+    "share": 0.015,
+    "role": "anti-aliased transitional boundary along black ink strokes"
+   },
+   {
+    "hex": "#f6f7f7",
+    "share": 0.014,
+    "role": "soft halo edge separating collar white from paper white"
+   },
+   {
+    "hex": "#b4b7b8",
+    "share": 0.012,
+    "role": "mid-tone gray edge pixels of calligraphic text"
+   },
+   {
+    "hex": "#dbdede",
+    "share": 0.01,
+    "role": "faint gray compression artifacts in empty margins"
+   }
+  ],
+  "translation": {
+   "bg": "#0d172b",
+   "grass": {
+    "top": "#82d152",
+    "fringe": "#66b53a",
+    "fringeDark": "#4d8f28",
+    "speck": "#a3e876"
+   },
+   "sand": {
+    "top": "#f0be24",
+    "lip": "#d89608",
+    "edge": "#bf7e00",
+    "dots": "#ffd95c"
+   },
+   "dirt": {
+    "top": "#c96f53",
+    "patch": "#b25c42",
+    "mottle": "#9a4933",
+    "border": "#7f3825"
+   },
+   "stone": {
+    "top": "#e8eaf0",
+    "pebble": "#ffffff",
+    "pebbleShade": "#c4c8d4",
+    "rim": "#9fa5b5"
+   },
+   "cliffUpper": {
+    "left": "#384d75",
+    "right": "#253452",
+    "seam": "#18233a"
+   },
+   "cliffLower": {
+    "left": "#233352",
+    "right": "#152036",
+    "seam": "#0b1220",
+    "speck": "#2d3e61"
+   },
+   "water": {
+    "top": "#5ce1e6",
+    "bubble": "#bbf5f7",
+    "deep": "#1a9fad",
+    "fall": [
+     "#41d2d8",
+     "#28bac2",
+     "#1a9fad"
+    ],
+    "foam": "#e6fcff"
+   },
+   "wood": {
+    "light": "#c2674e",
+    "mid": "#a8533c",
+    "dark": "#853b28",
+    "shadow": "#5c2416",
+    "end": "#df8971"
+   },
+   "treeMint": [
+    "#4dc99a",
+    "#38a87d",
+    "#258561"
+   ],
+   "treeLime": [
+    "#8cd656",
+    "#6fb83b",
+    "#539626"
+   ],
+   "treeLeaf": [
+    "#5dbf50",
+    "#459e3a",
+    "#317d27"
+   ],
+   "treeTeal": [
+    "#2dd4bf",
+    "#14b8a6",
+    "#0d9488",
+    "#115e59"
+   ],
+   "treeGold": [
+    "#fbbf24",
+    "#d97706",
+    "#b45309"
+   ],
+   "trunk": [
+    "#853b28",
+    "#5c2416"
+   ],
+   "rock": [
+    "#e8eaf0",
+    "#c4c8d4",
+    "#9fa5b5",
+    "#6b7280"
+   ],
+   "wellStone": [
+    "#c4c8d4",
+    "#9fa5b5",
+    "#6b7280"
+   ],
+   "flowerOrange": [
+    "#f97316",
+    "#ea580c"
+   ],
+   "berry": [
+    "#f43f5e",
+    "#e11d48"
+   ],
+   "bushTeal": [
+    "#5eead4",
+    "#2dd4bf",
+    "#14b8a6"
+   ],
+   "gold": [
+    "#fbbf24",
+    "#f59e0b",
+    "#fde68a"
+   ]
+  },
+  "notes": "The dominant 83.5% white negative space translates into bright stone pads and high-key terrain lighting, while the dark navy robe is captured in the deep blue cliffs and cosmic night background, accented by warm cured-meat terracotta cliffs and wizardly gold."
+ },
+ "motifs": [
+  {
+   "name": "flared-collar-dais",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": true,
+   "count": 1,
+   "cells": [
+    [
+     8,
+     4
+    ]
+   ],
+   "where": "Placed directly at the focal summit beneath the wizard's feet, translating the dramatic white upturned collar into an architectural pedestal.",
+   "role": "dais",
+   "shape": {
+    "summary": "A tiered flared octagonal collar platform sculpted from pure white-stone facets with sharp upturned rim fins.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.45,
+       0.25,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.45,
+       0.55,
+       0.35,
+       8
+      ],
+      "at": [
+       0,
+       0.25,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.12,
+       0.35,
+       0.12
+      ],
+      "at": [
+       -0.38,
+       0.45,
+       -0.38
+      ],
+      "rot": [
+       0,
+       45,
+       -20
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.12,
+       0.35,
+       0.12
+      ],
+      "at": [
+       0.38,
+       0.45,
+       -0.38
+      ],
+      "rot": [
+       0,
+       -45,
+       20
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.12,
+       0.35,
+       0.12
+      ],
+      "at": [
+       0,
+       0.45,
+       -0.42
+      ],
+      "rot": [
+       -20,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "crooked-staff-pinnacle",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.6,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     11,
+     6
+    ]
+   ],
+   "where": "Anchoring the right-hand ridge of the island, matching the vertical gnarled walking staff held at x=0.69.",
+   "role": "mass",
+   "shape": {
+    "summary": "A tall twisting wooden staff pillar with an arcing crook head rising as a visual counterweight.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       0.9,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.14,
+       0.9,
+       8
+      ],
+      "at": [
+       0.06,
+       0.9,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -8
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.6,
+       8
+      ],
+      "at": [
+       -0.04,
+       1.75,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       12
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.04,
+       2.35,
+       0
+      ],
+      "to": [
+       -0.18,
+       2.58,
+       0
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       1
+      ],
+      "at": [
+       -0.18,
+       2.58,
+       0
+      ],
+      "tones": [
+       "#ffd95c",
+       "#f0be24",
+       "#bf7e00"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "hovering-cold-fire",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     5,
+     6
+    ]
+   ],
+   "where": "Located on the western terrace outcrop where the casting hand hovers the blue arcane flame at x=0.27.",
+   "role": "light",
+   "shape": {
+    "summary": "A tiered cyan arcane flame composed of three faceted crystalline tongues floating above a low star plinth.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.2,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#253452",
+       "#18233a",
+       "#0b1220"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.08,
+       0.45,
+       6
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#e6fcff",
+       "#5ce1e6",
+       "#1a9fad"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.38,
+       5
+      ],
+      "at": [
+       -0.06,
+       0.75,
+       0.03
+      ],
+      "rot": [
+       -5,
+       0,
+       10
+      ],
+      "tones": [
+       "#ffffff",
+       "#bbf5f7",
+       "#41d2d8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.11,
+       0.01,
+       0.32,
+       5
+      ],
+      "at": [
+       0.05,
+       0.8,
+       -0.04
+      ],
+      "rot": [
+       8,
+       0,
+       -12
+      ],
+      "tones": [
+       "#ffffff",
+       "#bbf5f7",
+       "#28bac2"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "wizard-spire-crest",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     8,
+     2
+    ]
+   ],
+   "where": "Standing at the far northern crest behind the focal point, reflecting the tall pointed wizard hat with its crooked peak.",
+   "role": "mass",
+   "shape": {
+    "summary": "A conical pointed monument in midnight blue stone, tilted forward with a jaunty faceted brim and gold star boss.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.48,
+       0.16,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#384d75",
+       "#253452",
+       "#18233a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.36,
+       0.2,
+       0.8,
+       8
+      ],
+      "at": [
+       0,
+       0.16,
+       0
+      ],
+      "tones": [
+       "#384d75",
+       "#253452",
+       "#18233a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.06,
+       0.8,
+       6
+      ],
+      "at": [
+       0.06,
+       0.94,
+       0.04
+      ],
+      "rot": [
+       10,
+       0,
+       -8
+      ],
+      "tones": [
+       "#4f6799",
+       "#384d75",
+       "#253452"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       1
+      ],
+      "at": [
+       0,
+       0.7,
+       0.3
+      ],
+      "tones": [
+       "#ffd95c",
+       "#f0be24",
+       "#bf7e00"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "ink-rune-stele",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.5,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     3,
+     3
+    ]
+   ],
+   "where": "Stationed along the far left and right shoulders of the island, embodying the rough calligraphic text framing the artwork.",
+   "role": "threshold",
+   "shape": {
+    "summary": "An angular jet-black slate megalith incised with jagged parchment-colored glyph grooves.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.45,
+       1.2,
+       0.22
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       0,
+       15,
+       0
+      ],
+      "tones": [
+       "#253452",
+       "#18233a",
+       "#0b1220"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.3
+      ],
+      "at": [
+       0,
+       1.2,
+       0
+      ],
+      "outline": [
+       [
+        -0.22,
+        -0.11
+       ],
+       [
+        0.22,
+        -0.11
+       ],
+       [
+        0.12,
+        0.11
+       ],
+       [
+        -0.18,
+        0.11
+       ]
+      ],
+      "tones": [
+       "#384d75",
+       "#253452",
+       "#18233a"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       -0.15,
+       0.35,
+       0.12
+      ],
+      "to": [
+       0.12,
+       0.85,
+       0.12
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "stepping-stones",
+   "type": "stepping-stones",
+   "variant_of": "stepping-stones",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.1,
+   "passable": true,
+   "count": 3,
+   "cells": [
+    [
+     8,
+     9
+    ],
+    [
+     8,
+     8
+    ],
+    [
+     8,
+     7
+    ]
+   ],
+   "where": "Leading directly north up the central spinal ridge toward the mage summit.",
+   "role": "approach",
+   "shape": {
+    "summary": "Three rounded pale river cobble slabs embedded flat into the ascent trail.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.08,
+       7
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "gem",
+   "type": "gem",
+   "variant_of": "gem",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.6,
+   "passable": true,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     6
+    ],
+    [
+     10,
+     6
+    ]
+   ],
+   "where": "Framing the east and west terrace platforms like magical focus tokens.",
+   "role": "offering",
+   "shape": {
+    "summary": "A faceted diamond-shaped cyan mana crystal hovering over a tiny stone cup.",
+    "parts": [
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.22,
+       0.25,
+       6
+      ],
+      "at": [
+       0,
+       0.1,
+       0
+      ],
+      "tones": [
+       "#e6fcff",
+       "#5ce1e6",
+       "#1a9fad"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.02,
+       0.25,
+       6
+      ],
+      "at": [
+       0,
+       0.35,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#5ce1e6",
+       "#28bac2"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "glizard-the-hotdog-mage",
+   "source": "Central anthropomorphic hot dog frankfurter wizard with cloak, hat, and spindly noodle legs.",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.4,
+   "shape": {
+    "summary": "Chunky toy frankfurter wizard standing proudly on thin terracotta sausage legs clad in a star-speckled midnight robe.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.06,
+       0.55,
+       6
+      ],
+      "at": [
+       -0.12,
+       0,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       4
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.06,
+       0.55,
+       6
+      ],
+      "at": [
+       0.12,
+       0,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -4
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.24,
+       0.9,
+       8
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.38,
+       0.28,
+       0.85,
+       8
+      ],
+      "at": [
+       0,
+       0.45,
+       0
+      ],
+      "tones": [
+       "#384d75",
+       "#253452",
+       "#18233a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.24,
+       0.36,
+       0.4,
+       8
+      ],
+      "at": [
+       0,
+       1.25,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8eaf0",
+       "#c4c8d4"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.2,
+       1.3
+      ],
+      "at": [
+       0,
+       1.55,
+       0
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.42,
+       0.12,
+       8
+      ],
+      "at": [
+       0,
+       1.78,
+       0
+      ],
+      "tones": [
+       "#384d75",
+       "#253452",
+       "#18233a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.05,
+       0.7,
+       8
+      ],
+      "at": [
+       0,
+       1.9,
+       0
+      ],
+      "rot": [
+       12,
+       0,
+       6
+      ],
+      "tones": [
+       "#4f6799",
+       "#384d75",
+       "#253452"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.05
+      ],
+      "at": [
+       -0.22,
+       1.15,
+       0
+      ],
+      "to": [
+       -0.48,
+       1.12,
+       0.15
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.05
+      ],
+      "at": [
+       0.22,
+       1.15,
+       0
+      ],
+      "to": [
+       0.38,
+       0.95,
+       -0.05
+      ],
+      "tones": [
+       "#df8971",
+       "#c2674e",
+       "#853b28"
+      ]
+     }
+    ]
+   },
+   "pose": "Stands erect on spindly frankfurter legs atop the collar dais, right palm raised flat toward the west and left hand resting on an imaginary staff.",
+   "cell": [
+    8,
+    5
+   ],
+   "facing": "w",
+   "why": "Faithfully reproduces the iconic illustration subject holding court on the central peak."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVGGGGGGGVVVVV",
+   "VVVGGGGGGGGGGGVV",
+   "VVVGGGRRRRRRGGVV",
+   "VVGGGGRRRRRRGGVV",
+   "VGGGGGRRFFRRGGVV",
+   "VGGGGGRRFFRRGGGV",
+   "VGGGGGRRPRRRGGGV",
+   "VGGGGGRRPRRRGGGV",
+   "VVVGGGGGPRGGVVVV",
+   "VVVGGGGVPPGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000111111100000",
+   "0001111111111100",
+   "0001112222221100",
+   "0011112333321100",
+   "0111112333321100",
+   "0111112333321110",
+   "0111112333321110",
+   "0111112223221110",
+   "0001111112110000",
+   "0001111011110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 8,
+   "z": 5,
+   "what": "The Glizard seated in high-standing-collar state atop the tier-3 peak."
+  },
+  "mass": "Visual mass sits in a heavy central vertical pillar leaning slightly right of center between columns 7 and 10, echoing the hot dog wizard's dominant figure column.",
+  "read": "The viewer's eye enters from the narrow southern tongue at row 10 and travels straight up the stone path ridge. It crests at row 5 where the towering frankfurter mage stands against the night sky, with balance provided by the western flame outcrop and the eastern wooden spire.",
+  "shaped": {
+   "name": "mound",
+   "params": {
+    "peak": [
+     0.52,
+     0.44
+    ],
+    "height": 3,
+    "spread": 0.85,
+    "lobes": 2
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVVGGGGVVVVVV",
+    "VVVVVGGTTGGVVVVV",
+    "VVVTGGGGGGGTVVVV",
+    "VVVGGGGGGGGGGVVV",
+    "VVGGGGGRFGGGGGVV",
+    "VVVGGPTGGPTGGVVV",
+    "VVVVGGGPFGGGVVVV",
+    "VVVVVGGPGGVVVVVV",
+    "VVVVVVGPGGVVVVVV",
+    "VVVVVVGGGGVVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.08,
+   "types": [
+    {
+     "type": "tree-pine",
+     "variant": "0",
+     "weight": 0.6
+    },
+    {
+     "type": "tree-round",
+     "variant": "0",
+     "weight": 0.4
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.48,
+  "decor_weights": {
+   "rock": 0.35,
+   "gem": 0.25,
+   "flower": 0.2,
+   "stepping-stones": 0.2
+  },
+  "lighting": {
+   "bg": "#210d2b",
+   "ambient": 0.88,
+   "sun": 0.25,
+   "tint": "#eef4ff",
+   "notes": "paper-canvas high-key radiance: ANALYSIS.palette.value_structure notes an extreme high-key composition where light values dominate 80%+ of the frame, requiring high ambient illumination paired with a deep void backdrop."
+  },
+  "rules": [
+   "Keep all water share at zero to match the completely dry paper void of the artwork.",
+   "Concentrate the tallest elevation exclusively in the central column from row 3 to 6.",
+   "Flank the central summit with distinct western flame and eastern staff wings.",
+   "Maintain a wide perimeter of empty void to preserve the 80% negative space composition."
+  ],
+  "decor_density": 0.12,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "stone",
+   "path": "stone",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "composition.mass and composition.flow_lines directly translated into topographic massing and ridge elevation",
+  "place": "An isolated spire-cairn monolith jutting above an abyss, transcribing the solitary vertical silhouette of the cloaked charcuterie conjurer.",
+  "summary": "Transforms the vertical massing of the hot dog mage and its asymmetric balancing arms into a stepped mountain crag rising sharply from empty space.",
+  "differs": "Unlike the ink ribbonway or subterranean mustard vat cellar, this level builds a soaring vertical pyramid monolith that mirrors the drawing's mass box and flow lines in actual physical elevation.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took sand/dirt",
+   "lighting.bg #0d172b->#210d2b"
+  ]
+ },
+ "shaper": {
+  "name": "mound",
+  "params": {
+   "peak": [
+    0.52,
+    0.44
+   ],
+   "height": 3,
+   "spread": 0.85,
+   "lobes": 2
+  },
+  "why": "Matches ANALYSIS.composition.mass_box [120, 160, 930, 820] and focal point [0.45, 0.44], forming a towering central dome with two lateral lobes representing the outstretched flame hand and grounded staff."
+ },
+ "surface_mix": {
+  "pattern": "height",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "grass",
+    "share": 0.56
+   },
+   {
+    "s": "stone",
+    "share": 0.2
+   },
+   {
+    "s": "dirt",
+    "share": 0.24
+   }
+  ],
+  "why": "Employs golden-yellow breadcrumb sand as the dominant base mantle, with pure pale stone cresting at the peak tiers to reflect the 83.5% white paper dominance and collar highlight."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#384d75",
+   "#253452",
+   "#18233a"
+  ],
+  "lower": [
+   "#233352",
+   "#152036",
+   "#0b1220"
+  ],
+  "why": "Provides bold, graphic midnight-navy cliff sides that anchor the island against the cosmic void, directly quoting the deep blue robe hue (#122346)."
+ },
+ "lighting": {
+  "time": "paper-canvas high-key radiance",
+  "ambient": 0.88,
+  "sun": 0.25,
+  "tint": "#eef4ff",
+  "bg": "#210d2b",
+  "why": "ANALYSIS.palette.value_structure notes an extreme high-key composition where light values dominate 80%+ of the frame, requiring high ambient illumination paired with a deep void backdrop."
+ },
+ "figure_pose": {
+  "pose": "Stands erect on spindly frankfurter legs atop the collar dais, right palm raised flat toward the west and left hand resting on an imaginary staff.",
+  "action": "conjuring",
+  "facing": "left",
+  "why": "Matches the three-quarters left-facing pose and outstretched casting gesture described in ANALYSIS.subject."
+ },
+ "approach": {
+  "from": "south rim",
+  "passes": [
+   "narrow southern sand causeway",
+   "stepping-stone ascending staircase",
+   "hovering cold-fire terrace",
+   "crooked staff pinnacle ridge"
+  ],
+  "shape": "A direct straight spinal climb along the north-south axis that ascends three tiers to terminate at the wizard's collar dais."
+ },
+ "threshold": {
+  "kind": "A gateway framed by twin jagged ink-rune stelae that demarcate entry into the wizard's arcane sanctuary.",
+  "prop": "ink-rune-stele"
+ },
+ "analysis": "pipeline/seed/analysis/wizard.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}

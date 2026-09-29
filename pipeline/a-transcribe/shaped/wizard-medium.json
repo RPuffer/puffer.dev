@@ -1,0 +1,1372 @@
+{
+ "source": {
+  "art": "pipeline/seed/wizard.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "whimsical",
+  "calligraphic",
+  "stark",
+  "culinary",
+  "playful",
+  "magical"
+ ],
+ "observations": [
+  {
+   "what": "Bold calligraphic hand-lettered text reading 'you're A' in dynamic black ink brush strokes in the upper left",
+   "box": [
+    115,
+    172,
+    204,
+    290
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Large brush-lettered focal word 'Glizard' executed with varying thick downward pressure and sharp ink release flicks",
+   "box": [
+    126,
+    324,
+    230,
+    646
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Spiky, loose hand-lettered word ''ARRY' drawn in tall black ink strokes in the upper right",
+   "box": [
+    193,
+    650,
+    299,
+    816
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Deep blue pointed wizard hat with a bent crown, wide brim, and a crude yellow line-drawn star on the band",
+   "box": [
+    259,
+    330,
+    385,
+    663
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Rounded hot dog sausage head with minimalist pinhole dot eyes and a sideways '3' pursed puckered mouth",
+   "box": [
+    363,
+    412,
+    570,
+    529
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Oversized stiff white standing collar framing the base of the sausage neck",
+   "box": [
+    426,
+    348,
+    626,
+    592
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Miniature blue magical flame hovering suspended in empty white space above the outstretched sausage hand",
+   "box": [
+    510,
+    259,
+    568,
+    295
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Slender outstretched right sausage arm ending in an open upward palm beneath the hovering fire",
+   "box": [
+    569,
+    240,
+    742,
+    447
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Flowing deep midnight-blue wizard robe decorated with scattered yellow five-pointed pentagram stars",
+   "box": [
+    486,
+    307,
+    856,
+    699
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Tall knobby wooden walking staff clutched in the left sausage hand, curving downward toward the ground",
+   "box": [
+    420,
+    638,
+    807,
+    700
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Spindly frankfurter legs extending from the rounded sausage crotch beneath the robe hem down to tiny feet",
+   "box": [
+    715,
+    396,
+    924,
+    595
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Pure blank white digital artboard background surrounding the figure and lettering with over 80 percent negative space",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#ffffff",
+    "share": 0.835,
+    "role": "blank digital artboard paper background and white interior robe collar"
+   },
+   {
+    "hex": "#122346",
+    "share": 0.063,
+    "role": "deep midnight blue wizard robe fabric and pointed wizard hat"
+   },
+   {
+    "hex": "#644b48",
+    "share": 0.026,
+    "role": "deep shadow crevice tone under sausage torso and wooden staff crevices"
+   },
+   {
+    "hex": "#c2674e",
+    "share": 0.025,
+    "role": "cooked frankfurter terracotta local skin tone for head, torso, and limbs"
+   },
+   {
+    "hex": "#7f878b",
+    "share": 0.015,
+    "role": "transitional anti-aliased grey contour pixels bordering black ink marks"
+   },
+   {
+    "hex": "#f6f7f7",
+    "share": 0.014,
+    "role": "high-key paper rim highlight encircling the white standing collar"
+   },
+   {
+    "hex": "#b4b7b8",
+    "share": 0.012,
+    "role": "pale ink-wash anti-aliasing pixels along linework edges"
+   },
+   {
+    "hex": "#dbdede",
+    "share": 0.01,
+    "role": "soft boundary grey along outer paper margins"
+   }
+  ],
+  "translation": {
+   "bg": "#121a2b",
+   "grass": {
+    "top": "#76c46a",
+    "fringe": "#58a84e",
+    "fringeDark": "#3c7a33",
+    "speck": "#9ce890"
+   },
+   "sand": {
+    "top": "#e8b84b",
+    "lip": "#c8942b",
+    "edge": "#b07c1a",
+    "dots": "#f2cc68"
+   },
+   "dirt": {
+    "top": "#c97652",
+    "patch": "#ad5e3c",
+    "mottle": "#914828",
+    "border": "#733318"
+   },
+   "stone": {
+    "top": "#d8cfc4",
+    "pebble": "#ebe5dc",
+    "pebbleShade": "#b0a598",
+    "rim": "#918576"
+   },
+   "cliffUpper": {
+    "left": "#2b3b5c",
+    "right": "#1a253d",
+    "seam": "#101828"
+   },
+   "cliffLower": {
+    "left": "#24314d",
+    "right": "#172034",
+    "seam": "#0f1523",
+    "speck": "#2f4065"
+   },
+   "water": {
+    "top": "#6ce6f8",
+    "bubble": "#baf7ff",
+    "deep": "#1aaec7",
+    "fall": [
+     "#42dcf5",
+     "#2bc8e3",
+     "#15a8c2"
+    ],
+    "foam": "#dcfaff"
+   },
+   "wood": {
+    "light": "#e07528",
+    "mid": "#be5916",
+    "dark": "#993f0b",
+    "shadow": "#732c04",
+    "end": "#f2b568"
+   },
+   "treeMint": [
+    "#4ecf97",
+    "#35ab76",
+    "#218255"
+   ],
+   "treeLime": [
+    "#a8d948",
+    "#82b32c",
+    "#5f8a19"
+   ],
+   "treeLeaf": [
+    "#6bb849",
+    "#4d942e",
+    "#346b1c"
+   ],
+   "treeTeal": [
+    "#3ad4b5",
+    "#24ab8f",
+    "#14856d",
+    "#0a6350"
+   ],
+   "treeGold": [
+    "#e5b237",
+    "#bf8d1f",
+    "#966b0e"
+   ],
+   "trunk": [
+    "#a35d46",
+    "#80432f"
+   ],
+   "rock": [
+    "#e8e5e1",
+    "#cbc5be",
+    "#9c948b",
+    "#736a61"
+   ],
+   "wellStone": [
+    "#cfc8bc",
+    "#aba293",
+    "#8a8070"
+   ],
+   "flowerOrange": [
+    "#e67026",
+    "#e0a234"
+   ],
+   "berry": [
+    "#f05b75",
+    "#cc3751"
+   ],
+   "bushTeal": [
+    "#75e8c4",
+    "#4dc49f",
+    "#2b9674"
+   ],
+   "gold": [
+    "#f0c438",
+    "#cc9f1f",
+    "#fae078"
+   ]
+  },
+  "notes": "The palette pulls from the comic's stark ink-and-paper illustration: midnight-blue ink tones color the cliffs and wizardry, warm terracotta frankfurter hue anchors dirt and wood accents, and bright parchment sand forms the core legible ground beneath warm toy-saturated greens and cyan embers.",
+  "clamped": [
+   "cliffLower.left #222f49->#24314d",
+   "cliffLower.right #151e30->#172034",
+   "cliffLower.seam #0d131f->#0f1523",
+   "cliffLower.speck #2d3e61->#2f4065"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "brush-flick-spire",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     7,
+     1
+    ],
+    [
+     8,
+     1
+    ],
+    [
+     14,
+     1
+    ],
+    [
+     13,
+     1
+    ]
+   ],
+   "where": "Placed on upper ridges where the black calligraphic strokes of 'Glizard' and ''ARRY' crest over the paper void.",
+   "role": "mass",
+   "shape": {
+    "summary": "An upward-tapering curved monolithic blade of glossy black-indigo ink lacquer stone with a sharp calligraphic flick at its peak.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.4,
+       0.55,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#2b3b5c",
+       "#1a253d",
+       "#101828"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.8
+      ],
+      "outline": [
+       [
+        -0.22,
+        -0.2
+       ],
+       [
+        0.22,
+        -0.15
+       ],
+       [
+        0.16,
+        0.22
+       ],
+       [
+        -0.18,
+        0.18
+       ]
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#2b3b5c",
+       "#1a253d",
+       "#101828"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.24,
+       0.06,
+       0.8,
+       6
+      ],
+      "at": [
+       0.03,
+       1.2,
+       0.02
+      ],
+      "rot": [
+       0,
+       15,
+       -12
+      ],
+      "tones": [
+       "#36486e",
+       "#24314d",
+       "#172034"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.3,
+       5
+      ],
+      "at": [
+       -0.05,
+       1.95,
+       0.05
+      ],
+      "rot": [
+       10,
+       -30,
+       -28
+      ],
+      "tones": [
+       "#4a6191",
+       "#2b3b5c",
+       "#1a253d"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "star-doodle-totem",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     9,
+     2
+    ],
+    [
+     13,
+     2
+    ],
+    [
+     14,
+     4
+    ]
+   ],
+   "where": "Stood flanking the entry bends to the ribbon walkway, mirroring the crude yellow five-pointed stars on the wizard robe.",
+   "role": "threshold",
+   "shape": {
+    "summary": "A slender blue obelisk topped with stacked chunky faceted five-pointed gold stars drawn as interlocking child-like lines.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.24,
+       0.3,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#2b3b5c",
+       "#1a253d",
+       "#101828"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.6,
+       8
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#36486e",
+       "#24314d",
+       "#172034"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.2
+      ],
+      "outline": [
+       [
+        0,
+        0.28
+       ],
+       [
+        0.08,
+        0.09
+       ],
+       [
+        0.28,
+        0.09
+       ],
+       [
+        0.12,
+        -0.04
+       ],
+       [
+        0.18,
+        -0.24
+       ],
+       [
+        0,
+        -0.11
+       ],
+       [
+        -0.18,
+        -0.24
+       ],
+       [
+        -0.12,
+        -0.04
+       ],
+       [
+        -0.28,
+        0.09
+       ],
+       [
+        -0.08,
+        0.09
+       ]
+      ],
+      "at": [
+       0,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#fae078",
+       "#f0c438",
+       "#cc9f1f"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.15
+      ],
+      "outline": [
+       [
+        0,
+        0.2
+       ],
+       [
+        0.06,
+        0.06
+       ],
+       [
+        0.2,
+        0.06
+       ],
+       [
+        0.09,
+        -0.03
+       ],
+       [
+        0.13,
+        -0.17
+       ],
+       [
+        0,
+        -0.08
+       ],
+       [
+        -0.13,
+        -0.17
+       ],
+       [
+        -0.09,
+        -0.03
+       ],
+       [
+        -0.2,
+        0.06
+       ],
+       [
+        -0.06,
+        0.06
+       ]
+      ],
+      "at": [
+       0,
+       1.15,
+       0
+      ],
+      "rot": [
+       0,
+       36,
+       0
+      ],
+      "tones": [
+       "#fae078",
+       "#f0c438",
+       "#cc9f1f"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "cyan-ember-pillar",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.1,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     10,
+     3
+    ],
+    [
+     10,
+     4
+    ]
+   ],
+   "where": "Floating adjacent to the sausage wizard's casting hand on the left bank of the raised dais.",
+   "role": "light",
+   "shape": {
+    "summary": "A smooth ice-cyan tiered magical flame floating above a dark stone bowl pedestal, echoing the wizard's hovering palm flame.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.26,
+       0.25,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#2b3b5c",
+       "#1a253d",
+       "#101828"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.32,
+       0.15,
+       8
+      ],
+      "at": [
+       0,
+       0.25,
+       0
+      ],
+      "tones": [
+       "#36486e",
+       "#24314d",
+       "#172034"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       1.4
+      ],
+      "at": [
+       0,
+       0.62,
+       0
+      ],
+      "tones": [
+       "#dcfaff",
+       "#6ce6f8",
+       "#1aaec7"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.35,
+       6
+      ],
+      "at": [
+       0,
+       0.72,
+       0
+      ],
+      "tones": [
+       "#dcfaff",
+       "#6ce6f8",
+       "#2bc8e3"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "gnarled-staff-perch",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.1,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     13,
+     3
+    ],
+    [
+     14,
+     5
+    ]
+   ],
+   "where": "Erected on the right edge of the stage, matching the wizard's tall organic crooked walking staff.",
+   "role": "detail",
+   "shape": {
+    "summary": "A sinuous, faceted wooden staff composed of linked crooked orange-brown beams with a crooked crook at the head.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "to": [
+       0.05,
+       0.7,
+       0.02
+      ],
+      "tones": [
+       "#e07528",
+       "#be5916",
+       "#993f0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       0.05,
+       0.7,
+       0.02
+      ],
+      "to": [
+       -0.04,
+       1.4,
+       -0.03
+      ],
+      "tones": [
+       "#e07528",
+       "#be5916",
+       "#993f0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       -0.04,
+       1.4,
+       -0.03
+      ],
+      "to": [
+       0.02,
+       1.9,
+       0.04
+      ],
+      "tones": [
+       "#e07528",
+       "#be5916",
+       "#993f0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.05
+      ],
+      "at": [
+       0.02,
+       1.9,
+       0.04
+      ],
+      "to": [
+       -0.08,
+       2.05,
+       0.08
+      ],
+      "tones": [
+       "#f2b568",
+       "#e07528",
+       "#be5916"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "scroll-pad",
+   "type": "stepping-stones",
+   "variant_of": "stepping-stones",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.15,
+   "passable": true,
+   "count": 4,
+   "cells": [
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     10,
+     5
+    ]
+   ],
+   "where": "Stepping path discs laid like rolled parchment paper slips guiding the approach along the ribbon.",
+   "role": "approach",
+   "shape": {
+    "summary": "Flat rectangular rounded papyrus parchment tiles laid as crisp stepping stones.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.08,
+       0.45,
+       0.06
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       0,
+       18,
+       0
+      ],
+      "tones": [
+       "#ebe5dc",
+       "#d8cfc4",
+       "#b0a598"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.06,
+       0.35,
+       0.05
+      ],
+      "at": [
+       0.02,
+       0.08,
+       -0.02
+      ],
+      "rot": [
+       0,
+       24,
+       0
+      ],
+      "tones": [
+       "#fae078",
+       "#e8b84b",
+       "#c8942b"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "Glizard the Frankfurter Mage",
+   "source": "The central frankfurter wizard in wizard hat and star robe from IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.4,
+   "pose": "Upright contrapposto sausage with spindly noodle legs, presenting an open palm that suspends an icy blue flame while facing slightly west.",
+   "cell": [
+    11,
+    3
+   ],
+   "facing": "w",
+   "why": "This is the single primary character of IMAGE 1, translated as an articulated low-poly frankfurter wizard toy.",
+   "shape": {
+    "summary": "A smooth reddish-brown tubular frankfurter with dot eyes and pursed mouth, wearing a navy star-dusted wizard robe and conical floppy hat.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.045
+      ],
+      "at": [
+       -0.1,
+       0,
+       0
+      ],
+      "to": [
+       -0.08,
+       0.55,
+       0.02
+      ],
+      "tones": [
+       "#c97652",
+       "#ad5e3c",
+       "#914828"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.045
+      ],
+      "at": [
+       0.1,
+       0,
+       0
+      ],
+      "to": [
+       0.06,
+       0.55,
+       -0.02
+      ],
+      "tones": [
+       "#c97652",
+       "#ad5e3c",
+       "#914828"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.22,
+       1.1,
+       8
+      ],
+      "at": [
+       0,
+       0.55,
+       0
+      ],
+      "tones": [
+       "#c97652",
+       "#ad5e3c",
+       "#914828"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.22,
+       1
+      ],
+      "at": [
+       0,
+       1.65,
+       0
+      ],
+      "tones": [
+       "#c97652",
+       "#ad5e3c",
+       "#914828"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.42,
+       0.28,
+       0.9,
+       8
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#2b3b5c",
+       "#1a253d",
+       "#101828"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.45,
+       0.35,
+       0.1
+      ],
+      "at": [
+       0,
+       1.35,
+       -0.05
+      ],
+      "rot": [
+       -15,
+       0,
+       0
+      ],
+      "tones": [
+       "#ebe5dc",
+       "#d8cfc4",
+       "#b0a598"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       -0.2,
+       1.25,
+       0.05
+      ],
+      "to": [
+       -0.42,
+       1.15,
+       0.18
+      ],
+      "tones": [
+       "#c97652",
+       "#ad5e3c",
+       "#914828"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.07,
+       1.4
+      ],
+      "at": [
+       -0.44,
+       1.35,
+       0.2
+      ],
+      "tones": [
+       "#dcfaff",
+       "#6ce6f8",
+       "#1aaec7"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.45,
+       0.36,
+       0.1,
+       8
+      ],
+      "at": [
+       0,
+       1.7,
+       0
+      ],
+      "tones": [
+       "#2b3b5c",
+       "#1a253d",
+       "#101828"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.04,
+       0.65,
+       8
+      ],
+      "at": [
+       -0.02,
+       1.78,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -14
+      ],
+      "tones": [
+       "#2b3b5c",
+       "#1a253d",
+       "#101828"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVVRRRRRRRRGV",
+   "VVVVVRRRRRRRRRGV",
+   "VVVVRRRRPPPFFPGV",
+   "VVVRRRRPPRPFFRGV",
+   "VVVRRRRPRRRRRRGV",
+   "VRRRRRRPRRRRRGGV",
+   "VGGRRRPPRRRGGVVV",
+   "VGGRRRPRRRGVVVVV",
+   "VGPPPPPRRRRGVVVV",
+   "VGPGGGGGGGGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000003332222210",
+   "0000033332222210",
+   "0000333332222210",
+   "0002333332222210",
+   "0002233332222210",
+   "0222233332222110",
+   "0112233333211000",
+   "0112233332100000",
+   "0112222222210000",
+   "0111111111110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 11,
+   "z": 3,
+   "what": "Glizard the frankfurter wizard standing on the arched crest of the ribbon."
+  },
+  "mass": "Visual weight forms an arched sweeping curve from the bottom-left entry tail upward into the central stage, flanked by sharp calligraphic spire peaks on the upper boundaries.",
+  "read": "The viewer enters along the low paper-pale ribbon path in the southwest, climbs through stepped parchment pads toward the glowing cyan pillar, reaches the elevated frankfurter mage at the apex, and looks outward over empty void framed by black brush-spires.",
+  "shaped": {
+   "name": "ribbon",
+   "params": {
+    "width": 3,
+    "waves": 1.2,
+    "rise": "arch",
+    "fork": true,
+    "from": "sw"
+   },
+   "seed": 1,
+   "start": [
+    2,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVTRRVVVVVVTRRV",
+    "VVVVRRRVVVVTRRRV",
+    "VVVVVRRRVVVRRRVV",
+    "VVVVTRRRRRTRRVVV",
+    "VVVVVTFFRRRRVVVV",
+    "VVVVVTRRRFTRVVVV",
+    "VVVVTGGRRTRRVVVV",
+    "VVVTGGGGVVVVVVVV",
+    "VVVGGGVVVVVVVVVV",
+    "VVVPGVVVVVVVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.18,
+   "types": [
+    {
+     "type": "brush-flick-spire",
+     "variant": "mass",
+     "weight": 0.5
+    },
+    {
+     "type": "star-doodle-totem",
+     "variant": "threshold",
+     "weight": 0.3
+    },
+    {
+     "type": "gnarled-staff-perch",
+     "variant": "detail",
+     "weight": 0.2
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.62,
+  "decor_weights": {
+   "scroll-pad": 0.4,
+   "cyan-ember-pillar": 0.3,
+   "star": 0.3
+  },
+  "lighting": {
+   "bg": "#121a2b",
+   "ambient": 0.85,
+   "sun": 0.25,
+   "tint": "#f0f6ff",
+   "notes": "paper white studio brilliance: Cited from ANALYSIS.palette.value_structure: extreme high-key stark illumination contrasted against deep black-indigo brush marks."
+  },
+  "rules": [
+   "Keep the perimeter immersed in empty void to honor the 80% white paper space of the source artwork.",
+   "Align all path and plateau segments along the single flowing ribbon arc.",
+   "Place cyan ember pillars only within arm's reach of the mage's left flank.",
+   "Cluster calligraphic brush spires exclusively at high plateau edges where text would sit."
+  ],
+  "decor_density": 0.15,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "stone",
+   "path": "sand",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "Analysis of the pressure-sensitive ink brush pens, continuous vector-like outline, and wide empty white digital ground.",
+  "place": "The Ink-Stroke Ribbonway",
+  "summary": "A suspended calligraphic causeway of pale parchment sand and indigo-ink cliff facets slicing across a deep void, centered on a proud hot dog sorcerer.",
+  "differs": "Replaces natural rolling terrain with sweeping calligraphic strokes and sharp ink-spire markers, embodying the graphic drawing tools directly in physical geometry."
+ },
+ "shaper": {
+  "name": "ribbon",
+  "params": {
+   "width": 3,
+   "waves": 1.2,
+   "rise": "arch",
+   "fork": true,
+   "from": "sw"
+  },
+  "why": "Translates the sweeping, continuous black brush-pen stroke forming the hot dog mage's contour and the flowing ink script of 'Glizard' into a sinuous path through empty space."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.55
+   },
+   {
+    "s": "grass",
+    "share": 0.3
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Bands of pale parchment sand evoke the empty drawing paper, while green and stone bands establish toy-like tactile platforms for the figure."
+ },
+ "cliff_treatment": {
+  "style": "banded",
+  "upper": [
+   "#2b3b5c",
+   "#1a253d",
+   "#101828"
+  ],
+  "lower": [
+   "#222f49",
+   "#151e30",
+   "#0d131f"
+  ],
+  "why": "Cliffs mimic deep navy blue printer ink and heavy dark brush pen edges enclosing the pale land slabs."
+ },
+ "lighting": {
+  "time": "paper white studio brilliance",
+  "ambient": 0.85,
+  "sun": 0.25,
+  "tint": "#f0f6ff",
+  "bg": "#121a2b",
+  "why": "Cited from ANALYSIS.palette.value_structure: extreme high-key stark illumination contrasted against deep black-indigo brush marks."
+ },
+ "figure_pose": {
+  "pose": "Upright contrapposto sausage with spindly noodle legs, presenting an open palm that suspends an icy blue flame while facing slightly west.",
+  "action": "conjuring ember",
+  "facing": "left",
+  "why": "Cited from ANALYSIS.subject.pose: frankfurter wizard balanced on two thin legs with left arm hooked and right palm presenting a test flame."
+ },
+ "approach": {
+  "from": "southwest rim",
+  "passes": [
+   "scroll-pad parchment stepping tiles",
+   "star-doodle-totem gateway",
+   "cyan-ember-pillar beacon",
+   "arched dais of the Frankfurter Mage"
+  ],
+  "shape": "A rising, counter-clockwise crescent ribbon curving out of the void."
+ },
+ "threshold": {
+  "kind": "A gateway marked by twin star-doodle-totems that mirror the open line-drawn stars stamped onto the wizard robe.",
+  "prop": "star-doodle-totem"
+ },
+ "analysis": "pipeline/seed/analysis/wizard.json",
+ "concept": {
+  "name": "lens-medium",
+  "lens": "medium",
+  "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+ }
+}
