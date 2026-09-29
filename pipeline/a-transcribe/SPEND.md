@@ -86,3 +86,9 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | wizard-2 | gemini-3.8-flash | 30 | 0.3713 | critic rounds 1 to 6
 2026-09-29 | wizard-3 | gemini-3.8-flash | 18 | 0.1608 | critic rounds 1, 2 and 5
 2026-09-29 | swallow-1, swallow-3 | gemini-3.8-flash | 18 | 0.1527 | critic runs on swallow renders billed to the wizard agent: it ran a shared scratchpad loop.sh the swallow agent had overwritten
+2026-09-29 | cosmos-2 | gemini-3.8-flash | 2 | 0.0640 | analyze.mjs --variant 2 --avoid cosmos-1,cosmos-3: the first reading walked 74 cells; the regenerated one walked 63, so the committed brief stays and finish thins blockers
+2026-09-29 | cosmos-1..3 | gemini-3.8-flash | 18 | 0.1529 | critic round 1, 351 and 900 (3 votes each)
+2026-09-29 | cosmos-1..3 | gemini-3.8-flash | 18 | 0.1620 | critic round 2
+2026-09-29 | cosmos-1..3 | gemini-3.8-flash | 18 | 0.1414 | critic round 3
+2026-09-29 | cosmos-1..3 | gemini-3.8-flash | 18 | 0.1550 | critic round 4
+2026-09-29 | cosmos-1..3 | gemini-3.8-flash | 18 | 0.1612 | critic final
