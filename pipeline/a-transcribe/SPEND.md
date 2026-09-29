@@ -131,3 +131,6 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | dragon-medium | gemini-3.8-flash | 18 | 0.1353 | critic rounds 1 to 3 at 351 and 900: 1, 0, 0 high
 2026-09-29 | dragon-subject | gemini-3.8-flash | 18 | 0.1434 | critic rounds 1 to 3: 0, 0, 0 high
 2026-09-29 | dragon-composition | gemini-3.8-flash | 18 | 0.1454 | critic rounds 1 to 3: 2, 0, 0 high
+2026-09-29 | cat-medium | gemini-3.8-flash | 18 | 0.1066 | critic rounds 1 to 3 at 351 and 900: 1, 0, 0 high (bristle tuft on a plateau lip read as a pencil pot on a bridge)
+2026-09-29 | cat-subject | gemini-3.8-flash | 12 | 0.0741 | critic rounds 1 to 2: 0, 0 high
+2026-09-29 | cat-composition | gemini-3.8-flash | 24 | 0.1338 | critic rounds 1 to 4: 0, 1, 0, 0 high (route markers on the teal stair read as stepping stones in a stream)
