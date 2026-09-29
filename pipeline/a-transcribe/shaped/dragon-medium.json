@@ -1,0 +1,1253 @@
+{
+ "source": {
+  "art": "pipeline/seed/dragon.png",
+  "width": 2048,
+  "height": 1533,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "incisive",
+  "graphitic",
+  "striated",
+  "raw",
+  "furious",
+  "sculptural"
+ ],
+ "observations": [
+  {
+   "what": "Burnished, near-black gaping mouth cavity lined with jagged white needle teeth",
+   "box": [
+    326,
+    230,
+    688,
+    412
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Intricately cross-hatched dragon snout and armored scaly brow with blank white eye socket",
+   "box": [
+    215,
+    233,
+    442,
+    532
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Dense fan of quill-like throat spines and neck scales flaring downward",
+   "box": [
+    290,
+    420,
+    608,
+    592
+   ],
+   "maps_to": "motif:spine_frill"
+  },
+  {
+   "what": "Woven geometric diamond-and-chevron pattern plate running along the dorsal neck ridge",
+   "box": [
+    82,
+    540,
+    360,
+    815
+   ],
+   "maps_to": "motif:woven_crest"
+  },
+  {
+   "what": "Curving spinal column with barbed dorsal crest studs arcing toward the upper right",
+   "box": [
+    17,
+    502,
+    350,
+    835
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Skeletal wing strut and claw joint rendered in preliminary graphite line on the left",
+   "box": [
+    207,
+    78,
+    577,
+    273
+   ],
+   "maps_to": "motif:wing_spur"
+  },
+  {
+   "what": "Feathered wing strut and hooked elbow rib branching outward toward the upper right",
+   "box": [
+    112,
+    608,
+    452,
+    850
+   ],
+   "maps_to": "motif:feathered_strut"
+  },
+  {
+   "what": "Rough gestural graphite construction lines indicating front foreleg talons clutching downward",
+   "box": [
+    507,
+    545,
+    825,
+    850
+   ],
+   "maps_to": "motif:wire_talon"
+  },
+  {
+   "what": "Whimsical open wireframe tail looping forward across the lower left paper",
+   "box": [
+    672,
+    73,
+    995,
+    403
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Vast empty textured white drawing paper background surrounding the central pencil strokes",
+   "box": [
+    0,
+    0,
+    995,
+    995
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#ededed",
+    "share": 0.252,
+    "role": "unworked paper ground around the subject"
+   },
+   {
+    "hex": "#d8d8d8",
+    "share": 0.195,
+    "role": "ambient paper shadow and light background smudging"
+   },
+   {
+    "hex": "#f3f3f3",
+    "share": 0.176,
+    "role": "unshaded highlight reserves inside the eye socket and borders"
+   },
+   {
+    "hex": "#e5e5e5",
+    "share": 0.155,
+    "role": "secondary highlight paper area"
+   },
+   {
+    "hex": "#303030",
+    "share": 0.072,
+    "role": "deepest compressed graphite in mouth interior and neck creases"
+   },
+   {
+    "hex": "#5f5f5f",
+    "share": 0.057,
+    "role": "heavy scale shading on skull and jaw plates"
+   },
+   {
+    "hex": "#b3b3b3",
+    "share": 0.047,
+    "role": "mid-tone hatching on neck scales and wing finger joints"
+   },
+   {
+    "hex": "#8b8b8b",
+    "share": 0.046,
+    "role": "transitional shadow on throat spines and horn"
+   }
+  ],
+  "translation": {
+   "bg": "#22252a",
+   "grass": {
+    "top": "#8fad68",
+    "fringe": "#718e4c",
+    "fringeDark": "#536a39",
+    "speck": "#a7bf89"
+   },
+   "sand": {
+    "top": "#eed596",
+    "lip": "#d4b368",
+    "edge": "#b89347",
+    "dots": "#fae3ab"
+   },
+   "dirt": {
+    "top": "#d2b47e",
+    "patch": "#bda06c",
+    "mottle": "#9a7e50",
+    "border": "#80663d"
+   },
+   "stone": {
+    "top": "#d5dedb",
+    "pebble": "#eaefed",
+    "pebbleShade": "#b2beb9",
+    "rim": "#8d9d97"
+   },
+   "cliffUpper": {
+    "left": "#9c8272",
+    "right": "#7a6355",
+    "seam": "#5d493d"
+   },
+   "cliffLower": {
+    "left": "#786358",
+    "right": "#5a483e",
+    "seam": "#41332b",
+    "speck": "#31251e"
+   },
+   "water": {
+    "top": "#8ce0e8",
+    "bubble": "#c8f6fa",
+    "deep": "#4bb8c7",
+    "fall": [
+     "#5ec5d3",
+     "#4bb8c7",
+     "#3fa3b1"
+    ],
+    "foam": "#e6fcfe"
+   },
+   "wood": {
+    "light": "#e89241",
+    "mid": "#c97426",
+    "dark": "#9b5113",
+    "shadow": "#703507",
+    "end": "#fed18c"
+   },
+   "treeMint": [
+    "#78cca2",
+    "#5bb286",
+    "#438f69"
+   ],
+   "treeLime": [
+    "#a2cf6c",
+    "#81b04e",
+    "#628f37"
+   ],
+   "treeLeaf": [
+    "#7ebf67",
+    "#5fa149",
+    "#437e31"
+   ],
+   "treeTeal": [
+    "#4dc6ad",
+    "#36a891",
+    "#248572",
+    "#196859"
+   ],
+   "treeGold": [
+    "#e5bf55",
+    "#c99e32",
+    "#a77e1c"
+   ],
+   "trunk": [
+    "#905f4e",
+    "#6b4437"
+   ],
+   "rock": [
+    "#e2e2e2",
+    "#bcbcbc",
+    "#929292",
+    "#686868"
+   ],
+   "wellStone": [
+    "#c8beae",
+    "#a79d8d",
+    "#887e6e"
+   ],
+   "flowerOrange": [
+    "#ea7e38",
+    "#d26520"
+   ],
+   "berry": [
+    "#dd576c",
+    "#b83d51"
+   ],
+   "bushTeal": [
+    "#6ecfae",
+    "#51b292",
+    "#379073"
+   ],
+   "gold": [
+    "#e8bd43",
+    "#c99b24",
+    "#f3d26f"
+   ]
+  },
+  "notes": "Translated the monochrome graphite and textured ivory paper into an earthen lead-pencil gamut where creamy vellum sand represents untouched paper, cool graphite slate tones mark shaded terrain, and burnished ironwood captures the toothy charcoal crosshatching.",
+  "clamped": [
+   "grass.top #8ea372->#8fad68",
+   "grass.fringe #708456->#718e4c",
+   "grass.fringeDark #53643f->#536a39",
+   "grass.speck #a7bf89->#a7bf89",
+   "trunk[0] #8c6152->#905f4e"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "hatch_shard",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     13,
+     1
+    ],
+    [
+     14,
+     3
+    ],
+    [
+     14,
+     2
+    ]
+   ],
+   "role": "mass",
+   "where": "Placed on the angular fracture ridges tracing the creature's arched dorsal spine and sharp graphite contours.",
+   "shape": {
+    "summary": "A cluster of angular, knife-faceted graphite slate blocks tilted like compressed cross-hatch marks.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.9,
+       0.25,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       12,
+       -24,
+       8
+      ],
+      "tones": [
+       "#bcbcbc",
+       "#929292",
+       "#686868"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       1.25,
+       0.2,
+       0.06
+      ],
+      "at": [
+       0.15,
+       0,
+       -0.1
+      ],
+      "rot": [
+       -18,
+       15,
+       -10
+      ],
+      "tones": [
+       "#e2e2e2",
+       "#bcbcbc",
+       "#929292"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.3,
+       0.65,
+       0.3,
+       0.08
+      ],
+      "at": [
+       -0.18,
+       0,
+       0.12
+      ],
+      "rot": [
+       5,
+       45,
+       12
+      ],
+      "tones": [
+       "#929292",
+       "#686868",
+       "#41332b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       0.1,
+       0.9,
+       -0.05
+      ],
+      "to": [
+       0.25,
+       1.35,
+       0.15
+      ],
+      "tones": [
+       "#e2e2e2",
+       "#bcbcbc",
+       "#929292"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "spine_frill",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     10,
+     5
+    ],
+    [
+     12,
+     6
+    ],
+    [
+     13,
+     7
+    ]
+   ],
+   "role": "threshold",
+   "where": "Stands along the neck descent where the dense graphite quill-frill fans out beneath the jaw.",
+   "shape": {
+    "summary": "A row of staggered needle-like quills jutting outward like the dragon's graphite throat fringe.",
+    "parts": [
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.02,
+       1.15,
+       6
+      ],
+      "at": [
+       -0.2,
+       0,
+       0.1
+      ],
+      "rot": [
+       -20,
+       0,
+       25
+      ],
+      "tones": [
+       "#bcbcbc",
+       "#929292",
+       "#686868"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.03,
+       1.25,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       -15,
+       20,
+       30
+      ],
+      "tones": [
+       "#e2e2e2",
+       "#bcbcbc",
+       "#929292"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.02,
+       0.95,
+       6
+      ],
+      "at": [
+       0.2,
+       0,
+       -0.1
+      ],
+      "rot": [
+       -10,
+       35,
+       22
+      ],
+      "tones": [
+       "#929292",
+       "#686868",
+       "#5a483e"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.25,
+       0.35,
+       0.06
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       0,
+       25,
+       0
+      ],
+      "tones": [
+       "#929292",
+       "#686868",
+       "#41332b"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "wire_loop",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.7,
+   "passable": true,
+   "count": 3,
+   "cells": [
+    [
+     8,
+     8
+    ],
+    [
+     10,
+     7
+    ],
+    [
+     10,
+     8
+    ]
+   ],
+   "role": "approach",
+   "where": "Marks the sinuous path in the lower left reproducing the loose unfinished tail loops.",
+   "shape": {
+    "summary": "Low sweeping silver-gray rounded beams arching across the ground like gesture lines.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.4,
+       0.05,
+       -0.3
+      ],
+      "to": [
+       0,
+       0.45,
+       -0.1
+      ],
+      "tones": [
+       "#eaefed",
+       "#d5dedb",
+       "#b2beb9"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       0.45,
+       -0.1
+      ],
+      "to": [
+       0.35,
+       0.2,
+       0.3
+      ],
+      "tones": [
+       "#d5dedb",
+       "#b2beb9",
+       "#8d9d97"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       0.35,
+       0.2,
+       0.3
+      ],
+      "to": [
+       0.45,
+       0.05,
+       -0.2
+      ],
+      "tones": [
+       "#b2beb9",
+       "#8d9d97",
+       "#686868"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "woven_crest",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     12,
+     1
+    ],
+    [
+     13,
+     2
+    ]
+   ],
+   "role": "detail",
+   "where": "Sits atop the upper spine plateau replicating the woven chevron carapace plates.",
+   "shape": {
+    "summary": "Interlocking diamond-patterned low blocks forming a stylized geometric armored segment.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.6,
+       0.3,
+       0.6,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       0,
+       45,
+       0
+      ],
+      "tones": [
+       "#eed596",
+       "#d4b368",
+       "#b89347"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.4,
+       0.25,
+       0.4,
+       0.06
+      ],
+      "at": [
+       0,
+       0.28,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#fae3ab",
+       "#eed596",
+       "#d4b368"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0,
+       0.45,
+       4
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "rot": [
+       0,
+       45,
+       0
+      ],
+      "tones": [
+       "#e2e2e2",
+       "#bcbcbc",
+       "#929292"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "graphite_talon",
+   "type": "rock",
+   "variant_of": "rock",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     14,
+     5
+    ],
+    [
+     14,
+     6
+    ]
+   ],
+   "role": "mass",
+   "where": "Located where the sketched forearm and talons scratch downward across the midground.",
+   "shape": {
+    "summary": "Stacked curved stone talons anchoring into the rock like clutching skeletal digits.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.35,
+       7
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#929292",
+       "#686868",
+       "#41332b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.04,
+       0.7,
+       6
+      ],
+      "at": [
+       -0.15,
+       0.25,
+       0
+      ],
+      "rot": [
+       25,
+       0,
+       -15
+      ],
+      "tones": [
+       "#e2e2e2",
+       "#bcbcbc",
+       "#929292"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.03,
+       0.85,
+       6
+      ],
+      "at": [
+       0.12,
+       0.25,
+       -0.1
+      ],
+      "rot": [
+       30,
+       -20,
+       10
+      ],
+      "tones": [
+       "#bcbcbc",
+       "#929292",
+       "#686868"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "graphite_wyvern_totem",
+   "source": "The snarling horned dragon lunging forward with unhinged jaws at the composition's apex",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.5,
+   "shape": {
+    "summary": "A chunky, toy-like draconic head and neck snapping forward with a cavernous black gullet, white fangs, and jutting horned crest.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.95,
+       0.9,
+       0.12
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "rot": [
+       15,
+       -20,
+       0
+      ],
+      "tones": [
+       "#5f5f5f",
+       "#303030",
+       "#22252a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.5,
+       0.7,
+       0.1
+      ],
+      "at": [
+       -0.22,
+       0.7,
+       0.15
+      ],
+      "rot": [
+       -25,
+       -20,
+       0
+      ],
+      "tones": [
+       "#303030",
+       "#22252a",
+       "#191b1f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.35,
+       5
+      ],
+      "at": [
+       -0.35,
+       0.95,
+       0.3
+      ],
+      "rot": [
+       -160,
+       0,
+       0
+      ],
+      "tones": [
+       "#f3f3f3",
+       "#ededed",
+       "#d8d8d8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.35,
+       5
+      ],
+      "at": [
+       -0.15,
+       0.95,
+       0.35
+      ],
+      "rot": [
+       -160,
+       0,
+       0
+      ],
+      "tones": [
+       "#f3f3f3",
+       "#ededed",
+       "#d8d8d8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.07,
+       0.01,
+       0.28,
+       5
+      ],
+      "at": [
+       -0.3,
+       0.65,
+       0.28
+      ],
+      "rot": [
+       20,
+       0,
+       0
+      ],
+      "tones": [
+       "#f3f3f3",
+       "#ededed",
+       "#d8d8d8"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       0.8
+      ],
+      "at": [
+       -0.05,
+       1.1,
+       0.28
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f3f3f3",
+       "#ededed",
+       "#d8d8d8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.02,
+       0.9,
+       6
+      ],
+      "at": [
+       0.2,
+       1.15,
+       -0.2
+      ],
+      "rot": [
+       -35,
+       -30,
+       20
+      ],
+      "tones": [
+       "#8b8b8b",
+       "#5f5f5f",
+       "#303030"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.8,
+       0.8,
+       0.14
+      ],
+      "at": [
+       0.15,
+       0,
+       -0.15
+      ],
+      "rot": [
+       10,
+       -10,
+       0
+      ],
+      "tones": [
+       "#5f5f5f",
+       "#303030",
+       "#22252a"
+      ]
+     }
+    ]
+   },
+   "pose": "Head snapped forward in a gaping three-quarter roar, jaws parted to reveal sharp ivory fangs while the ear horn juts upward.",
+   "cell": [
+    11,
+    3
+   ],
+   "facing": "w",
+   "why": "Translates the intense, coal-burnished dragon cranium into an imposing yet chunky low-poly guardian."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VGGGRRRGVRRRRGVV",
+   "VGGVRRRRRRRRRRGV",
+   "VGGVRRRRGGRFFRGV",
+   "VGGVGGGGVVRFFRGV",
+   "VGGGGVVVVVPPRRGV",
+   "VGGGGVVVVVPGGRGV",
+   "VGGGGGVVVVPVVRGV",
+   "VGGGGGGGGGPGGGGV",
+   "VGGGGGGGGGPGGGGV",
+   "VVVGGGVGGPPGGGGV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0111222103332100",
+   "0110222222222210",
+   "0110222211222210",
+   "0110111100222210",
+   "0111100000222210",
+   "0111100000211210",
+   "0111110000100210",
+   "0111111111111110",
+   "0111111111111110",
+   "0001110111111110",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 11,
+   "z": 3,
+   "what": "the gaping jaws and unpupiled white eye of the wyvern head"
+  },
+  "mass": "Visual weight concentrates heavily in the upper-left and center-left where the tiered dragon head and spine rise above the floor.",
+  "read": "The eye enters along the lower-left looping path representing the gestural pencil tail, sweeps upward along the fractured slate ledges of the chest, and culminates at the raised roaring dragon cranium before tapering along the dorsal shards to the upper right.",
+  "shaped": {
+   "name": "shards",
+   "params": {
+    "count": 4,
+    "spread": 0.75,
+    "cracks": true
+   },
+   "seed": 6,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVVVRRRRRVVVV",
+    "VVVVVVRRRRRRRVVV",
+    "VVVVRRRRRRRRRVVV",
+    "VVVRRFFRRRRRRVVV",
+    "VVVGGFFGGGGRRVVV",
+    "VVVGGGTGGGGGGVVV",
+    "VVVVGGGTGGGGVVVV",
+    "VVVPGGGGTGGGVVVV",
+    "VVPPPGGGGGGGVVVV",
+    "VVVPPGGGGGGVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.08,
+   "types": [
+    {
+     "type": "hatch_shard",
+     "variant": "default",
+     "weight": 0.6
+    },
+    {
+     "type": "tree-pine",
+     "variant": "mint",
+     "weight": 0.4
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.39,
+  "decor_weights": {
+   "hatch_shard": 0.35,
+   "spine_frill": 0.25,
+   "wire_loop": 0.25,
+   "rock": 0.15
+  },
+  "lighting": {
+   "bg": "#22252a",
+   "ambient": 0.72,
+   "sun": 0.28,
+   "tint": "#d6e0ea",
+   "notes": "studio drawing lamp reflection on graphite: Directly quotes the extreme contrast between burnished lead sheen and blank white paper reserves."
+  },
+  "rules": [
+   "Place hatch shards along edges of raised plateau cliffs to mimic broken graphite crosshatching.",
+   "Keep the lower-left trail clear of obstructions to preserve the looping tail wireframe gesture.",
+   "Cluster spine frills immediately below the central wyvern head to emphasize the throat beard."
+  ],
+  "decor_density": 0.2,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "stone",
+   "path": "sand",
+   "shore": "dirt",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "technique and graphite marks",
+  "place": "a jagged quarry of carved anthracite and compressed lead shards rising out of blank parchment flats",
+  "summary": "Translates the contrast between dense burnished graphite hatching and open preliminary gesture loops into a fractured island of angular stone and vellum sand.",
+  "differs": "Replaces soft organic turf with razor-cut graphite slabs, crosshatch stone ridges, and looping wire trails."
+ },
+ "shaper": {
+  "name": "shards",
+  "params": {
+   "count": 4,
+   "spread": 0.75,
+   "cracks": true
+  },
+  "why": "The drawing's dense multi-directional hatching and sharp needle-point contours map directly to fractured, overlapping angular slabs."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.55
+   },
+   {
+    "s": "dirt",
+    "share": 0.3
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Sand represents the broad untouched toothy drawing paper, dirt carries the smudged mid-tone graphite haze, and stone highlights the sharpest burnished lead strokes while staying well within the twenty percent stone budget."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#9c8272",
+   "#7a6355",
+   "#5d493d"
+  ],
+  "lower": [
+   "#786358",
+   "#5a483e",
+   "#41332b"
+  ],
+  "why": "Sheer vertical cliff walls recall the razor-sharp pencil contours and deep dark pencil gouges carved into the drawing paper."
+ },
+ "lighting": {
+  "time": "studio drawing lamp reflection on graphite",
+  "ambient": 0.72,
+  "sun": 0.28,
+  "tint": "#d6e0ea",
+  "bg": "#22252a",
+  "why": "Directly quotes the extreme contrast between burnished lead sheen and blank white paper reserves."
+ },
+ "figure_pose": {
+  "pose": "Head snapped forward in a gaping three-quarter roar, jaws parted to reveal sharp ivory fangs while the ear horn juts upward.",
+  "action": "territorial roar",
+  "facing": "left",
+  "why": "Recreates the predatory posture and unhinged jawline documented in the composition focal analysis."
+ },
+ "approach": {
+  "from": "the bottom-left corner following the tail gesture loop",
+  "passes": [
+   "wire_loop arches",
+   "hatch_shard scree",
+   "spine_frill row",
+   "the roaring wyvern cranium"
+  ],
+  "shape": "A curving ascent beginning from the loose tail loops and climbing steeply along fractured slate shelves to the dragon's throat."
+ },
+ "threshold": {
+  "kind": "A defensive palisade of needle-sharp quill cones flaring out across the plateau slope beneath the dragon's snout.",
+  "prop": "spine_frill"
+ },
+ "analysis": "pipeline/seed/analysis/dragon.json",
+ "concept": {
+  "name": "lens-medium",
+  "lens": "medium",
+  "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+ }
+}

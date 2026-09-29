@@ -1,0 +1,1209 @@
+{
+ "source": {
+  "art": "pipeline/seed/dragon.png",
+  "width": 2048,
+  "height": 1533,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "predatory",
+  "windswept",
+  "cavernous",
+  "calcified",
+  "feral",
+  "coastal"
+ ],
+ "observations": [
+  {
+   "what": "Gaping dragon jaws with long pointed fangs and flared gumline",
+   "box": [
+    270,
+    226,
+    700,
+    480
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Blank white unshaded eye socket under heavy brow ridge",
+   "box": [
+    250,
+    365,
+    340,
+    440
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Spiked radiating neck frill and throat collar spines",
+   "box": [
+    290,
+    440,
+    600,
+    580
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Dorsal woven lattice scute plate along the neck crest",
+   "box": [
+    190,
+    530,
+    350,
+    670
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Curving upper body spine with serrated scutes tapering to right",
+   "box": [
+    15,
+    520,
+    370,
+    840
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Left forward wing claw gripping empty air with hooked talons",
+   "box": [
+    220,
+    75,
+    580,
+    260
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Lower claw foot lightly sketched grasping toward the right flank",
+   "box": [
+    470,
+    535,
+    820,
+    855
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Faint looping sketched tail arcing across the lower ground",
+   "box": [
+    665,
+    75,
+    965,
+    410
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Broad empty paper void filling the lower half of the composition",
+   "box": [
+    500,
+    370,
+    980,
+    990
+   ],
+   "maps_to": "G"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#ededed",
+    "share": 0.252,
+    "role": "unworked paper ground around the subject"
+   },
+   {
+    "hex": "#d8d8d8",
+    "share": 0.195,
+    "role": "ambient paper shadow and light background smudging"
+   },
+   {
+    "hex": "#f3f3f3",
+    "share": 0.176,
+    "role": "unshaded highlight reserves inside the eye socket, dorsal gaps, and paper borders"
+   },
+   {
+    "hex": "#e5e5e5",
+    "share": 0.155,
+    "role": "secondary highlight paper area"
+   },
+   {
+    "hex": "#303030",
+    "share": 0.072,
+    "role": "deepest compressed graphite in the mouth interior, eye ridge, and neck crease"
+   },
+   {
+    "hex": "#5f5f5f",
+    "share": 0.057,
+    "role": "heavy scale shading on the skull and jaw plates"
+   },
+   {
+    "hex": "#b3b3b3",
+    "share": 0.047,
+    "role": "mid-tone hatching on the neck scales and wing finger joints"
+   },
+   {
+    "hex": "#8b8b8b",
+    "share": 0.046,
+    "role": "transitional shadow on the throat spines and ear horn"
+   }
+  ],
+  "translation": {
+   "bg": "#1c222b",
+   "grass": {
+    "top": "#82ab63",
+    "fringe": "#658b4b",
+    "fringeDark": "#4d6b38",
+    "speck": "#9bc47d"
+   },
+   "sand": {
+    "top": "#e0c283",
+    "lip": "#c79e56",
+    "edge": "#d4ad64",
+    "dots": "#ebd198"
+   },
+   "dirt": {
+    "top": "#8a7362",
+    "patch": "#786252",
+    "mottle": "#695445",
+    "border": "#594436"
+   },
+   "stone": {
+    "top": "#a8b5b8",
+    "pebble": "#cbd5d6",
+    "pebbleShade": "#8c9b9e",
+    "rim": "#778587"
+   },
+   "cliffUpper": {
+    "left": "#515e69",
+    "right": "#3c4752",
+    "seam": "#2b343d"
+   },
+   "cliffLower": {
+    "left": "#788794",
+    "right": "#596673",
+    "seam": "#444f59",
+    "speck": "#364047"
+   },
+   "water": {
+    "top": "#75d1db",
+    "bubble": "#bcedf2",
+    "deep": "#3a94a6",
+    "fall": [
+     "#4fb9c7",
+     "#419fae",
+     "#358594"
+    ],
+    "foam": "#dcf6fa"
+   },
+   "wood": {
+    "light": "#bf7b49",
+    "mid": "#9c5f34",
+    "dark": "#7a4622",
+    "shadow": "#5c3316",
+    "end": "#d49a6a"
+   },
+   "treeMint": [
+    "#59a68d",
+    "#4a8973",
+    "#3a6b5a"
+   ],
+   "treeLime": [
+    "#8ba858",
+    "#738c44",
+    "#5a6e33"
+   ],
+   "treeLeaf": [
+    "#688a4b",
+    "#54733a",
+    "#405929"
+   ],
+   "treeTeal": [
+    "#489994",
+    "#397d79",
+    "#2c6360",
+    "#204a47"
+   ],
+   "treeGold": [
+    "#c2a048",
+    "#a38435",
+    "#826724"
+   ],
+   "trunk": [
+    "#5e3e33",
+    "#472f26"
+   ],
+   "rock": [
+    "#c7d1d4",
+    "#aab6ba",
+    "#8a989c",
+    "#697578"
+   ],
+   "wellStone": [
+    "#9aa7a8",
+    "#828f91",
+    "#6b777a"
+   ],
+   "flowerOrange": [
+    "#d47535",
+    "#ba5c1e"
+   ],
+   "berry": [
+    "#ab4646",
+    "#8f3333"
+   ],
+   "bushTeal": [
+    "#57a198",
+    "#47837c",
+    "#366660"
+   ],
+   "gold": [
+    "#d9b14e",
+    "#b89037",
+    "#f0cf78"
+   ]
+  },
+  "notes": "The monochrome graphite palette is remapped to storm-washed basalt, guano-dusted dirt, and cold mineral rock while preserving full toy-pack saturation and distinct three-tone shading steps.",
+  "clamped": [
+   "grass.top #82a866->#82ab63",
+   "grass.fringe #66884e->#658b4b",
+   "treeMint[0] #5ca38c->#59a68d",
+   "treeMint[1] #4b8773->#4a8973",
+   "treeMint[2] #3a6b5a->#3a6b5a",
+   "treeLeaf[0] #688a4b->#688a4b",
+   "trunk[0] #54433d->#5e3e33",
+   "trunk[1] #40322d->#472f26",
+   "bushTeal[0] #5a9e96->#57a198",
+   "bushTeal[1] #48827b->#47837c"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "calcified_ribcage",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     1,
+     9
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "where": "Placed across the lower roost shelf where prey leftovers and sketch lines accumulate.",
+   "role": "detail",
+   "shape": {
+    "summary": "Arched pairs of toy rib beams curving upward out of a weathered pelvic block.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.4,
+       0.25,
+       0.6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.18,
+       0.2,
+       -0.2
+      ],
+      "to": [
+       -0.3,
+       1.1,
+       -0.05
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0.18,
+       0.2,
+       -0.2
+      ],
+      "to": [
+       0.3,
+       1.1,
+       -0.05
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       -0.18,
+       0.2,
+       0.15
+      ],
+      "to": [
+       -0.26,
+       0.9,
+       0.25
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       0.18,
+       0.2,
+       0.15
+      ],
+      "to": [
+       0.26,
+       0.9,
+       0.25
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "talon_spire",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     1,
+     3
+    ]
+   ],
+   "where": "Standing at the edge of the roost drop where the wing talon grips empty air.",
+   "role": "threshold",
+   "shape": {
+    "summary": "Tall jagged basalt tooth banded with pointed hooked claw spurs.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.32,
+       1.2,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#a8b5b8",
+       "#8c9b9e",
+       "#778587"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.05,
+       1,
+       6
+      ],
+      "at": [
+       0,
+       1.2,
+       0
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.09
+      ],
+      "at": [
+       -0.2,
+       0.7,
+       0
+      ],
+      "to": [
+       -0.55,
+       1.3,
+       0.15
+      ],
+      "tones": [
+       "#e0c283",
+       "#c79e56",
+       "#7a4622"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.09,
+       0.01,
+       0.35,
+       5
+      ],
+      "at": [
+       -0.55,
+       1.3,
+       0.15
+      ],
+      "tones": [
+       "#ebd198",
+       "#c79e56",
+       "#5c3316"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "scute_cairn",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     4,
+     2
+    ],
+    [
+     7,
+     7
+    ]
+   ],
+   "where": "Bordering the high nesting terrace, mirroring the dragon's segmented dorsal plates.",
+   "role": "mass",
+   "shape": {
+    "summary": "Stack of diamond-profile stone scute plates arranged in a territorial boundary marker.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.28,
+       0.7,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       0,
+       45,
+       0
+      ],
+      "tones": [
+       "#a8b5b8",
+       "#8c9b9e",
+       "#778587"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.26,
+       0.5,
+       0.08
+      ],
+      "at": [
+       0,
+       0.28,
+       0
+      ],
+      "rot": [
+       0,
+       45,
+       0
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.02,
+       0.36,
+       4
+      ],
+      "at": [
+       0,
+       0.54,
+       0
+      ],
+      "rot": [
+       0,
+       45,
+       0
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "nest_bramble",
+   "type": "bush-cluster",
+   "variant_of": "bush-cluster",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.1,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     1,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ],
+   "where": "Tucked into the back crevices of the basalt wall behind the dragon's perch.",
+   "role": "detail",
+   "shape": {
+    "summary": "Thorny cluster of tough coastal scrub balls woven into nesting crevices.",
+    "parts": [
+     {
+      "prim": "ball",
+      "dims": [
+       0.45,
+       0.85
+      ],
+      "at": [
+       0,
+       0.35,
+       0
+      ],
+      "tones": [
+       "#59a68d",
+       "#4a8973",
+       "#3a6b5a"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.35,
+       0.8
+      ],
+      "at": [
+       0.25,
+       0.4,
+       -0.15
+      ],
+      "tones": [
+       "#688a4b",
+       "#54733a",
+       "#405929"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.3,
+       0.9
+      ],
+      "at": [
+       -0.2,
+       0.3,
+       0.2
+      ],
+      "tones": [
+       "#489994",
+       "#397d79",
+       "#2c6360"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "guano_boulder",
+   "type": "rock-big",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     3,
+     8
+    ]
+   ],
+   "where": "Anchoring the open corners of the lower lookout ledge.",
+   "role": "mass",
+   "shape": {
+    "summary": "Blocky basalt rock slab topped with a pale mineral crust.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.55,
+       0.8,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8a989c",
+       "#697578",
+       "#444f59"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.35,
+       0.55,
+       0.08
+      ],
+      "at": [
+       0.05,
+       0.55,
+       -0.05
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "wyvern_roost_guardian",
+   "source": "Screeching draconic carnivore lunging leftward in upper central frame",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "pose": "High-seated crouching wyvern thrusting its fanged skull forward in an aggressive territorial screech.",
+   "cell": [
+    4,
+    3
+   ],
+   "facing": "w",
+   "why": "Stands frozen at its aerie summit in the exact strike posture seen in the drawing.",
+   "shape": {
+    "summary": "Chunky low-poly wyvern with gaping fanged mouth, flared collar spines, and diamond dorsal plates.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.6,
+       0.9,
+       0.12
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#515e69",
+       "#3c4752",
+       "#2b343d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.35,
+       0.18,
+       0.7,
+       6
+      ],
+      "at": [
+       -0.2,
+       0.9,
+       -0.2
+      ],
+      "rot": [
+       25,
+       -20,
+       0
+      ],
+      "tones": [
+       "#515e69",
+       "#3c4752",
+       "#2b343d"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.4,
+       0.6,
+       0.08
+      ],
+      "at": [
+       -0.45,
+       1.4,
+       -0.35
+      ],
+      "rot": [
+       10,
+       -15,
+       0
+      ],
+      "tones": [
+       "#788794",
+       "#596673",
+       "#3c4752"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.38,
+       0.22,
+       0.45
+      ],
+      "at": [
+       -0.75,
+       1.35,
+       -0.4
+      ],
+      "rot": [
+       -20,
+       -15,
+       0
+      ],
+      "tones": [
+       "#1c222b",
+       "#1c222b",
+       "#1c222b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.05,
+       0.01,
+       0.2,
+       4
+      ],
+      "at": [
+       -0.85,
+       1.48,
+       -0.35
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.08,
+       0.9
+      ],
+      "at": [
+       -0.5,
+       1.55,
+       -0.55
+      ],
+      "tones": [
+       "#f3f3f3",
+       "#ededed",
+       "#d8d8d8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.15,
+       0.02,
+       0.55,
+       4
+      ],
+      "at": [
+       -0.2,
+       1.55,
+       -0.1
+      ],
+      "rot": [
+       -40,
+       30,
+       0
+      ],
+      "tones": [
+       "#e0c283",
+       "#c79e56",
+       "#7a4622"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       -0.25,
+       1.2,
+       -0.1
+      ],
+      "to": [
+       -0.1,
+       1.1,
+       0.3
+      ],
+      "tones": [
+       "#cbd5d6",
+       "#aab6ba",
+       "#8a989c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.14,
+       0.5,
+       6
+      ],
+      "at": [
+       0.2,
+       0,
+       0.2
+      ],
+      "tones": [
+       "#3c4752",
+       "#2b343d",
+       "#1c222b"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.14,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.2,
+       0,
+       0.2
+      ],
+      "tones": [
+       "#3c4752",
+       "#2b343d",
+       "#1c222b"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VGRRRRRRGVVVVVVV",
+   "VRRGGGGRGVVVVVVV",
+   "VRRGFFGGVVVVGGGV",
+   "VRRGFFGVVVVVGGGV",
+   "VRRGPPPPVVVGGGGV",
+   "VRRRRGVPGGGGGGGV",
+   "VRRRGVVPPPGGGGGV",
+   "VRRGVVVVVPGGGGGV",
+   "VGGGVVVVGPPPPGGV",
+   "VVVVVVVVGGGGGGGV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0122222210000000",
+   "0221111210000000",
+   "0221111100001110",
+   "0221111000001110",
+   "0221111200011110",
+   "0232210211111110",
+   "0222100111111110",
+   "0221000001111110",
+   "0111000011111110",
+   "0000000011111110",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 4,
+   "z": 3,
+   "what": "wyvern_roost_guardian perched high on the upper nesting stack"
+  },
+  "mass": "Visual weight concentrates heavily on the raised northwestern roost pinnacle, dropping across a narrow connecting ridge toward the prey-strewn lower terrace.",
+  "read": "The viewer arrives onto the lower feeding terrace scattered with calcified ribs and guano stones. A rising spine path pulls the gaze upward across the precarious neck-like land bridge directly into the snarling guardian wyvern.",
+  "shaped": {
+   "name": "twin-mass",
+   "params": {
+    "split": "diag",
+    "ratio": 0.48,
+    "heights": [
+     3,
+     1
+    ],
+    "bridge": "land",
+    "focal": "a"
+   },
+   "seed": 1,
+   "start": [
+    12,
+    9
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVTTTRRRTVVVVVV",
+    "VVTRRRRRRRTVVVVV",
+    "VTRRRRRFRRRTVVVV",
+    "VVRRRRRRRRRPVVVV",
+    "VVVVVRRPPVVVVVVV",
+    "VVVVVVPPRGGTVVVV",
+    "VVVVTGGGGGGGTVVV",
+    "VVVTGGGGGGGGTVVV",
+    "VVVTGGGGGGGGTVVV",
+    "VVVVTTGGGGTVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.08,
+   "types": [
+    {
+     "type": "nest_bramble",
+     "variant": "bush-cluster",
+     "weight": 0.6
+    },
+    {
+     "type": "talon_spire",
+     "variant": "custom",
+     "weight": 0.4
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.45,
+  "decor_weights": {
+   "calcified_ribcage": 0.35,
+   "scute_cairn": 0.3,
+   "guano_boulder": 0.25,
+   "stepping-stones": 0.1
+  },
+  "lighting": {
+   "bg": "#1c222b",
+   "ambient": 0.72,
+   "sun": 0.28,
+   "tint": "#d6e5eb",
+   "notes": "pale sea mist filtering cold morning daylight: Draws directly from the high-key white paper atmosphere juxtaposed against dense compressed pencil shadow."
+  },
+  "rules": [
+   "Place talon_spire markers exclusively at cliff perimeter drop-offs.",
+   "Cluster calcified_ribcage props on lower dirt cells.",
+   "Keep scute_cairn props strictly on the raised upper plateau."
+  ],
+  "decor_density": 0.18,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "stone",
+   "path": "sand",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "subject.nature and story.habitat",
+  "place": "Basalt sea-stack roost and prey-littered feeding spit.",
+  "summary": "A windswept pair of maritime rock stacks where a territorial predator guards its nesting ledge above leftover hunting refuse.",
+  "differs": "Replaces quarry shards or coiled spine ribbons with a twin-mass coastal aerie defined by dirt nesting grit and pale bleached bone decor."
+ },
+ "shaper": {
+  "name": "twin-mass",
+  "params": {
+   "split": "diag",
+   "ratio": 0.48,
+   "heights": [
+    3,
+    1
+   ],
+   "bridge": "land",
+   "focal": "a"
+  },
+  "why": "Models the apex wyvern's habitat as a lofty nesting tower separated from its lower feeding and landing spit."
+ },
+ "surface_mix": {
+  "pattern": "patches",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "dirt",
+    "share": 0.55
+   },
+   {
+    "s": "stone",
+    "share": 0.2
+   },
+   {
+    "s": "sand",
+    "share": 0.15
+   },
+   {
+    "s": "grass",
+    "share": 0.1
+   }
+  ],
+  "why": "Guano-packed dirt dominates the roost floor with patches of bare rock and drifted shell-grit sand."
+ },
+ "cliff_treatment": {
+  "style": "banded",
+  "upper": [
+   "#515e69",
+   "#3c4752",
+   "#2b343d"
+  ],
+  "lower": [
+   "#788794",
+   "#596673",
+   "#444f59"
+  ],
+  "why": "Contrasts deep shadowed basalt under the high roost against lighter salt-stained rock at sea level."
+ },
+ "lighting": {
+  "time": "pale sea mist filtering cold morning daylight",
+  "ambient": 0.72,
+  "sun": 0.28,
+  "tint": "#d6e5eb",
+  "bg": "#1c222b",
+  "why": "Draws directly from the high-key white paper atmosphere juxtaposed against dense compressed pencil shadow."
+ },
+ "figure_pose": {
+  "pose": "High-seated crouching wyvern thrusting its fanged skull forward in an aggressive territorial screech.",
+  "action": "territorial screech",
+  "facing": "left",
+  "why": "Directly matches the subject's unhinged jaw and forward diving strike angle."
+ },
+ "approach": {
+  "from": "southeast rim",
+  "passes": [
+   "calcified_ribcage",
+   "guano_boulder",
+   "scute_cairn",
+   "talon_spire"
+  ],
+  "shape": "Ascends from the bone-strewn lower flats across a narrow ascending land spine up to the predator's throne."
+ },
+ "threshold": {
+  "kind": "A jagged stone talon spire jutting out over the precipice where the spine narrows.",
+  "prop": "talon_spire"
+ },
+ "analysis": "pipeline/seed/analysis/dragon.json",
+ "concept": {
+  "name": "lens-subject",
+  "lens": "subject",
+  "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+ }
+}

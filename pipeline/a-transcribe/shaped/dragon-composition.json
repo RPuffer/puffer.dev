@@ -1,0 +1,1298 @@
+{
+ "source": {
+  "art": "pipeline/seed/dragon.png",
+  "width": 2048,
+  "height": 1533,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "predatory",
+  "sinuous",
+  "furious",
+  "skeletal",
+  "coiled",
+  "surging"
+ ],
+ "observations": [
+  {
+   "what": "Deeply hatched open dragon maw with needle-sharp white fangs, flared gumline, and dark graphite throat cavity",
+   "box": [
+    300,
+    240,
+    685,
+    435
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Blank unshaded white oval eye set inside heavily shaded brow and temple scales",
+   "box": [
+    245,
+    360,
+    345,
+    465
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Dense conical ear horn and radiating spike ruff flaring back from jaw hinge",
+   "box": [
+    115,
+    455,
+    595,
+    580
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Rigid geometric chevron lattice band running along dorsal crest",
+   "box": [
+    80,
+    550,
+    365,
+    770
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Curved dorsal spine ridge lined with ovate rounded scutes arching toward top right",
+   "box": [
+    15,
+    520,
+    260,
+    815
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Finely scaled arching shoulder blade and upper arm contour",
+   "box": [
+    110,
+    675,
+    465,
+    840
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Skeletal grasping foreclaw clutching near left edge with elongated bony digits",
+   "box": [
+    215,
+    80,
+    580,
+    275
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Large pale skeletal claw extending along bottom right midground with long curving talons",
+   "box": [
+    485,
+    545,
+    825,
+    845
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Sweeping loose graphite tail gesture loop coiling in lower left paper field",
+   "box": [
+    670,
+    75,
+    995,
+    405
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Vast empty untouched drawing paper field across lower and right framing boundaries",
+   "box": [
+    450,
+    550,
+    990,
+    990
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#ededed",
+    "share": 0.252,
+    "role": "unworked paper ground around the subject"
+   },
+   {
+    "hex": "#d8d8d8",
+    "share": 0.195,
+    "role": "ambient paper shadow and light background smudging"
+   },
+   {
+    "hex": "#f3f3f3",
+    "share": 0.176,
+    "role": "unshaded highlight reserves inside the eye socket, dorsal gaps, and paper borders"
+   },
+   {
+    "hex": "#e5e5e5",
+    "share": 0.155,
+    "role": "secondary highlight paper area"
+   },
+   {
+    "hex": "#303030",
+    "share": 0.072,
+    "role": "deepest compressed graphite in the mouth interior, eye ridge, and neck crease"
+   },
+   {
+    "hex": "#5f5f5f",
+    "share": 0.057,
+    "role": "heavy scale shading on the skull and jaw plates"
+   },
+   {
+    "hex": "#b3b3b3",
+    "share": 0.047,
+    "role": "mid-tone hatching on the neck scales and wing finger joints"
+   },
+   {
+    "hex": "#8b8b8b",
+    "share": 0.046,
+    "role": "transitional shadow on the throat spines and ear horn"
+   }
+  ],
+  "translation": {
+   "bg": "#23262b",
+   "grass": {
+    "top": "#78b868",
+    "fringe": "#5e9850",
+    "fringeDark": "#45783a",
+    "speck": "#9cd088"
+   },
+   "sand": {
+    "top": "#eed888",
+    "lip": "#cca840",
+    "edge": "#dfbe50",
+    "dots": "#fae8a4"
+   },
+   "dirt": {
+    "top": "#dfbc72",
+    "patch": "#cba45a",
+    "mottle": "#b88e45",
+    "border": "#a47935"
+   },
+   "stone": {
+    "top": "#dcdfe2",
+    "pebble": "#f0f2f4",
+    "pebbleShade": "#bec3c8",
+    "rim": "#aab0b6"
+   },
+   "cliffUpper": {
+    "left": "#a6705c",
+    "right": "#885444",
+    "seam": "#6e4033"
+   },
+   "cliffLower": {
+    "left": "#bc7a66",
+    "right": "#965949",
+    "seam": "#7c4538",
+    "speck": "#62352b"
+   },
+   "water": {
+    "top": "#7ae2f5",
+    "bubble": "#c8f6ff",
+    "deep": "#20bcdc",
+    "fall": [
+     "#28caec",
+     "#20bcdc",
+     "#1aa8c8"
+    ],
+    "foam": "#e6fbff"
+   },
+   "wood": {
+    "light": "#ff8e2b",
+    "mid": "#dc741e",
+    "dark": "#b85614",
+    "shadow": "#92400e",
+    "end": "#fedca0"
+   },
+   "treeMint": [
+    "#5cc88e",
+    "#48ab76",
+    "#358e5e"
+   ],
+   "treeLime": [
+    "#a8dc58",
+    "#82be3a",
+    "#669e2a"
+   ],
+   "treeLeaf": [
+    "#76bf4e",
+    "#5a9e38",
+    "#427f25"
+   ],
+   "treeTeal": [
+    "#2ce0b6",
+    "#1ec29a",
+    "#14a380",
+    "#0d8466"
+   ],
+   "treeGold": [
+    "#fabc38",
+    "#d8981c",
+    "#b57a0f"
+   ],
+   "trunk": [
+    "#9c5644",
+    "#7d4032"
+   ],
+   "rock": [
+    "#e5e8ea",
+    "#cfd4d8",
+    "#a8b0b8",
+    "#828c94"
+   ],
+   "wellStone": [
+    "#cfc8b0",
+    "#b5ae95",
+    "#9c957e"
+   ],
+   "flowerOrange": [
+    "#ff8e2b",
+    "#fabc38"
+   ],
+   "berry": [
+    "#f65876",
+    "#d83e5c"
+   ],
+   "bushTeal": [
+    "#68f0b8",
+    "#46cca0",
+    "#2fae84"
+   ],
+   "gold": [
+    "#fabc38",
+    "#d8981c",
+    "#ffdc68"
+   ]
+  },
+  "notes": "Translates the monochrome drawing paper into warm parchment-sand tones and slate-grey cobbles, while anchoring the gaping maw's high contrast with rich charred terracotta cliffs and warm ochre accents."
+ },
+ "motifs": [
+  {
+   "name": "chevron_lattice_lintel",
+   "role": "threshold",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": true,
+   "count": 3,
+   "cells": [
+    [
+     12,
+     2
+    ],
+    [
+     13,
+     2
+    ],
+    [
+     14,
+     3
+    ]
+   ],
+   "where": "Placed along the dorsal spine path where the drawing shows a rigid diamond and chevron woven collar plate behind the neck.",
+   "shape": {
+    "summary": "An interlocking geometric trellis arch constructed of overlapping square-cut wooden rafters mimicking the dorsal plate weave.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.18,
+       1.2,
+       0.18
+      ],
+      "at": [
+       -0.35,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff8e2b",
+       "#dc741e",
+       "#b85614"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.18,
+       1.2,
+       0.18
+      ],
+      "at": [
+       0.35,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff8e2b",
+       "#dc741e",
+       "#b85614"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.35,
+       1,
+       0
+      ],
+      "to": [
+       0,
+       1.35,
+       0
+      ],
+      "tones": [
+       "#fedca0",
+       "#ff8e2b",
+       "#dc741e"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0.35,
+       1,
+       0
+      ],
+      "to": [
+       0,
+       1.35,
+       0
+      ],
+      "tones": [
+       "#fedca0",
+       "#ff8e2b",
+       "#dc741e"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.22,
+       0.22,
+       0.22,
+       0.05
+      ],
+      "at": [
+       0,
+       1.35,
+       0
+      ],
+      "tones": [
+       "#fabc38",
+       "#d8981c",
+       "#b57a0f"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bone_talon_spire",
+   "role": "mass",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.9,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     8,
+     4
+    ],
+    [
+     14,
+     6
+    ],
+    [
+     14,
+     5
+    ]
+   ],
+   "where": "Located where the sketched wireframe claw digits reach outward on the far-left and mid-right margins.",
+   "shape": {
+    "summary": "A trio of curved, jointed bone talons erupting upward from the ground in an aggressive grasping arc.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.22,
+       0.35,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f0f2f4",
+       "#dcdfe2",
+       "#bec3c8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.12,
+       0.8,
+       8
+      ],
+      "at": [
+       0,
+       0.35,
+       0
+      ],
+      "rot": [
+       12,
+       -8,
+       0
+      ],
+      "tones": [
+       "#f0f2f4",
+       "#dcdfe2",
+       "#bec3c8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.75,
+       6
+      ],
+      "at": [
+       0.06,
+       1.1,
+       0
+      ],
+      "rot": [
+       24,
+       -15,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e5e8ea",
+       "#a8b0b8"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       -0.15,
+       0.2,
+       0.1
+      ],
+      "to": [
+       -0.3,
+       0.9,
+       0.25
+      ],
+      "tones": [
+       "#dcdfe2",
+       "#bec3c8",
+       "#aab0b6"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.3,
+       0.9,
+       0.25
+      ],
+      "rot": [
+       30,
+       20,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e5e8ea",
+       "#a8b0b8"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "spiked_frill_palisade",
+   "role": "approach",
+   "type": "new",
+   "variant_of": "fence",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.85,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     9,
+     3
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     11,
+     5
+    ]
+   ],
+   "where": "Guards the perimeter of the jaw chasm corresponding to the dense spiky throat fringe drawn under the neck.",
+   "shape": {
+    "summary": "A row of pointed picket spines angled outward like defensive beard quills.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.8,
+       0.12,
+       0.12
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#ff8e2b",
+       "#dc741e",
+       "#b85614"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.09,
+       0.01,
+       0.75,
+       6
+      ],
+      "at": [
+       -0.3,
+       0,
+       0
+      ],
+      "rot": [
+       -10,
+       0,
+       10
+      ],
+      "tones": [
+       "#fedca0",
+       "#ff8e2b",
+       "#dc741e"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0.01,
+       0.85,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       -15,
+       0,
+       0
+      ],
+      "tones": [
+       "#fedca0",
+       "#ff8e2b",
+       "#dc741e"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.09,
+       0.01,
+       0.75,
+       6
+      ],
+      "at": [
+       0.3,
+       0,
+       0
+      ],
+      "rot": [
+       -10,
+       0,
+       -10
+      ],
+      "tones": [
+       "#fedca0",
+       "#ff8e2b",
+       "#dc741e"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "dorsal_scute_cairn",
+   "role": "detail",
+   "type": "new",
+   "variant_of": "rock",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.7,
+   "passable": true,
+   "count": 3,
+   "cells": [
+    [
+     14,
+     2
+    ],
+    [
+     14,
+     4
+    ],
+    [
+     13,
+     5
+    ]
+   ],
+   "where": "Traces the upper arching spine toward the top-right corner where large ovate plates ride the back.",
+   "shape": {
+    "summary": "Chunky stacked polygonal stone scutes layered like armor scales.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.22,
+       0.65,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#dcdfe2",
+       "#bec3c8",
+       "#aab0b6"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.48,
+       0.2,
+       0.48,
+       0.06
+      ],
+      "at": [
+       0,
+       0.22,
+       0
+      ],
+      "rot": [
+       0,
+       25,
+       0
+      ],
+      "tones": [
+       "#f0f2f4",
+       "#dcdfe2",
+       "#bec3c8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.04,
+       0.28,
+       6
+      ],
+      "at": [
+       0,
+       0.42,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e5e8ea",
+       "#cfd4d8"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "wire_loop_curb",
+   "role": "detail",
+   "type": "new",
+   "variant_of": "marker",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.35,
+   "passable": true,
+   "count": 4,
+   "cells": [
+    [
+     8,
+     8
+    ],
+    [
+     9,
+     9
+    ],
+    [
+     10,
+     9
+    ],
+    [
+     11,
+     7
+    ]
+   ],
+   "where": "Outlines the sweeping tail path in the lower left matching the faint gestural wire loops of the sketch.",
+   "shape": {
+    "summary": "Low looping iron-toned hoops arching gracefully along the path rim.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       -0.35,
+       0,
+       0
+      ],
+      "to": [
+       -0.15,
+       0.35,
+       0.1
+      ],
+      "tones": [
+       "#828c94",
+       "#6e4033",
+       "#45783a"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       -0.15,
+       0.35,
+       0.1
+      ],
+      "to": [
+       0.15,
+       0.35,
+       0.1
+      ],
+      "tones": [
+       "#a8b0b8",
+       "#828c94",
+       "#6e4033"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       0.15,
+       0.35,
+       0.1
+      ],
+      "to": [
+       0.35,
+       0,
+       0
+      ],
+      "tones": [
+       "#828c94",
+       "#6e4033",
+       "#45783a"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "wyvern_jaw_effigy",
+   "source": "The lunging, snarling draconic head and gaping maw centered at x=0.41, y=0.29 in IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.4,
+   "shape": {
+    "summary": "A massive draconic cranium sculpture with an unhinged lower jaw displaying needle fangs, a blank glowing eye, and back-swept ear horns.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.75,
+       0.55,
+       0.9,
+       0.1
+      ],
+      "at": [
+       0,
+       0.9,
+       0.1
+      ],
+      "rot": [
+       -18,
+       0,
+       0
+      ],
+      "tones": [
+       "#7d4032",
+       "#6e4033",
+       "#45783a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.32,
+       0.15,
+       0.7,
+       8
+      ],
+      "at": [
+       0,
+       1.15,
+       -0.4
+      ],
+      "rot": [
+       -25,
+       0,
+       0
+      ],
+      "tones": [
+       "#9c5644",
+       "#7d4032",
+       "#6e4033"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.45,
+       0.28,
+       0.6
+      ],
+      "at": [
+       0,
+       0.55,
+       -0.2
+      ],
+      "rot": [
+       30,
+       0,
+       0
+      ],
+      "tones": [
+       "#6e4033",
+       "#45783a",
+       "#23262b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.4,
+       6
+      ],
+      "at": [
+       -0.18,
+       0.95,
+       -0.55
+      ],
+      "rot": [
+       165,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#f0f2f4",
+       "#bec3c8"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.4,
+       6
+      ],
+      "at": [
+       0.18,
+       0.95,
+       -0.55
+      ],
+      "rot": [
+       165,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#f0f2f4",
+       "#bec3c8"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       0.8
+      ],
+      "at": [
+       -0.32,
+       1.25,
+       -0.1
+      ],
+      "tones": [
+       "#ffffff",
+       "#e6fbff",
+       "#c8f6ff"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       1.1,
+       6
+      ],
+      "at": [
+       -0.3,
+       1.3,
+       0.35
+      ],
+      "rot": [
+       -45,
+       -20,
+       0
+      ],
+      "tones": [
+       "#cca840",
+       "#dfbe50",
+       "#a47935"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       1.1,
+       6
+      ],
+      "at": [
+       0.3,
+       1.3,
+       0.35
+      ],
+      "rot": [
+       -45,
+       20,
+       0
+      ],
+      "tones": [
+       "#cca840",
+       "#dfbe50",
+       "#a47935"
+      ]
+     }
+    ]
+   },
+   "pose": "Head lunging low with jaws unhinged wide toward the left while dorsal crest scales angle backward along the rising ridge.",
+   "cell": [
+    11,
+    3
+   ],
+   "facing": "w",
+   "why": "Translates the intense predatory focal energy and blank-eyed snarl identified in ANALYSIS.subject and composition."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVVRRRRRRRRGV",
+   "VVVVVRRRRRRRRRGV",
+   "VVVVRRRRPPPFFPGV",
+   "VVVRRRRPPRPFFRGV",
+   "VVVRRRRPRRRRRRGV",
+   "VGGGGRRPRRRRRGGV",
+   "VGGGGRPPRRRGGVVV",
+   "VGGGGGPRRRGVVVVV",
+   "VGPPPPPGGGGGVVVV",
+   "VGPGGGGGGGGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000002223333210",
+   "0000022223222210",
+   "0000222223222210",
+   "0002222223222210",
+   "0002222223222210",
+   "0111122223322110",
+   "0111122222211000",
+   "0111112222100000",
+   "0111111111110000",
+   "0111111111110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 11,
+   "z": 3,
+   "what": "wyvern_jaw_effigy roaring out over the descending ribbon trail"
+  },
+  "mass": "Visual weight is concentrated heavily in the upper-left-to-center plateau (columns 4 to 8, rows 1 to 4) where the tiered cranium crest rises to level 3.",
+  "read": "The viewer enters at the near-left along the sweeping tail coil on row 9, following the sinuous path ribbon as it climbs steadily upward toward the snarling head at [4, 3], framed by void along the perimeter.",
+  "shaped": {
+   "name": "ribbon",
+   "params": {
+    "width": 3,
+    "waves": 1.2,
+    "rise": "up",
+    "fork": true,
+    "from": "sw"
+   },
+   "seed": 1,
+   "start": [
+    2,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVRRRRRRRRVVVV",
+    "VVVRRRRRRRPPVVVV",
+    "VVTTRFRRPPPPTVVV",
+    "VVTTTRRPPPPTTVVV",
+    "VVVGGGGGPPGGTVVV",
+    "VVGGGGPPPPGGTVVV",
+    "VVGGPPPPPPGGGVVV",
+    "VVPPPPGGGGGGGVVV",
+    "VPPPGGGGGGGGGVVV",
+    "VVPPGGGGGGGGVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.08,
+   "types": [
+    {
+     "type": "tree-round",
+     "variant": "treeGold",
+     "weight": 0.4
+    },
+    {
+     "type": "tree-pine",
+     "variant": "treeLime",
+     "weight": 0.6
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.42,
+  "decor_weights": {
+   "spiked_frill_palisade": 0.3,
+   "dorsal_scute_cairn": 0.25,
+   "wire_loop_curb": 0.25,
+   "bone_talon_spire": 0.2
+  },
+  "lighting": {
+   "bg": "#303c51",
+   "ambient": 0.72,
+   "sun": 0.28,
+   "tint": "#f0f2f4",
+   "notes": "raking studio graphite reflection against stark cold paper: Directly mirrors ANALYSIS.palette.value_structure where 65% of the frame is luminous untouched paper surrounding dense carbon-dark crevices."
+  },
+  "rules": [
+   "Keep void open around the southern and eastern margins to preserve the drawing's open paper field.",
+   "Route the path continuously along the ribbon ridge from bottom-left to top-center.",
+   "Place spiked frill palisades strictly along the steep ledge below the wyvern effigy.",
+   "Scatter bone talon spires at the extreme lateral edges where claws reach out in the sketch."
+  ],
+  "decor_density": 0.16,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "grass",
+   "path": "dirt",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "Literal translation of the drawing's dynamic S-curve spine and gaping head mass into a sinuous rising terrain ribbon surrounded by negative void space.",
+  "place": "Coiled dragon-spine ridge rising above sheer paper gulfs",
+  "summary": "A snaking land ribbon that starts at the looping tail in the lower foreground and ascends toward an imposing draconic head perched atop high stepped crags.",
+  "differs": "Replaces jagged shards and quarry motifs with a flowing, single-gesture ribbon spine that climbs continuously from tail coil to roaring snout.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took sand",
+   "lighting.bg #23262b->#303c51"
+  ]
+ },
+ "shaper": {
+  "name": "ribbon",
+  "params": {
+   "width": 3,
+   "waves": 1.2,
+   "rise": "up",
+   "fork": true,
+   "from": "sw"
+  },
+  "why": "Transcribes the dynamic S-curve gesture line flowing from the sweeping tail in the lower-left up into the high dorsal crest and head mass."
+ },
+ "surface_mix": {
+  "pattern": "height",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.3
+   },
+   {
+    "s": "grass",
+    "share": 0.55
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "The low approach retains warm parchment sand tones, transitioning to grass across the elevated back, capped with stone scales at the summit."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#a6705c",
+   "#885444",
+   "#6e4033"
+  ],
+  "lower": [
+   "#bc7a66",
+   "#965949",
+   "#7c4538"
+  ],
+  "why": "Rises in distinct one-block terraces matching the stepped anatomical layering of the dragon's neck plates and collar."
+ },
+ "lighting": {
+  "time": "raking studio graphite reflection against stark cold paper",
+  "ambient": 0.72,
+  "sun": 0.28,
+  "tint": "#f0f2f4",
+  "bg": "#303c51",
+  "why": "Directly mirrors ANALYSIS.palette.value_structure where 65% of the frame is luminous untouched paper surrounding dense carbon-dark crevices."
+ },
+ "figure_pose": {
+  "pose": "Head lunging low with jaws unhinged wide toward the left while dorsal crest scales angle backward along the rising ridge.",
+  "action": "territorial roar",
+  "facing": "left",
+  "why": "Cites ANALYSIS.subject: apex predatory reptile lunging forward with jaws unhinged in a feral territorial screech."
+ },
+ "approach": {
+  "from": "southwest rim at the tail tip [1, 9]",
+  "passes": [
+   "wire_loop_curb winding along the sweeping tail bend",
+   "bone_talon_spire erupting near the lower claw landing",
+   "spiked_frill_palisade guarding the steep drop below the throat",
+   "chevron_lattice_lintel spanning the dorsal crest threshold"
+  ],
+  "shape": "A snaking ascending ramp that coils around a western ledge before mounting the central summit."
+ },
+ "threshold": {
+  "kind": "A woven geometric collar lintel arching over the narrow spine crest just behind the ear horn.",
+  "prop": "chevron_lattice_lintel"
+ },
+ "analysis": "pipeline/seed/analysis/dragon.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}
