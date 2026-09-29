@@ -128,3 +128,6 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | chimera-medium | gemini-3.8-flash | 18 | ~0.20 | critic rounds 1 to 3 at 351 and 900 (3 votes each): 0, 0, 0 high
 2026-09-29 | chimera-subject | gemini-3.8-flash | 12 | ~0.12 | critic rounds 1 and 2: 0, 0 high
 2026-09-29 | chimera-composition | gemini-3.8-flash | 18 | ~0.12 | critic rounds 2 to 4 (round 1 rebuilt before a critic run): 0, 1, 0 high (curled tail overhung the rim and read as a cairn)
+2026-09-29 | dragon-medium | gemini-3.8-flash | 18 | 0.1353 | critic rounds 1 to 3 at 351 and 900: 1, 0, 0 high
+2026-09-29 | dragon-subject | gemini-3.8-flash | 18 | 0.1434 | critic rounds 1 to 3: 0, 0, 0 high
+2026-09-29 | dragon-composition | gemini-3.8-flash | 18 | 0.1454 | critic rounds 1 to 3: 2, 0, 0 high
