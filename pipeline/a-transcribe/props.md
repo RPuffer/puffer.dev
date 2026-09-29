@@ -77,3 +77,56 @@ node tools/shot.mjs "http://localhost:8765/3d/index.html?level=<slug>-1&hero=0&z
 ```
 
 with `X,Z` the creature's anchor plus 1.
+
+## Round 4: lens props
+
+A lens brief names its props after the lens (`arc-ribbon-pylon`, `mud-cup-cluster`, `spiral-scroll-threshold`), and each motif carries a `role` the model chose: `threshold`, `dais`, `light`, `offering`, `mass`, `detail` or `approach`. `style.palette.props[type]` now also holds `summary` and `parts` (the brief's primitive list) for every new type, and `pose` (the brief's `figure_pose.pose`) for the lead creature.
+
+Keep the round-3 creature builder and pick its pose from `props[lead].pose` as well as from the name. For the other props, match by keyword first, the way `LENS_KINDS` in `3d/pieces/swallow.js` does, and hand-build the ones that carry the artwork. Put the most specific patterns first (`midge-swarm-pylon` must reach the swarm builder before the `pylon` blade pattern). A threshold always builds as a gate post that honours `ctx.decor.side` and `axis`, whatever its name.
+
+For any new type no builder covers, bake the brief's own parts:
+
+```js
+import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
+bakeParts(B, style.palette.props[t].parts, { height: ctx.height, fallback: tones[0] });
+```
+
+`bakeParts` scales the part list to the catalog height, lifts parts that dip below y 0, and draws box, rbox, cyl, cone, ball, prism and beam. Check the result close up: the model's parts often need a hand builder.
+
+### Shapers
+
+`brief.shaper = { name, params }` picks the island's silhouette and terracing. The builder handles all of them; your module never sees the shaper.
+
+| Shaper | Params | Reads as |
+| --- | --- | --- |
+| mound | peak [x,z] 0..1, height 2 or 3, spread 0.6..1.4, lobes 0..3 | one swelling hill ringed by terraces |
+| basin | wall 2 or 3, open s, e or se, pool, focal floor or wall | a bowl walled at the back, open to the camera |
+| radial | rings 2..4, center, order up, down or ripple, spokes 0..4 | concentric soft terraces |
+| spiral | turns 0.75..1.75, center, climb in or out, hand cw or ccw | one coiled path climbing to the figure |
+| patchwork | patch 2..4, levels 1..3, holes 0..3 | rectangular colour blocks at different heights |
+| ribbon | width 2..5, waves 0.5..2, rise up, down or arch, fork, from w, s or sw | one sinuous stroke of land over void |
+| shards | count 3..6, spread 0..1, cracks | angular slabs split by void seams, one crossing each |
+| symmetric | tiers 2..3, axis x or diag, notch 0..2 | a mirrored plan with the figure at its head |
+| twin-mass | split diag, x or z, ratio, heights [a,b], bridge land or planks, focal a or b | two masses joined by a land neck or a plank bridge |
+
+`surface_mix` (`pattern` rings, bands, patches, scatter, height, shaper or uniform; `surfaces` with shares) repaints the land after the shaper; stone stays at or under 0.2. `cliff_treatment.style` is banded, sheer, stepped, mossy or soft, with `upper` and `lower` cliff tones.
+
+### Finish helpers added in round 4
+
+Call them from `finishLens(level, brief, h)`; each logs to `h.log`, and every one that removes or moves land checks reach and reverts itself when it would cut the island.
+
+| Helper | Does |
+| --- | --- |
+| `h.spawnAt({ min, max })` | moves `level.spawn` to a rim cell whose approach runs `min` to `max` cells, returns the route |
+| `h.passes()` | resolves `brief.approach.passes` names to placeable types, in order |
+| `h.along(types, { route })` | places one prop per type beside the approach, in order, spaced along it, never on a ramp |
+| `h.dryRim({ void })` | turns water that touches the void into shore (or void) and drops stranded waterfalls |
+| `h.ledges({ keep, tall })` | drops props with taller land on their camera side and tall props on a lip over void |
+| `h.pruneRamps({ route, all, slotsOnly, nearFig })` | flattens ramps off the route, or ramps in a slot between taller flanks, or ramps beside the figure |
+| `h.openRamps()` | lowers a flank that stands above a ramp's top so the wedge does not cut into a wall |
+| `h.thin(min, { keep, order })` | removes blockers, farthest from the figure first, until `min` cells walk |
+| `h.grow(min, { s })` | adds ground beside low land until `min` cells walk |
+| `h.rampTone({ stone })` | gives each ramp the sand, grass or dirt of its uphill or downhill cell |
+| `h.walkN()` | walkable cells reachable from spawn |
+
+The swallow's `finishLens` runs, in order: `dryRim`, remove dais props, clear threshold, light and approach props, `spawnAt({ min: 9, max: 16 })`, `path`, `gate(threshold, { frac: 0.6 })`, clear the wing side of the bird, `along(passes)`, `lights(role light)`, `ledges`, `repair`, `pruneRamps` three ways, `openRamps`, then `thin` and `grow` to 84 and `rampTone`.

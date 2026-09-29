@@ -216,3 +216,70 @@ Every helper that places a prop checks reachability and undoes itself if the pro
 | cat-3 | Howling Caldera boss arena at golden hour, the cat hissing between bone fangs | 73/37/3 | 0, 1, 0, 0, 0 |
 
 The one high (cat-3 round 2) was a torch beside a ramp, which the critic read as standing on it; `lights` now skips cells beside ramps. Every round flagged the cat's saturated colours as a medium palette clash; the brief asks for the painting's fauvist colours, so the cat keeps them. cat-1 has the smallest island (46 walkable cells) because its brief grid holds 70 land cells. `tools/qa-levels.mjs cat-1,cat-2,cat-3`: 42 pass, 0 fail. Final renders: `out/final/cat-1.png`, `cat-2.png`, `cat-3.png`.
+
+## Round 4: three lenses per artwork
+
+Each artwork has a close reading in `pipeline/seed/analysis/<slug>.json` and three lens briefs in `pipeline/seed/concepts/<slug>-medium.json`, `<slug>-subject.json` and `<slug>-composition.json`. All twelve analyses and all 36 briefs are committed. The brief carries `shaper`, `surface_mix`, `cliff_treatment`, `lighting`, `figure_pose`, `approach`, `threshold` and a `role` on every motif; `build-level.mjs` reads all of them.
+
+### Commands for one artwork
+
+Start the server once (`sh tools/serve.sh`). Set `S` to the slug and `R` to the round number, and run the loops under `sh`, since zsh does not split `set -- $sz`.
+
+1. List the new prop types for all three briefs:
+
+```sh
+export PP_PROFILE=.pp-profile-$S
+for L in medium subject composition; do node pipeline/a-transcribe/build-level.mjs --art $S --brief pipeline/seed/concepts/$S-$L.json --level $S-$L --pieces $S --props; done
+```
+
+2. Extend `3d/pieces/$S.js` following `props.md` (Round 4 section): keep the round-3 creature builder, add builders for the lens props, and add a `finishLens(level, brief, h)` that `finish` calls when `brief.lens` is set. `3d/pieces/swallow.js` is the worked example.
+
+3. Build, render and critique, up to four rounds, stopping after two rounds in a row with no agreed high item:
+
+```sh
+for L in medium subject composition; do
+  mkdir -p out/$S-$L
+  node pipeline/a-transcribe/build-level.mjs --art $S --brief pipeline/seed/concepts/$S-$L.json --level $S-$L --pieces $S
+  for sz in "351 390" "900 800"; do
+    set -- $sz
+    node tools/shot.mjs "http://localhost:8765/3d/index.html?level=$S-$L&hero=0" out/$S-$L/r$R-$1.png $1 $2
+    node pipeline/critic.mjs out/$S-$L/r$R-$1.png --annotate out/$S-$L/r$R-$1-ann.png --out out/$S-$L/r$R-$1.json
+  done
+done
+```
+
+Each build must end `PASS: checkLevel + prepareLevel clean`. Read every PNG and annotated copy before you trust the critic. Shoot one level at a time on one `PP_PROFILE`.
+
+4. Walk check and final renders:
+
+```sh
+node tools/qa-levels.mjs http://localhost:8765 $S-medium,$S-subject,$S-composition
+for L in medium subject composition; do node tools/shot.mjs "http://localhost:8765/3d/index.html?level=$S-$L&hero=0" out/final/$S-$L.png 900 800; done
+```
+
+If keys drop while other agents run, pass one level at a time.
+
+5. Log each critic run's `spend:` line in `SPEND.md` under Round 4, then commit `3d/pieces/$S.js`, `levels/$S-{medium,subject,composition}.json`, `pipeline/a-transcribe/regions/$S-*.json` and `pipeline/a-transcribe/shaped/$S-*.json`. Do not edit a level file by hand.
+
+Regenerate a brief only when it cannot be built: `node pipeline/analyze.mjs --lens <lens> --analysis pipeline/seed/analysis/$S.json pipeline/seed/$S.png` (about $0.03 to $0.15). The script reads the other two lens briefs of the artwork and rejects a reading that repeats their shaper; it swaps the dominant surface or shifts the background hue itself when they collide. Log the spend.
+
+### Script flags
+
+- `analyze.mjs --deep <art.png> [analysis.json]`: close reading. Keys: `medium` (technique, marks, surface, edges, density, as_material), `palette` (measured roles, value_structure, dominant, accents, temperature), `subject`, `story` (nature, habitat, implies, world), `composition` (mass, mass_box, flow_lines with frame coordinates, negative_space, symmetry, scale_cues, focal, frame), `energy`, `details`, `unlike`. It rejects praise words.
+- `analyze.mjs --lens medium|subject|composition --analysis <analysis.json> <art.png> [brief.json] [--avoid ...]`: one reading. It forbids the round-3 places (shrine, arena, caldera, causeway, temple) and stock times of day in `lighting.time`, caps stone at 0.2 of `surface_mix`, and needs three new motifs, two of them unused by the sibling readings.
+- `build-level.mjs ... --seed N`: the shaper seed (default 1). `--shaped <path>` moves the shaped brief copy, which defaults to `pipeline/a-transcribe/shaped/<brief>.json`.
+- `node tools/shaper-check.mjs [shaper ...] [--seeds=1,2,3]`: builds every shaper with two param sets per seed through the real build path and checks 80 walkable terrain cells, full reach with decor, a void rim, heights up to 3 and an irregular outline. Current result: 54 builds pass, the smallest walks 89 cells.
+
+### How a lens brief becomes terrain
+
+`shapers.mjs` replaces the brief grid's outline and heights with the named shaper, keeps a 4x4 apron around the figure at one height, caps every cell at one plus its run of land toward the camera (so tall ground never walls the front), limits every rise to one tier, and makes sure each tier can take a ramp. Motif and creature cells move to the nearest land. With `biome.water_share` of 0.04 or more it cuts a pool near the brief's own water. `concept-level.mjs` then applies `surface_mix` (stone capped at 0.2), `cliff_treatment` (palette and the stepped, mossy and sheer rules) and plank bridges from `twin-mass` with `bridge: "planks"`, and skips `plateau_share`.
+
+### swallow result
+
+| Level | Reading | Shaper | Land h1/h2/h3 | Critic highs by round |
+| --- | --- | --- | --- | --- |
+| swallow-medium | parchment crest shaped as one calligraphic swoop, bone-pale blades on sand and grass bands, sheer umber cliffs | ribbon | 28/51/33 | 0, 1, 0, 0 |
+| swallow-subject | river flyway under a masonry bridge pier: mud-cup nests, midge swarms, a timber trellis on a plank bridge, a pool, on a teal ground | twin-mass | 96/8/0, 4 water | 0, 0, 0, 1, 0 |
+| swallow-composition | the drawing's flow lines as a coiling ridge, orange feather spines lining a climb to the spiral eye, stepped red cliffs | spiral | 72/21/20 | 0, 0, 1, 0 |
+
+`tools/qa-levels.mjs` on the three: 42 pass, 0 fail. Final renders: `out/final/swallow-medium.png`, `swallow-subject.png`, `swallow-composition.png`. Every round flagged the engine's dirt stipple as a medium item. The two ramp highs (medium round 2, composition round 3) led to `h.pruneRamps` and `h.openRamps`; the subject round-4 high named the wing tip over a ramp, which `pruneRamps({ nearFig: 1 })` checks, and round 5 came back clean.

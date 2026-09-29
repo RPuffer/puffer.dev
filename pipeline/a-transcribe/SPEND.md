@@ -107,3 +107,18 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | eagle-3 | gemini-3.8-flash | 24 | 0.1651 | critic rounds 1 to 4; 0 high every round, 1 medium on the engine's dirt stipple
 2026-09-29 | cat-1 | gemini-3.8-flash | 1 | 0.0236 | analyze.mjs --variant 1 --avoid cat-2,cat-3: rebuild of the pre-floor cat-1; new reading walked 97 cells before finish
 2026-09-29 | cat-1 | gemini-3.8-flash | 24 | 0.1720 | critic rounds 1 to 4, 351 and 900 (3 votes each); 0, 0, 1, 0 high; round 3 high on stone stairs read as floating pads
+
+## Round 4: readings derived from the artwork
+
+Allocation: $15.00 across the round. Same token rates as above. Artwork agents log their critic runs below under their slug.
+
+date | level | model | count | $ | purpose
+--- | --- | --- | --- | --- | ---
+2026-09-29 | analyses | gemini-3.8-flash | 17 | 0.1527 | analyze.mjs --deep: three tuning runs (swallow, cosmos, cat), then all twelve seeds after the story prompt asked for a concrete habitat
+2026-09-29 | swallow-* | gemini-3.8-flash | 18 | 0.7954 | analyze.mjs --lens: medium once, subject twice (second after the palette-from-habitat rule), composition four times (two runs failed validation before surface and bg clashes became repairs)
+2026-09-29 | eleven artworks | gemini-3.8-flash | 51 | 3.2836 | analyze.mjs --lens for the other 33 briefs; 8 failed on the old strict sibling checks and were regenerated
+2026-09-29 | swallow-medium | gemini-3.8-flash | 30 | 0.2020 | critic r0 check, rounds 1 to 4 at 351 and 900 (3 votes each): 0, 1, 0, 0 high
+2026-09-29 | swallow-subject | gemini-3.8-flash | 36 | 0.2400 | critic r0 check, rounds 1 to 5: 0, 0, 0, 1, 0 high; round 5 checked the finish change after round 4
+2026-09-29 | swallow-composition | gemini-3.8-flash | 24 | 0.1780 | critic rounds 1 to 4: 0, 0, 1, 0 high
+
+Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6200).
