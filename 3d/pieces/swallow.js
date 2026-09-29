@@ -356,6 +356,7 @@ function repaint(level, h, keep) {
 }
 
 function finishLens(level, brief, h) {
+  h.dryRim();
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));
   const gateT = brief.threshold?.prop && level.palette?.props?.[brief.threshold.prop] ? brief.threshold.prop : h.ofRole("threshold")[0];
@@ -377,6 +378,10 @@ function finishLens(level, brief, h) {
   h.lights(lightT, { route: r, every: 4, skip: 2, max: 4, avoid: g ? [g] : [], keep: [gateT, ...passT] });
   h.ledges({ keep: [gateT] });
   h.repair({ keep: [gateT] });
+  h.pruneRamps({ route: h.approach() });
+  h.pruneRamps({ all: true, slotsOnly: true });
+  h.openRamps();
+  h.pruneRamps({ all: true, nearFig: 1 });
   if (h.walkN() < 84) h.thin(84, { keep: [gateT, lightT] });
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();

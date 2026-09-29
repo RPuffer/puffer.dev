@@ -1396,7 +1396,7 @@
     "rim": 0.585
    },
    {
-    "h": 1,
+    "h": 2,
     "s": "path",
     "code": "P",
     "motif": [],
@@ -1405,59 +1405,59 @@
     "lum": 0.708,
     "edge": 0.075,
     "path": 1,
-    "prior": "P1",
+    "prior": "P2",
     "rim": 0.585
    },
    {
-    "h": 1,
+    "h": 2,
     "s": "ground",
-    "code": "G",
+    "code": "R",
     "motif": [],
     "ix": 0.679,
     "iy": 0.642,
     "lum": 0.658,
     "edge": 0.124,
     "path": 0,
-    "prior": "G1",
+    "prior": "R2",
     "rim": 0.605
    },
    {
-    "h": 1,
+    "h": 2,
     "s": "ground",
-    "code": "G",
+    "code": "R",
     "motif": [],
     "ix": 0.714,
     "iy": 0.658,
     "lum": 0.774,
     "edge": 0.005,
     "path": 0,
-    "prior": "G1",
+    "prior": "R2",
     "rim": 0.646
    },
    {
-    "h": 1,
+    "h": 2,
     "s": "ground",
-    "code": "G",
+    "code": "R",
     "motif": [],
     "ix": 0.75,
     "iy": 0.676,
     "lum": 0.586,
     "edge": 0.177,
     "path": 0,
-    "prior": "G1",
+    "prior": "R2",
     "rim": 0.708
    },
    {
-    "h": 1,
+    "h": 2,
     "s": "ground",
-    "code": "G",
+    "code": "R",
     "motif": [],
     "ix": 0.786,
     "iy": 0.695,
     "lum": 0.496,
     "edge": 0.12,
     "path": 0,
-    "prior": "G1",
+    "prior": "R2",
     "rim": 0.785
    },
    {
@@ -1612,20 +1612,20 @@
     "rim": 0.42
    },
    {
-    "h": 1,
+    "h": 2,
     "s": "ground",
-    "code": "G",
+    "code": "R",
     "motif": [],
     "ix": 0.607,
     "iy": 0.642,
     "lum": 0.779,
     "edge": 0.006,
     "path": 0,
-    "prior": "G1",
+    "prior": "R2",
     "rim": 0.42
    },
    {
-    "h": 2,
+    "h": 3,
     "s": "ground",
     "code": "R",
     "motif": [],
@@ -1634,12 +1634,12 @@
     "lum": 0.598,
     "edge": 0.156,
     "path": 0,
-    "prior": "R2",
+    "prior": "R3",
     "rim": 0.448,
     "knoll": 1
    },
    {
-    "h": 2,
+    "h": 3,
     "s": "ground",
     "code": "R",
     "motif": [],
@@ -1648,12 +1648,12 @@
     "lum": 0.774,
     "edge": 0.018,
     "path": 0,
-    "prior": "R2",
+    "prior": "R3",
     "rim": 0.506,
     "knoll": 1
    },
    {
-    "h": 2,
+    "h": 3,
     "s": "ground",
     "code": "R",
     "motif": [],
@@ -1662,12 +1662,12 @@
     "lum": 0.749,
     "edge": 0.043,
     "path": 0,
-    "prior": "R2",
+    "prior": "R3",
     "rim": 0.585,
     "knoll": 1
    },
    {
-    "h": 2,
+    "h": 3,
     "s": "ground",
     "code": "R",
     "motif": [],
@@ -1676,7 +1676,7 @@
     "lum": 0.349,
     "edge": 0.194,
     "path": 0,
-    "prior": "R2",
+    "prior": "R3",
     "rim": 0.68,
     "knoll": 1
    },
@@ -2534,7 +2534,7 @@
     "rim": 0.492
    },
    {
-    "h": 2,
+    "h": 3,
     "s": "path",
     "code": "P",
     "motif": [],
@@ -2543,7 +2543,7 @@
     "lum": 0.605,
     "edge": 0.13,
     "path": 1,
-    "prior": "P2",
+    "prior": "P3",
     "rim": 0.604
    },
    {
@@ -2614,16 +2614,16 @@
     "rim": 0.893
    },
    {
-    "h": 0,
-    "s": "none",
-    "code": "V",
+    "h": 1,
+    "s": "ground",
+    "code": "G",
     "motif": [],
     "ix": 0.214,
     "iy": 0.627,
     "lum": 0.512,
     "edge": 0.098,
     "path": 0,
-    "prior": "V0",
+    "prior": "G1",
     "rim": 0.783
    },
    {
@@ -2850,16 +2850,16 @@
     "rim": 0.785
    },
    {
-    "h": 1,
-    "s": "ground",
-    "code": "G",
+    "h": 0,
+    "s": "none",
+    "code": "V",
     "motif": [],
     "ix": 0.25,
     "iy": 0.676,
     "lum": 0.604,
     "edge": 0.137,
     "path": 0,
-    "prior": "G1",
+    "prior": "V0",
     "rim": 0.708
    },
    {
@@ -2980,16 +2980,16 @@
     "rim": 0.874
    },
    {
-    "h": 0,
-    "s": "none",
-    "code": "V",
+    "h": 1,
+    "s": "ground",
+    "code": "G",
     "motif": [],
     "ix": 0.607,
     "iy": 0.897,
     "lum": 0.784,
     "edge": 0.006,
     "path": 0,
-    "prior": "V0",
+    "prior": "G1",
     "rim": 0.972
    },
    {
@@ -3073,16 +3073,16 @@
     "rim": 0.847
    },
    {
-    "h": 0,
-    "s": "none",
-    "code": "V",
+    "h": 1,
+    "s": "ground",
+    "code": "G",
     "motif": [],
     "ix": 0.25,
     "iy": 0.715,
     "lum": 0.672,
     "edge": 0.098,
     "path": 0,
-    "prior": "V0",
+    "prior": "G1",
     "rim": 0.798
    },
    {
@@ -3177,16 +3177,16 @@
     "rim": 0.91
    },
    {
-    "h": 1,
-    "s": "ground",
-    "code": "G",
+    "h": 0,
+    "s": "none",
+    "code": "V",
     "motif": [],
     "ix": 0.536,
     "iy": 0.897,
     "lum": 0.784,
     "edge": 0.007,
     "path": 0,
-    "prior": "G1",
+    "prior": "V0",
     "rim": 0.986
    },
    {

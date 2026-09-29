@@ -813,8 +813,8 @@
      4
     ],
     [
-     1,
-     3
+     2,
+     5
     ]
    ],
    "where": "Spanning the shallow river throat between the low gravel bar and the raised pier abutment.",
@@ -875,11 +875,11 @@
    "cells": [
     [
      1,
-     2
+     3
     ],
     [
      1,
-     1
+     2
     ]
    ],
    "where": "Pouring over the masonry shelf into the lower pool under the bridge arch.",
@@ -1175,12 +1175,12 @@
   },
   "grid": [
    "VVVVVVVVVVVVVVVV",
-   "VGGRRGGGGVVVVVVV",
-   "VGRRRRRGGVVVGGGV",
-   "VRRRFFRGGVVGGGGV",
-   "VGRRFFRGVVVGGGGV",
-   "VGWRPRGVVVGGGGGV",
-   "VGWWPPPPPPGGGGGV",
+   "VGRRRRRRGVVVVVVV",
+   "VGRGGGGRGVVVGGGV",
+   "VRRGFFGRGVVGGGGV",
+   "VGRGFFGGVVVGGGGV",
+   "VGRGPPPVVVGGGGGV",
+   "VGRRRRPPPPGGGGGV",
    "VGWWWGVVVPGGGGGV",
    "VGWWGVVVGPGGGGGV",
    "VGGGGVVGGPPPPGGV",
@@ -1189,12 +1189,12 @@
   ],
   "heights": [
    "0000000000000000",
-   "0112211110000000",
-   "0122222110001110",
-   "0222222110011110",
-   "0122222100011110",
-   "0102221000111110",
-   "0100111111111110",
+   "0122222210000000",
+   "0121111210001110",
+   "0221111210011110",
+   "0121111100011110",
+   "0121111000111110",
+   "0122221111111110",
    "0100010001111110",
    "0100100011111110",
    "0111100111111110",
@@ -1225,7 +1225,7 @@
     12,
     9
    ],
-   "pool": 8,
+   "pool": 5,
    "bridge": [
     [
      7,
