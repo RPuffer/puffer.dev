@@ -443,8 +443,11 @@ export function shape(spec, seed = 1) {
     for (const [x, z, sc] of rim) {
       if (land <= 114 || sc < 0.7) break;
       const nb = N4.map(([dx, dz]) => H[z + dz][x + dx] > 0);
-      if ((nb[0] && nb[1] && !nb[2] && !nb[3]) || (nb[2] && nb[3] && !nb[0] && !nb[1]) || nb.filter(Boolean).length < 2) continue;
-      H[z][x] = 0; land--;
+      if ((nb[0] && nb[1] && !nb[2] && !nb[3]) || (nb[2] && nb[3] && !nb[0] && !nb[1]) || nb.filter(Boolean).length < 2 || apron(x, z)) continue;
+      const was = H[z][x];
+      H[z][x] = 0;
+      if (!landConnected(H.map((row) => row.map((v) => (v ? "G" : "V")).join("")))) { H[z][x] = was; continue; }
+      land--;
     }
     rimAndKeep(H, (x, z) => isF(x, z) || bridge.has(z * W + x), P);
   }
@@ -465,6 +468,8 @@ export function shape(spec, seed = 1) {
   for (let dz = -1; dz <= 2; dz++) for (let dx = -1; dx <= 2; dx++) { const X = focal[0] + dx, Z = focal[1] + dz; if (!isF(X, Z) && H[Z]?.[X] > 0) ringH.push(H[Z][X]); }
   const fh = ringH.length ? Math.max(...ringH) : 1;
   for (let dz = 0; dz <= 1; dz++) for (let dx = 0; dx <= 1; dx++) H[focal[1] + dz][focal[0] + dx] = fh;
+  ensureRamps(H, start0, apron, wet);
+  rimAndKeep(H, (x, z) => isF(x, z) || bridge.has(z * W + x), P);
   ensureRamps(H, start0, apron, wet);
   const from = spawnEdge(H, r.from ? null : spec?.params?.from, focal);
   const start = r.from && inb(...r.from) && H[r.from[1]][r.from[0]] ? r.from : from;
