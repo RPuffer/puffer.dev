@@ -1,0 +1,1233 @@
+{
+  "source": {
+    "art": "pipeline/seed/cat.png",
+    "width": 1587,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "fauvist",
+    "chromatic",
+    "scraped",
+    "cacophonic",
+    "bold",
+    "bristling"
+  ],
+  "observations": [
+    {
+      "what": "Raw primed white canvas field surrounding the cat bust",
+      "box": [
+        0,
+        0,
+        300,
+        1000
+      ],
+      "maps_to": "V"
+    },
+    {
+      "what": "Tall pointed right ear lined with hot bubblegum pink and edged in orange",
+      "box": [
+        45,
+        550,
+        340,
+        850
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Lower pointed left ear dipped in deep blue and vivid cadmium orange",
+      "box": [
+        130,
+        0,
+        360,
+        245
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Almond-shaped left eye with bright yellow iris and indigo rim",
+      "box": [
+        342,
+        220,
+        435,
+        345
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Almond-shaped right eye with bright yellow iris and heavy indigo brow band",
+      "box": [
+        330,
+        500,
+        425,
+        635
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Muted lavender triangular nose pad with dark indigo nostrils",
+      "box": [
+        465,
+        345,
+        545,
+        485
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Open triangular dark mouth cavity exposing two pointed white lower teeth and lilac tongue",
+      "box": [
+        565,
+        325,
+        675,
+        520
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Curved collar arc of thick fiery orange bristle marks bridging under the chin",
+      "box": [
+        530,
+        160,
+        715,
+        680
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Broad cadmium yellow stroke running down the right flank and lower chest",
+      "box": [
+        620,
+        520,
+        990,
+        895
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Dense magenta-crimson vertical stroke blocking the lower left chest",
+      "box": [
+        625,
+        160,
+        995,
+        530
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Viridian emerald brush drag wedged between chin and throat",
+      "box": [
+        680,
+        375,
+        765,
+        650
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Bare unpainted primed canvas lower margin cut off abruptly at the base",
+      "box": [
+        950,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "V"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e8dfce",
+        "share": 0.233,
+        "role": "unpainted primed canvas ground flanking the head and shoulders"
+      },
+      {
+        "hex": "#d5cbbd",
+        "share": 0.165,
+        "role": "shadowed canvas ground along the upper and left margins"
+      },
+      {
+        "hex": "#df9e0c",
+        "share": 0.131,
+        "role": "pure cadmium yellow across the right forehead, right eye iris, and lower right torso"
+      },
+      {
+        "hex": "#363a56",
+        "share": 0.124,
+        "role": "deep ultramarine-indigo shading the brow band, cheek patches, and eye outlines"
+      },
+      {
+        "hex": "#cf610d",
+        "share": 0.099,
+        "role": "fiery orange marking the left ear tip, bib, and lower neck collar"
+      },
+      {
+        "hex": "#9c3541",
+        "share": 0.088,
+        "role": "deep magenta-crimson blocking the left shoulder and forehead bridge"
+      },
+      {
+        "hex": "#c6b19c",
+        "share": 0.082,
+        "role": "warm neutral ground tone near the outer right boundary"
+      },
+      {
+        "hex": "#c4616d",
+        "share": 0.077,
+        "role": "hot bubblegum pink lining the right inner ear flap and upper muzzle"
+      }
+    ],
+    "translation": {
+      "grass": {
+        "top": "#5ac389",
+        "fringe": "#44a46b",
+        "fringeDark": "#357e53",
+        "speck": "#8ce263"
+      },
+      "sand": {
+        "top": "#f2ab0d",
+        "lip": "#e26a0e",
+        "edge": "#cb5e08",
+        "dots": "#f2d265"
+      },
+      "dirt": {
+        "top": "#cf610d",
+        "patch": "#e0751e",
+        "mottle": "#b34e06",
+        "border": "#8f3e05"
+      },
+      "stone": {
+        "top": "#e8dfce",
+        "pebble": "#f7f1e4",
+        "pebbleShade": "#d5cbbd",
+        "rim": "#baa993"
+      },
+      "cliffUpper": {
+        "left": "#363a56",
+        "right": "#25273d",
+        "seam": "#191a29"
+      },
+      "cliffLower": {
+        "left": "#9c3541",
+        "right": "#75222d",
+        "seam": "#53151d",
+        "speck": "#c4616d"
+      },
+      "water": {
+        "top": "#a0eeff",
+        "bubble": "#daf7ff",
+        "deep": "#00d4ff",
+        "fall": [
+          "#00daff",
+          "#00ceff",
+          "#00c7ff"
+        ],
+        "foam": "#daf7ff"
+      },
+      "wood": {
+        "light": "#d8650e",
+        "mid": "#b95407",
+        "dark": "#934003",
+        "shadow": "#723001",
+        "end": "#e8a40c"
+      },
+      "treeMint": [
+        "#68e09e",
+        "#5ac389",
+        "#44a46b"
+      ],
+      "treeLime": [
+        "#c4ef86",
+        "#8ce263",
+        "#73aa4f"
+      ],
+      "treeLeaf": [
+        "#8ce263",
+        "#64c960",
+        "#50ab46"
+      ],
+      "treeTeal": [
+        "#00ffbf",
+        "#00e09b",
+        "#00c386",
+        "#00a568"
+      ],
+      "treeGold": [
+        "#df9e0c",
+        "#f1b900",
+        "#dd9200"
+      ],
+      "trunk": [
+        "#31365b",
+        "#222540"
+      ],
+      "rock": [
+        "#e8dfce",
+        "#d5cbbd",
+        "#baa993",
+        "#8f826f"
+      ],
+      "wellStone": [
+        "#e8dfce",
+        "#d5cbbd",
+        "#baa993"
+      ],
+      "flowerOrange": [
+        "#cf610d",
+        "#df9e0c"
+      ],
+      "berry": [
+        "#c4616d",
+        "#9c3541"
+      ],
+      "bushTeal": [
+        "#8fffc2",
+        "#68e09e",
+        "#5ac389"
+      ],
+      "gold": [
+        "#df9e0c",
+        "#f1cd52",
+        "#ffe082"
+      ],
+      "bg": "#e8dfce"
+    },
+    "notes": "The palette translates raw cotton canvas into neutral cream stone (#e8dfce) and void background, while the cat's intense fauvist palette supplies vivid cadmium yellow sand, fiery orange dirt, and viridian emerald grass, supported by deep ultramarine (#363a56) and crimson-magenta (#9c3541) cliffs.",
+    "clamped": [
+      "trunk[0] #363a56->#31365b",
+      "trunk[1] #25273d->#222540",
+      "sand.top #df9e0c->#f2ab0d",
+      "sand.lip #cf610d->#e26a0e",
+      "sand.edge #b85507->#cb5e08",
+      "sand.dots #f1cd52->#f2d265",
+      "wood.light #cf610d->#d8650e",
+      "wood.mid #b05007->#b95407",
+      "wood.dark #8a3c03->#934003",
+      "wood.shadow #692c01->#723001",
+      "wood.end #df9e0c->#e8a40c"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "palette-knife-slab",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          11,
+          8
+        ]
+      ],
+      "where": "Placed at perimeter corners where thick impasto strokes scrape abruptly across the raw unpainted canvas ground.",
+      "role": "mass",
+      "shape": {
+        "summary": "A tilted, wedge-shaped slab resembling an unblended slice of pure acrylic pigment lifted with a palette knife.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.2,
+              0.7
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "rot": [
+              0,
+              15,
+              0
+            ],
+            "tones": [
+              "#e8a40c",
+              "#c48805",
+              "#946300"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.6,
+              0.35,
+              0.5
+            ],
+            "at": [
+              0.05,
+              0.35,
+              0
+            ],
+            "rot": [
+              12,
+              25,
+              -6
+            ],
+            "tones": [
+              "#d8650e",
+              "#ad4f07",
+              "#7d3701"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.5,
+              0.35,
+              0.08
+            ],
+            "at": [
+              -0.05,
+              0.7,
+              0.05
+            ],
+            "rot": [
+              -8,
+              40,
+              10
+            ],
+            "tones": [
+              "#9c3541",
+              "#7e2832",
+              "#57161e"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.1,
+              0.8,
+              0
+            ],
+            "to": [
+              0.25,
+              1.15,
+              -0.1
+            ],
+            "tones": [
+              "#c4616d",
+              "#a84854",
+              "#7a313b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bristle-tuft",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 5,
+      "cells": [
+        [
+          2,
+          5
+        ],
+        [
+          13,
+          5
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          10,
+          9
+        ],
+        [
+          7,
+          10
+        ]
+      ],
+      "where": "Located along the chest contours where bristle sweeps flare into stiff directional strokes.",
+      "role": "detail",
+      "shape": {
+        "summary": "A cluster of stiff, faceted prismatic bristles splaying outward like a dry brush stroke skipping across texture.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#31365b",
+              "#292c43",
+              "#1b1d2e"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              -0.1,
+              0.18,
+              -0.1
+            ],
+            "to": [
+              -0.28,
+              0.75,
+              -0.2
+            ],
+            "tones": [
+              "#d8650e",
+              "#ad4f07",
+              "#7d3701"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.05,
+              0.18,
+              -0.05
+            ],
+            "to": [
+              0.12,
+              0.88,
+              -0.1
+            ],
+            "tones": [
+              "#e8a40c",
+              "#c48805",
+              "#946300"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              0.1,
+              0.18,
+              0.1
+            ],
+            "to": [
+              0.25,
+              0.78,
+              0.22
+            ],
+            "tones": [
+              "#c4616d",
+              "#a84854",
+              "#7a313b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.05,
+              0.18,
+              0.12
+            ],
+            "to": [
+              -0.15,
+              0.65,
+              0.26
+            ],
+            "tones": [
+              "#5ac389",
+              "#44a46b",
+              "#32774e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "canvas-seam-step",
+      "type": "marker",
+      "variant_of": "marker",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.08,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          7,
+          9
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          9,
+          10
+        ]
+      ],
+      "where": "Lies on the approach path where raw primed canvas weave breaks into the vivid paint mass.",
+      "role": "approach",
+      "shape": {
+        "summary": "A flat canvas texture marker plate with bevelled edges.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.08,
+              0.85,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#e8dfce",
+              "#d5cbbd",
+              "#baa993"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "chromatic-plinth",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          6
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "where": "Flanks the central bust, marking the stepping threshold where ultramarine cheek contours meet the bib.",
+      "role": "threshold",
+      "shape": {
+        "summary": "A stacked block dais of thick unmixed oil bars marking the boundary into the vocal core.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.3,
+              0.8,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#31365b",
+              "#292c43",
+              "#1b1d2e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.3,
+              0.6,
+              0.08
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#9c3541",
+              "#7e2832",
+              "#57161e"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.2,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#e8a40c",
+              "#c48805",
+              "#946300"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "pigment-pot",
+      "type": "pot",
+      "variant_of": "pot",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          4,
+          7
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "where": "Nestled near the throat base as an offering of raw pigment paste.",
+      "role": "offering",
+      "shape": {
+        "summary": "A stout ceramic studio jar filled with thick cadmium pigment paste.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#31365b",
+              "#292c43",
+              "#1b1d2e"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.3,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#e8a40c",
+              "#c48805",
+              "#946300"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "fauvist-vocal-cat",
+      "source": "the entire feline portrait in IMAGE 1, specifically the chromatic head and upper bust vocalising mid-cry",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.5,
+      "pose": "Frontal cat bust with mouth open in mid-cry, lower teeth exposed, ears cocked unevenly, gaze fixed straight forward.",
+      "cell": [
+        7,
+        4
+      ],
+      "facing": "s",
+      "why": "The cat is the entire subject of IMAGE 1, constructed here as a solid toy sculpture built from slabs of the painting's acrylic color patches.",
+      "shape": {
+        "summary": "Chunky low-poly geometric feline head and bib with an open black oral cavity, dual white fangs, almond eyes, and dual-tone ears.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.4,
+              0.7,
+              1.2,
+              0.15
+            ],
+            "at": [
+              0.5,
+              0,
+              0.5
+            ],
+            "tones": [
+              "#d8650e",
+              "#ad4f07",
+              "#7d3701"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.2,
+              0.7,
+              1,
+              0.12
+            ],
+            "at": [
+              0.5,
+              0.65,
+              0.5
+            ],
+            "tones": [
+              "#e8a40c",
+              "#c48805",
+              "#946300"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.4,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0.5,
+              0.8,
+              0.15
+            ],
+            "tones": [
+              "#31365b",
+              "#292c43",
+              "#1b1d2e"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.18
+            ],
+            "at": [
+              0.5,
+              1,
+              0.05
+            ],
+            "outline": [
+              [
+                -0.12,
+                0
+              ],
+              [
+                0.12,
+                0
+              ],
+              [
+                0,
+                -0.12
+              ]
+            ],
+            "tones": [
+              "#c4616d",
+              "#a84854",
+              "#7a313b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0,
+              0.12,
+              6
+            ],
+            "at": [
+              0.42,
+              0.88,
+              0.08
+            ],
+            "tones": [
+              "#e8dfce",
+              "#d5cbbd",
+              "#baa993"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0,
+              0.12,
+              6
+            ],
+            "at": [
+              0.58,
+              0.88,
+              0.08
+            ],
+            "tones": [
+              "#e8dfce",
+              "#d5cbbd",
+              "#baa993"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.7
+            ],
+            "at": [
+              0.22,
+              1.15,
+              0.25
+            ],
+            "rot": [
+              15,
+              -10,
+              0
+            ],
+            "tones": [
+              "#e8a40c",
+              "#c48805",
+              "#946300"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.7
+            ],
+            "at": [
+              0.78,
+              1.15,
+              0.25
+            ],
+            "rot": [
+              15,
+              10,
+              0
+            ],
+            "tones": [
+              "#e8a40c",
+              "#c48805",
+              "#946300"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0.02,
+              0.6,
+              4
+            ],
+            "at": [
+              0.12,
+              1.35,
+              0.5
+            ],
+            "rot": [
+              8,
+              -12,
+              -15
+            ],
+            "tones": [
+              "#31365b",
+              "#292c43",
+              "#1b1d2e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.32,
+              0.02,
+              0.8,
+              4
+            ],
+            "at": [
+              0.85,
+              1.35,
+              0.5
+            ],
+            "rot": [
+              5,
+              10,
+              20
+            ],
+            "tones": [
+              "#c4616d",
+              "#a84854",
+              "#7a313b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0.5,
+              0.55,
+              0.25
+            ],
+            "to": [
+              0.5,
+              0.15,
+              0.35
+            ],
+            "tones": [
+              "#5ac389",
+              "#44a46b",
+              "#32774e"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVVRRRRRRRRVVVV",
+      "VVVRRRRRRRRRRVVV",
+      "VVRRRRFFFFRRRRVV",
+      "VVRRRRFFFFRRRRVV",
+      "VVGRRRGGGGTTGGVV",
+      "VVGGGGGGGGGGGGVV",
+      "VVVGGGGGGGGGGVVV",
+      "VVVGGGGPPGGGGVVV",
+      "VVVVGGGPPGGGVVVV",
+      "VVVVVGGPPGGVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0000222222220000",
+      "0002222222222000",
+      "0022223333222200",
+      "0022223333222200",
+      "0012221111111100",
+      "0011111111111100",
+      "0001111111111000",
+      "0001111111111000",
+      "0000111111110000",
+      "0000011111100000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 4,
+      "what": "the open-mouthed vocalising cat head positioned atop the central raised chromatic block"
+    },
+    "mass": "Visual weight forms an upright triangular wedge in the upper centre, anchored by the elevated head and ears and tapering down to the narrow approach at row 10.",
+    "read": "The viewer's eye enters through the narrow canvas-stone approach at the south rim, drawn northward along the bright yellow paint-band path. Flanking bristle clusters and pigment pots guide attention up the stepped tiers to the vocalising feline bust. The stark surrounding void reproduces the unpainted raw cotton canvas perimeter framing the original acrylic painting."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.05,
+      "types": [
+        {
+          "type": "tree-gold",
+          "variant": 1,
+          "weight": 1
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.32,
+    "void_share": 0.42,
+    "decor_weights": {
+      "palette-knife-slab": 0.3,
+      "bristle-tuft": 0.4,
+      "pigment-pot": 0.2,
+      "canvas-seam-step": 0.1
+    },
+    "lighting": {
+      "bg": "#e8dfce",
+      "ambient": 0.88,
+      "sun": 0.25,
+      "tint": "#fcf5e8",
+      "notes": "studio high-key glare across unpainted primed canvas: Follows the value structure where 40% of the field is bare primed white cotton canvas radiating an even, shadowless studio wash."
+    },
+    "rules": [
+      "Keep all outer boundary cells as void to mimic unpainted studio canvas margins.",
+      "Ensure the raised tiers are concentrated behind and beneath the central feline bust.",
+      "Concentrate cadmium yellow sand exclusively along the central path axis.",
+      "Cluster bristle tufts along transitions between raised cliff faces and lower ground."
+    ],
+    "decor_density": 0.18,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "material and marks: acrylic impasto slabs, bristle drags, dry-brush scumbles, and raw exposed canvas",
+    "place": "The Studio Impasto Scrapings",
+    "summary": "A stepped island formed like a heavy wedge of dried acrylic paint paste floating in an empty field of primed cotton canvas.",
+    "differs": "Unlike architectural or landscape readings, every landmass is treated as a physical swatch of thick unblended paint, with cliffs formed by knife cutaways and the background left as stark, unpainted primed canvas weave."
+  },
+  "shaper": {
+    "name": "patchwork",
+    "params": {
+      "patch": 3,
+      "levels": 3,
+      "holes": 2
+    },
+    "why": "IMAGE 1 is composed of flat, unblended fauvist swatches of opaque acrylic applied with directional brushwork, directly translated into rectangular block patches of saturated colour stepping in height."
+  },
+  "surface_mix": {
+    "pattern": "patches",
+    "period": 2.5,
+    "surfaces": [
+      {
+        "s": "dirt",
+        "share": 0.45
+      },
+      {
+        "s": "sand",
+        "share": 0.35
+      },
+      {
+        "s": "stone",
+        "share": 0.15
+      },
+      {
+        "s": "grass",
+        "share": 0.05
+      }
+    ],
+    "why": "Fiery orange dirt and cadmium yellow sand represent the dominant acrylic strokes of the chest and bib, while stone models raw canvas patches and grass gives the singular viridian neck accent."
+  },
+  "cliff_treatment": {
+    "style": "banded",
+    "upper": [
+      "#363a56",
+      "#25273d",
+      "#191a29"
+    ],
+    "lower": [
+      "#9c3541",
+      "#75222d",
+      "#53151d"
+    ],
+    "why": "Upper cliffs carry the deep ultramarine-indigo of the brow and ears, while lower cliffs carry the deep magenta-crimson of the left chest."
+  },
+  "lighting": {
+    "time": "studio high-key glare across unpainted primed canvas",
+    "ambient": 0.88,
+    "sun": 0.25,
+    "tint": "#fcf5e8",
+    "bg": "#e8dfce",
+    "why": "Follows the value structure where 40% of the field is bare primed white cotton canvas radiating an even, shadowless studio wash."
+  },
+  "figure_pose": {
+    "pose": "Frontal cat bust with mouth open in mid-cry, lower teeth exposed, ears cocked unevenly, gaze fixed straight forward.",
+    "action": "vocalising demand",
+    "facing": "camera",
+    "why": "Directly matches the subject's energetic, demanding expression and frontal portrait posture caught mid-meow."
+  },
+  "approach": {
+    "from": "south edge at column 7",
+    "passes": [
+      "canvas-seam-step at the southern threshold",
+      "bristle-tuft cluster flanking the yellow sand stroke",
+      "pigment-pot jars resting before the throat",
+      "chromatic-plinth pillars guarding the bust"
+    ],
+    "shape": "A straight northern ascent along a cadmium yellow impasto strip."
+  },
+  "threshold": {
+    "kind": "A dual-pillar barrier of stacked ultramarine and crimson paint blocks flanking the vocal core.",
+    "prop": "chromatic-plinth"
+  },
+  "analysis": "pipeline/seed/analysis/cat.json",
+  "concept": {
+    "name": "lens-medium",
+    "lens": "medium",
+    "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+  }
+}

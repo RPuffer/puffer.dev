@@ -1,0 +1,1222 @@
+{
+  "source": {
+    "art": "pipeline/seed/cosmos.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "cosmic",
+    "atomized",
+    "synthetic",
+    "unblinking",
+    "celestial",
+    "smooth"
+  ],
+  "observations": [
+    {
+      "what": "Deep black circular pupil at the core of the cosmic eye, surrounded by a jagged electric-green corona",
+      "box": [
+        380,
+        420,
+        600,
+        580
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Intense cobalt-blue iris with radial airbrush striations radiating outward toward a dark perimeter",
+      "box": [
+        220,
+        290,
+        770,
+        700
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Brilliant four-pointed star flare burst on the eastern perimeter of the iris where planetary rings initiate",
+      "box": [
+        470,
+        690,
+        545,
+        755
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Sweeping luminous accretion ring curving through the lower-right void, laden with floating asteroid boulders",
+      "box": [
+        500,
+        700,
+        915,
+        1000
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Cluster of dark ovoid asteroid pebbles casting sharp directional shadows along the luminous ring track",
+      "box": [
+        720,
+        715,
+        925,
+        965
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Curving upper eyelid margin lined with tapered, arched dark eyelash strokes",
+      "box": [
+        50,
+        0,
+        395,
+        520
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Pale buff sclera terrain showing subtle red branching capillary ink lines in the medial corner",
+      "box": [
+        130,
+        45,
+        875,
+        485
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Lower eyelid rim with sweeping crescent curve and dark lash bristles along the bottom margin",
+      "box": [
+        715,
+        0,
+        995,
+        450
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Swirling yellow-green and cyan nebula clouds drifting across the upper right deep space vacuum",
+      "box": [
+        0,
+        680,
+        540,
+        1000
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Pitch-black cosmic void peppered with minute specks of white gouache star dust",
+      "box": [
+        0,
+        530,
+        475,
+        1000
+      ],
+      "maps_to": "V"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#14120b",
+        "share": 0.236,
+        "role": "Deep outer space void, central pupil, and deepest eyelid crease shadows"
+      },
+      {
+        "hex": "#252118",
+        "share": 0.213,
+        "role": "Soft shadow framing the eyeball and shading the socket"
+      },
+      {
+        "hex": "#343831",
+        "share": 0.124,
+        "role": "Dark teal-grey transitional tones between space and the eyelid rim"
+      },
+      {
+        "hex": "#baa08a",
+        "share": 0.103,
+        "role": "Midtone skin shading along the brow ridge and eyelid margins"
+      },
+      {
+        "hex": "#416262",
+        "share": 0.087,
+        "role": "Outer ring of the iris and shadowed face of the planetary ring"
+      },
+      {
+        "hex": "#e6caaa",
+        "share": 0.085,
+        "role": "Pale highlight tone across the sclera and inner lower lid margin"
+      },
+      {
+        "hex": "#877966",
+        "share": 0.083,
+        "role": "Desaturated beige midtone bridging lid highlights to shadow"
+      },
+      {
+        "hex": "#654739",
+        "share": 0.07,
+        "role": "Warm brown-red vascular shading in the medial caruncle and crease"
+      }
+    ],
+    "translation": {
+      "bg": "#14120b",
+      "grass": {
+        "top": "#5ac389",
+        "fringe": "#44a46b",
+        "fringeDark": "#348255",
+        "speck": "#8ce263"
+      },
+      "sand": {
+        "top": "#e6caaa",
+        "lip": "#bea086",
+        "edge": "#cbb099",
+        "dots": "#fff2de"
+      },
+      "dirt": {
+        "top": "#baa08a",
+        "patch": "#cbb099",
+        "mottle": "#9f836f",
+        "border": "#877966"
+      },
+      "stone": {
+        "top": "#877966",
+        "pebble": "#baa08a",
+        "pebbleShade": "#654739",
+        "rim": "#4f453a"
+      },
+      "cliffUpper": {
+        "left": "#416262",
+        "right": "#253b3b",
+        "seam": "#192828"
+      },
+      "cliffLower": {
+        "left": "#383c34",
+        "right": "#29251b",
+        "seam": "#19160e",
+        "speck": "#446666"
+      },
+      "water": {
+        "top": "#8fe9ff",
+        "bubble": "#dcffff",
+        "deep": "#008ba8",
+        "fall": [
+          "#3fd8f8",
+          "#00b2d6",
+          "#008ba8"
+        ],
+        "foam": "#e6faff"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#a04b14",
+        "end": "#f6d881"
+      },
+      "treeMint": [
+        "#8fffc2",
+        "#68e09e",
+        "#44a46b"
+      ],
+      "treeLime": [
+        "#c4ef86",
+        "#8ce263",
+        "#50ab46"
+      ],
+      "treeLeaf": [
+        "#64c960",
+        "#50ab46",
+        "#3a8032"
+      ],
+      "treeTeal": [
+        "#478585",
+        "#3a6d6d",
+        "#2e5656",
+        "#224141"
+      ],
+      "treeGold": [
+        "#f1cd52",
+        "#dd9200",
+        "#b27400"
+      ],
+      "trunk": [
+        "#674637",
+        "#452e24"
+      ],
+      "rock": [
+        "#5c6260",
+        "#414644",
+        "#2c302f",
+        "#1a1c1c"
+      ],
+      "wellStone": [
+        "#baa08a",
+        "#9c826e",
+        "#7c6655"
+      ],
+      "flowerOrange": [
+        "#ff831d",
+        "#f1b900"
+      ],
+      "berry": [
+        "#fe738f",
+        "#d9435f"
+      ],
+      "bushTeal": [
+        "#68e09e",
+        "#396a6a",
+        "#223e3e"
+      ],
+      "gold": [
+        "#f1cd52",
+        "#dd9200",
+        "#bea086"
+      ]
+    },
+    "notes": "Translated the airbrushed illustration board pigments into clean 3-tone steps. Sand embodies the smooth off-white buff sclera highlights, cliffs translate the deep teal-grey socket shadows, and grass captures the vibrant yellow-green outer nebula mist.",
+    "clamped": [
+      "sand.lip #baa08a->#bea086",
+      "treeTeal[0] #416262->#396a6a",
+      "treeTeal[1] #2f4f4f->#2c5252",
+      "treeTeal[2] #213939->#203b3b",
+      "trunk[0] #654739->#674637",
+      "bushTeal[1] #416262->#396a6a",
+      "bushTeal[2] #253b3b->#223e3e",
+      "gold[2] #baa08a->#bea086",
+      "treeTeal[0] #396a6a->#478585",
+      "treeTeal[1] #2c5252->#3a6d6d",
+      "treeTeal[2] #203b3b->#2e5656",
+      "treeTeal[3] #142626->#224141",
+      "cliffLower.left #343831->#383c34",
+      "cliffLower.right #252118->#29251b",
+      "cliffLower.seam #14120b->#19160e",
+      "cliffLower.speck #416262->#446666"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "eyelash-blade",
+      "type": "new",
+      "variant_of": null,
+      "role": "threshold",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "passable": false,
+      "count": 6,
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          5,
+          10
+        ]
+      ],
+      "where": "Lining the upper and lower eyelid contours along the northwestern and southwestern ridges of the eye socket.",
+      "shape": {
+        "summary": "Curved, tapering dark blade representing fine liner-brush eyelash strokes rooted into the eyelid ridge.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.26,
+              0.4,
+              0.26
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#452e24",
+              "#34221a",
+              "#29251b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.1
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "to": [
+              0.1,
+              1.2,
+              0.05
+            ],
+            "tones": [
+              "#34221a",
+              "#29251b",
+              "#19160e"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0.1,
+              1.2,
+              0.05
+            ],
+            "to": [
+              0.25,
+              2.05,
+              0.12
+            ],
+            "tones": [
+              "#29251b",
+              "#19160e",
+              "#19160e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "asteroid-boulder",
+      "type": "new",
+      "variant_of": "rock",
+      "role": "detail",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.65,
+      "passable": false,
+      "count": 5,
+      "cells": [
+        [
+          10,
+          8
+        ],
+        [
+          11,
+          8
+        ],
+        [
+          12,
+          9
+        ],
+        [
+          13,
+          9
+        ],
+        [
+          14,
+          10
+        ]
+      ],
+      "where": "Resting directly on the sweeping planetary accretion ring terrace in the southeastern corner.",
+      "shape": {
+        "summary": "Chunky multifaceted dark meteorite pebbles casting deep shadows on the orbital pale ring.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.5,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#5c6260",
+              "#414644",
+              "#2c302f"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.7
+            ],
+            "at": [
+              0.08,
+              0.35,
+              -0.05
+            ],
+            "tones": [
+              "#414644",
+              "#2c302f",
+              "#1a1c1c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.28,
+              0.2,
+              0.24,
+              0.05
+            ],
+            "at": [
+              -0.15,
+              0.1,
+              0.12
+            ],
+            "tones": [
+              "#5c6260",
+              "#2c302f",
+              "#1a1c1c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "stellar-flare",
+      "type": "new",
+      "variant_of": null,
+      "role": "light",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.7,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          10,
+          5
+        ]
+      ],
+      "where": "At the eastern horizon of the blue iris plateau where the planetary ring initiates.",
+      "shape": {
+        "summary": "A brilliant four-pointed prism beacon standing as the intense stellar ignition point.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.04,
+              0.26,
+              0.8,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e6faff",
+              "#b9eeff"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.26,
+              0.04,
+              0.8,
+              8
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#dcffff",
+              "#8fe9ff"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.55,
+              0.8,
+              0
+            ],
+            "to": [
+              0.55,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e6faff",
+              "#8fe9ff"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              0.8,
+              -0.55
+            ],
+            "to": [
+              0,
+              0.8,
+              0.55
+            ],
+            "tones": [
+              "#ffffff",
+              "#e6faff",
+              "#8fe9ff"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "nebula-cluster",
+      "type": "new",
+      "variant_of": "bush-cluster",
+      "role": "mass",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          11,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          2
+        ],
+        [
+          14,
+          2
+        ]
+      ],
+      "where": "Floating along the northeastern high terrace representing the ionized yellow-green airbrush nebula.",
+      "shape": {
+        "summary": "Stacked rounded organic billows in glowing lime, mint, and teal.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.45,
+              0.8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#c4ef86",
+              "#8ce263",
+              "#50ab46"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.38,
+              0.85
+            ],
+            "at": [
+              0.2,
+              0.65,
+              -0.1
+            ],
+            "tones": [
+              "#8fffc2",
+              "#68e09e",
+              "#44a46b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.3,
+              0.75
+            ],
+            "at": [
+              -0.15,
+              0.85,
+              0.15
+            ],
+            "tones": [
+              "#5ac389",
+              "#446666",
+              "#223e3e"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.15,
+              0.3,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#383c34",
+              "#29251b",
+              "#19160e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "capillary-tendril",
+      "type": "new",
+      "variant_of": null,
+      "role": "approach",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.25,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "where": "Creeping across the pale sclera ground on the western side of the eye.",
+      "shape": {
+        "summary": "Low branching crimson ink lines tracing vascular paths across the ivory surface.",
+        "parts": [
+          {
+            "prim": "beam",
+            "dims": [
+              0.03
+            ],
+            "at": [
+              -0.35,
+              0.03,
+              -0.2
+            ],
+            "to": [
+              0.1,
+              0.03,
+              0.1
+            ],
+            "tones": [
+              "#fe738f",
+              "#d9435f",
+              "#674637"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.025
+            ],
+            "at": [
+              0.1,
+              0.03,
+              0.1
+            ],
+            "to": [
+              0.4,
+              0.03,
+              -0.15
+            ],
+            "tones": [
+              "#d9435f",
+              "#674637",
+              "#452e24"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.02
+            ],
+            "at": [
+              0.1,
+              0.03,
+              0.1
+            ],
+            "to": [
+              0.25,
+              0.03,
+              0.38
+            ],
+            "tones": [
+              "#fe738f",
+              "#d9435f",
+              "#452e24"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "iris-striation-spire",
+      "type": "new",
+      "variant_of": "rock",
+      "role": "detail",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "Positioned around the blue iris terrace highlighting the radial airbrush gradients.",
+      "shape": {
+        "summary": "Faceted cyan-teal triangular prisms mirroring the dense radial fibers of the iris.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.25,
+              0.08,
+              0.55,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#8fe9ff",
+              "#446666",
+              "#223e3e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0.02,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#dcffff",
+              "#8fe9ff",
+              "#446666"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "pupil-singularity",
+      "source": "The deep black circular pupil encircled by the serrated electric-green corona at the center of the eye.",
+      "becomes": "prop",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "A monolithic spherical black obsidian void crowned with a jagged electric-green zigzag collar.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.85,
+              0.35,
+              10
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#29251b",
+              "#19160e",
+              "#19160e"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.75,
+              0.85
+            ],
+            "at": [
+              0,
+              0.75,
+              0
+            ],
+            "tones": [
+              "#19160e",
+              "#19160e",
+              "#19160e"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.82,
+              0.65,
+              0.4,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#c4ef86",
+              "#8ce263",
+              "#44a46b"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.3
+            ],
+            "at": [
+              0,
+              0.75,
+              0
+            ],
+            "outline": [
+              [
+                -0.6,
+                -0.6
+              ],
+              [
+                -0.2,
+                -0.75
+              ],
+              [
+                0.2,
+                -0.75
+              ],
+              [
+                0.6,
+                -0.6
+              ],
+              [
+                0.75,
+                -0.2
+              ],
+              [
+                0.75,
+                0.2
+              ],
+              [
+                0.6,
+                0.6
+              ],
+              [
+                0.2,
+                0.75
+              ],
+              [
+                -0.2,
+                0.75
+              ],
+              [
+                -0.6,
+                0.6
+              ],
+              [
+                -0.75,
+                0.2
+              ],
+              [
+                -0.75,
+                -0.2
+              ]
+            ],
+            "tones": [
+              "#8ce263",
+              "#5ac389",
+              "#348255"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.7
+            ],
+            "at": [
+              -0.35,
+              1.25,
+              -0.3
+            ],
+            "tones": [
+              "#ffffff",
+              "#e6caaa",
+              "#bea086"
+            ]
+          }
+        ]
+      },
+      "pose": "A monolithic cylindrical black pupil crowned by a jagged electric-green zigzag collar and an off-white specular highlight bead.",
+      "cell": [
+        7,
+        5
+      ],
+      "facing": "s",
+      "why": "It commands the exact visual and geometric focus of the painting, turning the central pupil into an unblinking cosmic monument."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVTTTTRRRRVVVVV",
+      "VTTGGGGGRRRRTTTV",
+      "VTGGGGGGRRRRTTTV",
+      "TGGGGGGGRRRRGGTV",
+      "TGGGGGRRRRRRPGTV",
+      "TGGGGGRFFRRRPGTV",
+      "TGGGGGRFFRRRPGGV",
+      "TGGGGGRRRRRRPGGV",
+      "VTGGGGGGGGGPPPPV",
+      "VTGGGGGGGGGPPPTV",
+      "VTTGGGGGGGGPTTTV",
+      "VVVTTTTTTTTVVVVV"
+    ],
+    "heights": [
+      "0001111222200000",
+      "0111111122221110",
+      "0111111122221110",
+      "1111111122221110",
+      "1111122222211110",
+      "1111123322211110",
+      "1111123322211110",
+      "1111122222211110",
+      "0111111111111110",
+      "0111111111111110",
+      "0111111111111110",
+      "0001111111100000"
+    ],
+    "focal": {
+      "x": 7,
+      "z": 5,
+      "what": "The central black pupil and electric-green corona monument"
+    },
+    "mass": "Visual weight rests heavily in the centre-left mass formed by the ivory sclera ground and the raised blue iris dome.",
+    "read": "The viewer enters from the low pale sclera plane on the west, advances toward the elevated stepped iris disc and central pupil monument, and follows the curving planetary ring path sweeping out into the dark southeastern expanse. The dark frame of eyelash blades and space void binds the composition."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "eyelash-blade",
+          "variant": "eyelash-blade",
+          "weight": 0.5
+        },
+        {
+          "type": "nebula-cluster",
+          "variant": "nebula-cluster",
+          "weight": 0.5
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.28,
+    "void_share": 0.22,
+    "decor_weights": {
+      "asteroid-boulder": 0.4,
+      "iris-striation-spire": 0.35,
+      "capillary-tendril": 0.25
+    },
+    "lighting": {
+      "bg": "#14120b",
+      "ambient": 0.72,
+      "sun": 0.38,
+      "tint": "#dcffff",
+      "notes": "stellar ignition flare in deep space vacuum: Reflects the intense, sharp contrast between the pitch-black cosmos (#14120b) and the crisp white-blue flare at the iris edge as noted in ANALYSIS.palette.value_structure."
+    },
+    "rules": [
+      "Place eyelash-blade props strictly along the northern and southern perimeter ridges.",
+      "Keep the central 2x2 F cell reserved for the pupil-singularity.",
+      "Scatter asteroid-boulder props exclusively across the southeastern accretion ring path.",
+      "Place nebula-cluster masses on the elevated northeastern corner plateau."
+    ],
+    "decor_density": 0.16,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "stone",
+      "path": "dirt",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "Airbrush gradients, frisket stencil borders, and ink liner brushwork from ANALYSIS.medium",
+    "place": "An astronomical observatory disc sculpted from lacquered airbrush pigments and cosmic debris",
+    "summary": "A cosmic eye rendered as a tiered disc of atomized pigment rings floating in deep space lacquer.",
+    "differs": "Unlike a biological landscape or an architectural sanctum, this level is structured around concentric airbrush gradients that step downward from a central pupil into an orbital accretion ring."
+  },
+  "shaper": {
+    "name": "radial",
+    "params": {
+      "rings": 3,
+      "center": [
+        0.42,
+        0.48
+      ],
+      "order": "up",
+      "spokes": 1
+    },
+    "why": "Matches the smooth radial airbrush gradations of the eye's iris and the concentric bands of the planetary accretion disc described in ANALYSIS.medium."
+  },
+  "surface_mix": {
+    "pattern": "rings",
+    "period": 2.5,
+    "surfaces": [
+      {
+        "s": "sand",
+        "share": 0.52
+      },
+      {
+        "s": "stone",
+        "share": 0.18
+      },
+      {
+        "s": "dirt",
+        "share": 0.3
+      }
+    ],
+    "why": "Smooth off-white buff sand represents the atomized sclera highlight, dirt forms the planetary ring track, and stone defines the iris perimeter."
+  },
+  "cliff_treatment": {
+    "style": "banded",
+    "upper": [
+      "#416262",
+      "#253b3b",
+      "#192828"
+    ],
+    "lower": [
+      "#343831",
+      "#252118",
+      "#14120b"
+    ],
+    "why": "Separates the cold celestial teal of the upper iris plateau from the deep charcoal-black socket shadow below, citing the value structure."
+  },
+  "lighting": {
+    "time": "stellar ignition flare in deep space vacuum",
+    "ambient": 0.72,
+    "sun": 0.38,
+    "tint": "#dcffff",
+    "bg": "#14120b",
+    "why": "Reflects the intense, sharp contrast between the pitch-black cosmos (#14120b) and the crisp white-blue flare at the iris edge as noted in ANALYSIS.palette.value_structure."
+  },
+  "figure_pose": {
+    "pose": "A monolithic cylindrical black pupil crowned by a jagged electric-green zigzag collar and an off-white specular highlight bead.",
+    "action": "unblinking fixity",
+    "facing": "camera",
+    "why": "Citing ANALYSIS.subject.pose: close-cropped ocular anatomy held wide open and staring directly forward along the z-axis."
+  },
+  "approach": {
+    "from": "the pale sclera flats on the western edge",
+    "passes": [
+      "capillary-tendril ink paths on the ivory sand",
+      "the arched wall of eyelash-blade props",
+      "the stepped teal iris plateau",
+      "the stellar-flare beacon at the ring horizon"
+    ],
+    "shape": "A broad westward entrance that narrows as it ascends concentric terraces toward the central pupil."
+  },
+  "threshold": {
+    "kind": "A curved barrier of dark, tapering eyelash blades rooted into the eyelid ridge.",
+    "prop": "eyelash-blade"
+  },
+  "analysis": "pipeline/seed/analysis/cosmos.json",
+  "concept": {
+    "name": "lens-medium",
+    "lens": "medium",
+    "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+  }
+}

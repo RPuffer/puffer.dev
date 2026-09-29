@@ -1,0 +1,1312 @@
+{
+  "source": {
+    "art": "pipeline/seed/eagle.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "austere",
+    "razor",
+    "wind-scoured",
+    "poised",
+    "graphic",
+    "vigilant"
+  ],
+  "observations": [
+    {
+      "what": "Massive hooked raptor beak in saturated ochre-yellow curving sharply downward to a point",
+      "box": [
+        300,
+        32,
+        608,
+        608
+      ],
+      "maps_to": "focal beak promontory and yellow cantilever plinth"
+    },
+    {
+      "what": "Circular pale mint-green iris surrounded by heavy black contour lids beneath a jutting brow ridge",
+      "box": [
+        292,
+        538,
+        355,
+        638
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Deep black shadow wedge along the lower throat and breast",
+      "box": [
+        585,
+        126,
+        998,
+        513
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Diagonal fan of pale grey and off-white dry-brush bristle strokes across the crown and nape",
+      "box": [
+        42,
+        237,
+        362,
+        998
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Jagged, spiked feather tips separating along the lower mantle boundary",
+      "box": [
+        690,
+        187,
+        868,
+        347
+      ],
+      "maps_to": "quill_spire_marker"
+    },
+    {
+      "what": "Powdery, scumbled grey transitional zone on the nasal bridge directly above the cere",
+      "box": [
+        326,
+        311,
+        401,
+        521
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Empty cream-toned paper ground occupying the left vertical quarter and top-left corner",
+      "box": [
+        0,
+        0,
+        990,
+        260
+      ],
+      "maps_to": "V"
+    },
+    {
+      "what": "Dense vertical feather shaft streaks layering down into the nape and mantle plumage",
+      "box": [
+        485,
+        411,
+        998,
+        998
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Sharp downward culmen curve forming a hard silhouette against blank paper",
+      "box": [
+        336,
+        32,
+        604,
+        219
+      ],
+      "maps_to": "cantilever_perch"
+    },
+    {
+      "what": "Pale off-white highlights along the dorsal crest feathers trailing toward upper right",
+      "box": [
+        32,
+        693,
+        203,
+        996
+      ],
+      "maps_to": "T"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#cfc9b9",
+        "share": 0.227,
+        "role": "mid-tone warm grey in the crown and neck feathering"
+      },
+      {
+        "hex": "#e6dfd4",
+        "share": 0.199,
+        "role": "unpainted paper ground on the left and light feather highlights"
+      },
+      {
+        "hex": "#b9b4a6",
+        "share": 0.156,
+        "role": "shaded feathered planes behind the eye and across the mantle"
+      },
+      {
+        "hex": "#262622",
+        "share": 0.109,
+        "role": "deep black in the throat, chest, pupil, and orbital shadow"
+      },
+      {
+        "hex": "#9c988d",
+        "share": 0.107,
+        "role": "cool grey transitions across the upper crest"
+      },
+      {
+        "hex": "#515046",
+        "share": 0.08,
+        "role": "charcoal wash under the chin and along the back of the neck"
+      },
+      {
+        "hex": "#76746a",
+        "share": 0.079,
+        "role": "dark grey bristle streaks running through the forehead"
+      },
+      {
+        "hex": "#bc9e3b",
+        "share": 0.044,
+        "role": "saturated ochre-yellow beak and cere"
+      }
+    ],
+    "translation": {
+      "bg": "#222321",
+      "grass": {
+        "top": "#8faf6a",
+        "fringe": "#70904e",
+        "fringeDark": "#536c3a",
+        "speck": "#a8c28b"
+      },
+      "sand": {
+        "top": "#e0b43a",
+        "lip": "#c2931a",
+        "edge": "#a87a0e",
+        "dots": "#ebd16e"
+      },
+      "dirt": {
+        "top": "#d2cbba",
+        "patch": "#bab2a0",
+        "mottle": "#9a9382",
+        "border": "#7a7465"
+      },
+      "stone": {
+        "top": "#dedcd4",
+        "pebble": "#ebe8e1",
+        "pebbleShade": "#c4c0b6",
+        "rim": "#aba69a"
+      },
+      "cliffUpper": {
+        "left": "#4d4b43",
+        "right": "#34332d",
+        "seam": "#262521"
+      },
+      "cliffLower": {
+        "left": "#656257",
+        "right": "#48463e",
+        "seam": "#33312a",
+        "speck": "#24231f"
+      },
+      "water": {
+        "top": "#7ae5df",
+        "bubble": "#c8faf7",
+        "deep": "#3bbbb4",
+        "fall": [
+          "#52cfc7",
+          "#3bbbb4",
+          "#289e97"
+        ],
+        "foam": "#e6fffd"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#a04b14",
+        "end": "#f6d881"
+      },
+      "treeMint": [
+        "#70cfab",
+        "#50b28e",
+        "#399272"
+      ],
+      "treeLime": [
+        "#b5db74",
+        "#8ec24e",
+        "#6b9e32"
+      ],
+      "treeLeaf": [
+        "#82b65f",
+        "#669845",
+        "#4b7830"
+      ],
+      "treeTeal": [
+        "#5fe0ce",
+        "#3fc2b0",
+        "#2aa292",
+        "#1c8072"
+      ],
+      "treeGold": [
+        "#f4c41e",
+        "#dd9200",
+        "#b87300"
+      ],
+      "trunk": [
+        "#694939",
+        "#493327"
+      ],
+      "rock": [
+        "#dedcd4",
+        "#c7c4ba",
+        "#9c988d",
+        "#656257"
+      ],
+      "wellStone": [
+        "#cfc9b9",
+        "#b9b4a6",
+        "#8f8a7e"
+      ],
+      "flowerOrange": [
+        "#ff831d",
+        "#f1b900"
+      ],
+      "berry": [
+        "#fe738f",
+        "#f45f7d"
+      ],
+      "bushTeal": [
+        "#8ce6d6",
+        "#60ccba",
+        "#43ab9a"
+      ],
+      "gold": [
+        "#f1b900",
+        "#dd9200",
+        "#ffe082"
+      ]
+    },
+    "notes": "The dominant chalky warm grey and bone tones of the eagle's plumage translate into dry, weathered stone and pale dirt plains, while the rich black shadows inform dark basalt cliffs and charcoal trunks. Saturated cadmium yellow acts as the singular structural focal accent along the beak thrust.",
+    "clamped": [
+      "grass.top #8ea672->#8faf6a",
+      "grass.fringe #708955->#70904e",
+      "grass.fringeDark #536b3b->#536c3a",
+      "trunk[0] #5a4e48->#694939",
+      "trunk[1] #3f3631->#493327"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "bristle_shingle_stack",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.6,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          11,
+          2
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          12,
+          7
+        ]
+      ],
+      "where": "Placed across the high eastern crest and nape ridge where the drawing displays thick, striated dry-brush plumage strokes.",
+      "shape": {
+        "summary": "A tiered stack of thin, angled grey slate shingles mimicking coarse dry-brush feathering dragged upward.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.22,
+              0.8,
+              0.06
+            ],
+            "at": [
+              0,
+              0.11,
+              0
+            ],
+            "rot": [
+              -12,
+              20,
+              0
+            ],
+            "tones": [
+              "#dedcd4",
+              "#c7c4ba",
+              "#9c988d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.68,
+              0.22,
+              0.68,
+              0.06
+            ],
+            "at": [
+              0.05,
+              0.4,
+              -0.05
+            ],
+            "rot": [
+              -16,
+              25,
+              0
+            ],
+            "tones": [
+              "#cfc9b9",
+              "#b9b4a6",
+              "#76746a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.54,
+              0.24,
+              0.54,
+              0.06
+            ],
+            "at": [
+              0.1,
+              0.75,
+              -0.1
+            ],
+            "rot": [
+              -20,
+              30,
+              0
+            ],
+            "tones": [
+              "#dedcd4",
+              "#c7c4ba",
+              "#9c988d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.38,
+              0.26,
+              0.38,
+              0.05
+            ],
+            "at": [
+              0.15,
+              1.12,
+              -0.15
+            ],
+            "rot": [
+              -25,
+              35,
+              0
+            ],
+            "tones": [
+              "#ebe8e1",
+              "#cfc9b9",
+              "#b9b4a6"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.02,
+              0.45,
+              6
+            ],
+            "at": [
+              0.18,
+              1.38,
+              -0.18
+            ],
+            "rot": [
+              -30,
+              40,
+              0
+            ],
+            "tones": [
+              "#ebe8e1",
+              "#dedcd4",
+              "#c7c4ba"
+            ]
+          }
+        ]
+      },
+      "role": "mass"
+    },
+    {
+      "name": "cantilever_perch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "where": "Anchored along the western promontory edge where the sharp culmen of the beak thrusts outward over negative space.",
+      "shape": {
+        "summary": "A tapered yellow-gold sandstone prow jutting outward like a stylized hooked bill over the lower cliff.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.4,
+              0.8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#b87300"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.35,
+              0.7,
+              0.08
+            ],
+            "at": [
+              -0.2,
+              0.55,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              15
+            ],
+            "tones": [
+              "#ffe082",
+              "#f1b900",
+              "#dd9200"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0.06,
+              0.55,
+              6
+            ],
+            "at": [
+              -0.45,
+              0.42,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              105
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#b87300"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.14,
+              0.12,
+              0.5
+            ],
+            "at": [
+              -0.15,
+              0.72,
+              0
+            ],
+            "tones": [
+              "#262521",
+              "#24231f",
+              "#222321"
+            ]
+          }
+        ]
+      },
+      "role": "dais"
+    },
+    {
+      "name": "quill_spire_marker",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.9,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          7,
+          4
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "where": "Erected at the contour break separating the pale forehead path from the dark mantle plateau, mirroring the jagged throat feather tips.",
+      "shape": {
+        "summary": "A sharp, multi-sided quill spire of dense dark charcoal slate with a faceted yellow ochre base band.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              0.12,
+              0
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#b87300"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.14,
+              0.7,
+              6
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#4d4b43",
+              "#34332d",
+              "#262521"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.95,
+              6
+            ],
+            "at": [
+              0,
+              1.42,
+              0
+            ],
+            "tones": [
+              "#34332d",
+              "#262521",
+              "#222321"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              0.35,
+              0.1
+            ],
+            "to": [
+              0,
+              1.7,
+              0.02
+            ],
+            "tones": [
+              "#dedcd4",
+              "#cfc9b9",
+              "#b9b4a6"
+            ]
+          }
+        ]
+      },
+      "role": "threshold"
+    },
+    {
+      "name": "scoured_snag",
+      "type": "tree-round",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          12,
+          1
+        ],
+        [
+          14,
+          5
+        ],
+        [
+          10,
+          9
+        ]
+      ],
+      "where": "Standing along the upper and eastern boundaries where the crown feathers fray out against paper background.",
+      "shape": {
+        "summary": "A dead wind-bleached tree snag with stunted, blocky foliage blocks in chalky bone tones.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              1.2,
+              8
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#694939",
+              "#493327",
+              "#262521"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.45,
+              0.6,
+              0.08
+            ],
+            "at": [
+              0,
+              1.35,
+              0
+            ],
+            "tones": [
+              "#dedcd4",
+              "#c7c4ba",
+              "#9c988d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.4,
+              0.45,
+              0.08
+            ],
+            "at": [
+              0.1,
+              1.7,
+              -0.1
+            ],
+            "tones": [
+              "#ebe8e1",
+              "#dedcd4",
+              "#c7c4ba"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "to": [
+              -0.35,
+              1.2,
+              0.15
+            ],
+            "tones": [
+              "#694939",
+              "#493327",
+              "#262521"
+            ]
+          }
+        ]
+      },
+      "role": "mass"
+    },
+    {
+      "name": "shale_pebble_cairn",
+      "type": "rock",
+      "variant_of": "rock",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          7,
+          2
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          8,
+          10
+        ]
+      ],
+      "where": "Scattered across the pale dirt pathways tracing the flow line of the culmen and brow ridge.",
+      "shape": {
+        "summary": "A trio of flat stacked shale pebbles in light grey tones marking ancient boundary steps.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.14,
+              7
+            ],
+            "at": [
+              0,
+              0.07,
+              0
+            ],
+            "tones": [
+              "#dedcd4",
+              "#c7c4ba",
+              "#9c988d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.12,
+              6
+            ],
+            "at": [
+              0.04,
+              0.2,
+              -0.02
+            ],
+            "tones": [
+              "#ebe8e1",
+              "#dedcd4",
+              "#c7c4ba"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.55
+            ],
+            "at": [
+              -0.02,
+              0.32,
+              0.03
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#b87300"
+            ]
+          }
+        ]
+      },
+      "role": "detail"
+    },
+    {
+      "name": "bristle_lichen_patch",
+      "type": "bush",
+      "variant_of": "bush",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.45,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          8,
+          3
+        ],
+        [
+          11,
+          5
+        ],
+        [
+          13,
+          6
+        ]
+      ],
+      "where": "Tucked into terrace corners along the high mantle ridge, echoing the scumbled brow texture.",
+      "shape": {
+        "summary": "Low clustered spheres of pale mint-lichen simulating powdery scumbles of gouache.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.6
+            ],
+            "at": [
+              -0.12,
+              0.12,
+              -0.08
+            ],
+            "tones": [
+              "#8ce6d6",
+              "#60ccba",
+              "#43ab9a"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.26,
+              0.65
+            ],
+            "at": [
+              0.08,
+              0.15,
+              0.05
+            ],
+            "tones": [
+              "#a8c28b",
+              "#8faf6a",
+              "#70904e"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.55
+            ],
+            "at": [
+              0,
+              0.24,
+              -0.05
+            ],
+            "tones": [
+              "#dedcd4",
+              "#c7c4ba",
+              "#9c988d"
+            ]
+          }
+        ]
+      },
+      "role": "detail"
+    }
+  ],
+  "creatures": [
+    {
+      "name": "vigilant_raptor_totem",
+      "source": "The profile eagle head at upper-centre and right, characterized by its fierce mint-green eye and massive hooked yellow beak",
+      "becomes": "prop",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.3,
+      "pose": "Carved stone eagle bust gazing rigidly due west with a heavy furrowed brow and cantilevered yellow beak.",
+      "cell": [
+        8,
+        4
+      ],
+      "facing": "w",
+      "why": "It commands the summit of the fractured shard slab at the exact focal locus of the painting's gaze.",
+      "shape": {
+        "summary": "A stylized toy raptor bust built from faceted bone-white and black planes with a vivid mint eye and bright yellow hooked bill.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.75,
+              0.8,
+              0.1
+            ],
+            "at": [
+              0.05,
+              0.38,
+              0
+            ],
+            "tones": [
+              "#dedcd4",
+              "#cfc9b9",
+              "#9c988d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.7,
+              0.7,
+              0.08
+            ],
+            "at": [
+              0,
+              1,
+              0
+            ],
+            "tones": [
+              "#ebe8e1",
+              "#dedcd4",
+              "#c7c4ba"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.45,
+              0.2,
+              0.65
+            ],
+            "at": [
+              -0.18,
+              1.38,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -12
+            ],
+            "tones": [
+              "#dedcd4",
+              "#b9b4a6",
+              "#76746a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.04,
+              0.55,
+              6
+            ],
+            "at": [
+              -0.45,
+              1.05,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              95
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#b87300"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.22,
+              0.14,
+              0.58
+            ],
+            "at": [
+              -0.25,
+              1.25,
+              0
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#b87300"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.1,
+              8
+            ],
+            "at": [
+              -0.08,
+              1.2,
+              0.35
+            ],
+            "rot": [
+              90,
+              0,
+              0
+            ],
+            "tones": [
+              "#7ae5df",
+              "#5fe0ce",
+              "#2aa292"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.05,
+              1
+            ],
+            "at": [
+              -0.08,
+              1.2,
+              0.39
+            ],
+            "tones": [
+              "#262521",
+              "#24231f",
+              "#222321"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.5,
+              0.65,
+              0.6,
+              0.06
+            ],
+            "at": [
+              0.15,
+              0.4,
+              0
+            ],
+            "rot": [
+              10,
+              0,
+              -15
+            ],
+            "tones": [
+              "#34332d",
+              "#262521",
+              "#222321"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVVVVVTRRRRTTTV",
+      "VVVVVVTRRRRRRRTV",
+      "VVVVVVPPRRRRRRTV",
+      "VVVPPPRFFRRRRRTV",
+      "VVVPRRRRRRRRRRTV",
+      "VVVPRRRRRRRRRRTV",
+      "VVVVPPTRRRRRRRTV",
+      "VVVVVVPPRRRRRTVV",
+      "VVVVVVVPTRRRRTVV",
+      "VVVVVVVVPPTTTVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0000000122221110",
+      "0000001233332210",
+      "0000001133333210",
+      "0001112333333210",
+      "0001222333332210",
+      "0001222233322210",
+      "0000111223322110",
+      "0000001122221100",
+      "0000000112221100",
+      "0000000011111000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 8,
+      "z": 4,
+      "what": "Vigilant raptor bust locked in westward profile at the apex of the shard massif"
+    },
+    "mass": "Heavily anchored across the eastern and north-eastern two-thirds of the island, sloping precipitously toward void on the western edge.",
+    "read": "The viewer enters via the pale path in the south-west, following the upward-curving contour of the eagle's throat. The eye is pulled along the crest to the beak dais cantilevered over open space, finally locking onto the severe raptor totem on the summit. The vast western void preserves the negative paper ground of the artwork."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.22,
+      "types": [
+        {
+          "type": "scoured_snag",
+          "variant": "a",
+          "weight": 0.5
+        },
+        {
+          "type": "bristle_shingle_stack",
+          "variant": "a",
+          "weight": 0.5
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.52,
+    "void_share": 0.44,
+    "decor_weights": {
+      "quill_spire_marker": 0.25,
+      "shale_pebble_cairn": 0.35,
+      "bristle_lichen_patch": 0.4
+    },
+    "lighting": {
+      "bg": "#3b4a2d",
+      "ambient": 0.85,
+      "sun": 0.22,
+      "tint": "#f2eee6",
+      "notes": "dry gouache glare over chalk paper: Translates the stark high-key off-white paper ground and bright crest highlights contrasted against pitch-black plumage shadows."
+    },
+    "rules": [
+      "Never place water; the terrain is an elevated arid slate headland.",
+      "Align bristle shingle stacks along the eastern raised cliff margins.",
+      "Keep the westernmost spur clear of tall vegetation to maintain the profile beak silhouette."
+    ],
+    "decor_density": 0.18,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "ANALYSIS.composition flow lines and stark negative space balance",
+    "place": "A wind-scoured promontory of fractured slate and dry bone-pale shale jutting westward into empty sky.",
+    "summary": "Translates the eagle's profile into an asymmetrical fractured landmass where the sharp yellow beak becomes a dramatic cantilevered promontory and the swept nape forms a stepped massif.",
+    "differs": "Unlike the tidal sea-stack roost with driftwood and salmon bones, this reading treats the painting as an abstract geologic formation of dry-brush stone shards thrusting into paper void.",
+    "fixes": [
+      "lighting.bg #222321->#3b4a2d"
+    ]
+  },
+  "shaper": {
+    "name": "shards",
+    "params": {
+      "count": 4,
+      "spread": 0.75,
+      "cracks": true
+    },
+    "why": "Transcribes the overlapping, jagged dry-brush bristle planes of the nape and the spiky throat triangles into stepped angular slabs of rock."
+  },
+  "surface_mix": {
+    "pattern": "bands",
+    "period": 2.5,
+    "surfaces": [
+      {
+        "s": "dirt",
+        "share": 0.55
+      },
+      {
+        "s": "sand",
+        "share": 0.3
+      },
+      {
+        "s": "stone",
+        "share": 0.15
+      }
+    ],
+    "why": "Bands of pale bone dirt, yellow-sand culmen streaks, and cobble slate echo the linear dry-brush tracks of the crown and throat."
+  },
+  "cliff_treatment": {
+    "style": "banded",
+    "upper": [
+      "#4d4b43",
+      "#34332d",
+      "#262521"
+    ],
+    "lower": [
+      "#656257",
+      "#48463e",
+      "#33312a"
+    ],
+    "why": "Banded dark basalt cliffs reflect the deep charcoal under-layers and sharp black throat contour lines."
+  },
+  "lighting": {
+    "time": "dry gouache glare over chalk paper",
+    "ambient": 0.85,
+    "sun": 0.22,
+    "tint": "#f2eee6",
+    "bg": "#3b4a2d",
+    "why": "Translates the stark high-key off-white paper ground and bright crest highlights contrasted against pitch-black plumage shadows."
+  },
+  "figure_pose": {
+    "pose": "Carved stone eagle bust gazing rigidly due west with a heavy furrowed brow and cantilevered yellow beak.",
+    "action": "scanning westward",
+    "facing": "left",
+    "why": "Directly embodies the strict left-facing raptor profile documented in ANALYSIS.subject."
+  },
+  "approach": {
+    "from": "the south-west cliff rim at [3, 6]",
+    "passes": [
+      "a shale pebble cairn on the lower trail",
+      "a quill spire marker at the contour threshold",
+      "the cantilevered yellow beak perch overlooking void",
+      "the summit dais where the vigilant raptor stands"
+    ],
+    "shape": "A steep switchback following the ascending throat contour upward from the void margin to the high summit."
+  },
+  "threshold": {
+    "kind": "A pair of erect black quill spires framing the narrow stone spine where the path ascends onto the tier-3 summit.",
+    "prop": "quill_spire_marker"
+  },
+  "analysis": "pipeline/seed/analysis/eagle.json",
+  "concept": {
+    "name": "lens-composition",
+    "lens": "composition",
+    "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+  }
+}

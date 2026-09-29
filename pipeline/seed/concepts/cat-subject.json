@@ -1,0 +1,1301 @@
+{
+  "source": {
+    "art": "pipeline/seed/cat.png",
+    "width": 1587,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "vociferous",
+    "fauvist",
+    "vibrant",
+    "insistent",
+    "chromatic",
+    "domestic"
+  ],
+  "observations": [
+    {
+      "what": "Right cat ear pointing sharply up toward top-right corner with hot pink inner flap and orange-yellow exterior rim",
+      "box": [
+        45,
+        524,
+        350,
+        856
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Left cat ear pointing diagonally left with electric orange tip and deep ultramarine-violet base",
+      "box": [
+        133,
+        0,
+        362,
+        246
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Forehead bridge banded with vertical drips of cadmium yellow, ultramarine blue, and magenta",
+      "box": [
+        190,
+        241,
+        465,
+        597
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Pair of luminous greenish-yellow feline eyes rimmed in heavy dark indigo lines",
+      "box": [
+        328,
+        206,
+        436,
+        645
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Lavender-grey triangular nose leather sitting directly between warm muzzle patches",
+      "box": [
+        468,
+        342,
+        549,
+        492
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Open triangular mouth cavity in pitch black, framed by lilac lower lip and exposing two tiny white teeth",
+      "box": [
+        566,
+        335,
+        663,
+        513
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Curving collar swath of intense cadmium orange looping under the chin",
+      "box": [
+        535,
+        154,
+        706,
+        768
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Left shoulder and throat blocked in deep magenta-pink brush strokes",
+      "box": [
+        645,
+        154,
+        995,
+        532
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Right flank swept in solid cadmium yellow brush marks tapering down to base",
+      "box": [
+        619,
+        529,
+        988,
+        898
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Emerald viridian green streak tucked tightly along the lower throat seam",
+      "box": [
+        650,
+        381,
+        747,
+        584
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Unpainted off-white textured primed canvas surrounding the cat silhouette on all sides",
+      "box": [
+        0,
+        0,
+        995,
+        1000
+      ],
+      "maps_to": "V"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e8dfce",
+        "share": 0.233,
+        "role": "unpainted primed canvas ground flanking the head and shoulders"
+      },
+      {
+        "hex": "#d5cbbd",
+        "share": 0.165,
+        "role": "shadowed canvas ground along the upper and left margins"
+      },
+      {
+        "hex": "#df9e0c",
+        "share": 0.131,
+        "role": "pure cadmium yellow across the right forehead, right eye iris, and lower right torso"
+      },
+      {
+        "hex": "#363a56",
+        "share": 0.124,
+        "role": "deep ultramarine-indigo shading the brow band, cheek patches, and eye outlines"
+      },
+      {
+        "hex": "#cf610d",
+        "share": 0.099,
+        "role": "fiery orange marking the left ear tip, bib, and lower neck collar"
+      },
+      {
+        "hex": "#9c3541",
+        "share": 0.088,
+        "role": "deep magenta-crimson blocking the left shoulder and forehead bridge"
+      },
+      {
+        "hex": "#c6b19c",
+        "share": 0.082,
+        "role": "warm neutral ground tone near the outer right boundary"
+      },
+      {
+        "hex": "#c4616d",
+        "share": 0.077,
+        "role": "hot bubblegum pink lining the right inner ear flap and upper muzzle"
+      }
+    ],
+    "translation": {
+      "bg": "#221c25",
+      "grass": {
+        "top": "#5ac389",
+        "fringe": "#44a46b",
+        "fringeDark": "#337b50",
+        "speck": "#8ce263"
+      },
+      "sand": {
+        "top": "#f2ab0d",
+        "lip": "#d38d09",
+        "edge": "#b97404",
+        "dots": "#f7de94"
+      },
+      "dirt": {
+        "top": "#cf610d",
+        "patch": "#b24d08",
+        "mottle": "#963d04",
+        "border": "#7a2f02"
+      },
+      "stone": {
+        "top": "#c6b19c",
+        "pebble": "#e8dfce",
+        "pebbleShade": "#a89481",
+        "rim": "#8d7967"
+      },
+      "cliffUpper": {
+        "left": "#9c3541",
+        "right": "#7a2530",
+        "seam": "#5d1922"
+      },
+      "cliffLower": {
+        "left": "#363a56",
+        "right": "#282b40",
+        "seam": "#1c1e2d",
+        "speck": "#4a4f73"
+      },
+      "water": {
+        "top": "#a0eeff",
+        "bubble": "#daf7ff",
+        "deep": "#00d4ff",
+        "fall": [
+          "#00daff",
+          "#00ceff",
+          "#00c7ff"
+        ],
+        "foam": "#daf7ff"
+      },
+      "wood": {
+        "light": "#ff831d",
+        "mid": "#dc7016",
+        "dark": "#bd4c0b",
+        "shadow": "#a04b14",
+        "end": "#f6d881"
+      },
+      "treeMint": [
+        "#68e09e",
+        "#5ac389",
+        "#44a46b"
+      ],
+      "treeLime": [
+        "#c4ef86",
+        "#8ce263",
+        "#73aa4f"
+      ],
+      "treeLeaf": [
+        "#8ce263",
+        "#64c960",
+        "#50ab46"
+      ],
+      "treeTeal": [
+        "#00ffbf",
+        "#00e09b",
+        "#00c386",
+        "#00a568"
+      ],
+      "treeGold": [
+        "#f1cd52",
+        "#df9e0c",
+        "#c08008"
+      ],
+      "trunk": [
+        "#b06a57",
+        "#9f5950"
+      ],
+      "rock": [
+        "#e8dfce",
+        "#c6b19c",
+        "#a89481",
+        "#8d7967"
+      ],
+      "wellStone": [
+        "#dbc9a2",
+        "#c7b693",
+        "#b1a483"
+      ],
+      "flowerOrange": [
+        "#cf610d",
+        "#df9e0c"
+      ],
+      "berry": [
+        "#c4616d",
+        "#9c3541"
+      ],
+      "bushTeal": [
+        "#8fffc2",
+        "#68e09e",
+        "#5ac389"
+      ],
+      "gold": [
+        "#df9e0c",
+        "#c08008",
+        "#f6d881"
+      ]
+    },
+    "notes": "The pack's sand and dirt inherit the painting's intense cadmium yellow and fiery orange brush strokes, while the cliff layers split into upper magenta-crimson and lower midnight ultramarine to mimic the heavy under-neck shadows.",
+    "clamped": [
+      "sand.top #df9e0c->#f2ab0d",
+      "sand.lip #c08008->#d38d09",
+      "sand.edge #a56804->#b97404",
+      "sand.dots #f6d881->#f7de94"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "cardboard-perch-box",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          2
+        ],
+        [
+          12,
+          2
+        ]
+      ],
+      "role": "dais",
+      "where": "Placed upon the high pantry ledge flanking the cat, reflecting the domestic cardboard perches where sentinel cats survey the room.",
+      "shape": {
+        "summary": "A square cardboard box with open folded flaps and dark inner shadow.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.6,
+              0.85,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d38d09",
+              "#b97404"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.7,
+              0.1,
+              0.7
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#363a56",
+              "#282b40",
+              "#1c1e2d"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.08,
+              0.15,
+              0.02
+            ],
+            "at": [
+              0,
+              0.62,
+              0.4
+            ],
+            "rot": [
+              25,
+              0,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d38d09",
+              "#b97404"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.8,
+              0.08,
+              0.15,
+              0.02
+            ],
+            "at": [
+              0,
+              0.62,
+              -0.4
+            ],
+            "rot": [
+              -25,
+              0,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d38d09",
+              "#b97404"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ceramic-food-crock",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "role": "offering",
+      "where": "Resting on the floor tiles before the pantry threshold step, serving as the immediate cause of the vocal demand.",
+      "shape": {
+        "summary": "A squat glazed ceramic dish filled with golden kibble pellets.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c6b19c",
+              "#a89481",
+              "#8d7967"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.6,
+              0.08,
+              0.6,
+              0.06
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d38d09",
+              "#b97404"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.8
+            ],
+            "at": [
+              0.1,
+              0.38,
+              0.1
+            ],
+            "tones": [
+              "#cf610d",
+              "#b24d08",
+              "#963d04"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.8
+            ],
+            "at": [
+              -0.1,
+              0.38,
+              -0.08
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d38d09",
+              "#b97404"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "pantry-threshold-beam",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.35,
+      "passable": true,
+      "count": 1,
+      "cells": [
+        [
+          6,
+          3
+        ]
+      ],
+      "role": "threshold",
+      "where": "Laid precisely where the lower kitchen pathway crosses onto the cat's elevated shelf domain.",
+      "shape": {
+        "summary": "A polished wooden threshold sill beam marking the boundary into the sentinel's territory.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.96,
+              0.22,
+              0.35,
+              0.05
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#dc7016",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.9,
+              0.06,
+              0.1
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#f7de94",
+              "#f2ab0d",
+              "#d38d09"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.04,
+              0.08,
+              6
+            ],
+            "at": [
+              0.35,
+              0.24,
+              0
+            ],
+            "tones": [
+              "#e8dfce",
+              "#c6b19c",
+              "#a89481"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cat-grass-planter",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.75,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          5,
+          2
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "role": "mass",
+      "where": "Arranged along the rear pantry sill behind the figure, echoing the emerald green accents along the throat seam.",
+      "shape": {
+        "summary": "A ceramic trough sprouting dense clusters of chunky emerald cat-grass blades.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.3,
+              0.4,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c6b19c",
+              "#a89481",
+              "#8d7967"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.6,
+              0.08,
+              0.3
+            ],
+            "at": [
+              0,
+              0.28,
+              0
+            ],
+            "tones": [
+              "#cf610d",
+              "#b24d08",
+              "#963d04"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.02,
+              0.45,
+              6
+            ],
+            "at": [
+              -0.18,
+              0.32,
+              0
+            ],
+            "tones": [
+              "#8ce263",
+              "#5ac389",
+              "#44a46b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.42,
+              6
+            ],
+            "at": [
+              0.15,
+              0.32,
+              0.05
+            ],
+            "tones": [
+              "#8ce263",
+              "#5ac389",
+              "#44a46b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.02,
+              0.38,
+              6
+            ],
+            "at": [
+              0,
+              0.32,
+              -0.05
+            ],
+            "tones": [
+              "#68e09e",
+              "#5ac389",
+              "#44a46b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "milk-saucer-marker",
+      "type": "marker",
+      "variant_of": "marker",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.08,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          7,
+          7
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          11,
+          8
+        ]
+      ],
+      "role": "detail",
+      "where": "Flat circular discs set into the lower kitchen floor cells where spilled milk drops landed.",
+      "shape": {
+        "summary": "A thin shallow milk dish sitting flat on the ground.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.06,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c6b19c",
+              "#a89481",
+              "#8d7967"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.04,
+              8
+            ],
+            "at": [
+              0,
+              0.04,
+              0
+            ],
+            "tones": [
+              "#e8dfce",
+              "#d5cbbd",
+              "#c6b19c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.06,
+              0.4
+            ],
+            "at": [
+              0.05,
+              0.07,
+              0.02
+            ],
+            "tones": [
+              "#e8dfce",
+              "#d5cbbd",
+              "#c6b19c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "barrel",
+      "type": "barrel",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.7,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          9
+        ],
+        [
+          9,
+          9
+        ]
+      ],
+      "role": "approach",
+      "where": "Flanking the entry path on the lower floor, representing domestic storage kegs in the kitchen corner.",
+      "shape": {
+        "summary": "A stout wooden storage tub banded in dark hoops.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.38,
+              0.7,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff831d",
+              "#dc7016",
+              "#bd4c0b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#363a56",
+              "#282b40",
+              "#1c1e2d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.34,
+              0.06,
+              8
+            ],
+            "at": [
+              0,
+              0.68,
+              0
+            ],
+            "tones": [
+              "#f7de94",
+              "#f2ab0d",
+              "#d38d09"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "vocal-calico-sentinel",
+      "source": "the entire domestic cat figure mid-cry facing forward in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.5,
+      "shape": {
+        "summary": "Chunky toy feline bust with asymmetric ear crests, vivid orange-yellow body, and wide open mouth showing fangs.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              1.2,
+              1.1,
+              0.9,
+              0.15
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#cf610d",
+              "#9c3541"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              1.05,
+              0.95,
+              0.85,
+              0.12
+            ],
+            "at": [
+              0,
+              1,
+              0.05
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#9c3541",
+              "#363a56"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.04,
+              0.55,
+              4
+            ],
+            "at": [
+              -0.38,
+              1.85,
+              0.05
+            ],
+            "rot": [
+              0,
+              0,
+              18
+            ],
+            "tones": [
+              "#cf610d",
+              "#363a56",
+              "#282b40"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.05,
+              0.7,
+              4
+            ],
+            "at": [
+              0.38,
+              1.85,
+              0.05
+            ],
+            "rot": [
+              0,
+              0,
+              -12
+            ],
+            "tones": [
+              "#c4616d",
+              "#f2ab0d",
+              "#d38d09"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.16,
+              0.9
+            ],
+            "at": [
+              -0.26,
+              1.42,
+              0.42
+            ],
+            "tones": [
+              "#8ce263",
+              "#f2ab0d",
+              "#363a56"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.16,
+              0.9
+            ],
+            "at": [
+              0.26,
+              1.42,
+              0.42
+            ],
+            "tones": [
+              "#f2ab0d",
+              "#d38d09",
+              "#363a56"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.12
+            ],
+            "outline": [
+              [
+                -0.1,
+                0.45
+              ],
+              [
+                0.1,
+                0.45
+              ],
+              [
+                0,
+                0.38
+              ]
+            ],
+            "at": [
+              0,
+              1.22,
+              0.46
+            ],
+            "tones": [
+              "#c6b19c",
+              "#9c3541",
+              "#363a56"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.36,
+              0.22,
+              0.18
+            ],
+            "at": [
+              0,
+              0.96,
+              0.44
+            ],
+            "tones": [
+              "#1c1e2d",
+              "#363a56",
+              "#282b40"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.03,
+              0.005,
+              0.1,
+              4
+            ],
+            "at": [
+              -0.1,
+              0.98,
+              0.51
+            ],
+            "rot": [
+              180,
+              0,
+              0
+            ],
+            "tones": [
+              "#e8dfce",
+              "#d5cbbd",
+              "#c6b19c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.03,
+              0.005,
+              0.1,
+              4
+            ],
+            "at": [
+              0.1,
+              0.98,
+              0.51
+            ],
+            "rot": [
+              180,
+              0,
+              0
+            ],
+            "tones": [
+              "#e8dfce",
+              "#d5cbbd",
+              "#c6b19c"
+            ]
+          }
+        ]
+      },
+      "pose": "Frontal sitting bust with right ear cocked higher, jaw dropped wide to reveal white needle teeth in a demanding vocal cry.",
+      "cell": [
+        6,
+        4
+      ],
+      "facing": "s",
+      "why": "Derived directly from ANALYSIS.subject.doing, capturing the insistent domestic animal frozen mid-cry at its pantry threshold."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVRRRRRRRRRRVVV",
+      "VVRRRRRTRRRRRRVV",
+      "VRRRRTRRRRTRRRRV",
+      "VRRRTPPPPPRTRRRV",
+      "VRRRPPFFPPPRRRRV",
+      "VVRRPPFFPPPRRRVV",
+      "VVGGPPPPPPGGGGVV",
+      "VGGGGPPTPPGGGGGV",
+      "VGGTGGPPPGGTGGGV",
+      "VGGGGGGPPGGGGGGV",
+      "VVGGGGPGGGGGGGVV",
+      "VVVGGGGGGGGGGVVV"
+    ],
+    "heights": [
+      "0002222222222000",
+      "0022222222222200",
+      "0222222222222220",
+      "0222222222222220",
+      "0222223322222220",
+      "0022223322222200",
+      "0011111111111100",
+      "0111111111111110",
+      "0111111111111110",
+      "0111111111111110",
+      "0011111111111100",
+      "0001111111111000"
+    ],
+    "focal": {
+      "x": 6,
+      "z": 4,
+      "what": "The vocalising fauvist cat sentinel standing wide-mouthed at the pantry threshold"
+    },
+    "mass": "Visual weight sits heavily across the upper plateau wedge where the sentinel cat towers over the lower floor.",
+    "read": "The viewer enters at the lower south perimeter onto warm tiled kitchen linoleum. A straight food-trail path guides the eye past empty saucers and food crocks. At the central step, the gaze meets the wide-open mouth and piercing eyes of the sentinel atop its pantry sill."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.08,
+      "types": [
+        {
+          "type": "cat-grass-planter",
+          "variant": "0",
+          "weight": 1
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.45,
+    "void_share": 0.22,
+    "decor_weights": {
+      "milk-saucer-marker": 0.6,
+      "ceramic-food-crock": 0.4
+    },
+    "lighting": {
+      "bg": "#221c25",
+      "ambient": 0.82,
+      "sun": 0.38,
+      "tint": "#fff4d4",
+      "notes": "morning pantry sunbeam slicing across floor tiles: Reflects the high-key raw canvas brightness of IMAGE 1 cutting into deep domestic shadow."
+    },
+    "rules": [
+      "Place food crocks strictly along the base of the plateau step.",
+      "Keep cat grass planters lined along the back upper sill behind the sentinel.",
+      "Distribute milk saucer markers along the approach path in the lower floor.",
+      "Ensure the central sentinel stands unobstructed at the edge of the height transition."
+    ],
+    "decor_density": 0.12,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "dirt",
+      "path": "sand",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "subject and story: the domestic feline sentinel vocalising demands at its kitchen pantry doorway",
+    "place": "The Hungry Sentinel's Pantry Ledge",
+    "summary": "An elevated pantry shelf and kitchen floor junction where an insistent calico cat demands immediate tribute.",
+    "differs": "Unlike the painterly impasto studio reading, this is a narrative domestic habitat with food bowls, cardboard boxes, and stepped pantry shelves rather than abstract paint scrapings."
+  },
+  "shaper": {
+    "name": "twin-mass",
+    "params": {
+      "split": "z",
+      "ratio": 0.5,
+      "heights": [
+        2,
+        1
+      ],
+      "bridge": "land",
+      "focal": "a"
+    },
+    "why": "Represents the split between the elevated pantry sill where the cat perches and the lower kitchen floor where human footsteps approach with food."
+  },
+  "surface_mix": {
+    "pattern": "bands",
+    "period": 3,
+    "surfaces": [
+      {
+        "s": "sand",
+        "share": 0.6
+      },
+      {
+        "s": "dirt",
+        "share": 0.25
+      },
+      {
+        "s": "stone",
+        "share": 0.15
+      }
+    ],
+    "why": "Alternates warm yellow linoleum tiling with orange shelf borders and neutral stone threshold plates."
+  },
+  "cliff_treatment": {
+    "style": "stepped",
+    "upper": [
+      "#9c3541",
+      "#7a2530",
+      "#5d1922"
+    ],
+    "lower": [
+      "#363a56",
+      "#282b40",
+      "#1c1e2d"
+    ],
+    "why": "Stepped block drops translate the clear vertical throat shadows and jawline boundaries seen in the painting."
+  },
+  "lighting": {
+    "time": "morning pantry sunbeam slicing across floor tiles",
+    "ambient": 0.82,
+    "sun": 0.38,
+    "tint": "#fff4d4",
+    "bg": "#221c25",
+    "why": "Reflects the high-key raw canvas brightness of IMAGE 1 cutting into deep domestic shadow."
+  },
+  "figure_pose": {
+    "pose": "Frontal sitting bust with right ear cocked higher, jaw dropped wide to reveal white needle teeth in a demanding vocal cry.",
+    "action": "demanding food mid-meow",
+    "facing": "camera",
+    "why": "Directly embodies the open-mouthed vocalising cat captured at [0.43, 0.61] in the painting."
+  },
+  "approach": {
+    "from": "the south rim floor tiles",
+    "passes": [
+      "storage barrels in the kitchen corner",
+      "scattered milk saucer markers on the linoleum",
+      "twin ceramic food crocks before the riser",
+      "the polished pantry threshold beam"
+    ],
+    "shape": "A direct northward walk leading toward the commanding presence of the open-mouthed sentinel."
+  },
+  "threshold": {
+    "kind": "A raised wooden sill board bridging the kitchen tiles to the high pantry shelf.",
+    "prop": "pantry-threshold-beam"
+  },
+  "analysis": "pipeline/seed/analysis/cat.json",
+  "concept": {
+    "name": "lens-subject",
+    "lens": "subject",
+    "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+  }
+}

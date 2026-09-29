@@ -1,0 +1,1542 @@
+{
+  "source": {
+    "art": "pipeline/seed/gremlin.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "clinical",
+    "biomechanical",
+    "poised",
+    "taut",
+    "analytical",
+    "inscrutable"
+  ],
+  "observations": [
+    {
+      "what": "Featureless, smooth egg-shaped head devoid of eyes, nose, or mouth, tilted downward toward the chest",
+      "box": [
+        220,
+        290,
+        420,
+        486
+      ],
+      "maps_to": "creatures[0]"
+    },
+    {
+      "what": "Heavy mechanical cable emerging from the posterior occiput and looping high over the body",
+      "box": [
+        172,
+        401,
+        268,
+        597
+      ],
+      "maps_to": "motifs[0]"
+    },
+    {
+      "what": "Slender, articulated biomechanical claw sensor hanging from the upper cable above the hand",
+      "box": [
+        174,
+        117,
+        427,
+        396
+      ],
+      "maps_to": "motifs[1]"
+    },
+    {
+      "what": "Blank, perfectly unshaded circular sphere held delicately within the fingers of the left hand",
+      "box": [
+        426,
+        110,
+        529,
+        252
+      ],
+      "maps_to": "motifs[2]"
+    },
+    {
+      "what": "Long digitigrade foreleg and arm pressing downward onto the ground with thick clawed fingers",
+      "box": [
+        664,
+        251,
+        902,
+        532
+      ],
+      "maps_to": "creatures[0]"
+    },
+    {
+      "what": "Broad webbed rear foot splayed across the ground with heavily shaded webbing between splayed digits",
+      "box": [
+        715,
+        513,
+        998,
+        804
+      ],
+      "maps_to": "motifs[3]"
+    },
+    {
+      "what": "Secondary anatomical study in the upper-right corner depicting an everted tubular mouth lined with recurved fangs",
+      "box": [
+        98,
+        655,
+        362,
+        977
+      ],
+      "maps_to": "creatures[1]"
+    },
+    {
+      "what": "Thin, whip-like tail arching upward from the lower spine in a dramatic parabolic curve",
+      "box": [
+        549,
+        492,
+        646,
+        706
+      ],
+      "maps_to": "motifs[0]"
+    },
+    {
+      "what": "Ribbed, segmented horizontal bands wrapping the lower lumbar spine and abdominal carriage",
+      "box": [
+        594,
+        486,
+        646,
+        638
+      ],
+      "maps_to": "motifs[4]"
+    },
+    {
+      "what": "Faint vertical graphite guidelines and drafting lines extending downward from the upper jaw mechanism",
+      "box": [
+        257,
+        770,
+        461,
+        981
+      ],
+      "maps_to": "motifs[5]"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#dfdfdf",
+        "share": 0.221,
+        "role": "Smooth untreated paper ground"
+      },
+      {
+        "hex": "#e9e9e9",
+        "share": 0.185,
+        "role": "Bright specular reflection on the blank face and sphere"
+      },
+      {
+        "hex": "#d3d3d3",
+        "share": 0.18,
+        "role": "Soft stump graphite wash over mid-torso"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.143,
+        "role": "Midtone shading on muscular limbs"
+      },
+      {
+        "hex": "#aeaeae",
+        "share": 0.093,
+        "role": "Deepening graphite tone along ribs and calves"
+      },
+      {
+        "hex": "#919191",
+        "share": 0.083,
+        "role": "Conduit seams and core shadow bands"
+      },
+      {
+        "hex": "#606060",
+        "share": 0.05,
+        "role": "Dense graphite in knuckles and vertebrae"
+      },
+      {
+        "hex": "#2c2c2c",
+        "share": 0.045,
+        "role": "Burnished black accents in webbed digit hollows"
+      }
+    ],
+    "translation": {
+      "bg": "#1c2226",
+      "grass": {
+        "top": "#72b37b",
+        "fringe": "#529860",
+        "fringeDark": "#3d7049",
+        "speck": "#98c79f"
+      },
+      "sand": {
+        "top": "#d8b26e",
+        "lip": "#ba934c",
+        "edge": "#9e7735",
+        "dots": "#edd095"
+      },
+      "dirt": {
+        "top": "#9b8579",
+        "patch": "#836d62",
+        "mottle": "#6e584f",
+        "border": "#55423b"
+      },
+      "stone": {
+        "top": "#b2becd",
+        "pebble": "#cbd5e1",
+        "pebbleShade": "#94a3b8",
+        "rim": "#64748b"
+      },
+      "cliffUpper": {
+        "left": "#606e7b",
+        "right": "#48535f",
+        "seam": "#333d47"
+      },
+      "cliffLower": {
+        "left": "#4c5863",
+        "right": "#38424b",
+        "seam": "#273037",
+        "speck": "#1e252c"
+      },
+      "water": {
+        "top": "#7dd3fc",
+        "bubble": "#bae6fd",
+        "deep": "#0284c7",
+        "fall": [
+          "#38bdf8",
+          "#0ea5e9",
+          "#0284c7"
+        ],
+        "foam": "#e0f2fe"
+      },
+      "wood": {
+        "light": "#df7a06",
+        "mid": "#ba5609",
+        "dark": "#98430f",
+        "shadow": "#7e3810",
+        "end": "#fde790"
+      },
+      "treeMint": [
+        "#6ee7b7",
+        "#34d399",
+        "#059669"
+      ],
+      "treeLime": [
+        "#a7f3d0",
+        "#6ee7b7",
+        "#10b981"
+      ],
+      "treeLeaf": [
+        "#4ade80",
+        "#22c55e",
+        "#15803d"
+      ],
+      "treeTeal": [
+        "#5eead4",
+        "#2dd4bf",
+        "#14b8a6",
+        "#0f766e"
+      ],
+      "treeGold": [
+        "#fcd34d",
+        "#f59e0b",
+        "#d97706"
+      ],
+      "trunk": [
+        "#946c50",
+        "#6b553a"
+      ],
+      "rock": [
+        "#e2e8f0",
+        "#cbd5e1",
+        "#94a3b8",
+        "#64748b"
+      ],
+      "wellStone": [
+        "#94a3b8",
+        "#64748b",
+        "#475569"
+      ],
+      "flowerOrange": [
+        "#fb923c",
+        "#f97316"
+      ],
+      "berry": [
+        "#f43f5e",
+        "#e11d48"
+      ],
+      "bushTeal": [
+        "#5eead4",
+        "#2dd4bf",
+        "#0d9488"
+      ],
+      "gold": [
+        "#fef08a",
+        "#facc15",
+        "#ca8a04"
+      ]
+    },
+    "notes": "Translates the monochrome graphite sketch into cool surgical slate tones, muted moss-lichen ground, and warm burnished metallic accents that capture the mechanical specimen-dissection setting.",
+    "clamped": [
+      "grass.top #7ca982->#72b37b",
+      "grass.fringe #5e8c67->#529860",
+      "grass.fringeDark #436a4c->#3d7049",
+      "grass.speck #9bc4a1->#98c79f",
+      "trunk[0] #78716c->#946c50",
+      "trunk[1] #57534e->#6b553a",
+      "wood.light #d97706->#df7a06",
+      "wood.mid #b45309->#ba5609",
+      "wood.dark #92400e->#98430f",
+      "wood.shadow #78350f->#7e3810",
+      "wood.end #fde68a->#fde790"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "ribbed-conduit-arch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          6
+        ],
+        [
+          12,
+          2
+        ]
+      ],
+      "where": "Placed adjacent to the main creature and the upper auxiliary mechanism, matching the large sweeping spinal conduits in IMAGE 1.",
+      "shape": {
+        "summary": "An arched segmented cable rising vertically before curving sharply overhead like a heavy biomechanical duct.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.4,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#94a3b8",
+              "#64748b",
+              "#475569"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              0.4,
+              0
+            ],
+            "rot": [
+              12,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.15,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              0.95,
+              0.1
+            ],
+            "rot": [
+              28,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0,
+              1.5,
+              0.35
+            ],
+            "to": [
+              0,
+              2.2,
+              0.8
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.24,
+              0.12,
+              0.24,
+              0.04
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#475569"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.22,
+              0.12,
+              0.22,
+              0.04
+            ],
+            "at": [
+              0,
+              0.9,
+              0.08
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#475569"
+            ]
+          }
+        ]
+      },
+      "role": "mass"
+    },
+    {
+      "name": "sensor-crane-armature",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.9,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          5,
+          6
+        ]
+      ],
+      "where": "Stands directly facing the focal figure's raised hand to mimic the hanging sensor claw in IMAGE 1.",
+      "shape": {
+        "summary": "An articulated overhead caliper mast holding a spherical diagnostic sensor node pointed downward.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              0.8,
+              0.2
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#94a3b8",
+              "#64748b",
+              "#475569"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "to": [
+              -0.3,
+              1.6,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              -0.3,
+              1.6,
+              0
+            ],
+            "to": [
+              -0.5,
+              1.85,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              1
+            ],
+            "at": [
+              -0.5,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#fef08a",
+              "#facc15",
+              "#ca8a04"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.02,
+              0.2,
+              6
+            ],
+            "at": [
+              -0.5,
+              1.45,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          }
+        ]
+      },
+      "role": "light"
+    },
+    {
+      "name": "specimen-orb-plinth",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.85,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          4,
+          5
+        ]
+      ],
+      "where": "Located immediately north of the creature's inspection zone, serving as the ceremonial pedestal for the held blank token.",
+      "shape": {
+        "summary": "A tiered hexagonal stone testing plinth supporting an unshaded pale orb.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.38,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.3,
+              6
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              1
+            ],
+            "at": [
+              0,
+              0.68,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e2e8f0",
+              "#cbd5e1"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0.04,
+              0.12,
+              6
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#fef08a",
+              "#facc15",
+              "#ca8a04"
+            ]
+          }
+        ]
+      },
+      "role": "threshold"
+    },
+    {
+      "name": "webbed-claw-slab",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.35,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          7
+        ],
+        [
+          10,
+          8
+        ]
+      ],
+      "where": "Anchored into the stone path at the creature's feet and along the southern trail, echoing the heavy webbed footpads in the drawing.",
+      "shape": {
+        "summary": "A low, flat tripartite stepping stone carved like an splayed alien digitigrade web-foot.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.12,
+              0.6,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.3,
+              4
+            ],
+            "at": [
+              -0.2,
+              0.1,
+              0.15
+            ],
+            "rot": [
+              0,
+              -25,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.35,
+              4
+            ],
+            "at": [
+              0,
+              0.1,
+              0.2
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.3,
+              4
+            ],
+            "at": [
+              0.2,
+              0.1,
+              0.15
+            ],
+            "rot": [
+              0,
+              25,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          }
+        ]
+      },
+      "role": "approach"
+    },
+    {
+      "name": "vertebral-fence-segment",
+      "type": "fence",
+      "variant_of": "fence",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          8
+        ]
+      ],
+      "where": "Lining the western rim of the central plateau, reflecting the ribbed vertebrae along the subject's spine.",
+      "shape": {
+        "summary": "A protective railing composed of ribbed cylindrical posts connected by parallel metallic bars.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.75,
+              6
+            ],
+            "at": [
+              -0.35,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.75,
+              6
+            ],
+            "at": [
+              0.35,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              -0.35,
+              0.55,
+              0
+            ],
+            "to": [
+              0.35,
+              0.55,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              -0.35,
+              0.28,
+              0
+            ],
+            "to": [
+              0.35,
+              0.28,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          }
+        ]
+      },
+      "role": "detail"
+    },
+    {
+      "name": "drafting-guide-spire",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          10,
+          1
+        ]
+      ],
+      "where": "Erected at the edges of the upper-right secondary plateau where the drafting lines flank the maw sketch.",
+      "shape": {
+        "summary": "A slender graphite-toned alignment spire marked with precision measurement rings.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              0.3,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#94a3b8",
+              "#64748b",
+              "#475569"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.03,
+              1.7,
+              6
+            ],
+            "at": [
+              0,
+              0.3,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.16,
+              0.05,
+              0.16,
+              0.02
+            ],
+            "at": [
+              0,
+              0.9,
+              0
+            ],
+            "tones": [
+              "#fef08a",
+              "#facc15",
+              "#ca8a04"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.12,
+              0.05,
+              0.12,
+              0.02
+            ],
+            "at": [
+              0,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#fef08a",
+              "#facc15",
+              "#ca8a04"
+            ]
+          }
+        ]
+      },
+      "role": "detail"
+    }
+  ],
+  "creatures": [
+    {
+      "name": "biomechanical-scout",
+      "source": "The primary faceless crouching digitigrade organism in the lower-middle and left portions of IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "A crouching pale synthetic drone with a smooth egg-like faceless dome, digitigrade limbs, and an arching tail.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.28,
+              1.35
+            ],
+            "at": [
+              0,
+              1.45,
+              -0.15
+            ],
+            "rot": [
+              -18,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e2e8f0",
+              "#cbd5e1"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.45,
+              6
+            ],
+            "at": [
+              0,
+              1.1,
+              -0.05
+            ],
+            "rot": [
+              15,
+              0,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.55,
+              0.28,
+              0.08
+            ],
+            "at": [
+              0,
+              0.65,
+              0.05
+            ],
+            "rot": [
+              25,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.18,
+              0.85,
+              0
+            ],
+            "to": [
+              -0.35,
+              1.1,
+              -0.3
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1
+            ],
+            "at": [
+              -0.35,
+              1.1,
+              -0.4
+            ],
+            "tones": [
+              "#ffffff",
+              "#e2e8f0",
+              "#cbd5e1"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              0.18,
+              0.85,
+              0
+            ],
+            "to": [
+              0.32,
+              0.4,
+              -0.15
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.32,
+              0.4,
+              -0.15
+            ],
+            "to": [
+              0.25,
+              0,
+              -0.3
+            ],
+            "tones": [
+              "#94a3b8",
+              "#64748b",
+              "#475569"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.11
+            ],
+            "at": [
+              -0.15,
+              0.65,
+              0.15
+            ],
+            "to": [
+              -0.28,
+              0.95,
+              0.45
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              -0.28,
+              0.95,
+              0.45
+            ],
+            "to": [
+              -0.2,
+              0,
+              0.5
+            ],
+            "tones": [
+              "#94a3b8",
+              "#64748b",
+              "#475569"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              0.6,
+              0.2
+            ],
+            "to": [
+              0,
+              1.8,
+              0.4
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          }
+        ]
+      },
+      "pose": "A digitigrade synthetic humanoid crouching low upon its haunches, raising a blank pale disc toward an overhead sensor claw.",
+      "cell": [
+        4,
+        6
+      ],
+      "facing": "w",
+      "why": "Acts as the central entity and primary focal subject analyzed in the artwork."
+    },
+    {
+      "name": "everted-maw-core",
+      "source": "The secondary anatomical sketch in the upper right showing a flared strike jaw within a sheath",
+      "becomes": "prop",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.7,
+      "shape": {
+        "summary": "A trumpet-shaped outer mechanical cowl disgorging an inner tooth-ringed probe head.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0.16,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#94a3b8",
+              "#64748b",
+              "#475569"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.36,
+              0.24,
+              0.55,
+              8
+            ],
+            "at": [
+              0,
+              0.55,
+              0
+            ],
+            "rot": [
+              -20,
+              0,
+              0
+            ],
+            "tones": [
+              "#cbd5e1",
+              "#94a3b8",
+              "#64748b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              0.95,
+              -0.15
+            ],
+            "rot": [
+              -35,
+              0,
+              0
+            ],
+            "tones": [
+              "#e2e8f0",
+              "#cbd5e1",
+              "#94a3b8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.08,
+              0.25,
+              6
+            ],
+            "at": [
+              0,
+              1.35,
+              -0.38
+            ],
+            "rot": [
+              -35,
+              0,
+              0
+            ],
+            "tones": [
+              "#f43f5e",
+              "#e11d48",
+              "#be123c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.05,
+              0.01,
+              0.12,
+              4
+            ],
+            "at": [
+              -0.1,
+              1.45,
+              -0.42
+            ],
+            "tones": [
+              "#ffffff",
+              "#e2e8f0",
+              "#cbd5e1"
+            ]
+          }
+        ]
+      },
+      "pose": "Extending outward diagonally from a mechanical containment socket atop the secondary elevation.",
+      "cell": [
+        12,
+        1
+      ],
+      "facing": "s",
+      "why": "Faithfully incorporates the distinct auxiliary anatomical sketch that anchors the composition's upper-right quadrant."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVTRRRTV",
+      "VVVVVVVVVRRRFRRV",
+      "VVVVVVVRRRRRRRRV",
+      "VVVVVVPPTRRRTVVV",
+      "VVVTGPPPGGVVVVVV",
+      "VVGGRRPGGGGVVVVV",
+      "VGGRFRPGGGGGVVVV",
+      "VGGRRRPGGGTGVVVV",
+      "VGGGGGPGRGGGVVVV",
+      "VVGTGGPGGGGVVVVV",
+      "VVVGGPGGTGTVVVVV",
+      "VVVVVGPGVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000122210",
+      "0000000001223220",
+      "0000000122222220",
+      "0000001112221000",
+      "0001111111000000",
+      "0011221111100000",
+      "0112321111110000",
+      "0112221111110000",
+      "0111111121110000",
+      "0011111111100000",
+      "0001111111100000",
+      "0000011100000000"
+    ],
+    "focal": {
+      "x": 4,
+      "z": 6,
+      "what": "The crouching biomechanical scout holding the glowing white circular core beneath the caliper crane"
+    },
+    "mass": "Visual weight forms an asymmetric diagonal counterpoint: the heavy primary cluster at lower-left [4, 6] connected by a path across to the secondary raised perch at upper-right [11, 1].",
+    "read": "The viewer enters from the south along a paved stepping-stone causeway, guided straight into the dramatic inspection plateau where the faceless drone interrogates its specimen. From this central focal knot, visual energy arcs along the rising ridge toward the elevated upper-right platform hosting the auxiliary strike mechanism."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.12,
+      "types": [
+        {
+          "type": "ribbed-conduit-arch",
+          "variant": "default",
+          "weight": 0.4
+        },
+        {
+          "type": "drafting-guide-spire",
+          "variant": "default",
+          "weight": 0.6
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.34,
+    "void_share": 0.46,
+    "decor_weights": {
+      "vertebral-fence-segment": 0.35,
+      "webbed-claw-slab": 0.35,
+      "sensor-crane-armature": 0.15,
+      "specimen-orb-plinth": 0.15
+    },
+    "lighting": {
+      "bg": "#2c3d49",
+      "ambient": 0.74,
+      "sun": 0.26,
+      "tint": "#dbeafe",
+      "notes": "diffuse clinical drafting luminescence: Grounds the high-key values of untreated drafting paper while emphasizing deep graphite shadow crevices."
+    },
+    "rules": [
+      "Keep the central inspection dais elevated at height 3 to crown the main biomechanical subject.",
+      "The secondary elevated mass in the upper-right must remain isolated except via the stepping-stone bridge.",
+      "Place vertebral fences exclusively along sheer western cliff drops.",
+      "Keep void cutouts deep along the west and southeast to accentuate the diagonal posture of the drawing."
+    ],
+    "decor_density": 0.2,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "composition.flow_lines and composition.mass",
+    "place": "An isolated biomechanical telemetry perch suspended over an abyssal conduit shaft",
+    "summary": "A diagonal twin-plateau arrangement translating the primary crouching scout and the secondary detached jaw study into distinct geological elevations linked by an articulated causeway.",
+    "differs": "Utilizes a twin-mass structure separating the main entity from its auxiliary anatomical sketch, executed in banded slate cliffs and graphite-dirt ground.",
+    "fixes": [
+      "lighting.bg #1c2226->#2c3d49"
+    ]
+  },
+  "shaper": {
+    "name": "twin-mass",
+    "params": {
+      "split": "diag",
+      "ratio": 0.42,
+      "heights": [
+        3,
+        2
+      ],
+      "bridge": "land",
+      "focal": "a"
+    },
+    "why": "Transcribes the composition's primary crouching figure in the lower-left and its offset auxiliary sketch in the upper-right into two complementary landmasses."
+  },
+  "surface_mix": {
+    "pattern": "bands",
+    "period": 3,
+    "surfaces": [
+      {
+        "s": "dirt",
+        "share": 0.52
+      },
+      {
+        "s": "sand",
+        "share": 0.32
+      },
+      {
+        "s": "stone",
+        "share": 0.16
+      }
+    ],
+    "why": "Mirrors the rhythmic graphite shading transitions of the drawing, shifting from dark burnished graphite dirt to pale vellum sand and chiseled stone pads."
+  },
+  "cliff_treatment": {
+    "style": "banded",
+    "upper": [
+      "#606e7b",
+      "#48535f",
+      "#333d47"
+    ],
+    "lower": [
+      "#4c5863",
+      "#38424b",
+      "#273037"
+    ],
+    "why": "Recalls the sharply delineated mechanical segmentation of the subject's spine and cable joints."
+  },
+  "lighting": {
+    "time": "diffuse clinical drafting luminescence",
+    "ambient": 0.74,
+    "sun": 0.26,
+    "tint": "#dbeafe",
+    "bg": "#2c3d49",
+    "why": "Grounds the high-key values of untreated drafting paper while emphasizing deep graphite shadow crevices."
+  },
+  "figure_pose": {
+    "pose": "A digitigrade synthetic humanoid crouching low upon its haunches, raising a blank pale disc toward an overhead sensor claw.",
+    "action": "scanning specimen",
+    "facing": "left",
+    "why": "Faithfully adopts the taut, analytical inspection pose observed in ANALYSIS.subject."
+  },
+  "approach": {
+    "from": "south rim",
+    "passes": [
+      "webbed-claw-slab",
+      "vertebral-fence-segment",
+      "specimen-orb-plinth",
+      "sensor-crane-armature"
+    ],
+    "shape": "A direct northward climb that ascends two stepped terraces before terminating at the creature's high dais."
+  },
+  "threshold": {
+    "kind": "A raised diagnostic plinth cradling an illuminated unshaded sphere that signals entry into the specimen evaluation circle.",
+    "prop": "specimen-orb-plinth"
+  },
+  "analysis": "pipeline/seed/analysis/gremlin.json",
+  "concept": {
+    "name": "lens-composition",
+    "lens": "composition",
+    "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+  }
+}

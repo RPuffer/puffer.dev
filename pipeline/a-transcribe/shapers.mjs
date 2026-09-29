@@ -75,12 +75,12 @@ function stepOk(H, x, z, dx, dz) {
   return H[hz + sz]?.[hx + sx] === H[hz][hx];
 }
 
-function ensureRamps(H, start, fixed) {
+function ensureRamps(H, start, fixed, wet = () => false) {
   for (let it = 0; it < 60; it++) {
     const seen = new Set([start[1] * W + start[0]]), st = [start];
-    while (st.length) { const [x, z] = st.pop(); for (const [dx, dz] of N4) { const k = (z + dz) * W + x + dx; if (!seen.has(k) && stepOk(H, x, z, dx, dz)) { seen.add(k); st.push([x + dx, z + dz]); } } }
+    while (st.length) { const [x, z] = st.pop(); for (const [dx, dz] of N4) { const k = (z + dz) * W + x + dx; if (!seen.has(k) && !wet(x + dx, z + dz) && stepOk(H, x, z, dx, dz)) { seen.add(k); st.push([x + dx, z + dz]); } } }
     const miss = [];
-    for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (H[z][x] && !seen.has(z * W + x)) miss.push([x, z]);
+    for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (H[z][x] && !wet(x, z) && !seen.has(z * W + x)) miss.push([x, z]);
     if (!miss.length) return 0;
     let done = false;
     for (const [x, z] of miss) {
@@ -125,11 +125,11 @@ function placeFocal(H, want, h, o = {}) {
     if (!best || d < best[2]) best = [x, z, d];
   }
   const [fx, fz] = best;
-  for (let dz = -1; dz <= 2; dz++) for (let dx = -1; dx <= 2; dx++) {
+  for (let dz = -2; dz <= 3; dz++) for (let dx = -2; dx <= 3; dx++) {
     const X = fx + dx, Z = fz + dz;
     if (!inb(X, Z) || X === 0 || Z === 0 || X === W - 1 || Z === D - 1) continue;
-    const core = dx >= 0 && dx <= 1 && dz >= 0 && dz <= 1;
-    if (core || H[Z][X] > 0 || o.fillRing) H[Z][X] = h;
+    const core = dx >= -1 && dx <= 2 && dz >= -1 && dz <= 2;
+    if (core || H[Z][X] > 0) H[Z][X] = h;
   }
   return [fx, fz];
 }
@@ -188,9 +188,9 @@ const SHAPE = {
     for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
       const r = Math.hypot((x - 7.5) / 6.4, (z - 5.6) / 4.8) + (n(x, z) - 0.5) * 0.18;
       const openSide = (open.includes("s") && z >= 8 && Math.abs(x - 8) < 3.5) || (open.includes("e") && x >= 11 && Math.abs(z - 6) < 2.5) || (open === "se" && x + z >= 17);
-      H[z][x] = r > 1.22 ? 0 : r > 0.72 && !openSide ? (x + z < 14 ? wall : Math.max(1, wall - 1)) : r > 0.72 ? 1 : 1;
+      H[z][x] = r > 1.3 ? 0 : r > 0.72 && !openSide ? (x + z < 14 ? wall : Math.max(1, wall - 1)) : r > 0.72 ? 1 : 1;
     }
-    blobOutline(H, rnd, { rx: 7.3, rz: 5.5, bite: 0.1 });
+    blobOutline(H, rnd, { rx: 7.6, rz: 5.7, bite: 0.1 });
     const pool = [];
     if (p.pool === true || p.pool === "true") for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) { const r = Math.hypot((x - 6.2) / 2.2, (z - 6.4) / 1.6); if (r < 1 && H[z][x] === 1) pool.push([x, z]); }
     const onWall = p.focal === "wall";
@@ -429,9 +429,10 @@ export function shape(spec, seed = 1) {
   const water = new Set((r.water || []).map(([x, z]) => z * W + x));
   const focal = placeFocal(H, r.focalWant, clamp(r.focalH | 0 || 1, 1, 3), { within: (x, z) => !water.has(z * W + x) && !water.has(z * W + x + 1) });
   const isF = (x, z) => x >= focal[0] && x <= focal[0] + 1 && z >= focal[1] && z <= focal[1] + 1;
+  const apron = (x, z) => x >= focal[0] - 1 && x <= focal[0] + 2 && z >= focal[1] - 1 && z <= focal[1] + 2;
   const bridge = new Set((r.bridge || []).map(([x, z]) => z * W + x));
   rimAndKeep(H, (x, z) => isF(x, z) || bridge.has(z * W + x), P);
-  grow(H, 116, rnd, null, r.hold);
+  grow(H, 122, rnd, null, r.hold);
   rimAndKeep(H, (x, z) => isF(x, z) || bridge.has(z * W + x), P);
   {
     const nz = noise2(rnd), keepC = (x, z) => isF(x, z) || bridge.has(z * W + x) || P.has(z * W + x);
@@ -440,24 +441,31 @@ export function shape(spec, seed = 1) {
     for (let z = 1; z < D - 1; z++) for (let x = 1; x < W - 1; x++) if (H[z][x] && !keepC(x, z)) { const v = N4.filter(([dx, dz]) => !H[z + dz][x + dx]).length; if (v) rim.push([x, z, nz(x, z) + v * 0.25 + rnd() * 0.2]); }
     rim.sort((a, b) => b[2] - a[2]);
     for (const [x, z, sc] of rim) {
-      if (land <= 112 || sc < 0.75) break;
+      if (land <= 114 || sc < 0.7) break;
       const nb = N4.map(([dx, dz]) => H[z + dz][x + dx] > 0);
       if ((nb[0] && nb[1] && !nb[2] && !nb[3]) || (nb[2] && nb[3] && !nb[0] && !nb[1]) || nb.filter(Boolean).length < 2) continue;
       H[z][x] = 0; land--;
     }
     rimAndKeep(H, (x, z) => isF(x, z) || bridge.has(z * W + x), P);
   }
-  smoothSteps(H, (x, z) => isF(x, z));
+  smoothSteps(H, apron);
+  const capAt = (x, z) => { let dx = 0, dz = 0; while (H[z]?.[x + dx + 1] > 0) dx++; while (H[z + dz + 1]?.[x] > 0) dz++; return 1 + Math.min(dx, dz); };
+  const caps = H.map((row, z) => row.map((v, x) => (v ? capAt(x, z) : 0)));
+  const apronCells = [];
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (H[z][x] && apron(x, z)) apronCells.push([x, z]);
+  const fCap = Math.min(...apronCells.map(([x, z]) => caps[z][x]), ...apronCells.filter(([x, z]) => isF(x, z)).map(([x, z]) => H[z][x]));
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (H[z][x]) H[z][x] = apron(x, z) ? fCap : Math.min(H[z][x], caps[z][x]);
+  for (let pass = 0; pass < 4; pass++) for (const k of [...water]) { const x = k % W, z = Math.floor(k / W); if (!H[z][x] || isF(x, z)) { water.delete(k); continue; } if (N4.some(([dx, dz]) => !(H[z + dz]?.[x + dx] > 0))) { H[z][x] = 0; water.delete(k); } }
+  const wet = (x, z) => water.has(z * W + x);
   const from0 = spawnEdge(H, r.from ? null : spec?.params?.from, focal);
   const start0 = r.from && inb(...r.from) && H[r.from[1]][r.from[0]] ? r.from : from0;
-  ensureRamps(H, start0, (x, z) => isF(x, z));
-  smoothSteps(H, (x, z) => isF(x, z));
+  ensureRamps(H, start0, apron, wet);
+  smoothSteps(H, apron);
   const ringH = [];
   for (let dz = -1; dz <= 2; dz++) for (let dx = -1; dx <= 2; dx++) { const X = focal[0] + dx, Z = focal[1] + dz; if (!isF(X, Z) && H[Z]?.[X] > 0) ringH.push(H[Z][X]); }
   const fh = ringH.length ? Math.max(...ringH) : 1;
   for (let dz = 0; dz <= 1; dz++) for (let dx = 0; dx <= 1; dx++) H[focal[1] + dz][focal[0] + dx] = fh;
-  ensureRamps(H, start0, (x, z) => isF(x, z));
-  for (const k of [...water]) { const x = k % W, z = Math.floor(k / W); if (!H[z][x] || isF(x, z) || N4.some(([dx, dz]) => !(H[z + dz]?.[x + dx] > 0) && !water.has((z + dz) * W + x + dx))) water.delete(k); }
+  ensureRamps(H, start0, apron, wet);
   const from = spawnEdge(H, r.from ? null : spec?.params?.from, focal);
   const start = r.from && inb(...r.from) && H[r.from[1]][r.from[0]] ? r.from : from;
   if (!P.size) {
@@ -491,8 +499,44 @@ function nearestLand(grid, x, z, avoid) {
   return best ? [best[0], best[1]] : [x, z];
 }
 
+function landConnected(grid) {
+  const cells = [];
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if ("GRPTF".includes(grid[z][x])) cells.push([x, z]);
+  if (!cells.length) return true;
+  const seen = new Set([cells[0][1] * W + cells[0][0]]), st = [cells[0]];
+  while (st.length) { const [x, z] = st.pop(); for (const [dx, dz] of N4) { const X = x + dx, Z = z + dz, k = Z * W + X; if (inb(X, Z) && !seen.has(k) && "GRPTF".includes(grid[Z][X])) { seen.add(k); st.push([X, Z]); } } }
+  return seen.size === cells.length;
+}
+
+export function addPool(s, want, n) {
+  const g = s.grid.map((r) => [...r]), h = s.heights.map((r) => [...r]);
+  const interior = (x, z) => g[z][x] === "G" && h[z][x] === "1" && N4.every(([dx, dz]) => "GRPTFW".includes(g[z + dz]?.[x + dx] || "V")) && Math.abs(x - s.focal.x - 0.5) + Math.abs(z - s.focal.z - 0.5) > 3;
+  let seedC = null;
+  for (let z = 1; z < D - 1; z++) for (let x = 1; x < W - 1; x++) if (interior(x, z)) { const d = Math.hypot(x - want[0], z - want[1]); if (!seedC || d < seedC[2]) seedC = [x, z, d]; }
+  if (!seedC) return 0;
+  const q = [[seedC[0], seedC[1]]], seen = new Set([seedC[1] * W + seedC[0]]);
+  let placed = 0;
+  while (q.length && placed < n) {
+    const [x, z] = q.shift();
+    if (!interior(x, z)) continue;
+    g[z][x] = "W"; h[z][x] = "0";
+    if (!landConnected(g.map((r) => r.join("")))) { g[z][x] = "G"; h[z][x] = "1"; continue; }
+    placed++;
+    for (const [dx, dz] of N4) { const X = x + dx, Z = z + dz, k = Z * W + X; if (inb(X, Z) && !seen.has(k)) { seen.add(k); q.push([X, Z]); } }
+  }
+  s.grid = g.map((r) => r.join("")); s.heights = h.map((r) => r.join(""));
+  return placed;
+}
+
 export function applyShaper(brief, seed = 1) {
   const s = shape(brief.shaper, brief.shaper?.seed ?? seed);
+  const ws = +brief.biome?.water_share || 0;
+  if (ws >= 0.04 && !s.grid.join("").includes("W")) {
+    const mg = brief.composition?.grid || [], wc = [];
+    mg.forEach((row, z) => [...row].forEach((c, x) => { if (c === "W") wc.push([x, z]); }));
+    const want = wc.length ? [wc.reduce((a, c) => a + c[0], 0) / wc.length, wc.reduce((a, c) => a + c[1], 0) / wc.length] : [W * 0.4, D * 0.65];
+    s.pool = addPool(s, want, Math.min(14, Math.max(4, Math.round(ws * W * D))));
+  }
   const out = JSON.parse(JSON.stringify(brief));
   const old = brief.composition || {};
   const of = old.focal || { x: 8, z: 4 };
@@ -507,7 +551,7 @@ export function applyShaper(brief, seed = 1) {
     if (!Array.isArray(m.cells)) continue;
     m.cells = m.cells.map(([x, z]) => { const c = nearestLand(s.grid, clamp(x + dx, 0, W - 1), clamp(z + dz, 0, D - 1), used); used.add(c[1] * W + c[0]); return c; });
   }
-  out.composition = { ...old, grid: s.grid, heights: s.heights, focal: { ...of, x: s.focal.x, z: s.focal.z }, shaped: { name: s.name, params: s.params, seed: s.seed, start: s.start, bridge: s.bridge, model_grid: old.grid } };
+  out.composition = { ...old, grid: s.grid, heights: s.heights, focal: { ...of, x: s.focal.x, z: s.focal.z }, shaped: { name: s.name, params: s.params, seed: s.seed, start: s.start, pool: s.pool || 0, bridge: s.bridge, model_grid: old.grid } };
   if (s.surfaces) out.composition.shaped.surfaces = s.surfaces.map((row) => row.map((v) => (v === null ? "." : String(v))).join(""));
   if (brief.biome) out.biome = { ...brief.biome, plateau_share: 0 };
   return out;

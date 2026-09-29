@@ -78,7 +78,7 @@ export async function build({ root, flag, has, regions, brief }) {
     palette.tones[p.type] = uniq;
   }
   const lensOn = !!brief.concept?.lens;
-  palette.props = Object.fromEntries(props.map((p) => [p.type, { role: hintFor(p), footprint: p.footprint, height: p.height, passable: p.passable, variant_of: p.variant_of, ...(lensOn ? { summary: p.summary, parts: p.parts } : {}), ...(lensOn && hintFor(p) === "lead" && brief.figure_pose ? { pose: brief.figure_pose } : {}) }]));
+  palette.props = Object.fromEntries(props.map((p) => [p.type, { role: hintFor(p), footprint: p.footprint, height: p.height, passable: p.passable, variant_of: p.variant_of, ...(lensOn ? { summary: p.summary, parts: p.parts } : {}), ...(lensOn && hintFor(p) === "lead" && brief.figure_pose ? { pose: brief.figure_pose.pose || String(brief.figure_pose) } : {}) }]));
   const lensLog = [];
   if (brief.cliff_treatment) lensLog.push(`cliff palette ${cliffPalette(palette, brief.cliff_treatment).join(" ")}`);
   const bg = lt.bg || T.bg;
@@ -141,14 +141,14 @@ export async function build({ root, flag, has, regions, brief }) {
   }
   const walk = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water";
   const ramps = [];
-  const tryRampAt = (x, z, need) => {
+  const tryRampAt = (x, z, need, relaxed = false) => {
     const c = cells[z][x];
     if (!walk(c) || c.s === "ramp" || figSet.has(k(x, z))) return false;
     for (const d of ["s", "e", "w", "n"]) {
       const [dx, dz] = DIRS[d], lo = at(x + dx, z + dz), hi = at(x - dx, z - dz);
       if (!walk(lo) || !walk(hi) || lo.h !== c.h - 1 || hi.h !== c.h || lo.s === "ramp" || hi.s === "ramp" || figSet.has(k(x - dx, z - dz))) continue;
       if (need && !need(x + dx, z + dz, x - dx, z - dz)) continue;
-      if (N4.some(([ex, ez]) => at(x + ex, z + ez)?.s === "ramp")) continue;
+      if (!relaxed && N4.some(([ex, ez]) => at(x + ex, z + ez)?.s === "ramp")) continue;
       cells[z][x] = { h: c.h, s: "ramp", d, m: "stone" };
       ramps.push([x, z, d]);
       return true;

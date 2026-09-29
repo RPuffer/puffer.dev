@@ -114,13 +114,13 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     for (let i = 0; i < cells.length; i++) {
       const [x, z] = cells[i], c = cell(x, z);
       if (!land(c) || isFig(x, z)) continue;
-      if (c.s !== "ramp") level.cells[z][x] = { h: c.h, s };
+      if (c.s !== "ramp" && c.s !== "bridge") level.cells[z][x] = { h: c.h, s };
       if (o.clear !== false) clear(x, z, true);
       out.push([x, z]);
     }
     for (let i = 1; i < out.length; i++) {
       const [ax, az] = out[i - 1], [bx, bz] = out[i], A = cell(ax, az), B = cell(bx, bz);
-      if (Math.abs(ax - bx) + Math.abs(az - bz) !== 1 || A.s === "ramp" || B.s === "ramp") continue;
+      if (Math.abs(ax - bx) + Math.abs(az - bz) !== 1 || A.s === "ramp" || B.s === "ramp" || A.s === "bridge" || B.s === "bridge") continue;
       if (canStep({ ...level, blocked: new Set() }, ax, az, DIR_OF(bx - ax, bz - az))) continue;
       if (Math.abs(A.h - B.h) !== 1) continue;
       const [lo, hi, li, hiIdx] = A.h < B.h ? [out[i - 1], out[i], i - 1, i] : [out[i], out[i - 1], i, i - 1];
@@ -243,7 +243,110 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     return reach();
   };
 
+  const walkN = () => reach().reached;
+  const rampTone = (o = {}) => {
+    let n = 0;
+    level.cells.forEach((row, z) => row.forEach((c, x) => {
+      if (!c || c.s !== "ramp") return;
+      const [dx, dz] = DIRS[c.d], up = cell(x - dx, z - dz), dn = cell(x + dx, z + dz);
+      const pick = [up, dn].map((q) => q?.s).find((sv) => ["sand", "grass", "dirt"].includes(sv)) || (o.stone ? up?.s : null);
+      if (pick && c.m !== pick) { c.m = pick; n++; }
+    }));
+    log.push(`rampTone ${n}`);
+    return n;
+  };
+  const grow = (min = 84, o = {}) => {
+    let n = 0;
+    for (let guard = 0; guard < 80 && walkN() < min; guard++) {
+      let best = null;
+      for (let z = 1; z < D - 1; z++) for (let x = 1; x < W - 1; x++) {
+        const c = cell(x, z);
+        if (!c || c.s !== "none") continue;
+        const nb = N4.map(([dx, dz]) => cell(x + dx, z + dz)).filter((q) => land(q) && q.s !== "ramp");
+        if (!nb.length) continue;
+        const h = Math.min(...nb.map((q) => q.h));
+        const sc = Math.hypot(x - W / 2, z - D / 2) - nb.length * 0.6 + (o.back ? z * 0.3 : 0);
+        if (!best || sc < best[3]) best = [x, z, h, sc];
+      }
+      if (!best) break;
+      level.cells[best[1]][best[0]] = { h: best[2], s: o.s ?? (best[2] >= 2 ? surf.raised : surf.ground) };
+      n++;
+    }
+    log.push(`grow ${n} cells, walk ${walkN()}`);
+    return n;
+  };
+  const thin = (min = 84, o = {}) => {
+    const order = o.order || [/pot|urn|jar|chest|crate|barrel/, /mushroom|rock|bush/, /tree|pine|spire|pillar/, /./];
+    const keep = new Set(o.keep || []);
+    let n = 0;
+    for (const re of order) {
+      if (walkN() >= min) break;
+      const cand = level.decor.filter((d) => d !== lead && !CATALOG[d.t]?.passable && !keep.has(d.t) && re.test(d.t) && d.t !== "waterfall");
+      cand.sort((a, b) => Math.hypot(b.x - figure.anchor[0], b.z - figure.anchor[1]) - Math.hypot(a.x - figure.anchor[0], a.z - figure.anchor[1]));
+      for (const d of cand) { if (walkN() >= min) break; const i = level.decor.indexOf(d); if (i >= 0) { level.decor.splice(i, 1); n++; } }
+    }
+    log.push(`thin ${n} blockers, walk ${walkN()}`);
+    return n;
+  };
+  const spawnAt = (o = {}) => {
+    const lo = o.min ?? 8, hi = o.max ?? 16;
+    let r = approach();
+    if (r.length >= lo && r.length <= hi && !o.force) return r;
+    let best = null;
+    level.cells.forEach((row, z) => row.forEach((c, x) => {
+      if (!land(c) || c.s === "ramp" || isFig(x, z) || blockedSet().has(key(x, z))) return;
+      const onRim = N4.some(([dx, dz]) => { const q = cell(x + dx, z + dz); return !q || q.s === "none"; });
+      if (o.rim !== false && !onRim) return;
+      const q = approach({ from: [x, z] });
+      if (!q.length) return;
+      const sc = Math.abs(q.length - (lo + hi) / 2) - (o.front === false ? 0 : (x + z) * 0.15);
+      if (!best || sc < best[0]) best = [sc, x, z];
+    }));
+    if (best) { clear(best[1], best[2]); level.spawn = [best[1], best[2]]; r = approach(); log.push(`spawn ${level.spawn}, approach ${r.length}`); }
+    return r;
+  };
+  const along = (types, o = {}) => {
+    const r = o.route || approach();
+    const list = types.filter((t) => CATALOG[t]);
+    if (r.length < 4 || !list.length) return 0;
+    let n = 0;
+    list.forEach((t, i) => {
+      const want = Math.round(((i + 1) / (list.length + 1)) * (r.length - 1));
+      const order = r.map((c, j) => [c, j]).sort((a, b) => Math.abs(a[1] - want) - Math.abs(b[1] - want));
+      for (const [[x, z]] of order.slice(0, 6)) {
+        const sides = N4.map(([dx, dz]) => [x + dx, z + dz]).filter(([a, b]) => !r.some(([p, q]) => p === a && q === b) && land(cell(a, b)) && cell(a, b).s !== "ramp" && !isFig(a, b) && !decorAt(a, b).length && !N4.some(([dx, dz]) => cell(a + dx, b + dz)?.s === "ramp"));
+        sides.sort((a, b) => ((a[0] + a[1]) - (b[0] + b[1])) * (o.front ? -1 : 1));
+        let ok = false;
+        for (const [a, b] of sides) {
+          const m0 = reach().missing.length;
+          if (!put(t, a, b, { v: i % 2 })) continue;
+          if (reach().missing.length > m0) { removeDecor((d) => d.t === t && d.x === a && d.z === b); continue; }
+          ok = true; n++; break;
+        }
+        if (ok) break;
+      }
+    });
+    log.push(`along ${n}/${list.length}: ${list.join(", ")}`);
+    return n;
+  };
+  const passes = () => {
+    const names = brief.approach?.passes || [];
+    return names.map((nm) => { const m = [...(brief.motifs || []), ...(brief.creatures || [])].find((e) => e.name === nm); return m ? (m.type && m.type !== "new" && CATALOG[m.type] ? m.type : m.name) : null; }).filter((t) => t && CATALOG[t]);
+  };
+  const ledges = (o = {}) => {
+    const n = removeDecor((d) => {
+      if ((o.keep || []).includes(d.t) || CATALOG[d.t]?.passable) return false;
+      const c = cell(d.x, d.z);
+      if (!c) return false;
+      const front = [cell(d.x + 1, d.z), cell(d.x, d.z + 1)];
+      const tallFront = front.some((q) => land(q) && q.h > c.h);
+      const lip = (CATALOG[d.t]?.height || 1) >= (o.tall ?? 1.4) && front.some((q) => !q || q.s === "none");
+      return tallFront || lip;
+    });
+    log.push(`ledges dropped ${n}`);
+    return n;
+  };
   const role = (t) => level.palette?.props?.[t]?.role || (CATALOG[t] ? t : null);
   const ofRole = (r) => Object.entries(level.palette?.props || {}).filter(([, p]) => p.role === r).map(([t]) => t);
-  return { W, D, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, log };
+  return { W, D, walkN, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, log };
 }

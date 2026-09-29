@@ -1,0 +1,1347 @@
+{
+  "source": {
+    "art": "pipeline/seed/swallow.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "aerodynamic",
+    "brisk",
+    "aqueous",
+    "nimble",
+    "soaring",
+    "buoyant"
+  ],
+  "observations": [
+    {
+      "what": "Circular head outline curving into a prominent triangular beak pointing toward the upper-right corner",
+      "box": [
+        340,
+        680,
+        520,
+        895
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Tight spiral flourish terminating in a solid dark dot forming the swallow's eye",
+      "box": [
+        390,
+        750,
+        480,
+        820
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Long tapering primary wing blade sweeping straight toward the top margin with a sharp vertical leading edge",
+      "box": [
+        60,
+        480,
+        480,
+        680
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Secondary rear wing extending diagonally toward the upper-left corner with open negative space",
+      "box": [
+        85,
+        210,
+        600,
+        560
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Heavy dark burnt-umber contour sweeping down the belly with soft graphite shading along the inner curve",
+      "box": [
+        505,
+        430,
+        845,
+        835
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Upper tail tine projecting horizontally outward toward the lower-left border",
+      "box": [
+        510,
+        40,
+        820,
+        420
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Lower sickle tail tine curving sharply downward into the lower-left quadrant",
+      "box": [
+        595,
+        220,
+        935,
+        410
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Open negative space enclosed within the arch of the belly and lower wing roots",
+      "box": [
+        440,
+        480,
+        715,
+        715
+      ],
+      "maps_to": "W"
+    },
+    {
+      "what": "Wide blank off-white paper field spanning the bottom margin beneath the tail and belly curves",
+      "box": [
+        815,
+        30,
+        985,
+        960
+      ],
+      "maps_to": "V"
+    },
+    {
+      "what": "V-shaped cleft forming the scissor fork between the two diverging tail feathers",
+      "box": [
+        570,
+        160,
+        700,
+        275
+      ],
+      "maps_to": "P"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#bfbeb7",
+        "share": 0.283,
+        "role": "ambient paper tone across the upper and middle field"
+      },
+      {
+        "hex": "#c5c5c1",
+        "share": 0.229,
+        "role": "bright paper ground in the left margin and between wing spars"
+      },
+      {
+        "hex": "#b9b6ab",
+        "share": 0.153,
+        "role": "warm paper cast in the lower half of the sheet"
+      },
+      {
+        "hex": "#ccccc9",
+        "share": 0.124,
+        "role": "unmarked high-value paper patches"
+      },
+      {
+        "hex": "#ada89a",
+        "share": 0.1,
+        "role": "subtle paper grain and light pencil smudging"
+      },
+      {
+        "hex": "#989085",
+        "share": 0.049,
+        "role": "light graphite shading along the lower wing belly"
+      },
+      {
+        "hex": "#695b59",
+        "share": 0.036,
+        "role": "mid-tone umber shading beneath the throat and along the tail base"
+      },
+      {
+        "hex": "#3f2723",
+        "share": 0.027,
+        "role": "dense, dark burnt-umber pigment along the main outlines and eye pupil"
+      }
+    ],
+    "translation": {
+      "bg": "#2e748c",
+      "grass": {
+        "top": "#8ac967",
+        "fringe": "#6cb04c",
+        "fringeDark": "#529434",
+        "speck": "#a8e086"
+      },
+      "sand": {
+        "top": "#e6be43",
+        "lip": "#c99e24",
+        "edge": "#d9ab2b",
+        "dots": "#fae075"
+      },
+      "dirt": {
+        "top": "#d69f58",
+        "patch": "#c4883f",
+        "mottle": "#ad7128",
+        "border": "#8f5717"
+      },
+      "stone": {
+        "top": "#d9d0be",
+        "pebble": "#ebe3d3",
+        "pebbleShade": "#baaea0",
+        "rim": "#9e9182"
+      },
+      "cliffUpper": {
+        "left": "#a87158",
+        "right": "#87523d",
+        "seam": "#6e3e2b"
+      },
+      "cliffLower": {
+        "left": "#52755e",
+        "right": "#3c5c48",
+        "seam": "#2b4735",
+        "speck": "#6b967a"
+      },
+      "water": {
+        "top": "#7ae5f5",
+        "bubble": "#c8f6fc",
+        "deep": "#19a8c7",
+        "fall": [
+          "#28c5e6",
+          "#14a7c7",
+          "#088ba8"
+        ],
+        "foam": "#e6fcff"
+      },
+      "wood": {
+        "light": "#e07828",
+        "mid": "#be5c13",
+        "dark": "#9c4205",
+        "shadow": "#782d00",
+        "end": "#f2b56b"
+      },
+      "treeMint": [
+        "#5ec78d",
+        "#43ab71",
+        "#2f8a55"
+      ],
+      "treeLime": [
+        "#a3d95b",
+        "#82bd3c",
+        "#649925"
+      ],
+      "treeLeaf": [
+        "#78c454",
+        "#5ca339",
+        "#448024"
+      ],
+      "treeTeal": [
+        "#2cd1a9",
+        "#1ab38d",
+        "#0f8f6f",
+        "#076e54"
+      ],
+      "treeGold": [
+        "#e8bb3c",
+        "#c7991e",
+        "#a3770d"
+      ],
+      "trunk": [
+        "#8c4d3b",
+        "#6b3425"
+      ],
+      "rock": [
+        "#dedede",
+        "#bebebe",
+        "#9c9c9c",
+        "#7a7a7a"
+      ],
+      "wellStone": [
+        "#cfc2aa",
+        "#aba089",
+        "#877c68"
+      ],
+      "flowerOrange": [
+        "#f07b1d",
+        "#c95d08"
+      ],
+      "berry": [
+        "#e64765",
+        "#b82844"
+      ],
+      "bushTeal": [
+        "#62dba8",
+        "#43b584",
+        "#2e8c63"
+      ],
+      "gold": [
+        "#e6b82e",
+        "#c29415",
+        "#fae075"
+      ]
+    },
+    "notes": "Translates the swallow's hunting habitat into damp river masonry and riverbank silt, shifting the background to a cool deep river-canyon teal while keeping saturated earth, stone, and river cyan tones."
+  },
+  "motifs": [
+    {
+      "name": "bridge-pier-trellis",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          9,
+          4
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "where": "Positions along the masonry abutment line where the swallow's neck loops above the water channel.",
+      "role": "threshold",
+      "shape": {
+        "summary": "A rustic timber frame arch built of heavy corner uprights and a lashed lintel beam supporting dried reed bundles.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              2,
+              0.18
+            ],
+            "at": [
+              -0.35,
+              0,
+              -0.35
+            ],
+            "tones": [
+              "#e07828",
+              "#be5c13",
+              "#9c4205"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              2,
+              0.18
+            ],
+            "at": [
+              0.35,
+              0,
+              -0.35
+            ],
+            "tones": [
+              "#e07828",
+              "#be5c13",
+              "#9c4205"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              2,
+              0.18
+            ],
+            "at": [
+              -0.35,
+              0,
+              0.35
+            ],
+            "tones": [
+              "#e07828",
+              "#be5c13",
+              "#9c4205"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              2,
+              0.18
+            ],
+            "at": [
+              0.35,
+              0,
+              0.35
+            ],
+            "tones": [
+              "#e07828",
+              "#be5c13",
+              "#9c4205"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.22,
+              0.3,
+              0.05
+            ],
+            "at": [
+              0,
+              1.9,
+              0
+            ],
+            "tones": [
+              "#e07828",
+              "#be5c13",
+              "#9c4205"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.45,
+              6
+            ],
+            "at": [
+              -0.2,
+              1.6,
+              0
+            ],
+            "tones": [
+              "#f2b56b",
+              "#d69f58",
+              "#ad7128"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.07,
+              0.5,
+              6
+            ],
+            "at": [
+              0.2,
+              1.55,
+              0
+            ],
+            "tones": [
+              "#f2b56b",
+              "#d69f58",
+              "#ad7128"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "mud-cup-cluster",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          11,
+          2
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "where": "Clustered against the upper stone cliff faces corresponding to the swallow's nesting colony beneath the bridge eaves.",
+      "role": "detail",
+      "shape": {
+        "summary": "Three rounded earthen mud-pellet bowls fused together with tiny straw flecks.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.32,
+              0.7
+            ],
+            "at": [
+              -0.2,
+              0.22,
+              -0.1
+            ],
+            "tones": [
+              "#d69f58",
+              "#c4883f",
+              "#8f5717"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.28,
+              0.65
+            ],
+            "at": [
+              0.18,
+              0.28,
+              0.12
+            ],
+            "tones": [
+              "#d69f58",
+              "#c4883f",
+              "#8f5717"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.24,
+              0.75
+            ],
+            "at": [
+              -0.05,
+              0.48,
+              0.05
+            ],
+            "tones": [
+              "#d69f58",
+              "#c4883f",
+              "#8f5717"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.06,
+              6
+            ],
+            "at": [
+              -0.2,
+              0.32,
+              -0.1
+            ],
+            "tones": [
+              "#6e3e2b",
+              "#3f2723",
+              "#281714"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.1,
+              0.06,
+              6
+            ],
+            "at": [
+              0.18,
+              0.38,
+              0.12
+            ],
+            "tones": [
+              "#6e3e2b",
+              "#3f2723",
+              "#281714"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.03
+            ],
+            "at": [
+              -0.15,
+              0.3,
+              -0.1
+            ],
+            "to": [
+              -0.3,
+              0.45,
+              -0.15
+            ],
+            "tones": [
+              "#fae075",
+              "#e6be43",
+              "#c99e24"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "midge-swarm-pylon",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": true,
+      "count": 1,
+      "cells": [
+        [
+          7,
+          7
+        ]
+      ],
+      "where": "Floating directly over the lower river shoal edge where midges gather in the swallow's hunting flightpath.",
+      "role": "light",
+      "shape": {
+        "summary": "A swirling vertical constellation of tiny golden insect spheres hovering over a submerged mossy river post.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.7,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#be5c13",
+              "#9c4205",
+              "#782d00"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.07,
+              1
+            ],
+            "at": [
+              0.1,
+              0.85,
+              0.05
+            ],
+            "tones": [
+              "#fae075",
+              "#e6b82e",
+              "#c29415"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.06,
+              1
+            ],
+            "at": [
+              -0.12,
+              0.98,
+              -0.08
+            ],
+            "tones": [
+              "#fae075",
+              "#e6b82e",
+              "#c29415"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0.05,
+              1.15,
+              -0.1
+            ],
+            "tones": [
+              "#fae075",
+              "#e6b82e",
+              "#c29415"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.05,
+              1
+            ],
+            "at": [
+              -0.08,
+              1.3,
+              0.06
+            ],
+            "tones": [
+              "#fae075",
+              "#e6b82e",
+              "#c29415"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "river-shoal-snag",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          8
+        ],
+        [
+          4,
+          9
+        ]
+      ],
+      "where": "Resting on the shallow bank where the drawing's outer tail fork plunges down.",
+      "role": "approach",
+      "shape": {
+        "summary": "A smooth water-worn driftwood root branch washed ashore on rounded silt gravel.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.16,
+              0.45,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d9d0be",
+              "#baaea0",
+              "#9e9182"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.25,
+              0.1,
+              -0.15
+            ],
+            "to": [
+              0.25,
+              0.35,
+              0.2
+            ],
+            "tones": [
+              "#be5c13",
+              "#9c4205",
+              "#782d00"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0.05,
+              0.25,
+              0.05
+            ],
+            "to": [
+              0.35,
+              0.75,
+              -0.1
+            ],
+            "tones": [
+              "#be5c13",
+              "#9c4205",
+              "#782d00"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              0.7
+            ],
+            "at": [
+              0.2,
+              0.1,
+              -0.2
+            ],
+            "tones": [
+              "#6cb04c",
+              "#529434",
+              "#3c5c48"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "stepping-stones",
+      "type": "stepping-stones",
+      "variant_of": "stepping-stones",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.1,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "where": "Spanning the shallow river throat between the low gravel bar and the raised pier abutment.",
+      "role": "approach",
+      "shape": {
+        "summary": "Flat river stones smoothed by current, rising just above the water level.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.12,
+              8
+            ],
+            "at": [
+              -0.15,
+              0,
+              -0.1
+            ],
+            "tones": [
+              "#d9d0be",
+              "#baaea0",
+              "#9e9182"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.1,
+              8
+            ],
+            "at": [
+              0.18,
+              0,
+              0.12
+            ],
+            "tones": [
+              "#d9d0be",
+              "#baaea0",
+              "#9e9182"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "waterfall",
+      "type": "waterfall",
+      "variant_of": "waterfall",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "where": "Pouring over the masonry shelf into the lower pool under the bridge arch.",
+      "role": "mass",
+      "shape": {
+        "summary": "A churning sheet of turquoise river water dropping down the stepped cliff into foam.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.95,
+              0.9,
+              0.25
+            ],
+            "at": [
+              0,
+              0.05,
+              0
+            ],
+            "tones": [
+              "#7ae5f5",
+              "#28c5e6",
+              "#14a7c7"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.98,
+              0.2,
+              0.4,
+              0.08
+            ],
+            "at": [
+              0,
+              0,
+              0.2
+            ],
+            "tones": [
+              "#e6fcff",
+              "#c8f6fc",
+              "#7ae5f5"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "banking-swallow",
+      "source": "The soaring burnt-umber swallow centered in the upper-right quadrant of IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "shape": {
+        "summary": "A sleek low-poly swift sculpted in aerodynamic arcs with swept wings and a sharp white-beaded spiral eye.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.95,
+              0.4,
+              0.12
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#87523d",
+              "#6e3e2b",
+              "#3f2723"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.26,
+              0.9
+            ],
+            "at": [
+              0.15,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#87523d",
+              "#6e3e2b",
+              "#3f2723"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0,
+              0.25,
+              4
+            ],
+            "at": [
+              0.35,
+              1.15,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -80
+            ],
+            "tones": [
+              "#e6be43",
+              "#c99e24",
+              "#a3770d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              0.06,
+              6
+            ],
+            "at": [
+              0.22,
+              1.25,
+              0.18
+            ],
+            "rot": [
+              90,
+              0,
+              0
+            ],
+            "tones": [
+              "#3f2723",
+              "#281714",
+              "#140a08"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.03,
+              1
+            ],
+            "at": [
+              0.22,
+              1.25,
+              0.21
+            ],
+            "tones": [
+              "#ffffff",
+              "#dedede",
+              "#bebebe"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              -0.15,
+              0.9,
+              -0.2
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                -0.5,
+                0.9
+              ],
+              [
+                -0.1,
+                0.8
+              ],
+              [
+                0.3,
+                0
+              ]
+            ],
+            "tones": [
+              "#87523d",
+              "#6e3e2b",
+              "#3f2723"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              -0.05,
+              1,
+              0.2
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                0.1,
+                1.1
+              ],
+              [
+                0.4,
+                0.9
+              ],
+              [
+                0.3,
+                0
+              ]
+            ],
+            "tones": [
+              "#87523d",
+              "#6e3e2b",
+              "#3f2723"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.15,
+              0.45,
+              0
+            ],
+            "to": [
+              -0.55,
+              0.05,
+              -0.2
+            ],
+            "tones": [
+              "#6e3e2b",
+              "#3f2723",
+              "#281714"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              -0.15,
+              0.45,
+              0
+            ],
+            "to": [
+              -0.45,
+              -0.15,
+              0.15
+            ],
+            "tones": [
+              "#6e3e2b",
+              "#3f2723",
+              "#281714"
+            ]
+          }
+        ]
+      },
+      "pose": "Perched with wings thrown back and chin tilted upward toward the eave in frozen aerodynamic banking flight.",
+      "cell": [
+        11,
+        4
+      ],
+      "facing": "e",
+      "why": "Freezes the swallow in the exact upward banking swoop recorded in ANALYSIS.subject, perched on the highest bridge pier as if surveying the water below."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVVVVVVVRRRRVVV",
+      "VVVVVVVVRRRRRRVV",
+      "VVVVVVVVRRRRRRVV",
+      "VVVVVVWWRRRFRRVV",
+      "VVVVVWWWPPTRRRVV",
+      "VVVVVWWPPPTRRRVV",
+      "VVVGGWWPPPTRRVVV",
+      "VVGGGWWGPPPVVVVV",
+      "VVGGGGGGGPPVVVVV",
+      "VVVVGGGGGVVVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0000000002222000",
+      "0000000022222200",
+      "0000000022222200",
+      "0000000022232200",
+      "0000000011122200",
+      "0000000111122200",
+      "0001100111122000",
+      "0011100111100000",
+      "0011111111100000",
+      "0000111110000000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 11,
+      "z": 4,
+      "what": "The banking swallow perched upon the bridge pier summit"
+    },
+    "mass": "Concentrated in the upper-right quadrant on the masonry bridge pier mass where the swallow's head and raised wings cluster, balanced by the low gravel bar in the lower-left.",
+    "read": "The viewer enters at the low gravel spit in the southwest, tracing the winding shoal path past driftwood snags and midge clouds. Stepping stones cross the cyan river channel into a timber trellis, leading up the mossy stone abutment to the soaring swallow."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.08,
+      "types": [
+        {
+          "type": "tree-round",
+          "variant": "tree-mint",
+          "weight": 0.6
+        },
+        {
+          "type": "bush",
+          "variant": "bushTeal",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0.12,
+    "plateau_share": 0.32,
+    "void_share": 0.44,
+    "decor_weights": {
+      "mud-cup-cluster": 0.25,
+      "midge-swarm-pylon": 0.25,
+      "river-shoal-snag": 0.2,
+      "rock": 0.2,
+      "stepping-stones": 0.1
+    },
+    "lighting": {
+      "bg": "#2e748c",
+      "ambient": 0.78,
+      "sun": 0.35,
+      "tint": "#e0f2f7",
+      "notes": "river-spray glare beneath masonry arches: Reflects the paper's bright high-key luminosity as bounce-light off river rapids beneath the shadow of a stone bridge."
+    },
+    "rules": [
+      "Mud cup clusters adhere only to vertical cliff faces on the high pier mass.",
+      "Midge swarms generate only directly adjacent to river water cells.",
+      "Stepping stones only connect water cells between gravel and pier."
+    ],
+    "decor_density": 0.22,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "dirt",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "subject.habitat and subject.doing",
+    "place": "A damp masonry bridge abutment and river flyway where swallows hunt midges and nest in mud cups beneath the arches.",
+    "summary": "Translates the soaring swallow drawing into its ecological home: twin masses of high stone pier and low gravel bar parted by rushing river current.",
+    "differs": "Unlike the calligraphy ribbon scroll or sandstone spire, this reading constructs the bird's functional hunting world of river rapids, midge clouds, and mud nests."
+  },
+  "shaper": {
+    "name": "twin-mass",
+    "params": {
+      "split": "diag",
+      "ratio": 0.48,
+      "heights": [
+        2,
+        1
+      ],
+      "bridge": "planks",
+      "focal": "a"
+    },
+    "why": "Separates the scene into two functional landmasses matching the swallow's life: the elevated nesting pier in the northeast and the low river feeding shoal in the southwest."
+  },
+  "surface_mix": {
+    "pattern": "height",
+    "period": 2,
+    "surfaces": [
+      {
+        "s": "dirt",
+        "share": 0.52
+      },
+      {
+        "s": "grass",
+        "share": 0.3
+      },
+      {
+        "s": "stone",
+        "share": 0.18
+      }
+    ],
+    "why": "Places durable masonry stone on the high raised pier, mossy grass on intermediate shelves, and wet silt dirt along the low water banks."
+  },
+  "cliff_treatment": {
+    "style": "mossy",
+    "upper": [
+      "#a87158",
+      "#87523d",
+      "#6e3e2b"
+    ],
+    "lower": [
+      "#52755e",
+      "#3c5c48",
+      "#2b4735"
+    ],
+    "why": "Damp river mist nurtures green moss along the waterline cliffs, while the upper pier retains warm terracotta masonry tones."
+  },
+  "lighting": {
+    "time": "river-spray glare beneath masonry arches",
+    "ambient": 0.78,
+    "sun": 0.35,
+    "tint": "#e0f2f7",
+    "bg": "#2e748c",
+    "why": "Reflects the paper's bright high-key luminosity as bounce-light off river rapids beneath the shadow of a stone bridge."
+  },
+  "figure_pose": {
+    "pose": "Perched with wings thrown back and chin tilted upward toward the eave in frozen aerodynamic banking flight.",
+    "action": "banking upward",
+    "facing": "right",
+    "why": "Recreates the swallow's upward bank from ANALYSIS.subject.doing where it swoops sharply toward the sky."
+  },
+  "approach": {
+    "from": "southwest gravel bar at [3, 9]",
+    "passes": [
+      "river-shoal-snag driftwood",
+      "midge-swarm-pylon above the water",
+      "stepping-stones crossing the rapids",
+      "bridge-pier-trellis threshold",
+      "mud-cup-cluster nesting shelf"
+    ],
+    "shape": "A rising diagonal S-curve climbing from the wet gravel bank across river stones up to the bridge pier."
+  },
+  "threshold": {
+    "kind": "A lashed timber trellis framing the transition from the river spray into the swallow's nesting pier.",
+    "prop": "bridge-pier-trellis"
+  },
+  "analysis": "pipeline/seed/analysis/swallow.json",
+  "concept": {
+    "name": "lens-subject",
+    "lens": "subject",
+    "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+  }
+}

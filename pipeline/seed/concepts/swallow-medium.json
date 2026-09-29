@@ -1,0 +1,1187 @@
+{
+  "source": {
+    "art": "pipeline/seed/swallow.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "aerodynamic",
+    "calligraphic",
+    "flowing",
+    "soaring",
+    "crisp",
+    "minimal"
+  ],
+  "observations": [
+    {
+      "what": "Dark curled spiral line terminating in a circular pupil forming the bird head and eye",
+      "box": [
+        340,
+        680,
+        530,
+        840
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Sharp triangular beak protruding forward from the circular head contour",
+      "box": [
+        410,
+        830,
+        465,
+        895
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Long sweeping primary wing arching upward toward the top center margin",
+      "box": [
+        58,
+        480,
+        480,
+        685
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Secondary rear wing extending in a diagonal arc toward the upper left",
+      "box": [
+        86,
+        208,
+        638,
+        545
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Broad downward-swooping belly stroke with shaded umber inner gradient",
+      "box": [
+        508,
+        380,
+        845,
+        805
+      ],
+      "maps_to": "G"
+    },
+    {
+      "what": "Forked tail split into two curved sickle tips extending toward lower left",
+      "box": [
+        515,
+        45,
+        940,
+        395
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Soft graphite and burnt-umber smudge shading along the throat and inner belly curve",
+      "box": [
+        465,
+        680,
+        770,
+        840
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Wide open cream paper negative space surrounding the entire linework silhouette",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "V"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#bfbeb7",
+        "share": 0.283,
+        "role": "ambient paper tone across the upper and middle field"
+      },
+      {
+        "hex": "#c5c5c1",
+        "share": 0.229,
+        "role": "bright paper ground in the left margin and between wing spars"
+      },
+      {
+        "hex": "#b9b6ab",
+        "share": 0.153,
+        "role": "warm paper cast in the lower half of the sheet"
+      },
+      {
+        "hex": "#ccccc9",
+        "share": 0.124,
+        "role": "unmarked high-value paper patches"
+      },
+      {
+        "hex": "#ada89a",
+        "share": 0.1,
+        "role": "subtle paper grain and light pencil smudging"
+      },
+      {
+        "hex": "#989085",
+        "share": 0.049,
+        "role": "light graphite shading along the lower wing belly"
+      },
+      {
+        "hex": "#695b59",
+        "share": 0.036,
+        "role": "mid-tone umber shading beneath the throat and along the tail base"
+      },
+      {
+        "hex": "#3f2723",
+        "share": 0.027,
+        "role": "dense, dark burnt-umber pigment along the main outlines and eye pupil"
+      }
+    ],
+    "translation": {
+      "bg": "#2b2624",
+      "grass": {
+        "top": "#81ac64",
+        "fringe": "#68904e",
+        "fringeDark": "#52723d",
+        "speck": "#9bc47e"
+      },
+      "sand": {
+        "top": "#dfbf84",
+        "lip": "#c49f62",
+        "edge": "#b08a4f",
+        "dots": "#edd49f"
+      },
+      "dirt": {
+        "top": "#b39169",
+        "patch": "#9e7d56",
+        "mottle": "#8a6a45",
+        "border": "#755635"
+      },
+      "stone": {
+        "top": "#d6cec2",
+        "pebble": "#ece6dc",
+        "pebbleShade": "#bcb2a3",
+        "rim": "#a49b8a"
+      },
+      "cliffUpper": {
+        "left": "#6a4e42",
+        "right": "#4d352b",
+        "seam": "#38231b"
+      },
+      "cliffLower": {
+        "left": "#523c33",
+        "right": "#3c2921",
+        "seam": "#2a1a13",
+        "speck": "#21130d"
+      },
+      "water": {
+        "top": "#9be2df",
+        "bubble": "#c8f6f4",
+        "deep": "#5bc2be",
+        "fall": [
+          "#76d2cf",
+          "#5bc2be",
+          "#46aba7"
+        ],
+        "foam": "#e6fcfa"
+      },
+      "wood": {
+        "light": "#cf7836",
+        "mid": "#ad5b22",
+        "dark": "#8c4314",
+        "shadow": "#6d300a",
+        "end": "#ebd09b"
+      },
+      "treeMint": [
+        "#78bfa0",
+        "#5ea987",
+        "#468f6e"
+      ],
+      "treeLime": [
+        "#9ec76f",
+        "#82a856",
+        "#678c40"
+      ],
+      "treeLeaf": [
+        "#7ba85e",
+        "#638c49",
+        "#4c7035"
+      ],
+      "treeTeal": [
+        "#5fb8aa",
+        "#489c8f",
+        "#338075",
+        "#24665c"
+      ],
+      "treeGold": [
+        "#deaa47",
+        "#be8d31",
+        "#9e701e"
+      ],
+      "trunk": [
+        "#6d473a",
+        "#503329"
+      ],
+      "rock": [
+        "#ded7cc",
+        "#c7bfb3",
+        "#9c9488",
+        "#736b60"
+      ],
+      "wellStone": [
+        "#d2c7b5",
+        "#b5aa97",
+        "#968b78"
+      ],
+      "flowerOrange": [
+        "#d96a29",
+        "#b85018"
+      ],
+      "berry": [
+        "#cc4d4d",
+        "#a83636"
+      ],
+      "bushTeal": [
+        "#6bb8a5",
+        "#539e8c",
+        "#3d8272"
+      ],
+      "gold": [
+        "#e5ad3a",
+        "#c78f26",
+        "#a37117"
+      ]
+    },
+    "notes": "The palette translates burnt-umber pencil and parchment paper into warm sand, muted olive-greens, and deep sepia-graphite cliffs. Rich umber and polished bronze tones replace default bright saturated accents to evoke the feel of drawing pigments.",
+    "clamped": [
+      "grass.top #82a868->#81ac64",
+      "grass.fringe #698c52->#68904e",
+      "grass.fringeDark #52703f->#52723d",
+      "treeMint[1] #5fa887->#5ea987",
+      "treeLeaf[0] #7ba85e->#7ba85e",
+      "trunk[0] #6b483c->#6d473a"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "arc-ribbon-pylon",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          12,
+          6
+        ]
+      ],
+      "where": "Placed along the outer curvature of the landmass, echoing the tapered stroke arcs of the wings and outer belly line.",
+      "shape": {
+        "summary": "A curved calligraphic blade built from faceted interlocking prisms and angled beams resembling drawn sweeps of sepia ink.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.35,
+              0.4,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dfbf84",
+              "#c49f62",
+              "#b08a4f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.24,
+              0.8,
+              0.28,
+              0.08
+            ],
+            "at": [
+              0.04,
+              0.35,
+              -0.02
+            ],
+            "rot": [
+              0,
+              15,
+              -12
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0.08,
+              1.05,
+              0
+            ],
+            "to": [
+              0.22,
+              1.8,
+              -0.08
+            ],
+            "tones": [
+              "#8c4314",
+              "#6d300a",
+              "#503329"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.5,
+              6
+            ],
+            "at": [
+              0.22,
+              1.7,
+              -0.08
+            ],
+            "rot": [
+              0,
+              0,
+              -20
+            ],
+            "tones": [
+              "#dfbf84",
+              "#c49f62",
+              "#b08a4f"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              0.8
+            ],
+            "at": [
+              0.04,
+              0.6,
+              0.08
+            ],
+            "tones": [
+              "#ded7cc",
+              "#c7bfb3",
+              "#9c9488"
+            ]
+          }
+        ]
+      },
+      "role": "mass"
+    },
+    {
+      "name": "spiral-tail-fin",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          4,
+          8
+        ]
+      ],
+      "where": "Located in the southwestern fork where the artwork's tail split diverges into sharp sickles.",
+      "shape": {
+        "summary": "A tapered curved sickle-shaped prop echoing the aerodynamic split tines of the swallow's tail.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.3,
+              0.3,
+              0.06
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dfbf84",
+              "#c49f62",
+              "#b08a4f"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.1
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "to": [
+              -0.25,
+              0.85,
+              0.15
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.01,
+              0.6,
+              6
+            ],
+            "at": [
+              -0.25,
+              0.8,
+              0.15
+            ],
+            "rot": [
+              15,
+              0,
+              25
+            ],
+            "tones": [
+              "#8c4314",
+              "#6d300a",
+              "#503329"
+            ]
+          }
+        ]
+      },
+      "role": "approach"
+    },
+    {
+      "name": "calligraphy-curl-arch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.9,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          10,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      "where": "Marking the transition from the mid-belly curve into the figure's focal head terrace.",
+      "shape": {
+        "summary": "An arch of bent umber wood and looped beams forming an open scroll reminiscent of the bird's throat curve.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              1.2,
+              8
+            ],
+            "at": [
+              -0.25,
+              0,
+              0
+            ],
+            "tones": [
+              "#cf7836",
+              "#ad5b22",
+              "#8c4314"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              1.4,
+              8
+            ],
+            "at": [
+              0.25,
+              0,
+              0
+            ],
+            "tones": [
+              "#cf7836",
+              "#ad5b22",
+              "#8c4314"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              -0.25,
+              1.15,
+              0
+            ],
+            "to": [
+              0,
+              1.75,
+              0
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0,
+              1.75,
+              0
+            ],
+            "to": [
+              0.25,
+              1.35,
+              0
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1
+            ],
+            "at": [
+              0,
+              1.85,
+              0
+            ],
+            "tones": [
+              "#e5ad3a",
+              "#c78f26",
+              "#a37117"
+            ]
+          }
+        ]
+      },
+      "role": "threshold"
+    },
+    {
+      "name": "graphite-smudge-boulder",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          6
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          11,
+          7
+        ]
+      ],
+      "where": "Gathered at the inner hollow of the belly curve where tortillon pencil shading clusters in the drawing.",
+      "shape": {
+        "summary": "Low, soft-faceted boulders tinted like smudged tortillon graphite shading.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.45,
+              0.6
+            ],
+            "at": [
+              0,
+              0.25,
+              0
+            ],
+            "tones": [
+              "#ded7cc",
+              "#c7bfb3",
+              "#9c9488"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.28,
+              0.7
+            ],
+            "at": [
+              0.2,
+              0.45,
+              -0.1
+            ],
+            "tones": [
+              "#c7bfb3",
+              "#9c9488",
+              "#736b60"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.2,
+              0.3,
+              0.08
+            ],
+            "at": [
+              -0.15,
+              0.1,
+              0.12
+            ],
+            "tones": [
+              "#9c9488",
+              "#736b60",
+              "#523c33"
+            ]
+          }
+        ]
+      },
+      "role": "detail"
+    },
+    {
+      "name": "perch-dais",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": true,
+      "count": 1,
+      "cells": [
+        [
+          11,
+          4
+        ]
+      ],
+      "where": "Located directly under the focal creature cell, anchoring the culmination of the soaring body curve.",
+      "shape": {
+        "summary": "A stepped circular pedestal carved with swirling concentric spirals.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.46,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#dfbf84",
+              "#c49f62",
+              "#b08a4f"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.34,
+              0.18,
+              8
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "tones": [
+              "#d6cec2",
+              "#ece6dc",
+              "#bcb2a3"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.2,
+              0.08,
+              0.2,
+              0.04
+            ],
+            "at": [
+              0,
+              0.38,
+              0
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          }
+        ]
+      },
+      "role": "dais"
+    }
+  ],
+  "creatures": [
+    {
+      "name": "spiral-swallow",
+      "source": "The calligraphic flying swallow sketched in burnt-umber lines and graphite in IMAGE 1",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "shape": {
+        "summary": "A cute toy swift constructed from swept arcs, a coiled spiral head with a dark pupil bead, and scythe-like swept wings.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.65,
+              0.45,
+              0.12
+            ],
+            "at": [
+              0,
+              0.5,
+              0
+            ],
+            "rot": [
+              -10,
+              0,
+              20
+            ],
+            "tones": [
+              "#dfbf84",
+              "#c49f62",
+              "#b08a4f"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.38,
+              0.95
+            ],
+            "at": [
+              0.25,
+              1.1,
+              0
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.2,
+              0.12,
+              8
+            ],
+            "at": [
+              0.28,
+              1.12,
+              0.22
+            ],
+            "rot": [
+              90,
+              0,
+              0
+            ],
+            "tones": [
+              "#e5ad3a",
+              "#c78f26",
+              "#a37117"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.08,
+              1
+            ],
+            "at": [
+              0.32,
+              1.14,
+              0.27
+            ],
+            "tones": [
+              "#2b2624",
+              "#21130d",
+              "#21130d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0.02,
+              0.35,
+              4
+            ],
+            "at": [
+              0.48,
+              1.15,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -85
+            ],
+            "tones": [
+              "#e5ad3a",
+              "#c78f26",
+              "#a37117"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.1
+            ],
+            "at": [
+              0.05,
+              0.85,
+              -0.15
+            ],
+            "to": [
+              -0.3,
+              1.95,
+              -0.2
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              -0.05,
+              0.8,
+              0.15
+            ],
+            "to": [
+              -0.55,
+              1.7,
+              0.2
+            ],
+            "tones": [
+              "#6a4e42",
+              "#4d352b",
+              "#38231b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              -0.2,
+              0.45,
+              0
+            ],
+            "to": [
+              -0.75,
+              0.15,
+              0.1
+            ],
+            "tones": [
+              "#8c4314",
+              "#6d300a",
+              "#503329"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.2,
+              0.4,
+              0
+            ],
+            "to": [
+              -0.85,
+              -0.15,
+              -0.05
+            ],
+            "tones": [
+              "#8c4314",
+              "#6d300a",
+              "#503329"
+            ]
+          }
+        ]
+      },
+      "pose": "Chunky swallow perched in an aerodynamic bank with wings angled high and an inquisitive coiled eye spiral.",
+      "cell": [
+        12,
+        4
+      ],
+      "facing": "e",
+      "why": "Translates the drawing's rightward aerodynamic flight path into an animated low-poly statue at the apex of the ribbon landmass."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVVRRRVVVVVVVVV",
+      "VVVRRRRRVVVVVVVV",
+      "VVRRRRRRVVVVVVVV",
+      "VVRRGGGGGGGGFFVV",
+      "VVVRGGPPPPGGFVVV",
+      "VVVRGGPPPPGGGVVV",
+      "VPPPGGGGGGGGGVVV",
+      "VPPPGGGGGGVVVVVV",
+      "VVPPPGGVVVVVVVVV",
+      "VVVPPVVVVVVVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0000222000000000",
+      "0002222200000000",
+      "0022222200000000",
+      "0022111111112200",
+      "0002111111112000",
+      "0002111111111000",
+      "0111111111111000",
+      "0111111111000000",
+      "0011111000000000",
+      "0001100000000000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 12,
+      "z": 4,
+      "what": "The spiral swallow figure mounted on the raised head promontory"
+    },
+    "mass": "Visual weight sweeps diagonally from the lower-left tail origin up to the center-right breast and head mass, matching the drawing's diagonal momentum.",
+    "read": "The viewer enters at the narrow forked tail path in the southwest, climbs through the swooping belly curve of the midground, and arrives at the raised eastern promontory crowned by the spiral swallow figure. Clear void surrounds the land ribbon just as blank cream paper frames the bird."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.08,
+      "types": [
+        {
+          "type": "arc-ribbon-pylon",
+          "variant": "0",
+          "weight": 0.7
+        },
+        {
+          "type": "calligraphy-curl-arch",
+          "variant": "0",
+          "weight": 0.3
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.28,
+    "void_share": 0.58,
+    "decor_weights": {
+      "spiral-tail-fin": 0.35,
+      "graphite-smudge-boulder": 0.45,
+      "marker": 0.2
+    },
+    "lighting": {
+      "bg": "#2b2624",
+      "ambient": 0.8,
+      "sun": 0.28,
+      "tint": "#f4ebd9",
+      "notes": "paper white showing through sepia linework: Grounds the scene in high-key paper luminance contrasted against dense burnt-umber outlines."
+    },
+    "rules": [
+      "Keep all edges surrounded by open void cells to preserve the clean silhouette against empty paper.",
+      "Keep water at zero; let void represent unmarked paper ground.",
+      "Confine smudge boulders strictly to the interior curve of the belly valley.",
+      "Place arc pylons along the upper wing ridge to accentuate the upward lift."
+    ],
+    "decor_density": 0.16,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "stone",
+      "path": "dirt",
+      "shore": "sand",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "ANALYSIS.medium (pencil and graphite ribbon marks) and ANALYSIS.composition (dynamic diagonal swoop across negative space)",
+    "place": "A wind-sculpted parchment crest shaped like an airborne swoop",
+    "summary": "A dramatic sweeping ribbon of warm sand and umber rock carved in the likeness of a single calligraphic pencil stroke soaring across void.",
+    "differs": "Unlike vegetative gardens or walled arenas, this layout manifests strictly as an airborne stroke of land floating over boundless void."
+  },
+  "shaper": {
+    "name": "ribbon",
+    "params": {
+      "width": 3,
+      "waves": 1.2,
+      "rise": "arch",
+      "fork": true,
+      "from": "sw"
+    },
+    "why": "Translates the long unbroken aerodynamic contour running from the forked tail through the swooping belly into the raised wing and head."
+  },
+  "surface_mix": {
+    "pattern": "bands",
+    "period": 2.8,
+    "surfaces": [
+      {
+        "s": "sand",
+        "share": 0.55
+      },
+      {
+        "s": "grass",
+        "share": 0.3
+      },
+      {
+        "s": "stone",
+        "share": 0.15
+      }
+    ],
+    "why": "Bands of smooth sand emulate bare paper ground, while muted green grass and stone accents trace the pencil hatchings and shaded contours."
+  },
+  "cliff_treatment": {
+    "style": "sheer",
+    "upper": [
+      "#6a4e42",
+      "#4d352b",
+      "#38231b"
+    ],
+    "lower": [
+      "#523c33",
+      "#3c2921",
+      "#2a1a13"
+    ],
+    "why": "Deep burnt-umber cliffs provide the crisp dark outline edges that define the bird's profile against the pale page."
+  },
+  "lighting": {
+    "time": "paper white showing through sepia linework",
+    "ambient": 0.8,
+    "sun": 0.28,
+    "tint": "#f4ebd9",
+    "bg": "#2b2624",
+    "why": "Grounds the scene in high-key paper luminance contrasted against dense burnt-umber outlines."
+  },
+  "figure_pose": {
+    "pose": "Chunky swallow perched in an aerodynamic bank with wings angled high and an inquisitive coiled eye spiral.",
+    "action": "banking upward",
+    "facing": "right",
+    "why": "Preserves the rapid turning-climb posture described in ANALYSIS.subject."
+  },
+  "approach": {
+    "from": "southwest tail tines",
+    "passes": [
+      "spiral-tail-fin",
+      "graphite-smudge-boulder",
+      "calligraphy-curl-arch",
+      "perch-dais"
+    ],
+    "shape": "A rising, curving arc that sweeps along the belly contour up to the elevated head ridge."
+  },
+  "threshold": {
+    "kind": "A curved arch of looped timber simulating the swallow's throat loop before reaching the dais.",
+    "prop": "calligraphy-curl-arch"
+  },
+  "analysis": "pipeline/seed/analysis/swallow.json",
+  "concept": {
+    "name": "lens-medium",
+    "lens": "medium",
+    "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+  }
+}

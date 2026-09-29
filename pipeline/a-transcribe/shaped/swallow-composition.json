@@ -1,0 +1,1255 @@
+{
+ "source": {
+  "art": "pipeline/seed/swallow.png",
+  "width": 2048,
+  "height": 1536,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "aerodynamic",
+  "calligraphic",
+  "buoyant",
+  "soaring",
+  "coiled",
+  "precise"
+ ],
+ "observations": [
+  {
+   "what": "Circular cranium loop framing an inward-curling spiral eye and pupil",
+   "box": [
+    342,
+    686,
+    528,
+    836
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Sharp triangular beak pointing forward to the upper right",
+   "box": [
+    410,
+    831,
+    468,
+    893
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "High vertical primary wing blade tapering upward toward the top border",
+   "box": [
+    62,
+    482,
+    482,
+    692
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Secondary rear wing spar angled diagonally toward upper-left",
+   "box": [
+    89,
+    210,
+    680,
+    597
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Deeply curved belly contour sweeping down and right in dark burnt-umber",
+   "box": [
+    508,
+    381,
+    843,
+    762
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Forked tail upper tine arching leftward horizontally",
+   "box": [
+    516,
+    42,
+    814,
+    439
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Forked tail lower tine plunging steeply downward in a sickle curve",
+   "box": [
+    602,
+    230,
+    936,
+    360
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Soft graphite smudging and tonal hatching inside the throat and inner breast curve",
+   "box": [
+    478,
+    489,
+    706,
+    708
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Expansive open cream paper background enclosing the avian silhouette",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#bfbeb7",
+    "share": 0.283,
+    "role": "ambient paper tone across upper field"
+   },
+   {
+    "hex": "#c5c5c1",
+    "share": 0.229,
+    "role": "bright paper ground between wing spars"
+   },
+   {
+    "hex": "#b9b6ab",
+    "share": 0.153,
+    "role": "warm cream paper cast in lower field"
+   },
+   {
+    "hex": "#ccccc9",
+    "share": 0.124,
+    "role": "unmarked high-value paper highlights"
+   },
+   {
+    "hex": "#ada89a",
+    "share": 0.1,
+    "role": "light graphite smudging along contours"
+   },
+   {
+    "hex": "#989085",
+    "share": 0.049,
+    "role": "mid-tone graphite hatching beneath wing"
+   },
+   {
+    "hex": "#695b59",
+    "share": 0.036,
+    "role": "soft umber shading along throat"
+   },
+   {
+    "hex": "#3f2723",
+    "share": 0.027,
+    "role": "dense burnt-umber line pigment and pupil"
+   }
+  ],
+  "translation": {
+   "bg": "#2b2320",
+   "grass": {
+    "top": "#8ac967",
+    "fringe": "#73aa4f",
+    "fringeDark": "#59873d",
+    "speck": "#aae26c"
+   },
+   "sand": {
+    "top": "#f1cd52",
+    "lip": "#dd9200",
+    "edge": "#f1b900",
+    "dots": "#ffe082"
+   },
+   "dirt": {
+    "top": "#d49a6a",
+    "patch": "#c58757",
+    "mottle": "#b17243",
+    "border": "#8e5732"
+   },
+   "stone": {
+    "top": "#d6cec2",
+    "pebble": "#ede6da",
+    "pebbleShade": "#c2b8aa",
+    "rim": "#aba091"
+   },
+   "cliffUpper": {
+    "left": "#a85c3b",
+    "right": "#884326",
+    "seam": "#68311a"
+   },
+   "cliffLower": {
+    "left": "#6f3e2e",
+    "right": "#542a1d",
+    "seam": "#3f1c13",
+    "speck": "#884326"
+   },
+   "water": {
+    "top": "#7ae5f5",
+    "bubble": "#c8f6fc",
+    "deep": "#00b4d8",
+    "fall": [
+     "#00b4d8",
+     "#0096c7",
+     "#0077b6"
+    ],
+    "foam": "#e0faff"
+   },
+   "wood": {
+    "light": "#ff831d",
+    "mid": "#dc7016",
+    "dark": "#bd4c0b",
+    "shadow": "#8d3606",
+    "end": "#f6d881"
+   },
+   "treeMint": [
+    "#68e09e",
+    "#5ac389",
+    "#44a46b"
+   ],
+   "treeLime": [
+    "#c4ef86",
+    "#8ce263",
+    "#73aa4f"
+   ],
+   "treeLeaf": [
+    "#8ce263",
+    "#64c960",
+    "#50ab46"
+   ],
+   "treeTeal": [
+    "#00ffbf",
+    "#00e09b",
+    "#00c386",
+    "#00a568"
+   ],
+   "treeGold": [
+    "#f1cd52",
+    "#f1b900",
+    "#dd9200"
+   ],
+   "trunk": [
+    "#8c4d3b",
+    "#6b3628"
+   ],
+   "rock": [
+    "#e3e3e3",
+    "#d4d4d4",
+    "#ababab",
+    "#8f8f8f"
+   ],
+   "wellStone": [
+    "#dbc9a2",
+    "#c7b693",
+    "#b1a483"
+   ],
+   "flowerOrange": [
+    "#ff831d",
+    "#f1b900"
+   ],
+   "berry": [
+    "#fe738f",
+    "#f45f7d"
+   ],
+   "bushTeal": [
+    "#8fffc2",
+    "#68e09e",
+    "#5ac389"
+   ],
+   "gold": [
+    "#f1b900",
+    "#dd9200",
+    "#ffe082"
+   ]
+  },
+  "notes": "Translates the stark burnt-umber and vellum drawing into saturated pack colors: warm golden sand dominates the broad body sweep, accented by deep umber wood and copper cliff tiers against a dark charcoal void."
+ },
+ "motifs": [
+  {
+   "name": "calligraphy-crest-spine",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.6,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     5,
+     2
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     8,
+     1
+    ]
+   ],
+   "where": "Stands tall along the northern elevated ridge to mirror the vertical lift of the scissor-like primary wing blades.",
+   "role": "mass",
+   "shape": {
+    "summary": "A tall, tapering cedar blade structure formed from stacked angled beams resembling primary flight feathers.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.24,
+       1.2,
+       0.24
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.12
+      ],
+      "at": [
+       0,
+       1.2,
+       0
+      ],
+      "to": [
+       0.1,
+       2.6,
+       -0.1
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.18,
+       0.6,
+       0.18,
+       0.05
+      ],
+      "at": [
+       -0.08,
+       0.8,
+       0.05
+      ],
+      "tones": [
+       "#f6d881",
+       "#dc7016",
+       "#a04b14"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.8,
+       6
+      ],
+      "at": [
+       0.05,
+       1.8,
+       -0.05
+      ],
+      "tones": [
+       "#f1cd52",
+       "#f1b900",
+       "#dd9200"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.1,
+       1
+      ],
+      "at": [
+       0.1,
+       2.55,
+       -0.1
+      ],
+      "tones": [
+       "#ffe082",
+       "#f1b900",
+       "#dd9200"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "swept-wing-rib",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     4,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "where": "Positions along the north-west wing shoulder replicating the secondary wing spar.",
+   "role": "approach",
+   "shape": {
+    "summary": "An angled aerodynamic rib of curved wooden spars braced with golden pins.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.14,
+       0.8,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       0,
+       0.7,
+       0
+      ],
+      "to": [
+       -0.3,
+       1.7,
+       -0.15
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.2,
+       1.2,
+       -0.1
+      ],
+      "tones": [
+       "#f1cd52",
+       "#f1b900",
+       "#dd9200"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.08,
+       0.8
+      ],
+      "at": [
+       0,
+       0.8,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#f1b900",
+       "#dd9200"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "scythe-tail-tine",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     2,
+     7
+    ],
+    [
+     3,
+     8
+    ]
+   ],
+   "where": "Anchors the south-western tail terminus where the swallow's sickle tail prongs diverge.",
+   "role": "detail",
+   "shape": {
+    "summary": "A curved wooden bollard with an arching sickle fin trailing toward the void.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.2,
+       0.7,
+       0.2
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "to": [
+       -0.35,
+       1.3,
+       0.2
+      ],
+      "tones": [
+       "#dc7016",
+       "#bd4c0b",
+       "#8d3606"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.14,
+       0.3,
+       0.14,
+       0.05
+      ],
+      "at": [
+       0,
+       0.65,
+       0
+      ],
+      "tones": [
+       "#f6d881",
+       "#dc7016",
+       "#a04b14"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "spiral-scroll-threshold",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.6,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     12,
+     4
+    ]
+   ],
+   "where": "Marks the entrance to the focal cranium platform at the swallow's throat loop.",
+   "role": "threshold",
+   "shape": {
+    "summary": "A spiraling coiled gateway of bent timber simulating the inward eye-whorl contour.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       1.1,
+       8
+      ],
+      "at": [
+       0.2,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       1.1,
+       8
+      ],
+      "at": [
+       -0.2,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       -0.2,
+       1,
+       0
+      ],
+      "to": [
+       0,
+       1.5,
+       0
+      ],
+      "tones": [
+       "#f6d881",
+       "#dc7016",
+       "#a04b14"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       0,
+       1.5,
+       0
+      ],
+      "to": [
+       0.2,
+       1,
+       0
+      ],
+      "tones": [
+       "#f6d881",
+       "#dc7016",
+       "#a04b14"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       1
+      ],
+      "at": [
+       0,
+       1.3,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#f1b900",
+       "#dd9200"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "graphite-hatch-marker",
+   "type": "marker",
+   "variant_of": "marker",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.08,
+   "passable": true,
+   "count": 3,
+   "cells": [
+    [
+     8,
+     6
+    ],
+    [
+     9,
+     6
+    ],
+    [
+     10,
+     6
+    ]
+   ],
+   "where": "Lies along the interior belly curve recalling directional graphite hatching.",
+   "role": "detail",
+   "shape": {
+    "summary": "Thin stone hatching slates embedded flush with the sand surface.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.06,
+       0.4,
+       0.05
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ede6da",
+       "#d6cec2",
+       "#aba091"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.08,
+       0.2,
+       0.05
+      ],
+      "at": [
+       0.05,
+       0.03,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#ede6da",
+       "#c2b8aa"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "umber-contour-beam",
+   "type": "fence",
+   "variant_of": "fence",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     8,
+     7
+    ],
+    [
+     9,
+     7
+    ]
+   ],
+   "where": "Edges the lower breast cliff reflecting the crisp dark outer contour.",
+   "role": "detail",
+   "shape": {
+    "summary": "Two chunky wooden posts strung with a taut orange rail.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.75,
+       8
+      ],
+      "at": [
+       -0.35,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.75,
+       8
+      ],
+      "at": [
+       0.35,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       -0.35,
+       0.5,
+       0
+      ],
+      "to": [
+       0.35,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#f6d881",
+       "#dc7016",
+       "#a04b14"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "The Swallow Ascendant",
+   "source": "The calligraphic swallow in aerodynamic flight in IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.2,
+   "shape": {
+    "summary": "A stylized low-poly swallow totem with an arched breast, swept wing fins, sharp beak, and coiled spiral eye.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.9,
+       0.7,
+       0.8,
+       0.15
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.45,
+       0.9
+      ],
+      "at": [
+       0.3,
+       1.1,
+       0
+      ],
+      "tones": [
+       "#f6d881",
+       "#f1b900",
+       "#dd9200"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.15,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       0.7,
+       1.1,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -90
+      ],
+      "tones": [
+       "#ffe082",
+       "#f1b900",
+       "#dd9200"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.06,
+       8
+      ],
+      "at": [
+       0.45,
+       1.2,
+       0.3
+      ],
+      "rot": [
+       90,
+       0,
+       0
+      ],
+      "tones": [
+       "#3f2723",
+       "#695b59",
+       "#3f2723"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.2,
+       0.8,
+       0.3
+      ],
+      "to": [
+       -0.7,
+       2,
+       0.5
+      ],
+      "tones": [
+       "#dc7016",
+       "#bd4c0b",
+       "#8d3606"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.2,
+       0.8,
+       -0.3
+      ],
+      "to": [
+       -0.7,
+       2,
+       -0.5
+      ],
+      "tones": [
+       "#dc7016",
+       "#bd4c0b",
+       "#8d3606"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.05,
+       0.9,
+       6
+      ],
+      "at": [
+       -0.6,
+       0.4,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       60
+      ],
+      "tones": [
+       "#bd4c0b",
+       "#8d3606",
+       "#542a1d"
+      ]
+     }
+    ]
+   },
+   "pose": "Poised on a raised circular dais with arched amber breast and wings pitched back in dynamic flight.",
+   "cell": [
+    10,
+    4
+   ],
+   "facing": "e",
+   "why": "Directly embodies the aerodynamic swallow figure banking hard toward the right."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVVVGPPPPPPVV",
+   "VVVVGGPPPGGGGPPV",
+   "VVVGGGPGGRRRRRGV",
+   "VVGGGPGGRRFFRRGV",
+   "VVGGGPGGRPFFRRGV",
+   "VVGGGPGGRPPRRRPV",
+   "VVGGGPGGRRPPPPPV",
+   "VVVGGGPGGRRRRRGV",
+   "VVVVGGGPGGRRRGVV",
+   "VVVVVVGGGGGGGGVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000000111111100",
+   "0000111111111210",
+   "0001111112222210",
+   "0011111123333210",
+   "0011111123333210",
+   "0011111123333210",
+   "0011111123332210",
+   "0001111112332210",
+   "0000111111222100",
+   "0000001111111100",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 10,
+   "z": 4,
+   "what": "The Swallow Ascendant"
+  },
+  "mass": "Concentrates strongly in the center-right and upper-center where the elevated wings and cranium dais overlook the curving body.",
+  "read": "The viewer enters at the lower-left tail tine, follows the wide sandy arc of the belly sweep upward and rightward, passes through the threshold arch, and arrives at the raised focal head dais.",
+  "shaped": {
+   "name": "spiral",
+   "params": {
+    "turns": 1.25,
+    "center": [
+     0.75,
+     0.45
+    ],
+    "climb": "in",
+    "hand": "cw"
+   },
+   "seed": 1,
+   "start": [
+    7,
+    9
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVVVTRRVVVVVV",
+    "VVVTTRRRRRRVVVVV",
+    "VVVTRRRRGGGGVVVV",
+    "VVVVGGGGGGGGFFPV",
+    "VVVVGGGGGGGGFFPV",
+    "VTTGGGGGGGGGGTVV",
+    "VGPGGGGGGGGGTVVV",
+    "VVVVGGGGGGGGVVVV",
+    "VVVPGGGGGGVVVVVV",
+    "VVTGGGGGVVVVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.12,
+   "types": [
+    {
+     "type": "calligraphy-crest-spine",
+     "variant": "default",
+     "weight": 0.5
+    },
+    {
+     "type": "swept-wing-rib",
+     "variant": "default",
+     "weight": 0.5
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.48,
+  "decor_weights": {
+   "graphite-hatch-marker": 0.5,
+   "umber-contour-beam": 0.3,
+   "scythe-tail-tine": 0.2
+  },
+  "lighting": {
+   "bg": "#4f382f",
+   "ambient": 0.82,
+   "sun": 0.28,
+   "tint": "#fcf5e8",
+   "notes": "burnt-umber graphite haze across cream vellum: Reflects the high-key cream paper background (#bfbeb7 to #ccccc9) contrasted with dense burnt-umber outlines (#3f2723)."
+  },
+  "rules": [
+   "Keep the central belly floor wide and unobstructed to preserve the aerodynamic sweep.",
+   "Cluster tall wing spines strictly along the highest northern plateau ridge.",
+   "Place contour fences along southern cliff drops to mark the drawing's outer boundary.",
+   "Leave surrounding void open to emulate unpainted drawing paper."
+  ],
+  "decor_density": 0.1,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "sand",
+   "path": "dirt",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "Translates the sweeping aerodynamic contours and spiral eye vortex of the swallow directly into an elevated spiral flyway plateau.",
+  "place": "An aerodynamic updraft roost and wind-sculpted ridge overlooking open void.",
+  "summary": "The landform mimics the continuous calligraphic curve of a banked swallow, climbing inward along a coiled ridge toward the spiral head dais.",
+  "differs": "Unlike the parchment ribbon of the medium reading or the masonry flyway of the subject reading, this level sculpts the entire island as a winding stepped updraft spire coiled tightly into the focal head spiral.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took sand/dirt",
+   "lighting.bg #2b2320->#4f382f"
+  ]
+ },
+ "shaper": {
+  "name": "spiral",
+  "params": {
+   "turns": 1.25,
+   "center": [
+    0.75,
+    0.45
+   ],
+   "climb": "in",
+   "hand": "cw"
+  },
+  "why": "Transcribes the swallow's primary gestural line curling from the sweeping tail through the buoyant belly curve inward into the eye spiral at the head."
+ },
+ "surface_mix": {
+  "pattern": "rings",
+  "period": 3,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.15
+   },
+   {
+    "s": "dirt",
+    "share": 0.3
+   },
+   {
+    "s": "grass",
+    "share": 0.55
+   }
+  ],
+  "why": "Rings of warm ochre sand simulate paper highlights along the outer flight paths, banding with dirt and subtle green fringes toward the ridge."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#a85c3b",
+   "#884326",
+   "#68311a"
+  ],
+  "lower": [
+   "#6f3e2e",
+   "#542a1d",
+   "#3f1c13"
+  ],
+  "why": "Stepped terraced cliffs reflect the crisp tiered pencil strokes that define the swallow's silhouette."
+ },
+ "lighting": {
+  "time": "burnt-umber graphite haze across cream vellum",
+  "ambient": 0.82,
+  "sun": 0.28,
+  "tint": "#fcf5e8",
+  "bg": "#4f382f",
+  "why": "Reflects the high-key cream paper background (#bfbeb7 to #ccccc9) contrasted with dense burnt-umber outlines (#3f2723)."
+ },
+ "figure_pose": {
+  "pose": "Poised on a raised circular dais with arched amber breast and wings pitched back in dynamic flight.",
+  "action": "banking upward",
+  "facing": "right",
+  "why": "Replicates the swallow's sharp bank toward the right border as observed in IMAGE 1."
+ },
+ "approach": {
+  "from": "south-west lower tail tine at [2,10]",
+  "passes": [
+   "the scythe-tail-tine markers at the lower cusp",
+   "the sweeping belly terrace lined with umber-contour-beams",
+   "the graphite-hatch-marker flagstones across the breast",
+   "the spiral-scroll-threshold at [14,4]"
+  ],
+  "shape": "A rising counter-clockwise curve climbing along the swallow's belly contour up to the perched head dais."
+ },
+ "threshold": {
+  "kind": "A curled spiral portal of bent umber timber framing the transition into the swallow's elevated cranium dais.",
+  "prop": "spiral-scroll-threshold"
+ },
+ "analysis": "pipeline/seed/analysis/swallow.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}

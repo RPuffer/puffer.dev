@@ -1,0 +1,1252 @@
+{
+  "source": {
+    "art": "pipeline/seed/wizard.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "culinary",
+    "mystic",
+    "satirical",
+    "whimsical",
+    "aromatic",
+    "deadpan"
+  ],
+  "observations": [
+    {
+      "what": "A central standing hot dog frankfurter character wearing an oversized pointed wizard hat and high-collared wizard robe",
+      "box": [
+        257,
+        237,
+        922,
+        699
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Curved navy blue conical wizard hat tipped with a bend to the left and decorated with pale yellow star symbols",
+      "box": [
+        257,
+        330,
+        381,
+        663
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Broad white stand-up collar wrapping around the sausage neck like a starched ruff",
+      "box": [
+        428,
+        347,
+        630,
+        592
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "A hovering blue magical fire conjured above the outstretched right sausage hand",
+      "box": [
+        510,
+        241,
+        608,
+        307
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Gnarled wooden walking staff gripped in the left hand reaching down to the floor",
+      "box": [
+        418,
+        636,
+        804,
+        701
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Spindly frankfurter-casing legs with small rounded feet supporting the weight",
+      "box": [
+        709,
+        396,
+        921,
+        595
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Deep blue wizard cloak billowing with star patterns and flared sleeves",
+      "box": [
+        486,
+        305,
+        856,
+        701
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Minimalist facial features consisting of two pinhole dot eyes and a sideways-three pursed mouth",
+      "box": [
+        410,
+        423,
+        448,
+        477
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Hand-inked brush lettering reading 'you're A Glizard 'ARRY' flanking the hat apex",
+      "box": [
+        121,
+        169,
+        298,
+        816
+      ],
+      "maps_to": "P"
+    },
+    {
+      "what": "Expansive open void surrounding the character on an unshaded plain",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "G"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ffffff",
+        "share": 0.835,
+        "role": "blank background ground and white inner lining of the high standing collar"
+      },
+      {
+        "hex": "#122346",
+        "share": 0.063,
+        "role": "deep navy blue base of the wizard robe and conical pointed hat"
+      },
+      {
+        "hex": "#644b48",
+        "share": 0.026,
+        "role": "dark shadow tone on the underside of the sausage body and wood grain crevices"
+      },
+      {
+        "hex": "#c2674e",
+        "share": 0.025,
+        "role": "warm cooked-meat reddish-brown local tone of the sausage body, arms, and spindly legs"
+      },
+      {
+        "hex": "#7f878b",
+        "share": 0.015,
+        "role": "anti-aliased edge transition pixels between black lettering/outlines and the white ground"
+      },
+      {
+        "hex": "#f6f7f7",
+        "share": 0.014,
+        "role": "near-white anti-aliasing boundary around the white robe collar against the white background"
+      },
+      {
+        "hex": "#b4b7b8",
+        "share": 0.012,
+        "role": "mid-light grey anti-aliasing along fine black linework"
+      },
+      {
+        "hex": "#dbdede",
+        "share": 0.01,
+        "role": "light grey transitional anti-aliased edge pixels"
+      }
+    ],
+    "translation": {
+      "bg": "#2b1812",
+      "grass": {
+        "top": "#8bc34a",
+        "fringe": "#689f38",
+        "fringeDark": "#558b2f",
+        "speck": "#aed581"
+      },
+      "sand": {
+        "top": "#f4c41e",
+        "lip": "#dd9200",
+        "edge": "#f1b900",
+        "dots": "#f1cd52"
+      },
+      "dirt": {
+        "top": "#d48b54",
+        "patch": "#b8703a",
+        "mottle": "#9e5c2d",
+        "border": "#80451e"
+      },
+      "stone": {
+        "top": "#cbbba0",
+        "pebble": "#e2d7c5",
+        "pebbleShade": "#b2a288",
+        "rim": "#9e8e74"
+      },
+      "cliffUpper": {
+        "left": "#a85c40",
+        "right": "#87442d",
+        "seam": "#6a311e"
+      },
+      "cliffLower": {
+        "left": "#783b27",
+        "right": "#5a2717",
+        "seam": "#441a0e",
+        "speck": "#34130a"
+      },
+      "water": {
+        "top": "#5ce1e6",
+        "bubble": "#bbf2f5",
+        "deep": "#0097a7",
+        "fall": [
+          "#00acc1",
+          "#0097a7",
+          "#00838f"
+        ],
+        "foam": "#e0f7fa"
+      },
+      "wood": {
+        "light": "#d97736",
+        "mid": "#b85c22",
+        "dark": "#944514",
+        "shadow": "#6d300c",
+        "end": "#f3c082"
+      },
+      "treeMint": [
+        "#68e09e",
+        "#5ac389",
+        "#44a46b"
+      ],
+      "treeLime": [
+        "#c4ef86",
+        "#8ce263",
+        "#73aa4f"
+      ],
+      "treeLeaf": [
+        "#8ce263",
+        "#64c960",
+        "#50ab46"
+      ],
+      "treeTeal": [
+        "#00ffbf",
+        "#00e09b",
+        "#00c386",
+        "#00a568"
+      ],
+      "treeGold": [
+        "#f1cd52",
+        "#f1b900",
+        "#dd9200"
+      ],
+      "trunk": [
+        "#94523e",
+        "#753d2d"
+      ],
+      "rock": [
+        "#ded6cc",
+        "#c5bbb0",
+        "#a89e93",
+        "#8a8076"
+      ],
+      "wellStone": [
+        "#dbc9a2",
+        "#c7b693",
+        "#b1a483"
+      ],
+      "flowerOrange": [
+        "#ff831d",
+        "#f1b900"
+      ],
+      "berry": [
+        "#fe738f",
+        "#f45f7d"
+      ],
+      "bushTeal": [
+        "#8fffc2",
+        "#68e09e",
+        "#5ac389"
+      ],
+      "gold": [
+        "#f1cd52",
+        "#f1b900",
+        "#dd9200"
+      ]
+    },
+    "notes": "The palette pulls from cooked sausage terracottas, spicy mustard ochres, and warm brick cellar soot, punctuated by mystical witch-cyan flame."
+  },
+  "motifs": [
+    {
+      "name": "mustard-vat",
+      "type": "new",
+      "variant_of": null,
+      "role": "mass",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          2
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          6
+        ]
+      ],
+      "where": "Placed along the cellar wall ledges representing brewing alchemy vats filled with pungent golden condiment potions.",
+      "shape": {
+        "summary": "A rounded wooden coopered cauldron barrel brimmed with thick bubbling golden-yellow mustard brew.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.44,
+              0.85,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d97736",
+              "#b85c22",
+              "#944514"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.46,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#8a8076",
+              "#6f6f6f",
+              "#555555"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.05,
+              8
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#f1b900"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              0.8
+            ],
+            "at": [
+              0.1,
+              0.88,
+              -0.05
+            ],
+            "tones": [
+              "#f1cd52",
+              "#f4c41e",
+              "#dd9200"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.09,
+              0.8
+            ],
+            "at": [
+              -0.12,
+              0.86,
+              0.08
+            ],
+            "tones": [
+              "#f1cd52",
+              "#f4c41e",
+              "#dd9200"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bun-arch-gate",
+      "type": "new",
+      "variant_of": null,
+      "role": "threshold",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "passable": true,
+      "count": 2,
+      "cells": [
+        [
+          10,
+          9
+        ],
+        [
+          11,
+          9
+        ]
+      ],
+      "where": "Guards the entry stairs from the southeast into the sunken kitchen cellar sanctuary.",
+      "shape": {
+        "summary": "Twin pillowed golden brioche loaf pillars forming a threshold gate sprinkled with sesame seed markers.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.42,
+              1.6,
+              0.42,
+              0.14
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#f3c082",
+              "#d48b54",
+              "#9e5c2d"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.26,
+              0.85
+            ],
+            "at": [
+              0,
+              1.7,
+              0
+            ],
+            "tones": [
+              "#f3c082",
+              "#b8703a",
+              "#80451e"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.08,
+              0.05,
+              0.12
+            ],
+            "at": [
+              0.08,
+              1.85,
+              0.04
+            ],
+            "rot": [
+              0,
+              25,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e2d7c5",
+              "#c5bbb0"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.08,
+              0.05,
+              0.12
+            ],
+            "at": [
+              -0.08,
+              1.83,
+              -0.05
+            ],
+            "rot": [
+              0,
+              -30,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e2d7c5",
+              "#c5bbb0"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sausage-link-rack",
+      "type": "new",
+      "variant_of": null,
+      "role": "detail",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.7,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "where": "Hung along the perimeter walls where the apprentice mages cure their charcuterie talismans.",
+      "shape": {
+        "summary": "A wooden T-trellis rack supporting festoons of hanging cured link sausages.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.08,
+              1.6,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d97736",
+              "#b85c22",
+              "#944514"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.8,
+              0.08,
+              0.08
+            ],
+            "at": [
+              0,
+              1.45,
+              0
+            ],
+            "tones": [
+              "#d97736",
+              "#b85c22",
+              "#944514"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.16,
+              0.4,
+              0.16,
+              0.06
+            ],
+            "at": [
+              -0.24,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#c2674e",
+              "#a85c40",
+              "#783b27"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.16,
+              0.4,
+              0.16,
+              0.06
+            ],
+            "at": [
+              0.24,
+              0.95,
+              0
+            ],
+            "tones": [
+              "#c2674e",
+              "#a85c40",
+              "#783b27"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.03
+            ],
+            "at": [
+              -0.24,
+              1.45,
+              0
+            ],
+            "to": [
+              -0.24,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#f6d881",
+              "#dcc070",
+              "#b2a288"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.03
+            ],
+            "at": [
+              0.24,
+              1.45,
+              0
+            ],
+            "to": [
+              0.24,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#f6d881",
+              "#dcc070",
+              "#b2a288"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blue-flame-brazier",
+      "type": "new",
+      "variant_of": null,
+      "role": "light",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.5,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          5,
+          5
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "where": "Flanks the central summoning hearth where the hot dog wizard casts his levitating flame spell.",
+      "shape": {
+        "summary": "A stone alchemical tripod bowl holding a hovering, cold cyan sorcery flame.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.65,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c5bbb0",
+              "#a89e93",
+              "#8a8076"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.4,
+              0.2,
+              8
+            ],
+            "at": [
+              0,
+              0.65,
+              0
+            ],
+            "tones": [
+              "#ded6cc",
+              "#c5bbb0",
+              "#8a8076"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.02,
+              0.45,
+              6
+            ],
+            "at": [
+              0,
+              0.85,
+              0
+            ],
+            "tones": [
+              "#bbf2f5",
+              "#5ce1e6",
+              "#0097a7"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.1,
+              0.01,
+              0.28,
+              6
+            ],
+            "at": [
+              0,
+              1.05,
+              0
+            ],
+            "tones": [
+              "#e0f7fa",
+              "#bbf2f5",
+              "#5ce1e6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "salt-crock-stack",
+      "type": "pot",
+      "variant_of": "pot",
+      "role": "approach",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          8,
+          8
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          10,
+          7
+        ]
+      ],
+      "where": "Clustered along the inward cellar stairs where curing seasonings are stockpiled.",
+      "shape": {
+        "summary": "Chunky terracotta seasoning pots sealed with wax tops.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d48b54",
+              "#b8703a",
+              "#9e5c2d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.25,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#f4c41e",
+              "#dd9200",
+              "#b85c22"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.1,
+              0.8
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#ded6cc",
+              "#c5bbb0"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "glizard-the-charcuterie-mage",
+      "source": "The hot dog wizard character standing at center holding a staff and floating cyan fire",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.4,
+      "shape": {
+        "summary": "A smooth reddish frankfurter wizard upright on toothpick legs, wrapped in a blue star robe with tall collar, brandishing a knobby wand.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.04,
+              0.45,
+              6
+            ],
+            "at": [
+              -0.12,
+              0,
+              0
+            ],
+            "tones": [
+              "#c2674e",
+              "#a85c40",
+              "#783b27"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.04,
+              0.45,
+              6
+            ],
+            "at": [
+              0.12,
+              0,
+              0
+            ],
+            "tones": [
+              "#c2674e",
+              "#a85c40",
+              "#783b27"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.34,
+              1.1,
+              0.3,
+              0.12
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#c2674e",
+              "#a85c40",
+              "#783b27"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.28,
+              0.95,
+              8
+            ],
+            "at": [
+              0,
+              0.4,
+              -0.02
+            ],
+            "tones": [
+              "#2a3e6d",
+              "#122346",
+              "#0c1730"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.36,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              1.25,
+              0.02
+            ],
+            "tones": [
+              "#ffffff",
+              "#ded6cc",
+              "#b4b7b8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.48,
+              0.02,
+              0.65,
+              8
+            ],
+            "at": [
+              0,
+              1.55,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -8
+            ],
+            "tones": [
+              "#2a3e6d",
+              "#122346",
+              "#0c1730"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.52,
+              0.06,
+              8
+            ],
+            "at": [
+              0,
+              1.52,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -8
+            ],
+            "tones": [
+              "#2a3e6d",
+              "#122346",
+              "#0c1730"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.035
+            ],
+            "at": [
+              0.22,
+              0.9,
+              0
+            ],
+            "to": [
+              0.38,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#d97736",
+              "#b85c22",
+              "#944514"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.035
+            ],
+            "at": [
+              -0.18,
+              0.95,
+              0
+            ],
+            "to": [
+              -0.34,
+              0.95,
+              0.15
+            ],
+            "tones": [
+              "#c2674e",
+              "#a85c40",
+              "#783b27"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.08,
+              0.01,
+              0.2,
+              6
+            ],
+            "at": [
+              -0.34,
+              1.05,
+              0.15
+            ],
+            "tones": [
+              "#bbf2f5",
+              "#5ce1e6",
+              "#0097a7"
+            ]
+          }
+        ]
+      },
+      "pose": "Stands upright in high collar and pointed hat with open left hand levitating cyan witchfire and right hand grasping an arched gnarled staff.",
+      "cell": [
+        6,
+        5
+      ],
+      "facing": "w",
+      "why": "Faithfully renders the comedic posture from the artwork where the frankfurter proves his wizard lineage."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VRRRRRRRRRRRRRRV",
+      "VRTTGGGGGGGGTTRV",
+      "VRGGGGGGGGGGGGRV",
+      "VRTGGGGGGGGGGTRV",
+      "VRGGTGFPTGGGGGRV",
+      "VRTGGGGGGGGGGTRV",
+      "VRGGGGGGGGGTTGRV",
+      "VRGGGGGGPTTTGGRV",
+      "VRRRRRRPPPRRRRRV",
+      "VRRRRRRPPPRRRRRV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0333333333333330",
+      "0322222222222230",
+      "0321111111112230",
+      "0321111111112230",
+      "0321111111112230",
+      "0321111111112230",
+      "0321111111112230",
+      "0321111111222230",
+      "0333332222333330",
+      "0333332112333330",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 6,
+      "z": 5,
+      "what": "Glizard the sausage mage hovering blue flame at the cellar hearth center"
+    },
+    "mass": "Visual weight concentrates in the high encircling cellar walls to the north and the upright wizard figure at dead center.",
+    "read": "The eye enters from the southeast opening between bun pillars, steps down into the sunken alchemical chamber, passes barrels and seasoning crocks, and stops directly on Glizard holding his blue flame."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.08,
+      "types": [
+        {
+          "type": "sausage-link-rack",
+          "variant": "default",
+          "weight": 0.6
+        },
+        {
+          "type": "mustard-vat",
+          "variant": "default",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.45,
+    "void_share": 0.22,
+    "decor_weights": {
+      "salt-crock-stack": 0.5,
+      "blue-flame-brazier": 0.3,
+      "marker": 0.2
+    },
+    "lighting": {
+      "bg": "#2b1812",
+      "ambient": 0.72,
+      "sun": 0.28,
+      "tint": "#ffc285",
+      "notes": "simmering hearth-soot and cold witch-spark brilliance: Translates the stark contrast between the black text ink and the white background into a rich warm-toned alchemy den illuminated by tallow lamps and mystic cyan flame."
+    },
+    "rules": [
+      "Keep vats and racks along high tier 2 and tier 3 ledge cells against the dark cellar rim.",
+      "Central hearth floor is wide and open for the spellcasting performance.",
+      "Place blue braziers symmetrically on both sides of the focal mage.",
+      "Keep the entrance stair descending cleanly from row 10 to row 8."
+    ],
+    "decor_density": 0.16,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "subject and story",
+    "place": "A subterranean mustard-brewing cellar and charcuterie alchemy sanctum beneath a fantasy greasy-spoon inn.",
+    "summary": "A tiered brickwork cellar hollow where a wizard hot dog conjures blue fire amidst vats of fermented mustard and drying links of sausage kin.",
+    "differs": "Replaces abstract ink ribbons with a concrete narrative habitat: a pungent alchemical cookhouse cellar built from mustard, brioche buns, and curing racks."
+  },
+  "shaper": {
+    "name": "basin",
+    "params": {
+      "floor": 1,
+      "wall": 3,
+      "open": "se",
+      "pool": false,
+      "focal": "floor"
+    },
+    "why": "The basin creates an enclosed culinary cellar bowl that frames the deadpan wizard performing his trial spell on the sunken flagstone floor."
+  },
+  "surface_mix": {
+    "pattern": "patches",
+    "period": 2.5,
+    "surfaces": [
+      {
+        "s": "dirt",
+        "share": 0.5
+      },
+      {
+        "s": "sand",
+        "share": 0.35
+      },
+      {
+        "s": "stone",
+        "share": 0.15
+      }
+    ],
+    "why": "Represents the earthen cellar floor spattered with yellow mustard powder stains and edged with rough-hewn stone pavers."
+  },
+  "cliff_treatment": {
+    "style": "stepped",
+    "upper": [
+      "#a85c40",
+      "#87442d",
+      "#6a311e"
+    ],
+    "lower": [
+      "#783b27",
+      "#5a2717",
+      "#441a0e"
+    ],
+    "why": "Stepped warm red-brown cliff walls mimic stacked cellar masonry and charcuterie smokehouse brickwork."
+  },
+  "lighting": {
+    "time": "simmering hearth-soot and cold witch-spark brilliance",
+    "ambient": 0.72,
+    "sun": 0.28,
+    "tint": "#ffc285",
+    "bg": "#2b1812",
+    "why": "Translates the stark contrast between the black text ink and the white background into a rich warm-toned alchemy den illuminated by tallow lamps and mystic cyan flame."
+  },
+  "figure_pose": {
+    "pose": "Stands upright in high collar and pointed hat with open left hand levitating cyan witchfire and right hand grasping an arched gnarled staff.",
+    "action": "conjuring proof flame",
+    "facing": "left",
+    "why": "Directly embodies ANALYSIS.subject.doing, capturing the exact moment Glizard tests his magic to prove his wizard identity."
+  },
+  "approach": {
+    "from": "southeast rim stairs",
+    "passes": [
+      "bun-arch-gate",
+      "salt-crock-stack",
+      "blue-flame-brazier",
+      "glizard-the-charcuterie-mage"
+    ],
+    "shape": "Descends downward three stone tiers into the sunken kitchen cellar before stepping into the central ritual space."
+  },
+  "threshold": {
+    "kind": "Twin golden brioche bun pillars topped with sesame flecks demarcating the descent into the wizard's cookhouse sanctuary.",
+    "prop": "bun-arch-gate"
+  },
+  "analysis": "pipeline/seed/analysis/wizard.json",
+  "concept": {
+    "name": "lens-subject",
+    "lens": "subject",
+    "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+  }
+}

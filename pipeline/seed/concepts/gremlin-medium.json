@@ -1,0 +1,1477 @@
+{
+  "source": {
+    "art": "pipeline/seed/gremlin.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "clinical",
+    "anatomical",
+    "speculative",
+    "poised",
+    "chiseled",
+    "sterile"
+  ],
+  "observations": [
+    {
+      "what": "Featureless smooth white oval head lacking facial features, tilted forward on a slender neck",
+      "box": [
+        218,
+        288,
+        480,
+        488
+      ],
+      "maps_to": "creature faceless head"
+    },
+    {
+      "what": "Arched dorsal conduit with winding ring segments looping high over the creature's crown",
+      "box": [
+        70,
+        390,
+        240,
+        730
+      ],
+      "maps_to": "motif ribbed-conduit-arch"
+    },
+    {
+      "what": "Tri-vaned fin or ribbed collar junction splitting the overhead cable at the apex of the arc",
+      "box": [
+        48,
+        400,
+        150,
+        735
+      ],
+      "maps_to": "motif fin-junction-pylon"
+    },
+    {
+      "what": "Secondary pencil study of an everted toothed funnel maw emerging from an armored sheath in the upper right",
+      "box": [
+        95,
+        650,
+        360,
+        975
+      ],
+      "maps_to": "creature everted-maw-drone"
+    },
+    {
+      "what": "Articulated mechanical sensor claw hanging above the hand to scan or grasp the held object",
+      "box": [
+        160,
+        115,
+        425,
+        385
+      ],
+      "maps_to": "motif sensor-crane-perch"
+    },
+    {
+      "what": "Completely blank, unshaded circular disc held steady inside the curled fingers of the raised left hand",
+      "box": [
+        420,
+        108,
+        525,
+        255
+      ],
+      "maps_to": "focal blank-disc-token"
+    },
+    {
+      "what": "Elongated torso with tight horizontal hatching across the ribs and exposed spinal cord",
+      "box": [
+        460,
+        340,
+        665,
+        630
+      ],
+      "maps_to": "creature ribbed torso"
+    },
+    {
+      "what": "Angular digitigrade hind leg folded in a deep crouch with hyper-extended hock joint",
+      "box": [
+        550,
+        485,
+        800,
+        730
+      ],
+      "maps_to": "creature crouched hindlimb"
+    },
+    {
+      "what": "Splayed front hand pressed flat against the ground plane with dark graphite between the knuckles",
+      "box": [
+        630,
+        255,
+        898,
+        495
+      ],
+      "maps_to": "creature front planted hand"
+    },
+    {
+      "what": "Wide webbed rear foot with three prominent flared toes and heavy black pencil burnishing in the webbing gaps",
+      "box": [
+        710,
+        505,
+        995,
+        785
+      ],
+      "maps_to": "creature webbed footing"
+    },
+    {
+      "what": "Slender secondary dorsal tube tethered from the neck base re-entering the spine lower down",
+      "box": [
+        215,
+        465,
+        575,
+        730
+      ],
+      "maps_to": "creature spinal bypass tube"
+    },
+    {
+      "what": "Vast, clean off-white paper field acting as stark negative space surrounding the drafted subject",
+      "box": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "maps_to": "void perimeter and pale drafting floor"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#dfdfdf",
+        "share": 0.221,
+        "role": "Smooth off-white drafting paper field"
+      },
+      {
+        "hex": "#e9e9e9",
+        "share": 0.185,
+        "role": "Bright unworked paper highlights in the disc and face dome"
+      },
+      {
+        "hex": "#d3d3d3",
+        "share": 0.18,
+        "role": "Soft blended graphite wash modeling limb planes"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.143,
+        "role": "Intermediate smudged pencil tone across body midtones"
+      },
+      {
+        "hex": "#aeaeae",
+        "share": 0.093,
+        "role": "Dense graphite hatching along the ribs and spine"
+      },
+      {
+        "hex": "#919191",
+        "share": 0.083,
+        "role": "Core occlusion shadow under limbs and conduit elbows"
+      },
+      {
+        "hex": "#606060",
+        "share": 0.05,
+        "role": "Deep compressed pencil tone inside joint crevices"
+      },
+      {
+        "hex": "#2c2c2c",
+        "share": 0.045,
+        "role": "Burnished 4B graphite line accents along feet and claws"
+      }
+    ],
+    "translation": {
+      "bg": "#212529",
+      "grass": {
+        "top": "#8ac978",
+        "fringe": "#6fad5a",
+        "fringeDark": "#528c40",
+        "speck": "#b5e5a2"
+      },
+      "sand": {
+        "top": "#eedfb4",
+        "lip": "#d3be8b",
+        "edge": "#ba9f6a",
+        "dots": "#f8edd0"
+      },
+      "dirt": {
+        "top": "#bfa78a",
+        "patch": "#aa8f70",
+        "mottle": "#91775a",
+        "border": "#786146"
+      },
+      "stone": {
+        "top": "#d8dede",
+        "pebble": "#eef2f2",
+        "pebbleShade": "#bec8c8",
+        "rim": "#9caaaa"
+      },
+      "cliffUpper": {
+        "left": "#6a5c53",
+        "right": "#4d413a",
+        "seam": "#362d27"
+      },
+      "cliffLower": {
+        "left": "#52453e",
+        "right": "#3c322c",
+        "seam": "#28211d",
+        "speck": "#1c1714"
+      },
+      "water": {
+        "top": "#9be3ea",
+        "bubble": "#c8f6fa",
+        "deep": "#5bc2cf",
+        "fall": [
+          "#76cfdd",
+          "#5fbccb",
+          "#49aab9"
+        ],
+        "foam": "#dcf9fc"
+      },
+      "wood": {
+        "light": "#d88a44",
+        "mid": "#b86b2b",
+        "dark": "#934e18",
+        "shadow": "#6d370d",
+        "end": "#edd39b"
+      },
+      "treeMint": [
+        "#7bc8a4",
+        "#5ea886",
+        "#448768"
+      ],
+      "treeLime": [
+        "#aedb7b",
+        "#8ebd5c",
+        "#6e9c40"
+      ],
+      "treeLeaf": [
+        "#77ba66",
+        "#599949",
+        "#3f7a31"
+      ],
+      "treeTeal": [
+        "#42c7b1",
+        "#2fa792",
+        "#1f8774",
+        "#126757"
+      ],
+      "treeGold": [
+        "#e0bd58",
+        "#c49f39",
+        "#a37f22"
+      ],
+      "trunk": [
+        "#7f5644",
+        "#5a3d31"
+      ],
+      "rock": [
+        "#e0e4e6",
+        "#c3cacc",
+        "#9ba4a8",
+        "#6a7378"
+      ],
+      "wellStone": [
+        "#c7cfcf",
+        "#aeb8b8",
+        "#8d9898"
+      ],
+      "flowerOrange": [
+        "#e67838",
+        "#c85e20"
+      ],
+      "berry": [
+        "#d8566e",
+        "#b53a52"
+      ],
+      "bushTeal": [
+        "#7be0cd",
+        "#5ec0ad",
+        "#43a08f"
+      ],
+      "gold": [
+        "#f4d068",
+        "#d8b241",
+        "#ffee9c"
+      ]
+    },
+    "notes": "Translates high-contrast graphite drawing on paper into warm parchment-sand ground with bone-stone accents, held against dark graphite-tinted sheer cliffs and a drafting-board charcoal void.",
+    "clamped": [
+      "treeMint[1] #5ea886->#5ea886",
+      "trunk[0] #78594b->#7f5644",
+      "trunk[1] #583e33->#5a3d31"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "ribbed-conduit-arch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          11,
+          4
+        ]
+      ],
+      "where": "Placed along fracture seams across the high shards, recreating the sweeping segmented dorsal cable overhead.",
+      "role": "mass",
+      "shape": {
+        "summary": "Tall arched segmental conduit constructed from alternating thick and thin low-poly sleeves.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.6,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.15,
+              8
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "tones": [
+              "#6a7378",
+              "#4d413a",
+              "#28211d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              0.7,
+              8
+            ],
+            "at": [
+              0.08,
+              0.75,
+              0
+            ],
+            "rot": [
+              12,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.15,
+              8
+            ],
+            "at": [
+              0.18,
+              1.45,
+              0
+            ],
+            "tones": [
+              "#6a7378",
+              "#4d413a",
+              "#28211d"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              0.8,
+              8
+            ],
+            "at": [
+              0.24,
+              1.6,
+              0
+            ],
+            "rot": [
+              24,
+              0,
+              0
+            ],
+            "tones": [
+              "#e0e4e6",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.2,
+              0.05,
+              0.2,
+              8
+            ],
+            "at": [
+              0.32,
+              2.4,
+              0
+            ],
+            "tones": [
+              "#ffee9c",
+              "#d8b241",
+              "#a37f22"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sensor-crane-perch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          4,
+          6
+        ],
+        [
+          10,
+          3
+        ]
+      ],
+      "where": "Positions directly over the figure's offering dais and beside the observation ledge, echoing the cantilevered claw armature.",
+      "role": "light",
+      "shape": {
+        "summary": "Cantilevered mechanical armature ending in an aperture sensor probe facing down.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.22,
+              1.4,
+              0.22
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#c3cacc",
+              "#9ba4a8",
+              "#6a7378"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.18,
+              0.7
+            ],
+            "at": [
+              0,
+              1.3,
+              0.25
+            ],
+            "tones": [
+              "#e0e4e6",
+              "#c3cacc",
+              "#9ba4a8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.08,
+              0.35,
+              6
+            ],
+            "at": [
+              0,
+              1.15,
+              0.55
+            ],
+            "rot": [
+              180,
+              0,
+              0
+            ],
+            "tones": [
+              "#ffee9c",
+              "#d8b241",
+              "#a37f22"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.12,
+              0.12,
+              0.12,
+              0.03
+            ],
+            "at": [
+              0,
+              1.05,
+              0.55
+            ],
+            "tones": [
+              "#eedfb4",
+              "#d3be8b",
+              "#ba9f6a"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "graphite-scratch-spire",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.7,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          12,
+          6
+        ]
+      ],
+      "where": "Perched at peripheral fracture tips, translating dark directional pencil hatchings into physical slate stelae.",
+      "role": "detail",
+      "shape": {
+        "summary": "Slanted geometric spire of stacked, razor-faceted dark graphite-colored slabs.",
+        "parts": [
+          {
+            "prim": "prism",
+            "dims": [
+              0.8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "outline": [
+              [
+                -0.25,
+                -0.25
+              ],
+              [
+                0.25,
+                -0.2
+              ],
+              [
+                0.15,
+                0.25
+              ],
+              [
+                -0.2,
+                0.2
+              ]
+            ],
+            "tones": [
+              "#9ba4a8",
+              "#6a7378",
+              "#4d413a"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.6
+            ],
+            "at": [
+              0.05,
+              0.8,
+              0
+            ],
+            "outline": [
+              [
+                -0.18,
+                -0.18
+              ],
+              [
+                0.18,
+                -0.15
+              ],
+              [
+                0.1,
+                0.18
+              ],
+              [
+                -0.15,
+                0.15
+              ]
+            ],
+            "tones": [
+              "#c3cacc",
+              "#9ba4a8",
+              "#6a7378"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0,
+              0.3,
+              5
+            ],
+            "at": [
+              0.08,
+              1.4,
+              0
+            ],
+            "tones": [
+              "#e0e4e6",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "specimen-plinth",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.85,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          5,
+          6
+        ]
+      ],
+      "where": "Located immediately in front of the crouched homunculus, supporting the pristine token disc under examination.",
+      "role": "threshold",
+      "shape": {
+        "summary": "Faceted drum plinth presenting a levitating blank white circular wafer.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.42,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.25,
+              8
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#bec8c8",
+              "#9caaaa",
+              "#6a7378"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.06,
+              10
+            ],
+            "at": [
+              0,
+              0.72,
+              0
+            ],
+            "tones": [
+              "#f8edd0",
+              "#eedfb4",
+              "#d3be8b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blending-stump-boulder",
+      "type": "rock",
+      "variant_of": "rock",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.55,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          3,
+          8
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          10,
+          8
+        ]
+      ],
+      "where": "Resting against shard edges, representing the soft smudged stump graphite shading seen in the drawing's joint hollows.",
+      "role": "detail",
+      "shape": {
+        "summary": "Rounded, softly chamfered boulder cluster rendered in smooth paper and graphite tones.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.36,
+              0.7
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.24,
+              0.8
+            ],
+            "at": [
+              0.22,
+              0.16,
+              0.1
+            ],
+            "tones": [
+              "#bec8c8",
+              "#9caaaa",
+              "#6a7378"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.6
+            ],
+            "at": [
+              -0.2,
+              0.12,
+              -0.1
+            ],
+            "tones": [
+              "#e0e4e6",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "crack-stepping-stones",
+      "type": "stepping-stones",
+      "variant_of": "stepping-stones",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.12,
+      "passable": true,
+      "count": 3,
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          10,
+          5
+        ]
+      ],
+      "where": "Placed bridging the void cracks between the fractured shard plates along the approach path.",
+      "role": "approach",
+      "shape": {
+        "summary": "Pale smooth disc stones spanning the fissure gap between shards.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              0.1,
+              8
+            ],
+            "at": [
+              -0.18,
+              0,
+              -0.15
+            ],
+            "tones": [
+              "#f8edd0",
+              "#eedfb4",
+              "#d3be8b"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.24,
+              0.1,
+              8
+            ],
+            "at": [
+              0.15,
+              0,
+              0.18
+            ],
+            "tones": [
+              "#eedfb4",
+              "#d3be8b",
+              "#ba9f6a"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "Graphite Biomech Scout",
+      "source": "The primary faceless digitigrade figure crouching with blank head, arched dorsal cable, and splayed webbed paws.",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "shape": {
+        "summary": "Chunky toy-proportioned alien drone crouching on webbed pads with an egg-smooth head and ribbed dorsal conduit arch.",
+        "parts": [
+          {
+            "prim": "prism",
+            "dims": [
+              0.14
+            ],
+            "at": [
+              0.1,
+              0,
+              0.15
+            ],
+            "outline": [
+              [
+                -0.25,
+                -0.3
+              ],
+              [
+                0.35,
+                -0.2
+              ],
+              [
+                0.25,
+                0.35
+              ],
+              [
+                -0.3,
+                0.25
+              ]
+            ],
+            "tones": [
+              "#c3cacc",
+              "#9ba4a8",
+              "#6a7378"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.1
+            ],
+            "at": [
+              0.15,
+              0.1,
+              0.15
+            ],
+            "to": [
+              0.25,
+              0.7,
+              0.05
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              0.25,
+              0.7,
+              0.05
+            ],
+            "to": [
+              0.05,
+              0.95,
+              -0.1
+            ],
+            "tones": [
+              "#bec8c8",
+              "#9caaaa",
+              "#6a7378"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.32,
+              0.45,
+              0.26,
+              0.06
+            ],
+            "at": [
+              0,
+              0.95,
+              -0.05
+            ],
+            "rot": [
+              -18,
+              0,
+              0
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              0.35,
+              8
+            ],
+            "at": [
+              0,
+              1.05,
+              -0.05
+            ],
+            "rot": [
+              -18,
+              0,
+              0
+            ],
+            "tones": [
+              "#9ba4a8",
+              "#6a7378",
+              "#4d413a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.1,
+              1.25,
+              -0.1
+            ],
+            "to": [
+              -0.18,
+              0.7,
+              0.15
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              -0.18,
+              0.7,
+              0.15
+            ],
+            "to": [
+              -0.22,
+              1.15,
+              0.35
+            ],
+            "tones": [
+              "#bec8c8",
+              "#9caaaa",
+              "#6a7378"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1
+            ],
+            "at": [
+              -0.22,
+              1.2,
+              0.38
+            ],
+            "tones": [
+              "#f8edd0",
+              "#eedfb4",
+              "#d3be8b"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              1.35
+            ],
+            "at": [
+              0,
+              1.5,
+              -0.15
+            ],
+            "tones": [
+              "#f8edd0",
+              "#eedfb4",
+              "#d3be8b"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0.05,
+              1.1,
+              -0.2
+            ],
+            "to": [
+              0.15,
+              1.85,
+              -0.05
+            ],
+            "tones": [
+              "#6a7378",
+              "#4d413a",
+              "#28211d"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0.15,
+              1.85,
+              -0.05
+            ],
+            "to": [
+              -0.15,
+              1.95,
+              0.3
+            ],
+            "tones": [
+              "#6a7378",
+              "#4d413a",
+              "#28211d"
+            ]
+          }
+        ]
+      },
+      "pose": "Low digitigrade crouch with wide webbed feet planted, left hand presenting a flat blank porcelain token toward an overhead scanner.",
+      "cell": [
+        5,
+        7
+      ],
+      "facing": "w",
+      "why": "Faithfully reconstructs the crouching biomechanical alien in IMAGE 1 as a solid, tactile low-poly mannequin."
+    },
+    {
+      "name": "Funnel Maw Sentry",
+      "source": "The everted tooth-lined jaw study floating in the upper-right corner of IMAGE 1.",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.4,
+      "shape": {
+        "summary": "Anatomical pedestal supporting an outward-flared predatory tube jaw set with jagged ivory teeth.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#6a7378",
+              "#4d413a",
+              "#28211d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.32,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "rot": [
+              15,
+              30,
+              0
+            ],
+            "tones": [
+              "#d8dede",
+              "#bec8c8",
+              "#9caaaa"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0.12,
+              0.3,
+              8
+            ],
+            "at": [
+              0.06,
+              0.85,
+              0.05
+            ],
+            "rot": [
+              15,
+              30,
+              0
+            ],
+            "tones": [
+              "#eedfb4",
+              "#d3be8b",
+              "#ba9f6a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.05,
+              0,
+              0.12,
+              4
+            ],
+            "at": [
+              0.02,
+              1.1,
+              0.12
+            ],
+            "tones": [
+              "#f8edd0",
+              "#eedfb4",
+              "#d3be8b"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.05,
+              0,
+              0.12,
+              4
+            ],
+            "at": [
+              0.14,
+              1.08,
+              -0.02
+            ],
+            "tones": [
+              "#f8edd0",
+              "#eedfb4",
+              "#d3be8b"
+            ]
+          }
+        ]
+      },
+      "pose": "Cantilevered stalk twisting outward, displaying an everted circular ring of small pale teeth.",
+      "cell": [
+        12,
+        1
+      ],
+      "facing": "sw",
+      "why": "Brings the secondary anatomical study into the level as a peripheral specimen sentry perched on the isolated northeast shard."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVTTTVVVVVTFVVV",
+      "VVRRRRTVVVTRRRVV",
+      "VVRRRRRPVVTRRRVV",
+      "VVGRRRRPVVVTVVVV",
+      "VVGGRRRRPPPTTTVV",
+      "VVVGFFGRRRPPRRVV",
+      "VVGGFFGRRRPPRRVV",
+      "VVVGGGGGRRPPRRVV",
+      "VVVVTGGGGVVVVVVV",
+      "VVVVVTGGTVVVVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0001110000012000",
+      "0022221000112200",
+      "0022222100112200",
+      "0012222100010000",
+      "0011222211111100",
+      "0001221222112200",
+      "0011221222112200",
+      "0001111122112200",
+      "0000111110000000",
+      "0000011110000000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 5,
+      "z": 7,
+      "what": "The crouching biomechanical scout presenting the blank circular specimen disc"
+    },
+    "mass": "Visual weight anchors heavily in the lower-middle left where the figure crouches on a raised slab, countered by high peripheral shard spires.",
+    "read": "The viewer enters from the low fractured southern causeway, following stone stepped markers across dark void chasms. The path ascends diagonally into the central courtyard where the faceless drone stands frozen in presentation beneath the overhead conduit arch, framed by the secondary maw specimen perched on the far northeast pinnacle."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.18,
+      "types": [
+        {
+          "type": "graphite-scratch-spire",
+          "variant": "default",
+          "weight": 0.55
+        },
+        {
+          "type": "ribbed-conduit-arch",
+          "variant": "default",
+          "weight": 0.45
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.42,
+    "void_share": 0.46,
+    "decor_weights": {
+      "blending-stump-boulder": 0.4,
+      "crack-stepping-stones": 0.35,
+      "pot": 0.25
+    },
+    "lighting": {
+      "bg": "#212529",
+      "ambient": 0.82,
+      "sun": 0.25,
+      "tint": "#e8eff5",
+      "notes": "diffuse drafting paper gleam: Translates the 60% untreated pale drawing paper into high-key cool diffuse ambient light contrasting sharply with dark graphite crevices."
+    },
+    "rules": [
+      "Keep deep void chasms between the shard plates to mimic the stark cutouts of untreated paper.",
+      "Place graphite scratch spires strictly at the outer edges of raised slabs.",
+      "Ensure stepping stone markers link adjacent disconnected shard masses.",
+      "Maintain unshaded parchment sand on the primary plateaus where the figure is seated."
+    ],
+    "decor_density": 0.22,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "medium and graphite mark-making",
+    "place": "An anatomical drafting quarry of chiseled graphite shards and pale vellum plateaus.",
+    "summary": "Transforms the technical pencil drawing into a stark archipelago of razor-cut paper slabs and graphite spine conduits.",
+    "differs": "Uses cracked shard geography, pure monochrome-derived parchment tones, and mechanical conduit arches rather than organic forests or garden terraces."
+  },
+  "shaper": {
+    "name": "shards",
+    "params": {
+      "count": 4,
+      "spread": 0.38,
+      "cracks": true
+    },
+    "why": "The drawing's crisp contour outlines and dense parallel pencil crosshatch strokes translate directly into fractured, tilted shard plates separated by void crevasses."
+  },
+  "surface_mix": {
+    "pattern": "patches",
+    "period": 2.5,
+    "surfaces": [
+      {
+        "s": "sand",
+        "share": 0.6
+      },
+      {
+        "s": "grass",
+        "share": 0.25
+      },
+      {
+        "s": "stone",
+        "share": 0.15
+      }
+    ],
+    "why": "Warm parchment-toned sand dominates to represent the unworked paper ground, edged with pale sage grass and bone stone."
+  },
+  "cliff_treatment": {
+    "style": "sheer",
+    "upper": [
+      "#6a5c53",
+      "#4d413a",
+      "#362d27"
+    ],
+    "lower": [
+      "#52453e",
+      "#3c322c",
+      "#28211d"
+    ],
+    "why": "Recreates the heavily burnished 4B graphite shadows lining the creases of the webbed feet as near-vertical dark sheer drop-offs."
+  },
+  "lighting": {
+    "time": "diffuse drafting paper gleam",
+    "ambient": 0.82,
+    "sun": 0.25,
+    "tint": "#e8eff5",
+    "bg": "#212529",
+    "why": "Translates the 60% untreated pale drawing paper into high-key cool diffuse ambient light contrasting sharply with dark graphite crevices."
+  },
+  "figure_pose": {
+    "pose": "Low digitigrade crouch with wide webbed feet planted, left hand presenting a flat blank porcelain token toward an overhead scanner.",
+    "action": "scanning token",
+    "facing": "left",
+    "why": "Directly embodies the specimen examination pose recorded in ANALYSIS.subject and energy."
+  },
+  "approach": {
+    "from": "south rim via cracked stepping stones",
+    "passes": [
+      "blending-stump-boulder",
+      "crack-stepping-stones",
+      "specimen-plinth",
+      "ribbed-conduit-arch"
+    ],
+    "shape": "An ascending diagonal traversal hopping narrow void seams between fractured slabs up to the central examination platform."
+  },
+  "threshold": {
+    "kind": "A low stone specimen plinth holding the blank token marks entry into the figure's focused inspection arc.",
+    "prop": "specimen-plinth"
+  },
+  "analysis": "pipeline/seed/analysis/gremlin.json",
+  "concept": {
+    "name": "lens-medium",
+    "lens": "medium",
+    "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+  }
+}

@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 
 const INK = {
   espresso: ["#6e3527", "#57281c", "#401c14"],
@@ -126,12 +127,112 @@ function lead(B, H, look, pose) {
 const ROLE_RE = [["threshold", /gate|arch|torii|threshold|portal|gallow|barrier/i], ["dais", /dais|altar|plinth|pedestal|roost|perch|throne|nest-plat/i], ["light", /lantern|torch|brazier|lamp/i], ["offering", /pot|basket|bowl|offering|chest|cairn|urn|cache|coffer/i], ["mass", /tree|pine|spire|pillar|monolith|rock|cliff|totem|pinnacle/i]];
 const GATE_RE = /gate|torii|barrier|gallow|arch/i;
 const roleOf = (P, t) => { const r = P.props?.[t]?.role; if (r && r !== "lead" && GATE_RE.test(t)) return "threshold"; return r || (ROLE_RE.find(([, re]) => re.test(t)) || ["detail"])[0]; };
-const poseOf = (t) => /idol|shrine|statue|vigil/i.test(t) ? "statue" : /aero|gale|boss|dive|storm/i.test(t) ? "flare" : "rest";
+const poseOf = (t, p = "") => /idol|shrine|statue|vigil|totem|figurine/i.test(t) ? "statue" : /aero|gale|boss|dive|storm|bank/i.test(t) || /bank|soar|climb|swoop|flight|wings? (thrown|raised|high)/i.test(p) ? "flare" : "rest";
 
 function fork(B, y, c, w = 0.5) {
   for (const s of [-1, 1]) slab(B, [[0, -0.07], [0.4, -0.03], [0.62, 0], [0.4, 0.04], [0, 0.07]], V(0, y, 0), V(s * 0.55, 1, 0), V(0, 0, 1), 0.12, c);
   B.box(w * 0.5, 0.1, 0.2, pal(c), 0, y - 0.05, 0);
 }
+
+const LENS_KINDS = [
+  ["trellis", /trellis|pier|lintel|frame/i],
+  ["curlArch", /curl.*arch|scroll.*arch|loop.*arch|curl-gate/i],
+  ["forkArch", /fork.*arch|tine.*arch|prong/i],
+  ["swarm", /midge|swarm|insect|gnat|mote/i],
+  ["mudcups", /mud|cup|nest/i],
+  ["snag", /snag|driftwood|branch/i],
+  ["reeds", /reed|rush|sedge/i],
+  ["sickle", /tail|fin|sickle|tine|scythe/i],
+  ["blade", /blade|ribbon|pylon|wing|feather|sweep|spire|crest/i],
+  ["curl", /curl|spiral|swirl|coil|eddy/i],
+  ["smudge", /smudge|boulder|stone|pebble/i],
+];
+const lensKind = (t, role) => (role === "lead" || role === "creature" ? null : role === "threshold" ? (/fork|tine|prong/i.test(t) ? "forkArch" : /spiral|curl|scroll|coil|loop/i.test(t) ? "curlArch" : "trellis") : (LENS_KINDS.find(([, re]) => re.test(t)) || [role === "threshold" || role === "dais" || role === "light" || role === "offering" || role === "mass" ? null : "parts"])[0]);
+
+function tine(B, len, w, c, o, dir, up) {
+  slab(B, [[0, -w], [len * 0.45, -w * 0.6], [len, 0], [len * 0.45, w * 0.7], [0, w]], o, dir, up, 0.1, c);
+}
+
+const LENS_BUILD = {
+  blade(B, H, v, { c0, c1, c2 }) {
+    B.rbox(0.56, 0.16, 0.5, 0.08, pal(c1), 0, 0, 0);
+    const lean = v % 2 ? -1 : 1;
+    slab(B, BLADE.map(([a, b]) => [a * H * 0.95, b * 1.9]), V(-0.08 * lean, 0.12, 0), V(0.22 * lean, 1, 0.12), V(0, 0, 1), 0.16, c0);
+    slab(B, STRIPE.map(([a, b]) => [a * H * 0.95, b * 1.9]), V(-0.06 * lean, 0.16, 0.02), V(0.22 * lean, 1, 0.12), V(0, 0, 1), 0.2, c2 === c0 ? INK.cream : c2);
+  },
+  sickle(B, H, v, { c0, c1 }) {
+    B.rbox(0.44, 0.12, 0.36, 0.06, pal(c1), 0, 0, 0);
+    for (const s of [-1, 1]) tine(B, H * (s < 0 ? 1 : 0.8), 0.13, s < 0 ? c0 : INK.umber, V(s * 0.07, 0.1, 0), V(s * 0.45, 1, (v % 2 ? 0.2 : -0.2)), V(0, 0, 1));
+  },
+  curl(B, H, v, { c0, c1, c2 }) {
+    B.rbox(0.74, H * 0.55, 0.64, 0.14, pal(c1), 0, 0, 0);
+    B.rbox(0.54, H * 0.3, 0.46, 0.12, pal(c0), 0.04, H * 0.55, -0.02);
+    for (let i = 0; i < 7; i++) { const a = i * 0.9, r = 0.1 + i * 0.035; B.box(0.1, 0.05, 0.1, pal(c2), Math.cos(a) * r, H * 0.85, Math.sin(a) * r); }
+  },
+  smudge(B, H, v, { c0, c1 }) {
+    B.rbox(0.8, H * 0.6, 0.66, 0.15, pal(c0), 0, 0, 0);
+    B.rbox(0.5, H * 0.4, 0.42, 0.12, pal(c1), v % 2 ? 0.1 : -0.08, H * 0.6, 0.04);
+  },
+  mudcups(B, H, v, { c0, c1 }) {
+    B.rbox(0.86, 0.12, 0.7, 0.08, pal(c1), 0, 0, 0);
+    const cups = v % 2 ? [[-0.2, -0.12, 0.26], [0.22, -0.06, 0.22], [0, 0.22, 0.2]] : [[-0.18, 0.1, 0.25], [0.2, -0.14, 0.24], [0.16, 0.24, 0.18]];
+    for (const [x, z, r] of cups) {
+      B.cyl(r, H * 0.55, pal(c0), x, 0.12, z, 8);
+      B.cyl(r * 0.8, H * 0.2, pal(c1), x, 0.12 + H * 0.55, z, 8);
+      B.box(r * 0.7, r * 0.5, 0.04, pal(INK.ink), x, 0.12 + H * 0.3, z + r * 0.92);
+    }
+  },
+  swarm(B, H, v, { c0, c1, P }) {
+    B.rbox(0.42, 0.14, 0.42, 0.08, pal(c1), 0, 0, 0);
+    B.box(0.2, H * 0.45, 0.2, pal(c0), 0, 0.14, 0);
+    B.rbox(0.3, 0.08, 0.3, 0.06, pal(INK.moss), 0, 0.14 + H * 0.45, 0);
+    const gold = P.flame || INK.gold;
+    for (let i = 0; i < 11; i++) { const a = i * 2.4 + v, r = 0.12 + (i % 4) * 0.07, y = 0.3 + H * 0.45 + (i / 11) * H * 0.45; B.box(0.08, 0.08, 0.08, pal(gold), Math.cos(a) * r, y, Math.sin(a) * r); }
+  },
+  snag(B, H, v, { c0, c1 }) {
+    B.at(0, 0.16, 0, v % 2 ? 0.7 : -0.5, () => {
+      B.rbox(0.9, 0.3, 0.32, 0.1, pal(c0), 0, -0.14, 0);
+      B.box(0.12, H * 0.55, 0.12, pal(c1), 0.36, 0, 0.04);
+      B.box(0.28, 0.1, 0.1, pal(c1), -0.44, 0.02, 0.1);
+    });
+  },
+  reeds(B, H, v, { c0, c1 }) {
+    B.rbox(0.6, 0.1, 0.5, 0.08, pal(INK.moss), 0, 0, 0);
+    const st = [[-0.16, -0.1, 1], [0.1, -0.14, 0.85], [0.16, 0.12, 0.95], [-0.06, 0.16, 0.75], [0.0, 0.0, 1.05]];
+    for (const [x, z, k] of st) { B.box(0.06, H * k * 0.8, 0.06, pal(INK.moss), x, 0.1, z); B.rbox(0.1, H * 0.2 * k, 0.1, 0.04, pal(c0), x, 0.1 + H * k * 0.66, z); }
+  },
+  trellis(B, H, v, { c0, c1, c2, d }) {
+    B.box(0.46, 0.2, 0.46, pal(c1));
+    B.box(0.3, H * 0.72, 0.3, pal(c0), 0, 0.2, 0);
+    B.box(0.36, 0.1, 0.36, pal(c2), 0, 0.2 + H * 0.4, 0);
+    B.rbox(0.36, 0.3, 0.36, 0.1, pal(INK.sand), 0, 0.2 + H * 0.72, 0);
+    if (d.side) {
+      const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.2, th, reach + 0.3, pal(c), 0, y, -d.side * (reach / 2 - 0.05)) : B.box(reach + 0.3, th, 0.2, pal(c), -d.side * (reach / 2 - 0.05), y, 0);
+      beam(H * 0.8, 0.16, c0);
+      beam(H * 0.8 + 0.16, 0.12, INK.sand);
+    }
+  },
+  curlArch(B, H, v, { c0, c1, c2, d }) {
+    B.box(0.46, 0.2, 0.46, pal(c1));
+    B.box(0.28, H * 0.6, 0.28, pal(c0), 0, 0.2, 0);
+    B.at(0, 0.2 + H * 0.6, 0, d.axis === "x" ? Math.PI / 2 : 0, () => {
+      for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + i * 0.75, r = 0.3 - i * 0.025; B.box(0.14, 0.14, 0.2, pal(i % 2 ? c2 : c0), Math.cos(a) * r * (d.side || 1) * -1, 0.3 + Math.sin(a) * r, 0); }
+    });
+    if (d.side) {
+      const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.18, th, reach + 0.2, pal(c), 0, y, -d.side * (reach / 2)) : B.box(reach + 0.2, th, 0.18, pal(c), -d.side * (reach / 2), y, 0);
+      beam(H * 0.62, 0.14, c2);
+    }
+  },
+  forkArch(B, H, v, { c0, c1, c2, d }) {
+    B.box(0.46, 0.2, 0.46, pal(c1));
+    B.box(0.3, H * 0.55, 0.3, pal(c0), 0, 0.2, 0);
+    fork(B, 0.2 + H * 0.55, INK.espresso, 0.46);
+    if (d.side) {
+      const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.2, th, reach + 0.3, pal(c), 0, y, -d.side * (reach / 2 - 0.05)) : B.box(reach + 0.3, th, 0.2, pal(c), -d.side * (reach / 2 - 0.05), y, 0);
+      beam(H * 0.5, 0.14, c2);
+    }
+  },
+};
 
 export function register(style) {
   const P = style.palette;
@@ -150,10 +251,13 @@ export function register(style) {
     catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" ? false : !!p.passable, variants: 2, height: role === "lead" ? 2.6 : Math.min(2.6, Math.max(0.3, p.height || 1)) };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, INK.umber), c1 = pick(tn, 1, INK.sand), c2 = pick(tn, 2, INK.rust);
-    const pose = poseOf(t);
+    const pose = poseOf(t, p.pose || "");
+    const lens = lensKind(t, role);
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
       if (role === "lead" || role === "creature") lead(B, H, look, pose);
+      else if (lens && LENS_BUILD[lens]) LENS_BUILD[lens](B, H, v, { c0, c1, c2, d, P });
+      else if (lens === "parts" && p.parts?.length) bakeParts(B, p.parts, { height: H, fallback: c0 });
       else if (role === "threshold") {
         B.box(0.46, 0.22, 0.46, pal(c1));
         B.box(0.32, H * 0.6, 0.32, pal(c0), 0, 0.22, 0);
@@ -251,7 +355,35 @@ function repaint(level, h, keep) {
   }
 }
 
+function finishLens(level, brief, h) {
+  const daisTypes = h.ofRole("dais");
+  h.removeDecor((d) => daisTypes.includes(d.t));
+  const gateT = brief.threshold?.prop && level.palette?.props?.[brief.threshold.prop] ? brief.threshold.prop : h.ofRole("threshold")[0];
+  const lightT = h.ofRole("light")[0] || "lantern";
+  const passT = h.passes().filter((t) => t !== gateT && t !== lightT && !daisTypes.includes(t));
+  h.removeDecor((d) => d.t === gateT || d.t === lightT || passT.includes(d.t));
+  let r = h.spawnAt({ min: 9, max: 16 });
+  if (r.length) h.path(r);
+  r = h.approach();
+  fixRamps(level, h);
+  const g = gateT ? h.gate(gateT, { route: r, frac: 0.6 }) : null;
+  const [ax, az] = h.figure.anchor;
+  for (const [x, z] of [[ax - 1, az], [ax - 1, az + 1], [ax - 1, az + 2], [ax - 2, az + 1]]) h.removeDecor((d) => d.t !== gateT && d.x === x && d.z === z);
+  const posts = level.decor.filter((d) => d.t === gateT);
+  h.removeDecor((d) => /tree|pine|pinnacle|spire|bough|pylon|blade/i.test(d.t) && posts.some((q) => Math.abs(q.x - d.x) <= 1 && Math.abs(q.z - d.z) <= 1));
+  const wet = (x, z) => [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => level.cells[z + dz]?.[x + dx]?.s === "water");
+  h.removeDecor((d) => d.t === "stepping-stones" && !wet(d.x, d.z));
+  h.along(passT.filter((t) => t !== "stepping-stones"), { route: r });
+  h.lights(lightT, { route: r, every: 4, skip: 2, max: 4, avoid: g ? [g] : [], keep: [gateT, ...passT] });
+  h.ledges({ keep: [gateT] });
+  h.repair({ keep: [gateT] });
+  if (h.walkN() < 84) h.thin(84, { keep: [gateT, lightT] });
+  if (h.walkN() < 84) h.grow(84);
+  h.rampTone();
+}
+
 export function finish(level, brief, h) {
+  if (brief.lens) return finishLens(level, brief, h);
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));
   const gateT = h.ofRole("threshold")[0] || Object.keys(level.palette?.props || {}).find((t) => GATE_RE.test(t)) || (brief.motifs || []).map((m) => m.type).find((t) => GATE_RE.test(t || ""));

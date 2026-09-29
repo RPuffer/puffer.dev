@@ -71,8 +71,8 @@ const CONCEPTS = {
 const STOCK = `FORBIDDEN, because round 3 collapsed every artwork into them: a sunny garden or grass terrace home climbing to a perch; a shrine or temple court behind a still pool crossed on a causeway; a flat arena or caldera ringed by tall cliffs. Also forbidden as lighting: stock times of day (midday sun, golden hour, dusk, sunset, twilight, night, moonlight, dawn). Light is argued from the piece's own value structure and medium (paper white showing through ink, the black ground of an airbrush, the flat unshaded blaze of fauvist colour, graphite's grey haze), and named as that, not as a clock time.`;
 const LENSES = {
   medium: `LENS "medium": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper "ribbon", or "spiral" for a curl); airbrush gradients become soft radial terraces fading outward (shaper "radial"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper "patchwork"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper "mound" or "basin"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper "shards"); vector doodles become dense small ornament on a tidy mirrored plan (shaper "symmetric"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature.`,
-  subject: `LENS "subject": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example "twin-mass" for a nest facing its hunting ground, "basin" for a den hollow, "mound" for a burrow hill, "shards" for a broken ruin, "spiral" for a tower climb) and argue it in "why". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses.`,
-  composition: `LENS "composition": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides "symmetric" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass.`,
+  subject: `LENS "subject": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example "twin-mass" for a nest facing its hunting ground, "basin" for a den hollow, "mound" for a burrow hill, "shards" for a broken ruin, "spiral" for a tower climb) and argue it in "why". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on.`,
+  composition: `LENS "composition": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides "symmetric" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass.`,
 };
 const LENS_KEYS = () => `
 
@@ -95,11 +95,15 @@ ${lensAvoid.length ? `
 OTHER READINGS OF THIS ARTWORK ALREADY MADE. Yours must be a different place: a different shaper name, a different surface_mix pattern, a different cliff style, a different light, a different threshold, different new props:
 ${lensAvoid.map((b) => `- ${b.concept?.lens}: ${b.lens?.place} Shaper ${b.shaper?.name} ${JSON.stringify(b.shaper?.params)}; surfaces ${b.surface_mix?.pattern}; cliff ${b.cliff_treatment?.style}; light "${b.lighting?.time}"; threshold ${b.threshold?.kind}; props ${(b.motifs || []).filter((m) => m.type === "new").map((m) => m.name).join(", ")}.`).join("\n")}` : ""}
 
+Each reading must also look different from the others at a glance: a different dominant surface (the largest share in surface_mix), a different background hue family, and a different light.
+
 The rest of the brief (palette.translation, motifs, creatures, composition, biome) serves this reading. Keep the pack: saturated three-tone palette, chunky stacked-block props, the figure as a still toy figure 1.5 to 3 tiles tall. biome.surfaces is the fallback before surface_mix applies. biome.lighting may repeat "lighting".`;
+const lensFixes = [];
 const STOCK_TIME = /\b(mid-?day|noon|golden hour|dusk|sunset|twilight|night|moonli(t|ght)|dawn|sunrise)\b/i;
-const STOCK_PLACE = /\b(terrace|shrine|arena|caldera|causeway|temple)\b/i;
+const STOCK_PLACE = /\b(shrine|arena|caldera|causeway|temple)\b/i;
 function validateLens(b) {
   const e = [];
+  lensFixes.length = 0;
   const sh = b.shaper || {};
   if (!SHAPER_NAMES.includes(sh.name)) e.push(`shaper.name must be one of ${SHAPER_NAMES.join("|")}`);
   if (!sh.params || typeof sh.params !== "object") e.push("shaper.params must be an object");
@@ -107,7 +111,7 @@ function validateLens(b) {
   const sm = b.surface_mix || {};
   if (!["rings", "bands", "patches", "scatter", "height", "shaper", "uniform"].includes(sm.pattern)) e.push("surface_mix.pattern bad");
   if (!Array.isArray(sm.surfaces) || !sm.surfaces.length || !sm.surfaces.every((x) => ["grass", "sand", "dirt", "stone"].includes(x?.s) && typeof x.share === "number")) e.push("surface_mix.surfaces needs [{s, share}]");
-  else { const t = sm.surfaces.reduce((a, x) => a + x.share, 0), st = sm.surfaces.filter((x) => x.s === "stone").reduce((a, x) => a + x.share, 0); if (t > 0 && st / t > 0.25) e.push("surface_mix stone share over 0.2"); }
+  else { const t = sm.surfaces.reduce((a, x) => a + x.share, 0) || 1; for (const x of sm.surfaces) x.share = +(x.share / t).toFixed(3); const st = sm.surfaces.find((x) => x.s === "stone"); if (st && st.share > 0.2) { const rest = sm.surfaces.filter((x) => x !== st); const spare = st.share - 0.2; st.share = 0.2; if (rest.length) rest.forEach((x) => (x.share = +(x.share + spare / rest.length).toFixed(3))); else sm.surfaces.push({ s: "grass", share: +spare.toFixed(3) }); } }
   const ct = b.cliff_treatment || {};
   if (!["banded", "sheer", "stepped", "mossy", "soft"].includes(ct.style)) e.push("cliff_treatment.style bad");
   for (const k of ["upper", "lower"]) if (!Array.isArray(ct[k]) || ct[k].length !== 3 || !ct[k].every((h) => HEX.test(h))) e.push(`cliff_treatment.${k} needs 3 hexes`);
@@ -121,7 +125,23 @@ function validateLens(b) {
   if (!b.threshold?.kind || !b.threshold?.prop) e.push("threshold.kind/prop missing");
   else if (!(b.motifs || []).some((m) => m.name === b.threshold.prop)) e.push(`threshold.prop ${b.threshold.prop} is not a motif name`);
   if (!b.lens?.place || !b.lens?.summary) e.push("lens.place/summary missing");
-  else if (STOCK_PLACE.test(b.lens.place)) e.push(`lens.place "${b.lens.place}" names a stock place (terrace, shrine, arena, caldera, causeway, temple); invent the place this lens implies`);
+  else if (STOCK_PLACE.test(b.lens.place)) e.push(`lens.place "${b.lens.place}" names a stock place (shrine, arena, caldera, causeway, temple); invent the place this lens implies`);
+  const dom = (m) => [...(m?.surfaces || [])].sort((a, c) => c.share - a.share)[0]?.s;
+  const hue = (h) => { if (!HEX.test(h || "")) return null; const [r, g, bb] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255); const mx = Math.max(r, g, bb), mn = Math.min(r, g, bb), d = mx - mn; if (d < 0.04) return { h: null, l: (mx + mn) / 2 }; const hh = mx === r ? ((g - bb) / d + 6) % 6 : mx === g ? (bb - r) / d + 2 : (r - g) / d + 4; return { h: hh * 60, l: (mx + mn) / 2 }; };
+  const taken = new Set(lensAvoid.map((o) => dom(o.surface_mix)).filter(Boolean));
+  if (Array.isArray(sm.surfaces) && sm.surfaces.length && taken.has(dom(sm))) {
+    const free = ["grass", "sand", "dirt"].filter((x) => !taken.has(x));
+    const top = [...sm.surfaces].sort((a, c) => c.share - a.share)[0];
+    const alt = sm.surfaces.find((x) => free.includes(x.s));
+    if (alt) { const t = top.share; top.share = alt.share; alt.share = t; }
+    else if (free.length) top.s = free[0];
+    lensFixes.push(`surface_mix led with ${dom(sm)} after a sibling took ${[...taken].join("/")}`);
+  }
+  const clash = (bg) => lensAvoid.some((o) => { const a = hue(bg), c = hue(o.lighting?.bg); return a && c && Math.abs(a.l - c.l) < 0.06 && (a.h === null || c.h === null || Math.min(Math.abs(a.h - c.h), 360 - Math.abs(a.h - c.h)) < 35); });
+  if (HEX.test(li.bg || "") && clash(li.bg)) {
+    const [hh, ss, ll] = toHsl(li.bg);
+    for (const [dh, dl] of [[60, 0], [-60, 0], [120, 0.04], [180, 0], [0, 0.1]]) { const nb = fromHsl(((hh ?? 220) + dh + 360) % 360, Math.max(0.25, ss), Math.min(0.4, ll + dl)); if (!clash(nb)) { lensFixes.push(`lighting.bg ${li.bg}->${nb}`); li.bg = nb; break; } }
+  }
   const newM = (b.motifs || []).filter((m) => m.type === "new");
   if (newM.length < 3) e.push("at least 3 motifs must be new");
   const used = new Set(lensAvoid.flatMap((o) => (o.motifs || []).map((m) => m.name)));
@@ -437,7 +457,7 @@ function validate(b) {
 
 const parts = [await imagePart(art, 1280), await imagePart(REF, 700), await imagePart(SHEET, 700), { text: prompt }];
 process.on("exit", () => console.error(`spend: ${spend.calls} calls, ${spend.inTok} in / ${spend.outTok} out tokens, ~$${spend.usd.toFixed(4)}`));
-const { data, model } = await askJSON(parts, validate, { temperature: 0.2, retries: 3 });
+const { data, model } = await askJSON(parts, validate, { temperature: lensName ? 0.4 : 0.2, retries: lensName ? 4 : 3 });
 if (clamped.length) {
   data.palette.clamped = clamped;
   const swap = Object.fromEntries(clamped.map((t) => t.split(" ").pop().split("->")));
@@ -456,7 +476,7 @@ const brief = {
   source: { art: path.relative(root, path.resolve(art)), width: meta.width, height: meta.height, model, date: new Date().toISOString().slice(0, 10) },
   mood: data.mood, observations: data.observations, palette: data.palette, motifs: data.motifs, creatures: data.creatures, composition: { legend: CODES, ...data.composition }, biome: data.biome,
   scene: data.scene,
-  ...(lensName ? { lens: data.lens, shaper: data.shaper, surface_mix: data.surface_mix, cliff_treatment: data.cliff_treatment, lighting: data.lighting, figure_pose: data.figure_pose, approach: data.approach, threshold: data.threshold, analysis: path.relative(root, path.resolve(analysisArg)) } : {}),
+  ...(lensName ? { lens: lensFixes.length ? { ...data.lens, fixes: [...lensFixes] } : data.lens, shaper: data.shaper, surface_mix: data.surface_mix, cliff_treatment: data.cliff_treatment, lighting: data.lighting, figure_pose: data.figure_pose, approach: data.approach, threshold: data.threshold, analysis: path.relative(root, path.resolve(analysisArg)) } : {}),
   concept: { name: conceptName, lens: lensName || undefined, fragment: lensName ? LENSES[lensName] : CONCEPTS[conceptName], variant: variant || undefined, variantFragment: VARIANTS[variant], avoid: avoidList.length ? avoidList : undefined },
 };
 fs.mkdirSync(path.dirname(path.resolve(out)), { recursive: true });

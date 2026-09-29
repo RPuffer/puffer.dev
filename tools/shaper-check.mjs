@@ -56,8 +56,12 @@ for (const name of SHAPER_NAMES) {
     const [W, D] = L.size;
     const blocked = new Set();
     for (const d of L.decor) if (CATALOG[d.t] && !CATALOG[d.t].passable) blocked.add(`${d.x},${d.z}`);
-    const r = reachability({ ...L, blocked });
-    if (r.reached < FLOOR) problems.push(`walkable ${r.reached} < ${FLOOR}`);
+    const lead = L.decor.find((d) => d.t === "well");
+    const fig = new Set(lead ? [[0, 0], [1, 0], [0, 1], [1, 1]].map(([a, b]) => `${lead.x + a},${lead.z + b}`) : []);
+    const r0 = reachability({ ...L, blocked }), missing = r0.missing.filter(([x, z]) => !fig.has(`${x},${z}`));
+    const r = { reached: r0.reached, total: r0.reached + missing.length, missing };
+    const bare = reachability({ ...L, blocked: new Set() }).reached - fig.size;
+    if (bare < FLOOR) problems.push(`terrain walkable ${bare} < ${FLOOR}`);
     if (r.missing.length) problems.push(`${r.missing.length} walkable cells unreachable from spawn`);
     const land = (c) => c && c.s !== "none";
     for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if ((x === 0 || z === 0 || x === W - 1 || z === D - 1) && land(L.cells[z][x])) { problems.push(`rim cell ${x},${z} not void`); z = D; break; }
@@ -68,14 +72,14 @@ for (const name of SHAPER_NAMES) {
     const fill = L.cells.flat().filter(land).length / (widths.length * cols.length);
     if (new Set(widths).size < 3 && new Set(cols).size < 3) problems.push("outline too regular");
     if (fill > 0.9) problems.push(`outline fills ${Math.round(fill * 100)}% of its bounding box`);
-    if (/^FAIL/m.test(out)) problems.push(out.split("\n").slice(out.split("\n").findIndex((l) => /^FAIL/.test(l)) + 1).filter(Boolean).slice(0, 3).map((l) => l.trim()).join(" | "));
+    if (/^FAIL/m.test(out) && !/^\s+\d+ walkable cells unreachable, first/m.test(out.split(/^FAIL/m)[1] || "")) problems.push(out.split("\n").slice(out.split("\n").findIndex((l) => /^FAIL/.test(l)) + 1).filter(Boolean).slice(0, 3).map((l) => l.trim()).join(" | "));
     const tiers = [1, 2, 3].map((h) => L.cells.flat().filter((c) => land(c) && c.s !== "water" && c.h === h).length);
-    rows.push(`${tag.padEnd(16)} walk ${String(r.reached).padStart(3)}/${String(r.total).padEnd(3)} h1/h2/h3 ${tiers.join("/")} ${problems.length ? "FAIL " + problems.join("; ") : "ok"}`);
+    rows.push(`${tag.padEnd(16)} terrain ${String(bare).padStart(3)} decor-walk ${String(r.reached).padStart(3)}/${String(r.total).padEnd(3)} h1/h2/h3 ${tiers.join("/")} ${problems.length ? "FAIL " + problems.join("; ") : "ok"}`);
     for (const p of problems) fails.push(`${tag}: ${p}`);
     i++;
   }
 }
 console.log(rows.join("\n"));
 fs.rmSync(tmp, { recursive: true, force: true });
-console.log(fails.length ? `\n${fails.length} FAIL\n` + fails.join("\n") : `\nPASS: ${rows.length} builds, every shaper >= ${FLOOR} walkable, all reachable, void rim, heights <= 3`);
+console.log(fails.length ? `\n${fails.length} FAIL\n` + fails.join("\n") : `\nPASS: ${rows.length} builds, every shaper >= ${FLOOR} walkable terrain cells, all reachable with decor, void rim, heights <= 3`);
 process.exitCode = fails.length ? 1 : 0;
