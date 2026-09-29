@@ -42,3 +42,15 @@ Strategies:
 - `composition-only`: take only the drawing's masses, void, and focal point for the layout; palette and decor are the plain pack; the bird stands at the focal point.
 
 Every result must keep the pack: compact irregular island with void around it, terraces at heights 0 to 3, chunky stacked-block props, the pack's saturation in daylight or dusk. Budget for the round: $10 across all five, logged per level in pipeline/a-transcribe/SPEND.md.
+
+## Round 3: every artwork, best of three (2026-09-29)
+
+Operator verdict on round 2: the `scene` strategy wins and is the analyzer's default. Round 3 runs the eleven remaining artworks through pipeline A with the scene strategy, three distinct readings each, so the operator can pick one jumping-off island per artwork from a pick-per-group card.
+
+Seeds in `pipeline/seed/`: `cat` (fauvist acrylic cat portrait), `dragon` (pencil dragon), `ember` (flame spirit face on black), `chimera` (ink bony multi-headed creature), `wizard` (cartoon hot-dog wizard, "Glizard 'Arry"), `swallow` (single-stroke ink bird), `cosmos` (airbrush eye with a nebula), `sharkbear` (pencil shark-bear creature), `gremlin` (ink creature holding an orb), `mindbloom` (vector face with a psychedelic bloom for hair on lavender), `eagle` (charcoal bald eagle). Most are creature portraits with no environment; the scene strategy has to invent the place the creature belongs to, in a souls-like grammar (an approach, a threshold, the creature at the focal point as a still figure), while the palette translation keeps the pack's saturation.
+
+Naming: briefs `pipeline/seed/concepts/<slug>-<k>.json`, levels `levels/<slug>-<k>.json`, one pieces module per artwork `3d/pieces/<slug>.js` shared by its three levels (creature builders, motif props), renders `out/final/<slug>-<k>.png` at 900x800 with `hero=0`. `k` is 1 to 3.
+
+Variation: `analyze.mjs --concept scene --variant k` must produce three readings that differ in the scene itself (what place, what approach, what the creature is doing), the palette translation, and the terrain emphasis, not three renders of one brief. Feed the earlier variants' summaries back as things to avoid.
+
+Every level keeps the pack: irregular outline, void rim, heights 0 to 3, chunky stacked-block props, the pack's saturation. Creatures are built from stacked flat blocks and wedges like the fire-bird, at a height of 1.5 to 3 tiles depending on the subject, facing the camera three-quarter. The critic loop runs up to four rounds per level. Budget for the round: $15, logged in `pipeline/a-transcribe/SPEND.md` per level.

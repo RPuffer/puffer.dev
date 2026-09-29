@@ -12,3 +12,4 @@
 - 2026-09-23 Operator chose the 3d build; the 2d build stays as-is and the art-to-island pipeline targets 3d only.
 - 2026-09-23 Seed artwork for the pipeline bake-off is the charcoal forest with the flame spirit (puffer-assets A3F70CA1); the dragon is excluded by request.
 - 2026-09-23 Bake-off verdict: pipeline A carries forward; round 2 varies the concept step only, five strategies, forest-a kept as baseline.
+- 2026-09-29 Round-2 verdict: scene strategy picked; round 3 builds three scene readings for each of the eleven remaining artworks.
