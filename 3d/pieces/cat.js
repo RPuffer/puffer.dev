@@ -31,12 +31,69 @@ function plinth(B, r, h, lo, hi) {
   B.prism(circle(0, 0, r * 0.86, r * 0.86, 8, Math.PI / 8), h * 0.55, h, pal(hi));
 }
 
-function cat(B, H, style, v) {
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+
+function otri(B, a, b, c, out, p) {
+  const n = V().subVectors(b, a).cross(V().subVectors(c, a));
+  if (n.dot(out) < 0) B.tri(a.toArray(), c.toArray(), b.toArray(), p);
+  else B.tri(a.toArray(), b.toArray(), c.toArray(), p);
+}
+
+function slab(B, pts, o, U, W, t, c) {
+  const u = U.clone().normalize(), w0 = W.clone().normalize();
+  const N = V().crossVectors(u, w0).normalize();
+  const w = V().crossVectors(N, u).normalize();
+  let area = 0;
+  for (let i = 0; i < pts.length; i++) { const [a, b] = pts[i], [c2, d] = pts[(i + 1) % pts.length]; area += a * d - c2 * b; }
+  const P = area < 0 ? [...pts].reverse() : pts;
+  const at = (q, sg) => o.clone().addScaledVector(u, q[0]).addScaledVector(w, q[1]).addScaledVector(N, sg * t / 2);
+  const f = P.map((q) => at(q, 1)), k = P.map((q) => at(q, -1));
+  const pp = pal(c), nN = N.clone().negate();
+  for (let i = 1; i < P.length - 1; i++) { otri(B, f[0], f[i], f[i + 1], N, pp); otri(B, k[0], k[i], k[i + 1], nN, pp); }
+  for (let i = 0; i < P.length; i++) {
+    const j = (i + 1) % P.length;
+    const e = V().subVectors(f[j], f[i]);
+    const out = V().crossVectors(e, N);
+    otri(B, f[i], f[j], k[j], out, pp);
+    otri(B, f[i], k[j], k[i], out, pp);
+  }
+}
+
+function catBase(B, kind, style) {
+  const F = FAUVE;
+  if (kind === "palette") {
+    B.prism(circle(0, 0, 0.98, 0.82, 10, 0.3), 0, 0.14, pal(["#c98a4e", "#a86d38", "#7f5028"]));
+    B.cyl(0.14, 0.02, pal(style.bg || F.white), -0.6, 0.14, 0.32, 8);
+    const daubs = [[F.blue, -0.62, -0.28], [F.magenta, -0.2, -0.62], [F.yellow, 0.3, -0.6], [F.orange, 0.66, -0.2], [F.teal, 0.62, 0.3], [F.pink, 0.22, 0.6]];
+    for (const [c, x, z] of daubs) { B.rbox(0.26, 0.1, 0.22, 0.08, pal(c), x, 0.14, z); B.cone(0.08, 0, 0.1, pal(c), x + 0.03, 0.24, z, 4); }
+    return 0.14;
+  }
+  if (kind === "box") {
+    const K = ["#d9a45c", "#b98541", "#8f632b"], K2 = ["#c28d48", "#a07234", "#7a5424"];
+    B.box(1.1, 0.5, 1.0, pal(K), 0, 0, 0);
+    B.box(0.96, 0.02, 0.86, pal(F.ink), 0, 0.5, 0);
+    slab(B, [[0, -0.5], [0.34, -0.46], [0.34, 0.46], [0, 0.5]], V(0, 0.5, 0.5), V(0, 0.55, 0.8), V(1, 0, 0), 0.04, K2);
+    slab(B, [[0, -0.45], [0.3, -0.4], [0.3, 0.42], [0, 0.45]], V(0.55, 0.5, 0), V(0.8, 0.6, 0), V(0, 0, 1), 0.04, K2);
+    slab(B, [[0, -0.45], [0.28, -0.4], [0.28, 0.42], [0, 0.45]], V(-0.55, 0.5, 0), V(-0.8, 0.5, 0), V(0, 0, 1), 0.04, K);
+    B.box(0.5, 0.03, 0.12, pal(["#e8dfce", "#d5cbbd", "#baa993"]), 0.1, 0.25, 0.51);
+    return 0.38;
+  }
+  if (kind === "tiers") {
+    B.prism(circle(0, 0, 1.0, 1.0, 6, Math.PI / 6), 0, 0.16, pal(F.ink));
+    B.prism(circle(0, 0, 0.84, 0.84, 6, Math.PI / 6), 0.16, 0.3, pal(F.blue));
+    B.prism(circle(0, 0, 0.7, 0.7, 6, Math.PI / 6), 0.3, 0.4, pal(F.orange));
+    return 0.4;
+  }
+  plinth(B, 0.9, 0.24, style.plinthLo, style.plinthHi);
+  return 0.24;
+}
+
+function cat(B, H, style, v, o = {}) {
   const s = H / 2.2;
   const F = FAUVE;
   B.push(0, 0, 0, 0, s);
-  plinth(B, 0.9, 0.24, style.plinthLo, style.plinthHi);
-  const y0 = 0.24;
+  const y0 = catBase(B, o.base, style);
+  B.push(0, 0, 0, o.yaw ?? 0, 1);
   B.rbox(0.44, 0.46, 0.7, 0.08, pal(F.magenta), -0.24, y0, -0.12);
   B.rbox(0.44, 0.46, 0.7, 0.08, pal(F.yellow), 0.24, y0, -0.12);
   B.box(0.2, 0.14, 0.26, pal(F.orange), -0.26, y0, 0.3);
@@ -52,31 +109,187 @@ function cat(B, H, style, v) {
   B.box(0.16, 0.14, 0.34, pal(F.teal), 0.56, y0, -0.02);
   B.box(0.14, 0.12, 0.3, pal(F.orange), 0.46, y0, 0.28);
   B.box(0.12, 0.1, 0.14, pal(F.magenta), 0.34, y0, 0.46);
-  const hy = y0 + 1.2;
-  B.at(0, hy, 0.08, 0.38 + (v % 2) * 0.1, () => {
+  const hy = y0 + 1.2, tilt = o.tilt ?? 0, earR = o.earR ?? 0.46, earL = o.earL ?? 0.34;
+  B.at(0, hy, 0.08, o.head ?? (0.38 + (v % 2) * 0.1), () => {
     B.rbox(0.36, 0.5, 0.52, 0.08, pal(F.blue), -0.19, 0, 0);
     B.rbox(0.36, 0.5, 0.52, 0.08, pal(F.magenta), 0.17, 0, 0);
     B.rbox(0.18, 0.36, 0.54, 0.05, pal(F.yellow), 0.04, 0.12, 0.01);
-    B.box(0.46, 0.2, 0.2, pal(F.yellow), 0.02, 0.02, 0.3);
-    B.box(0.24, 0.16, 0.14, pal(F.orange), -0.12, 0.02, 0.33);
-    B.box(0.14, 0.1, 0.1, pal(F.lilac), 0.0, 0.16, 0.4);
-    B.box(0.2, 0.08, 0.06, pal(F.ink), 0.02, 0.0, 0.41);
-    B.box(0.03, 0.05, 0.03, pal(F.white), -0.05, 0.03, 0.44);
-    B.box(0.03, 0.05, 0.03, pal(F.white), 0.09, 0.03, 0.44);
+    B.box(0.5, 0.14, 0.2, pal(F.yellow), 0.02, 0.2, 0.3);
+    B.box(0.26, 0.14, 0.14, pal(F.orange), -0.12, -0.02, 0.33);
+    B.box(0.2, 0.12, 0.14, pal(F.pink), 0.13, -0.02, 0.33);
+    B.box(0.14, 0.1, 0.1, pal(F.lilac), 0.0, 0.2, 0.4);
+    B.box(0.26, 0.15 + tilt * 0.1, 0.06, pal(F.ink), 0.02, 0.04, 0.4);
+    B.box(0.18, 0.05, 0.05, pal(F.lilac), 0.02, 0.04, 0.42);
+    B.cone(0.035, 0, 0.08, pal(F.white), -0.07, 0.11, 0.44, 4);
+    B.cone(0.035, 0, 0.08, pal(F.white), 0.11, 0.11, 0.44, 4);
     for (const [x, c] of [[-0.14, F.yellow], [0.18, F.yellow]]) {
-      B.box(0.13, 0.11, 0.04, pal(c), x, 0.27, 0.26);
-      B.box(0.04, 0.09, 0.03, pal(F.ink), x, 0.28, 0.28);
+      B.box(0.14, 0.12, 0.04, pal(F.ink), x, 0.3, 0.26);
+      B.box(0.12, 0.1, 0.04, pal(c), x, 0.31, 0.27);
+      B.box(0.04, 0.09, 0.03, pal(F.ink), x, 0.32, 0.29);
     }
-    B.cone(0.15, 0, 0.34, pal(F.orange), -0.2, 0.46, -0.04, 4);
-    B.cone(0.07, 0, 0.18, pal(F.blue), -0.2, 0.66, -0.04, 4);
-    B.cone(0.15, 0, 0.36, pal(F.pink), 0.2, 0.46, -0.04, 4);
-    B.cone(0.07, 0, 0.18, pal(F.yellow), 0.2, 0.68, -0.04, 4);
+    B.cone(0.15, 0, earL, pal(F.orange), -0.2, 0.5, -0.04, 4);
+    B.cone(0.07, 0, earL * 0.5, pal(F.blue), -0.2, 0.5 + earL * 0.56, -0.04, 4);
+    B.cone(0.16, 0, earR, pal(F.pink), 0.21, 0.5, -0.04, 4);
+    B.cone(0.07, 0, earR * 0.5, pal(F.yellow), 0.21, 0.5 + earR * 0.56, -0.04, 4);
   });
+  B.pop();
   B.pop();
 }
 
 const ROLE_RE = [["threshold", /gate|arch|torii|threshold|portal|fang/i], ["dais", /dais|altar|plinth|pedestal|roost|perch|throne|cushion|crag/i], ["light", /lantern|torch|brazier|lamp/i], ["offering", /pot|basket|bowl|offering|chest|cairn|urn/i], ["mass", /tree|pine|spire|pillar|monolith|rock|cliff|totem/i]];
 const roleOf = (P, t) => P.props?.[t]?.role || (ROLE_RE.find(([, re]) => re.test(t)) || ["detail"])[0];
+
+const LENS_KINDS = [
+  ["knifeSlab", /knife|slab|scrap/i],
+  ["bristle", /bristle|tuft|brush/i],
+  ["paintBars", /chromatic-plinth|paint-bar|oil-bar/i],
+  ["cardbox", /cardboard|box/i],
+  ["crock", /crock|bowl|dish|saucer/i],
+  ["planter", /planter|cat-grass/i],
+  ["doorframe", /pantry|sill|beam|door/i],
+  ["collar", /collar|curb/i],
+  ["tooth", /canine|fang|tooth|pinnacle/i],
+  ["ear", /auricle|ear/i],
+  ["iris", /iris|eye/i],
+];
+const lensKind = (t, role) => role === "lead" || role === "creature" ? null : (LENS_KINDS.find(([, re]) => re.test(t)) || [null])[0];
+
+function beamAcross(B, d, y, th, w, c, reach = 1.0) {
+  if (!d.side) return;
+  if (d.axis === "x") B.box(w, th, reach + 0.3, pal(c), 0, y, -d.side * (reach / 2 - 0.05));
+  else B.box(reach + 0.3, th, w, pal(c), -d.side * (reach / 2 - 0.05), y, 0);
+}
+
+const F = FAUVE;
+const HUES = [F.magenta, F.yellow, F.blue, F.orange, F.teal, F.pink];
+const WOOD = ["#c9793c", "#a55f2b", "#7c441c"];
+const CREAM = ["#f4ecdc", "#e2d6c0", "#c6b69c"];
+
+const LENS_BUILD = {
+  knifeSlab(B, H, v) {
+    const a = HUES[v % 6], b = HUES[(v + 3) % 6];
+    B.rbox(0.72, 0.14, 0.6, 0.06, pal(CREAM), 0, 0, 0);
+    slab(B, [[0, -0.34], [0.2, -0.36], [H * 0.95, -0.2], [H, 0.18], [0.1, 0.34]], V(-0.1, 0.12, 0.05), V(0.28, 1, 0.1), V(0, 0.2, 1), 0.26, a);
+    slab(B, [[0.05, -0.12], [H * 0.9, -0.06], [H * 0.95, 0.1], [0.08, 0.12]], V(-0.02, 0.14, 0.2), V(0.28, 1, 0.1), V(0, 0.2, 1), 0.3, b);
+    slab(B, [[0, -0.1], [0.46, -0.08], [0.56, 0], [0.46, 0.08], [0, 0.1]], V(0.2, 0.14, -0.18), V(1, 0.35, -0.2), V(0, 0, 1), 0.04, ["#dfe3ea", "#b8bec9", "#8e95a3"]);
+    B.box(0.08, 0.08, 0.26, pal(WOOD), 0.18, 0.1, -0.18);
+  },
+  bristle(B, H, v) {
+    B.rbox(0.34, 0.16, 0.3, 0.05, pal(["#dfe3ea", "#b8bec9", "#8e95a3"]), 0, 0, 0);
+    for (let i = 0; i < 7; i++) {
+      const a = (i - 3) * 0.32, c = HUES[(i + v) % 6];
+      slab(B, [[0, -0.05], [H * 0.9, -0.03], [H, 0], [H * 0.9, 0.04], [0, 0.05]], V(Math.sin(a) * 0.06, 0.14, 0), V(Math.sin(a) * 0.7, 1, (i % 2 ? 0.18 : -0.12)), V(Math.cos(a), 0, 0), 0.12, c);
+    }
+  },
+  paintBars(B, H, v, { d }) {
+    const bars = [F.blue, F.magenta, F.yellow, F.orange, F.blue];
+    const hh = (H - 0.2) / bars.length;
+    bars.forEach((c, i) => B.rbox(0.5 - i * 0.04, hh, 0.44 - i * 0.03, 0.05, pal(c), (i % 2 ? 0.04 : -0.03), i * hh, (i % 2 ? -0.03 : 0.04)));
+    B.cone(0.16, 0, 0.2, pal(F.pink), 0, H - 0.2, 0, 4);
+    beamAcross(B, d, H * 0.78, 0.16, 0.26, F.blue);
+    beamAcross(B, d, H * 0.78 + 0.16, 0.1, 0.2, F.yellow);
+  },
+  cardbox(B, H, v) {
+    const K = ["#d9a45c", "#b98541", "#8f632b"], K2 = ["#c28d48", "#a07234", "#7a5424"];
+    B.box(0.76, H * 0.7, 0.7, pal(K), 0, 0, 0);
+    B.box(0.66, 0.02, 0.6, pal(F.ink), 0, H * 0.7, 0);
+    slab(B, [[0, -0.36], [0.24, -0.32], [0.24, 0.32], [0, 0.36]], V(0, H * 0.7, 0.35), V(0, 0.6, 0.8), V(1, 0, 0), 0.04, K2);
+    slab(B, [[0, -0.33], [0.22, -0.3], [0.22, 0.3], [0, 0.33]], V(0.38, H * 0.7, 0), V(0.8, 0.5, 0), V(0, 0, 1), 0.04, K2);
+    B.box(0.34, 0.03, 0.1, pal(CREAM), v % 2 ? 0.1 : -0.1, H * 0.35, 0.36);
+  },
+  crock(B, H, v) {
+    const glaze = v % 2 ? F.blue : F.teal;
+    B.cyl(0.34, H * 0.5, pal(CREAM), 0, 0, 0, 10);
+    B.cyl(0.38, 0.08, pal(glaze), 0, H * 0.5, 0, 10);
+    B.cyl(0.28, 0.04, pal(F.ink), 0, H * 0.5 + 0.04, 0, 10);
+    for (let i = 0; i < 9; i++) { const a = i * 2.1, r = 0.06 + (i % 3) * 0.07; B.box(0.08, 0.08, 0.08, pal(i % 2 ? F.orange : ["#b86a2a", "#94521d", "#6f3b12"]), Math.cos(a) * r, H * 0.5 + 0.06, Math.sin(a) * r); }
+  },
+  planter(B, H, v) {
+    B.box(0.76, H * 0.45, 0.4, pal(F.orange), 0, 0, 0);
+    B.box(0.8, 0.06, 0.44, pal(CREAM), 0, H * 0.45, 0);
+    for (let i = 0; i < 6; i++) { const x = -0.28 + i * 0.112, z = (i % 2 ? 0.07 : -0.07); B.cone(0.08, 0, H * (0.5 + (i + v) % 3 * 0.12), pal(i % 2 ? ["#5ac389", "#44a46b", "#32774e"] : ["#8ce263", "#64c960", "#50ab46"]), x, H * 0.5, z, 4); }
+  },
+  doorframe(B, H, v, { d }) {
+    B.box(0.42, 0.14, 0.42, pal(CREAM));
+    B.box(0.28, H - 0.14, 0.28, pal(WOOD), 0, 0.14, 0);
+    B.box(0.32, 0.08, 0.32, pal(F.yellow), 0, H * 0.45, 0);
+    B.box(0.36, 0.12, 0.36, pal(CREAM), 0, H - 0.12, 0);
+    beamAcross(B, d, H - 0.24, 0.22, 0.3, WOOD);
+    beamAcross(B, d, H - 0.02, 0.08, 0.36, CREAM);
+  },
+  collar(B, H, v) {
+    B.rbox(0.86, H * 0.6, 0.5, 0.12, pal(F.orange), 0, 0, 0);
+    B.rbox(0.7, H * 0.4, 0.34, 0.1, pal(v % 2 ? F.yellow : F.pink), 0.04, H * 0.6, -0.02);
+    B.box(0.5, 0.04, 0.08, pal(F.ink), 0, H * 0.6, 0.22);
+  },
+  tooth(B, H, v, { d }) {
+    B.prism(circle(0, 0, 0.3, 0.3, 6, Math.PI / 6), 0, 0.22, pal(["#5a3a78", "#46295f", "#321c46"]));
+    B.box(0.28, 0.18, 0.28, pal(F.lilac), 0, 0.22, 0);
+    B.cone(0.2, 0, H - 0.4, pal(F.white), 0, 0.4, 0, 4);
+    beamAcross(B, d, H * 0.45, 0.26, 0.3, F.ink);
+    beamAcross(B, d, H * 0.45 - 0.08, 0.08, 0.22, F.lilac);
+  },
+  ear(B, H, v) {
+    const lean = v % 2 ? -1 : 1, W = V(1, 0, -1), U = V(lean * 0.16, 1, lean * -0.16);
+    B.rbox(0.8, 0.18, 0.8, 0.08, pal(F.blue), 0, 0, 0);
+    slab(B, [[0, -0.46], [H * 0.98, lean * 0.08], [0, 0.46]], V(0, 0.16, 0), U, W, 0.36, lean > 0 ? F.orange : F.blue);
+    slab(B, [[0.06, -0.28], [H * 0.72, lean * 0.05], [0.06, 0.28]], V(0.12, 0.18, 0.12), U, W, 0.2, F.pink);
+    slab(B, [[H * 0.66, -0.12], [H * 0.98, lean * 0.08], [H * 0.66, 0.14]], V(0.03, 0.16, 0.03), U, W, 0.42, lean > 0 ? F.yellow : F.teal);
+  },
+  iris(B, H, v) {
+    B.cyl(0.3, 0.2, pal(F.ink), 0, 0, 0, 8);
+    B.cyl(0.22, H * 0.45, pal(F.orange), 0, 0.2, 0, 8);
+    B.cyl(0.26, 0.08, pal(F.yellow), 0, 0.2 + H * 0.45, 0, 8);
+    B.at(0, 0.28 + H * 0.45, 0, Math.PI / 4, () => {
+      B.box(0.5, 0.36, 0.14, pal(F.ink), 0, 0, 0);
+      B.box(0.42, 0.28, 0.16, pal(P_FLAME), 0, 0.04, 0);
+      B.box(0.1, 0.26, 0.18, pal(F.ink), 0, 0.05, 0);
+      B.box(0.05, 0.05, 0.19, pal(F.white), 0.06, 0.24, 0);
+    });
+  },
+  stroke(B, H, v) {
+    const a = HUES[v % 6], b = HUES[(v + 2) % 6];
+    B.at(0, 0, 0, (v % 3 - 1) * 0.5, () => {
+      B.rbox(0.9, 0.07, 0.3, 0.12, pal(a), 0, 0, 0);
+      B.rbox(0.7, 0.05, 0.1, 0.04, pal(b), 0.06, 0.07, -0.06);
+      B.rbox(0.18, 0.1, 0.32, 0.06, pal(a), 0.42, 0, 0);
+    });
+  },
+  saucer(B, H, v) {
+    B.cyl(0.3, 0.05, pal(CREAM), 0, 0, 0, 10);
+    B.cyl(0.22, 0.03, pal(["#fffaf0", "#f4eee2", "#e6dccb"]), 0, 0.05, 0, 10);
+    if (v % 2) B.rbox(0.3, 0.02, 0.16, 0.07, pal(["#fffaf0", "#f4eee2", "#e6dccb"]), 0.3, 0, 0.16);
+  },
+  cupboard(B, H, v) {
+    B.box(0.82, H, 0.56, pal(WOOD), 0, 0, 0);
+    B.box(0.72, 0.06, 0.02, pal(F.ink), 0, H * 0.34, 0.28);
+    B.box(0.72, 0.06, 0.02, pal(F.ink), 0, H * 0.66, 0.28);
+    const jars = [[F.yellow, -0.22], [F.magenta, 0.0], [F.teal, 0.22]];
+    for (const [k, [c, x]] of jars.entries()) {
+      B.cyl(0.09, 0.2, pal(c), x, H * 0.4, 0.2, 6);
+      B.cyl(0.08, 0.2, pal(HUES[(k + v + 2) % 6]), x, H * 0.72, 0.2, 6);
+    }
+    B.box(0.9, 0.08, 0.62, pal(CREAM), 0, H, 0);
+    B.box(0.06, 0.18, 0.06, pal(F.yellow), 0.3, H * 0.12, 0.3);
+  },
+  sunbeam(B, H, v) {
+    const S = ["#fff2b8", "#fbe39a", "#f0cf78"];
+    B.at(0, 0, 0, -0.6, () => {
+      B.box(0.9, 0.03, 0.2, pal(S), 0, 0, -0.18);
+      B.box(0.9, 0.03, 0.2, pal(S), 0, 0, 0.14);
+    });
+  },
+};
+let P_FLAME = FAUVE.yellow;
+
+const EXTRA = {
+  "knife-stroke": { kind: "stroke", footprint: [1, 1], passable: true, height: 0.12, variants: 6 },
+  "milk-saucer": { kind: "saucer", footprint: [1, 1], passable: true, height: 0.1, variants: 2 },
+  "pantry-cupboard": { kind: "cupboard", footprint: [1, 1], passable: false, height: 1.9, variants: 2 },
+  "sun-patch": { kind: "sunbeam", footprint: [1, 1], passable: true, height: 0.05, variants: 1 },
+};
+
+const BASE_OF = (t, pose) => /fauvist/.test(t) ? "palette" : /calico|sentinel/.test(t) ? "box" : /fauve-cat/.test(t) ? "tiers" : null;
 
 export function register(style) {
   const P = style.palette;
@@ -84,18 +297,24 @@ export function register(style) {
   const types = Object.keys(props);
   const daisT = types.find((t) => roleOf(P, t) === "dais");
   const dt = daisT ? tonesOf(P, daisT) : [];
-  const look = { plinthLo: pick(dt, 0, ["#9d8fa6", "#847790", "#655a70"]), plinthHi: pick(dt, 1, ["#c7b9cf", "#a799b0", "#85778f"]) };
+  const look = { plinthLo: pick(dt, 0, ["#9d8fa6", "#847790", "#655a70"]), plinthHi: pick(dt, 1, ["#c7b9cf", "#a799b0", "#85778f"]), bg: P.bg ? [P.bg, P.bg, P.bg] : null };
+  P_FLAME = FAUVE.yellow;
 
   const catalog = {};
   const builders = {};
   for (const t of types) {
     const p = props[t], role = p.role;
-    catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" ? false : !!p.passable, variants: 2, height: role === "lead" ? Math.min(3, Math.max(2.6, p.height || 2.6)) : Math.min(2.6, Math.max(0.3, p.height || 1)) };
+    const kind = lensKind(t, role);
+    const tall = role === "threshold" ? 1.7 : kind === "ear" ? 2.4 : null;
+    catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" || role === "threshold" ? false : !!p.passable, variants: kind ? 6 : 2, height: role === "lead" ? Math.min(3, Math.max(2.6, p.height || 2.6)) : tall || Math.min(2.6, Math.max(0.3, p.height || 1)) };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, FAUVE.orange), c1 = pick(tn, 1, FAUVE.yellow), c2 = pick(tn, 2, FAUVE.magenta);
+    const base = BASE_OF(t, p.pose);
+    const lensPose = base === "tiers" ? { base, yaw: 0.35, head: 0.3, earR: 0.62, earL: 0.46, tilt: 1 } : base === "box" ? { base, yaw: 0.3, head: 0.62, earR: 0.5, earL: 0.3 } : base ? { base, yaw: 0.4, head: 0.35 } : null;
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
-      if (role === "lead" || role === "creature") cat(B, H, look, v);
+      if (role === "lead" || role === "creature") cat(B, H, look, v, lensPose || {});
+      else if (kind) LENS_BUILD[kind](B, H, v, { c0, c1, c2, d });
       else if (role === "threshold") {
         B.box(0.44, 0.24, 0.44, pal(c0));
         B.box(0.3, H * 0.62, 0.3, pal(c1), 0, 0.24, 0);
@@ -134,10 +353,15 @@ export function register(style) {
       return mesh(B);
     };
   }
+  if (types.some((t) => BASE_OF(t))) for (const [t, e] of Object.entries(EXTRA)) {
+    catalog[t] = { footprint: e.footprint, passable: e.passable, variants: e.variants, height: e.height };
+    builders[t] = (v, rot, st, ctx) => { const B = new Baker(); LENS_BUILD[e.kind](B, ctx.height, v, { d: ctx.decor || {} }); return mesh(B); };
+  }
   return { catalog, builders };
 }
 
 export function finish(level, brief, h) {
+  if (brief.lens) return finishLens(level, brief, h);
   if (level.name === "cat-1") return home(level, brief, h);
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));
@@ -310,4 +534,229 @@ function home(level, brief, h) {
   if (gateT && bad()) { h.removeDecor((d) => d.t === gateT); h.repair(); }
   rampTone(level, h);
   h.log.push(`approach ${h.approach().length} posts ${posts().map((d) => d.x + "," + d.z).join(" ")} reach ${h.reach().reached}/${h.reach().total}`);
+}
+
+const LOOKS = {
+  medium: {
+    grass: { top: "#e0508c", fringe: "#c23a74", fringeDark: "#962a5a", speck: "#f68fb6" },
+    sand: { top: "#ffc629", lip: "#ec8a12", edge: "#cf6d0a", dots: "#ffe27a" },
+    dirt: { top: "#f06a1c", patch: "#ff8a3a", mottle: "#cf5410", border: "#a8400a", path: "#e05e14" },
+  },
+  subject: {
+    grass: { top: "#c98a4e", fringe: "#a86d38", fringeDark: "#7f5028", speck: "#dca26a" },
+    sand: { top: "#f7e3a4", lip: "#e6c46e", edge: "#caa54f", dots: "#fff1c8" },
+    dirt: { top: "#d9784a", patch: "#e58c5e", mottle: "#c46638", border: "#9c4c26", path: "#cf6e40" },
+  },
+  composition: {
+    grass: { top: "#1fa37e", fringe: "#178665", fringeDark: "#0f664d", speck: "#5fd3a8" },
+    sand: { top: "#ffc629", lip: "#ec8a12", edge: "#cf6d0a", dots: "#ffe27a" },
+    dirt: { top: "#e0607f", patch: "#ec7a95", mottle: "#c94c6c", border: "#9c3550", path: "#d4577a" },
+  },
+};
+
+const lensOf = (level) => String(level.name).split("-").pop();
+const landCells = (h) => { const out = []; for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) { const c = h.cell(x, z); if (h.land(c)) out.push([x, z, c]); } return out; };
+const figBox = (h) => { const xs = h.figure.cells.map((c) => c[0]), zs = h.figure.cells.map((c) => c[1]); return [Math.min(...xs), Math.min(...zs), Math.max(...xs), Math.max(...zs)]; };
+const figDist = (h, x, z) => Math.min(...h.figure.cells.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
+
+function freeFlat(h, x, z, route, side = false) {
+  const c = h.cell(x, z);
+  if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || h.decorAt(x, z).length) return false;
+  if (route && route.some(([a, b]) => a === x && b === z)) return false;
+  if (N4.some(([a, b]) => { const q = h.cell(x + a, z + b); if (q?.s !== "ramp") return false; if (!side) return true; const [dx, dz] = h.DIRS[q.d]; return dx === -a && dz === -b || dx === a && dz === b; })) return false;
+  return true;
+}
+
+function safePut(h, t, x, z, o = {}) {
+  const m0 = h.reach().missing.length;
+  if (!h.put(t, x, z, o)) return false;
+  if (h.reach().missing.length > m0) { h.removeDecor((d) => d.t === t && d.x === x && d.z === z); return false; }
+  return true;
+}
+
+function scatter(h, t, n, pred, o = {}) {
+  const cand = landCells(h).filter(([x, z]) => pred(x, z)).sort((a, b) => hash(a[0], a[1] + (o.salt || 0)) - hash(b[0], b[1] + (o.salt || 0)));
+  let k = 0;
+  for (const [x, z] of cand) {
+    if (k >= n) break;
+    if (o.gap && LV.decor.some((d) => d.t === t && Math.abs(d.x - x) + Math.abs(d.z - z) < o.gap)) continue;
+    if (safePut(h, t, x, z, { v: (o.v0 || 0) + k })) k++;
+  }
+  h.log.push(`scatter ${t} ${k}/${n}`);
+  return k;
+}
+let LV = null;
+
+function tryGate(level, h, gateT, route, fracs, o = {}) {
+  const posts = () => level.decor.filter((d) => d.t === gateT);
+  for (const strict of [true, false]) for (const frac of fracs) {
+    const saved = level.cells.map((row) => row.map((c) => ({ ...c }))), dec = level.decor.slice(), miss = h.reach().missing.length;
+    const snap = JSON.stringify(level.cells.map((r) => r.map((c) => c.h)));
+    const g = h.gate(gateT, { route, frac, ...o });
+    const ok = g && posts().length === 2 && new Set(posts().map((d) => h.cell(d.x, d.z).h)).size === 1 && !posts().some((d) => h.cell(d.x, d.z).s === "ramp") && h.reach().missing.length <= miss;
+    if (ok && (!strict || JSON.stringify(level.cells.map((r) => r.map((c) => c.h))) === snap)) return g;
+    level.cells.splice(0, level.cells.length, ...saved);
+    level.decor.splice(0, level.decor.length, ...dec);
+  }
+  return null;
+}
+
+function raisePantry(level, h) {
+  const [, fz0, , fz1] = figBox(h);
+  let gapZ = -1;
+  for (let z = fz1 + 1; z < h.D; z++) { const n = landCells(h).filter(([, zz]) => zz === z).length; if (n > 0 && n <= 3) { gapZ = z; break; } }
+  if (gapZ < 0) return;
+  let n = 0;
+  for (const [x, z, c] of landCells(h)) if (z < gapZ && c.s !== "ramp") { level.cells[z][x] = { h: 2, s: "grass" }; n++; }
+  for (const [x, z, c] of landCells(h)) if (z < gapZ && c.s === "ramp") level.cells[z][x] = { h: 2, s: "grass" };
+  h.removeDecor((d) => h.cell(d.x, d.z)?.s === "none");
+  h.log.push(`pantry shelf raised to h2 above row ${gapZ} (${n} cells)`);
+}
+
+function southSpawn(level, h) {
+  const [fx0, , fx1] = figBox(h);
+  const mid = (fx0 + fx1) / 2;
+  let best = null;
+  for (const [x, z, c] of landCells(h)) {
+    if (c.s === "ramp" || h.isFig(x, z) || h.decorAt(x, z).length) continue;
+    const q = h.approach({ from: [x, z] });
+    if (q.length < 6) continue;
+    const sc = z * 2 - Math.abs(x - mid) * 1.5;
+    if (!best || sc > best[0]) best = [sc, x, z];
+  }
+  if (best) { level.spawn = [best[1], best[2]]; h.log.push(`south spawn ${level.spawn}`); }
+  return h.approach();
+}
+
+function throat(level, h) {
+  const [fx0, fz0, fx1, fz1] = figBox(h);
+  const fh = h.cell(fx0, fz0).h, cx = fx0, zl = fz1 + 1;
+  const keepTop = new Set([[cx - 1, zl], [cx, zl], [cx + 1, zl]].map(([x, z]) => h.key(x, z)));
+  let low = 0;
+  for (const [x, z, c] of landCells(h)) if (c.h === fh && !h.isFig(x, z) && !keepTop.has(h.key(x, z))) { level.cells[z][x] = { h: fh - 1, s: "dirt" }; low++; }
+  for (const [x, z] of [[cx - 1, zl], [cx, zl], [cx + 1, zl]]) level.cells[z][x] = { h: fh, s: "dirt" };
+  level.cells[zl + 1][cx] = { h: fh, s: "ramp", d: "s", m: "grass" };
+  level.cells[zl + 2][cx] = { h: fh - 1, s: "grass" };
+  h.removeDecor((d) => d.x === cx && (d.z === zl + 1 || d.z === zl + 2));
+  let foot = [cx, zl + 2];
+  for (const dx of [1, -1]) {
+    const X = cx + dx, Z = zl + 2, q = h.cell(X + dx, Z);
+    if (h.land(q) && q.s !== "ramp" && q.h === fh - 2) { level.cells[Z][X] = { h: fh - 1, s: "ramp", d: dx > 0 ? "e" : "w", m: "grass" }; h.removeDecor((d) => d.x === X && d.z === Z); foot = [X + dx, Z]; break; }
+  }
+  let best = null;
+  for (const [x, zz, c] of landCells(h)) {
+    if (c.h !== 1 || c.s === "ramp" || h.decorAt(x, zz).length) continue;
+    if (!N4.some(([a, b]) => { const q = h.cell(x + a, zz + b); return !q || q.s === "none"; })) continue;
+    const q = h.route([x, zz], [cx, zl]);
+    if (!q || q.length < 8) continue;
+    const sc = Math.abs(q.length - 11) - zz * 0.4;
+    if (!best || sc < best[0]) best = [sc, x, zz, q];
+  }
+  if (best) { h.clear(best[1], best[2]); level.spawn = [best[1], best[2]]; }
+  const r = best ? best[3] : h.route(foot, [cx, zl]) || [];
+  h.log.push(`throat: lowered ${low} top cells, stair from ${cx},${zl} to ${foot}, spawn ${level.spawn}, route ${r.length}`);
+  return r;
+}
+
+function dropPillars(level, h) {
+  let n = 0;
+  for (const [x, z, c] of landCells(h)) {
+    if (c.h < 2 || c.s === "ramp" || h.isFig(x, z)) continue;
+    const nb = N4.map(([a, b]) => [x + a, z + b, h.cell(x + a, z + b)]).filter(([, , q]) => h.land(q));
+    const flat = nb.filter(([, , q]) => q.s !== "ramp");
+    if (flat.some(([, , q]) => q.h >= c.h)) continue;
+    const to = Math.max(1, ...flat.map(([, , q]) => q.h));
+    level.cells[z][x] = { h: to, s: c.s };
+    for (const [X, Z, q] of nb) if (q.s === "ramp") { const [dx, dz] = h.DIRS[q.d]; if (X - dx === x && Z - dz === z) level.cells[Z][X] = { h: q.h - 1, s: q.m && q.m !== "stone" ? q.m : "sand" }; }
+    h.clear(x, z, true);
+    n++;
+  }
+  if (n) h.log.push(`dropPillars ${n}`);
+}
+
+function finishLens(level, brief, h) {
+  LV = level;
+  const L = lensOf(level);
+  const look = LOOKS[L] || {};
+  for (const k of Object.keys(look)) level.palette[k] = { ...level.palette[k], ...look[k] };
+  h.dryRim();
+  const gateT = brief.threshold?.prop && level.palette?.props?.[brief.threshold.prop] ? brief.threshold.prop : h.ofRole("threshold")[0];
+  const lightT = h.ofRole("light")[0];
+  const daisT = h.ofRole("dais")[0];
+  h.removeDecor((d) => d.t === gateT || d.t === lightT || d.t === daisT || d.t === "lantern" || d.t === "torch" || d.t === "marker" || /^tree/.test(d.t) || (L === "composition" && /auricle|collar/.test(d.t)) || (L === "subject" && /planter|crock|barrel|cupboard/.test(d.t)));
+  if (L === "subject") raisePantry(level, h);
+  if (L !== "subject") dropPillars(level, h);
+  let r = L === "composition" ? throat(level, h) : h.spawnAt({ min: 10, max: 16, force: L === "subject" });
+  if (r.length) h.path(r, { s: L === "composition" ? "grass" : "sand" });
+  const main = L === "composition" ? r : null;
+  h.pruneRamps({ route: main || h.approach() });
+  h.pruneRamps({ all: true, slotsOnly: true });
+  h.openRamps();
+  h.pruneRamps({ all: true, nearFig: 1 });
+  r = main || h.approach();
+  let g = null;
+  if (gateT) g = tryGate(level, h, gateT, r, L === "composition" ? [1] : L === "subject" ? [0.55, 0.45, 0.65, 0.35] : [0.6, 0.5, 0.7, 0.4], L === "composition" ? { at: r[r.length - 1] } : {});
+  r = main || h.approach();
+  const [fx0, fz0, fx1, fz1] = figBox(h);
+  const fh = h.cell(h.figure.anchor[0], h.figure.anchor[1]).h;
+  const onR = (x, z) => r.some(([a, b]) => a === x && b === z);
+  const keep = [gateT, lightT, daisT, "auricle-spire", "pantry-cupboard", "orange-collar-curb", "ceramic-food-crock", "cat-grass-planter", "pot", "palette-knife-slab"].filter(Boolean);
+  if (L === "medium") {
+    for (const [x, z, c] of landCells(h)) {
+      if (c.s === "ramp" || onR(x, z) || h.isFig(x, z)) continue;
+      const pz = Math.floor(z / 2), px = Math.floor((x + (pz % 2) * 1) / 2);
+      c.s = ["dirt", "grass", "dirt", "sand", "grass", "dirt", "stone", "grass"][(px * 3 + pz * 5 + ((px * pz) % 3)) % 8];
+    }
+    h.removeDecor((d) => d.t === "pot" && figDist(h, d.x, d.z) > 3);
+    const lip = (d) => { const c = h.cell(d.x, d.z); return [[1, 0], [0, 1]].some(([a, b]) => { const q = h.cell(d.x + a, d.z + b); return !h.land(q) || q.h < c.h; }); };
+    h.removeDecor((d) => /bristle|knife-slab/.test(d.t) && (lip(d) || hash(d.x, d.z) % 3 === 0));
+    const near = [[fx0 - 1, fz1 + 1], [fx1 + 1, fz1 + 1], [fx1 + 1, fz0], [fx0, fz1 + 1], [fx1 + 2, fz1]];
+    let pots = level.decor.filter((d) => d.t === "pot").length;
+    for (const [x, z] of near) if (pots < 3 && freeFlat(h, x, z, r) && safePut(h, "pot", x, z, { v: pots })) pots++;
+    const slabs = level.decor.filter((d) => /knife-slab/.test(d.t)).length;
+    scatter(h, "palette-knife-slab", Math.max(0, 3 - slabs), (x, z) => freeFlat(h, x, z, r) && figDist(h, x, z) > 2 && !lip({ x, z }) && !level.decor.some((d) => /knife-slab|bristle/.test(d.t) && Math.abs(d.x - x) + Math.abs(d.z - z) < 3), { v0: 2, salt: 7 });
+    scatter(h, "knife-stroke", 12, (x, z) => freeFlat(h, x, z, r) && figDist(h, x, z) > 1, { gap: 2, v0: 1 });
+  }
+  if (L === "subject") {
+    for (const [x, z, c] of landCells(h)) {
+      if (c.s === "ramp" || onR(x, z) || h.isFig(x, z)) continue;
+      if (c.h === 1) c.s = (x + z) % 2 ? "sand" : "dirt";
+      else c.s = "grass";
+    }
+    for (const [x, z] of [[fx0 - 1, fz1], [fx1 + 1, fz1], [fx0 - 1, fz0], [fx1 + 1, fz0]]) if (level.decor.filter((d) => d.t === daisT).length < 2 && freeFlat(h, x, z, r)) safePut(h, daisT, x, z, { v: x });
+    const back = landCells(h).filter(([x, z, c]) => c.h === 2 && freeFlat(h, x, z, r) && !(h.cell(x, z - 1) && h.land(h.cell(x, z - 1))) && figDist(h, x, z) > 1).sort((a, b) => a[0] - b[0]);
+    back.forEach(([x, z], i) => { if (i % 2 === 0) safePut(h, i % 4 === 0 ? "pantry-cupboard" : "cat-grass-planter", x, z, { v: i }); });
+    const riser = r.findIndex(([x, z]) => h.cell(x, z).h === 2 || h.cell(x, z).s === "ramp");
+    const before = r.slice(Math.max(0, riser - 3), Math.max(0, riser - 1));
+    let crocks = 0;
+    for (const [x, z] of before.reverse()) for (const [a, b] of N4) { if (crocks < 2 && freeFlat(h, x + a, z + b, r) && safePut(h, "ceramic-food-crock", x + a, z + b, { v: crocks })) crocks++; }
+    const floor = r.filter(([x, z]) => h.cell(x, z).h === 1);
+    let saucers = 0;
+    for (const [i, [x, z]] of floor.entries()) if (i % 3 === 1) for (const [a, b] of N4) { if (saucers < 3 && freeFlat(h, x + a, z + b, r) && safePut(h, "milk-saucer", x + a, z + b, { v: saucers })) { saucers++; break; } }
+    const sp = level.spawn;
+    let bar = 0;
+    for (const [a, b] of [[-1, -1], [1, -1], [-1, 0], [1, 0], [-2, 0], [2, 0]]) if (bar < 2 && freeFlat(h, sp[0] + a, sp[1] + b, r) && safePut(h, "barrel", sp[0] + a, sp[1] + b)) bar++;
+    scatter(h, "sun-patch", 5, (x, z) => h.cell(x, z).h === 1 && freeFlat(h, x, z, r) && (x - z) % 4 === 0, { gap: 2 });
+  }
+  if (L === "composition") {
+    for (const [x, z, c] of landCells(h)) {
+      if (c.s === "ramp" || onR(x, z) || h.isFig(x, z)) continue;
+      c.s = c.h === 1 ? "sand" : "dirt";
+    }
+    const earAt = [[[fx0 - 2, fz0 - 1], [fx0 - 1, fz0 - 1], [fx0 - 1, fz0 - 2]], [[fx1 + 2, fz0 - 1], [fx1 + 1, fz0 - 1], [fx1 + 1, fz0 - 2]]];
+    earAt.forEach((list, i) => { for (const [x, z] of list) if (freeFlat(h, x, z, r, true) && safePut(h, "auricle-spire", x, z, { v: i })) break; });
+    if (lightT) {
+      for (const list of [[[fx0 - 1, fz0], [fx0 - 1, fz0 + 1], [fx0 - 2, fz0]], [[fx1 + 1, fz0], [fx1 + 1, fz0 + 1], [fx1 + 2, fz0]]]) for (const [x, z] of list) if (freeFlat(h, x, z, r) && safePut(h, lightT, x, z, { v: 0 })) break;
+    }
+    const col = landCells(h).filter(([x, z]) => freeFlat(h, x, z, r) && z >= fz1 + 1 && z <= fz1 + 2 && x >= fx0 - 3 && x <= fx1 + 3 && x !== fx0).sort((a, b) => Math.abs(a[0] - (fx0 + fx1) / 2) - Math.abs(b[0] - (fx0 + fx1) / 2));
+    let cn = 0;
+    for (const [x, z] of col) if (cn < 6 && !level.decor.some((d) => /collar/.test(d.t) && Math.abs(d.x - x) + Math.abs(d.z - z) < 2) && safePut(h, "orange-collar-curb", x, z, { v: cn })) cn++;
+  }
+  h.ledges({ keep, tall: 2.5 });
+  h.repair({ keep });
+  if (h.walkN() < 84) h.thin(84, { keep });
+  if (h.walkN() < 84) h.grow(84);
+  h.rampTone();
+  if (L === "composition") for (const [x, z, c] of landCells(h)) if (c.s === "ramp") c.m = "dirt";
+  h.log.push(`lens ${L}: approach ${h.approach().length}, walk ${h.walkN()}, gate ${g}, missing ${JSON.stringify(h.reach().missing)}`);
 }

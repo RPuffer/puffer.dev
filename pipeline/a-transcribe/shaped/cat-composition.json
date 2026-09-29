@@ -1,0 +1,1243 @@
+{
+ "source": {
+  "art": "pipeline/seed/cat.png",
+  "width": 1587,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "fauvist",
+  "strident",
+  "chromatic",
+  "vocal",
+  "pyramidal",
+  "vibrant"
+ ],
+ "observations": [
+  {
+   "what": "Tall pointed cat right ear extending diagonally upward with vivid pink and magenta inner flap and bright orange outer edge",
+   "box": [
+    47,
+    546,
+    344,
+    856
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Shorter left cat ear painted in saturated violet-blue, orange, and gold leaning toward the upper-left margin",
+   "box": [
+    136,
+    4,
+    381,
+    237
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Large round chartreuse-gold left eye with black rim and dilated pupil staring forward",
+   "box": [
+    342,
+    222,
+    437,
+    345
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Right almond-shaped golden eye outlined in heavy indigo and black paint",
+   "box": [
+    328,
+    497,
+    421,
+    630
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Lavender-grey triangular nose pad with twin dark nostrils",
+   "box": [
+    468,
+    348,
+    545,
+    482
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Open black triangular mouth showing lilac tongue base and two pointed white canine teeth",
+   "box": [
+    564,
+    327,
+    680,
+    529
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Sweeping cadmium orange collar bib looping beneath the chin across the lower neck",
+   "box": [
+    538,
+    149,
+    715,
+    775
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Heavy left shoulder and chest mass covered in vertical strokes of magenta, crimson, and deep orange",
+   "box": [
+    629,
+    155,
+    995,
+    521
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Broad right chest and flank covered in brilliant cadmium yellow and golden ochre brushmarks",
+   "box": [
+    604,
+    508,
+    991,
+    897
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Unpainted, primed woven canvas showing clean warm off-white in the upper-left sky background",
+   "box": [
+    0,
+    0,
+    360,
+    487
+   ],
+   "maps_to": "V"
+  },
+  {
+   "what": "Raw unpainted canvas background behind the right ear and along the upper-right edge",
+   "box": [
+    0,
+    687,
+    484,
+    1000
+   ],
+   "maps_to": "V"
+  },
+  {
+   "what": "Narrow emerald green stroke bridging the chin and throat directly under the lower lip",
+   "box": [
+    665,
+    407,
+    725,
+    546
+   ],
+   "maps_to": "P"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#e8dfce",
+    "share": 0.233,
+    "role": "unpainted primed canvas ground flanking the head and shoulders"
+   },
+   {
+    "hex": "#d5cbbd",
+    "share": 0.165,
+    "role": "shadowed canvas ground along the upper and left margins"
+   },
+   {
+    "hex": "#df9e0c",
+    "share": 0.131,
+    "role": "cadmium yellow brushstroke across right forehead and eye"
+   },
+   {
+    "hex": "#363a56",
+    "share": 0.124,
+    "role": "deep ultramarine-indigo cheek shading and facial outlines"
+   },
+   {
+    "hex": "#cf610d",
+    "share": 0.099,
+    "role": "flaming cadmium orange collar arc and left ear tip"
+   },
+   {
+    "hex": "#9c3541",
+    "share": 0.088,
+    "role": "magenta-crimson block on chest and forehead bridge"
+   },
+   {
+    "hex": "#c6b19c",
+    "share": 0.082,
+    "role": "warm neutral ground near the lower flanks"
+   },
+   {
+    "hex": "#c4616d",
+    "share": 0.077,
+    "role": "bright bubblegum pink inner ear plane and cheek scumble"
+   }
+  ],
+  "translation": {
+   "bg": "#2b2936",
+   "grass": {
+    "top": "#5ac389",
+    "fringe": "#44a46b",
+    "fringeDark": "#327f50",
+    "speck": "#8ce263"
+   },
+   "sand": {
+    "top": "#f2ab0d",
+    "lip": "#cd8804",
+    "edge": "#da9309",
+    "dots": "#f9cb5b"
+   },
+   "dirt": {
+    "top": "#9c3541",
+    "patch": "#b84250",
+    "mottle": "#7c2530",
+    "border": "#cf610d"
+   },
+   "stone": {
+    "top": "#d5cbbd",
+    "pebble": "#e8dfce",
+    "pebbleShade": "#baa794",
+    "rim": "#9e8c79"
+   },
+   "cliffUpper": {
+    "left": "#363a56",
+    "right": "#25283c",
+    "seam": "#191b28"
+   },
+   "cliffLower": {
+    "left": "#9c3541",
+    "right": "#73232d",
+    "seam": "#53161e",
+    "speck": "#cf610d"
+   },
+   "water": {
+    "top": "#a0eeff",
+    "bubble": "#daf7ff",
+    "deep": "#00d4ff",
+    "fall": [
+     "#00daff",
+     "#00ceff",
+     "#00c7ff"
+    ],
+    "foam": "#daf7ff"
+   },
+   "wood": {
+    "light": "#ff831d",
+    "mid": "#dc7016",
+    "dark": "#bd4c0b",
+    "shadow": "#a04b14",
+    "end": "#f6d881"
+   },
+   "treeMint": [
+    "#68e09e",
+    "#5ac389",
+    "#44a46b"
+   ],
+   "treeLime": [
+    "#c4ef86",
+    "#8ce263",
+    "#73aa4f"
+   ],
+   "treeLeaf": [
+    "#8ce263",
+    "#64c960",
+    "#50ab46"
+   ],
+   "treeTeal": [
+    "#00ffbf",
+    "#00e09b",
+    "#00c386",
+    "#00a568"
+   ],
+   "treeGold": [
+    "#df9e0c",
+    "#b97b04",
+    "#935f00"
+   ],
+   "trunk": [
+    "#31365b",
+    "#22263f"
+   ],
+   "rock": [
+    "#e8dfce",
+    "#d5cbbd",
+    "#baa794",
+    "#9e8c79"
+   ],
+   "wellStone": [
+    "#dbc9a2",
+    "#c7b693",
+    "#b1a483"
+   ],
+   "flowerOrange": [
+    "#cf610d",
+    "#df9e0c"
+   ],
+   "berry": [
+    "#c4616d",
+    "#9c3541"
+   ],
+   "bushTeal": [
+    "#8fffc2",
+    "#68e09e",
+    "#5ac389"
+   ],
+   "gold": [
+    "#df9e0c",
+    "#b97b04",
+    "#f8c548"
+   ]
+  },
+  "notes": "The pack palette is translated directly into the artwork's Fauvist primaries. Sand absorbs the cadmium yellow strokes (#df9e0c), dirt represents the deep crimson blocks (#9c3541), while the cliffs inherit the dark ultramarine indigo outlines (#363a56) to maintain sharp architectural graphic contrast.",
+  "clamped": [
+   "trunk[0] #363a56->#31365b",
+   "trunk[1] #25283c->#22263f",
+   "sand.top #df9e0c->#f2ab0d",
+   "sand.lip #b97b04->#cd8804",
+   "sand.edge #c78608->#da9309",
+   "sand.dots #f8c548->#f9cb5b"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "orange-collar-curb",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.45,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     2,
+     7
+    ],
+    [
+     4,
+     8
+    ],
+    [
+     8,
+     8
+    ],
+    [
+     10,
+     7
+    ]
+   ],
+   "where": "Placed along the curved arc marking the cadmium orange bib below the figure's jaw in IMAGE 1.",
+   "role": "approach",
+   "shape": {
+    "summary": "An arched curved wood beam mimicking thick cadmium orange bristle marks.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.35,
+       0.45,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#cf610d",
+       "#b34f07",
+       "#863602"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.75,
+       0.1,
+       0.35
+      ],
+      "at": [
+       0,
+       0.35,
+       0
+      ],
+      "tones": [
+       "#f9cb5b",
+       "#f2ab0d",
+       "#cd8804"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.35,
+       0.1,
+       -0.15
+      ],
+      "to": [
+       0.35,
+       0.15,
+       0.15
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "canine-pinnacle",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     5,
+     5
+    ],
+    [
+     7,
+     4
+    ]
+   ],
+   "where": "Flanking the vocal opening at the exact points where the sharp white canine teeth emerge in IMAGE 1.",
+   "role": "threshold",
+   "shape": {
+    "summary": "Sharp triangular white prism tooth set on a faceted dark violet base.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.25,
+       0.55,
+       0.05
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#31365b",
+       "#22263f",
+       "#191b28"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.02,
+       0.55,
+       6
+      ],
+      "at": [
+       0,
+       0.25,
+       0
+      ],
+      "tones": [
+       "#e8dfce",
+       "#d5cbbd",
+       "#baa794"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "auricle-spire",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     3,
+     2
+    ]
+   ],
+   "where": "Located at the high left and right ear peaks of the feline silhouette.",
+   "role": "mass",
+   "shape": {
+    "summary": "Asymmetric leaning triangular prism representing the pointed feline ear.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.6,
+       0.6,
+       0.6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#cf610d",
+       "#b34f07",
+       "#863602"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.45,
+       0.05,
+       1.2,
+       5
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "rot": [
+       0,
+       25,
+       12
+      ],
+      "tones": [
+       "#c4616d",
+       "#9c3541",
+       "#73232d"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.25,
+       0.8,
+       0.15
+      ],
+      "at": [
+       0.05,
+       0.7,
+       -0.1
+      ],
+      "tones": [
+       "#f2ab0d",
+       "#cd8804",
+       "#935f00"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       -0.15,
+       0.2,
+       0.2
+      ],
+      "to": [
+       0.1,
+       1.6,
+       0
+      ],
+      "tones": [
+       "#31365b",
+       "#22263f",
+       "#191b28"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "chromatic-ridge-marker",
+   "type": "marker",
+   "variant_of": "marker",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.1,
+   "passable": true,
+   "count": 4,
+   "cells": [
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     6,
+     6
+    ]
+   ],
+   "where": "Lining the vertical nasal bridge and the green throat stroke leading to the focal mouth.",
+   "role": "detail",
+   "shape": {
+    "summary": "Flat rectangular stepping pad colored in viridian and lavender strokes.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.08,
+       0.65,
+       0.04
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#5ac389",
+       "#44a46b",
+       "#327f50"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.35,
+       0.04,
+       0.35
+      ],
+      "at": [
+       0,
+       0.08,
+       0
+      ],
+      "tones": [
+       "#c4616d",
+       "#9c3541",
+       "#73232d"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "gold-iris-pedestal",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.1,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     4,
+     2
+    ],
+    [
+     8,
+     2
+    ]
+   ],
+   "where": "Located where the wide golden cat eyes are set into the upper face in IMAGE 1.",
+   "role": "light",
+   "shape": {
+    "summary": "A tiered golden cylindrical pedestal crowned with an indigo eye ring.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.42,
+       0.4,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#31365b",
+       "#22263f",
+       "#191b28"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.36,
+       0.45,
+       8
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#f2ab0d",
+       "#cd8804",
+       "#935f00"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       0.25,
+       8
+      ],
+      "at": [
+       0,
+       0.85,
+       0
+      ],
+      "tones": [
+       "#191b28",
+       "#10121a",
+       "#090a0f"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "tree-gold",
+   "type": "tree-round",
+   "variant_of": "tree-round",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     9,
+     4
+    ],
+    [
+     11,
+     5
+    ],
+    [
+     12,
+     7
+    ]
+   ],
+   "where": "Placed on the right shoulder flank where massive sweeps of pure yellow fur sit.",
+   "role": "mass",
+   "shape": {
+    "summary": "Toy round tree with dark indigo trunk and stacked yellow rounded boxes.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.15,
+       0.9,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#31365b",
+       "#22263f",
+       "#191b28"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.7,
+       0.85,
+       0.12
+      ],
+      "at": [
+       0,
+       0.7,
+       0
+      ],
+      "tones": [
+       "#f2ab0d",
+       "#cd8804",
+       "#935f00"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.55,
+       0.65,
+       0.1
+      ],
+      "at": [
+       0.1,
+       1.25,
+       -0.05
+      ],
+      "tones": [
+       "#f9cb5b",
+       "#f2ab0d",
+       "#cd8804"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.45,
+       0.45,
+       0.08
+      ],
+      "at": [
+       -0.05,
+       1.65,
+       0.05
+      ],
+      "tones": [
+       "#f9cb5b",
+       "#f2ab0d",
+       "#cd8804"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "vocal-fauve-cat",
+   "source": "the entire cat head and upper torso centered in IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.1,
+   "pose": "The stylized feline bust sits locked in a direct frontal orientation with parted jaws and towering asymmetrical ear spires.",
+   "cell": [
+    7,
+    5
+   ],
+   "facing": "s",
+   "why": "It is the singular expressive subject of the painting, positioned dead center at the mouth focal point.",
+   "shape": {
+    "summary": "Chunky toy feline bust assembled from primary-colored faceted blocks.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.95,
+       0.7,
+       0.8,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#cf610d",
+       "#b34f07",
+       "#863602"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.65,
+       0.75,
+       0.1
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#f2ab0d",
+       "#cd8804",
+       "#935f00"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.75,
+       0.55,
+       0.65,
+       0.08
+      ],
+      "at": [
+       0,
+       1.15,
+       0
+      ],
+      "tones": [
+       "#c4616d",
+       "#9c3541",
+       "#73232d"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.38,
+       0.22,
+       0.15
+      ],
+      "at": [
+       0,
+       1.25,
+       0.3
+      ],
+      "tones": [
+       "#191b28",
+       "#10121a",
+       "#090a0f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.05,
+       0.01,
+       0.1,
+       4
+      ],
+      "at": [
+       -0.1,
+       1.22,
+       0.32
+      ],
+      "tones": [
+       "#e8dfce",
+       "#d5cbbd",
+       "#baa794"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.05,
+       0.01,
+       0.1,
+       4
+      ],
+      "at": [
+       0.1,
+       1.22,
+       0.32
+      ],
+      "tones": [
+       "#e8dfce",
+       "#d5cbbd",
+       "#baa794"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.02,
+       0.5,
+       4
+      ],
+      "at": [
+       -0.28,
+       1.65,
+       0
+      ],
+      "rot": [
+       0,
+       15,
+       -15
+      ],
+      "tones": [
+       "#31365b",
+       "#22263f",
+       "#191b28"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.02,
+       0.65,
+       4
+      ],
+      "at": [
+       0.28,
+       1.7,
+       0
+      ],
+      "rot": [
+       0,
+       -10,
+       18
+      ],
+      "tones": [
+       "#c4616d",
+       "#9c3541",
+       "#73232d"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVVVGGGGGVVVV",
+   "VVVGGGGGGGGGGVVV",
+   "VVGGGRRRRRRGGGGV",
+   "VGGGGRRRRRRGGGGV",
+   "VRRGGRRFFRRGGGGV",
+   "VGGGGRRFFRRGGGGV",
+   "VGGGGRRPRRRGGGGV",
+   "VVGGGRRPRRRGGGVV",
+   "VVGGGGGPGGGGGVVV",
+   "VVVVVVVPPPGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000000111110000",
+   "0001111111111000",
+   "0011122222211110",
+   "0111123333211110",
+   "0221123333211110",
+   "0111123333211110",
+   "0111123333211110",
+   "0011122222211100",
+   "0011111111111000",
+   "0000000111110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 5,
+   "what": "the howling triangular mouth flanked by twin canine pillars"
+  },
+  "mass": "Visual mass sits in a dense, tall pyramidal wedge anchored in the middle lower field and tapering up to row 1.",
+  "read": "The viewer enters the island from the front collar arc at rows 8-9 and travels up the narrow central throat path toward the raised mouth plateau at cell [7,6]. Flanking the figure are wide yellow shoulder terraces to the right and magenta slopes to the left. The upper background falls off into void, mirroring the empty unpainted primed canvas margins of IMAGE 1.",
+  "shaped": {
+   "name": "mound",
+   "params": {
+    "peak": [
+     0.47,
+     0.45
+    ],
+    "height": 3,
+    "spread": 0.95,
+    "lobes": 2
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVTGGGGGGTVVVV",
+    "VVVTGGGRRRRGTVVV",
+    "VVVGGGRRRRRGGTVV",
+    "VVGGGGPRRRPGGGTV",
+    "VVGGGGPRRRPGGGTV",
+    "VVGGGGPRFRRGGGTV",
+    "VVGGGGGPPPGGGGTV",
+    "VVVGGGGGGGGGGGTV",
+    "VVVVTGGGGGGGTVVV",
+    "VVVVTGGGGGGGTVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.12,
+   "types": [
+    {
+     "type": "tree-gold",
+     "variant": "0",
+     "weight": 0.6
+    },
+    {
+     "type": "auricle-spire",
+     "variant": "0",
+     "weight": 0.4
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.38,
+  "decor_weights": {
+   "orange-collar-curb": 0.35,
+   "canine-pinnacle": 0.2,
+   "gold-iris-pedestal": 0.2,
+   "chromatic-ridge-marker": 0.25
+  },
+  "lighting": {
+   "bg": "#48302b",
+   "ambient": 0.85,
+   "sun": 0.25,
+   "tint": "#fff4e0",
+   "notes": "harsh unshaded blaze of Fauvist colour: ANALYSIS.palette.value_structure highlights a stark high-key unpainted canvas field with intensely saturated interior pigments."
+  },
+  "rules": [
+   "Place auricle-spires only on the uppermost elevated wing tips of the landmass.",
+   "Keep water at 0 to mirror the completely dry acrylic paint medium.",
+   "Canine pinnacles must tightly flank the focal NPC cell [7,6].",
+   "Orange collar curbs line the transition between base ground and the central path."
+  ],
+  "decor_density": 0.16,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "dirt",
+   "path": "grass",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "ANALYSIS.composition geometric wedge and value-mass distribution",
+  "place": "The Howling Fauve Pyramid",
+  "summary": "A steep, triangular stepped promontory transcribing the cat's bust silhouette directly into rising land tiers bounded by negative space.",
+  "differs": "Unlike the flat impasto collage or the split pantry ledge, this level translates the cat's outer silhouette into a singular towering pyramidal mound shaped strictly by the figure's outer contour.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took dirt/sand",
+   "lighting.bg #2b2936->#48302b"
+  ]
+ },
+ "shaper": {
+  "name": "mound",
+  "params": {
+   "peak": [
+    0.47,
+    0.45
+   ],
+   "height": 3,
+   "spread": 0.95,
+   "lobes": 2
+  },
+  "why": "Directly transcribes ANALYSIS.composition: 'heavy pyramidal vertical wedge anchored in the bottom centre-left and tapering up toward the ears'."
+ },
+ "surface_mix": {
+  "pattern": "height",
+  "period": 2,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.16
+   },
+   {
+    "s": "dirt",
+    "share": 0.32
+   },
+   {
+    "s": "grass",
+    "share": 0.52
+   }
+  ],
+  "why": "Cadmium yellow sand dominates the lower slopes, while deep crimson dirt caps the high terraces and viridian grass lines the central throat."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#363a56",
+   "#25283c",
+   "#191b28"
+  ],
+  "lower": [
+   "#9c3541",
+   "#73232d",
+   "#53161e"
+  ],
+  "why": "Deep ultramarine indigo outlines in IMAGE 1 form sharp graphic drop-offs around the eyes, jaw, and outer ears."
+ },
+ "lighting": {
+  "time": "harsh unshaded blaze of Fauvist colour",
+  "ambient": 0.85,
+  "sun": 0.25,
+  "tint": "#fff4e0",
+  "bg": "#48302b",
+  "why": "ANALYSIS.palette.value_structure highlights a stark high-key unpainted canvas field with intensely saturated interior pigments."
+ },
+ "figure_pose": {
+  "pose": "The stylized feline bust sits locked in a direct frontal orientation with parted jaws and towering asymmetrical ear spires.",
+  "action": "howling",
+  "facing": "camera",
+  "why": "ANALYSIS.subject specifies 'facing forward toward the viewer with eyes locked squarely on the lens... vocalising with an open mouth'."
+ },
+ "approach": {
+  "from": "south rim at the base of the chest wedge",
+  "passes": [
+   "orange-collar-curb",
+   "chromatic-ridge-marker",
+   "canine-pinnacle"
+  ],
+  "shape": "A direct linear climb straight up the centerline throat ridge into the yawning mouth terrace."
+ },
+ "threshold": {
+  "kind": "A gateway formed by two conical white tooth spires framing the pitch-black vocal cavity.",
+  "prop": "canine-pinnacle"
+ },
+ "analysis": "pipeline/seed/analysis/cat.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}
