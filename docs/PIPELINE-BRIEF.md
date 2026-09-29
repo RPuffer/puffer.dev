@@ -54,3 +54,22 @@ Naming: briefs `pipeline/seed/concepts/<slug>-<k>.json`, levels `levels/<slug>-<
 Variation: `analyze.mjs --concept scene --variant k` must produce three readings that differ in the scene itself (what place, what approach, what the creature is doing), the palette translation, and the terrain emphasis, not three renders of one brief. Feed the earlier variants' summaries back as things to avoid.
 
 Every level keeps the pack: irregular outline, void rim, heights 0 to 3, chunky stacked-block props, the pack's saturation. Creatures are built from stacked flat blocks and wedges like the fire-bird, at a height of 1.5 to 3 tiles depending on the subject, facing the camera three-quarter. The critic loop runs up to four rounds per level. Budget for the round: $15, logged in `pipeline/a-transcribe/SPEND.md` per level.
+
+## Round 4: readings derived from the artwork (2026-09-29)
+
+Operator verdict on round 3: too much similarity between the levels. The scene strategy collapsed every artwork into the same trio (daylight terrace, night water shrine, arena). Round 4 replaces those readings. Each artwork gets three readings again, but each reading is derived from the artwork through a different lens, so the three differ from each other and every island feels like a new experience with more of the artwork in it. The round-3 levels are superseded and their files overwritten; git history keeps them.
+
+Two-stage concept:
+
+1. Deep read, `analyze.mjs --deep <art.png> pipeline/seed/analysis/<slug>.json`: the vision model writes a rich analysis of the piece: medium and mark-making (charcoal smudge, fauvist knife strokes, single-stroke ink, airbrush gradient, vector doodle), palette and value structure, subject and what it is doing, the story or nature the subject implies, composition (where the mass is, flow lines, negative space, symmetry, scale cues), energy and emotional register, and three or four specific details a viewer would remember.
+
+2. Three lenses, `analyze.mjs --lens <name> --analysis <path> <art.png> <brief.json>`, each turning one aspect of the analysis into the world:
+   - `medium`: the material and marks become the island's physical character. Single-stroke ink becomes ribbon paths and arcs; airbrush gradients become soft radial terraces; fauvist strokes become a patchwork of colour blocks; charcoal smudge becomes soft-edged dark masses with pale mist; vector doodles become dense small ornament. Palette and surface treatment follow the medium.
+   - `subject`: the subject's nature and story become the place. Where would this creature or figure live, what has it built or broken, what does a visitor find on the way in. The figure's pose and props come from what it is doing in the piece.
+   - `composition`: the drawing's structure becomes the terrain literally. Its masses, flow lines, negative space, symmetry, and focal point map to plateaus, paths, void, and where the figure stands; its energy sets the terrain's rhythm (calm and wide, or jagged and rising).
+
+Every lens prompt forbids the stock trio and stock time-of-day: lighting, palette, terrain shape, props, and the figure's pose must be argued from the analysis. The souls-like grammar stays light: an approach, a threshold of some kind, the figure at the focal point.
+
+Terrain shapers: build-level.mjs gains named shapers the brief can select (`spiral`, `radial`, `patchwork`, `ribbon`, `shards`, `symmetric`, `twin-mass` with a bridge, `mound`, `basin`) with parameters, so the island's silhouette and terracing differ by lens instead of coming from one generator with the drawing's luminance.
+
+Scope: all twelve artworks including `forest`. Naming: analyses `pipeline/seed/analysis/<slug>.json`, briefs `pipeline/seed/concepts/<slug>-<lens>.json`, levels `levels/<slug>-<lens>.json`, renders `out/final/<slug>-<lens>.png`, one pieces module per artwork `3d/pieces/<slug>.js` extended with lens props (the round-3 creature builders stay). The 80-walkable floor, the pack rules (irregular outline, void rim, heights 0 to 3, chunky stacked-block props, the pack's saturation), the critic loop of up to four rounds, and the walk QA all stay. Budget for the round: $15.
