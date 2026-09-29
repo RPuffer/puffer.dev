@@ -1,0 +1,1271 @@
+{
+  "source": {
+    "art": "pipeline/seed/sharkbear.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "prowling",
+    "brine-chilled",
+    "feral",
+    "cartilaginous",
+    "coastal",
+    "territorial"
+  ],
+  "observations": [
+    {
+      "what": "smooth white shark cranial plate and dorsal fin crest",
+      "box": [
+        55,
+        60,
+        560,
+        396
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "jagged open jaw lined with serrated shark teeth",
+      "box": [
+        485,
+        126,
+        602,
+        290
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "curved triple gill slits behind the dark eye slit",
+      "box": [
+        363,
+        319,
+        485,
+        381
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "dense bristled quadrupedal torso and muscular hump",
+      "box": [
+        128,
+        276,
+        528,
+        772
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "thick left foreleg terminating in wide flat digitigrade paw",
+      "box": [
+        542,
+        85,
+        788,
+        277
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "planted right foreleg with broad paw gripping the ground",
+      "box": [
+        415,
+        305,
+        825,
+        497
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "heavy rear hindleg anchored in a stalker crouch",
+      "box": [
+        245,
+        622,
+        680,
+        866
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "long sinuous tail with pointed ventral fin sweeping across foreground",
+      "box": [
+        276,
+        297,
+        942,
+        966
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "unworked high-value paper space framing the upper crest",
+      "box": [
+        0,
+        0,
+        280,
+        990
+      ],
+      "maps_to": "V"
+    },
+    {
+      "what": "open lower floor where the caudal tail sweeps across the margin",
+      "box": [
+        740,
+        280,
+        1000,
+        990
+      ],
+      "maps_to": "G"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e0e0e0",
+        "share": 0.215,
+        "role": "unworked paper ground in the margins and highlights on the cranial dome"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.171,
+        "role": "ambient paper tone and soft tonal wash across the tail surface"
+      },
+      {
+        "hex": "#d2d2d2",
+        "share": 0.162,
+        "role": "subtle mid-light shading on the forehead ridge and tail fin plane"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.107,
+        "role": "light midtone graphite hatching along the upper flanks"
+      },
+      {
+        "hex": "#9e9e9e",
+        "share": 0.102,
+        "role": "primary midtone shading across the bristled fur body"
+      },
+      {
+        "hex": "#626262",
+        "share": 0.089,
+        "role": "deep core shading under the chest, belly, and upper joints"
+      },
+      {
+        "hex": "#848484",
+        "share": 0.089,
+        "role": "transitional shadow values along the limbs and hindquarter"
+      },
+      {
+        "hex": "#3c3c3c",
+        "share": 0.066,
+        "role": "maximum value graphite lines in the mouth interior, eye socket, paw creases, and underbelly crevice"
+      }
+    ],
+    "translation": {
+      "bg": "#1c252e",
+      "grass": {
+        "top": "#82b876",
+        "fringe": "#64a458",
+        "fringeDark": "#4b7c43",
+        "speck": "#a4d898"
+      },
+      "sand": {
+        "top": "#e0c283",
+        "lip": "#c49f57",
+        "edge": "#d4ad64",
+        "dots": "#ecce92"
+      },
+      "dirt": {
+        "top": "#c2a472",
+        "patch": "#ad8e5c",
+        "mottle": "#967848",
+        "border": "#856738"
+      },
+      "stone": {
+        "top": "#d2d6db",
+        "pebble": "#e2e6eb",
+        "pebbleShade": "#b5bac0",
+        "rim": "#9ca1a8"
+      },
+      "cliffUpper": {
+        "left": "#788796",
+        "right": "#596876",
+        "seam": "#43515e"
+      },
+      "cliffLower": {
+        "left": "#6a7785",
+        "right": "#4d5966",
+        "seam": "#394450",
+        "speck": "#2e3740"
+      },
+      "water": {
+        "top": "#6edbe6",
+        "bubble": "#b4f4fb",
+        "deep": "#30a6b5",
+        "fall": [
+          "#4fc5d3",
+          "#3bb5c3",
+          "#289aa8"
+        ],
+        "foam": "#dcf8fb"
+      },
+      "wood": {
+        "light": "#c48858",
+        "mid": "#a86d3e",
+        "dark": "#844f24",
+        "shadow": "#633916",
+        "end": "#dfad7e"
+      },
+      "treeMint": [
+        "#58a88c",
+        "#438c73",
+        "#326e59"
+      ],
+      "treeLime": [
+        "#98b868",
+        "#7d9d50",
+        "#63803c"
+      ],
+      "treeLeaf": [
+        "#6ca358",
+        "#548543",
+        "#3e6930"
+      ],
+      "treeTeal": [
+        "#4da6a0",
+        "#3a8c87",
+        "#2a706c",
+        "#1c5753"
+      ],
+      "treeGold": [
+        "#d4a852",
+        "#b88e3a",
+        "#9c7426"
+      ],
+      "trunk": [
+        "#7d5643",
+        "#5c4032"
+      ],
+      "rock": [
+        "#d6dade",
+        "#bcc1c7",
+        "#9ca2a8",
+        "#7c8288"
+      ],
+      "wellStone": [
+        "#b8bfc7",
+        "#9ba2aa",
+        "#80878e"
+      ],
+      "flowerOrange": [
+        "#d4783b",
+        "#b85e25"
+      ],
+      "berry": [
+        "#d9526b",
+        "#b83750"
+      ],
+      "bushTeal": [
+        "#62b5ab",
+        "#4b9990",
+        "#367e75"
+      ],
+      "gold": [
+        "#e5b742",
+        "#c99929",
+        "#ffd066"
+      ]
+    },
+    "notes": "The palette translates the monochrome graphite predator into a wind-scoured subpolar coastal shingle spit: bleached sand dunes, cold silt cliffs, and saline-mottled boulder scrub set against deep oceanic slate.",
+    "clamped": [
+      "grass.fringe #699d5f->#64a458",
+      "grass.fringeDark #4d7a45->#4b7c43",
+      "treeLeaf[0] #6da05a->#6ca358",
+      "trunk[0] #785848->#7d5643",
+      "trunk[1] #5c4032->#5c4032"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "whale-rib-arch",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.9,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "where": "Frames the narrow neck connecting the predator's nesting bluff to the lower flotsam beach.",
+      "role": "threshold",
+      "shape": {
+        "summary": "Twin curving selachian jaw ribs meeting overhead to frame an animal trail.",
+        "parts": [
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              -0.35,
+              0,
+              0
+            ],
+            "to": [
+              -0.05,
+              1.85,
+              0
+            ],
+            "tones": [
+              "#e2e6eb",
+              "#d2d6db",
+              "#b5bac0"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0.35,
+              0,
+              0
+            ],
+            "to": [
+              0.05,
+              1.85,
+              0
+            ],
+            "tones": [
+              "#e2e6eb",
+              "#d2d6db",
+              "#b5bac0"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.24,
+              0.16,
+              0.22,
+              0.06
+            ],
+            "at": [
+              0,
+              1.82,
+              0
+            ],
+            "tones": [
+              "#e2e6eb",
+              "#d2d6db",
+              "#b5bac0"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.8
+            ],
+            "at": [
+              -0.35,
+              0.08,
+              0
+            ],
+            "tones": [
+              "#d2d6db",
+              "#b5bac0",
+              "#9ca1a8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.8
+            ],
+            "at": [
+              0.35,
+              0.08,
+              0
+            ],
+            "tones": [
+              "#d2d6db",
+              "#b5bac0",
+              "#9ca1a8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "scavenged-flotsam-cache",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.8,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          10,
+          8
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          11,
+          4
+        ]
+      ],
+      "where": "Piles of marine driftwood, tangle wrack, and picked bones marking the beast's shoreline feeding ground.",
+      "role": "offering",
+      "shape": {
+        "summary": "Chunky tangle of bleached driftwood timbers and pale cartilaginous vertebrae.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.16,
+              0.75,
+              6
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "rot": [
+              0,
+              40,
+              75
+            ],
+            "tones": [
+              "#dfad7e",
+              "#c48858",
+              "#844f24"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              0.65,
+              6
+            ],
+            "at": [
+              0.05,
+              0.08,
+              -0.05
+            ],
+            "rot": [
+              0,
+              -35,
+              80
+            ],
+            "tones": [
+              "#dfad7e",
+              "#c48858",
+              "#844f24"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.28,
+              0.22,
+              0.26,
+              0.08
+            ],
+            "at": [
+              -0.15,
+              0,
+              0.15
+            ],
+            "tones": [
+              "#e2e6eb",
+              "#d2d6db",
+              "#9ca1a8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.14,
+              0.7
+            ],
+            "at": [
+              0.22,
+              0.06,
+              0.12
+            ],
+            "tones": [
+              "#e2e6eb",
+              "#d2d6db",
+              "#b5bac0"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "shark-tooth-cairn",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.95,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          6,
+          3
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "where": "Territorial trail markers formed of wedge-shaped fossil teeth propped up in coastal pebble mounds.",
+      "role": "approach",
+      "shape": {
+        "summary": "Triangular fossil tooth blade jutting vertically out of a cluster of river stones.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0.02,
+              0.75,
+              3
+            ],
+            "at": [
+              0,
+              0.2,
+              0
+            ],
+            "rot": [
+              0,
+              15,
+              0
+            ],
+            "tones": [
+              "#e2e6eb",
+              "#d2d6db",
+              "#9ca1a8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.25,
+              0.6
+            ],
+            "at": [
+              0,
+              0.08,
+              0
+            ],
+            "tones": [
+              "#d6dade",
+              "#bcc1c7",
+              "#7c8288"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.16,
+              0.65
+            ],
+            "at": [
+              0.22,
+              0.06,
+              -0.1
+            ],
+            "tones": [
+              "#d6dade",
+              "#bcc1c7",
+              "#9ca2a8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.15,
+              0.6
+            ],
+            "at": [
+              -0.2,
+              0.05,
+              0.14
+            ],
+            "tones": [
+              "#bcc1c7",
+              "#9ca2a8",
+              "#7c8288"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "coastal-boulder-den",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.1,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "where": "Sheer granite crags sheltering the elevated den platform from northern sea gales.",
+      "role": "mass",
+      "shape": {
+        "summary": "Massive rounded coastal rock block with chipped fracture facets.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.85,
+              0.85,
+              0.12
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#d6dade",
+              "#bcc1c7",
+              "#7c8288"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.55,
+              0.08
+            ],
+            "at": [
+              0.08,
+              0.75,
+              -0.05
+            ],
+            "tones": [
+              "#e2e6eb",
+              "#d6dade",
+              "#9ca2a8"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.24,
+              0.65
+            ],
+            "at": [
+              -0.35,
+              0.15,
+              0.25
+            ],
+            "tones": [
+              "#d6dade",
+              "#bcc1c7",
+              "#7c8288"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "brine-kelp-scrub",
+      "type": "bush",
+      "variant_of": "bush",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.55,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          5,
+          5
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          13,
+          7
+        ]
+      ],
+      "where": "Tough saline shrubs clinging to drainage rills between shale boulders.",
+      "role": "detail",
+      "shape": {
+        "summary": "Dense low cluster of dark teal-green succulent balls.",
+        "parts": [
+          {
+            "prim": "ball",
+            "dims": [
+              0.26,
+              0.75
+            ],
+            "at": [
+              0,
+              0.15,
+              0
+            ],
+            "tones": [
+              "#62b5ab",
+              "#4b9990",
+              "#367e75"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.2,
+              0.7
+            ],
+            "at": [
+              0.18,
+              0.1,
+              -0.12
+            ],
+            "tones": [
+              "#62b5ab",
+              "#4b9990",
+              "#367e75"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.7
+            ],
+            "at": [
+              -0.16,
+              0.1,
+              0.14
+            ],
+            "tones": [
+              "#4b9990",
+              "#367e75",
+              "#1c5753"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "chimera-sharkbear",
+      "source": "The prowling shark-bear hybrid dominating the graphite sketch from cranial horn to sweeping caudal fin.",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.2,
+      "pose": "Prowling in a coiled predator crouch with massive front paws gripping the den rim while the smooth finned tail curls alongside.",
+      "cell": [
+        3,
+        3
+      ],
+      "facing": "w",
+      "why": "The apex predator of this subpolar shingle habitat, frozen mid-stalk as it surveys its hunting shore below.",
+      "shape": {
+        "summary": "Chunky toy chimera with smooth conical shark skull, dorsal dorsal fin, bulky woolly quadruped torso, heavy paws, and long curved finned tail.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.75,
+              1.05,
+              0.15
+            ],
+            "at": [
+              0,
+              0.65,
+              0.1
+            ],
+            "tones": [
+              "#9e9e9e",
+              "#848484",
+              "#626262"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.38,
+              0.08,
+              0.95,
+              7
+            ],
+            "at": [
+              -0.35,
+              0.8,
+              -0.45
+            ],
+            "rot": [
+              25,
+              -20,
+              0
+            ],
+            "tones": [
+              "#e0e0e0",
+              "#d2d2d2",
+              "#b3b3b3"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.55
+            ],
+            "outline": [
+              [
+                0,
+                -0.2
+              ],
+              [
+                0.08,
+                0.25
+              ],
+              [
+                -0.08,
+                0.25
+              ]
+            ],
+            "at": [
+              -0.15,
+              1.25,
+              -0.05
+            ],
+            "rot": [
+              0,
+              0,
+              -15
+            ],
+            "tones": [
+              "#e0e0e0",
+              "#d2d2d2",
+              "#9e9e9e"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.7,
+              6
+            ],
+            "at": [
+              -0.38,
+              0,
+              -0.3
+            ],
+            "rot": [
+              10,
+              0,
+              5
+            ],
+            "tones": [
+              "#848484",
+              "#626262",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.7,
+              6
+            ],
+            "at": [
+              0.28,
+              0,
+              -0.2
+            ],
+            "rot": [
+              -10,
+              0,
+              -5
+            ],
+            "tones": [
+              "#848484",
+              "#626262",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.26,
+              0.85,
+              6
+            ],
+            "at": [
+              0.32,
+              0,
+              0.45
+            ],
+            "rot": [
+              15,
+              0,
+              -10
+            ],
+            "tones": [
+              "#848484",
+              "#626262",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.36,
+              0.18,
+              0.38,
+              0.06
+            ],
+            "at": [
+              -0.42,
+              0,
+              -0.36
+            ],
+            "tones": [
+              "#626262",
+              "#3c3c3c",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.36,
+              0.18,
+              0.38,
+              0.06
+            ],
+            "at": [
+              0.28,
+              0,
+              -0.26
+            ],
+            "tones": [
+              "#626262",
+              "#3c3c3c",
+              "#3c3c3c"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.16
+            ],
+            "at": [
+              0.2,
+              0.75,
+              0.65
+            ],
+            "to": [
+              0.55,
+              0.35,
+              1.25
+            ],
+            "tones": [
+              "#d2d2d2",
+              "#b3b3b3",
+              "#848484"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.12
+            ],
+            "at": [
+              0.55,
+              0.35,
+              1.25
+            ],
+            "to": [
+              -0.15,
+              0.08,
+              1.35
+            ],
+            "tones": [
+              "#e0e0e0",
+              "#d2d2d2",
+              "#b3b3b3"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.42
+            ],
+            "outline": [
+              [
+                0,
+                0
+              ],
+              [
+                -0.2,
+                0.35
+              ],
+              [
+                0.15,
+                0.25
+              ]
+            ],
+            "at": [
+              -0.15,
+              0.08,
+              1.35
+            ],
+            "rot": [
+              0,
+              -65,
+              0
+            ],
+            "tones": [
+              "#e0e0e0",
+              "#d2d2d2",
+              "#9e9e9e"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVRRRRRVVVVVVVV",
+      "VVRRRRRRVVVVVVVV",
+      "VRRFFFFRVVVVVVVV",
+      "VRRFFFFRVVVVVVVV",
+      "VVRRRRRRVVVPPPVV",
+      "VVVVRRPPPPPGGGGV",
+      "VVVVVPPPPPGGGGGV",
+      "VVVVVPGGGGGGGGGV",
+      "VVVVVGGGGGGGGGVV",
+      "VVVVVGGGGGGGGVVV",
+      "VVVVVVGGGGGGVVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0002222200000000",
+      "0022222200000000",
+      "0222222200000000",
+      "0222222200000000",
+      "0022222200011100",
+      "0000221111111110",
+      "0000011111111110",
+      "0000011111111110",
+      "0000011111111100",
+      "0000011111111000",
+      "0000001111110000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 3,
+      "z": 3,
+      "what": "the prowling chimera perched on the upper den promontory"
+    },
+    "mass": "Visual weight anchors firmly on the elevated northwest den cliff where the bulky chimera sits, tapering downward via a narrow neck to the southeast flotsam beach.",
+    "read": "The viewer arrives on the lower sand spit amidst scattered flotsam and fossil tooth cairns, tracking the creature's path upward through the whale-rib gateway to confront the stalking chimera on its secluded coastal ledge."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.08,
+      "types": [
+        {
+          "type": "coastal-boulder-den",
+          "variant": "0",
+          "weight": 0.5
+        },
+        {
+          "type": "brine-kelp-scrub",
+          "variant": "0",
+          "weight": 0.5
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.32,
+    "void_share": 0.44,
+    "decor_weights": {
+      "shark-tooth-cairn": 0.4,
+      "scavenged-flotsam-cache": 0.4,
+      "rock": 0.2
+    },
+    "lighting": {
+      "bg": "#1c252e",
+      "ambient": 0.74,
+      "sun": 0.26,
+      "tint": "#d6e2ed",
+      "notes": "pale sea-spray overcast with sharp graphite contact shadows: Translates the sketch's bright untinted paper field and intense dark charcoal joints into cold, diffused maritime overcast."
+    },
+    "rules": [
+      "Keep all F cells grouped on the elevated northwest cliff ledge.",
+      "Place whale-rib-arch strictly on the transition bridge connecting heights 2 and 1.",
+      "Distribute flotsam caches solely on the lower level 1 sand flat."
+    ],
+    "decor_density": 0.18,
+    "surfaces": {
+      "ground": "sand",
+      "raised": "dirt",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "ANALYSIS.subject and ANALYSIS.story: the territorial habitat and predatory lifestyle of a terrestrial-adapted shark-bear chimera.",
+    "place": "A wind-scoured subpolar coastal spit where an apex chimera prowls between its raised shale den and sea-scavenged pebble hunting flats.",
+    "summary": "A twin-mass coastal formation split between an upper den bluff and a lower flotsam beach connected by a rib-bone threshold.",
+    "differs": "Unlike the fractured graphite shards of medium or the solitary spine mound of composition, this reading constructs the creature's actual functional ecological territory: a two-tier hunting lair and feast shingle.",
+    "fixes": [
+      "surface_mix led with grass after a sibling took sand/dirt"
+    ]
+  },
+  "shaper": {
+    "name": "twin-mass",
+    "params": {
+      "split": "diag",
+      "ratio": 0.45,
+      "heights": [
+        2,
+        1
+      ],
+      "bridge": "land",
+      "focal": "a"
+    },
+    "why": "Separates the creature's high rocky lookout den from its low-lying hunting beach, linked by a natural land bridge where it stalks downward toward incoming prey."
+  },
+  "surface_mix": {
+    "pattern": "height",
+    "period": 2,
+    "surfaces": [
+      {
+        "s": "grass",
+        "share": 0.52
+      },
+      {
+        "s": "dirt",
+        "share": 0.33
+      },
+      {
+        "s": "stone",
+        "share": 0.15
+      }
+    ],
+    "why": "Damp compressed peat and dirt cover the elevated shelter, whereas coarse bleached shell sand and tide-rounded cobbles dominate the lower beach flats."
+  },
+  "cliff_treatment": {
+    "style": "stepped",
+    "upper": [
+      "#788796",
+      "#596876",
+      "#43515e"
+    ],
+    "lower": [
+      "#6a7785",
+      "#4d5966",
+      "#394450"
+    ],
+    "why": "Stepped cold slate benches mimic the natural sea terraces carved by subpolar storm surges."
+  },
+  "lighting": {
+    "time": "pale sea-spray overcast with sharp graphite contact shadows",
+    "ambient": 0.74,
+    "sun": 0.26,
+    "tint": "#d6e2ed",
+    "bg": "#1c252e",
+    "why": "Translates the sketch's bright untinted paper field and intense dark charcoal joints into cold, diffused maritime overcast."
+  },
+  "figure_pose": {
+    "pose": "Prowling in a coiled predator crouch with massive front paws gripping the den rim while the smooth finned tail curls alongside.",
+    "action": "stalking prey",
+    "facing": "left",
+    "why": "Directly embodies ANALYSIS.subject.doing, freezing the chimera as it pauses on three heavy limbs to sight prey along the lower shore."
+  },
+  "approach": {
+    "from": "southeast beach rim",
+    "passes": [
+      "scavenged-flotsam-cache",
+      "shark-tooth-cairn",
+      "whale-rib-arch",
+      "coastal-boulder-den"
+    ],
+    "shape": "A curved path winding from the drift timber shingle up across the narrow stepped neck to the predator's high promontory."
+  },
+  "threshold": {
+    "kind": "A selachian jaw portal formed of paired whale ribs jutting from the rock to bridge the territorial divide.",
+    "prop": "whale-rib-arch"
+  },
+  "analysis": "pipeline/seed/analysis/sharkbear.json",
+  "concept": {
+    "name": "lens-subject",
+    "lens": "subject",
+    "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+  }
+}

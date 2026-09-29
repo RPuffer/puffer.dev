@@ -1,0 +1,1582 @@
+{
+  "source": {
+    "art": "pipeline/seed/forest.png",
+    "width": 1454,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "smoldering",
+    "coiled",
+    "crepuscular",
+    "primeval",
+    "vigilant",
+    "resinous"
+  ],
+  "observations": [
+    {
+      "what": "Dominant avian spirit composed entirely of calligraphic flame arabesques, looping tendrils, and rococo volutes",
+      "box": [
+        175,
+        200,
+        870,
+        820
+      ],
+      "maps_to": "creatures[0]"
+    },
+    {
+      "what": "Negative-space erased stark white curved beak pointing down and to the left",
+      "box": [
+        365,
+        275,
+        475,
+        360
+      ],
+      "maps_to": "creatures[0].shape.parts"
+    },
+    {
+      "what": "High curving crest tendrils sweeping up like licking flame tongues toward the canopy",
+      "box": [
+        185,
+        210,
+        405,
+        455
+      ],
+      "maps_to": "creatures[0].shape.parts"
+    },
+    {
+      "what": "Thick diagonal fallen log extending from the far left foreground into the creature's feet",
+      "box": [
+        665,
+        0,
+        815,
+        375
+      ],
+      "maps_to": "fallen_timber"
+    },
+    {
+      "what": "Exposed serpentine taproots knotting across the dark duff floor",
+      "box": [
+        620,
+        80,
+        715,
+        320
+      ],
+      "maps_to": "taproot_nest"
+    },
+    {
+      "what": "Hollow splintered stump standing on the mid-left behind the fallen log",
+      "box": [
+        540,
+        200,
+        625,
+        315
+      ],
+      "maps_to": "scorched_stump"
+    },
+    {
+      "what": "Slender upright forest tree trunks rising through misty haze in the deep background",
+      "box": [
+        80,
+        50,
+        580,
+        235
+      ],
+      "maps_to": "charred_bole"
+    },
+    {
+      "what": "Prominent leaning mature tree trunk bridging across the upper right woods",
+      "box": [
+        245,
+        690,
+        480,
+        995
+      ],
+      "maps_to": "leaning_trunk"
+    },
+    {
+      "what": "Secondary faint wispy smoke form curling upward behind the avian tail",
+      "box": [
+        425,
+        680,
+        725,
+        835
+      ],
+      "maps_to": "ember_wisp"
+    },
+    {
+      "what": "Dense vertical stands of timber walling in the right-hand clearing edge",
+      "box": [
+        140,
+        810,
+        610,
+        970
+      ],
+      "maps_to": "charred_bole"
+    },
+    {
+      "what": "Pale scrubbed forest floor opening directly below and ahead of the bird's talons",
+      "box": [
+        735,
+        10,
+        995,
+        960
+      ],
+      "maps_to": "P"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#868686",
+        "share": 0.152,
+        "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+      },
+      {
+        "hex": "#9f9f9f",
+        "share": 0.15,
+        "role": "Light gray diffused background wash and middle-value forest canopy"
+      },
+      {
+        "hex": "#333333",
+        "share": 0.142,
+        "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+      },
+      {
+        "hex": "#bcbcbc",
+        "share": 0.129,
+        "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+      },
+      {
+        "hex": "#181818",
+        "share": 0.119,
+        "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+      },
+      {
+        "hex": "#6c6c6c",
+        "share": 0.116,
+        "role": "Transitional blending tones across the creature's breast and shaded soil"
+      },
+      {
+        "hex": "#4f4f4f",
+        "share": 0.112,
+        "role": "Dark gray bark textures and deep secondary folds of the plumage"
+      },
+      {
+        "hex": "#dddddd",
+        "share": 0.079,
+        "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+      }
+    ],
+    "translation": {
+      "bg": "#1c2226",
+      "grass": {
+        "top": "#5a8b4b",
+        "fringe": "#48713c",
+        "fringeDark": "#385930",
+        "speck": "#72a95f"
+      },
+      "sand": {
+        "top": "#e0ad38",
+        "lip": "#bf8a1d",
+        "edge": "#a17011",
+        "dots": "#faaf41"
+      },
+      "dirt": {
+        "top": "#65523e",
+        "patch": "#574432",
+        "mottle": "#463626",
+        "border": "#3a2b1c"
+      },
+      "stone": {
+        "top": "#8a9499",
+        "pebble": "#abb7bd",
+        "pebbleShade": "#707b80",
+        "rim": "#576063"
+      },
+      "cliffUpper": {
+        "left": "#5c4333",
+        "right": "#473224",
+        "seam": "#362417"
+      },
+      "cliffLower": {
+        "left": "#4a3426",
+        "right": "#372418",
+        "seam": "#28180d",
+        "speck": "#201309"
+      },
+      "water": {
+        "top": "#5caec2",
+        "bubble": "#97d8e6",
+        "deep": "#3b8091",
+        "fall": [
+          "#529eaf",
+          "#418696",
+          "#347280"
+        ],
+        "foam": "#c7eff7"
+      },
+      "wood": {
+        "light": "#ff8826",
+        "mid": "#dc6e19",
+        "dark": "#b8500c",
+        "shadow": "#873504",
+        "end": "#fed17b"
+      },
+      "treeMint": [
+        "#4e9471",
+        "#3c785b",
+        "#2d5e46"
+      ],
+      "treeLime": [
+        "#82aa56",
+        "#698e41",
+        "#50702e"
+      ],
+      "treeLeaf": [
+        "#528a47",
+        "#3e6e34",
+        "#2c5224"
+      ],
+      "treeTeal": [
+        "#3b9188",
+        "#2c766e",
+        "#205c55",
+        "#15433e"
+      ],
+      "treeGold": [
+        "#d49d37",
+        "#b07f23",
+        "#8f6314"
+      ],
+      "trunk": [
+        "#56382f",
+        "#3e2821"
+      ],
+      "rock": [
+        "#828c91",
+        "#6d777d",
+        "#586266",
+        "#434b4f"
+      ],
+      "wellStone": [
+        "#7d7b73",
+        "#66645d",
+        "#52504a"
+      ],
+      "flowerOrange": [
+        "#ff7e1b",
+        "#d9630b"
+      ],
+      "berry": [
+        "#db4258",
+        "#b52d41"
+      ],
+      "bushTeal": [
+        "#529e8f",
+        "#3d7d70",
+        "#2b5c52"
+      ],
+      "gold": [
+        "#f0b930",
+        "#c9941a",
+        "#faaf41"
+      ]
+    },
+    "notes": "Translates the monochrome charcoal woodland into a damp, moody conifer deadfall dominated by earthy peat dirt and deep mossy greens, while reserving the intense flame orange and golden pack tones exclusively for the fire spirit raptor and smoldering ember props.",
+    "clamped": [
+      "grass.top #5a7a50->#558347",
+      "grass.fringe #46633e->#436938",
+      "grass.fringeDark #354e2f->#33512c",
+      "grass.speck #729666->#6ba458",
+      "trunk[0] #4d3d38->#56382f",
+      "trunk[1] #382b27->#3e2821",
+      "grass.top #558347->#5a8b4b",
+      "grass.fringe #436938->#48713c",
+      "grass.fringeDark #33512c->#385930",
+      "grass.speck #6ba458->#72a95f",
+      "treeTeal[0] #3a8e85->#3b9188",
+      "treeTeal[1] #2b736b->#2c766e",
+      "treeTeal[2] #1f5952->#205c55",
+      "treeTeal[3] #14403b->#15433e",
+      "cliffLower.left #473224->#4a3426",
+      "cliffLower.right #332216->#372418",
+      "cliffLower.seam #24160c->#28180d",
+      "cliffLower.speck #1c1108->#201309",
+      "dirt.top #614e3b->#65523e",
+      "dirt.patch #52402f->#574432",
+      "dirt.mottle #413223->#463626",
+      "dirt.border #35271a->#3a2b1c"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "fallen_timber",
+      "type": "new",
+      "variant_of": "log",
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 0.7,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          8,
+          10
+        ]
+      ],
+      "role": "threshold",
+      "where": "Mirrors the prominent diagonal fallen trunk that angles directly from the lower-left foreground into the spirit's standing space.",
+      "shape": {
+        "summary": "A thick, weathered tree trunk lying on its side with sheared splinter ends and peeled bark collars.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.28,
+              1.4,
+              8
+            ],
+            "at": [
+              0,
+              0.28,
+              0
+            ],
+            "rot": [
+              0,
+              35,
+              90
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.25,
+              0.1,
+              8
+            ],
+            "at": [
+              0.55,
+              0.28,
+              0.38
+            ],
+            "rot": [
+              0,
+              35,
+              90
+            ],
+            "tones": [
+              "#fed17b",
+              "#d9a84e",
+              "#ad7f30"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0,
+              0.45,
+              6
+            ],
+            "at": [
+              -0.2,
+              0.4,
+              -0.1
+            ],
+            "rot": [
+              40,
+              20,
+              0
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.45,
+              0.12,
+              0.3,
+              0.05
+            ],
+            "at": [
+              0.1,
+              0.06,
+              -0.15
+            ],
+            "tones": [
+              "#5a8b4b",
+              "#48713c",
+              "#385930"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              -0.5,
+              0.1,
+              -0.3
+            ],
+            "to": [
+              -0.65,
+              0,
+              -0.45
+            ],
+            "tones": [
+              "#3e2821",
+              "#271d1a",
+              "#1a120e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "taproot_nest",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.5,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "role": "dais",
+      "where": "Placed around the central creature's stance where dense charcoal taproots arch up from the soil into its feet.",
+      "shape": {
+        "summary": "Arched serpentine tree roots bursting through the forest litter and looping back into the turf.",
+        "parts": [
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              -0.35,
+              0,
+              -0.2
+            ],
+            "to": [
+              -0.1,
+              0.35,
+              0.1
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              -0.1,
+              0.35,
+              0.1
+            ],
+            "to": [
+              0.25,
+              0,
+              0.3
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              0.1,
+              0,
+              -0.35
+            ],
+            "to": [
+              0.35,
+              0.25,
+              -0.1
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0.35,
+              0.25,
+              -0.1
+            ],
+            "to": [
+              0.4,
+              0,
+              0.2
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.08,
+              0.35,
+              0.05
+            ],
+            "at": [
+              0,
+              0.04,
+              0
+            ],
+            "tones": [
+              "#65523e",
+              "#574432",
+              "#463626"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "charred_bole",
+      "type": "new",
+      "variant_of": "tree-round",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.7,
+      "passable": false,
+      "count": 6,
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          14,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          14,
+          5
+        ]
+      ],
+      "role": "mass",
+      "where": "Forms the dense, stark background forest wall seen in the upper half of the charcoal drawing.",
+      "shape": {
+        "summary": "A tall, slender coniferous trunk with high sheared limbs and smoldering amber fungal growth.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.14,
+              2.6,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.06
+            ],
+            "at": [
+              0,
+              1.8,
+              0
+            ],
+            "to": [
+              -0.35,
+              2.2,
+              0.15
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.05
+            ],
+            "at": [
+              0,
+              2.1,
+              0
+            ],
+            "to": [
+              0.3,
+              2.45,
+              -0.2
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.35,
+              0.1,
+              0.25,
+              0.05
+            ],
+            "at": [
+              0.12,
+              1.2,
+              0
+            ],
+            "tones": [
+              "#e0ad38",
+              "#bf8a1d",
+              "#a17011"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.25,
+              0.08,
+              0.2,
+              0.05
+            ],
+            "at": [
+              -0.1,
+              1.5,
+              0.05
+            ],
+            "tones": [
+              "#e0ad38",
+              "#bf8a1d",
+              "#a17011"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "leaning_trunk",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        2
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          12,
+          4
+        ]
+      ],
+      "role": "mass",
+      "where": "Directly matches the dramatic diagonal tree trunk angling across the upper right portion of the artwork.",
+      "shape": {
+        "summary": "A massive leaning trunk propped at a steep 35-degree angle with snapping lower branches.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.18,
+              2.4,
+              8
+            ],
+            "at": [
+              0.2,
+              0,
+              0.4
+            ],
+            "rot": [
+              -25,
+              -20,
+              25
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.07
+            ],
+            "at": [
+              -0.1,
+              1.1,
+              0.1
+            ],
+            "to": [
+              -0.45,
+              1.35,
+              0.3
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0,
+              0.5,
+              6
+            ],
+            "at": [
+              0.4,
+              1.6,
+              -0.1
+            ],
+            "rot": [
+              -30,
+              45,
+              0
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.4,
+              0.12,
+              0.4,
+              0.05
+            ],
+            "at": [
+              0.2,
+              0.06,
+              0.4
+            ],
+            "tones": [
+              "#5a8b4b",
+              "#48713c",
+              "#385930"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              0.8
+            ],
+            "at": [
+              -0.3,
+              0.12,
+              0.2
+            ],
+            "tones": [
+              "#828c91",
+              "#6d777d",
+              "#586266"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "scorched_stump",
+      "type": "stump",
+      "variant_of": "stump",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.6,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          3,
+          5
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "role": "detail",
+      "where": "Represents the jagged sheared tree stump visible to the mid-left behind the spirit's forward breast.",
+      "shape": {
+        "summary": "A jagged hollow wooden stump with charred splinters pointing upward.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.32,
+              0.45,
+              8
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.22,
+              0.1,
+              8
+            ],
+            "at": [
+              0,
+              0.36,
+              0
+            ],
+            "tones": [
+              "#271d1a",
+              "#201309",
+              "#110a05"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.06,
+              0,
+              0.25,
+              5
+            ],
+            "at": [
+              0.2,
+              0.45,
+              0.1
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.07,
+              0,
+              0.3,
+              5
+            ],
+            "at": [
+              -0.15,
+              0.45,
+              -0.15
+            ],
+            "tones": [
+              "#56382f",
+              "#3e2821",
+              "#271d1a"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.2,
+              0.06,
+              0.2,
+              0.05
+            ],
+            "at": [
+              0.25,
+              0.03,
+              -0.1
+            ],
+            "tones": [
+              "#e0ad38",
+              "#bf8a1d",
+              "#a17011"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ember_wisp",
+      "type": "new",
+      "variant_of": "torch",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          10,
+          5
+        ],
+        [
+          8,
+          3
+        ]
+      ],
+      "role": "light",
+      "where": "Located in the clearing directly behind the raptor's scrolled tail where faint smoke tendrils lift from the ground.",
+      "shape": {
+        "summary": "A twisting vertical column of smoke volutes and warm glowing ember sparks.",
+        "parts": [
+          {
+            "prim": "cone",
+            "dims": [
+              0.22,
+              0.12,
+              0.5,
+              6
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e19",
+              "#b8500c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0.06,
+              0.45,
+              6
+            ],
+            "at": [
+              0.05,
+              0.45,
+              0
+            ],
+            "rot": [
+              10,
+              30,
+              -5
+            ],
+            "tones": [
+              "#f0b930",
+              "#c9941a",
+              "#faaf41"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.12,
+              1.2
+            ],
+            "at": [
+              -0.04,
+              0.9,
+              0.04
+            ],
+            "tones": [
+              "#faaf41",
+              "#f0b930",
+              "#c9941a"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.04
+            ],
+            "at": [
+              0.08,
+              0.25,
+              0.08
+            ],
+            "to": [
+              0.18,
+              0.65,
+              -0.05
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e19",
+              "#b8500c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.3,
+              0.05,
+              0.3,
+              0.05
+            ],
+            "at": [
+              0,
+              0.02,
+              0
+            ],
+            "tones": [
+              "#65523e",
+              "#574432",
+              "#463626"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "cinder_raptor",
+      "source": "The central firebird entity composed of swirling tendrils, hooked white beak, and swept flame crest",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 2.4,
+      "pose": "Upright perched bird of prey facing leftward, chest puffed into swirling scrolls with head inclined downward in keen scrutiny.",
+      "cell": [
+        9,
+        6
+      ],
+      "facing": "w",
+      "why": "It is the undisputed solitary lord of this smoldering deadfall, frozen in watchful command over its territory.",
+      "shape": {
+        "summary": "A stylized bird of prey built from chunky flame-scroll volumes, arched crest horns, and a stark contrasting white beak.",
+        "parts": [
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.7,
+              6
+            ],
+            "at": [
+              -0.2,
+              0,
+              0.1
+            ],
+            "tones": [
+              "#dc6e19",
+              "#b8500c",
+              "#873504"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.65,
+              6
+            ],
+            "at": [
+              0.2,
+              0,
+              -0.05
+            ],
+            "tones": [
+              "#dc6e19",
+              "#b8500c",
+              "#873504"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.65,
+              0.75,
+              0.7,
+              0.15
+            ],
+            "at": [
+              0,
+              0.6,
+              0
+            ],
+            "rot": [
+              0,
+              -20,
+              15
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e19",
+              "#b8500c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.35,
+              1.1
+            ],
+            "at": [
+              -0.22,
+              0.95,
+              -0.1
+            ],
+            "tones": [
+              "#f0b930",
+              "#ff8826",
+              "#dc6e19"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.24,
+              0.12,
+              0.6,
+              6
+            ],
+            "at": [
+              -0.15,
+              1.25,
+              -0.15
+            ],
+            "rot": [
+              15,
+              -15,
+              0
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e19",
+              "#b8500c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.28,
+              1
+            ],
+            "at": [
+              -0.2,
+              1.7,
+              -0.2
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e19",
+              "#b8500c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.14,
+              0.02,
+              0.42,
+              4
+            ],
+            "at": [
+              -0.42,
+              1.58,
+              -0.25
+            ],
+            "rot": [
+              30,
+              -80,
+              0
+            ],
+            "tones": [
+              "#ffffff",
+              "#e0e0e0",
+              "#b8b8b8"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0,
+              0.7,
+              5
+            ],
+            "at": [
+              -0.12,
+              1.9,
+              -0.15
+            ],
+            "rot": [
+              -20,
+              10,
+              -15
+            ],
+            "tones": [
+              "#faaf41",
+              "#f0b930",
+              "#c9941a"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.12,
+              0,
+              0.55,
+              5
+            ],
+            "at": [
+              -0.05,
+              1.85,
+              -0.05
+            ],
+            "rot": [
+              -10,
+              25,
+              -25
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e19",
+              "#b8500c"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.18,
+              0.05,
+              0.8,
+              6
+            ],
+            "at": [
+              0.35,
+              0.85,
+              0.25
+            ],
+            "rot": [
+              -55,
+              30,
+              20
+            ],
+            "tones": [
+              "#ff8826",
+              "#dc6e19",
+              "#b8500c"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.18,
+              1
+            ],
+            "at": [
+              0.55,
+              1.35,
+              0.45
+            ],
+            "tones": [
+              "#f0b930",
+              "#c9941a",
+              "#faaf41"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.06,
+              1
+            ],
+            "at": [
+              -0.3,
+              1.76,
+              -0.32
+            ],
+            "tones": [
+              "#ffffff",
+              "#ffffff",
+              "#e0e0e0"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVTTTTTTTTTTTTVV",
+      "VTTGGGGGGGGGGTTV",
+      "TTGGGGGGGGGGGGTT",
+      "TGGGGGGGGGGGGGGT",
+      "TGGGGGGGGGGGGGTT",
+      "TGGGTGGGGGFGGTTT",
+      "TGGPPTGGGFFFGGTT",
+      "TGGPPPTTTFFGGGTT",
+      "TGGGPPPTTGPGGGTT",
+      "TTGGGPPPPPGGGGTT",
+      "VTTGGGGGGGGGGTTV",
+      "VVTTTTTTTTTTTTVV"
+    ],
+    "heights": [
+      "0011111111111100",
+      "0111111111111110",
+      "1111111111111111",
+      "1111111111111111",
+      "1111111222111111",
+      "1111112222221111",
+      "1111112233221111",
+      "1111112233221111",
+      "1111111222211111",
+      "1111111111111111",
+      "0111111111111110",
+      "0011111111111100"
+    ],
+    "focal": {
+      "x": 9,
+      "z": 6,
+      "what": "The Cinder Raptor perched proudly upon the root knoll overlooking its deadfall territory"
+    },
+    "mass": "The visual weight gathers solidly in the central-right knoll where the tall creature, elevated terrain tier, and leaning trunk cluster.",
+    "read": "The viewer enters the island along the bare pale ground corridor winding from the lower-left past fallen log barriers. Following the diagonal sweep of the timber, the eye is drawn straight up to the towering crest of the flame bird perched on its taproot throne. Behind it, deep vertical boles enclose the forest edge into an intimate sanctuary."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.35,
+      "types": [
+        {
+          "type": "charred_bole",
+          "variant": "default",
+          "weight": 0.55
+        },
+        {
+          "type": "tree-pine",
+          "variant": "default",
+          "weight": 0.25
+        },
+        {
+          "type": "leaning_trunk",
+          "variant": "default",
+          "weight": 0.2
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.18,
+    "void_share": 0.08,
+    "decor_weights": {
+      "taproot_nest": 0.3,
+      "scorched_stump": 0.2,
+      "ember_wisp": 0.15,
+      "rock": 0.2,
+      "fallen_timber": 0.15
+    },
+    "lighting": {
+      "bg": "#1c2226",
+      "ambient": 0.68,
+      "sun": 0.22,
+      "tint": "#f5e6cc",
+      "notes": "charcoal woodland backlight through tree canopy: Directly quotes ANALYSIS.palette.value_structure where deep matte charcoal shadows frame brilliant paper-white light emanating from the creature's face and crest."
+    },
+    "rules": [
+      "Concentrate charred boles tightly along the outer northern and eastern borders to evoke a closed forest wall.",
+      "Keep the path winding from the southwest open and clear of tall obstacles.",
+      "Surround the creature's elevated knoll with taproot clusters and fallen logs.",
+      "Place ember wisps strictly behind the creature to silhouette its tail and crest."
+    ],
+    "decor_density": 0.22,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "grass",
+      "path": "sand",
+      "shore": "dirt",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "subject.doing and story.habitat: a forest-spirit raptor nesting in a deadfall clearing choked with rotting logs, roots, and smoldering embers",
+    "place": "A damp conifer deadfall where a smoldering cinder raptor perches upon an arched root knoll amid fallen timber.",
+    "summary": "A moody forest clearing shaped as a brooding knoll surrounded by tangled roots and scarred boles, where a majestic flame raptor surveys its scorched perimeter.",
+    "differs": "Unlike the charcoal-haze basin or the spiral smoke glade, this level embodies the creature's living territory—a root-bound woodland mound strewn with heavy fallen timber, charred stumps, and warm ember wisps.",
+    "fixes": [
+      "surface_mix led with sand after a sibling took dirt/grass"
+    ]
+  },
+  "shaper": {
+    "name": "mound",
+    "params": {
+      "peak": [
+        0.55,
+        0.55
+      ],
+      "height": 3,
+      "spread": 0.9,
+      "lobes": 1
+    },
+    "why": "Reflects the creature's perched dominance in ANALYSIS.subject, providing a natural elevated taproot knoll that elevates the raptor above the fallen deadfall floor."
+  },
+  "surface_mix": {
+    "pattern": "scatter",
+    "period": 2.5,
+    "surfaces": [
+      {
+        "s": "dirt",
+        "share": 0.15
+      },
+      {
+        "s": "grass",
+        "share": 0.3
+      },
+      {
+        "s": "sand",
+        "share": 0.55
+      }
+    ],
+    "why": "Grounded in the forest duff described in ANALYSIS.story, dominated by rich peaty dirt with scattered damp moss cushions and cleared sandy animal tracks."
+  },
+  "cliff_treatment": {
+    "style": "mossy",
+    "upper": [
+      "#5c4333",
+      "#473224",
+      "#362417"
+    ],
+    "lower": [
+      "#473224",
+      "#332216",
+      "#24160c"
+    ],
+    "why": "Deep earth cliffs wrapped in shadowed soil tones evoke the cut banks and root shelves of a damp ancient woodland."
+  },
+  "lighting": {
+    "time": "charcoal woodland backlight through tree canopy",
+    "ambient": 0.68,
+    "sun": 0.22,
+    "tint": "#f5e6cc",
+    "bg": "#1c2226",
+    "why": "Directly quotes ANALYSIS.palette.value_structure where deep matte charcoal shadows frame brilliant paper-white light emanating from the creature's face and crest."
+  },
+  "figure_pose": {
+    "pose": "Upright perched bird of prey facing leftward, chest puffed into swirling scrolls with head inclined downward in keen scrutiny.",
+    "action": "surveying territory",
+    "facing": "left",
+    "why": "Matches ANALYSIS.subject.doing ('standing poised on root-covered ground while turning its gaze downward and to the left')."
+  },
+  "approach": {
+    "from": "southwest rim",
+    "passes": [
+      "fallen_timber ramp",
+      "scorched_stump",
+      "taproot_nest terrace",
+      "cinder_raptor knoll"
+    ],
+    "shape": "A rising winding route stepping over fallen log thresholds onto the central mossy crest."
+  },
+  "threshold": {
+    "kind": "A heavy diagonal fallen log and exposed taproot arch that blocks casual passage into the spirit's sacred knoll.",
+    "prop": "fallen_timber"
+  },
+  "analysis": "pipeline/seed/analysis/forest.json",
+  "concept": {
+    "name": "lens-subject",
+    "lens": "subject",
+    "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+  }
+}

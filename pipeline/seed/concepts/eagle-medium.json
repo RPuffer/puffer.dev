@@ -1,0 +1,1368 @@
+{
+  "source": {
+    "art": "pipeline/seed/eagle.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "mood": [
+    "striated",
+    "chalky",
+    "calligraphic",
+    "dry-brushed",
+    "taut",
+    "hooked"
+  ],
+  "observations": [
+    {
+      "what": "Flat, unpainted warm cream paper in the upper-left quadrant and left margin",
+      "box": [
+        0,
+        0,
+        350,
+        240
+      ],
+      "maps_to": "V"
+    },
+    {
+      "what": "Massive hooked cadmium yellow raptor beak thrusting horizontally toward the left",
+      "box": [
+        300,
+        30,
+        600,
+        600
+      ],
+      "maps_to": "beak_spire_cantilever"
+    },
+    {
+      "what": "Chalky dry-brush scumble and powdery stippling across the dorsal bridge of the yellow cere",
+      "box": [
+        320,
+        280,
+        420,
+        490
+      ],
+      "maps_to": "bristle_flick_ridge"
+    },
+    {
+      "what": "Intense pale mint-green circular iris enclosed within a heavy black triangular orbital socket",
+      "box": [
+        290,
+        520,
+        360,
+        640
+      ],
+      "maps_to": "F"
+    },
+    {
+      "what": "Heavy overhanging dark supraorbital brow ridge projecting forward over the eye",
+      "box": [
+        260,
+        450,
+        340,
+        710
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Sweeping striated dry-brush strokes of pale titanium white and bone grey flaring up and right across the crown",
+      "box": [
+        30,
+        250,
+        240,
+        980
+      ],
+      "maps_to": "feather_strata_prow"
+    },
+    {
+      "what": "Coarse parallel bristle drag tracks splitting toward the upper-right edge of the card",
+      "box": [
+        60,
+        620,
+        450,
+        990
+      ],
+      "maps_to": "bristle_flick_ridge"
+    },
+    {
+      "what": "Dense triangular pitch-black paint strokes forming a solid shadow wedge along the throat",
+      "box": [
+        470,
+        320,
+        640,
+        560
+      ],
+      "maps_to": "R"
+    },
+    {
+      "what": "Down-pointing jagged triangular feather strokes breaking over the lower breast and throat silhouette",
+      "box": [
+        610,
+        110,
+        1000,
+        560
+      ],
+      "maps_to": "T"
+    },
+    {
+      "what": "Broad vertical bristle drags of charcoal and cool grey descending into the lower right breast",
+      "box": [
+        600,
+        490,
+        1000,
+        990
+      ],
+      "maps_to": "P"
+    }
+  ],
+  "palette": {
+    "measured": [
+      {
+        "hex": "#cfc9b9",
+        "share": 0.227,
+        "role": "mid-tone warm grey in the crown and neck feathering"
+      },
+      {
+        "hex": "#e6dfd4",
+        "share": 0.199,
+        "role": "unpainted paper ground on the left and light feather highlights"
+      },
+      {
+        "hex": "#b9b4a6",
+        "share": 0.156,
+        "role": "shaded feathered planes behind the eye and across the mantle"
+      },
+      {
+        "hex": "#262622",
+        "share": 0.109,
+        "role": "deep black in the throat, chest, pupil, and orbital shadow"
+      },
+      {
+        "hex": "#9c988d",
+        "share": 0.107,
+        "role": "cool grey transitions across the upper crest"
+      },
+      {
+        "hex": "#515046",
+        "share": 0.08,
+        "role": "charcoal wash under the chin and along the back of the neck"
+      },
+      {
+        "hex": "#76746a",
+        "share": 0.079,
+        "role": "dark grey bristle streaks running through the forehead"
+      },
+      {
+        "hex": "#bc9e3b",
+        "share": 0.044,
+        "role": "saturated ochre-yellow beak and cere"
+      }
+    ],
+    "translation": {
+      "bg": "#1c1c1f",
+      "grass": {
+        "top": "#8ac978",
+        "fringe": "#6cb059",
+        "fringeDark": "#52943e",
+        "speck": "#a6dd94"
+      },
+      "sand": {
+        "top": "#f1cd52",
+        "lip": "#dd9200",
+        "edge": "#bc7e00",
+        "dots": "#ffe082"
+      },
+      "dirt": {
+        "top": "#cfc0a2",
+        "patch": "#bfaf90",
+        "mottle": "#aa9a7c",
+        "border": "#8f8064"
+      },
+      "stone": {
+        "top": "#eae3d2",
+        "pebble": "#fbf8f0",
+        "pebbleShade": "#d3cbba",
+        "rim": "#bbb3a1"
+      },
+      "cliffUpper": {
+        "left": "#43434b",
+        "right": "#2b2b32",
+        "seam": "#1a1a20"
+      },
+      "cliffLower": {
+        "left": "#383840",
+        "right": "#242429",
+        "seam": "#17171a",
+        "speck": "#50505b"
+      },
+      "water": {
+        "top": "#7ae2cf",
+        "bubble": "#c8faf0",
+        "deep": "#3ebba4",
+        "fall": [
+          "#5ad6be",
+          "#42c2a9",
+          "#32ab93"
+        ],
+        "foam": "#e6fffb"
+      },
+      "wood": {
+        "light": "#ff9b3d",
+        "mid": "#e0781e",
+        "dark": "#b8540c",
+        "shadow": "#8a3a04",
+        "end": "#fed897"
+      },
+      "treeMint": [
+        "#72e5ad",
+        "#58c992",
+        "#3fa874"
+      ],
+      "treeLime": [
+        "#b2eb74",
+        "#90d354",
+        "#6eb037"
+      ],
+      "treeLeaf": [
+        "#73c75f",
+        "#56ab42",
+        "#3f8c2e"
+      ],
+      "treeTeal": [
+        "#5ee8c2",
+        "#3dcc9e",
+        "#25a87d",
+        "#15825f"
+      ],
+      "treeGold": [
+        "#f7d35a",
+        "#e0b020",
+        "#b88a0b"
+      ],
+      "trunk": [
+        "#53362c",
+        "#3b2620"
+      ],
+      "rock": [
+        "#ded9cc",
+        "#c3beaF",
+        "#9a9588",
+        "#6a665b"
+      ],
+      "wellStone": [
+        "#d8d2c2",
+        "#beb7a6",
+        "#9d9685"
+      ],
+      "flowerOrange": [
+        "#ff8b26",
+        "#f1a81e"
+      ],
+      "berry": [
+        "#fe738f",
+        "#d9435f"
+      ],
+      "bushTeal": [
+        "#7decc1",
+        "#58c992",
+        "#3fa874"
+      ],
+      "gold": [
+        "#f8d247",
+        "#e0a716",
+        "#ffd86b"
+      ]
+    },
+    "notes": "The medium translation anchors the ground in chalky off-white dry gouache tones (dirt and stone) flanked by ink-charcoal basalt cliffs, with cadmium beak-yellow concentrated along the ribbon's prow and floral accents.",
+    "clamped": [
+      "trunk[0] #4a3a35->#53362c",
+      "trunk[1] #352925->#3b2620"
+    ]
+  },
+  "motifs": [
+    {
+      "name": "beak_spire_cantilever",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        2,
+        1
+      ],
+      "height": 1.4,
+      "passable": false,
+      "count": 1,
+      "cells": [
+        [
+          3,
+          6
+        ]
+      ],
+      "where": "Projects sharply out over the western void mirroring the aggressive thrust of the painted yellow beak culmen.",
+      "role": "threshold",
+      "shape": {
+        "summary": "A tiered cantilever of sharp wedge blocks in saturated golden cadmium terminating in a downward hook.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              1.1,
+              0.45,
+              0.8
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#f7d35a",
+              "#e0b020",
+              "#b88a0b"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.55
+            ],
+            "outline": [
+              [
+                -0.45,
+                -0.35
+              ],
+              [
+                0.45,
+                -0.35
+              ],
+              [
+                0.1,
+                0.45
+              ],
+              [
+                -0.45,
+                0.45
+              ]
+            ],
+            "at": [
+              -0.35,
+              0.45,
+              0
+            ],
+            "rot": [
+              0,
+              90,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#f1cd52",
+              "#dd9200"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.16
+            ],
+            "at": [
+              -0.75,
+              0.65,
+              0
+            ],
+            "to": [
+              -1.05,
+              0.1,
+              0
+            ],
+            "tones": [
+              "#f1cd52",
+              "#dd9200",
+              "#bc7e00"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.25,
+              0.6,
+              0.08
+            ],
+            "at": [
+              0.25,
+              0.7,
+              0
+            ],
+            "tones": [
+              "#ffe082",
+              "#f7d35a",
+              "#e0b020"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.12,
+              0.25,
+              6
+            ],
+            "at": [
+              -0.2,
+              0.85,
+              -0.2
+            ],
+            "rot": [
+              20,
+              0,
+              0
+            ],
+            "tones": [
+              "#43434b",
+              "#2b2b32",
+              "#1a1a20"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bristle_flick_ridge",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.8,
+      "passable": false,
+      "count": 4,
+      "cells": [
+        [
+          7,
+          2
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "where": "Arranged along the crest ridge representing striated, dry-brush bristle drags fanning toward the upper-right corner.",
+      "role": "mass",
+      "shape": {
+        "summary": "A staggered palisade of thin faceted vertical stone laths that simulate parallel stiff dry-brush marks.",
+        "parts": [
+          {
+            "prim": "beam",
+            "dims": [
+              0.1
+            ],
+            "at": [
+              -0.25,
+              0,
+              -0.15
+            ],
+            "to": [
+              -0.15,
+              1.7,
+              0.1
+            ],
+            "tones": [
+              "#fbf8f0",
+              "#eae3d2",
+              "#d3cbba"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.09
+            ],
+            "at": [
+              0,
+              0,
+              -0.1
+            ],
+            "to": [
+              0.15,
+              1.55,
+              0.15
+            ],
+            "tones": [
+              "#eae3d2",
+              "#d3cbba",
+              "#bbb3a1"
+            ]
+          },
+          {
+            "prim": "beam",
+            "dims": [
+              0.08
+            ],
+            "at": [
+              0.25,
+              0,
+              0
+            ],
+            "to": [
+              0.35,
+              1.35,
+              0.25
+            ],
+            "tones": [
+              "#d3cbba",
+              "#bbb3a1",
+              "#9a9588"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.7,
+              0.2,
+              0.5,
+              0.06
+            ],
+            "at": [
+              0,
+              0.1,
+              0
+            ],
+            "tones": [
+              "#cfc0a2",
+              "#bfaf90",
+              "#8f8064"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.16,
+              0.04,
+              0.6,
+              6
+            ],
+            "at": [
+              -0.1,
+              0.2,
+              0.1
+            ],
+            "tones": [
+              "#eae3d2",
+              "#d3cbba",
+              "#bbb3a1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "feather_strata_prow",
+      "type": "new",
+      "variant_of": null,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 1.2,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          11,
+          10
+        ]
+      ],
+      "where": "Placed on the southern flanks corresponding to the overlapping dark, sharp feather wedges of the lower mantle.",
+      "role": "approach",
+      "shape": {
+        "summary": "Sharp overlapping triangular slate shingles stacked stepped like jagged ink marks.",
+        "parts": [
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.4,
+                -0.3
+              ],
+              [
+                0.4,
+                -0.3
+              ],
+              [
+                0,
+                0.4
+              ]
+            ],
+            "at": [
+              0,
+              0,
+              0
+            ],
+            "tones": [
+              "#43434b",
+              "#2b2b32",
+              "#1a1a20"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.35,
+                -0.25
+              ],
+              [
+                0.35,
+                -0.25
+              ],
+              [
+                0,
+                0.35
+              ]
+            ],
+            "at": [
+              0.05,
+              0.3,
+              0.05
+            ],
+            "rot": [
+              0,
+              15,
+              0
+            ],
+            "tones": [
+              "#383840",
+              "#242429",
+              "#17171a"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.28,
+                -0.2
+              ],
+              [
+                0.28,
+                -0.2
+              ],
+              [
+                0,
+                0.28
+              ]
+            ],
+            "at": [
+              0.1,
+              0.6,
+              0.1
+            ],
+            "rot": [
+              0,
+              30,
+              0
+            ],
+            "tones": [
+              "#2b2b32",
+              "#1a1a20",
+              "#141417"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.15,
+              0,
+              0.3,
+              6
+            ],
+            "at": [
+              0.12,
+              0.95,
+              0.12
+            ],
+            "tones": [
+              "#d3cbba",
+              "#9a9588",
+              "#6a665b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "chalk_scumble_boulder",
+      "type": "rock-big",
+      "variant_of": "rock-big",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.85,
+      "passable": false,
+      "count": 3,
+      "cells": [
+        [
+          6,
+          4
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "where": "Sitting on the upper ribbon steps representing the textured chalk scumble behind the eye and cere.",
+      "role": "detail",
+      "shape": {
+        "summary": "Powdery flat-topped stacked boulders with chalk-pale highlights.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.45,
+              0.75,
+              0.12
+            ],
+            "at": [
+              0,
+              0.22,
+              0
+            ],
+            "tones": [
+              "#ded9cc",
+              "#c3beaF",
+              "#9a9588"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.5,
+              0.1
+            ],
+            "at": [
+              0.1,
+              0.55,
+              -0.05
+            ],
+            "tones": [
+              "#fbf8f0",
+              "#eae3d2",
+              "#d3cbba"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.22,
+              0.8
+            ],
+            "at": [
+              -0.2,
+              0.48,
+              0.15
+            ],
+            "tones": [
+              "#eae3d2",
+              "#c3beaF",
+              "#9a9588"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "charcoal_pine_spire",
+      "type": "tree-pine",
+      "variant_of": "tree-pine",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.2,
+      "passable": false,
+      "count": 2,
+      "cells": [
+        [
+          13,
+          6
+        ],
+        [
+          13,
+          8
+        ]
+      ],
+      "where": "Standing in dense clusters along the eastern tail of the ribbon where the stroke merges into dark chest mass.",
+      "role": "mass",
+      "shape": {
+        "summary": "Stylized tiered low-poly spruce with dark ink-hued foliage and deep brown trunks.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.2,
+              0.7,
+              0.2
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#53362c",
+              "#3b2620",
+              "#241b18"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.95,
+              0.45,
+              0.95,
+              0.1
+            ],
+            "at": [
+              0,
+              0.8,
+              0
+            ],
+            "tones": [
+              "#25a87d",
+              "#15825f",
+              "#0d5c42"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.75,
+              0.4,
+              0.75,
+              0.09
+            ],
+            "at": [
+              0,
+              1.15,
+              0
+            ],
+            "tones": [
+              "#3dcc9e",
+              "#25a87d",
+              "#15825f"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.55,
+              0.35,
+              0.55,
+              0.08
+            ],
+            "at": [
+              0,
+              1.45,
+              0
+            ],
+            "tones": [
+              "#5ee8c2",
+              "#3dcc9e",
+              "#25a87d"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.28,
+              0,
+              0.45,
+              6
+            ],
+            "at": [
+              0,
+              1.75,
+              0
+            ],
+            "tones": [
+              "#72e5ad",
+              "#58c992",
+              "#3fa874"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "calligraphic_post",
+      "type": "fence-post",
+      "variant_of": "fence-post",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.9,
+      "passable": true,
+      "count": 4,
+      "cells": [
+        [
+          4,
+          7
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          11,
+          7
+        ]
+      ],
+      "where": "Flanking the rising path edge like dry-brush ink markers guiding traversal along the arc.",
+      "role": "approach",
+      "shape": {
+        "summary": "Square carved wooden stake topped with a faceted amber cap.",
+        "parts": [
+          {
+            "prim": "box",
+            "dims": [
+              0.18,
+              0.7,
+              0.18
+            ],
+            "at": [
+              0,
+              0.35,
+              0
+            ],
+            "tones": [
+              "#ff9b3d",
+              "#e0781e",
+              "#b8540c"
+            ]
+          },
+          {
+            "prim": "rbox",
+            "dims": [
+              0.26,
+              0.18,
+              0.26,
+              0.04
+            ],
+            "at": [
+              0,
+              0.75,
+              0
+            ],
+            "tones": [
+              "#fed897",
+              "#f7d35a",
+              "#e0b020"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "creatures": [
+    {
+      "name": "aquila_ocularis",
+      "source": "The piercing mint-green eye and heavy brow ridge in the upper-centre of the eagle's profile",
+      "becomes": "npc",
+      "type": "new",
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 2.1,
+      "shape": {
+        "summary": "A monolithic feathered raptor totem crowned with an intense mint-green ocular lens and forward-curved supraorbital canopy.",
+        "parts": [
+          {
+            "prim": "rbox",
+            "dims": [
+              0.85,
+              0.9,
+              0.8,
+              0.14
+            ],
+            "at": [
+              0,
+              0.45,
+              0
+            ],
+            "tones": [
+              "#eae3d2",
+              "#d3cbba",
+              "#bbb3a1"
+            ]
+          },
+          {
+            "prim": "box",
+            "dims": [
+              0.95,
+              0.4,
+              0.85
+            ],
+            "at": [
+              -0.05,
+              1.05,
+              0
+            ],
+            "tones": [
+              "#43434b",
+              "#2b2b32",
+              "#1a1a20"
+            ]
+          },
+          {
+            "prim": "prism",
+            "dims": [
+              0.35
+            ],
+            "outline": [
+              [
+                -0.4,
+                -0.3
+              ],
+              [
+                0.4,
+                -0.3
+              ],
+              [
+                -0.2,
+                0.4
+              ]
+            ],
+            "at": [
+              -0.2,
+              1.25,
+              0
+            ],
+            "rot": [
+              0,
+              90,
+              0
+            ],
+            "tones": [
+              "#2b2b32",
+              "#1a1a20",
+              "#141417"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.24,
+              0.12,
+              10
+            ],
+            "at": [
+              -0.38,
+              0.85,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              90
+            ],
+            "tones": [
+              "#7ae2cf",
+              "#5ad6be",
+              "#32ab93"
+            ]
+          },
+          {
+            "prim": "cyl",
+            "dims": [
+              0.1,
+              0.14,
+              8
+            ],
+            "at": [
+              -0.4,
+              0.85,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              90
+            ],
+            "tones": [
+              "#1c1c1f",
+              "#17171a",
+              "#141417"
+            ]
+          },
+          {
+            "prim": "ball",
+            "dims": [
+              0.04,
+              1
+            ],
+            "at": [
+              -0.44,
+              0.9,
+              0.04
+            ],
+            "tones": [
+              "#fbf8f0",
+              "#ffffff",
+              "#eae3d2"
+            ]
+          },
+          {
+            "prim": "cone",
+            "dims": [
+              0.3,
+              0,
+              0.55,
+              6
+            ],
+            "at": [
+              0.2,
+              1.45,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -35
+            ],
+            "tones": [
+              "#fbf8f0",
+              "#eae3d2",
+              "#d3cbba"
+            ]
+          }
+        ]
+      },
+      "pose": "Carved stone eagle skull with a prominent overhanging brow and pale mint-green circular iris gazing straight along the beak spit.",
+      "cell": [
+        5,
+        5
+      ],
+      "facing": "w",
+      "why": "It embodies the intense, unblinking raptor gaze that commands the entire compositional vector of the artwork."
+    }
+  ],
+  "composition": {
+    "legend": {
+      "G": "ground",
+      "R": "raised ground (plateau, one or more blocks above G)",
+      "W": "water",
+      "V": "void (no land, background shows)",
+      "T": "vegetation (trees, bushes, roots)",
+      "F": "the figure or focal creature",
+      "P": "path"
+    },
+    "grid": [
+      "VVVVVVVVVVVVVVVV",
+      "VVVVVVVVVTTRVVVV",
+      "VVVVVVVRRTRRRVVV",
+      "VVVVVRRRPPPRRVVV",
+      "VVVVRRRRPPPRRVVV",
+      "VVVVRFFRPPPRTRVV",
+      "VVVRFGGPPPPTTTVV",
+      "VVVRGGGGPPPTTVVV",
+      "VVVVRGGGGPPPTRVV",
+      "VVVVVRRRGGGPRRVV",
+      "VVVVVVVRRRRRRVVV",
+      "VVVVVVVVVVVVVVVV"
+    ],
+    "heights": [
+      "0000000000000000",
+      "0000000002230000",
+      "0000000332333000",
+      "0000033322233000",
+      "0000333222233000",
+      "0000333222232100",
+      "0002311222222100",
+      "0002111122222000",
+      "0000111122223100",
+      "0000022211122100",
+      "0000000222222000",
+      "0000000000000000"
+    ],
+    "focal": {
+      "x": 5,
+      "z": 5,
+      "what": "The towering raptor eye effigy gazing westward toward the sharp beak spit."
+    },
+    "mass": "Visual mass curves along a wide sweeping crescent from the high eastern crest down through the broad central path into the sharp beak spur on the west.",
+    "read": "The viewer enters onto the southern curve of the stroke path, following the rhythmic sweep of dry feather shingles ascending toward the northeast ridge. At the apex, the path curls inward to the ocular focal monument, before dropping visually along the golden cantilever beak that projects out over pure negative void."
+  },
+  "biome": {
+    "trees": {
+      "density": 0.22,
+      "types": [
+        {
+          "type": "charcoal_pine_spire",
+          "variant": "charcoal_pine_spire",
+          "weight": 0.6
+        },
+        {
+          "type": "bristle_flick_ridge",
+          "variant": "bristle_flick_ridge",
+          "weight": 0.4
+        }
+      ]
+    },
+    "water_share": 0,
+    "plateau_share": 0.58,
+    "void_share": 0.42,
+    "decor_weights": {
+      "chalk_scumble_boulder": 0.35,
+      "feather_strata_prow": 0.35,
+      "calligraphic_post": 0.3
+    },
+    "lighting": {
+      "bg": "#1c1c1f",
+      "ambient": 0.82,
+      "sun": 0.28,
+      "tint": "#f3edd8",
+      "notes": "dry gouache glare over chalk paper: Cites ANALYSIS.palette.value_structure: high-key cream highlight bouncing over flat graphic black shadows against a pitch-dark background."
+    },
+    "rules": [
+      "Place bristle_flick_ridge motifs only on the highest tier-3 northern ridge cells.",
+      "Keep all water share at zero; negative space must drop directly to dark charcoal card void.",
+      "Confine the beak cantilever strictly to the west-projecting spur at tier 2.",
+      "Scatter calligraphic posts along the inner curve of the path."
+    ],
+    "decor_density": 0.28,
+    "surfaces": {
+      "ground": "dirt",
+      "raised": "stone",
+      "path": "sand",
+      "shore": "stone",
+      "mist": null
+    }
+  },
+  "lens": {
+    "aspect": "ANALYSIS.medium.marks and ANALYSIS.medium.technique: dry-brush gouache drag, stiff bristle tracks, and sharp graphic paint wedges over negative card space.",
+    "place": "A sweeping calligraphic ridge of chalk-pale gouache strata jutting into a charcoal void",
+    "summary": "A continuous sinuous ribbon of stepped terrain translating the single sweeping stroke of the eagle's cranial crest and throat wedge into a physical landmass.",
+    "differs": "Unlike the fractured shale shards or the dual-roost sea stack, this level is formed as one uninterrupted arc of dry bristle strokes rising out of void, using ribbon topology and chalk-paper surface textures.",
+    "fixes": [
+      "surface_mix led with grass after a sibling took sand/dirt"
+    ]
+  },
+  "shaper": {
+    "name": "ribbon",
+    "params": {
+      "width": 3,
+      "waves": 1.2,
+      "rise": "arch",
+      "fork": true,
+      "from": "sw"
+    },
+    "why": "Matches the grand sweeping brush arc that flows from the lower breast up through the nape and crowns the head, before forking forward into the beak culmen."
+  },
+  "surface_mix": {
+    "pattern": "bands",
+    "period": 2.5,
+    "surfaces": [
+      {
+        "s": "grass",
+        "share": 0.45
+      },
+      {
+        "s": "sand",
+        "share": 0.35
+      },
+      {
+        "s": "stone",
+        "share": 0.2
+      }
+    ],
+    "why": "Parallel bands of gouache-dirt and golden beak-sand recreate the striated drag tracks left by split bristle hairs across the paper."
+  },
+  "cliff_treatment": {
+    "style": "sheer",
+    "upper": [
+      "#43434b",
+      "#2b2b32",
+      "#1a1a20"
+    ],
+    "lower": [
+      "#383840",
+      "#242429",
+      "#17171a"
+    ],
+    "why": "Sheer pitch-black and deep charcoal cliffs translate the opaque black enamel contour under the chin and eye directly into sheer rock faces."
+  },
+  "lighting": {
+    "time": "dry gouache glare over chalk paper",
+    "ambient": 0.82,
+    "sun": 0.28,
+    "tint": "#f3edd8",
+    "bg": "#1c1c1f",
+    "why": "Cites ANALYSIS.palette.value_structure: high-key cream highlight bouncing over flat graphic black shadows against a pitch-dark background."
+  },
+  "figure_pose": {
+    "pose": "Carved stone eagle skull with a prominent overhanging brow and pale mint-green circular iris gazing straight along the beak spit.",
+    "action": "scanning",
+    "facing": "left",
+    "why": "Cites ANALYSIS.subject.pose: strict left-facing profile with predatory, unblinking fixation."
+  },
+  "approach": {
+    "from": "southwest rim at the base of the lower breast curve",
+    "passes": [
+      "feather_strata_prow stepped shingles",
+      "chalk_scumble_boulder field",
+      "calligraphic_post waypoint",
+      "beak_spire_cantilever overlook"
+    ],
+    "shape": "An ascending calligraphic spiral climbing from the low dark breast shingles up to the illuminated eye crest."
+  },
+  "threshold": {
+    "kind": "A stark projecting beak cantilever of cadmium yellow stone pointing into open air.",
+    "prop": "beak_spire_cantilever"
+  },
+  "analysis": "pipeline/seed/analysis/eagle.json",
+  "concept": {
+    "name": "lens-medium",
+    "lens": "medium",
+    "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+  }
+}
