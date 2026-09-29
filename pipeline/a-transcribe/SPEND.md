@@ -67,3 +67,7 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | ember-1, ember-2 | gemini-3.8-flash | 4 | 0.1295 | analyze.mjs: regenerated ember-1 (71 walkable) and ember-2 (65 walkable, cobble floor) with --avoid
 2026-09-29 | ember-1..3 | gemini-3.8-flash | 18 | 0.1496 | critic round 1, 351 and 900 (3 votes each)
 2026-09-29 | ember-1..3 | gemini-3.8-flash | 18 | 0.1438 | critic round 2
+2026-09-29 | dragon-1 | gemini-3.8-flash | 1 | 0.0276 | analyze.mjs --variant 1 --avoid dragon-2,dragon-3: the first reading walked 66 cells in three masses
+2026-09-29 | dragon-1 | gemini-3.8-flash | 24 | 0.1630 | critic rounds 1 to 3 and final, 351 and 900 (3 votes each)
+2026-09-29 | dragon-2 | gemini-3.8-flash | 36 | 0.3744 | critic rounds 1 to 3, final, and two rounds after the h2 courtyard
+2026-09-29 | dragon-3 | gemini-3.8-flash | 30 | 0.2640 | critic rounds 1 to 4 and final
