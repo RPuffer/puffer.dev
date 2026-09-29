@@ -1,0 +1,178 @@
+{
+  "source": {
+    "art": "pipeline/seed/cat.png",
+    "width": 1587,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "opaque acrylic on stretched woven canvas applied with flat and round bristle brushes",
+    "marks": [
+      "Dry-brush scumbles of white and lavender drag horizontally across the right cheek and whisker bed, skipping over the canvas weave texture.",
+      "Thick, directional curved bristle strokes of cadmium orange sweep diagonally down and right across the bib and lower chest.",
+      "Sharp, black-violet outline bands form the perimeter of the almond eyes, drawn with a loaded round brush in single fluid loops.",
+      "Vertical wet-on-wet blendings of yellow, magenta, and ultramarine streak downwards between the eyes from forehead to muzzle without muddying.",
+      "Two distinct pointed dabs of opaque white paint define the tiny lower canine teeth inside the open mouth cavity."
+    ],
+    "surface": "medium-grain primed white cotton canvas, left entirely raw and unpainted across roughly 40% of the field to form the neutral backdrop",
+    "edges": "abrupt dry-brushed boundaries where outer fur contours feather directly into bare canvas, contrasted with hard graphic outlines encircling the iris and jawline",
+    "density": "pigment builds in multiple dense, opaque wet layers across the forehead and throat, thinning to single scumbled dry strokes at the lower right chest margin",
+    "as_material": "heavy ribbons of dyed oilcloth or thick gouache paste scraped flat over open burlap weave"
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e8dfce",
+        "share": 0.233,
+        "role": "unpainted primed canvas ground flanking the head and shoulders"
+      },
+      {
+        "hex": "#d5cbbd",
+        "share": 0.165,
+        "role": "shadowed canvas ground along the upper and left margins"
+      },
+      {
+        "hex": "#df9e0c",
+        "share": 0.131,
+        "role": "pure cadmium yellow across the right forehead, right eye iris, and lower right torso"
+      },
+      {
+        "hex": "#363a56",
+        "share": 0.124,
+        "role": "deep ultramarine-indigo shading the brow band, cheek patches, and eye outlines"
+      },
+      {
+        "hex": "#cf610d",
+        "share": 0.099,
+        "role": "fiery orange marking the left ear tip, bib, and lower neck collar"
+      },
+      {
+        "hex": "#9c3541",
+        "share": 0.088,
+        "role": "deep magenta-crimson blocking the left shoulder and forehead bridge"
+      },
+      {
+        "hex": "#c6b19c",
+        "share": 0.082,
+        "role": "warm neutral ground tone near the outer right boundary"
+      },
+      {
+        "hex": "#c4616d",
+        "share": 0.077,
+        "role": "hot bubblegum pink lining the right inner ear flap and upper muzzle"
+      }
+    ],
+    "value_structure": "High-key open background with stark medium-to-dark saturation within the figure; the deepest value sits inside the pitch-black oral cavity at centre, while the highest values are the bare primed canvas surrounding the silhouette.",
+    "dominant": [
+      "#e8dfce",
+      "#df9e0c",
+      "#363a56"
+    ],
+    "accents": [
+      "#c4616d",
+      "#cf610d"
+    ],
+    "temperature": "Extremely warm overall due to dominant yellow, orange, and magenta swathes, punctuated by sharp cold accents of deep ultramarine, lilac, and emerald green."
+  },
+  "subject": {
+    "what": "domestic cat (Felis catus), head and upper bust",
+    "doing": "vocalising with an open mouth, caught mid-meow or mid-hiss",
+    "pose": "frontal bust with the head tilted slightly to the viewer's left while the right ear rises taller to the upper right corner",
+    "facing": "facing forward toward the viewer with eyes locked squarely on the lens",
+    "expression": "alert, demanding, and vocal, showing slight surprise or insistent communication through wide pupils and parted lips",
+    "stylisation": "Fauvist chromatic fragmentation replacing natural tabby or calico fur patterns with unblended slabs of primary and secondary colour"
+  },
+  "story": {
+    "nature": "a loud, domestic sentinel animal accustomed to demanding immediate attention from humans",
+    "habitat": "a sunlit linoleum kitchen doorway near a food dish",
+    "implies": "the animal has just noticed a pantry door open and has let out an insistent, high-pitched demand",
+    "world": "a chipped ceramic water crock, a low window sill dusted with morning light, and an open cardboard box"
+  },
+  "composition": {
+    "mass": "heavy pyramidal vertical wedge anchored in the bottom centre-left and tapering up toward the ears",
+    "mass_box": [
+      38,
+      0,
+      1000,
+      915
+    ],
+    "flow_lines": [
+      {
+        "line": "diagonal thrust of the right ear contour leading down into the chest",
+        "from": [
+          0.85,
+          0.04
+        ],
+        "to": [
+          0.77,
+          0.62
+        ],
+        "curve": "straight"
+      },
+      {
+        "line": "curved collar arc formed by the orange bib under the chin",
+        "from": [
+          0.18,
+          0.54
+        ],
+        "to": [
+          0.78,
+          0.53
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "vertical streak down the bridge of the nose to the lower jaw",
+        "from": [
+          0.45,
+          0.22
+        ],
+        "to": [
+          0.43,
+          0.66
+        ],
+        "curve": "straight"
+      }
+    ],
+    "negative_space": "the upper left, upper right, and lower left canvas margins remain raw primed white, accounting for roughly 40% of the total frame",
+    "symmetry": "roughly bilateral in head shape, but broken by asymmetrical colour patches and a higher, sharper right ear",
+    "scale_cues": "the proportion of the canine teeth to the lip margin and the typical diameter of domestic feline irises",
+    "focal": {
+      "what": "the dark open triangular mouth revealing pale teeth and lilac tongue",
+      "at": [
+        0.43,
+        0.61
+      ]
+    },
+    "frame": "the subject's chest and flanks are cut off abruptly by the bottom edge, while the ears push near the top and side borders"
+  },
+  "energy": {
+    "register": "cacophonic, crisp, urgent",
+    "tempo": "surging",
+    "why": "Directional brush sweeps of clashing hues race from the throat upward into the brow, frozen at the instant of a vocal cry."
+  },
+  "details": [
+    {
+      "what": "two tiny conical white canine teeth puncturing the black oral gap",
+      "where": "lower centre, inside mouth at [0.39, 0.62] and [0.47, 0.61]",
+      "why": "they provide the sharpest value contrast in the painting against the black gullet"
+    },
+    {
+      "what": "lavender-grey triangular nose pad with dark indigo nostrils",
+      "where": "dead centre at [0.41, 0.50]",
+      "why": "it anchors the snout in a cool muted tone amid the surrounding fire-orange and magenta fur"
+    },
+    {
+      "what": "feathered dry-brush strokes running horizontally like phantom whiskers",
+      "where": "right muzzle plane at [0.52, 0.56]",
+      "why": "the artist dragged a semi-dry pink brush across primed texture instead of drawing explicit whisker lines"
+    },
+    {
+      "what": "slender streak of viridian green bridging the chin to the throat",
+      "where": "lower-middle neck at [0.45, 0.68]",
+      "why": "an unexpected cool complementary hue wedged tightly between warm orange and magenta fields"
+    }
+  ],
+  "unlike": "It renders feline domesticity through a fractured Fauvist skin of clashing pure cadmiums, ultramarines, and magentas left floating unfinished on completely unpainted studio canvas."
+}

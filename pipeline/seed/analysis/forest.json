@@ -1,0 +1,173 @@
+{
+  "source": {
+    "art": "pipeline/seed/forest.png",
+    "width": 1454,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Charcoal and reductive kneaded eraser drawing on heavy tooth paper with blending stump work",
+    "marks": [
+      "Broad, vertical dry sweeps of charcoal dragged downwards with uneven pressure define the distant tree trunks in the upper background.",
+      "Crisp, curved ribbon contours drawn with dense black charcoal outline the body loops before blending softly on the inside edge.",
+      "Erased highlights cut cleanly into charcoal tone with a sharp kneaded eraser edge to form the white beak, blank eye, and white tendril rims.",
+      "Cross-hatched and scumbled charcoal scrubbed firmly into the lower third forms the gritty, textured soil and fallen log grain.",
+      "Tight spiraling loops drawn in single continuous strokes define the shoulder scroll and the swirling flank feathers."
+    ],
+    "surface": "White cold-press paper with a distinct mechanical tooth that breaks up dry charcoal dust into small white pits across the floor and background.",
+    "edges": "High-contrast, razor-clean contours where erased paper white meets compressed charcoal, contrasted with smudged, atmospheric boundaries in the background forest.",
+    "density": "Heavy, saturated carbon density packed into the central torso and lower foreground roots; sparse, rubbed charcoal dust in the upper vertical clearing.",
+    "as_material": "If these marks were a physical substance, they would be cold soot and pulverized bone ash scraped across fibrous plaster."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#868686",
+        "share": 0.152,
+        "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+      },
+      {
+        "hex": "#9f9f9f",
+        "share": 0.15,
+        "role": "Light gray diffused background wash and middle-value forest canopy"
+      },
+      {
+        "hex": "#333333",
+        "share": 0.142,
+        "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+      },
+      {
+        "hex": "#bcbcbc",
+        "share": 0.129,
+        "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+      },
+      {
+        "hex": "#181818",
+        "share": 0.119,
+        "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+      },
+      {
+        "hex": "#6c6c6c",
+        "share": 0.116,
+        "role": "Transitional blending tones across the creature's breast and shaded soil"
+      },
+      {
+        "hex": "#4f4f4f",
+        "share": 0.112,
+        "role": "Dark gray bark textures and deep secondary folds of the plumage"
+      },
+      {
+        "hex": "#dddddd",
+        "share": 0.079,
+        "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+      }
+    ],
+    "value_structure": "The work operates across a full value range from untouched white paper to matte charcoal black. Deepest blacks concentrate in the creature's lower torso, leg joints, and foreground roots, while pure whites isolate the face, beak, and haloed rim lighting behind the neck.",
+    "dominant": [
+      "#868686",
+      "#9f9f9f",
+      "#333333"
+    ],
+    "accents": [
+      "#dddddd",
+      "#181818"
+    ],
+    "temperature": "Strictly neutral monochrome with neither warm nor cool color cast across the gray gradient."
+  },
+  "subject": {
+    "what": "An avian entity resembling a rooster or predatory bird constructed entirely from flame-like tendrils and rococo scrollwork",
+    "doing": "Standing poised on root-covered ground while turning its gaze downward and to the left",
+    "pose": "Upright S-curve gesture with an arched crest, puffed helical chest, and a high, scrolled tail tuft",
+    "facing": "Body oriented three-quarters toward the left, head turned profile-left",
+    "expression": "Stern, unblinking vigilance conveyed by an unpupiled triangular eye and downcurved raptorial beak",
+    "stylisation": "Avian anatomy resolved into calligraphic arabesques, teardrop apertures, and rolling smoke tendrils rather than individual feathers"
+  },
+  "story": {
+    "nature": "A terrestrial forest spirit manifest as a combustible, soot-and-flame raptor",
+    "habitat": "A deadfall clearing in a deep temperate forest choked with rotting logs, taproots, and perpetual mist",
+    "implies": "The entity has coalesced from the damp woods and paused on the forest floor before advancing",
+    "world": "Rotting birch trunks, damp lichen-covered duff, and creeping subterranean mycelium"
+  },
+  "composition": {
+    "mass": "The visual weight sits heavily in the lower-central and center-left frame, anchored by the dense, intertwined legs and torso.",
+    "mass_box": [
+      175,
+      200,
+      870,
+      820
+    ],
+    "flow_lines": [
+      {
+        "line": "A rising vertical sweep runs from the feet up the breast into the tall crest flames",
+        "from": [
+          0.48,
+          0.85
+        ],
+        "to": [
+          0.29,
+          0.18
+        ],
+        "curve": "S"
+      },
+      {
+        "line": "A descending curve follows the spine line back down into the upturned curled tail",
+        "from": [
+          0.44,
+          0.42
+        ],
+        "to": [
+          0.77,
+          0.52
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "A diagonal fallen branch on the lower left guides the eye directly toward the creature's claw base",
+        "from": [
+          0.02,
+          0.78
+        ],
+        "to": [
+          0.38,
+          0.67
+        ],
+        "curve": "straight"
+      }
+    ],
+    "negative_space": "Pale, smoky forest air occupies roughly 25% of the frame around the bird's head and between background tree trunks.",
+    "symmetry": "Asymmetrical throughout, balanced by strong vertical tree boles on the right against the left-facing beak and log on the left.",
+    "scale_cues": "The surrounding mature tree trunks and fallen branch suggest a creature standing roughly two to three feet tall.",
+    "focal": {
+      "what": "The negative-space white beak and circular erased eye",
+      "at": [
+        0.34,
+        0.39
+      ]
+    },
+    "frame": "The vertical format closely confines the subject, with the flame crest nearly grazing the upper margin and the feet pressing into the bottom soil."
+  },
+  "energy": {
+    "register": "sinuous, coiled, smoldering",
+    "tempo": "flowing",
+    "why": "The creature's interior is carved into rolling vortexes and looped scrolls that recirculate visual movement without breaking the stable, stationary stance."
+  },
+  "details": [
+    {
+      "what": "A concentric spiral curl at the wing joint mimicking a carved ionic volute",
+      "where": "Center of the bird's flank, at [0.39, 0.57]",
+      "why": "It acts as a visual hinge that anchors the fluid flame tendrils of the chest to the back."
+    },
+    {
+      "what": "A blank, unshaded triangular beak cutout defined solely by its surrounding black contour",
+      "where": "Center-left, at [0.31, 0.42]",
+      "why": "Its clean, planar emptiness contrasts sharply with the intricate internal curls of the skull."
+    },
+    {
+      "what": "A thick fallen log with bark striations angled diagonally into the left foreground",
+      "where": "Lower-left corner, from [0.0, 0.77] to [0.38, 0.67]",
+      "why": "It plants the ethereal, looping figure into a concrete, material woodland floor."
+    }
+  ],
+  "unlike": "Unlike standard avian depictions that detail plumage barbs or plumage layers, this figure is constructed entirely of continuous, carved negative cavities and calligraphic smoke scrolls emerging from a raw charcoal wilderness."
+}

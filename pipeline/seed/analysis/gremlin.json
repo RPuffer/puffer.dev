@@ -1,0 +1,173 @@
+{
+  "source": {
+    "art": "pipeline/seed/gremlin.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Graphite pencil and blending stump on pale paper",
+    "marks": [
+      "A crisp, unbroken contour line defines the perimeter of the featureless oval face and neck.",
+      "Tightly spaced, rhythmic hatch marks wrap horizontally across the segmented spinal cord and ribbed lower torso.",
+      "Graded smudged graphite creates soft cylindrical shading across the slender arms, thighs, and neck tube.",
+      "Heavy, burnished dark strokes with flattened pencil lead saturate the crevices between the webbed toes and hand joints.",
+      "Faint, unblended secondary construction lines outline a separate tubular maw in the upper-right corner."
+    ],
+    "surface": "Smooth off-white paper with faint show-through text visible along the far left margin; untreated paper forms approximately 60 percent of the visual area.",
+    "edges": "Hard graphite boundaries on external contours enclosing internal forms modeled with smudged, feathered tonal transitions.",
+    "density": "Graphite is densest in the webbed feet, elbow joints, and upper tail armature, thinning to bare paper across the interior of the face and hand-held disc.",
+    "as_material": "Cast pewter polished smooth on the flat planes and scored with steel wire along the mechanical joints."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#dfdfdf",
+        "share": 0.221,
+        "role": "Base paper surface tone surrounding the subject"
+      },
+      {
+        "hex": "#e9e9e9",
+        "share": 0.185,
+        "role": "Brightest paper highlights inside the blank head and hand disc"
+      },
+      {
+        "hex": "#d3d3d3",
+        "share": 0.18,
+        "role": "Light graphite wash over the mid-body and tail"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.143,
+        "role": "Intermediate midtone shading defining muscle curvature on the limbs"
+      },
+      {
+        "hex": "#aeaeae",
+        "share": 0.093,
+        "role": "Denser gray shading across the chest, calves, and dorsal cord"
+      },
+      {
+        "hex": "#919191",
+        "share": 0.083,
+        "role": "Core shadows on the underside of limbs and neck armature"
+      },
+      {
+        "hex": "#606060",
+        "share": 0.05,
+        "role": "Deep graphite tone in joint creases and spinal ridges"
+      },
+      {
+        "hex": "#2c2c2c",
+        "share": 0.045,
+        "role": "Near-black burnished accents along foot edges and mechanical knuckles"
+      }
+    ],
+    "value_structure": "High-key ground with deep, localized dark accents concentrated in the joints and underside of the paws. The highest value sits within the completely unshaded oval face, while the lowest value is packed into the hollows beneath the crouched rear webbed foot.",
+    "dominant": [
+      "#dfdfdf",
+      "#e9e9e9",
+      "#d3d3d3"
+    ],
+    "accents": [
+      "#2c2c2c",
+      "#606060"
+    ],
+    "temperature": "Neutral, cool monochrome dominated by the metallic silver-gray of graphite over neutral paper."
+  },
+  "subject": {
+    "what": "A biomechanical, faceless digitigrade organism linked by an arched dorsal conduit to an overhead armature, accompanied by an anatomical sketch of an everted jaw mechanism",
+    "doing": "Crouching on all fours while holding a circular blank disc directly below an overhead sensor claw",
+    "pose": "Deep crouch with hyper-extended hocks, splayed webbed feet planted on the ground, torso angled forward at forty-five degrees, left arm raised in presentation",
+    "facing": "Profile facing left, with limbs staggered in three-quarter perspective",
+    "expression": "Inscrutable due to a completely blank, featureless facial dome devoid of eyes, nostrils, or mouth",
+    "stylisation": "Elongated Gigeresque biomechanical anatomy exaggerating skeletal emaciation, long sinewy tendons, and mechanical tubing spliced into flesh"
+  },
+  "story": {
+    "nature": "A bio-synthetic drone or artificial scout creature operating under wired guidance",
+    "habitat": "An incubation bay or cold pressurized laboratory chamber",
+    "implies": "The creature has just extracted or retrieved a spherical core specimen and is aligning it beneath its dorsal scanning appendage",
+    "world": "Reinforced conduits, nutrient mist nozzles, and smooth polymer examination slabs"
+  },
+  "composition": {
+    "mass": "The main visual weight occupies the lower-center and left-middle quadrant, anchoring the crouched limbs and torso, balanced by the looping arc above.",
+    "mass_box": [
+      50,
+      109,
+      1000,
+      969
+    ],
+    "flow_lines": [
+      {
+        "line": "Thick mechanical dorsal tube arching over the head",
+        "from": [
+          0.66,
+          0.54
+        ],
+        "to": [
+          0.15,
+          0.42
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Segmented claw dropping from the tail curve toward the hand",
+        "from": [
+          0.42,
+          0.18
+        ],
+        "to": [
+          0.16,
+          0.42
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Angular zigzag of the digitigrade rear leg",
+        "from": [
+          0.69,
+          0.55
+        ],
+        "to": [
+          0.63,
+          0.99
+        ],
+        "curve": "S"
+      }
+    ],
+    "negative_space": "Unworked paper covers roughly fifty-five percent of the page, primarily along the upper left, lower left margin, and between the arched conduit and the creature's back.",
+    "symmetry": "Asymmetrical; all movement drives diagonally from lower right to upper left, capped by an offset sketch in the upper right.",
+    "scale_cues": "Humanoid hand proportions in the forelimb holding a disc roughly palm-sized, suggesting a creature measuring approximately four to five feet in height.",
+    "focal": {
+      "what": "The blank circular disc held within the grasp of the left hand directly beneath the claw fixture",
+      "at": [
+        0.18,
+        0.48
+      ]
+    },
+    "frame": "Unbordered, floating drawing with the lowest webbed foot touching the bottom margin and the auxiliary mouth study cropped near the upper-right corner."
+  },
+  "energy": {
+    "register": "deliberate, taut, clinical",
+    "tempo": "poised",
+    "why": "The creature is frozen mid-action in an articulate crouch, holding a sphere perfectly steady beneath a mechanical sensor."
+  },
+  "details": [
+    {
+      "what": "Circular blank orb held by five thin, clawed fingers",
+      "where": "Center-left edge at midline",
+      "why": "It is completely unshaded, acting as a clean negative-space focal point held in contrast to the heavily shaded fingers."
+    },
+    {
+      "what": "Auxiliary secondary sketch of an everted, tooth-lined mouth emerging from an outer husk",
+      "where": "Upper-right corner",
+      "why": "It documents the creature's feeding or strike mechanism separate from the faceless primary figure."
+    },
+    {
+      "what": "Broad duck-like webbed foot with distinct radiating digit tendons",
+      "where": "Bottom edge, center-right",
+      "why": "It grounds the alien figure with a broad, flat base of support rendered with dense dark graphite in the webbing gaps."
+    }
+  ],
+  "unlike": "This piece combines a pristine, featureless alien mannequin face with an articulated overhead spine crane that interrogates a blank spherical token held in its own claw."
+}

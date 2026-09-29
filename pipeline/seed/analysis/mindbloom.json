@@ -1,0 +1,173 @@
+{
+  "source": {
+    "art": "pipeline/seed/mindbloom.png",
+    "width": 1280,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Digital ink and vector illustration with flat color fills",
+    "marks": [
+      "A uniform black monoline outlines the jaw, chin, and closed eyelids without line weight variation.",
+      "A thin, semi-translucent purple ribbon stroke loops in loose serpentine curves upward from the candle wick into the nostril.",
+      "Fine multi-colored strokes in cyan, yellow, pink, and mint green pack the black silhouette with small dots, rings, and hatchings.",
+      "A solid, unmodulated lilac-purple background fill covers the entire perimeter with zero visible tooth or grain.",
+      "Thick, solid pitch-black shape fill defines the scalloped, multi-pointed perimeter of the hair mass."
+    ],
+    "surface": "Digital plane rendered as a flat, untextured periwinkle field across more than seventy percent of the frame",
+    "edges": "Crisp, razor-sharp hard contours defining all silhouettes and internal linework",
+    "density": "Extremely dense, labyrinthine mark-making within the spiky crown; totally vacant across the surrounding periwinkle perimeter",
+    "as_material": "Opaque silkscreen enamel printed over a matte cardstock ground"
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#c3bdff",
+        "share": 0.724,
+        "role": "dominant flat background field"
+      },
+      {
+        "hex": "#2e3536",
+        "share": 0.078,
+        "role": "deep charcoal contour and mass undertones"
+      },
+      {
+        "hex": "#0c0d0e",
+        "share": 0.071,
+        "role": "solid black cranial silhouette fill"
+      },
+      {
+        "hex": "#4d5e5e",
+        "share": 0.053,
+        "role": "muted slate-teal internal linear detailing"
+      },
+      {
+        "hex": "#787b9c",
+        "share": 0.024,
+        "role": "mid-value shadow on smoke and candle glass"
+      },
+      {
+        "hex": "#a5a2cf",
+        "share": 0.022,
+        "role": "translucent purple smoke trail"
+      },
+      {
+        "hex": "#7ea572",
+        "share": 0.015,
+        "role": "bright lime and mint green graphic accents"
+      },
+      {
+        "hex": "#d0c9fa",
+        "share": 0.013,
+        "role": "pale lavender highlights on the candle and brow"
+      }
+    ],
+    "value_structure": "A high-key background contrasts directly against an intensely dark, low-key silhouette anchored in the upper half. The darkest black fills the starburst hair mass, while the lightest value is the pale periwinkle ground showing throughout the perimeter.",
+    "dominant": [
+      "#c3bdff",
+      "#0c0d0e"
+    ],
+    "accents": [
+      "#7ea572",
+      "#a5a2cf"
+    ],
+    "temperature": "Cool overall due to the expansive periwinkle field, punctuated by small electric warm yellows and greens inside the dark crown.",
+    "lighting": "No directional light source; entirely graphic flat-field illumination with localized linear contrast."
+  },
+  "subject": {
+    "what": "A disembodied human face floating above a small glass candle, with sprawling psychedelic imagery erupting from the hair",
+    "doing": "Resting with closed eyes while inhaling a thin tendril of candle smoke into the nose",
+    "pose": "Head held level and front-facing, suspended vertically above a tabletop candle jar",
+    "facing": "Directly forward toward the viewer",
+    "expression": "Placid, meditative serenity indicated by resting eyelids, downward lashes, and a slight closed smile",
+    "stylisation": "Minimalist comic-book facial linework paired with dense, cartoonish doodle iconography inside a spiky silhouette"
+  },
+  "story": {
+    "nature": "A sensory mystic or dream traveler whose consciousness expands into miniature worlds upon inhaling aromatic smoke",
+    "habitat": "A quiet domestic meditation alcove or altar space secluded from ambient noise",
+    "implies": "The candle was recently ignited, and the inhaled vapor has triggered an instantaneous mental bloom",
+    "world": "Apothecary glass containers, matchsticks, dried lavender bundles, and ritual oils"
+  },
+  "composition": {
+    "mass": "Concentrated in the upper-middle region where the multi-pointed black hair spreads outward, balanced by the small anchor of the candle at bottom center",
+    "mass_box": [
+      104,
+      119,
+      955,
+      874
+    ],
+    "flow_lines": [
+      {
+        "line": "translucent smoke trail rising from the wick to the nostrils",
+        "from": [
+          0.5,
+          0.85
+        ],
+        "to": [
+          0.5,
+          0.6
+        ],
+        "curve": "S"
+      },
+      {
+        "line": "vertical median passing through the candle, nose, and third eye",
+        "from": [
+          0.5,
+          0.95
+        ],
+        "to": [
+          0.5,
+          0.1
+        ],
+        "curve": "straight"
+      },
+      {
+        "line": "scalloped jagged contours radiating outward along the hair perimeter",
+        "from": [
+          0.5,
+          0.5
+        ],
+        "to": [
+          0.15,
+          0.1
+        ],
+        "curve": "arc"
+      }
+    ],
+    "negative_space": "Unbroken periwinkle ground filling all four margins, comprising roughly 72 percent of the total canvas area",
+    "symmetry": "Strong bilateral symmetry along the vertical axis in overall silhouette, broken by chaotic asymmetrical doodles internally",
+    "scale_cues": "The standard glass candle jar at the base establishes the head as roughly life-sized",
+    "focal": {
+      "what": "The open third eye rendered in black and white directly on the center of the forehead",
+      "at": [
+        0.49,
+        0.49
+      ]
+    },
+    "frame": "Uncropped subject floating freely with wide margins on all four sides"
+  },
+  "energy": {
+    "register": "meditative, suspended, hallucinatory",
+    "tempo": "poised",
+    "why": "The complete physical stillness of the resting face is contradicted only by the energetic, teeming complexity of neon symbols locked inside the black crown."
+  },
+  "details": [
+    {
+      "what": "A frontally placed third eye surrounded by flame-like black tendrils",
+      "where": "Forehead center, just above the bridge of the nose",
+      "why": "It acts as the visual origin point where the candle smoke enters and explodes into the hair"
+    },
+    {
+      "what": "Spotted psychedelic mushrooms and double helix strands drawn in mint green and violet",
+      "where": "Left and right lobes of the black silhouette",
+      "why": "They introduce organic and biochemical motifs directly into the psychic field"
+    },
+    {
+      "what": "A glass candle tumbler bearing an eye motif on its paper label",
+      "where": "Lower vertical centerline",
+      "why": "It grounds the visionary event in a domestic, mundane object"
+    }
+  ],
+  "unlike": "Unlike traditional depictions of meditation or psychedelic visions that blur and dissolve the background, this work confines the entire hallucinatory explosion inside a sharp-edged silhouette against an unbroken, sterile field of periwinkle."
+}

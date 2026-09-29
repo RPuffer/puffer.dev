@@ -1,0 +1,176 @@
+{
+  "source": {
+    "art": "pipeline/seed/chimera.png",
+    "width": 1520,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Black ballpoint pen and graphite pencil on cream wove paper",
+    "marks": [
+      "Extremely tight parallel hatching built with a fine ballpoint tip fills the deep crevices between the segmented chest plates and inside the open mouth.",
+      "Stippled dots and circular scumbling render the pitted, granular skin texture on the neck hinge and lower underbelly.",
+      "Blunted graphite shading rubbed into the tooth of the paper creates the dark, mottled horizontal slab of rock along the lower third.",
+      "Sharp, deliberate outline contours delineate each claw, spike, and crest ridge, with line weight varying from hairline tips to thickened pressure grooves on under-edges.",
+      "Short radiating hatch strokes taper outward along the crystalline spikes covering the beast's forelegs to create specular reflections on chitin."
+    ],
+    "surface": "Off-white to warm cream heavy drawing paper; the bare paper grain remains visible across the blank upper right background and acts as the specular highlights on the dorsal armor crests.",
+    "edges": "Hard, crisp pen contours define the perimeter of all chitinous plates and teeth against soft, smudged pencil tonal gradients on the rocky ground.",
+    "density": "Densest ink concentration clusters in the lower abdominal hollow, the cavernous inner jaw, and the base of the rock ledge, thinning to bare paper in the upper-right corner and breastplate highlights.",
+    "as_material": "If these marks were a physical substance, they would be dried squid ink and scraped graphite dust pressed into coarse parchment."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e4e4da",
+        "share": 0.219,
+        "role": "bare paper background in the upper right and specular white highlights on the dorsal crest"
+      },
+      {
+        "hex": "#d8d5c8",
+        "share": 0.148,
+        "role": "light midtone shading across the upper carapace and the smooth convex plates of the chest"
+      },
+      {
+        "hex": "#4d4741",
+        "share": 0.116,
+        "role": "dense graphite shading of the rocky ground and shaded recesses under the forelimb armor"
+      },
+      {
+        "hex": "#89847a",
+        "share": 0.116,
+        "role": "mid-value hatching defining the rounded contour of the torso plates and neck scales"
+      },
+      {
+        "hex": "#6c665f",
+        "share": 0.111,
+        "role": "shadowed planes on the rocky ground and beneath the jawline"
+      },
+      {
+        "hex": "#a4a095",
+        "share": 0.104,
+        "role": "light-medium transition tones on the segmented neck ridges and shoulder guards"
+      },
+      {
+        "hex": "#bfbbb1",
+        "share": 0.1,
+        "role": "secondary highlight value along the edges of the jagged headcrest"
+      },
+      {
+        "hex": "#2d251f",
+        "share": 0.086,
+        "role": "deepest ballpoint linework inside the maw, eye sockets, and claw undersides"
+      }
+    ],
+    "value_structure": "A wide dynamic range spanning pure paper white to pitch-black ink voids, configured as high local contrast across the beast's carapace over a low-key, smudged base. The deepest blacks anchor the mouth cavity, belly undercuts, and ground crevices in the lower half, while the brightest values occupy the stark empty void at the upper right.",
+    "dominant": [
+      "#e4e4da",
+      "#d8d5c8",
+      "#4d4741"
+    ],
+    "accents": [
+      "#2d251f"
+    ],
+    "temperature": "A uniformly neutral to faintly warm monochrome dictated entirely by the yellowed cream tint of the paper substrate beneath neutral black-grey media."
+  },
+  "subject": {
+    "what": "Armored multi-eyed dragon or reptilian subterranean beast",
+    "doing": "Crouching low on a jagged stone ledge, planting massive clawed forelimbs while wrenching its horned skull back and left to snarl",
+    "pose": "Low-slung quadrapedal stance with forelimbs splayed wide, spine arced upward, head cranked sharply leftward on an accordion-jointed neck, and barbed tail curling behind",
+    "facing": "Body faces three-quarters left-forward; head is turned in profile toward the upper-left margin",
+    "expression": "Predatory aggression conveyed through a bared maw of irregular peg-like teeth, flared temporal spines, and slit-like auxiliary eyes",
+    "stylisation": "Bio-mechanical and crustacean exaggerations where reptilian anatomy is replaced with overlapping chitinous plates, ribbed exoskeletons, and multi-layered eyes"
+  },
+  "story": {
+    "nature": "A heavy apex burrower that crawls through subterranean basalt passages, relying on thick carapace plating and multiple light-sensing organs to hunt in low light.",
+    "habitat": "A jagged volcanic caldera rim or subterranean fissure system strewn with crushed basalt scree.",
+    "implies": "It has just hauled its armored bulk out of a vertical chimney onto an open rock shelf, rearing back in response to an intruder entering its cavern.",
+    "world": "Crystalline mineral veins embedded in jagged basalt, calcified molted shell fragments, and sulfurous vent steam."
+  },
+  "composition": {
+    "mass": "The main visual mass sits heavily in the lower two-thirds of the frame, anchored by the wide front paws and thick ribbed torso.",
+    "mass_box": [
+      19,
+      53,
+      989,
+      990
+    ],
+    "flow_lines": [
+      {
+        "line": "dorsal crest curve along the spine and neck",
+        "from": [
+          0.81,
+          0.11
+        ],
+        "to": [
+          0.12,
+          0.35
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "arched tail segment curling upward behind the left flank",
+        "from": [
+          0.35,
+          0.58
+        ],
+        "to": [
+          0.28,
+          0.41
+        ],
+        "curve": "S"
+      },
+      {
+        "line": "diagonal thrust of the right forelimb down to the clawed paw",
+        "from": [
+          0.85,
+          0.52
+        ],
+        "to": [
+          0.84,
+          0.98
+        ],
+        "curve": "straight"
+      }
+    ],
+    "negative_space": "Unworked paper ground appears in the upper-right corner and a slender vertical strip down the left edge, accounting for roughly 25 percent of the frame.",
+    "symmetry": "Asymmetrical; the beast's head lunges into the upper-left quadrant while its body weight tilts toward the heavily planted right forelimb.",
+    "scale_cues": "The cluster of small, human-scaled auxiliary eyes set into the throat and neck scales against the massive, monolithic plates of the chest armor suggests immense bulk.",
+    "focal": {
+      "what": "The open toothy maw and hollow eye ridges of the skull crest",
+      "at": [
+        0.24,
+        0.34
+      ]
+    },
+    "frame": "The composition crowds the frame severely: the top dorsal horn nudges the upper margin, the tail touches the left edge, and the right claws crop against the bottom-right corner."
+  },
+  "energy": {
+    "register": [
+      "menacing",
+      "armored",
+      "visceral"
+    ],
+    "tempo": "poised",
+    "why": "The creature has braced all six clawed talons firmly into rock, its muscular tension frozen at the apex of an impending lunge."
+  },
+  "details": [
+    {
+      "what": "A vertical, slit-pupiled cyclopean eye set directly into the creature's armored throat plate",
+      "where": "centre-right, midway down the neck",
+      "why": "It introduces a surreal second tier of sensory organs beneath the main head structure."
+    },
+    {
+      "what": "Clusters of conical, crystalline spikes wrapping the lower foreleg like a sleeve of pine needles",
+      "where": "lower-right quadrant above the talons",
+      "why": "It switches the texture abruptly from flat carapace armor to dangerous bristling quills."
+    },
+    {
+      "what": "A row of three circular, deeply rimmed secondary eyes recessed into the temporal carapace behind the jaw joint",
+      "where": "upper right of the neck juncture",
+      "why": "These emphasize an alien, arthropod-inspired anatomy rather than standard reptilian dragon forms."
+    }
+  ],
+  "unlike": "It abandons traditional leathery dragon scales in favor of crustacean-like segmented breastplates, multiple sets of throat-mounted eyes, and arms completely sleeved in dense geometric quills."
+}

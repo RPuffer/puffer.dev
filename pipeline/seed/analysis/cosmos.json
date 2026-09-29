@@ -1,0 +1,177 @@
+{
+  "source": {
+    "art": "pipeline/seed/cosmos.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Airbrush with frisket stencils and fine-tipped detail brush on smooth illustration board",
+    "marks": [
+      "The sclera's flesh volume is built by an atomized mist of pale buff layered over white, with no visible bristle tracks.",
+      "Upper eyelashes are painted with a fine liner brush in curved, tapered black strokes that thicken at the root and terminate in fine points.",
+      "The planetary ring system on the lower right is formed by an airbrush sprayed against a curved French curve or acetate stencil edge, creating an abrupt outer border and a diffuse inner fade.",
+      "Delicate, branching red capillaries in the left sclera were drawn with a zero-gauge brush using fluid crimson ink without dragging the ground.",
+      "The green and yellow nebula in the upper-right corner consists of loose, unmasked passes of translucent airbrush overspray dusted with spatters of opaque white gouache stars."
+    ],
+    "surface": "Heavy, smooth hot-press illustration board; the ground is completely hidden beneath opaque paint layers and fine pigment fog.",
+    "edges": "Hard, crisp contours along the outer planetary ring and the upper eyelid fold, transitioning into diffuse, atomized halos around the sclera shadow and the iris corona.",
+    "density": "Densely saturated pigment clusters at the deep black pupil and outer space void, thinning to delicate dry sprays across the cream sclera.",
+    "as_material": "A polished sheet of automotive lacquer sprayed over frosted glass."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#14120b",
+        "share": 0.236,
+        "role": "Deep outer space void, central pupil, and deepest eyelid crease shadows"
+      },
+      {
+        "hex": "#252118",
+        "share": 0.213,
+        "role": "Soft shadow framing the eyeball and shading the socket"
+      },
+      {
+        "hex": "#343831",
+        "share": 0.124,
+        "role": "Dark teal-grey transitional tones between space and the eyelid rim"
+      },
+      {
+        "hex": "#baa08a",
+        "share": 0.103,
+        "role": "Midtone skin shading along the brow ridge and eyelid margins"
+      },
+      {
+        "hex": "#416262",
+        "share": 0.087,
+        "role": "Outer ring of the iris and shadowed face of the planetary ring"
+      },
+      {
+        "hex": "#e6caaa",
+        "share": 0.085,
+        "role": "Pale highlight tone across the sclera and inner lower lid margin"
+      },
+      {
+        "hex": "#877966",
+        "share": 0.083,
+        "role": "Desaturated beige midtone bridging lid highlights to shadow"
+      },
+      {
+        "hex": "#654739",
+        "share": 0.07,
+        "role": "Warm brown-red vascular shading in the medial caruncle and crease"
+      }
+    ],
+    "value_structure": "The composition operates on an extreme low-to-high contrast range, dominated by near-total black in the right half and high-value off-whites on the left sclera. The absolute darkest value rests in the circular central pupil and the empty void behind the nebula, while the absolute brightest point is the sharp white stellar flare erupting on the iris's eastern rim.",
+    "dominant": [
+      "#14120b",
+      "#252118",
+      "#baa08a"
+    ],
+    "accents": [
+      "#416262",
+      "#e6caaa"
+    ],
+    "temperature": "A strong clash between the warm fleshy peach and crimson undertones on the left and the cold celestial cyan, yellow-green, and void black on the right."
+  },
+  "subject": {
+    "what": "A hybrid macroscopic human eye that transforms into a ringed planet orbiting through deep space",
+    "doing": "Staring forward while emitting a planetary accretion disk and a stellar glare flare from its outer perimeter",
+    "pose": "Close-cropped ocular anatomy held wide open, pinned between pulled upper and lower lids",
+    "facing": "Directly out at the viewer along the z-axis, with its cosmic structures projecting toward the right",
+    "expression": "Unblinking, dilated, and clinical fixity devoid of emotional tension",
+    "stylisation": "Surrealist sci-fi fusion of 1970s airbrush hyperrealism with astronomical fantasy illustration"
+  },
+  "story": {
+    "nature": "A cosmic sentinel or world-bearing entity whose optical organ constitutes a self-contained celestial system",
+    "habitat": "The vacuum boundary between a planetary atmosphere and interstellar void",
+    "implies": "A stellar ignition or eclipse has just occurred along the iris horizon, setting rocky debris into stable orbital motion",
+    "world": "Free-floating silicate boulders, ionized gas filaments of a distant nebula, and cold vacuum"
+  },
+  "composition": {
+    "mass": "Concentrated in the left-centre quadrant via the massive ivory orb of the eye, balanced by dark space massing on the right",
+    "mass_box": [
+      0,
+      0,
+      1000,
+      720
+    ],
+    "flow_lines": [
+      {
+        "line": "Upper eyelid crease",
+        "from": [
+          0.02,
+          0.28
+        ],
+        "to": [
+          0.52,
+          0.09
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Planetary ring band",
+        "from": [
+          0.72,
+          0.52
+        ],
+        "to": [
+          0.99,
+          0.92
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Nebula spine",
+        "from": [
+          0.73,
+          0.01
+        ],
+        "to": [
+          1,
+          0.44
+        ],
+        "curve": "S"
+      }
+    ],
+    "negative_space": "Black star-dusted space occupying roughly 30 percent of the frame across the upper-right and right edge",
+    "symmetry": "Asymmetrical; heavy organic eye structures fill the left two-thirds, sweeping into astronomical void on the right",
+    "scale_cues": "Fine branching micro-capillaries and hair follicles juxtaposed against macro-scale asteroid debris and an entire nebula",
+    "focal": {
+      "what": "The electric-green zigzag ring encircling the deep black pupil",
+      "at": [
+        0.51,
+        0.49
+      ]
+    },
+    "frame": "Tight, suffocating cropping that severs both corners of the eye and the outer edges of the cosmic ring"
+  },
+  "energy": {
+    "register": [
+      "silent",
+      "synthetic",
+      "frozen"
+    ],
+    "tempo": "poised",
+    "why": "The subject holds the tension of a frozen cosmic mechanism, where planetary orbits and unblinking biological tissue remain completely static in paint."
+  },
+  "details": [
+    {
+      "what": "Serrated, zigzagging electric-green corona",
+      "where": "Encircling the boundary between the inner pupillary zone and the outer iris",
+      "why": "It creates an unnatural geometric rhythm that breaks the expected radial striations of human iris fibres."
+    },
+    {
+      "what": "Ovoid asteroid cluster casting cast shadows",
+      "where": "Lower-right quadrant traversing the pale ring arc",
+      "why": "The individual dark stones establish physical depth by floating directly above the luminous plane of the ring."
+    },
+    {
+      "what": "Four-point lens flare burst",
+      "where": "Right perimeter of the iris at the horizon point",
+      "why": "It acts as the single sharp pivot where biological anatomy converts directly into cosmic light."
+    }
+  ],
+  "unlike": "It fuses biological eye anatomy with a Saturnian planetary ring system through seamless airbrush gradients rather than a hard collage cut."
+}

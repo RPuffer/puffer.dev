@@ -1,0 +1,179 @@
+{
+  "source": {
+    "art": "pipeline/seed/eagle.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Opaque acrylic or gouache painted with flat and filbert bristle brushes over an off-white paper or primed card ground",
+    "marks": [
+      "Broad, striated dry-brush drags of white and pale grey fan diagonally toward the upper-right corner across the crown and nape, separating into individual bristle tracks.",
+      "Thick, solid black strokes are applied in overlapping jagged triangles along the throat and lower breast, tapering into spiked feather tips pointing down and right.",
+      "Dry scumbles of warm grey and charcoal create a mottled, powdery transitional zone on the brow bridge directly above the yellow cere.",
+      "A single dense black contour line outlines the upper margin of the yellow beak and forms the sharp downward hook of the tip.",
+      "The eye consists of concentric opaque circles: a black pupil, a pale mint-green iris ringed with a white inner arc highlight, and heavy black lids framing a triangular eye socket."
+    ],
+    "surface": "Off-white, lightly textured warm paper showing crinkles and creases across the upper margin, remaining entirely bare in the left quarter and upper-left corner.",
+    "edges": "Hard graphic contours along the outer curve of the beak and eye socket, shifting to frayed, feathered dry-brush fringes along the feather tracts.",
+    "density": "Marks are densest and fully opaque through the eye socket, throat, and lower left body, thinning into streaky transparent dry-brushing along the top crest and fading completely into negative space on the left.",
+    "as_material": "The paint acts like stiff enamel paste dragged across coarse card until the bristle tips split into dry straw."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#cfc9b9",
+        "share": 0.227,
+        "role": "mid-tone warm grey in the crown and neck feathering"
+      },
+      {
+        "hex": "#e6dfd4",
+        "share": 0.199,
+        "role": "unpainted paper ground on the left and light feather highlights"
+      },
+      {
+        "hex": "#b9b4a6",
+        "share": 0.156,
+        "role": "shaded feathered planes behind the eye and across the mantle"
+      },
+      {
+        "hex": "#262622",
+        "share": 0.109,
+        "role": "deep black in the throat, chest, pupil, and orbital shadow"
+      },
+      {
+        "hex": "#9c988d",
+        "share": 0.107,
+        "role": "cool grey transitions across the upper crest"
+      },
+      {
+        "hex": "#515046",
+        "share": 0.08,
+        "role": "charcoal wash under the chin and along the back of the neck"
+      },
+      {
+        "hex": "#76746a",
+        "share": 0.079,
+        "role": "dark grey bristle streaks running through the forehead"
+      },
+      {
+        "hex": "#bc9e3b",
+        "share": 0.044,
+        "role": "saturated ochre-yellow beak and cere"
+      }
+    ],
+    "value_structure": "High contrast between pure pitch blacks and bright white highlights, built over a high-key off-white base. The darkest values concentrate in the throat wedge and brow furrow, while the highest light sits on the beak ridge and the bare ground on the left.",
+    "dominant": [
+      "#cfc9b9",
+      "#e6dfd4",
+      "#b9b4a6"
+    ],
+    "accents": [
+      {
+        "hex": "#bc9e3b",
+        "role": "saturated yellow filling the beak and cere at centre-left"
+      },
+      {
+        "hex": "#262622",
+        "role": "dense black anchor under the chin and around the eye"
+      }
+    ],
+    "temperature": "Predominantly cool-neutral greys and bone whites broken sharply by the warm cadmium yellow of the beak."
+  },
+  "subject": {
+    "what": "Bald eagle (Haliaeetus leucocephalus)",
+    "doing": "Holding its head motionless in profile while scanning laterally with a fixed, unblinking glare",
+    "pose": "Strict left-facing profile with the beak extended horizontally and the nape swept back diagonally toward the upper right",
+    "facing": "Directly left in pure profile",
+    "expression": "Predatory, severe, and watchful, reinforced by the heavy overhanging supraorbital ridge",
+    "stylisation": "Graphic simplification into discrete black, grey, and white feather planes with stylized dry-bristle feather striping"
+  },
+  "story": {
+    "nature": "An apex avian predator at the peak of maturity, solitary and territorial",
+    "habitat": "A spruce snag overlooking a tidal estuary",
+    "implies": "It has spotted a surface disturbance in the water hundreds of feet below and locked visual focus before diving",
+    "world": "Salt spray, bleached driftwood roots, and wind-scoured pine bark"
+  },
+  "composition": {
+    "mass": "Concentrated heavily in the lower right two-thirds of the frame, tapering down into the lower right corner.",
+    "mass_box": [
+      50,
+      30,
+      1000,
+      1000
+    ],
+    "flow_lines": [
+      {
+        "line": "Culmen and hooked tip of beak",
+        "from": [
+          0.35,
+          0.44
+        ],
+        "to": [
+          0.03,
+          0.58
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Brow ridge into crown crest",
+        "from": [
+          0.45,
+          0.33
+        ],
+        "to": [
+          0.95,
+          0.05
+        ],
+        "curve": "straight"
+      },
+      {
+        "line": "Throat contour to breast feather spikes",
+        "from": [
+          0.32,
+          0.48
+        ],
+        "to": [
+          0.12,
+          1
+        ],
+        "curve": "arc"
+      }
+    ],
+    "negative_space": "Approximately one quarter of the composition, located entirely along the left vertical edge and the top left corner as empty cream-toned paper.",
+    "symmetry": "Asymmetrical, heavily biased toward the right half with the directional thrust facing left.",
+    "scale_cues": "The massive proportion of the heavy hooked beak relative to the head and eye reveals a large raptor.",
+    "focal": {
+      "what": "Pale mint-green iris surrounded by heavy black margins",
+      "at": [
+        0.59,
+        0.32
+      ]
+    },
+    "frame": "Tightly cropped, cutting off the back of the neck on the right, the breast at the bottom edge, and the top crest feathers at the top edge."
+  },
+  "energy": {
+    "register": "taut, razor, frozen",
+    "tempo": "poised",
+    "why": "The subject is locked in absolute physical stillness while the fast, striated brush marks convey internal kinetic potential."
+  },
+  "details": [
+    {
+      "what": "Pale sea-green tint in the circular iris ringed by a crisp white crescent highlight",
+      "where": "upper-centre, slightly right of middle",
+      "why": "It breaks the otherwise purely neutral monochrome palette of the bird's head."
+    },
+    {
+      "what": "Translucent chalky scumbling over the yellow cere where it meets the forehead",
+      "where": "just above the nostril slit at centre-left",
+      "why": "It creates a textured, powdery dry-brush transition between wet yellow paint and black feathers."
+    },
+    {
+      "what": "Individual spiked triangular feather points breaking away from the chest silhouette",
+      "where": "lower left edge of the bird's body",
+      "why": "These loose, sharp strokes give physical volume and rough layering to the dark mantle."
+    }
+  ],
+  "unlike": "It combines flat, high-contrast graphic fields of solid black and yellow with raw, unblended dry-bristle feather strokes left exposed against raw cream paper."
+}

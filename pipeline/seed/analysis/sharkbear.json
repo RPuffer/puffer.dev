@@ -1,0 +1,177 @@
+{
+  "source": {
+    "art": "pipeline/seed/sharkbear.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "graphite pencil on off-white paper with blending and cross-hatching",
+    "marks": [
+      "Dense, overlapping short curved directional pencil strokes create the rough pelt across the torso, shoulders, and legs.",
+      "A hard, continuous outline encloses the shark-like cranial cowl, dorsal spine, and the sweeping whip-like tail.",
+      "Light circular graphite blending covers the skull cap, leaving bright paper highlights near the crown and forehead.",
+      "Firm, high-pressure black graphite marks define the open toothy maw, gill slits, and the sunken almond eye.",
+      "Feathered pencil fringes terminate along the outer edge of the back and hind leg, indicating bristle tips against empty paper."
+    ],
+    "surface": "medium-tooth sketch paper showing through in the high-value blank background and untouched cranial plates",
+    "edges": "split between sharp, hard-edged contours on the smooth shark anatomy and feathered, bristled contours along the furred quadruped body",
+    "density": "densest in the underbelly, groin, and paws where heavy graphite pressure creates near-black shadows; sparsest on the unworked paper surrounding the figure",
+    "as_material": "carved graphite slate layered over compressed fibrous cotton rag"
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#e0e0e0",
+        "share": 0.215,
+        "role": "unworked paper ground in the margins and highlights on the cranial dome"
+      },
+      {
+        "hex": "#c4c4c4",
+        "share": 0.171,
+        "role": "ambient paper tone and soft tonal wash across the tail surface"
+      },
+      {
+        "hex": "#d2d2d2",
+        "share": 0.162,
+        "role": "subtle mid-light shading on the forehead ridge and tail fin plane"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.107,
+        "role": "light midtone graphite hatching along the upper flanks"
+      },
+      {
+        "hex": "#9e9e9e",
+        "share": 0.102,
+        "role": "primary midtone shading across the bristled fur body"
+      },
+      {
+        "hex": "#626262",
+        "share": 0.089,
+        "role": "deep core shading under the chest, belly, and upper joints"
+      },
+      {
+        "hex": "#848484",
+        "share": 0.089,
+        "role": "transitional shadow values along the limbs and hindquarter"
+      },
+      {
+        "hex": "#3c3c3c",
+        "share": 0.066,
+        "role": "maximum value graphite lines in the mouth interior, eye socket, paw creases, and underbelly crevice"
+      }
+    ],
+    "value_structure": "High to mid-key overall due to the white paper ground, with sudden local drops to deep black in the creature's creases and underbelly. The highest values sit in the negative space and the forehead carapace, while the deepest graphite deposits anchor the mouth, paws, and rear groin.",
+    "dominant": [
+      "#e0e0e0",
+      "#c4c4c4",
+      "#d2d2d2"
+    ],
+    "accents": [
+      "#3c3c3c"
+    ],
+    "temperature": "Neutral achromatic grayscale with no warm or cool chroma bias."
+  },
+  "subject": {
+    "what": "a chimeric quadrupedal predator combining a shark's head, dorsal fin, and caudal tail with the dense fur and heavy limbs of a bear",
+    "doing": "stalking forward in a low, prowling crouch with three limbs planted and head turned toward the viewer",
+    "pose": "hunched back arching upward, right foreleg planted forward, left foreleg angled inward, and a long finned tail sweeping around the lower flank toward the front",
+    "facing": "three-quarter left toward the foreground",
+    "expression": "predatory and fixed, with an open jagged jawline exposing small sharp teeth and a dark, pupilless eye slit",
+    "stylisation": "anatomical graft merging smooth selachian cartilage with terrestrial mammal fur and digitigrade, heavy-padded paws"
+  },
+  "story": {
+    "nature": "a terrestrial-adapted apex predator evolved from marine selachian stock to hunt inland scrub or tundras",
+    "habitat": "a wind-scoured coastal moraine littered with kelp wrack and seal carcasses",
+    "implies": "the beast has caught a scent track and paused mid-stride to acquire visual target before lunging",
+    "world": "frost-crusted shale, spray-dampened boulder fields, and drift timber"
+  },
+  "composition": {
+    "mass": "heavy visual weight concentrated in the upper-left and central zones where the dense torso and large head converge",
+    "mass_box": [
+      55,
+      45,
+      940,
+      960
+    ],
+    "flow_lines": [
+      {
+        "line": "dorsal fin and arched spine contour",
+        "from": [
+          0.29,
+          0.06
+        ],
+        "to": [
+          0.75,
+          0.27
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "long caudal fin sweeping along the flank to the lower foreground",
+        "from": [
+          0.75,
+          0.27
+        ],
+        "to": [
+          0.3,
+          0.94
+        ],
+        "curve": "S"
+      },
+      {
+        "line": "frontal plunge line of the shark snout down into the left forelimb",
+        "from": [
+          0.3,
+          0.06
+        ],
+        "to": [
+          0.15,
+          0.79
+        ],
+        "curve": "arc"
+      }
+    ],
+    "negative_space": "untouched paper surrounding the entire perimeter, occupying roughly forty-five percent of the frame",
+    "symmetry": "strictly asymmetrical, weighted toward the left prowl with the tail counterbalancing to the lower right",
+    "scale_cues": "the muscular bulk of the bear-like legs relative to the shark head implies an animal weighing several hundred kilograms",
+    "focal": {
+      "what": "the smooth white shark skull with its dark eye and serrated open mouth",
+      "at": [
+        0.22,
+        0.5
+      ]
+    },
+    "frame": "creature is loosely centered with generous margins, the tip of the caudal tail and dorsal fin remaining completely within the paper borders"
+  },
+  "energy": {
+    "register": "stalking, tense, coiled",
+    "tempo": "poised",
+    "why": "The beast holds its weight down on broad, flattened paws with the torso arched and the tail drawn forward, frozen immediately prior to forward motion."
+  },
+  "details": [
+    {
+      "what": "serrated, interlocking pencil-drawn teeth in an open jaw",
+      "where": "lower-left quadrant beneath the snout",
+      "why": "establishes the direct shark morphology against the mammal-like gait"
+    },
+    {
+      "what": "three gill-slit arches rendered in dark graphite",
+      "where": "just behind the eye on the lateral cranial hood",
+      "why": "maintains aquatic respiratory anatomy on a terrestrial body"
+    },
+    {
+      "what": "flattened paw pads terminating in four rounded, bear-like digits",
+      "where": "bottom-left foreground",
+      "why": "grounds the creature solidly as a land-treading quadruped rather than a swimmer"
+    },
+    {
+      "what": "thin, smooth crescent fin tip curling to a sharp point",
+      "where": "bottom-center edge of the frame",
+      "why": "frames the bottom of the body mass with a continuous calligraphic sweep"
+    }
+  ],
+  "unlike": "It grafts a smooth, cartilaginous shark head and crescent tail onto a thick, woolly mammalian quadruped pelt executed entirely in fibrous graphite texture."
+}

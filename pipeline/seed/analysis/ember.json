@@ -1,0 +1,184 @@
+{
+  "source": {
+    "art": "pipeline/seed/ember.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "digital painting with soft airbrush, textured detail brushes, and smudge blending on a digital canvas",
+    "marks": [
+      "vertical layered strokes of semi-opaque orange and pale yellow glaze pulled downward from the dragon throat to build the central jet of flame",
+      "repeated transverse curved hatch marks detailing the ridges across both downward-curving ram horns",
+      "fine pointed brush dabs constructing tiny scaly skin textures across the dragon's brow and nasal bridge",
+      "curling feather-edged flick strokes along the outer perimeter of the flame mass trailing off into the black void",
+      "sharp, pinpoint opaque yellow dashes placed horizontally to define the slit pupils of the dragon and demon eyes"
+    ],
+    "surface": "flat digital black void with zero tooth, texture, or paper grain visible across 88 percent of the frame",
+    "edges": "blended soft-edged flame fringes meeting the black void alongside hard, crisp horn silhouettes and scale contours",
+    "density": "densely clustered in the vertical central third of the canvas, surrounded by completely empty flat black margins",
+    "as_material": "molten glass and burning petroleum layered over cold carved obsidian"
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#080808",
+        "share": 0.885,
+        "role": "unbroken black void surrounding the figures"
+      },
+      {
+        "hex": "#42210c",
+        "share": 0.028,
+        "role": "dragon dorsal crest and mid-tone scales"
+      },
+      {
+        "hex": "#261509",
+        "share": 0.025,
+        "role": "deep shadow recesses in the skull cheeks and horn roots"
+      },
+      {
+        "hex": "#a6601c",
+        "share": 0.022,
+        "role": "outer body of the flame envelope and horn mid-tones"
+      },
+      {
+        "hex": "#724012",
+        "share": 0.02,
+        "role": "dragon snout shading and ribbed horn highlights"
+      },
+      {
+        "hex": "#d78d37",
+        "share": 0.014,
+        "role": "bright fiery tongues and demon brow highlights"
+      },
+      {
+        "hex": "#040200",
+        "share": 0.005,
+        "role": "deep inner mouth shadows and pupil crevices"
+      },
+      {
+        "hex": "#040607",
+        "share": 0.002,
+        "role": "deepest horn shadow under-edges"
+      }
+    ],
+    "value_structure": "Low key with an extreme value contrast between the flat black ground and the incandescent pale orange core. The lowest values form the surrounding 88 percent field and eye sockets, while the peak highest values sit concentrated in the demon's lower mouth cavity and the flame's interior core.",
+    "dominant": [
+      "#080808",
+      "#42210c",
+      "#a6601c"
+    ],
+    "accents": [
+      "#d78d37"
+    ],
+    "temperature": "Dominated by scorching ochres, ambers, and fiery oranges held within an inert, neutral black vacuum."
+  },
+  "subject": {
+    "what": "a reptilian dragon head positioned directly above a horned demonic skull engulfed in fire",
+    "doing": "the dragon exhales a continuous vertical jet of fire downward to fuel and crown the skull below",
+    "pose": "vertically stacked totem formation aligned strictly on the central vertical axis",
+    "facing": "facing directly forward toward the viewer",
+    "expression": "unblinking, predatory stare from the dragon and a grinning grimace from the skeletal demon",
+    "stylisation": "exaggerated spiky crest silhouette, stylized ribbed ram horns, and simplified lick-like flame tendrils"
+  },
+  "story": {
+    "nature": "a parasitic dual hell-entity where an upper scaled master feeds ignition into a subordinate burning bone vessel",
+    "habitat": "a lightless volcanic abyss or subterranean magma shrine",
+    "implies": "the entity has just flared into full combustion to incinerate an intruder directly ahead",
+    "world": "basalt pillars, pooling sulfurous slag, and floating ash flakes"
+  },
+  "composition": {
+    "mass": "concentrated in a tall, narrow vertical hourglass mass right along the center line from upper-middle to lower-middle",
+    "mass_box": [
+      195,
+      278,
+      755,
+      712
+    ],
+    "flow_lines": [
+      {
+        "line": "vertical flame descent from dragon mouth to skull crown",
+        "from": [
+          0.49,
+          0.41
+        ],
+        "to": [
+          0.49,
+          0.58
+        ],
+        "curve": "straight"
+      },
+      {
+        "line": "left horn curl downward and inward",
+        "from": [
+          0.38,
+          0.59
+        ],
+        "to": [
+          0.38,
+          0.74
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "right horn curl downward and inward",
+        "from": [
+          0.62,
+          0.59
+        ],
+        "to": [
+          0.62,
+          0.74
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "tapering dorsal crest spines pointing upward",
+        "from": [
+          0.49,
+          0.35
+        ],
+        "to": [
+          0.49,
+          0.19
+        ],
+        "curve": "straight"
+      }
+    ],
+    "negative_space": "solid uniform black emptiness filling the entire perimeter, occupying nearly 89 percent of the frame",
+    "symmetry": "bilaterally symmetrical along the vertical midline",
+    "scale_cues": "the human-like proportions of the lower skull's teeth and brow indicate a human-sized or slightly larger relic",
+    "focal": {
+      "what": "the incandescent tongue of fire blazing inside the open lower jaw of the demon skull",
+      "at": [
+        0.49,
+        0.69
+      ]
+    },
+    "frame": "the subject floats isolated in the exact horizontal center with wide margins above, below, and on both sides"
+  },
+  "energy": {
+    "register": "scorching, rigid, predatory",
+    "tempo": "surging",
+    "why": "the vertical pillar of fire drives continuous downward fluid force while the outward-sweeping horns anchor the base in rigid tension"
+  },
+  "details": [
+    {
+      "what": "incandescent droplet-shaped flame tongue",
+      "where": "center lower third, inside demon jaw",
+      "why": "it forms the brightest single tonal value in the piece, reading as the source or culmination of the blaze"
+    },
+    {
+      "what": "pair of ridged ram horns curving downward",
+      "where": "lower-middle flanks, x: 0.28 to 0.40 and x: 0.60 to 0.71",
+      "why": "their horizontal ribbed striations create the only dense linear surface texture in the lower half"
+    },
+    {
+      "what": "feathered crown of triangular dorsal frills",
+      "where": "top center, y: 0.19 to 0.35",
+      "why": "they step upward in sharp overlapping tiers to form a headdress-like silhouette against the void"
+    }
+  ],
+  "unlike": "This piece organizes dragon and demon not as combatants or distinct figures in space, but as a vertically stacked totem linked by an unbroken vertical conduit of downward-streaming fire on total black."
+}

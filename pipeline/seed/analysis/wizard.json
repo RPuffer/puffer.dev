@@ -1,0 +1,178 @@
+{
+  "source": {
+    "art": "pipeline/seed/wizard.png",
+    "width": 1536,
+    "height": 2048,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Digital illustration using pressure-sensitive ink brush pens and flat digital bucket fills on a pure white digital artboard",
+    "marks": [
+      "A continuous black outline defines the curved sausage torso, starting at the lower hem of the cloak and looping up to the crown under the hat brim.",
+      "The large word 'Glizard' across the upper center is executed with a broad, simulated wet brush pen stroke varying from thick downward pulls to tapered release tails.",
+      "Hand-drawn five-pointed yellow stars of five overlapping thin line segments are stamped intermittently across the deep blue robe fabric.",
+      "A single looped curved mark creates the '3'-like puckered mouth at the vertical midline of the sausage face.",
+      "The blue flame hovering above the right palm is built from three nested organic curved shapes with cyan-to-white digital fills."
+    ],
+    "surface": "Pure digital white canvas, completely flat and untextured, occupying more than 80% of the entire frame.",
+    "edges": "Crisp digital ink contours enclosing flat color fills, with no feathering, blending, or paper bleed.",
+    "density": "Marks are heavily clustered in the central vertical strip between y=0.25 and y=0.92, while the upper corners contain sparse black text and the outer margins are entirely empty.",
+    "as_material": "If physical, these marks would be slick vinyl sign paint and waterproof black enamel ink laid onto smooth white posterboard."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ffffff",
+        "share": 0.835,
+        "role": "blank background ground and white inner lining of the high standing collar"
+      },
+      {
+        "hex": "#122346",
+        "share": 0.063,
+        "role": "deep navy blue base of the wizard robe and conical pointed hat"
+      },
+      {
+        "hex": "#644b48",
+        "share": 0.026,
+        "role": "dark shadow tone on the underside of the sausage body and wood grain crevices"
+      },
+      {
+        "hex": "#c2674e",
+        "share": 0.025,
+        "role": "warm cooked-meat reddish-brown local tone of the sausage body, arms, and spindly legs"
+      },
+      {
+        "hex": "#7f878b",
+        "share": 0.015,
+        "role": "anti-aliased edge transition pixels between black lettering/outlines and the white ground"
+      },
+      {
+        "hex": "#f6f7f7",
+        "share": 0.014,
+        "role": "near-white anti-aliasing boundary around the white robe collar against the white background"
+      },
+      {
+        "hex": "#b4b7b8",
+        "share": 0.012,
+        "role": "mid-light grey anti-aliasing along fine black linework"
+      },
+      {
+        "hex": "#dbdede",
+        "share": 0.01,
+        "role": "light grey transitional anti-aliased edge pixels"
+      }
+    ],
+    "value_structure": "The image uses an extreme high-key composition with solid white covering over 80 percent of the area, contrasted starkly against pure black text and deep navy fabric. The darkest values sit in the heavy black brushwork lettering at the top and the robe folds at center-left, while the lightest value dominates the outer boundary and interior collar.",
+    "dominant": [
+      "#ffffff",
+      "#122346",
+      "#c2674e"
+    ],
+    "accents": [
+      "#c2674e",
+      "#644b48"
+    ],
+    "temperature": "The palette contrasts warm frankfurter terracotta pinks against cold midnight blue cloth and ice-blue magical fire, suspended on an inert neutral white void."
+  },
+  "subject": {
+    "what": "An anthropomorphic hot dog frankfurter wizard character",
+    "doing": "Standing on thin sausage legs while levitating a small blue flame over its right palm and gripping a knobby wooden staff with its left hand",
+    "pose": "Upright, slightly contrapposto with weight on the left leg, right arm bent forward presenting the open palm horizontally, and left arm hooked over a walking staff",
+    "facing": "Three-quarters facing toward the left",
+    "expression": "Neutral or nonchalant, indicated by two simple pinhole dot eyes and a sideways '3'-shaped pursed mouth",
+    "stylisation": "Caricatured comic illustration using simplified tubular sausage geometry, thin noodle limbs, and exaggerated pointed fantasy wizard regalia"
+  },
+  "story": {
+    "nature": "A sentient charcuterie mage inhabiting a whimsical culinary-magical fantasy",
+    "habitat": "A steaming condiment-scented alchemy cellar or a fantastical greasy-spoon banquet hall",
+    "implies": "The character has just been identified as a wizard and conjured a test flame to prove their magical lineage",
+    "world": "A bubbling pot of mustard-colored potion, a parchment scroll stained with relish, and a bun-shaped velvet familiar"
+  },
+  "composition": {
+    "mass": "Central vertical column leaning slightly right of center, anchoring the lower two-thirds of the sheet",
+    "mass_box": [
+      120,
+      160,
+      930,
+      820
+    ],
+    "flow_lines": [
+      {
+        "line": "Curved staff line running from top-right down to the bottom ground",
+        "from": [
+          0.66,
+          0.42
+        ],
+        "to": [
+          0.69,
+          0.8
+        ],
+        "curve": "S"
+      },
+      {
+        "line": "Sausage body axis tilted slightly rightwards",
+        "from": [
+          0.47,
+          0.36
+        ],
+        "to": [
+          0.55,
+          0.9
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Leftward reach of the extended casting arm toward the floating flame",
+        "from": [
+          0.42,
+          0.56
+        ],
+        "to": [
+          0.25,
+          0.58
+        ],
+        "curve": "straight"
+      }
+    ],
+    "negative_space": "Unbroken white void surrounding the central character and dividing it from the perimeter text, occupying roughly 83 percent of the frame",
+    "symmetry": "Asymmetric, counterbalancing an outstretched flame-holding hand on the left against a vertical wooden staff on the right",
+    "scale_cues": "None in the environment; only anatomical proportions relative to standard frankfurters and wizard robes provide an implied snack-sized scale",
+    "focal": {
+      "what": "The blank, minimalist face of the hot dog nestled inside the oversized white collar",
+      "at": [
+        0.45,
+        0.44
+      ]
+    },
+    "frame": "Floating uncropped on an infinite white plane with wide breathing margins on all four sides"
+  },
+  "energy": {
+    "register": "deadpan, whimsical, static",
+    "tempo": "poised",
+    "why": "The figure holds a steady, suspended stance with one foot planted and a floating magical flame hovering without motion lines."
+  },
+  "details": [
+    {
+      "what": "The handwritten pun phrase 'you're A Glizard 'ARRY'",
+      "where": "Upper third of the sheet flanking the tip of the hat",
+      "why": "The uneven, hand-inked lettering gives comic book provenance and explicitly names the hot dog-wizard hybrid."
+    },
+    {
+      "what": "Crude five-pointed stars drawn on the robe and hat",
+      "where": "Scattered across the navy blue fabric surfaces",
+      "why": "Each star is drawn as an open continuous five-stroke child-like pentagram rather than a filled solid shape."
+    },
+    {
+      "what": "A miniature bifurcated cyan flame hovering without touching the palm",
+      "where": "Left-center at [0.27, 0.54], just above the open sausage fingers",
+      "why": "It provides the only non-frankfurter supernatural element in the lower half of the picture."
+    },
+    {
+      "what": "The curved crotch bifurcation between spindly skin-tone legs",
+      "where": "Lower center just beneath the open robe hem",
+      "why": "It reinforces the anatomical absurdity by treating the bottom rounded end of the hot dog as human-like hips."
+    }
+  ],
+  "unlike": "This piece replaces the traditional fantasy wizard's venerable human body with a smooth, leggy frankfurter while maintaining the formal regalia of pointed hat, star-spangled robe, and staff."
+}

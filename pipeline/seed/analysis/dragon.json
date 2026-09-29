@@ -1,0 +1,172 @@
+{
+  "source": {
+    "art": "pipeline/seed/dragon.png",
+    "width": 2048,
+    "height": 1533,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "graphite pencil on textured drawing paper",
+    "marks": [
+      "Dense, burnished multi-directional graphite hatching filling the oral cavity and deep neck shadow into near-black opacity.",
+      "Hundreds of individually outlined, stippled, and edge-shaded ovate scales tiling across the bridge of the snout and temporal bone.",
+      "Rigid chevron and diamond cross-weave patterns drawn along the dorsal ridge plate descending from the crown.",
+      "Feathered, tapering flick strokes forming the spiky beard and frill spines under the throat and jawline.",
+      "Loose, continuous wireframe gesture loops in light pencil outlining the unrendered claw digits and coiled tail in the lower register."
+    ],
+    "surface": "White heavy-tooth drawing paper with roughly sixty-five percent of the sheet untouched by heavy tone.",
+    "edges": "Hard, razor-cut contours along the teeth and primary horns transitioning to open, wandering preliminary construction lines on the wings and torso.",
+    "density": "Intensely concentrated with heavy lead compression in the dragon's head and neck collar, thinning abruptly to single-pass line work across the limbs and tail.",
+    "as_material": "Carved anthracite coal transitioning into faint silver wire."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#ededed",
+        "share": 0.252,
+        "role": "unworked paper ground around the subject"
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.195,
+        "role": "ambient paper shadow and light background smudging"
+      },
+      {
+        "hex": "#f3f3f3",
+        "share": 0.176,
+        "role": "unshaded highlight reserves inside the eye socket, dorsal gaps, and paper borders"
+      },
+      {
+        "hex": "#e5e5e5",
+        "share": 0.155,
+        "role": "secondary highlight paper area"
+      },
+      {
+        "hex": "#303030",
+        "share": 0.072,
+        "role": "deepest compressed graphite in the mouth interior, eye ridge, and neck crease"
+      },
+      {
+        "hex": "#5f5f5f",
+        "share": 0.057,
+        "role": "heavy scale shading on the skull and jaw plates"
+      },
+      {
+        "hex": "#b3b3b3",
+        "share": 0.047,
+        "role": "mid-tone hatching on the neck scales and wing finger joints"
+      },
+      {
+        "hex": "#8b8b8b",
+        "share": 0.046,
+        "role": "transitional shadow on the throat spines and ear horn"
+      }
+    ],
+    "value_structure": "The work operates in an extreme high-contrast key where pure untouched paper whites sit directly alongside heavy, burnished dark values. The darkest values gather entirely within the cavernous open mouth and under-jaw frill, while the brightest values remain empty paper reservoirs defining the eye, teeth highlights, and unfinished lower limbs.",
+    "dominant": [
+      "#ededed",
+      "#d8d8d8",
+      "#f3f3f3"
+    ],
+    "accents": [
+      "#303030"
+    ],
+    "temperature": "Strictly neutral monochrome, determined solely by the raw gray graphite and natural cold-white paper ground."
+  },
+  "subject": {
+    "what": "draconic carnivore or wyvern",
+    "doing": "lunging forward mid-air with jaws unhinged in a territorial screech",
+    "pose": "head thrust downward and forward to the left while the spine arcs steeply upward toward the upper-right corner and the lower tail whips forward",
+    "facing": "three-quarter profile directed to the left",
+    "expression": "feral aggression marked by a snarling muzzle, flared gumline, and a blank un-pupiled eye",
+    "stylisation": "exaggerated elongated fangs, armor-plated dorsal weave, and needle-sharp keratinous frills combined with anatomical lizard scales"
+  },
+  "story": {
+    "nature": "apex predatory airborne reptile hunting by ambush",
+    "habitat": "windswept basalt sea-stacks riddled with deep fissure roosts",
+    "implies": "the beast has just locked eyes on an intruder below its ledge and begun its initial dive",
+    "world": "shattered limestone cliffs, scattered calcified bones, and updrafts carrying salt spray"
+  },
+  "composition": {
+    "mass": "Visual weight is heavily anchored in the upper-left-to-center region where the dark, detailed cranium and spiked collar sit.",
+    "mass_box": [
+      17,
+      81,
+      715,
+      843
+    ],
+    "flow_lines": [
+      {
+        "line": "dorsal ridge and spine curve",
+        "from": [
+          0.81,
+          0.14
+        ],
+        "to": [
+          0.23,
+          0.32
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "gaping jawline and throat silhouette",
+        "from": [
+          0.25,
+          0.35
+        ],
+        "to": [
+          0.31,
+          0.71
+        ],
+        "curve": "straight"
+      },
+      {
+        "line": "sketched tail curve sweeping forward",
+        "from": [
+          0.65,
+          0.69
+        ],
+        "to": [
+          0.08,
+          0.81
+        ],
+        "curve": "S"
+      }
+    ],
+    "negative_space": "Unrendered paper takes up roughly sixty-five percent of the frame, dominating the entire lower margin and right perimeter.",
+    "symmetry": "Asymmetrical diagonal distribution slanting from top right to lower left.",
+    "scale_cues": "The sheer number of needle-sized scales and densely clustered teeth suggests a beast far larger than human proportions.",
+    "focal": {
+      "what": "the blank white eye and the needle fangs inside the gaping jaw",
+      "at": [
+        0.41,
+        0.29
+      ]
+    },
+    "frame": "The wings and tail are clipped and left in wireframe state within the margins, pressing the fully rendered head into the viewer's space."
+  },
+  "energy": {
+    "register": "snarling, coiled, suspended",
+    "tempo": "surging",
+    "why": "The creature's head is frozen in a violent forward snap while the loose gestural tail lines convey rapid, unfinished momentum."
+  },
+  "details": [
+    {
+      "what": "blank white eye cavity left entirely without iris or pupil",
+      "where": "upper center skull",
+      "why": "creates an unreadable, blind predator glare that anchors the face"
+    },
+    {
+      "what": "woven lattice pattern across the dorsal collar",
+      "where": "behind the ear horn along the neck arch",
+      "why": "introduces an orderly geometric rhythm contrasting with the organic scales"
+    },
+    {
+      "what": "ghostlike unfinished claws and tail loops",
+      "where": "lower center and bottom left",
+      "why": "exposes the structural bone landmarks prior to graphite shading"
+    }
+  ],
+  "unlike": "It pairs a hyper-dense, burnished charcoal-black rendered draconic head against a completely skeletal, unfinished wireframe contour of its lower body on raw open paper."
+}

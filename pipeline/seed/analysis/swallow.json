@@ -1,0 +1,187 @@
+{
+  "source": {
+    "art": "pipeline/seed/swallow.png",
+    "width": 2048,
+    "height": 1536,
+    "model": "gemini-3.8-flash",
+    "date": "2026-09-29"
+  },
+  "medium": {
+    "technique": "Burnt-umber and graphite pencil on off-white drawing paper with soft stumped shading",
+    "marks": [
+      "A dark, unbroken burnt-umber contour outlines the outer curve of the breast and belly, transitioning from a sharp outer edge to soft graphite shading along the inner curve.",
+      "A tight inward spiral terminates in a solid dark dot forming the swallow's eye within the circular head contour.",
+      "Two long, tapering lines rise vertically toward the upper border to define the scissor-like spread of the primary wing.",
+      "The tail fork divides into two unequal sickle-shaped tips drawn with rapid tapering strokes that fade slightly at their apexes.",
+      "Soft directional hatching and finger or tortillon blending line the interior hollows of the wing join, belly, and tail crook."
+    ],
+    "surface": "Smooth, warm off-white paper ground showing across approximately eighty-five percent of the sheet area.",
+    "edges": "Hard, crisp exterior contours on the leading edges of wings and head paired with feathered, smudged interior gradients along the inner cavities.",
+    "density": "Marks concentrate heavily at the junction of the head, throat, and wing root, while the wing blades and tail feathers remain open outline ribbons.",
+    "as_material": "Bent strips of tempered copper wire with charcoal soot rubbed into their inner bends."
+  },
+  "palette": {
+    "measured": [
+      {
+        "hex": "#bfbeb7",
+        "share": 0.283,
+        "role": "ambient paper tone across the upper and middle field"
+      },
+      {
+        "hex": "#c5c5c1",
+        "share": 0.229,
+        "role": "bright paper ground in the left margin and between wing spars"
+      },
+      {
+        "hex": "#b9b6ab",
+        "share": 0.153,
+        "role": "warm paper cast in the lower half of the sheet"
+      },
+      {
+        "hex": "#ccccc9",
+        "share": 0.124,
+        "role": "unmarked high-value paper patches"
+      },
+      {
+        "hex": "#ada89a",
+        "share": 0.1,
+        "role": "subtle paper grain and light pencil smudging"
+      },
+      {
+        "hex": "#989085",
+        "share": 0.049,
+        "role": "light graphite shading along the lower wing belly"
+      },
+      {
+        "hex": "#695b59",
+        "share": 0.036,
+        "role": "mid-tone umber shading beneath the throat and along the tail base"
+      },
+      {
+        "hex": "#3f2723",
+        "share": 0.027,
+        "role": "dense, dark burnt-umber pigment along the main outlines and eye pupil"
+      }
+    ],
+    "value_structure": "The overall key is high, determined by the exposed light cream ground, with high contrast localized strictly along the narrow dark linework. The darkest values (#3f2723) sit in the spiral eye and the belly contour, while the lightest values (#ccccc9) are the blank paper tracts surrounding the bird.",
+    "dominant": [
+      "#bfbeb7",
+      "#c5c5c1",
+      "#b9b6ab"
+    ],
+    "accents": [
+      "#3f2723",
+      "#695b59"
+    ],
+    "temperature": "Neutral-to-warm throughout, pairing a warm cream background with dark sepia and burnt-umber line pigment.",
+    "tint": null,
+    "contrast": null
+  },
+  "subject": {
+    "what": "A swallow or swift in aerodynamic flight",
+    "doing": "Swooping sharply upward while banking with wings angled high",
+    "pose": "Head thrown forward and slightly upward, wings swept back and arched, belly swung downward in an arc, tail deeply forked into two sickle curves",
+    "facing": "Right",
+    "expression": "Fixed and neutral, directed forward by the single circular eye and triangular beak",
+    "stylisation": "Reduced entirely to continuous ribbons, calligraphic scrolls, and open negative voids rather than plumage or individual feathers"
+  },
+  "story": {
+    "nature": "An aerial insect-hunter skimming at high velocity",
+    "habitat": "The open airspace beneath the eaves of a masonry bridge over running water",
+    "implies": "It has just snapped a midge from midair and tilted hard into a turning climb",
+    "world": "Damp stone arches, a rush of river spray, and evening swarms of gnats"
+  },
+  "composition": {
+    "mass": "Lower-right and center-right quadrant, where the head, breast, and clustered stroke origins accumulate weight",
+    "mass_box": [
+      62,
+      41,
+      943,
+      892
+    ],
+    "flow_lines": [
+      {
+        "line": "Long outer tail stroke curling under the belly to the beak tip",
+        "from": [
+          0.04,
+          0.81
+        ],
+        "to": [
+          0.89,
+          0.43
+        ],
+        "curve": "S"
+      },
+      {
+        "line": "Forward wing leading edge sweeping from body center straight up",
+        "from": [
+          0.69,
+          0.47
+        ],
+        "to": [
+          0.49,
+          0.06
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Rear wing blade extending diagonally to upper left",
+        "from": [
+          0.54,
+          0.44
+        ],
+        "to": [
+          0.21,
+          0.09
+        ],
+        "curve": "arc"
+      },
+      {
+        "line": "Inner ear/eye spiral curling back into the center of the head",
+        "from": [
+          0.72,
+          0.52
+        ],
+        "to": [
+          0.77,
+          0.43
+        ],
+        "curve": "spiral"
+      }
+    ],
+    "negative_space": "Unpainted cream paper occupies roughly eighty-five percent of the sheet, surrounding the bird on all four sides and opening wide windows inside the wing and torso silhouettes",
+    "symmetry": "Asymmetrical, with diagonal momentum surging from lower left to upper right",
+    "scale_cues": "None present on the page; scale is inferred purely from the typical proportions of a swallow",
+    "focal": {
+      "what": "The dark spiral eye nested inside the looped skull contour",
+      "at": [
+        0.77,
+        0.43
+      ]
+    },
+    "frame": "Unbordered, with the tips of the wings and tail given ample breathing room from the outer edges of the paper"
+  },
+  "energy": {
+    "register": "Linear, aerodynamic, fluid",
+    "tempo": "flowing",
+    "why": "Continuous, smooth sweeping contours without angular hesitations simulate laminar airflow across a gliding body."
+  },
+  "details": [
+    {
+      "what": "Spiral pupil scroll",
+      "where": "Center-right, inside the circular cranium",
+      "why": "The eye is not an isolated circle but the terminus of an inward-coiling ribbon drawn from the neck."
+    },
+    {
+      "what": "Single-sided shadow along the breast",
+      "where": "Lower-right belly curve",
+      "why": "Graphite or sepia powder is dragged inward perpendicular to the dark boundary line, giving volumetric curvature to an otherwise flat ribbon."
+    },
+    {
+      "what": "Twin divergent tail tines",
+      "where": "Lower-left quadrant",
+      "why": "The upper tine points horizontally outward while the lower tine plunges steeply downward, creating an open wedge."
+    }
+  ],
+  "unlike": "It constructs an airborne swallow out of a single continuous interplay of calligraphic ribbon contours that enclose empty ground rather than filled feather masses."
+}
