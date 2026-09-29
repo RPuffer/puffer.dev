@@ -7,12 +7,14 @@ const args = process.argv.slice(2);
 const flag = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
 const pos = args.filter((a, i) => !a.startsWith("--") && !(i > 0 && args[i - 1].startsWith("--")));
 const conceptArg = flag("--concept", null);
-const art = path.resolve(root, pos[0] || "pipeline/seed/forest.png");
-const briefPath = path.resolve(root, pos[1] || (conceptArg ? `pipeline/seed/concepts/${conceptArg}.json` : "pipeline/seed/brief.json"));
+const artSlug = flag("--art", null), briefArg = flag("--brief", null);
+const art = path.resolve(root, artSlug ? `pipeline/seed/${artSlug}.png` : pos[0] || "pipeline/seed/forest.png");
+const briefPath = path.resolve(root, briefArg || pos[1] || (conceptArg ? `pipeline/seed/concepts/${conceptArg}.json` : "pipeline/seed/brief.json"));
 const brief = JSON.parse(fs.readFileSync(briefPath, "utf8"));
 const concept = brief.concept && brief.concept.name !== "literal" ? brief.concept.name : null;
-const outPath = path.resolve(root, flag("--out", concept ? `pipeline/a-transcribe/regions-${concept}.json` : "pipeline/a-transcribe/regions.json"));
-const debugPath = path.resolve(root, flag("--debug", concept ? `out/forest-a-${concept}/regions.png` : "out/forest-a-regions.png"));
+const stem = briefArg ? path.basename(briefPath, ".json") : null;
+const outPath = path.resolve(root, flag("--out", stem ? `pipeline/a-transcribe/regions/${stem}.json` : concept ? `pipeline/a-transcribe/regions-${concept}.json` : "pipeline/a-transcribe/regions.json"));
+const debugPath = path.resolve(root, flag("--debug", stem ? `out/${stem}/regions.png` : concept ? `out/forest-a-${concept}/regions.png` : "out/forest-a-regions.png"));
 const grid = brief.composition.grid, heights = brief.composition.heights;
 const D = grid.length, W = grid[0].length;
 const TB = 0.35, P = 0.8;
@@ -135,7 +137,8 @@ const all = F.flat(), ground = all.filter((c) => c.t >= TB), back = all.filter((
 const q = (arr, p) => { const v = [...arr].sort((a, b) => a - b); return v[Math.min(v.length - 1, Math.floor(p * v.length))]; };
 const lumHi = q(ground.map((c) => c.lum), 0.7), edgeLo = q(ground.map((c) => c.edge), 0.5), edgeHi = q(ground.map((c) => c.edge), 0.68);
 const trunkHi = q(all.map((c) => c.trunk), 0.5), darkHi = q(all.map((c) => c.dark), 0.55), mistHi = q(back.map((c) => c.lum), 0.45);
-const RIM_EXP = 2.2, RIM_KEEP = concept ? 1.08 : 0.95, RIM_NOISE = concept ? 0.35 : 0.5, WALL = 0.2, PATH_SHARE = 0.42, aboveLum = q(all.filter((c) => depthToY(c.t) < hy).map((c) => c.lum), 0.6);
+const invented = !!brief.concept?.variant;
+const RIM_EXP = 2.2, RIM_KEEP = invented ? 1.3 : concept ? 1.08 : 0.95, RIM_NOISE = invented ? 0 : concept ? 0.35 : 0.5, WALL = 0.2, PATH_SHARE = 0.42, aboveLum = q(all.filter((c) => depthToY(c.t) < hy).map((c) => c.lum), 0.6);
 
 const cells = [];
 for (let z = 0; z < D; z++) {

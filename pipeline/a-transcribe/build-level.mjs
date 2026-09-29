@@ -8,8 +8,15 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../.
 const args = process.argv.slice(2);
 const flag = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
 const conceptArg = flag("--concept", null);
-const regions = JSON.parse(fs.readFileSync(path.resolve(root, flag("--regions", conceptArg ? `pipeline/a-transcribe/regions-${conceptArg}.json` : "pipeline/a-transcribe/regions.json")), "utf8"));
-const brief = JSON.parse(fs.readFileSync(path.resolve(root, regions.brief), "utf8"));
+const artSlug = flag("--art", null), briefArg = flag("--brief", null);
+const stem = briefArg ? path.basename(briefArg, ".json") : null;
+const regionsRel = flag("--regions", stem ? `pipeline/a-transcribe/regions/${stem}.json` : conceptArg ? `pipeline/a-transcribe/regions-${conceptArg}.json` : "pipeline/a-transcribe/regions.json");
+if (artSlug && briefArg) {
+  const { execFileSync } = await import("node:child_process");
+  execFileSync(process.execPath, [path.join(root, "pipeline/a-transcribe/regions.mjs"), "--art", artSlug, "--brief", briefArg, "--out", regionsRel], { cwd: root, stdio: ["ignore", "ignore", "inherit"] });
+}
+const regions = JSON.parse(fs.readFileSync(path.resolve(root, regionsRel), "utf8"));
+const brief = JSON.parse(fs.readFileSync(path.resolve(root, briefArg || regions.brief), "utf8"));
 if (brief.concept && brief.concept.name !== "literal") {
   const { build } = await import("./concept-level.mjs");
   await build({ root, flag, has: (k) => args.includes(k), regions, brief });
