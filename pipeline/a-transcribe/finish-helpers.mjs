@@ -346,7 +346,53 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     log.push(`ledges dropped ${n}`);
     return n;
   };
+  const dryRim = (o = {}) => {
+    let n = 0;
+    for (let pass = 0; pass < 4; pass++) level.cells.forEach((row, z) => row.forEach((c, x) => {
+      if (!c || c.s !== "water") return;
+      const open = N4.some(([dx, dz]) => { const q = cell(x + dx, z + dz); return !q || q.s === "none"; });
+      if (!open) return;
+      level.cells[z][x] = o.void ? { h: 0, s: "none" } : { h: 1, s: surf.shore || surf.ground };
+      removeDecor((d) => d.t === "waterfall" && d.x === x && d.z === z);
+      n++;
+    }));
+    removeDecor((d) => d.t === "waterfall" && cell(d.x, d.z)?.s !== "water");
+    log.push(`dryRim ${n}`);
+    return n;
+  };
+  const openRamps = () => {
+    let n = 0;
+    level.cells.forEach((row, z) => row.forEach((c, x) => {
+      if (!c || c.s !== "ramp") return;
+      const [dx, dz] = DIRS[c.d];
+      for (const [a, b] of [[dz, dx], [-dz, -dx]]) {
+        const X = x + a, Z = z + b, q = cell(X, Z);
+        if (!land(q) || q.s === "ramp" || q.h <= c.h || isFig(X, Z)) continue;
+        const before = reach().reached, saved = q;
+        level.cells[Z][X] = { ...q, h: c.h };
+        if (reach().reached < before) level.cells[Z][X] = saved; else { clear(X, Z, true); n++; }
+      }
+    }));
+    log.push(`openRamps ${n}`);
+    return n;
+  };
+  const pruneRamps = (o = {}) => {
+    const keep = new Set((o.route || approach()).map(([x, z]) => key(x, z)));
+    let n = 0;
+    level.cells.forEach((row, z) => row.forEach((c, x) => {
+      if (!c || c.s !== "ramp" || (!o.all && keep.has(key(x, z)))) return;
+      const [dx, dz] = DIRS[c.d];
+      const side = [[dz, dx], [-dz, -dx]].map(([a, b]) => cell(x + a, z + b));
+      if (o.slotsOnly && !side.every((q) => land(q) && q.h >= c.h)) return;
+      if (o.nearFig != null && !figCells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) <= o.nearFig)) return;
+      const before = reach().reached;
+      level.cells[z][x] = { h: c.h, s: c.m && c.m !== "stone" ? c.m : (c.h >= 2 ? surf.raised : surf.ground) };
+      if (reach().reached < before) level.cells[z][x] = c; else n++;
+    }));
+    log.push(`pruneRamps ${n}`);
+    return n;
+  };
   const role = (t) => level.palette?.props?.[t]?.role || (CATALOG[t] ? t : null);
   const ofRole = (r) => Object.entries(level.palette?.props || {}).filter(([, p]) => p.role === r).map(([t]) => t);
-  return { W, D, walkN, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, log };
+  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, log };
 }
