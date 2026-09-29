@@ -64,3 +64,6 @@ date | level | model | count | $ | purpose
 2026-09-29 | cat-3 | gemini-3.8-flash | 30 | 0.2087 | critic rounds 1 to 4 and final
 
 Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
+2026-09-29 | ember-1, ember-2 | gemini-3.8-flash | 4 | 0.1295 | analyze.mjs: regenerated ember-1 (71 walkable) and ember-2 (65 walkable, cobble floor) with --avoid
+2026-09-29 | ember-1..3 | gemini-3.8-flash | 18 | 0.1496 | critic round 1, 351 and 900 (3 votes each)
+2026-09-29 | ember-1..3 | gemini-3.8-flash | 18 | 0.1438 | critic round 2
