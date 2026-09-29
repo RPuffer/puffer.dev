@@ -311,11 +311,13 @@ function grow(h, want) {
   }
 }
 
+const walled = (h, x, z) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1]].some(([a, b]) => { const n = h.cell(x + a, z + b); return n && n.h > h.cell(x, z).h; });
+
 function moveSpawn(level, h, lo, hi) {
   let best = null;
   for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
     const c = h.cell(x, z);
-    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || h.decorAt(x, z).length) continue;
+    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || h.decorAt(x, z).length || walled(h, x, z)) continue;
     const q = h.approach({ from: [x, z] });
     if (q.length < lo || q.length > hi) continue;
     const sc = q.length + 0.5 * (x + z);
@@ -436,7 +438,7 @@ export function finish(level, brief, h) {
   for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) { const c = h.cell(x, z); if (h.land(c) && c.h >= 2 && !h.isFig(x, z)) raised++; }
   if (raised < 6) h.dais({ ring: 1, h: 2, s: "stone" });
   let r = h.approach();
-  if (r.length < 12) { moveSpawn(level, h, 12, 20); r = h.approach(); }
+  if (r.length < 12 || walled(h, ...level.spawn)) { moveSpawn(level, h, 12, 20); r = h.approach(); }
   if (r.length) h.path(r);
   fixRamps(level, h);
   r = h.approach();
