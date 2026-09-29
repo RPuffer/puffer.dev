@@ -75,3 +75,8 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | chimera-1 | gemini-3.8-flash | 30 | 0.3180 | critic rounds 1 to 4 and final, 351 and 900 (3 votes each)
 2026-09-29 | chimera-2 | gemini-3.8-flash | 30 | 0.2851 | critic rounds 1 to 4 and final
 2026-09-29 | chimera-3 | gemini-3.8-flash | 30 | 0.3031 | critic rounds 1 to 4 and final
+2026-09-29 | swallow-2 | gemini-3.8-flash | 3 | 0.0921 | analyze.mjs --variant 2 --avoid swallow-1,swallow-3: the first reading was cobble pads everywhere; the regenerated reading walked 70 cells, so the committed brief stays and finish repaints the stone
+2026-09-29 | swallow-1 | gemini-3.8-flash | 21 | 0.1826 | critic rounds 1 to 3 and final, 351 and 900 (3 votes each)
+2026-09-29 | swallow-2 | gemini-3.8-flash | 15 | 0.1183 | critic rounds 1 to 2 and final
+2026-09-29 | swallow-3 | gemini-3.8-flash | 24 | 0.1973 | critic rounds 1 to 4
+2026-09-29 | chimera-2 | gemini-3.8-flash | 9 | 0.0804 | critic runs on chimera-2 renders billed to the swallow profile: the chimera agent overwrote a shared scratchpad loop script
