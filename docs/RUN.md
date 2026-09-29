@@ -200,3 +200,45 @@ Remaining highs: forest-b's leaning trunk reads as driven into the trunk behind 
 | forest-a-composition-only | masses and focal point only | 16x12 | 84 | 36 | 1 | 0/0 | 0.11 |
 
 Shared round-2 brief generation: $0.27 (five analyze runs) plus $0.13 of critic pre-runs logged against two levels. Sheet: `out/final/round2-concepts.jpg`. Card: `puffer-isoworld-concept-round-2`.
+
+## Round 3 results
+
+2026-09-29, eleven artworks through pipeline A with the scene strategy, three readings each (`analyze.mjs --variant k --avoid ...`), one pieces module per artwork. Walkable counts every cell with h >= 1 and a walkable surface. QA: `tools/qa-levels.mjs` over all 33 levels, 462 pass, 0 fail; cat-1 was rebuilt to the 80-cell floor afterwards and passed 14 of 14 alone. Every level loads at `3d/index.html?level=<slug>-<k>`. Sheet: `out/final/round3-sheet.jpg`, one row per artwork in `out/final/round3-<slug>.jpg`. Card: `puffer-isoworld-round-3-islands` (pick-per-group).
+
+| Level | Size | Walkable | Decor | New types |
+| --- | --- | --- | --- | --- |
+| cat-1 | 16x12 | 106 | 19 | 2 |
+| cat-2 | 16x12 | 98 | 27 | 3 |
+| cat-3 | 16x12 | 113 | 28 | 3 |
+| dragon-1 | 16x12 | 96 | 17 | 2 |
+| dragon-2 | 16x12 | 107 | 23 | 2 |
+| dragon-3 | 16x12 | 143 | 25 | 3 |
+| ember-1 | 16x12 | 121 | 34 | 3 |
+| ember-2 | 16x12 | 117 | 28 | 2 |
+| ember-3 | 16x12 | 118 | 24 | 3 |
+| chimera-1 | 16x12 | 112 | 27 | 3 |
+| chimera-2 | 16x12 | 107 | 23 | 3 |
+| chimera-3 | 16x12 | 141 | 30 | 4 |
+| wizard-1 | 16x12 | 140 | 34 | 2 |
+| wizard-2 | 16x12 | 119 | 24 | 3 |
+| wizard-3 | 16x12 | 110 | 30 | 5 |
+| swallow-1 | 16x12 | 114 | 26 | 3 |
+| swallow-2 | 16x12 | 133 | 38 | 2 |
+| swallow-3 | 16x12 | 113 | 24 | 4 |
+| cosmos-1 | 16x12 | 128 | 37 | 2 |
+| cosmos-2 | 16x12 | 106 | 15 | 2 |
+| cosmos-3 | 16x12 | 119 | 23 | 4 |
+| sharkbear-1 | 16x12 | 130 | 33 | 3 |
+| sharkbear-2 | 16x12 | 114 | 24 | 3 |
+| sharkbear-3 | 16x12 | 137 | 27 | 4 |
+| gremlin-1 | 16x12 | 106 | 24 | 4 |
+| gremlin-2 | 16x12 | 106 | 18 | 3 |
+| gremlin-3 | 16x12 | 139 | 14 | 3 |
+| mindbloom-1 | 16x12 | 112 | 30 | 3 |
+| mindbloom-2 | 16x12 | 98 | 11 | 3 |
+| mindbloom-3 | 16x12 | 146 | 28 | 3 |
+| eagle-1 | 16x12 | 99 | 11 | 2 |
+| eagle-2 | 16x12 | 106 | 15 | 2 |
+| eagle-3 | 16x12 | 105 | 18 | 4 |
+
+Round spend: $10.200 across 48 ledger lines (briefs and critic calls only).

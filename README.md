@@ -69,6 +69,8 @@ The levels load at `http://localhost:8765/3d/index.html?level=forest-a`, `forest
 
 Round 2 kept pipeline A and varied only the analyzer's concept prompt (`node pipeline/analyze.mjs --concept <name>`, briefs in `pipeline/seed/concepts/`): `forest-a-pack-first`, `forest-a-scene`, `forest-a-biome`, `forest-a-motif-remap`, and `forest-a-composition-only` load the same way, each with its own pieces module. The six islands side by side are in `out/final/round2-concepts.jpg`, and the results table is under Round 2 results in `docs/RUN.md`.
 
+Round 3 built three scene readings for each of the other eleven artworks (`cat`, `dragon`, `ember`, `chimera`, `wizard`, `swallow`, `cosmos`, `sharkbear`, `gremlin`, `mindbloom`, `eagle`), loadable as `?level=<slug>-<k>`, with one pieces module per artwork in `3d/pieces/<slug>.js` and the readings in `pipeline/seed/concepts/`. The sheet is `out/final/round3-sheet.jpg` and the table is under Round 3 results in `docs/RUN.md`.
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.
