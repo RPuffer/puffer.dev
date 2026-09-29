@@ -687,11 +687,12 @@ function finishLens(level, brief, h) {
   const passT = h.passes().filter((t) => t !== gateT && t !== lightT && t !== capT && !daisTypes.includes(t));
   h.removeDecor((d) => d.t === gateT || d.t === lightT || d.t === capT || passT.includes(d.t) || d.t === "lantern");
   if (astT) h.removeDecor((d) => d.t === astT);
+  if (lens === "subject" && nebT) h.removeDecor((d) => d.t === nebT || d.t === "rock");
   let stairs = [];
   if (lens === "medium") { disc(level, h, 5.2, 84); stairs = frontStairs(level, h); }
   const st0 = stairs[0] || [0, 0];
   const side = { medium: (x, z) => z * 0.6 - Math.abs(x - st0[0]) * 1.5, subject: (x, z) => z * 1.2 + x * 0.4, composition: (x, z) => z * 1.2 - x * 0.8 }[lens];
-  let r = frontSpawn(level, h, { medium: 5, subject: 10, composition: 12 }[lens] || 9, lens === "composition" ? 22 : 18, side);
+  let r = frontSpawn(level, h, { medium: 5, subject: 8, composition: 12 }[lens] || 9, lens === "composition" ? 22 : 18, side);
   if (r.length) h.path(r);
   r = h.approach();
   if (lens === "composition") streak(level, h);
@@ -711,7 +712,8 @@ function finishLens(level, brief, h) {
     scatter(level, h, capT, 5, (x, z, c) => (c.h <= 2 && (x * 3 + z) % 3 === 0 ? -c.h * 3 + Math.abs(x - ax) + Math.abs(z - az) : null));
     scatter(level, h, astT, 4, (x, z, c) => { const dd = Math.max(Math.abs(x - ax), Math.abs(z - az)); return dd >= 4 && x >= ax ? -dd - z * 0.1 : null; });
   } else if (lens === "subject") {
-    scatter(level, h, nebT, 3, (x, z, c) => { const dx = x - ax, dz = z - az; return dx >= 2 && dx <= 6 && Math.abs(dz) <= 3 ? Math.abs(dx - 4) + Math.abs(dz) * 0.5 : null; });
+    scatter(level, h, gateT, 5, (x, z, c) => (c.h >= 2 && z <= az - 1 ? z * 2 + ((x * 7) % 3) : null));
+    scatter(level, h, nebT, 3, (x, z, c) => (c.h >= 2 && x >= ax + 2 ? -x + z * 0.5 : null));
     scatter(level, h, capT, 5, (x, z, c) => (c.s === "dirt" && (x + z) % 2 === 0 ? -(x + z) : null));
     scatter(level, h, astT, 4, (x, z, c) => (x - ax + z - az >= 5 ? -(x + z) + (x % 3) * 0.4 : null));
   } else if (lens === "composition") {
