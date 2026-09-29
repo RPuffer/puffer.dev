@@ -1,0 +1,1504 @@
+{
+ "source": {
+  "art": "pipeline/seed/chimera.png",
+  "width": 1520,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "monolithic",
+  "subterranean",
+  "chitinous",
+  "serrated",
+  "braced",
+  "armored"
+ ],
+ "observations": [
+  {
+   "what": "Heavily plated horned skull with jagged jagged teeth and deep hollow ocular sockets",
+   "box": [
+    17,
+    53,
+    435,
+    477
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "High arching dorsal neck crest consisting of swept-back serrated bone blades",
+   "box": [
+    19,
+    147,
+    335,
+    878
+   ],
+   "maps_to": "dorsal-ridge"
+  },
+  {
+   "what": "Cluster of circular auxiliary eyes embedded behind the jaw joint along the upper neck",
+   "box": [
+    178,
+    627,
+    269,
+    815
+   ],
+   "maps_to": "ocellus-node"
+  },
+  {
+   "what": "Large vertical slit-pupiled cyclopean eye embedded in the armored throat plate",
+   "box": [
+    336,
+    584,
+    431,
+    663
+   ],
+   "maps_to": "threshold-oculus"
+  },
+  {
+   "what": "Massive convex ribbed carapace plates covering the central chest and underbelly",
+   "box": [
+    465,
+    347,
+    762,
+    792
+   ],
+   "maps_to": "chitin-plateau"
+  },
+  {
+   "what": "Sleeved left foreleg covered in dense needle-like quill spines with massive hooked talons",
+   "box": [
+    542,
+    69,
+    878,
+    369
+   ],
+   "maps_to": "quill-pillar"
+  },
+  {
+   "what": "Enormous right foreleg bristling with concentric rows of triangular chitin spikes",
+   "box": [
+    510,
+    608,
+    1000,
+    994
+   ],
+   "maps_to": "quill-pillar"
+  },
+  {
+   "what": "Segmented scorpion-like tail curling upward on the left flank",
+   "box": [
+    404,
+    133,
+    605,
+    303
+   ],
+   "maps_to": "barbed-tail"
+  },
+  {
+   "what": "Jagged dark horizontal stone shelf with crosshatched fissures at the base",
+   "box": [
+    530,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Open negative space in upper right with smooth off-white bare paper tone",
+   "box": [
+    0,
+    815,
+    480,
+    1000
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#e4e4da",
+    "share": 0.219,
+    "role": "bare paper background and specular carapace highlights"
+   },
+   {
+    "hex": "#d8d5c8",
+    "share": 0.148,
+    "role": "light midtone on convex chest plates and dorsal horn planes"
+   },
+   {
+    "hex": "#4d4741",
+    "share": 0.116,
+    "role": "dense graphite shading of lower rock floor and underbelly shadow"
+   },
+   {
+    "hex": "#89847a",
+    "share": 0.116,
+    "role": "hatching tone along neck joints and shoulder plates"
+   },
+   {
+    "hex": "#6c665f",
+    "share": 0.111,
+    "role": "shadowed fissures and recesses under foreleg armor"
+   },
+   {
+    "hex": "#a4a095",
+    "share": 0.104,
+    "role": "intermediate tone on chitin ridges and crest horns"
+   },
+   {
+    "hex": "#bfbbb1",
+    "share": 0.1,
+    "role": "secondary highlight value along spiked wrist flares"
+   },
+   {
+    "hex": "#2d251f",
+    "share": 0.086,
+    "role": "deep ballpoint black in jaw cavity and claw undersides"
+   }
+  ],
+  "translation": {
+   "bg": "#2b292e",
+   "grass": {
+    "top": "#84a156",
+    "fringe": "#637e44",
+    "fringeDark": "#4d6335",
+    "speck": "#9db874"
+   },
+   "sand": {
+    "top": "#d6aa4b",
+    "lip": "#ad8328",
+    "edge": "#c29532",
+    "dots": "#edd074"
+   },
+   "dirt": {
+    "top": "#ba8c59",
+    "patch": "#9c6f3d",
+    "mottle": "#7d562c",
+    "border": "#5c3d1d"
+   },
+   "stone": {
+    "top": "#c7c4b7",
+    "pebble": "#dedad0",
+    "pebbleShade": "#a8a599",
+    "rim": "#8f8b80"
+   },
+   "cliffUpper": {
+    "left": "#786558",
+    "right": "#59493e",
+    "seam": "#40322a"
+   },
+   "cliffLower": {
+    "left": "#524339",
+    "right": "#3b2e26",
+    "seam": "#261d17",
+    "speck": "#1c1510"
+   },
+   "water": {
+    "top": "#6bb8c4",
+    "bubble": "#a3e5ed",
+    "deep": "#3a8494",
+    "fall": [
+     "#4f9fad",
+     "#3c8b99",
+     "#2e7480"
+    ],
+    "foam": "#dcf9fc"
+   },
+   "wood": {
+    "light": "#c46c2b",
+    "mid": "#a3531b",
+    "dark": "#823e10",
+    "shadow": "#5c2a07",
+    "end": "#dba458"
+   },
+   "treeMint": [
+    "#57a188",
+    "#44826d",
+    "#306654"
+   ],
+   "treeLime": [
+    "#8fad4e",
+    "#708c38",
+    "#536b27"
+   ],
+   "treeLeaf": [
+    "#6e8c45",
+    "#557033",
+    "#3d5421"
+   ],
+   "treeTeal": [
+    "#42948a",
+    "#307a71",
+    "#21635b",
+    "#144a43"
+   ],
+   "treeGold": [
+    "#cf9e34",
+    "#b08221",
+    "#8f6613"
+   ],
+   "trunk": [
+    "#6b4639",
+    "#4f3228"
+   ],
+   "rock": [
+    "#d4d0c7",
+    "#b5b1a6",
+    "#8f8b82",
+    "#66625a"
+   ],
+   "wellStone": [
+    "#b0aba0",
+    "#948f85",
+    "#78736a"
+   ],
+   "flowerOrange": [
+    "#e67827",
+    "#c25e19"
+   ],
+   "berry": [
+    "#d44a5b",
+    "#a83241"
+   ],
+   "bushTeal": [
+    "#519789",
+    "#3b786c",
+    "#295e54"
+   ],
+   "gold": [
+    "#e0ac36",
+    "#b8871f",
+    "#fae07a"
+   ]
+  },
+  "notes": "The monochrome ballpoint ink and pencil are translated into rich subterranean bone, basalt, and sulfur-amber values while preserving the toy pack's strict three-tone face shading. Saturated ochre sands and mossy earth provide vivid readability across the fractured rocky mass.",
+  "clamped": [
+   "grass.top #82995e->#84a156",
+   "grass.fringe #637d45->#637e44",
+   "treeMint[0] #5a9e87->#57a188",
+   "trunk[0] #69473b->#6b4639",
+   "bushTeal[0] #529689->#519789"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "dorsal-ridge",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.6,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     11,
+     1
+    ],
+    [
+     12,
+     2
+    ],
+    [
+     13,
+     3
+    ],
+    [
+     14,
+     4
+    ]
+   ],
+   "where": "Traces the high sweeping arc of the beast's dorsal neck and spinal ridge across the upper right terrace.",
+   "role": "mass",
+   "shape": {
+    "summary": "A curving, stepped sequence of sharp backward-slanted chitin blades jutting upward from an armored spine block.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.7,
+       0.4,
+       0.6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.05,
+       1.2,
+       6
+      ],
+      "at": [
+       0,
+       0.35,
+       -0.1
+      ],
+      "rot": [
+       -18,
+       12,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.04,
+       1,
+       6
+      ],
+      "at": [
+       0.12,
+       0.35,
+       0.15
+      ],
+      "rot": [
+       -24,
+       8,
+       5
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.02,
+       0.7,
+       6
+      ],
+      "at": [
+       -0.15,
+       0.35,
+       0.12
+      ],
+      "rot": [
+       -12,
+       -15,
+       -4
+      ],
+      "tones": [
+       "#dedad0",
+       "#a8a599",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.2,
+       0.2,
+       -0.2
+      ],
+      "to": [
+       0.25,
+       0.8,
+       -0.1
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#66625a"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "quill-pillar",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     10,
+     8
+    ],
+    [
+     13,
+     9
+    ],
+    [
+     14,
+     7
+    ]
+   ],
+   "where": "Located where the beast's heavily quill-sleeved forelimbs plant firmly into the rocky foreground shelf.",
+   "role": "approach",
+   "shape": {
+    "summary": "A stout stone column bristling with dense clusters of radiating triangular spikes like the beast's armored forelegs.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.38,
+       1.4,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.45,
+       6
+      ],
+      "at": [
+       0.25,
+       0.3,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       75
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.45,
+       6
+      ],
+      "at": [
+       -0.25,
+       0.45,
+       0.1
+      ],
+      "rot": [
+       0,
+       0,
+       -75
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.45,
+       6
+      ],
+      "at": [
+       0,
+       0.7,
+       0.28
+      ],
+      "rot": [
+       -75,
+       0,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#a8a599",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.45,
+       6
+      ],
+      "at": [
+       0,
+       0.85,
+       -0.28
+      ],
+      "rot": [
+       75,
+       0,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#a8a599",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.4,
+       0.65,
+       0.08
+      ],
+      "at": [
+       0,
+       1.4,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.04,
+       0.6,
+       6
+      ],
+      "at": [
+       0,
+       1.7,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#66625a"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "threshold-oculus",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.7,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     12,
+     4
+    ]
+   ],
+   "where": "Placed on the central ramp leading directly into the beast's breastplate plateau, matching the cyclopean throat eye.",
+   "role": "threshold",
+   "shape": {
+    "summary": "An imposing carved basalt eye stela bearing a vertical slit lens of glowing amber gold nestled between flared carapace plates.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       1.2,
+       0.35,
+       0.1
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8f8b82",
+       "#66625a",
+       "#40322a"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.32,
+       0.65
+      ],
+      "at": [
+       0,
+       0.75,
+       0.12
+      ],
+      "tones": [
+       "#fae07a",
+       "#e0ac36",
+       "#b8871f"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.08,
+       0.45,
+       0.16
+      ],
+      "at": [
+       0,
+       0.75,
+       0.18
+      ],
+      "tones": [
+       "#2b292e",
+       "#261d17",
+       "#1c1510"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.45,
+       6
+      ],
+      "at": [
+       -0.35,
+       1,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -35
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.45,
+       6
+      ],
+      "at": [
+       0.35,
+       1,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       35
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "barbed-tail",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.9,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     8,
+     5
+    ],
+    [
+     7,
+     6
+    ]
+   ],
+   "where": "Located along the far western edge representing the upward-curling segmented tail seen on the drawing's left margin.",
+   "role": "detail",
+   "shape": {
+    "summary": "A curved column of ribbed disc-like vertebræ tapering to a flared double-barbed stinger tip.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.28,
+       0.4,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.24,
+       0.4,
+       8
+      ],
+      "at": [
+       0.05,
+       0.35,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       15
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.2,
+       0.4,
+       8
+      ],
+      "at": [
+       0.15,
+       0.7,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       30
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.15,
+       0.4,
+       8
+      ],
+      "at": [
+       0.25,
+       1.05,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       45
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       0.32,
+       1.45,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       20
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#66625a"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "ocellus-node",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     11,
+     2
+    ],
+    [
+     12,
+     3
+    ],
+    [
+     13,
+     4
+    ]
+   ],
+   "where": "Clusters along the upper-right neck terrace representing the triad of recessed auxiliary eyes.",
+   "role": "detail",
+   "shape": {
+    "summary": "A low rounded carapace casing embedding two smooth bulbous sensory lenses.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.35,
+       0.5,
+       0.1
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       0.8
+      ],
+      "at": [
+       -0.18,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#fae07a",
+       "#e0ac36",
+       "#b8871f"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.16,
+       0.8
+      ],
+      "at": [
+       0.18,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#fae07a",
+       "#e0ac36",
+       "#b8871f"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "rock-big",
+   "type": "rock-big",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     7,
+     9
+    ],
+    [
+     9,
+     9
+    ]
+   ],
+   "where": "Heavy fractured boulders anchoring the low foreground crags matching the dense graphite rock base.",
+   "role": "approach",
+   "shape": {
+    "summary": "Stacked polygonal slate slabs matching the jagged foreground strata of the drawing.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.45,
+       0.8,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.38,
+       0.6,
+       0.08
+      ],
+      "at": [
+       0.08,
+       0.42,
+       -0.05
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "chitin-chimera",
+   "source": "The monstrous horned multi-eyed predator crouching on the rocky shelf in Image 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.5,
+   "shape": {
+    "summary": "A massive armored beast built of overlapping segmented shell tiers, horned skull cranked back to snarl, and spiked forelegs.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       1.4,
+       0.8,
+       1.2,
+       0.15
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       1.1,
+       0.6,
+       0.9,
+       0.12
+      ],
+      "at": [
+       0,
+       0.95,
+       0.1
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#a8a599",
+       "#78736a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.55,
+       0.3,
+       0.9,
+       8
+      ],
+      "at": [
+       -0.35,
+       1.4,
+       -0.2
+      ],
+      "rot": [
+       -20,
+       -35,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.55,
+       0.28,
+       0.45
+      ],
+      "at": [
+       -0.55,
+       1.9,
+       -0.35
+      ],
+      "rot": [
+       5,
+       -40,
+       10
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.5,
+       0.16,
+       0.38
+      ],
+      "at": [
+       -0.62,
+       1.72,
+       -0.38
+      ],
+      "rot": [
+       18,
+       -40,
+       10
+      ],
+      "tones": [
+       "#2b292e",
+       "#261d17",
+       "#1c1510"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.15,
+       0.02,
+       0.65,
+       6
+      ],
+      "at": [
+       -0.35,
+       2.2,
+       -0.15
+      ],
+      "rot": [
+       -35,
+       -20,
+       0
+      ],
+      "tones": [
+       "#dedad0",
+       "#b5b1a6",
+       "#8f8b82"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.15,
+       2.1,
+       0.05
+      ],
+      "rot": [
+       -40,
+       -10,
+       15
+      ],
+      "tones": [
+       "#c7c4b7",
+       "#a8a599",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.26,
+       0.9,
+       6
+      ],
+      "at": [
+       0.65,
+       0.2,
+       0.4
+      ],
+      "rot": [
+       15,
+       -10,
+       -25
+      ],
+      "tones": [
+       "#b5b1a6",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.26,
+       0.9,
+       6
+      ],
+      "at": [
+       -0.65,
+       0.2,
+       0.3
+      ],
+      "rot": [
+       15,
+       10,
+       25
+      ],
+      "tones": [
+       "#b5b1a6",
+       "#8f8b82",
+       "#66625a"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.16,
+       0.6
+      ],
+      "at": [
+       -0.1,
+       1.25,
+       -0.35
+      ],
+      "tones": [
+       "#fae07a",
+       "#e0ac36",
+       "#b8871f"
+      ]
+     }
+    ]
+   },
+   "pose": "Crouching on wide splayed legs, spine arced upward with the skull wrenched sharply back to snarl across its left flank.",
+   "cell": [
+    10,
+    3
+   ],
+   "facing": "w",
+   "why": "Faithfully transcribes the creature's menacing low stance and backward-turned head overlooking the approach."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVGGGRRRGVVVV",
+   "VVGGGGGRRGGGGVVV",
+   "VVGGGGGRRGFFGGVV",
+   "VVGGGGGRRGFFGRGV",
+   "VGGGGGGRRGPGGRGV",
+   "VGGGGGGGRRPRRRGV",
+   "VGGGGGGGGGPGRRGV",
+   "VGGGGGGGGGPGRGVV",
+   "VVVGGGGGGPPGGGVV",
+   "VVVVGGGGVVVVVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000011122210000",
+   "0011111221111000",
+   "0011111221111100",
+   "0011111221111210",
+   "0111111221111210",
+   "0111111122222210",
+   "0111111111112210",
+   "0111111111112100",
+   "0001111111111100",
+   "0000111100000000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 10,
+   "z": 3,
+   "what": "The gaping horned skull of the chitin chimera overlooking the western ascent"
+  },
+  "mass": "Visual weight sits heavily in the upper-central and right terrain where the massive three-tier dorsal plateau rises, counterbalanced by the planted forelimbs on the lower terrace.",
+  "read": "The viewer enters from the low fractured foreground rim at row 11 and advances up a winding path between bristle pillars. At mid-island the path climbs past the threshold oculus stela into the elevated breastplate shelf. The eye is pulled upward along the arcing dorsal ridge of crest horns to the crowned snarl of the Chimera.",
+  "shaped": {
+   "name": "mound",
+   "params": {
+    "peak": [
+     0.65,
+     0.3
+    ],
+    "height": 3,
+    "spread": 1.15,
+    "lobes": 2
+   },
+   "seed": 1,
+   "start": [
+    9,
+    9
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVRRRRRRVVVV",
+    "VVVVVVRRRRRRVVVV",
+    "VVVVRRRRRRRRTVVV",
+    "VVVFFRRRRRRRTVVV",
+    "VVVFFPRRRRRRTVVV",
+    "TTTPPRRRRRRRTVVV",
+    "TGGPPPPGGGGGTVVV",
+    "TGGGGPPGGGGGTVVV",
+    "TGGGPPPGGGGGTVVV",
+    "TGGGGPPGGGGGTVVV",
+    "TGGGGPPGGGGGTVVV",
+    "VVVVVVGGGVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.12,
+   "types": [
+    {
+     "type": "dorsal-ridge",
+     "variant": "1",
+     "weight": 0.4
+    },
+    {
+     "type": "quill-pillar",
+     "variant": "1",
+     "weight": 0.3
+    },
+    {
+     "type": "barbed-tail",
+     "variant": "1",
+     "weight": 0.3
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.35,
+  "decor_weights": {
+   "ocellus-node": 0.3,
+   "rock-big": 0.4,
+   "rock": 0.3
+  },
+  "lighting": {
+   "bg": "#423456",
+   "ambient": 0.72,
+   "sun": 0.28,
+   "tint": "#f3e8cf",
+   "notes": "harsh graphite rake over bare vellum: Quotes ANALYSIS.palette.value_structure: high local contrast across paper white specular highlights contrasting with pitch-black pen recesses."
+  },
+  "rules": [
+   "Place dorsal-ridge props strictly along the highest eastern plateau tier (height 3) following the spinal curve.",
+   "Place quill-pillars flanking the southern entrance path on ground height 1.",
+   "Position the threshold-oculus on the transition step between height 1 and height 2 directly before the creature.",
+   "Keep the void clear along the upper right and extreme left margins matching the artwork's negative space."
+  ],
+  "decor_density": 0.18,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "sand",
+   "path": "dirt",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "composition.mass, composition.flow_lines, and composition.negative_space",
+  "place": "A raised chitinous carapace mesa rising out of a deep subterranean void fissure.",
+  "summary": "Translates the drawing's massive low-slung anatomical mass and arcing spinal flow line into a towering stepped plateau surrounded by sheer rock falls.",
+  "differs": "Replaces fragmented shard terraces with a single grand rounded mound terrace system shaped directly after the creature's immense thoracic shell and curving dorsal horn arc.",
+  "fixes": [
+   "lighting.bg #2b292e->#423456"
+  ]
+ },
+ "shaper": {
+  "name": "mound",
+  "params": {
+   "peak": [
+    0.65,
+    0.3
+   ],
+   "height": 3,
+   "spread": 1.15,
+   "lobes": 2
+  },
+  "why": "Directly transcribes the massive swelling anatomical bulk of the creature's ribcage and dorsal neck crest positioned in the upper-right center of the frame."
+ },
+ "surface_mix": {
+  "pattern": "height",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "dirt",
+    "share": 0.45
+   },
+   {
+    "s": "sand",
+    "share": 0.4
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Assigns dark graphite-toned dirt to the low floor, warm calcified ochre sand to the elevated chitin plateaus, and pale stone to rims and paths."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#786558",
+   "#59493e",
+   "#40322a"
+  ],
+  "lower": [
+   "#524339",
+   "#3b2e26",
+   "#261d17"
+  ],
+  "why": "Models the overlapping segmented exoskeleton plates of the monster's underbelly where each rising terrace tier represents a distinct carapace plate."
+ },
+ "lighting": {
+  "time": "harsh graphite rake over bare vellum",
+  "ambient": 0.72,
+  "sun": 0.28,
+  "tint": "#f3e8cf",
+  "bg": "#423456",
+  "why": "Quotes ANALYSIS.palette.value_structure: high local contrast across paper white specular highlights contrasting with pitch-black pen recesses."
+ },
+ "figure_pose": {
+  "pose": "Crouching on wide splayed legs, spine arced upward with the skull wrenched sharply back to snarl across its left flank.",
+  "action": "coiled snarl",
+  "facing": "left",
+  "why": "Directly mirrors the posture from ANALYSIS.subject where the beast holds a low-slung quadrapedal stance with its head turned in profile toward the upper-left margin."
+ },
+ "approach": {
+  "from": "south rim at the base of the lower rock shelf",
+  "passes": [
+   "flanking quill-pillars bristling with needle quills",
+   "fissured basalt scree mounds",
+   "the glowing threshold-oculus stela",
+   "the stepped breastplate ramp onto the Chimera's perch"
+  ],
+  "shape": "A direct southern climb that bends northwest as it ascends the stepped chitin tiers."
+ },
+ "threshold": {
+  "kind": "A monolithic basalt stela carved with the creature's vertical slit cyclopean throat eye that guards the ramp onto the high plateau.",
+  "prop": "threshold-oculus"
+ },
+ "analysis": "pipeline/seed/analysis/chimera.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}

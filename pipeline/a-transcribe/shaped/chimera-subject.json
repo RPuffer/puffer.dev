@@ -1,0 +1,1396 @@
+{
+ "source": {
+  "art": "pipeline/seed/chimera.png",
+  "width": 1520,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "subterranean",
+  "armored",
+  "sulfurous",
+  "chitinous",
+  "predatory",
+  "brooding"
+ ],
+ "observations": [
+  {
+   "what": "Massive armored skull crest bristling with backward-sweeping dorsal spines and horn plates",
+   "box": [
+    19,
+    53,
+    435,
+    452
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Gaping toothy jaw lined with irregular peg teeth snarling toward the left margin",
+   "box": [
+    270,
+    52,
+    435,
+    342
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Accordion-jointed neck carrying stacked segmented ridges and a prominent vertical slit throat-eye",
+   "box": [
+    180,
+    436,
+    470,
+    810
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Clustered circular secondary eyes recessed behind the upper jawline on the neck crest",
+   "box": [
+    180,
+    626,
+    265,
+    815
+   ],
+   "maps_to": "ocellus-vent"
+  },
+  {
+   "what": "Massive convex breastplate composed of horizontal segmented chitinous ridges",
+   "box": [
+    455,
+    340,
+    755,
+    792
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Foreleg sleeved in dense, overlapping conical crystalline quills pointing downward",
+   "box": [
+    530,
+    762,
+    975,
+    988
+   ],
+   "maps_to": "quill-cluster"
+  },
+  {
+   "what": "Massive splayed clawed talon with five heavy curved digging claws anchored into rock",
+   "box": [
+    805,
+    606,
+    995,
+    995
+   ],
+   "maps_to": "talon-perch"
+  },
+  {
+   "what": "Secondary clawed left limb planted firmly on a shelving rock ledge",
+   "box": [
+    595,
+    66,
+    880,
+    362
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Barbed, segmented reptilian tail arching upward behind the beast's left flank",
+   "box": [
+    405,
+    137,
+    605,
+    308
+   ],
+   "maps_to": "barbed-spine"
+  },
+  {
+   "what": "Smudged, granular graphite ground plane forming a rugged horizontal shelf",
+   "box": [
+    740,
+    4,
+    995,
+    995
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Blank cream-white drawing paper surrounding the beast's upper dorsal crest",
+   "box": [
+    0,
+    0,
+    490,
+    990
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#e4e4da",
+    "share": 0.219,
+    "role": "bare paper background and specular carapace highlights"
+   },
+   {
+    "hex": "#d8d5c8",
+    "share": 0.148,
+    "role": "light cream midtone shading on dorsal plates and breastplate"
+   },
+   {
+    "hex": "#4d4741",
+    "share": 0.116,
+    "role": "dark graphite shading of the rocky ground and belly shadow"
+   },
+   {
+    "hex": "#89847a",
+    "share": 0.116,
+    "role": "medium tone cross-hatching across chitin segments and limb joints"
+   },
+   {
+    "hex": "#6c665f",
+    "share": 0.111,
+    "role": "shaded under-planes of rock crevices and lower jaw"
+   },
+   {
+    "hex": "#a4a095",
+    "share": 0.104,
+    "role": "transitional scale grey on shoulder ridge and neck"
+   },
+   {
+    "hex": "#bfbbb1",
+    "share": 0.1,
+    "role": "highlight tone along horn fringes and quill tips"
+   },
+   {
+    "hex": "#2d251f",
+    "share": 0.086,
+    "role": "deep ballpoint pen ink voids inside maw and claw undercuts"
+   }
+  ],
+  "translation": {
+   "bg": "#221c1a",
+   "grass": {
+    "top": "#7ca356",
+    "fringe": "#668c43",
+    "fringeDark": "#527533",
+    "speck": "#94b868"
+   },
+   "sand": {
+    "top": "#d9a84e",
+    "lip": "#b88330",
+    "edge": "#c7923c",
+    "dots": "#e3bc6a"
+   },
+   "dirt": {
+    "top": "#8a6649",
+    "patch": "#735136",
+    "mottle": "#614128",
+    "border": "#4d321d"
+   },
+   "stone": {
+    "top": "#999287",
+    "pebble": "#aba498",
+    "pebbleShade": "#7d766b",
+    "rim": "#696359"
+   },
+   "cliffUpper": {
+    "left": "#614d43",
+    "right": "#4d3a31",
+    "seam": "#3b2b24"
+   },
+   "cliffLower": {
+    "left": "#473831",
+    "right": "#332620",
+    "seam": "#261a15",
+    "speck": "#1f1510"
+   },
+   "water": {
+    "top": "#5ccbd1",
+    "bubble": "#94e2e6",
+    "deep": "#2a8e94",
+    "fall": [
+     "#46b5bb",
+     "#379da3",
+     "#2c888d"
+    ],
+    "foam": "#b3f0f3"
+   },
+   "wood": {
+    "light": "#cf7832",
+    "mid": "#b05e20",
+    "dark": "#8c4411",
+    "shadow": "#693009",
+    "end": "#e39a58"
+   },
+   "treeMint": [
+    "#519772",
+    "#417a5c",
+    "#326148"
+   ],
+   "treeLime": [
+    "#769e46",
+    "#5f8234",
+    "#4a6925"
+   ],
+   "treeLeaf": [
+    "#5b8e3e",
+    "#48752e",
+    "#375e21"
+   ],
+   "treeTeal": [
+    "#369688",
+    "#297a6e",
+    "#1f6157",
+    "#164a42"
+   ],
+   "treeGold": [
+    "#cc9933",
+    "#b38024",
+    "#8c6014"
+   ],
+   "trunk": [
+    "#583b30",
+    "#3f2a22"
+   ],
+   "rock": [
+    "#948e83",
+    "#7d776d",
+    "#666157",
+    "#4d483f"
+   ],
+   "wellStone": [
+    "#878177",
+    "#706a61",
+    "#59544c"
+   ],
+   "flowerOrange": [
+    "#e06b26",
+    "#b84f14"
+   ],
+   "berry": [
+    "#d44848",
+    "#a83232"
+   ],
+   "bushTeal": [
+    "#458f83",
+    "#347369",
+    "#25574f"
+   ],
+   "gold": [
+    "#e6ad33",
+    "#c78f20",
+    "#ffd166"
+   ]
+  },
+  "notes": "The drawing's ballpoint ink and graphite on warm cream paper translate into dense subterranean basalt earth, charcoal-ash dirt, and sulfurous mineral highlights, preserving toy readability through rich earthy umbers and warm ochre accents.",
+  "clamped": [
+   "treeMint[0] #529672->#519772",
+   "trunk[0] #543d34->#583b30",
+   "trunk[1] #3d2b24->#3f2a22",
+   "treeLeaf[0] #5a8c3d->#5b8e3e",
+   "treeLeaf[1] #47732d->#48752e",
+   "treeLeaf[2] #365c20->#375e21"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "quill-cluster",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     3,
+     8
+    ],
+    [
+     13,
+     9
+    ],
+    [
+     5,
+     10
+    ],
+    [
+     13,
+     8
+    ]
+   ],
+   "where": "Placed on the rim terraces where the beast's forelegs shed needle-sharp defensive quills into the rock.",
+   "role": "approach",
+   "shape": {
+    "summary": "A dense cluster of sharp crystalline conical spines rising from a faceted stone base.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.2,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#948e83",
+       "#7d776d",
+       "#666157"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.9,
+       6
+      ],
+      "at": [
+       0,
+       0.15,
+       0
+      ],
+      "tones": [
+       "#e3bc6a",
+       "#c7923c",
+       "#b88330"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0.02,
+       0.7,
+       6
+      ],
+      "at": [
+       -0.15,
+       0.12,
+       0.1
+      ],
+      "rot": [
+       -10,
+       0,
+       15
+      ],
+      "tones": [
+       "#d9a84e",
+       "#b88330",
+       "#8a6649"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.09,
+       0.02,
+       0.65,
+       6
+      ],
+      "at": [
+       0.15,
+       0.12,
+       -0.1
+      ],
+      "rot": [
+       12,
+       0,
+       -18
+      ],
+      "tones": [
+       "#d9a84e",
+       "#b88330",
+       "#8a6649"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       0.1,
+       0.1,
+       0.15
+      ],
+      "rot": [
+       15,
+       20,
+       10
+      ],
+      "tones": [
+       "#aba498",
+       "#7d766b",
+       "#696359"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "talon-perch",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     5,
+     7
+    ],
+    [
+     11,
+     7
+    ]
+   ],
+   "where": "Flanking the entrance to the hollow, marking the deep claw furrows left by the creature's forelimbs.",
+   "role": "threshold",
+   "shape": {
+    "summary": "A cleaved basalt slab scarred by three curved calcified talons jutting outward.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.35,
+       0.75,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#999287",
+       "#7d766b",
+       "#696359"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.45,
+       6
+      ],
+      "at": [
+       -0.2,
+       0.3,
+       0.15
+      ],
+      "rot": [
+       35,
+       0,
+       -10
+      ],
+      "tones": [
+       "#e4e4da",
+       "#a4a095",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.09,
+       0.01,
+       0.5,
+       6
+      ],
+      "at": [
+       0,
+       0.3,
+       0.2
+      ],
+      "rot": [
+       40,
+       0,
+       0
+      ],
+      "tones": [
+       "#e4e4da",
+       "#a4a095",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.45,
+       6
+      ],
+      "at": [
+       0.2,
+       0.3,
+       0.15
+      ],
+      "rot": [
+       35,
+       0,
+       10
+      ],
+      "tones": [
+       "#e4e4da",
+       "#a4a095",
+       "#6c665f"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "ocellus-vent",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     3,
+     3
+    ],
+    [
+     13,
+     3
+    ],
+    [
+     8,
+     2
+    ]
+   ],
+   "where": "Mounted along the rear wall of the hollow like the alien sensory eyes embedded in the creature's neck plates.",
+   "role": "detail",
+   "shape": {
+    "summary": "A tiered subterranean chimney bearing a glowing cyclopean eye sphere set within a chitinous socket.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.38,
+       0.6,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8a6649",
+       "#735136",
+       "#614128"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.6,
+       0.25,
+       0.45,
+       0.08
+      ],
+      "at": [
+       0,
+       0.55,
+       0
+      ],
+      "tones": [
+       "#999287",
+       "#7d766b",
+       "#696359"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.2,
+       0.9
+      ],
+      "at": [
+       0,
+       0.75,
+       0.08
+      ],
+      "tones": [
+       "#e6ad33",
+       "#c78f20",
+       "#8c6014"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.05,
+       0.28,
+       0.02
+      ],
+      "at": [
+       0,
+       0.75,
+       0.26
+      ],
+      "tones": [
+       "#221c1a",
+       "#221c1a",
+       "#221c1a"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "barbed-spine",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.6,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     2,
+     5
+    ],
+    [
+     13,
+     6
+    ],
+    [
+     4,
+     2
+    ]
+   ],
+   "where": "Erected on high terrace cliffs echoing the sweeping tail and dorsal crest plates seen in IMAGE 1.",
+   "role": "mass",
+   "shape": {
+    "summary": "An upward-arching stack of pointed chitinous vertebrae forming a serrated rib.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.4,
+       0.4,
+       0.35,
+       0.06
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#999287",
+       "#7d766b",
+       "#696359"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.32,
+       0.38,
+       0.3,
+       0.06
+      ],
+      "at": [
+       0.05,
+       0.35,
+       -0.05
+      ],
+      "rot": [
+       -8,
+       0,
+       10
+      ],
+      "tones": [
+       "#aba498",
+       "#7d766b",
+       "#696359"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.7,
+       6
+      ],
+      "at": [
+       0.1,
+       0.7,
+       -0.1
+      ],
+      "rot": [
+       -18,
+       0,
+       20
+      ],
+      "tones": [
+       "#d8d5c8",
+       "#a4a095",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.4,
+       6
+      ],
+      "at": [
+       -0.08,
+       0.5,
+       0.05
+      ],
+      "rot": [
+       15,
+       0,
+       -35
+      ],
+      "tones": [
+       "#e4e4da",
+       "#bfbbb1",
+       "#89847a"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "cracked-carapace-slab",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.2,
+   "passable": true,
+   "count": 4,
+   "cells": [
+    [
+     8,
+     8
+    ],
+    [
+     9,
+     8
+    ],
+    [
+     8,
+     9
+    ],
+    [
+     9,
+     9
+    ]
+   ],
+   "where": "Lining the path that descends into the brooding hollow, representing molted armored scutes.",
+   "role": "approach",
+   "shape": {
+    "summary": "A heavy flat polygonal slab of shed armor plating embedded into the floor.",
+    "parts": [
+     {
+      "prim": "prism",
+      "dims": [
+       0.18
+      ],
+      "outline": [
+       [
+        -0.35,
+        -0.3
+       ],
+       [
+        0.3,
+        -0.38
+       ],
+       [
+        0.42,
+        0.25
+       ],
+       [
+        -0.2,
+        0.4
+       ],
+       [
+        -0.4,
+        0.05
+       ]
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d8d5c8",
+       "#89847a",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.55,
+       0.06,
+       0.08
+      ],
+      "at": [
+       0,
+       0.17,
+       0
+      ],
+      "tones": [
+       "#e4e4da",
+       "#a4a095",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.18,
+       0.08,
+       0.18,
+       0.04
+      ],
+      "at": [
+       -0.1,
+       0.16,
+       0.15
+      ],
+      "tones": [
+       "#bfbbb1",
+       "#89847a",
+       "#4d4741"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "chimeric-carapace-drake",
+   "source": "The multi-eyed, quilled, subterranean armored dragon crouching on the rock ledge in IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.5,
+   "pose": "Braced low on widespread forelegs with talons digging deep into the rock, spine arced high and the multi-horned head wrenching sharply left in an aggressive snarl.",
+   "cell": [
+    8,
+    5
+   ],
+   "facing": "w",
+   "why": "It is the monstrous master of this subterranean burrow, standing in the heart of its brooding hollow where it guards its excavated territory.",
+   "shape": {
+    "summary": "A chunky low-poly armored beast with segmented chest plates, a crested horned skull, quilled forelegs, and cyclopean throat eyes.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       1.2,
+       0.9,
+       1.1,
+       0.15
+      ],
+      "at": [
+       0,
+       0.35,
+       0
+      ],
+      "tones": [
+       "#d8d5c8",
+       "#89847a",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.45,
+       0.8,
+       8
+      ],
+      "at": [
+       -0.25,
+       0.9,
+       -0.15
+      ],
+      "rot": [
+       -20,
+       -35,
+       10
+      ],
+      "tones": [
+       "#89847a",
+       "#6c665f",
+       "#4d4741"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.55,
+       0.8,
+       0.12
+      ],
+      "at": [
+       -0.55,
+       1.45,
+       -0.3
+      ],
+      "rot": [
+       -10,
+       -40,
+       15
+      ],
+      "tones": [
+       "#e4e4da",
+       "#d8d5c8",
+       "#89847a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.04,
+       0.85,
+       6
+      ],
+      "at": [
+       -0.5,
+       1.85,
+       -0.5
+      ],
+      "rot": [
+       -45,
+       -30,
+       0
+      ],
+      "tones": [
+       "#e4e4da",
+       "#bfbbb1",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.03,
+       0.65,
+       6
+      ],
+      "at": [
+       -0.3,
+       1.75,
+       -0.2
+      ],
+      "rot": [
+       -40,
+       -10,
+       15
+      ],
+      "tones": [
+       "#d8d5c8",
+       "#a4a095",
+       "#4d4741"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.8
+      ],
+      "at": [
+       -0.3,
+       1.05,
+       0.12
+      ],
+      "tones": [
+       "#e6ad33",
+       "#c78f20",
+       "#8c6014"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.22,
+       0.85,
+       8
+      ],
+      "at": [
+       0.45,
+       0.15,
+       0.45
+      ],
+      "rot": [
+       15,
+       0,
+       -20
+      ],
+      "tones": [
+       "#948e83",
+       "#7d766b",
+       "#666157"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       0.6,
+       0.3,
+       0.5
+      ],
+      "rot": [
+       30,
+       0,
+       -30
+      ],
+      "tones": [
+       "#d9a84e",
+       "#b88330",
+       "#8a6649"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       0.5,
+       0.5,
+       0.35
+      ],
+      "rot": [
+       10,
+       0,
+       -40
+      ],
+      "tones": [
+       "#d9a84e",
+       "#b88330",
+       "#8a6649"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.22,
+       0.6,
+       0.08
+      ],
+      "at": [
+       0.75,
+       0,
+       0.6
+      ],
+      "tones": [
+       "#e4e4da",
+       "#a4a095",
+       "#6c665f"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.2,
+       0.7,
+       8
+      ],
+      "at": [
+       -0.5,
+       0.15,
+       0.35
+      ],
+      "rot": [
+       10,
+       0,
+       15
+      ],
+      "tones": [
+       "#948e83",
+       "#7d766b",
+       "#666157"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.2,
+       0.5,
+       0.08
+      ],
+      "at": [
+       -0.65,
+       0,
+       0.45
+      ],
+      "tones": [
+       "#e4e4da",
+       "#a4a095",
+       "#6c665f"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVRRRRRRRRRGVVV",
+   "VRRRRRRRRRRRGVVV",
+   "VRRRRGGGGGGRRGVV",
+   "VGRRGGGGGGGGGGVV",
+   "VVRGGGGGFFGGGGVV",
+   "VVRGGGGGFFGGGGVV",
+   "VVRRGGGGPGGGRGVV",
+   "VVRRRGGGPGGGRGVV",
+   "VVGGRGGGPPGGGGVV",
+   "VVVVGGVVVVVVVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0003333333321000",
+   "0333322222221000",
+   "0233211111122100",
+   "0122111111111100",
+   "0021111111111100",
+   "0031111111111100",
+   "0032111111112100",
+   "0022211111112100",
+   "0011211111111100",
+   "0000110000000000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 8,
+   "z": 5,
+   "what": "chimeric-carapace-drake"
+  },
+  "mass": "Visual mass is concentrated in the high cliff walls enclosing the north and east, framing the low sunken floor where the armored drake crouches.",
+  "read": "The viewer enters through a break in the southern rim across molted scute stepping stones, descending down terrace steps directly into the beast's low-lit brooding floor. High terraced rock walls loom along the northern edge, echoing the upward-rearing spines and heavy crest of the beast, while quill clusters bracket the pathway.",
+  "shaped": {
+   "name": "basin",
+   "params": {
+    "wall": 3,
+    "open": "s",
+    "pool": false,
+    "focal": "floor"
+   },
+   "seed": 1,
+   "start": [
+    9,
+    9
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VRRRRRRRRRRRRRRV",
+    "VRTRRRRRRRRRTRRV",
+    "VRRGGGGGGGGGGRRV",
+    "VTGGGGFFGGGGGGTV",
+    "VRGGGGFFGGGGGGTV",
+    "VRGTGGGGGGGTRRRV",
+    "VRRRPPGGGGGPRRRV",
+    "VRTTTPPGGGPPTTRV",
+    "VRRRRRPPGPPRRRRV",
+    "VVVRRRRPPPRRRRVV",
+    "VVVVVVVGGGVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.05,
+   "types": [
+    {
+     "type": "barbed-spine",
+     "variant": "default",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.28,
+  "decor_weights": {
+   "quill-cluster": 0.45,
+   "cracked-carapace-slab": 0.35,
+   "ocellus-vent": 0.2
+  },
+  "lighting": {
+   "bg": "#221c1a",
+   "ambient": 0.65,
+   "sun": 0.25,
+   "tint": "#f2dec4",
+   "notes": "smudged graphite under-glow with specular cream highlights: Directly quotes ANALYSIS.palette.value_structure, balancing high-contrast cream specular reflections on the dorsal carapace with dark, heavy graphite shadow voids beneath."
+  },
+  "rules": [
+   "Place barbed-spine motifs exclusively on R plateau cells at height 3 along the outer wall.",
+   "Keep the central floor cells flat at height 1 surrounding the creature's height 2 roost.",
+   "Distribute quill-cluster props along the transition ledges between height 1 and height 2.",
+   "Pave the descending entrance corridor with cracked-carapace-slab path props."
+  ],
+  "decor_density": 0.22,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "stone",
+   "path": "sand",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "ANALYSIS.subject and ANALYSIS.story: the subterranean apex burrower hauled out into its excavated nesting pit surrounded by quills, molted carapace, and sensory vents.",
+  "place": "A subterranean basalt burrow hollow where the multi-eyed armored beast nests among molted carapace scutes and quills.",
+  "summary": "A deep tiered earth-and-stone hollow dug into volcanic bedrock, enclosed by towering cliff ribs and guarded by bristling quill outcroppings.",
+  "differs": "Unlike the fractured paper-shale shelf or the high mesa pinnacle, this place is an enclosed sunken burrow excavated below ground level, featuring quilled outcroppings and molted scute paths.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took sand/dirt"
+  ]
+ },
+ "shaper": {
+  "name": "basin",
+  "params": {
+   "wall": 3,
+   "open": "s",
+   "pool": false,
+   "focal": "floor"
+  },
+  "why": "The creature is a burrowing subterranean apex predator resting in an excavated pit; a basin creates the natural defensive hollow with towering protective walls on three sides and a low entry funnel."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "grass",
+    "share": 0.55
+   },
+   {
+    "s": "sand",
+    "share": 0.3
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Alternating bands of dark compacted cavern dirt, sulfurous yellow sand, and pale stone scutes mirror the rhythmic ballpoint hatching across the beast's chest plates."
+ },
+ "cliff_treatment": {
+  "style": "banded",
+  "upper": [
+   "#614d43",
+   "#4d3a31",
+   "#3b2b24"
+  ],
+  "lower": [
+   "#473831",
+   "#332620",
+   "#261a15"
+  ],
+  "why": "Deep, distinct horizontal stratifications reflect the layered cross-hatching and graphite smudging separating the monster's underbelly from the bedrock shelf."
+ },
+ "lighting": {
+  "time": "smudged graphite under-glow with specular cream highlights",
+  "ambient": 0.65,
+  "sun": 0.25,
+  "tint": "#f2dec4",
+  "bg": "#221c1a",
+  "why": "Directly quotes ANALYSIS.palette.value_structure, balancing high-contrast cream specular reflections on the dorsal carapace with dark, heavy graphite shadow voids beneath."
+ },
+ "figure_pose": {
+  "pose": "Braced low on widespread forelegs with talons digging deep into the rock, spine arced high and the multi-horned head wrenching sharply left in an aggressive snarl.",
+  "action": "snarling defensively",
+  "facing": "left",
+  "why": "Directly matches ANALYSIS.subject.doing where the creature rears back on planted limbs to hiss at an intruder."
+ },
+ "approach": {
+  "from": "the south opening",
+  "passes": [
+   "a threshold of cleaved talon perches",
+   "a walkway paved with cracked carapace slabs",
+   "a thicket of bristling defensive quill clusters"
+  ],
+  "shape": "A narrowing passage that descends between tiered cliff steps into the sunken brooding hollow."
+ },
+ "threshold": {
+  "kind": "A twin set of cleaved basalt boulders scarred by curved talon marks flanking the entry ramp.",
+  "prop": "talon-perch"
+ },
+ "analysis": "pipeline/seed/analysis/chimera.json",
+ "concept": {
+  "name": "lens-subject",
+  "lens": "subject",
+  "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+ }
+}
