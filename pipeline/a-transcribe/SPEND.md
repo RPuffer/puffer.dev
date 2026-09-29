@@ -95,3 +95,6 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | mindbloom-1 | gemini-3.8-flash | 24 | 0.1769 | critic rounds 1 to 4, 351 and 900 (3 votes each); round 1 split evenly across the three levels
 2026-09-29 | mindbloom-2 | gemini-3.8-flash | 24 | 0.1814 | critic rounds 1 to 4
 2026-09-29 | mindbloom-3 | gemini-3.8-flash | 24 | 0.1972 | critic rounds 1 to 4
+2026-09-29 | sharkbear-1 | gemini-3.8-flash | 12 | 0.1049 | critic rounds 1 to 2, 351 and 900 (3 votes each); 0 high both rounds
+2026-09-29 | sharkbear-2 | gemini-3.8-flash | 12 | 0.0856 | critic rounds 1 to 2; 0 high both rounds
+2026-09-29 | sharkbear-3 | gemini-3.8-flash | 12 | 0.1002 | critic rounds 1 to 2; 0 high both rounds, 1 medium on the engine's dirt stipple
