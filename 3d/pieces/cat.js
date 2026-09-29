@@ -138,6 +138,7 @@ export function register(style) {
 }
 
 export function finish(level, brief, h) {
+  if (level.name === "cat-1") return home(level, brief, h);
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));
   const gateT = h.ofRole("threshold")[0];
@@ -149,4 +150,164 @@ export function finish(level, brief, h) {
   const g = gateT ? h.gate(gateT, { route: r, frac: 0.55 }) : null;
   h.lights(lightT, { route: r, every: 3, skip: 1, max: 6, avoid: g ? [g] : [], keep: [gateT] });
   h.repair({ keep: [gateT] });
+}
+
+const N4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+const hash = (x, z) => (x * 73856093 ^ z * 19349663) >>> 0;
+const voidAt = (h, x, z) => { const q = h.cell(x, z); return !q || q.s === "none"; };
+const walled = (h, x, z) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1]].some(([a, b]) => { const n = h.cell(x + a, z + b); return n && n.h > h.cell(x, z).h; });
+const isTree = (t) => /tree|pine/.test(t);
+
+function grow(h, want) {
+  for (let pass = 0; pass < 60 && h.reach().reached < want; pass++) {
+    let best = null, score = -1;
+    for (let z = 1; z < h.D - 1; z++) for (let x = 1; x < h.W - 1; x++) {
+      const c = h.cell(x, z);
+      if (!c || c.s !== "none") continue;
+      const nb = N4.map(([a, b]) => h.cell(x + a, z + b)).filter((n) => h.land(n) && n.s !== "ramp");
+      const low = nb.filter((n) => n.h === 1).length;
+      if (!low) continue;
+      const sc = low * 2 + nb.length + ((x * 7 + z * 5) % 3) * 0.3;
+      if (sc > score) { score = sc; best = [x, z]; }
+    }
+    if (!best) break;
+    h.set(best[0], best[1], { h: 1, s: h.surf.ground === "stone" ? "grass" : h.surf.ground });
+  }
+}
+
+function jag(level, h, floor) {
+  const sp = level.spawn || [-9, -9];
+  let cut = 0;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || Math.abs(x - sp[0]) + Math.abs(z - sp[1]) <= 1) continue;
+    const nv = N4.filter(([a, b]) => voidAt(h, x + a, z + b)).length;
+    if (!nv || !(nv >= 2 || hash(x, z) % 3 === 0)) continue;
+    if (N4.some(([a, b]) => h.cell(x + a, z + b)?.s === "ramp")) continue;
+    const b0 = h.reach(), saved = { ...c }, dec = level.decor.slice();
+    h.clear(x, z);
+    h.set(x, z, { h: 0, s: "none" });
+    const r = h.reach();
+    if (r.missing.length > b0.missing.length || r.reached < floor || r.reached < b0.reached - 1) { h.set(x, z, saved); level.decor.splice(0, level.decor.length, ...dec); } else cut++;
+  }
+  h.log.push(`jag: -${cut}`);
+}
+
+function moveSpawn(level, h, lo, hi) {
+  let best = null;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || h.decorAt(x, z).length || walled(h, x, z) || [-1, 0].some((b) => voidAt(h, x + 1, z + b))) continue;
+    const q = h.approach({ from: [x, z] });
+    if (q.length < lo || q.length > hi) continue;
+    const sc = q.length + 0.5 * (x + z);
+    if (!best || sc > best[0]) best = [sc, x, z];
+  }
+  if (best) { level.spawn = [best[1], best[2]]; h.log.push(`spawn moved to ${best[1]},${best[2]}`); } else h.log.push(`spawn kept: no approach of ${lo} to ${hi}`);
+}
+
+function pruneRamps(level, h, route) {
+  const on = new Set(route.map(([x, z]) => h.key(x, z)));
+  let n = 0;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!c || c.s !== "ramp" || on.has(h.key(x, z))) continue;
+    const [dx, dz] = h.DIRS[c.d], lo = h.cell(x + dx, z + dz);
+    if (!h.land(lo)) continue;
+    const old = { ...c }, before = h.reach().missing.length;
+    h.set(x, z, { h: lo.h, s: lo.s === "stone" ? "grass" : lo.s });
+    if (h.reach().missing.length > before) h.set(x, z, old); else n++;
+  }
+  if (n) h.log.push(`pruneRamps: ${n}`);
+}
+
+function rampTone(level, h) {
+  level.cells.forEach((row, z) => row.forEach((c, x) => {
+    if (!c || c.s !== "ramp") return;
+    const [dx, dz] = h.DIRS[c.d], up = level.cells[z - dz]?.[x - dx];
+    const lo = level.cells[z + dz]?.[x + dx], soft = ["sand", "grass", "dirt"];
+    if (up && soft.includes(up.s)) c.m = up.s;
+    else if (lo && soft.includes(lo.s)) c.m = lo.s;
+    else c.m = soft.includes(h.surf.raised) ? h.surf.raised : "sand";
+  }));
+}
+
+function trees(level, h, route, max) {
+  const near = (d, k) => route.some(([x, z]) => Math.abs(x - d.x) + Math.abs(z - d.z) <= k);
+  const fig = (d) => h.figure.cells.some(([x, z]) => Math.abs(x - d.x) <= 2 && Math.abs(z - d.z) <= 2);
+  const front = (d) => { const c = h.cell(d.x, d.z); return [[1, 0], [0, 1], [1, 1]].some(([a, b]) => { const n = h.cell(d.x + a, d.z + b); return !h.land(n) || n.h < c.h - 1 || (n.h > c.h && n.s !== "ramp"); }); };
+  const hides = (d) => route.some(([x, z]) => x <= d.x && z <= d.z && d.x - x + d.z - z <= 4);
+  h.removeDecor((d) => isTree(d.t) && (near(d, 1) || fig(d) || front(d) || hides(d)));
+  const left = level.decor.filter((d) => isTree(d.t)).sort((a, b) => (a.x + a.z) - (b.x + b.z) || hash(a.x, a.z) - hash(b.x, b.z));
+  const drop = new Set(left.filter((d, i) => i % 2 === 1 || i >= max * 2).slice(0, Math.max(0, left.length - max)));
+  h.removeDecor((d) => drop.has(d));
+}
+
+function moreLights(level, h, t, route, want) {
+  const on = new Set(route.map(([x, z]) => h.key(x, z)));
+  const lit = () => level.decor.filter((d) => d.t === t);
+  for (const [x, z] of route) {
+    if (lit().length >= want) break;
+    for (const [a, b] of N4) {
+      const X = x + a, Z = z + b, c = h.cell(X, Z);
+      if (!h.land(c) || c.s === "ramp" || on.has(h.key(X, Z)) || h.decorAt(X, Z).length || c.h !== h.cell(x, z).h) continue;
+      if (N4.some(([p, q]) => h.cell(X + p, Z + q)?.s === "ramp")) continue;
+      if (h.figure.cells.some(([fx, fz]) => Math.abs(fx - X) <= 2 && Math.abs(fz - Z) <= 2)) continue;
+      if (lit().some((d) => Math.abs(d.x - X) + Math.abs(d.z - Z) < 3)) continue;
+      if (h.put(t, X, Z)) break;
+    }
+  }
+}
+
+function repaint(level, h, route) {
+  const on = new Set(route.map(([x, z]) => h.key(x, z)));
+  let n = 0;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s !== "stone" || on.has(h.key(x, z)) || h.isFig(x, z) || hash(x, z) % 7 === 0) continue;
+    c.s = c.h >= 2 ? "sand" : "grass";
+    n++;
+  }
+  if (n) h.log.push(`repaint: ${n} stone cells off the approach`);
+}
+
+function home(level, brief, h) {
+  const daisTypes = h.ofRole("dais");
+  h.removeDecor((d) => daisTypes.includes(d.t));
+  const gateT = h.ofRole("threshold")[0];
+  const lightT = h.ofRole("light")[0] || (brief.motifs || []).map((m) => m.type || m.name).find((t) => t === "torch" || t === "lantern") || "lantern";
+  const posts = () => level.decor.filter((d) => d.t === gateT);
+  h.removeDecor((d) => d.t === gateT || d.t === lightT || d.t === "torch" || d.t === "lantern");
+  grow(h, 84);
+  let r = h.approach();
+  if (r.length < 12 || walled(h, ...level.spawn)) { moveSpawn(level, h, 12, 22); r = h.approach(); }
+  jag(level, h, 84);
+  r = h.approach();
+  if (r.length) h.path(r);
+  r = h.approach();
+  pruneRamps(level, h, r);
+  r = h.approach();
+  trees(level, h, r, 6);
+  h.repair();
+  repaint(level, h, h.approach());
+  const snap = () => level.cells.map((row) => row.map((c) => c.h).join()).join("|");
+  const tryGate = (frac, strict) => {
+    const before = snap(), saved = level.cells.map((row) => row.map((c) => ({ ...c }))), dec = level.decor.slice();
+    const miss = h.reach().missing.length;
+    const g = h.gate(gateT, { route: h.approach(), frac });
+    const ok = g && posts().length === 2 && new Set(posts().map((d) => h.cell(d.x, d.z).h)).size === 1 && !posts().some((d) => h.cell(d.x, d.z).s === "ramp") && h.reach().missing.length <= miss;
+    if (ok && (!strict || snap() === before)) return g;
+    level.cells.splice(0, level.cells.length, ...saved);
+    level.decor.splice(0, level.decor.length, ...dec);
+    return null;
+  };
+  let g = null;
+  if (gateT) for (const strict of [true, false]) for (const frac of [0.55, 0.45, 0.65, 0.35, 0.75]) if (!g) g = tryGate(frac, strict);
+  h.lights(lightT, { route: h.approach(), every: 3, skip: 1, max: 6, avoid: g ? [g] : [], keep: [gateT] });
+  moreLights(level, h, lightT, h.approach(), 4);
+  h.repair({ keep: [gateT] });
+  const bad = () => posts().length !== 2 || new Set(posts().map((d) => h.cell(d.x, d.z).h)).size > 1 || h.reach().missing.length > 0;
+  if (gateT && bad()) { h.removeDecor((d) => d.t === gateT); h.repair(); }
+  rampTone(level, h);
+  h.log.push(`approach ${h.approach().length} posts ${posts().map((d) => d.x + "," + d.z).join(" ")} reach ${h.reach().reached}/${h.reach().total}`);
 }
