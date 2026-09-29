@@ -33,6 +33,7 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     if (!CATALOG[t]) { log.push(`put ${t}: not in catalog`); return false; }
     const d = { t, x, z, v: o.v ?? 0, rot: o.rot ?? 0, ox: o.ox ?? 0, oz: o.oz ?? 0 };
     for (const [a, b] of footprint(d)) { const c = cell(a, b); if ((!land(c) || c.s === "ramp") && t !== "waterfall") { log.push(`put ${t} ${x},${z}: not on flat land`); return false; } }
+    if (o.keep && footprint(d).some(([a, b]) => decorAt(a, b).some((e) => e !== lead && o.keep.includes(e.t)))) return false;
     for (const [a, b] of footprint(d)) clear(a, b);
     for (const k of Object.keys(o)) if (!(k in d)) d[k] = o[k];
     level.decor.push(d);
@@ -170,13 +171,15 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     axis = axis || "z";
     const hc = cell(x, z)?.h;
     const sides = (axis === "z" ? [[x - 1, z, -1], [x + 1, z, 1]] : [[x, z - 1, -1], [x, z + 1, 1]]).filter(([a, b]) => !r || !r.some(([p, q]) => p === a && q === b));
-    const flat = ([a, b]) => { const c = cell(a, b); return land(c) && c.s !== "ramp" && !isFig(a, b) && c.h === hc; };
-    const shapeable = ([a, b]) => { const c = cell(a, b); return land(c) && c.s !== "ramp" && !isFig(a, b) && Math.abs(c.h - hc) <= 1; };
-    let use = sides.filter(flat);
+    const taken = ([a, b]) => decorAt(a, b).some((e) => e === lead || (o.keep || []).includes(e.t));
+    const flat = ([a, b]) => { const c = cell(a, b); return land(c) && c.s !== "ramp" && !isFig(a, b) && c.h === hc && !taken([a, b]); };
+    const shapeable = ([a, b]) => { const c = cell(a, b); return c && !isFig(a, b) && !taken([a, b]) && ((land(c) && c.s !== "ramp" && Math.abs(c.h - hc) <= 1) || (o.fill && c.s === "none")); };
+    const byRamp = ([a, b]) => N4.some(([dx, dz]) => cell(a + dx, b + dz)?.s === "ramp");
+    let use = sides.filter((c) => flat(c) && (o.pair || !byRamp(c)));
     const snapC = level.cells.map((row) => row.slice());
     if (o.pair && use.length < 2) {
       if (!o.shape || sides.length < 2 || !sides.every(shapeable)) return 0;
-      for (const [a, b] of sides) if (cell(a, b).h !== hc) level.cells[b][a] = { h: hc, s: cell(a, b).s };
+      for (const [a, b] of sides) if (cell(a, b).h !== hc || cell(a, b).s === "none") level.cells[b][a] = { h: hc, s: cell(a, b).s === "none" ? (hc >= 2 ? surf.raised : surf.ground) : cell(a, b).s };
       use = sides;
     }
     if (!use.length) return 0;
@@ -195,9 +198,9 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     if (r.length < 3) return null;
     const want = Math.round((r.length - 1) * (o.frac ?? 0.5));
     const figDist = ([x, z]) => Math.min(...figCells.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
-    const order = r.map((c, i) => [c, i]).filter(([c, i]) => i > 0 && i < r.length - 1 && figDist(c) > 1).sort((a, b) => (figDist(a[0]) > (o.figGap ?? 2) ? 0 : 50) + Math.abs(a[1] - want) - (figDist(b[0]) > (o.figGap ?? 2) ? 0 : 50) - Math.abs(b[1] - want));
+    const order = r.map((c, i) => [c, i]).filter(([c, i]) => i > 0 && i < r.length - 1 && figDist(c) >= 1 && cell(...c).s !== "ramp").sort((a, b) => (figDist(a[0]) > (o.figGap ?? 2) ? 0 : 50) + (figDist(a[0]) > 1 ? 0 : 50) + Math.abs(a[1] - want) - (figDist(b[0]) > (o.figGap ?? 2) ? 0 : 50) - (figDist(b[0]) > 1 ? 0 : 50) - Math.abs(b[1] - want));
     const miss0 = reach().missing.length;
-    for (const shape of [false, true]) for (const [at] of o.at ? [[o.at]] : order) if (flank(at[0], at[1], t, { ...o, route: r, pair: true, shape, miss0 })) { log.push(`gate ${t} flanking ${at}${shape ? " (flanks levelled)" : ""}`); return at; }
+    for (const [shape, fill] of [[false, false], [true, false], [true, o.fill !== false]]) for (const [at] of o.at ? [[o.at]] : order) if (flank(at[0], at[1], t, { ...o, route: r, pair: true, shape, fill, miss0 })) { log.push(`gate ${t} flanking ${at}${fill ? " (flanks built up)" : shape ? " (flanks levelled)" : ""}`); return at; }
     log.push(`gate ${t}: no cell on the route with two flat flanks`);
     return null;
   };
@@ -207,8 +210,8 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     const every = o.every ?? 3, skip = o.skip ?? 1, max = o.max ?? 6, avoid = o.avoid || [];
     let n = 0, last = -every;
     for (let i = skip; i < r.length - 1 && n < max; i++) {
-      if (i - last < every || avoid.some(([a, b]) => Math.abs(a - r[i][0]) + Math.abs(b - r[i][1]) <= 1)) continue;
-      const got = flank(r[i][0], r[i][1], t, { route: r, v: o.v });
+      if (i - last < every || figCells.some(([a, b]) => Math.max(Math.abs(a - r[i][0]), Math.abs(b - r[i][1])) <= 2) || avoid.some(([a, b]) => Math.abs(a - r[i][0]) + Math.abs(b - r[i][1]) <= 1)) continue;
+      const got = flank(r[i][0], r[i][1], t, { route: r, v: o.v, keep: o.keep });
       if (got) { n += got; last = i; }
     }
     log.push(`lights ${t} x${n}`);
