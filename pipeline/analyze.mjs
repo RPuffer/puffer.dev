@@ -4,18 +4,23 @@ import sharp from "sharp";
 import { CATALOG, PALETTE } from "../core/catalog.js";
 import { PALETTE as PAL3D } from "../3d/palette.js";
 import { askJSON, imagePart, spend } from "./vision.mjs";
+import { SHAPERS, SHAPER_NAMES } from "./a-transcribe/shapers.mjs";
 
 const argv = process.argv.slice(2);
 const flagIdx = new Set();
 const flag = (k, d) => { const i = argv.indexOf(k); if (i < 0) return d; flagIdx.add(i).add(i + 1); return argv[i + 1]; };
-const conceptName = flag("--concept", "scene");
+const deepMode = argv.includes("--deep");
+if (deepMode) flagIdx.add(argv.indexOf("--deep"));
+const lensName = flag("--lens", null);
+const analysisArg = flag("--analysis", null);
+const conceptName = lensName ? `lens-${lensName}` : flag("--concept", "scene");
 const variant = +flag("--variant", 0) || 0;
 const avoidList = String(flag("--avoid", "") || "").split(",").map((s) => s.trim()).filter(Boolean);
 const positional = argv.filter((a, i) => !flagIdx.has(i));
 const art = positional[0];
 const slug = art ? path.basename(art).replace(/\.[^.]+$/, "") : "";
-const out = positional[1] || (variant ? `pipeline/seed/concepts/${slug}-${variant}.json` : `pipeline/seed/concepts/${conceptName}.json`);
-if (!art) { console.error("usage: node pipeline/analyze.mjs <art.png> [brief.json] [--concept scene|literal|pack-first|biome|motif-remap|composition-only] [--variant 1|2|3] [--avoid a.json,b.json]"); process.exit(2); }
+const out = positional[1] || (deepMode ? `pipeline/seed/analysis/${slug}.json` : lensName ? `pipeline/seed/concepts/${slug}-${lensName}.json` : variant ? `pipeline/seed/concepts/${slug}-${variant}.json` : `pipeline/seed/concepts/${conceptName}.json`);
+if (!art) { console.error("usage: node pipeline/analyze.mjs <art.png> [brief.json] [--concept scene|literal|pack-first|biome|motif-remap|composition-only] [--variant 1|2|3] [--avoid a.json,b.json]\n       node pipeline/analyze.mjs --deep <art.png> [analysis.json]\n       node pipeline/analyze.mjs --lens medium|subject|composition --analysis <analysis.json> <art.png> [brief.json] [--avoid a.json,b.json]"); process.exit(2); }
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const REF = path.join(root, "ref/reference.png");
 const SHEET = path.join(root, "ref/tilesheet.png");
@@ -63,6 +68,106 @@ const CONCEPTS = {
 - motifs: 5 to 7, every one a catalog type in the reference island's mix (tree-pine, tree-round, bush, bush-cluster, flower, rock, mushroom, fence, barrel, coin), none "new", named plainly after the piece; cells follow the masses (trees on the raised masses, flowers and bushes on open ground). The fire-bird is the only creature, in flame colours, standing at the focal cell.
 - biome: trees.density 0.2 to 0.3, types tree-pine and tree-round; decor_weights over the reference mix; decor_density 0.15 to 0.2; plateau_share 0.3 to 0.4; water_share 0 to 0.06; surfaces {"ground":"sand","raised":"grass","path":"dirt","shore":"sand","mist":null}.`,
 };
+const STOCK = `FORBIDDEN, because round 3 collapsed every artwork into them: a sunny garden or grass terrace home climbing to a perch; a shrine or temple court behind a still pool crossed on a causeway; a flat arena or caldera ringed by tall cliffs. Also forbidden as lighting: stock times of day (midday sun, golden hour, dusk, sunset, twilight, night, moonlight, dawn). Light is argued from the piece's own value structure and medium (paper white showing through ink, the black ground of an airbrush, the flat unshaded blaze of fauvist colour, graphite's grey haze), and named as that, not as a clock time.`;
+const LENSES = {
+  medium: `LENS "medium": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper "ribbon", or "spiral" for a curl); airbrush gradients become soft radial terraces fading outward (shaper "radial"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper "patchwork"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper "mound" or "basin"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper "shards"); vector doodles become dense small ornament on a tidy mirrored plan (shaper "symmetric"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature.`,
+  subject: `LENS "subject": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example "twin-mass" for a nest facing its hunting ground, "basin" for a den hollow, "mound" for a burrow hill, "shards" for a broken ruin, "spiral" for a tower climb) and argue it in "why". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses.`,
+  composition: `LENS "composition": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides "symmetric" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass.`,
+};
+const LENS_KEYS = () => `
+
+"lens": {"aspect": which parts of ANALYSIS this reading uses, "place": one sentence naming the place (never a garden terrace, water shrine or arena), "summary": one sentence, "differs": one sentence on how this place differs from the other readings listed below}.
+"shaper": {"name": one of ${SHAPER_NAMES.join("|")}, "params": the shaper's params object, "why": one sentence tying the shape to ANALYSIS}. Shapers and params: ${SHAPER_NAMES.map((n) => `${n} (${SHAPERS[n].params}; reads as ${SHAPERS[n].reads})`).join("; ")}. The shaper replaces your composition.grid's outline and heights: keep grid and heights honest, but the builder takes the land shape from the shaper and moves motif cells to the nearest land.
+"surface_mix": {"pattern": one of rings|bands|patches|scatter|height|shaper|uniform, "period": 1.5 to 4 cells for rings and bands, "surfaces": 2 to 4 items {"s": grass|sand|dirt|stone, "share": 0 to 1}, "why": one sentence}. Stone reads as cobble pads and is capped at 0.2 share; never use stone as the main surface.
+"cliff_treatment": {"style": one of banded|sheer|stepped|mossy|soft, "upper": [left, right, seam] hexes for cliffs above the floor, "lower": [left, right, seam] hexes for the floor's cliffs, "why": one sentence}. banded: upper and lower clearly different hues; sheer: dark cliffs and bare tops; stepped: every rise one block; mossy: green-tinged cliffs under grass; soft: pale low-contrast cliffs. Cliff hexes keep the pack's saturation (HSL s 0.3 or more, l 0.25 to 0.7).
+"lighting": {"time": a short phrase naming the light as the piece makes it, never a stock time of day, "ambient": 0.55 to 1, "sun": 0 to 0.5, "tint": hex, "bg": hex, "why": one sentence citing ANALYSIS.palette.value_structure}.
+"figure_pose": {"pose": one sentence a modeller can build, "action": 1 to 3 words, "facing": left|right|camera|away, "why": one sentence citing ANALYSIS.subject or ANALYSIS.composition}.
+"approach": {"from": where on the rim the visitor starts, "passes": 3 to 5 things passed in order, each named after a motif or a terrain feature, "shape": one sentence}.
+"threshold": {"kind": one sentence naming what marks the crossing into the figure's space (argued from this reading, not a default gate), "prop": the motif name that is the threshold}.
+Every motif also carries "role": one of threshold|dais|light|offering|mass|detail|approach. At least 3 motifs are "new" and at least 2 of those are shapes no other reading of this artwork uses.`;
+const LENS_PROMPT = () => `${LENSES[lensName]}
+
+${STOCK}
+
+ANALYSIS of IMAGE 1 (a separate close reading; ground every choice in it and quote its specifics):
+${JSON.stringify(analysis, null, 1)}
+${lensAvoid.length ? `
+OTHER READINGS OF THIS ARTWORK ALREADY MADE. Yours must be a different place: a different shaper name, a different surface_mix pattern, a different cliff style, a different light, a different threshold, different new props:
+${lensAvoid.map((b) => `- ${b.concept?.lens}: ${b.lens?.place} Shaper ${b.shaper?.name} ${JSON.stringify(b.shaper?.params)}; surfaces ${b.surface_mix?.pattern}; cliff ${b.cliff_treatment?.style}; light "${b.lighting?.time}"; threshold ${b.threshold?.kind}; props ${(b.motifs || []).filter((m) => m.type === "new").map((m) => m.name).join(", ")}.`).join("\n")}` : ""}
+
+The rest of the brief (palette.translation, motifs, creatures, composition, biome) serves this reading. Keep the pack: saturated three-tone palette, chunky stacked-block props, the figure as a still toy figure 1.5 to 3 tiles tall. biome.surfaces is the fallback before surface_mix applies. biome.lighting may repeat "lighting".`;
+const STOCK_TIME = /\b(mid-?day|noon|golden hour|dusk|sunset|twilight|night|moonli(t|ght)|dawn|sunrise)\b/i;
+const STOCK_PLACE = /\b(terrace|shrine|arena|caldera|causeway|temple)\b/i;
+function validateLens(b) {
+  const e = [];
+  const sh = b.shaper || {};
+  if (!SHAPER_NAMES.includes(sh.name)) e.push(`shaper.name must be one of ${SHAPER_NAMES.join("|")}`);
+  if (!sh.params || typeof sh.params !== "object") e.push("shaper.params must be an object");
+  if (lensAvoid.some((o) => o.shaper?.name === sh.name)) e.push(`shaper.name ${sh.name} is already used by another reading of this artwork; pick a different shaper`);
+  const sm = b.surface_mix || {};
+  if (!["rings", "bands", "patches", "scatter", "height", "shaper", "uniform"].includes(sm.pattern)) e.push("surface_mix.pattern bad");
+  if (!Array.isArray(sm.surfaces) || !sm.surfaces.length || !sm.surfaces.every((x) => ["grass", "sand", "dirt", "stone"].includes(x?.s) && typeof x.share === "number")) e.push("surface_mix.surfaces needs [{s, share}]");
+  else { const t = sm.surfaces.reduce((a, x) => a + x.share, 0), st = sm.surfaces.filter((x) => x.s === "stone").reduce((a, x) => a + x.share, 0); if (t > 0 && st / t > 0.25) e.push("surface_mix stone share over 0.2"); }
+  const ct = b.cliff_treatment || {};
+  if (!["banded", "sheer", "stepped", "mossy", "soft"].includes(ct.style)) e.push("cliff_treatment.style bad");
+  for (const k of ["upper", "lower"]) if (!Array.isArray(ct[k]) || ct[k].length !== 3 || !ct[k].every((h) => HEX.test(h))) e.push(`cliff_treatment.${k} needs 3 hexes`);
+  const li = b.lighting || {};
+  if (typeof li.time !== "string" || !li.time) e.push("lighting.time missing");
+  else if (STOCK_TIME.test(li.time)) e.push(`lighting.time "${li.time}" is a stock time of day; name the light the piece makes instead`);
+  for (const k of ["ambient", "sun"]) if (typeof li[k] !== "number") e.push(`lighting.${k} not number`);
+  for (const k of ["tint", "bg"]) if (!HEX.test(li[k] || "")) e.push(`lighting.${k} not hex`);
+  if (!b.figure_pose?.pose || !b.figure_pose?.action) e.push("figure_pose.pose/action missing");
+  if (!Array.isArray(b.approach?.passes) || b.approach.passes.length < 3) e.push("approach.passes needs 3+ items");
+  if (!b.threshold?.kind || !b.threshold?.prop) e.push("threshold.kind/prop missing");
+  else if (!(b.motifs || []).some((m) => m.name === b.threshold.prop)) e.push(`threshold.prop ${b.threshold.prop} is not a motif name`);
+  if (!b.lens?.place || !b.lens?.summary) e.push("lens.place/summary missing");
+  else if (STOCK_PLACE.test(b.lens.place)) e.push(`lens.place "${b.lens.place}" names a stock place (terrace, shrine, arena, caldera, causeway, temple); invent the place this lens implies`);
+  const newM = (b.motifs || []).filter((m) => m.type === "new");
+  if (newM.length < 3) e.push("at least 3 motifs must be new");
+  const used = new Set(lensAvoid.flatMap((o) => (o.motifs || []).map((m) => m.name)));
+  if (newM.filter((m) => !used.has(m.name)).length < 2) e.push("at least 2 new motifs must not appear in other readings");
+  for (const [i, m] of (b.motifs || []).entries()) if (!["threshold", "dais", "light", "offering", "mass", "detail", "approach"].includes(m.role)) e.push(`motifs[${i}].role bad`);
+  return e;
+}
+
+const DEEP_GENERIC = /\b(evocative|captures the essence|showcases|a sense of|striking|masterful|beautifully|stunning|dynamic composition)\b/i;
+async function runDeep() {
+  const prompt = `You are a painter and printmaker giving a close reading of one artwork (IMAGE 1) for a game designer who will never see it. Everything you write must be true of THIS piece and false of a generic picture of the same subject: name positions in the frame (upper-left third, lower edge, centre-right), counts (three strokes, twelve lashes), directions (sweeps up and right), widths, textures, and what the tool physically did (the pen lifted, the brush dragged dry, the airbrush sprayed a soft halo). No praise words (evocative, striking, captures, showcases, dynamic, beautifully).
+
+MEASURED PALETTE (k-means over pixels, share of area): ${JSON.stringify(measured)}.
+
+Return ONE JSON object with exactly these keys:
+"medium": {"technique": the medium and tool as exactly as you can tell (ballpoint pen, acrylic with palette knife, airbrush on black board, graphite pencil, charcoal, marker, vector), "marks": 4 to 6 items, each one sentence describing a specific kind of mark, where it is and how it was made (e.g. "one unbroken pen line runs from the tail tip up through the back to the beak without lifting"), "surface": the ground or paper and how much of it shows, "edges": how forms end (hard contour, feathered, smudged, bleeding, crisp vector), "density": where the marks are dense and where sparse, "as_material": one sentence: if these marks were a physical substance, what would they be}.
+"palette": {"measured": the measured list above in order, each {"hex","share","role"} naming what that colour is in the piece, "value_structure": two sentences on key (high/low), contrast, and where the darkest and lightest values sit in the frame, "dominant": 2 to 3 hexes, "accents": 1 to 3 hexes with where they appear, "temperature": one sentence}.
+"subject": {"what": what it is, species or character, "doing": what it is doing at this instant, "pose": body position and gesture line, "facing": which way it faces in the frame, "expression": its expression or attitude, "stylisation": how the artist simplified or exaggerated it}.
+"story": {"nature": what kind of being this is as a living thing or character in its own world (never "an emblem", "a study" or "a portrait": read the subject, not the paper), "habitat": the concrete place it would live or be found, named as a place in that world (a barn eave colony, a sea-stack aerie, a cluttered cookhouse), "implies": what just happened or is about to, "world": two or three physical things that would surround it there}.
+"composition": {"mass": where the visual weight sits, with frame position, "mass_box": [ymin,xmin,ymax,xmax] normalized 0 to 1000, "flow_lines": 2 to 4 items each {"line": what forms it, "from": [x,y] 0..1, "to": [x,y] 0..1, "curve": straight|arc|S|spiral}, "negative_space": where the empty ground is and about what share of the frame, "symmetry": whether and how it is symmetric, "scale_cues": what tells the size of the subject, "focal": {"what", "at": [x,y] 0..1}, "frame": how the frame crops or crowds the subject}.
+"energy": {"register": 3 single words, "tempo": still|poised|flowing|surging|explosive, "why": one sentence}.
+"details": 3 to 4 items each {"what": a specific detail a viewer would remember, "where": frame position, "why": one sentence}.
+"unlike": one sentence on what makes this piece unlike any other picture of its subject.`;
+  const check = (d) => {
+    const e = [];
+    for (const k of ["medium", "palette", "subject", "story", "composition", "energy", "details", "unlike"]) if (!(k in d)) e.push(`missing ${k}`);
+    if (e.length) return e;
+    if (!Array.isArray(d.medium.marks) || d.medium.marks.length < 4) e.push("medium.marks needs 4+");
+    if (!Array.isArray(d.composition.flow_lines) || d.composition.flow_lines.length < 2 || !d.composition.flow_lines.every((f) => Array.isArray(f.from) && Array.isArray(f.to))) e.push("composition.flow_lines needs 2+ with from/to");
+    if (!Array.isArray(d.composition.mass_box) || d.composition.mass_box.length !== 4) e.push("composition.mass_box needs 4 numbers");
+    if (!Array.isArray(d.composition.focal?.at)) e.push("composition.focal.at needs [x,y]");
+    if (!Array.isArray(d.details) || d.details.length < 3) e.push("details needs 3+");
+    const text = JSON.stringify(d);
+    const g = text.match(DEEP_GENERIC);
+    if (g) e.push(`generic praise word "${g[0]}": replace it with a concrete observation`);
+    return e;
+  };
+  process.on("exit", () => console.error(`spend: ${spend.calls} calls, ${spend.inTok} in / ${spend.outTok} out tokens, ~$${spend.usd.toFixed(4)}`));
+  const { data, model } = await askJSON([await imagePart(art, 1600), { text: prompt }], check, { temperature: 0.3, retries: 3 });
+  data.palette.measured = measured.map((m, i) => ({ ...m, role: data.palette.measured?.[i]?.role || "" }));
+  const outDoc = { source: { art: path.relative(root, path.resolve(art)), width: meta.width, height: meta.height, model, date: new Date().toISOString().slice(0, 10) }, ...data };
+  fs.mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
+  fs.writeFileSync(out, JSON.stringify(outDoc, null, 2) + "\n");
+  console.log(`${out}: ${data.medium.technique} | ${data.subject.doing} | ${data.unlike}`);
+}
+
 const VARIANTS = {
   1: `READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand.`,
   2: `READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.`,
@@ -70,7 +175,9 @@ const VARIANTS = {
 };
 const avoid = avoidList.map((f) => { const b = JSON.parse(fs.readFileSync(f, "utf8")); const sc = b.scene || {}; return `- ${path.basename(f)}: ${sc.summary || ""} Place: ${sc.place || ""} Approach: ${sc.approach || ""} Creature: ${sc.creature_doing || ""} Palette: ${sc.palette_key || ""} Terrain: ${sc.terrain || ""} Motifs: ${(b.motifs || []).map((m) => m.name).join(", ")}.`; });
 if (variant && !VARIANTS[variant]) { console.error(`unknown variant ${variant}; one of ${Object.keys(VARIANTS).join(", ")}`); process.exit(2); }
-if (!CONCEPTS[conceptName]) { console.error(`unknown concept ${conceptName}; one of ${Object.keys(CONCEPTS).join(", ")}`); process.exit(2); }
+if (lensName && !LENSES[lensName]) { console.error(`unknown lens ${lensName}; one of ${Object.keys(LENSES).join(", ")}`); process.exit(2); }
+if (lensName && !analysisArg) { console.error("--lens needs --analysis <analysis.json> (make one with --deep)"); process.exit(2); }
+if (!lensName && !CONCEPTS[conceptName]) { console.error(`unknown concept ${conceptName}; one of ${Object.keys(CONCEPTS).join(", ")}`); process.exit(2); }
 
 const hex = (c) => "#" + c.map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
 
@@ -99,6 +206,10 @@ async function kmeans(file, k) {
 
 const measured = await kmeans(art, K);
 const meta = await sharp(art).metadata();
+if (deepMode) { await runDeep(); process.exit(0); }
+const analysis = lensName ? JSON.parse(fs.readFileSync(analysisArg, "utf8")) : null;
+const siblings = lensName ? Object.keys(LENSES).filter((l) => l !== lensName).map((l) => path.join(path.dirname(path.resolve(out)), `${slug}-${l}.json`)).filter((f) => fs.existsSync(f) && !avoidList.includes(f)) : [];
+const lensAvoid = [...avoidList, ...siblings].map((f) => { try { return JSON.parse(fs.readFileSync(f, "utf8")); } catch { return null; } }).filter((b) => b?.lens);
 
 const paletteShape = Object.fromEntries(Object.entries(PALETTE).filter(([k]) => k !== "bg").map(([k, v]) => [k, Array.isArray(v) ? `array of ${v.length} hexes` : `object with keys ${Object.keys(v).join(", ")}`]));
 const catalogList = Object.entries(CATALOG).map(([t, c]) => `${t} (footprint ${c.footprint.join("x")}, height ${c.height}, ${c.variants} variants${c.passable ? ", passable" : ""})`).join("; ");
@@ -149,10 +260,10 @@ TASK. Return ONE JSON object, no prose outside it, with exactly these keys:
 
 "biome": procgen rules another generator will follow without seeing IMAGE 1: {"trees": {"density": 0 to 1 share of land cells with a tree, "types": [{"type","variant","weight"}] using catalog types or your new motif names}, "water_share": 0 to 1 of the 16x12 grid, "plateau_share": 0 to 1 of land raised above base, "void_share": 0 to 1, "decor_weights": {type or motif name: weight}, "lighting": {"bg": hex, "ambient": 0 to 1, "sun": 0 to 1, "tint": hex, "notes": one sentence}, "rules": 3 to 6 short imperative placement rules, "decor_density": 0 to 1 share of land cells that carry scatter decor from decor_weights, "surfaces": {"ground": surface of plain G cells, "raised": surface of R cells, "path": surface of P cells, "shore": surface of land cells beside water or void, each one of grass|sand|dirt|stone, "mist": surface for pale mist ground or null to keep mist as props}}.${conceptName === "scene" ? `
 
-"scene": the scene object the CONCEPT STRATEGY below defines.` : ""}
+"scene": the scene object the CONCEPT STRATEGY below defines.` : ""}${lensName ? LENS_KEYS() : ""}
 
 CONCEPT STRATEGY "${conceptName}" (it overrides any rule above it contradicts, including which features the drawing must contain):
-${CONCEPTS[conceptName]}${variant ? `
+${lensName ? LENS_PROMPT() : CONCEPTS[conceptName]}${variant ? `
 
 VARIANT (it refines the strategy above and wins where they differ):
 ${VARIANTS[variant]}` : ""}${avoid.length ? `
@@ -256,6 +367,7 @@ function validate(b) {
   if (b.palette?.translation) for (const k of ["grass", "sand", "water", "wood", "treeMint", "treeLime", "treeLeaf", "treeTeal", "treeGold", "trunk", "bushTeal", "gold", "flowerOrange", "berry"]) clamped.push(...floorSaturation(b.palette.translation, k));
   if (b.palette?.translation) for (const [k, sk, min] of LIFT) clamped.push(...liftGroup(b.palette.translation, k, sk, min));
   const errs = [];
+  if (lensName) errs.push(...validateLens(b));
   if (conceptName === "scene") { const sc = b.scene || {}; for (const k of ["place", "approach", "creature_doing", "palette_key", "terrain", "summary"]) if (typeof sc[k] !== "string" || !sc[k]) errs.push(`scene.${k} missing`); }
   for (const k of ["mood", "palette", "motifs", "creatures", "composition", "biome"]) if (!(k in b)) errs.push(`missing ${k}`);
   if (errs.length) return errs;
@@ -334,14 +446,22 @@ if (clamped.length) {
   for (const k of ["motifs", "creatures", "biome"]) data[k] = deep(data[k]);
 }
 data.palette.measured = measured.map((m, i) => ({ ...m, role: data.palette.measured?.[i]?.role || "" }));
+if (lensName) {
+  data.biome.lighting = { ...data.biome.lighting, bg: data.lighting.bg, ambient: data.lighting.ambient, sun: data.lighting.sun, tint: data.lighting.tint, notes: `${data.lighting.time}: ${data.lighting.why}` };
+  const lead = (data.creatures || []).find((c) => c.cell?.[0] === data.composition.focal.x && c.cell?.[1] === data.composition.focal.z) || data.creatures?.[0];
+  if (lead) lead.pose = data.figure_pose.pose;
+  for (const m of data.motifs || []) if (m.name === data.threshold.prop) m.role = "threshold";
+}
 const brief = {
   source: { art: path.relative(root, path.resolve(art)), width: meta.width, height: meta.height, model, date: new Date().toISOString().slice(0, 10) },
   mood: data.mood, observations: data.observations, palette: data.palette, motifs: data.motifs, creatures: data.creatures, composition: { legend: CODES, ...data.composition }, biome: data.biome,
   scene: data.scene,
-  concept: { name: conceptName, fragment: CONCEPTS[conceptName], variant: variant || undefined, variantFragment: VARIANTS[variant], avoid: avoidList.length ? avoidList : undefined },
+  ...(lensName ? { lens: data.lens, shaper: data.shaper, surface_mix: data.surface_mix, cliff_treatment: data.cliff_treatment, lighting: data.lighting, figure_pose: data.figure_pose, approach: data.approach, threshold: data.threshold, analysis: path.relative(root, path.resolve(analysisArg)) } : {}),
+  concept: { name: conceptName, lens: lensName || undefined, fragment: lensName ? LENSES[lensName] : CONCEPTS[conceptName], variant: variant || undefined, variantFragment: VARIANTS[variant], avoid: avoidList.length ? avoidList : undefined },
 };
 fs.mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
 fs.writeFileSync(out, JSON.stringify(brief, null, 2) + "\n");
 if (brief.scene) console.log(`scene: ${brief.scene.summary}`);
+if (brief.lens) console.log(`lens ${lensName}: ${brief.lens.place} | shaper ${brief.shaper.name} ${JSON.stringify(brief.shaper.params)} | surfaces ${brief.surface_mix.pattern} ${brief.surface_mix.surfaces.map((e) => e.s + " " + e.share).join(", ")} | cliff ${brief.cliff_treatment.style} | light ${brief.lighting.time}`);
 console.log(`${out}: ${brief.motifs.length} motifs, ${brief.creatures.length} creatures, model ${model}`);
 console.log(brief.composition.grid.join("\n"));
