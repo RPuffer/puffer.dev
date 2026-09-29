@@ -1,0 +1,1252 @@
+{
+ "source": {
+  "art": "pipeline/seed/ember.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "infernal",
+  "draconic",
+  "chthonic",
+  "calcined",
+  "predatory",
+  "smoldering"
+ ],
+ "observations": [
+  {
+   "what": "Complete pitch black void framing the entire artwork with no visible horizon or environment",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  },
+  {
+   "what": "Pointed serrated dorsal crest rising in vertical triangular spires atop the upper head",
+   "box": [
+    195,
+    385,
+    360,
+    605
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Upper reptilian dragon head with glowing yellow slit eyes gazing directly forward",
+   "box": [
+    320,
+    395,
+    465,
+    595
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Open dragon maw pouring forth an intense jet of yellow-orange fire downward",
+   "box": [
+    405,
+    450,
+    480,
+    545
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Thick vertical column of churning flame joining upper jaw to the crown of the lower skull",
+   "box": [
+    440,
+    410,
+    605,
+    590
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Curling flame tongues flaring outward like fiery wings or a headdress around the lower head",
+   "box": [
+    470,
+    290,
+    680,
+    695
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Massive left ram horn sweeping sideways and curving downward and back inward",
+   "box": [
+    585,
+    275,
+    745,
+    400
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Massive right ram horn sweeping sideways and curling downward and inward symmetrically",
+   "box": [
+    585,
+    585,
+    745,
+    710
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Horned demonic skeletal face with deep black nasal cavity and glowing brow sockets",
+   "box": [
+    575,
+    405,
+    745,
+    580
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Incandescent molten yellow flame pool glowing brilliantly inside the demonic lower jaw",
+   "box": [
+    655,
+    450,
+    745,
+    535
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Narrow dark ash trail beneath the floating lower jaw tapering off into the void",
+   "box": [
+    735,
+    435,
+    770,
+    545
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Isolated fiery sparks and glowing embers drifting down into the black empty margins",
+   "box": [
+    715,
+    385,
+    755,
+    580
+   ],
+   "maps_to": "G"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#080808",
+    "share": 0.885,
+    "role": "unbroken black void surrounding the figures"
+   },
+   {
+    "hex": "#42210c",
+    "share": 0.028,
+    "role": "dragon dorsal crest and mid-tone scales"
+   },
+   {
+    "hex": "#261509",
+    "share": 0.025,
+    "role": "deep shadow recesses in the skull cheeks and horn roots"
+   },
+   {
+    "hex": "#a6601c",
+    "share": 0.022,
+    "role": "outer body of the flame envelope and horn mid-tones"
+   },
+   {
+    "hex": "#724012",
+    "share": 0.02,
+    "role": "dragon snout shading and ribbed horn highlights"
+   },
+   {
+    "hex": "#d78d37",
+    "share": 0.014,
+    "role": "bright fiery tongues and demon brow highlights"
+   },
+   {
+    "hex": "#040200",
+    "share": 0.005,
+    "role": "deep inner mouth shadows and pupil crevices"
+   },
+   {
+    "hex": "#040607",
+    "share": 0.002,
+    "role": "deepest horn shadow under-edges"
+   }
+  ],
+  "translation": {
+   "bg": "#120a06",
+   "grass": {
+    "top": "#809d39",
+    "fringe": "#688429",
+    "fringeDark": "#50671c",
+    "speck": "#9db950"
+   },
+   "sand": {
+    "top": "#d9822b",
+    "lip": "#b55e14",
+    "edge": "#c46c1a",
+    "dots": "#f0a248"
+   },
+   "dirt": {
+    "top": "#7b4328",
+    "patch": "#8c4e31",
+    "mottle": "#6e381e",
+    "border": "#9b5737"
+   },
+   "stone": {
+    "top": "#8a7565",
+    "pebble": "#9e8b7c",
+    "pebbleShade": "#735e4e",
+    "rim": "#5e4b3d"
+   },
+   "cliffUpper": {
+    "left": "#5e311d",
+    "right": "#472211",
+    "seam": "#36190c"
+   },
+   "cliffLower": {
+    "left": "#572c19",
+    "right": "#45210f",
+    "seam": "#39190a",
+    "speck": "#6c3920"
+   },
+   "water": {
+    "top": "#ff7a1a",
+    "bubble": "#ffb347",
+    "deep": "#c94700",
+    "fall": [
+     "#ff6a00",
+     "#e64d00",
+     "#bf3600"
+    ],
+    "foam": "#ffe082"
+   },
+   "wood": {
+    "light": "#e07324",
+    "mid": "#b85311",
+    "dark": "#8a3906",
+    "shadow": "#632702",
+    "end": "#f2a857"
+   },
+   "treeMint": [
+    "#5a9c50",
+    "#467d3d",
+    "#335e2b"
+   ],
+   "treeLime": [
+    "#8fa336",
+    "#738526",
+    "#57661a"
+   ],
+   "treeLeaf": [
+    "#779a32",
+    "#5f7f23",
+    "#496318"
+   ],
+   "treeTeal": [
+    "#7da644",
+    "#658a32",
+    "#4f6e23",
+    "#3b5417"
+   ],
+   "treeGold": [
+    "#e08c28",
+    "#be6c15",
+    "#964e08"
+   ],
+   "trunk": [
+    "#3b2014",
+    "#26130b"
+   ],
+   "rock": [
+    "#665345",
+    "#524134",
+    "#3d2f24",
+    "#2b1f17"
+   ],
+   "wellStone": [
+    "#5c4a3d",
+    "#47382d",
+    "#362a21"
+   ],
+   "flowerOrange": [
+    "#ff7300",
+    "#ffaa33"
+   ],
+   "berry": [
+    "#ff4422",
+    "#cc2a0e"
+   ],
+   "bushTeal": [
+    "#63923a",
+    "#4e792b",
+    "#3b601c"
+   ],
+   "gold": [
+    "#ffaa2b",
+    "#d98014",
+    "#ffc866"
+   ]
+  },
+  "notes": "Translated into a soot-scorched volcanic biome where glowing magma replaces water, calcined volcanic dirt is the primary footing, and sand represents radiant ash beds.",
+  "clamped": [
+   "grass.top #7d9938->#809d39",
+   "grass.fringe #658028->#688429",
+   "grass.fringeDark #4d631b->#50671c",
+   "grass.speck #9bb84c->#9db950",
+   "treeLeaf[0] #6e8f2e->#779a32",
+   "treeLeaf[1] #567320->#5f7f23",
+   "treeLeaf[2] #405715->#496318",
+   "bushTeal[0] #5c8736->#63923a",
+   "bushTeal[1] #476e27->#4e792b",
+   "bushTeal[2] #345419->#3b601c",
+   "cliffUpper.left #522b19->#5e311d",
+   "cliffUpper.right #3b1c0e->#472211",
+   "cliffUpper.seam #291309->#36190c",
+   "cliffLower.left #381c10->#572c19",
+   "cliffLower.right #241108->#45210f",
+   "cliffLower.seam #170a04->#39190a",
+   "cliffLower.speck #4d2917->#6c3920",
+   "dirt.top #4a2818->#7b4328",
+   "dirt.patch #5c3320->#8c4e31",
+   "dirt.mottle #3b1e10->#6e381e",
+   "dirt.border #6b3c26->#9b5737"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "curved_ram_horn",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     1,
+     4
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     1,
+     5
+    ],
+    [
+     9,
+     5
+    ]
+   ],
+   "where": "Placed on the flanking spurs to replicate the sweeping ribbed horns of the lower demonic entity.",
+   "role": "mass",
+   "shape": {
+    "summary": "Thick segmental curved horn tapering downward and curling inward.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.45,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8a7565",
+       "#735e4e",
+       "#5e4b3d"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.35,
+       0.45,
+       0.08
+      ],
+      "at": [
+       0.15,
+       0.45,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       20
+      ],
+      "tones": [
+       "#8a7565",
+       "#735e4e",
+       "#5e4b3d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.32,
+       0.18,
+       0.45,
+       8
+      ],
+      "at": [
+       0.28,
+       0.75,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       45
+      ],
+      "tones": [
+       "#724012",
+       "#8c4e31",
+       "#6e381e"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.06,
+       0.35,
+       6
+      ],
+      "at": [
+       0.38,
+       1.05,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       75
+      ],
+      "tones": [
+       "#8c4e31",
+       "#7b4328",
+       "#36190c"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "feathered_flame_flick",
+   "type": "new",
+   "variant_of": "torch",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.6,
+   "passable": false,
+   "count": 6,
+   "cells": [
+    [
+     3,
+     2
+    ],
+    [
+     7,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     6,
+     1
+    ]
+   ],
+   "where": "Frames the central ascent mirroring the licking fiery fringes framing the beast.",
+   "role": "threshold",
+   "shape": {
+    "summary": "Spiky clustered pillar of flame tongues carved as low poly cones and boxes.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.3,
+       0.45,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8a3906",
+       "#632702",
+       "#6e381e"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.35,
+       0.18,
+       0.65,
+       6
+      ],
+      "at": [
+       0,
+       0.25,
+       0
+      ],
+      "tones": [
+       "#ff7a1a",
+       "#d98014",
+       "#8a3906"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.08,
+       0.55,
+       6
+      ],
+      "at": [
+       0.05,
+       0.8,
+       0
+      ],
+      "tones": [
+       "#ffaa2b",
+       "#ff7a1a",
+       "#c94700"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0.02,
+       0.4,
+       5
+      ],
+      "at": [
+       0.08,
+       1.25,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffb347",
+       "#e64d00"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "dorsal_crest_fin",
+   "type": "new",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.8,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     4,
+     1
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     7,
+     1
+    ]
+   ],
+   "where": "Stands tall at the northern summit echoing the jagged serrated spinal crest of the dragon.",
+   "role": "approach",
+   "shape": {
+    "summary": "Pointed serrated obsidian pillar stepping sharply upward in jagged plates.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.4,
+       0.5,
+       0.6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#5e311d",
+       "#472211",
+       "#36190c"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.7
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "outline": [
+       [
+        -0.2,
+        -0.3
+       ],
+       [
+        0.2,
+        -0.3
+       ],
+       [
+        0,
+        0.3
+       ]
+      ],
+      "tones": [
+       "#42210c",
+       "#572c19",
+       "#45210f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.04,
+       0.7,
+       5
+      ],
+      "at": [
+       0,
+       1.15,
+       0
+      ],
+      "tones": [
+       "#9b5737",
+       "#7b4328",
+       "#36190c"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "calcined_bone_pile",
+   "type": "new",
+   "variant_of": "rock",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.5,
+   "passable": true,
+   "count": 3,
+   "cells": [
+    [
+     3,
+     6
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     2,
+     7
+    ]
+   ],
+   "where": "Scattered across the lower approach mimicking the skeletal sacrificial remains.",
+   "role": "offering",
+   "shape": {
+    "summary": "Cluster of burnt off-white skull fragments and charred horn shards.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.25,
+       0.3,
+       0.06
+      ],
+      "at": [
+       -0.1,
+       0,
+       0
+      ],
+      "tones": [
+       "#9e8b7c",
+       "#8a7565",
+       "#5e4b3d"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.2,
+       0.8
+      ],
+      "at": [
+       0.15,
+       0.15,
+       -0.05
+      ],
+      "tones": [
+       "#8a7565",
+       "#735e4e",
+       "#47382d"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       -0.2,
+       0.05,
+       0.1
+      ],
+      "to": [
+       0.25,
+       0.2,
+       0.15
+      ],
+      "tones": [
+       "#5e4b3d",
+       "#47382d",
+       "#362a21"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "glowing_ember_vent",
+   "type": "new",
+   "variant_of": "campfire",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.3,
+   "passable": true,
+   "count": 2,
+   "cells": [
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ],
+   "where": "Located directly on the central throat channel emitting intense thermal light.",
+   "role": "light",
+   "shape": {
+    "summary": "Fissured volcanic slab brimming with incandescent yellow molten core.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.85,
+       0.15,
+       0.85
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#572c19",
+       "#45210f",
+       "#39190a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.18,
+       0.55,
+       0.05
+      ],
+      "at": [
+       0,
+       0.08,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffaa2b",
+       "#d98014"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.25,
+       0.5
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#ffe082",
+       "#ff7a1a"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "dragon_skull_totem",
+   "source": "The conjoined draconic head breathing fire into the demon skull at canvas center [195, 278, 755, 712]",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.7,
+   "pose": "The elder dragon head leans forward over the burning demon skull, exhaling a continuous molten flame pillar into its jaw.",
+   "cell": [
+    4,
+    2
+   ],
+   "facing": "s",
+   "why": "Represents the primary conjoined entity feeding ignition into the subordinate flaming skull.",
+   "shape": {
+    "summary": "Chunky dual monster totem composed of an upper dragon head, a central flame conduit, and a lower horned skull.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       1.1,
+       0.7,
+       0.9,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8c4e31",
+       "#7b4328",
+       "#36190c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.95,
+       0.7,
+       0.8,
+       0.1
+      ],
+      "at": [
+       0,
+       0.5,
+       0.1
+      ],
+      "tones": [
+       "#8a7565",
+       "#735e4e",
+       "#5e4b3d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.45,
+       0.15,
+       0.8,
+       6
+      ],
+      "at": [
+       0,
+       1.1,
+       0.05
+      ],
+      "tones": [
+       "#ff7a1a",
+       "#d98014",
+       "#8a3906"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.65,
+       1,
+       0.1
+      ],
+      "at": [
+       0,
+       1.8,
+       -0.1
+      ],
+      "tones": [
+       "#42210c",
+       "#572c19",
+       "#45210f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.05,
+       0.6,
+       5
+      ],
+      "at": [
+       -0.3,
+       2.3,
+       -0.2
+      ],
+      "rot": [
+       15,
+       0,
+       -20
+      ],
+      "tones": [
+       "#5e311d",
+       "#472211",
+       "#36190c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.05,
+       0.6,
+       5
+      ],
+      "at": [
+       0.3,
+       2.3,
+       -0.2
+      ],
+      "rot": [
+       15,
+       0,
+       20
+      ],
+      "tones": [
+       "#5e311d",
+       "#472211",
+       "#36190c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.8
+      ],
+      "at": [
+       -0.22,
+       1.9,
+       0.42
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffaa2b",
+       "#d98014"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.8
+      ],
+      "at": [
+       0.22,
+       1.9,
+       0.42
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffaa2b",
+       "#d98014"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.28,
+       0.65,
+       8
+      ],
+      "at": [
+       0,
+       0.7,
+       0.45
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffaa2b",
+       "#ff7a1a"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVRRRRRGVRGVVVV",
+   "VVVRFFRRRRRRGVVV",
+   "VRRRFFRRRGRRRGVV",
+   "VRRRPRRRGGGGRGVV",
+   "VRRRPRRRGGGGRGVV",
+   "VRRGPGGGGGGGRGVV",
+   "VGRRPPGGGGGGRGVV",
+   "VVGRRPGGGGGGRGVV",
+   "VVVGGPGGGGGGGVVV",
+   "VVVVVPPPPPGVVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0003333210210000",
+   "0003333323321000",
+   "0333333221322100",
+   "0333333211112100",
+   "0332222211112100",
+   "0221111111112100",
+   "0122111111112100",
+   "0012211111112100",
+   "0001111111111000",
+   "0000011111100000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 4,
+   "z": 2,
+   "what": "The dual dragon-demon fiery totem where the dragon's breath ignites the skull."
+  },
+  "mass": "Visual weight is anchored on the elevated central column with symmetrical horn terraces jutting laterally.",
+  "read": "The viewer enters from the narrow southern ash spit, climbs the central radiant magma pathway, and confronts the fiery dragon totem flanked by downward curling horn ramparts.",
+  "shaped": {
+   "name": "basin",
+   "params": {
+    "floor": 1,
+    "wall": 3,
+    "open": "s",
+    "pool": false,
+    "focal": "wall"
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVVVTTVVVVVVV",
+    "VVVVVVRRRRVVVVVV",
+    "VVVVVRTFFTRVVVVV",
+    "VVVVRTFFFFTRVVVV",
+    "VVVVRRPPPPRRVVVV",
+    "VVVTTRRPPRRTTVVV",
+    "VVVTTRRPPRRTTVVV",
+    "VVVVRRPPPPRRVVVV",
+    "VVVVVTPPPTVVVVVV",
+    "VVVVVVPPTVVVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.08,
+   "types": [
+    {
+     "type": "feathered_flame_flick",
+     "variant": "0",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.48,
+  "decor_weights": {
+   "calcined_bone_pile": 0.5,
+   "glowing_ember_vent": 0.25,
+   "curved_ram_horn": 0.25
+  },
+  "lighting": {
+   "bg": "#381f13",
+   "ambient": 0.6,
+   "sun": 0.3,
+   "tint": "#ff8526",
+   "notes": "abyssal combustion flared in an airless void: Grounds the lighting directly in the painting's extreme contrast of an incandescent fire jet against pitch void."
+  },
+  "rules": [
+   "Keep the perimeter immersed in empty void.",
+   "The central ascent must align with the fiery path.",
+   "Flanking horn motifs must maintain bilateral symmetry.",
+   "Raise the dragon totem on the highest northern tier."
+  ],
+  "decor_density": 0.16,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "dirt",
+   "path": "sand",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "subject's predatory predatory symbiosis, volcanic habitat, and vertical ignition flow",
+  "place": "A soot-choked magma crevasse where an elder drake fuels the skeletal effigy of its subterranean ancestor.",
+  "summary": "A volcanic basalt chimney rising above an abyss with a central flow of liquid flame flanked by curling horn buttresses.",
+  "differs": "Focuses on the predatory nest ecology and fiery nourishment of the dual entity rather than an obsidian dais ritual altar.",
+  "fixes": [
+   "surface_mix led with sand after a sibling took dirt",
+   "lighting.bg #120a06->#381f13"
+  ]
+ },
+ "shaper": {
+  "name": "basin",
+  "params": {
+   "floor": 1,
+   "wall": 3,
+   "open": "s",
+   "pool": false,
+   "focal": "wall"
+  },
+  "why": "The tiered basin cradles the downward pouring flame jet against the high rear wall while opening outward toward the viewer."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "dirt",
+    "share": 0.35
+   },
+   {
+    "s": "sand",
+    "share": 0.55
+   },
+   {
+    "s": "stone",
+    "share": 0.1
+   }
+  ],
+  "why": "Calcined volcanic dirt forms the outer crust, banded with glowing orange ash beds along the central flame channel."
+ },
+ "cliff_treatment": {
+  "style": "banded",
+  "upper": [
+   "#522b19",
+   "#3b1c0e",
+   "#291309"
+  ],
+  "lower": [
+   "#381c10",
+   "#241108",
+   "#170a04"
+  ],
+  "why": "Volcanic strata expose charred cinder upper shelves above pitch-black basalt footings."
+ },
+ "lighting": {
+  "time": "abyssal combustion flared in an airless void",
+  "ambient": 0.6,
+  "sun": 0.3,
+  "tint": "#ff8526",
+  "bg": "#381f13",
+  "why": "Grounds the lighting directly in the painting's extreme contrast of an incandescent fire jet against pitch void."
+ },
+ "figure_pose": {
+  "pose": "The elder dragon head leans forward over the burning demon skull, exhaling a continuous molten flame pillar into its jaw.",
+  "action": "igniting ancestor",
+  "facing": "camera",
+  "why": "Faithfully preserves the vertically stacked feeding ignition described in ANALYSIS.subject.doing."
+ },
+ "approach": {
+  "from": "south",
+  "passes": [
+   "narrow calcined bone trail",
+   "twin glowing ember vents",
+   "curling ram horn ramparts",
+   "flame flick colonnade"
+  ],
+  "shape": "A direct linear climb up a stepped volcanic fissure rising into the blazing maw."
+ },
+ "threshold": {
+  "kind": "A dual colonnade of flaring flame tongues marking the thermal threshold where the fiery breath strikes the ground.",
+  "prop": "feathered_flame_flick"
+ },
+ "analysis": "pipeline/seed/analysis/ember.json",
+ "concept": {
+  "name": "lens-subject",
+  "lens": "subject",
+  "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+ }
+}

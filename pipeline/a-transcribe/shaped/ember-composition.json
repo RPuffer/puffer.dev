@@ -1,0 +1,1049 @@
+{
+ "source": {
+  "art": "pipeline/seed/ember.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "incandescent",
+  "predatory",
+  "vertical",
+  "monolithic",
+  "scorched",
+  "solemn"
+ ],
+ "observations": [
+  {
+   "what": "A deep obsidian black background surrounding the central figures on all sides",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  },
+  {
+   "what": "A triangular crown of serrated reddish-brown crest scales pointing upward at the top of the dragon head",
+   "box": [
+    195,
+    395,
+    345,
+    595
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "A reptilian dragon head with narrow yellow slit eyes facing directly forward",
+   "box": [
+    320,
+    395,
+    470,
+    595
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "A vertical jet of bright orange and golden flame pouring directly down from the dragon mouth",
+   "box": [
+    405,
+    440,
+    580,
+    555
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "A billowing crown of flame tendrils spreading across the skull top and crest",
+   "box": [
+    470,
+    290,
+    680,
+    695
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "A large ridged ram horn sweeping outward and curling downward on the left flank",
+   "box": [
+    585,
+    275,
+    745,
+    410
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "A large ridged ram horn sweeping outward and curling downward on the right flank",
+   "box": [
+    585,
+    585,
+    745,
+    715
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "A skeletal demon skull with hollow eye sockets and sharp teeth centered below the fire",
+   "box": [
+    595,
+    415,
+    740,
+    585
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "An incandescent golden droplet-shaped flame tongue burning inside the open demon jaw",
+   "box": [
+    655,
+    465,
+    740,
+    530
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Small wisps and sparks of ember drifting into the lower darkness",
+   "box": [
+    725,
+    440,
+    755,
+    555
+   ],
+   "maps_to": "G"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#080808",
+    "share": 0.885,
+    "role": "unbroken black void surrounding the figures"
+   },
+   {
+    "hex": "#42210c",
+    "share": 0.028,
+    "role": "dragon dorsal crest and mid-tone scales"
+   },
+   {
+    "hex": "#261509",
+    "share": 0.025,
+    "role": "deep shadow recesses in the skull cheeks and horn roots"
+   },
+   {
+    "hex": "#a6601c",
+    "share": 0.022,
+    "role": "outer body of the flame envelope and horn mid-tones"
+   },
+   {
+    "hex": "#724012",
+    "share": 0.02,
+    "role": "dragon snout shading and ribbed horn highlights"
+   },
+   {
+    "hex": "#d78d37",
+    "share": 0.014,
+    "role": "bright fiery tongues and demon brow highlights"
+   },
+   {
+    "hex": "#040200",
+    "share": 0.005,
+    "role": "deep inner mouth shadows and pupil crevices"
+   },
+   {
+    "hex": "#040607",
+    "share": 0.002,
+    "role": "deepest horn shadow under-edges"
+   }
+  ],
+  "translation": {
+   "grass": {
+    "top": "#709442",
+    "fringe": "#5b7935",
+    "fringeDark": "#48602a",
+    "speck": "#88b153"
+   },
+   "sand": {
+    "top": "#d78d37",
+    "lip": "#a6601c",
+    "edge": "#8f4e13",
+    "dots": "#f0aa52"
+   },
+   "dirt": {
+    "top": "#804724",
+    "patch": "#6b3a1c",
+    "mottle": "#5d2e13",
+    "border": "#4a210b"
+   },
+   "stone": {
+    "top": "#7e6759",
+    "pebble": "#947b6b",
+    "pebbleShade": "#695649",
+    "rim": "#5c4b41"
+   },
+   "cliffUpper": {
+    "left": "#623118",
+    "right": "#45200f",
+    "seam": "#2f1509"
+   },
+   "cliffLower": {
+    "left": "#5b2d16",
+    "right": "#44210e",
+    "seam": "#331608",
+    "speck": "#2c1105"
+   },
+   "water": {
+    "top": "#00daff",
+    "bubble": "#a0eeff",
+    "deep": "#008db0",
+    "fall": [
+     "#00ceff",
+     "#00a6cc",
+     "#007d99"
+    ],
+    "foam": "#daf7ff"
+   },
+   "wood": {
+    "light": "#ff831d",
+    "mid": "#dc7016",
+    "dark": "#bd4c0b",
+    "shadow": "#873204",
+    "end": "#f6d881"
+   },
+   "treeMint": [
+    "#68e09e",
+    "#5ac389",
+    "#44a46b"
+   ],
+   "treeLime": [
+    "#c4ef86",
+    "#8ce263",
+    "#73aa4f"
+   ],
+   "treeLeaf": [
+    "#8ce263",
+    "#64c960",
+    "#50ab46"
+   ],
+   "treeTeal": [
+    "#00ffbf",
+    "#00e09b",
+    "#00c386",
+    "#00a568"
+   ],
+   "treeGold": [
+    "#f1cd52",
+    "#d78d37",
+    "#a6601c"
+   ],
+   "trunk": [
+    "#5c2e17",
+    "#3c1c0d"
+   ],
+   "rock": [
+    "#4a4038",
+    "#3a322c",
+    "#27211d",
+    "#1a1613"
+   ],
+   "wellStone": [
+    "#6b5b50",
+    "#4f433b",
+    "#332b26"
+   ],
+   "flowerOrange": [
+    "#ff831d",
+    "#d78d37"
+   ],
+   "berry": [
+    "#fe738f",
+    "#d9435f"
+   ],
+   "bushTeal": [
+    "#8fffc2",
+    "#5ac389",
+    "#44a46b"
+   ],
+   "gold": [
+    "#ffd452",
+    "#d78d37",
+    "#a6601c"
+   ],
+   "bg": "#0c0806"
+  },
+  "notes": "Translated through the composition lens: the dark void becomes a very deep umber-black background (#0c0806), while the incandescent vertical flow line is transcribed into blazing golden sand and ember stone, framed by basalt-tinted cliffs.",
+  "clamped": [
+   "grass.top #5f7e38->#709442",
+   "grass.fringe #4a632b->#5b7935",
+   "grass.fringeDark #374a20->#48602a",
+   "grass.speck #779c47->#88b153",
+   "cliffUpper.left #5a2d16->#623118",
+   "cliffUpper.right #3c1c0d->#45200f",
+   "cliffUpper.seam #261107->#2f1509",
+   "cliffLower.left #432110->#5b2d16",
+   "cliffLower.right #2c1509->#44210e",
+   "cliffLower.seam #1a0b04->#331608",
+   "cliffLower.speck #120702->#2c1105",
+   "dirt.top #61361b->#804724",
+   "dirt.patch #4c2914->#6b3a1c",
+   "dirt.mottle #3c1e0c->#5d2e13",
+   "dirt.border #281206->#4a210b",
+   "stone.top #3d322b->#7e6759",
+   "stone.pebble #54463d->#947b6b",
+   "stone.pebbleShade #28211c->#695649",
+   "stone.rim #1b1613->#5c4b41"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "dorsal_crest_fin",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     9,
+     1
+    ],
+    [
+     10,
+     1
+    ]
+   ],
+   "where": "Placed at the high northern rim corresponding to the dragon's dorsal crest spikes at the top of the canvas.",
+   "role": "mass",
+   "shape": {
+    "summary": "A stepped triangular spire of ridged scales pointing sharply upward.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.4,
+       0.6,
+       0.3
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#5c2e17",
+       "#42210c",
+       "#261509"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.25,
+       0.08,
+       0.8,
+       6
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#724012",
+       "#5c2e17",
+       "#45200f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.15,
+       0.02,
+       0.8,
+       4
+      ],
+      "at": [
+       0,
+       1.4,
+       0
+      ],
+      "tones": [
+       "#a6601c",
+       "#724012",
+       "#42210c"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "curved_ram_horn",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.8,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     7,
+     2
+    ]
+   ],
+   "where": "Flanking the lower demon skull mass at columns 5 and 10, copying the dramatic downward curling horns.",
+   "role": "threshold",
+   "shape": {
+    "summary": "A heavy curving segmented horn anchored into the rock.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.3,
+       0.5,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#724012",
+       "#42210c",
+       "#261509"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.45,
+       0.35,
+       0.08
+      ],
+      "at": [
+       0.1,
+       0.5,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       20
+      ],
+      "tones": [
+       "#a6601c",
+       "#5c2e17",
+       "#45200f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.05,
+       0.8,
+       6
+      ],
+      "at": [
+       0.2,
+       0.9,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       45
+      ],
+      "tones": [
+       "#724012",
+       "#42210c",
+       "#331608"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "flame_jet_pillar",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.6,
+   "passable": true,
+   "count": 4,
+   "cells": [
+    [
+     8,
+     1
+    ],
+    [
+     11,
+     1
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     12,
+     1
+    ]
+   ],
+   "where": "Positioned along the central vertical axis connecting the dragon's snout to the skull below.",
+   "role": "approach",
+   "shape": {
+    "summary": "Stacked cones of incandescent amber and yellow fire forming a vertical stream.",
+    "parts": [
+     {
+      "prim": "cone",
+      "dims": [
+       0.35,
+       0.2,
+       0.6,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffd452",
+       "#d78d37",
+       "#a6601c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.1,
+       0.55,
+       6
+      ],
+      "at": [
+       0,
+       0.55,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffd452",
+       "#d78d37"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.5,
+       5
+      ],
+      "at": [
+       0,
+       1.05,
+       0
+      ],
+      "tones": [
+       "#fff0c3",
+       "#ffe082",
+       "#ffd452"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "calcined_rib_arch",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     8,
+     3
+    ]
+   ],
+   "where": "Enclosing the demon skull's lower jaw zone, matching the tooth and jaw line contours.",
+   "role": "detail",
+   "shape": {
+    "summary": "Curved calcined bone segments projecting upward like predatory fangs.",
+    "parts": [
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.08,
+       0.7,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d78d37",
+       "#a6601c",
+       "#5c2e17"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.09,
+       0.02,
+       0.7,
+       5
+      ],
+      "at": [
+       0,
+       0.65,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -15
+      ],
+      "tones": [
+       "#ffe082",
+       "#d78d37",
+       "#724012"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "ember_brazier_vent",
+   "type": "campfire",
+   "variant_of": "campfire",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.7,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     9,
+     4
+    ],
+    [
+     10,
+     4
+    ]
+   ],
+   "where": "Placed at the southern foot of the demon jaw where embers spill forward onto the path.",
+   "role": "light",
+   "shape": {
+    "summary": "A stone fissure venting glowing amber fire.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.6,
+       0.2,
+       0.6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#4a4038",
+       "#3a322c",
+       "#27211d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.25,
+       0.05,
+       0.5,
+       6
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "tones": [
+       "#ffd452",
+       "#d78d37",
+       "#a6601c"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "totem_fire_entity",
+   "source": "The horned demon skull crowned by roaring flame at the heart of IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    1
+   ],
+   "height": 2.5,
+   "shape": {
+    "summary": "A massive horned demon visage crafted from dark basalt with an incandescent fiery mouth.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.9,
+       0.8,
+       0.7,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#5c2e17",
+       "#42210c",
+       "#261509"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.8
+      ],
+      "at": [
+       -0.22,
+       0.45,
+       0.3
+      ],
+      "tones": [
+       "#ffd452",
+       "#d78d37",
+       "#a6601c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.8
+      ],
+      "at": [
+       0.22,
+       0.45,
+       0.3
+      ],
+      "tones": [
+       "#ffd452",
+       "#d78d37",
+       "#a6601c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.25,
+       0.05,
+       0.7,
+       6
+      ],
+      "at": [
+       0,
+       -0.1,
+       0.35
+      ],
+      "tones": [
+       "#fff0c3",
+       "#ffd452",
+       "#d78d37"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.45,
+       0.15,
+       0.9,
+       6
+      ],
+      "at": [
+       0,
+       0.75,
+       0
+      ],
+      "tones": [
+       "#ffd452",
+       "#d78d37",
+       "#a6601c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.3,
+       0.05,
+       0.7,
+       5
+      ],
+      "at": [
+       0,
+       1.55,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffd452",
+       "#d78d37"
+      ]
+     }
+    ]
+   },
+   "pose": "The demonic skull sits squarely facing the camera with its jaw parted to expose a blazing tongue of yellow flame.",
+   "cell": [
+    9,
+    2
+   ],
+   "facing": "s",
+   "why": "It commands the center of the composition, translating the painting's primary demonic skull into a solid low-poly monolith."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVVVRRRRRRGVV",
+   "VVVVVVVRRFFRRGVV",
+   "VVVVVVVRRFFRRGVV",
+   "VVVVVVVRRRPRRGVV",
+   "VVVVVVVRRRPRRRGV",
+   "VVVVVVGGRRPRRRGV",
+   "VVVVVGGGGRPRRRGV",
+   "VVVVGGGGPPPRRRGV",
+   "VVVGGGGPPGRRRGVV",
+   "VVVGGGPPGGGGGVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000000333332100",
+   "0000000333332100",
+   "0000000333332100",
+   "0000000333332100",
+   "0000000233333210",
+   "0000001122222210",
+   "0000011112222210",
+   "0000111112222210",
+   "0001111111222100",
+   "0001111111111000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 9,
+   "z": 2,
+   "what": "The roaring horned demon skull bathed in descending fire."
+  },
+  "mass": "Visual weight is heavily concentrated along the vertical center (columns 6 to 9), towering highest in the north and stepping down southward.",
+  "read": "The layout mirrors the strict bilateral vertical totem of IMAGE 1. The viewer's gaze enters from the open void at the southern lower ledge, is pulled up the narrow glowing fire conduit, and culminates at the high dragon perch at the northern ridge. The surrounding void emphasizes complete isolation.",
+  "shaped": {
+   "name": "ribbon",
+   "params": {
+    "width": 3,
+    "waves": 0.5,
+    "rise": "up",
+    "fork": false,
+    "from": "s"
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVVVTTVVVVVVV",
+    "VVVVVVRRRRVVVVVV",
+    "VVVVVVRRRRVVVVVV",
+    "VVVVVVPPPPVVVVVV",
+    "VVVVVVPPPPVVVVVV",
+    "VVVVVVRRRRVVVVVV",
+    "VVVVVTFFTVVVVVVV",
+    "VVVVVTTGTVVVVVVV",
+    "VVVVVVGPGVVVVVVV",
+    "VVVVVVVGGVVVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.1,
+   "types": [
+    {
+     "type": "dorsal_crest_fin",
+     "variant": "default",
+     "weight": 0.5
+    },
+    {
+     "type": "curved_ram_horn",
+     "variant": "default",
+     "weight": 0.5
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.72,
+  "decor_weights": {
+   "ember_brazier_vent": 0.4,
+   "calcined_rib_arch": 0.6
+  },
+  "lighting": {
+   "bg": "#0c0806",
+   "ambient": 0.62,
+   "sun": 0.2,
+   "tint": "#d78d37",
+   "notes": "incandescent core combustion in an airless void: Follows ANALYSIS.palette.value_structure where 88 percent of the frame is flat black vacuum and the light emanates purely from the central flame jet."
+  },
+  "rules": [
+   "Keep all walkable land strictly confined to the central columns 6 to 9.",
+   "Flank the central path at z=7 with the curved ram horns.",
+   "Cap the northernmost tier with sharp dorsal crest fins."
+  ],
+  "decor_density": 0.25,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "stone",
+   "path": "sand",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "ANALYSIS.composition.flow_lines and mass_box",
+  "place": "A monolithic basalt spine protruding from an endless obsidian vacuum",
+  "summary": "A strictly bilateral, narrow vertical ridge transcribing the painting's vertical flame column and stacked totem geometry directly into stepped low-poly terrain.",
+  "differs": "Unlike the circular basin or tiered symmetrical altar of other interpretations, this uses a linear spine ribbon shape that concentrates 100 percent of the land into a narrow vertical hourglass surrounded entirely by deep void.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took dirt/sand"
+  ]
+ },
+ "shaper": {
+  "name": "ribbon",
+  "params": {
+   "width": 3,
+   "waves": 0.5,
+   "rise": "up",
+   "fork": false,
+   "from": "s"
+  },
+  "why": "Directly transcribes the vertical flame jet and stacked totem mass described in ANALYSIS.composition as an unbroken vertical conduit running north-to-south."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 3,
+  "surfaces": [
+   {
+    "s": "grass",
+    "share": 0.45
+   },
+   {
+    "s": "dirt",
+    "share": 0.35
+   },
+   {
+    "s": "stone",
+    "share": 0.2
+   }
+  ],
+  "why": "Horizontal bands of glowing fiery sand and dark volcanic dirt echo the layered downward strokes of orange glaze in the artwork's core."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#5a2d16",
+   "#3c1c0d",
+   "#261107"
+  ],
+  "lower": [
+   "#432110",
+   "#2c1509",
+   "#1a0b04"
+  ],
+  "why": "Stepped cliffs translate the sharp horizontal scale tiers and ribbed horn striations noted in the analysis."
+ },
+ "lighting": {
+  "time": "incandescent core combustion in an airless void",
+  "ambient": 0.62,
+  "sun": 0.2,
+  "tint": "#d78d37",
+  "bg": "#0c0806",
+  "why": "Follows ANALYSIS.palette.value_structure where 88 percent of the frame is flat black vacuum and the light emanates purely from the central flame jet."
+ },
+ "figure_pose": {
+  "pose": "The demonic skull sits squarely facing the camera with its jaw parted to expose a blazing tongue of yellow flame.",
+  "action": "grimacing in ignition",
+  "facing": "camera",
+  "why": "Matches the bilateral forward-facing pose detailed in ANALYSIS.subject."
+ },
+ "approach": {
+  "from": "south",
+  "passes": [
+   "ember_brazier_vent",
+   "calcined_rib_arch",
+   "curved_ram_horn",
+   "totem_fire_entity"
+  ],
+  "shape": "A straight ascending vertical corridor flanked by empty black space."
+ },
+ "threshold": {
+  "kind": "A dual pair of curled ram horns forming an imposing gateway right before the skull's fiery jaws.",
+  "prop": "curved_ram_horn"
+ },
+ "analysis": "pipeline/seed/analysis/ember.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}

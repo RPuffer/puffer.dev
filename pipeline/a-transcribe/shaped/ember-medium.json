@@ -1,0 +1,1131 @@
+{
+ "source": {
+  "art": "pipeline/seed/ember.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "incandescent",
+  "ritualistic",
+  "scorching",
+  "somber",
+  "hieratic",
+  "abyssal"
+ ],
+ "observations": [
+  {
+   "what": "Flat solid black background encompassing the entirety of the outer margins",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  },
+  {
+   "what": "Upper reptilian dragon head with red-brown scales, amber eyes, and pointed dorsal crest spikes",
+   "box": [
+    195,
+    395,
+    470,
+    605
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Stepped dorsal crest of triangular spikes tapering upward from the dragon crown",
+   "box": [
+    195,
+    400,
+    355,
+    600
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Continuous vertical column of glowing orange and yellow fire streaming down from the dragon maw",
+   "box": [
+    405,
+    450,
+    605,
+    555
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Horned demonic skull shrouded in roaring golden flames beneath the dragon fire jet",
+   "box": [
+    500,
+    280,
+    755,
+    715
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Massive left ram horn curving down and inward with transverse ribbed striations",
+   "box": [
+    585,
+    275,
+    755,
+    410
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Massive right ram horn mirroring the left curve down and inward with ridged segments",
+   "box": [
+    585,
+    585,
+    755,
+    715
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Incandescent glowing teardrop flame tongue inside the lower open jaw of the skull",
+   "box": [
+    645,
+    455,
+    745,
+    535
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Wisps and feathered flick strokes of burning flame curling outward along the mid flanks",
+   "box": [
+    470,
+    290,
+    675,
+    695
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Pair of narrow glowing yellow-white slit pupils glowing inside demonic sockets",
+   "box": [
+    565,
+    430,
+    625,
+    565
+   ],
+   "maps_to": "F"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#080808",
+    "share": 0.885,
+    "role": "unbroken black void surrounding the figures"
+   },
+   {
+    "hex": "#42210c",
+    "share": 0.028,
+    "role": "dragon dorsal crest and mid-tone scales"
+   },
+   {
+    "hex": "#261509",
+    "share": 0.025,
+    "role": "deep shadow recesses in the skull cheeks and horn roots"
+   },
+   {
+    "hex": "#a6601c",
+    "share": 0.022,
+    "role": "outer body of the flame envelope and horn mid-tones"
+   },
+   {
+    "hex": "#724012",
+    "share": 0.02,
+    "role": "dragon snout shading and ribbed horn highlights"
+   },
+   {
+    "hex": "#d78d37",
+    "share": 0.014,
+    "role": "bright fiery tongues and demon brow highlights"
+   },
+   {
+    "hex": "#040200",
+    "share": 0.005,
+    "role": "deep inner mouth shadows and pupil crevices"
+   },
+   {
+    "hex": "#040607",
+    "share": 0.002,
+    "role": "deepest horn shadow under-edges"
+   }
+  ],
+  "translation": {
+   "bg": "#121010",
+   "grass": {
+    "top": "#759845",
+    "fringe": "#5e7d36",
+    "fringeDark": "#465f27",
+    "speck": "#8bb552"
+   },
+   "sand": {
+    "top": "#d98a28",
+    "lip": "#b56e18",
+    "edge": "#94550f",
+    "dots": "#f0a643"
+   },
+   "dirt": {
+    "top": "#8a4e27",
+    "patch": "#723d1d",
+    "mottle": "#5d3015",
+    "border": "#4a240e"
+   },
+   "stone": {
+    "top": "#746862",
+    "pebble": "#867973",
+    "pebbleShade": "#5f524d",
+    "rim": "#544a44"
+   },
+   "cliffUpper": {
+    "left": "#583522",
+    "right": "#422416",
+    "seam": "#2e170d"
+   },
+   "cliffLower": {
+    "left": "#522f1f",
+    "right": "#3f2216",
+    "seam": "#331a0f",
+    "speck": "#2f150a"
+   },
+   "water": {
+    "top": "#ffaa33",
+    "bubble": "#ffe680",
+    "deep": "#cc5500",
+    "fall": [
+     "#ff8800",
+     "#ee6600",
+     "#cc4400"
+    ],
+    "foam": "#fff3b3"
+   },
+   "wood": {
+    "light": "#ff831d",
+    "mid": "#dc7016",
+    "dark": "#bd4c0b",
+    "shadow": "#a04b14",
+    "end": "#f6d881"
+   },
+   "treeMint": [
+    "#68e09e",
+    "#5ac389",
+    "#44a46b"
+   ],
+   "treeLime": [
+    "#c4ef86",
+    "#8ce263",
+    "#73aa4f"
+   ],
+   "treeLeaf": [
+    "#8ce263",
+    "#64c960",
+    "#50ab46"
+   ],
+   "treeTeal": [
+    "#00ffbf",
+    "#00e09b",
+    "#00c386",
+    "#00a568"
+   ],
+   "treeGold": [
+    "#f1cd52",
+    "#f1b900",
+    "#dd9200"
+   ],
+   "trunk": [
+    "#6e3b26",
+    "#4c2517"
+   ],
+   "rock": [
+    "#594f4a",
+    "#473e3a",
+    "#332b28",
+    "#211b19"
+   ],
+   "wellStone": [
+    "#615449",
+    "#4f4339",
+    "#382e26"
+   ],
+   "flowerOrange": [
+    "#ff831d",
+    "#f1b900"
+   ],
+   "berry": [
+    "#fe738f",
+    "#f45f7d"
+   ],
+   "bushTeal": [
+    "#8fffc2",
+    "#68e09e",
+    "#5ac389"
+   ],
+   "gold": [
+    "#f1b900",
+    "#dd9200",
+    "#ffe082"
+   ]
+  },
+  "notes": "The dominant black ground translates to an obsidian-toned dark void background, while the fiery incandescent values shift sand and water into glowing amber and magma channels, supported by scorched earth tones.",
+  "clamped": [
+   "cliffUpper.left #523120->#583522",
+   "cliffUpper.right #3c2114->#422416",
+   "cliffUpper.seam #27140b->#2e170d",
+   "cliffLower.left #382015->#522f1f",
+   "cliffLower.right #25140d->#3f2216",
+   "cliffLower.seam #180c07->#331a0f",
+   "cliffLower.speck #120804->#2f150a",
+   "stone.top #423b38->#746862",
+   "stone.pebble #544c48->#867973",
+   "stone.pebbleShade #2c2624->#5f524d",
+   "stone.rim #211d1b->#544a44"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "curved_ram_horn",
+   "role": "mass",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     1
+    ],
+    [
+     9,
+     1
+    ]
+   ],
+   "where": "Placed symmetrically flanking the central dais, echoing the massive downward-arching ribbed horns flanking the demon skull.",
+   "shape": {
+    "summary": "A segmented, curved horned monument made of stepped angled boxes arching outward and curving down.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.4,
+       0.5,
+       0.4,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8a4e27",
+       "#723d1d",
+       "#4a240e"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.36,
+       0.5,
+       0.36,
+       0.08
+      ],
+      "at": [
+       0.1,
+       0.45,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -15
+      ],
+      "tones": [
+       "#a6601c",
+       "#8a4e27",
+       "#5d3015"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.32,
+       0.5,
+       0.32,
+       0.08
+      ],
+      "at": [
+       0.22,
+       0.85,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -35
+      ],
+      "tones": [
+       "#d98a28",
+       "#a6601c",
+       "#723d1d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.04,
+       0.6,
+       6
+      ],
+      "at": [
+       0.32,
+       1.25,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       -65
+      ],
+      "tones": [
+       "#f0a643",
+       "#d98a28",
+       "#8a4e27"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "feathered_flame_flick",
+   "role": "approach",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     5,
+     1
+    ],
+    [
+     8,
+     1
+    ]
+   ],
+   "where": "Located along the lateral stairs leading to the upper dais, mirroring the flicked flame fringes of the outer fire envelope.",
+   "shape": {
+    "summary": "A curling cluster of sharp stylized flame tongues modeled as curved extruded prisms.",
+    "parts": [
+     {
+      "prim": "cone",
+      "dims": [
+       0.3,
+       0.08,
+       0.7,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "rot": [
+       10,
+       0,
+       15
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffb31d",
+       "#ff831d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.04,
+       0.6,
+       6
+      ],
+      "at": [
+       0.1,
+       0.3,
+       0
+      ],
+      "rot": [
+       -10,
+       0,
+       -20
+      ],
+      "tones": [
+       "#fff0c3",
+       "#ffe082",
+       "#ff831d"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "to": [
+       -0.15,
+       0.85,
+       0.1
+      ],
+      "tones": [
+       "#ffb31d",
+       "#ff831d",
+       "#bd4c0b"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "dorsal_crest_fin",
+   "role": "dais",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     3
+    ],
+    [
+     9,
+     3
+    ]
+   ],
+   "where": "Erected at the rear perimeter behind the idol, capturing the stepped triangular dorsal frills atop the dragon crown.",
+   "shape": {
+    "summary": "Three vertically stacked triangular blade-like crest plates leaning backward.",
+    "parts": [
+     {
+      "prim": "prism",
+      "dims": [
+       0.6
+      ],
+      "outline": [
+       [
+        -0.2,
+        -0.1
+       ],
+       [
+        0.2,
+        -0.1
+       ],
+       [
+        0,
+        0.25
+       ]
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#583522",
+       "#422416",
+       "#2e170d"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.65
+      ],
+      "outline": [
+       [
+        -0.15,
+        -0.08
+       ],
+       [
+        0.15,
+        -0.08
+       ],
+       [
+        0,
+        0.2
+       ]
+      ],
+      "at": [
+       0,
+       0.5,
+       0.05
+      ],
+      "tones": [
+       "#723d1d",
+       "#583522",
+       "#422416"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.15,
+       0.02,
+       0.7,
+       6
+      ],
+      "at": [
+       0,
+       1.1,
+       0.1
+      ],
+      "tones": [
+       "#a6601c",
+       "#723d1d",
+       "#583522"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "torch",
+   "role": "threshold",
+   "type": "torch",
+   "variant_of": "torch",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     7,
+     7
+    ],
+    [
+     8,
+     7
+    ]
+   ],
+   "where": "Marking the entry threshold along the southern ceremonial path.",
+   "shape": {
+    "summary": "Chunky timber stanchion surmounted by a stacked faceted ember brazier.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.08,
+       0.8,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ff831d",
+       "#dc7016",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.25,
+       0.18,
+       0.25,
+       0.04
+      ],
+      "at": [
+       0,
+       0.75,
+       0
+      ],
+      "tones": [
+       "#594f4a",
+       "#473e3a",
+       "#332b28"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.35,
+       6
+      ],
+      "at": [
+       0,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffb31d",
+       "#ff831d"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "obsidian_rock",
+   "role": "detail",
+   "type": "rock",
+   "variant_of": "rock",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.5,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     7,
+     1
+    ],
+    [
+     10,
+     1
+    ]
+   ],
+   "where": "Low dark stone nodules capping the northern terrace edge.",
+   "shape": {
+    "summary": "Pair of rounded faceted dark volcanic rock boulders nestled together.",
+    "parts": [
+     {
+      "prim": "ball",
+      "dims": [
+       0.28,
+       0.7
+      ],
+      "at": [
+       -0.08,
+       0.15,
+       0
+      ],
+      "tones": [
+       "#867973",
+       "#746862",
+       "#5f524d"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.2,
+       0.8
+      ],
+      "at": [
+       0.12,
+       0.12,
+       0.05
+      ],
+      "tones": [
+       "#746862",
+       "#5f524d",
+       "#544a44"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.2,
+       0.1,
+       0.2,
+       0.04
+      ],
+      "at": [
+       0,
+       0.02,
+       -0.08
+      ],
+      "tones": [
+       "#594f4a",
+       "#473e3a",
+       "#211b19"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "flame_totem_effigy",
+   "source": "the stacked dragon head and horned fire demon skull in the center of the canvas",
+   "becomes": "prop",
+   "type": "new",
+   "footprint": [
+    2,
+    1
+   ],
+   "height": 2.7,
+   "shape": {
+    "summary": "A vertical totem displaying a grinning horned demon skull capped by an overarching dragon maw breathing downward fire.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.6,
+       0.6,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8a4e27",
+       "#723d1d",
+       "#4a240e"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.5,
+       0.55,
+       0.1
+      ],
+      "at": [
+       0,
+       0.5,
+       0.05
+      ],
+      "tones": [
+       "#a6601c",
+       "#8a4e27",
+       "#5d3015"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.22,
+       0.9
+      ],
+      "at": [
+       0,
+       0.45,
+       0.25
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffb31d",
+       "#ff831d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.35,
+       0.15,
+       0.9,
+       8
+      ],
+      "at": [
+       0,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffb31d",
+       "#ff831d"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.75,
+       0.65,
+       0.7,
+       0.12
+      ],
+      "at": [
+       0,
+       1.7,
+       -0.05
+      ],
+      "tones": [
+       "#6e3b26",
+       "#583522",
+       "#422416"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.25,
+       0.05,
+       0.5,
+       6
+      ],
+      "at": [
+       0,
+       2.3,
+       -0.1
+      ],
+      "rot": [
+       -15,
+       0,
+       0
+      ],
+      "tones": [
+       "#8a4e27",
+       "#6e3b26",
+       "#4c2517"
+      ]
+     }
+    ]
+   },
+   "pose": "An erect, rigid double-faced totem where the dragon brow crowns the lower horned skull facing forward.",
+   "cell": [
+    7,
+    2
+   ],
+   "facing": "s",
+   "why": "Mirrors the exact frontal hourglass totem hierarchy where the upper scaled head feeds fiery life into the lower horned skull."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVRRRRRRRRGVVVV",
+   "VVRRRRRFFRRRGVVV",
+   "VVRRRRRFFRRRRGVV",
+   "VRRRRRRPPRRRRRGV",
+   "VRRRRRRPPRRRRRGV",
+   "VGRRRRRPPRRRRRGV",
+   "VVGGRRRPPRRRGGVV",
+   "VVVGGGGPPGGGGGVV",
+   "VVVVGGGPPGGGGVVV",
+   "VVVVGGGGPGGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0003333333210000",
+   "0033333333321000",
+   "0033333333322100",
+   "0222233333322210",
+   "0222233333322210",
+   "0122222222222210",
+   "0011222222221100",
+   "0001111111111100",
+   "0000111111111000",
+   "0000111111110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 2,
+   "what": "The flame totem effigy standing atop the central level-3 raised dais"
+  },
+  "mass": "Visual weight sits dead-center on the central vertical axis, concentrated in the tall raised dais and fiery totem.",
+  "read": "The viewer enters from the bottom center via an amber paved processional path. The path leads straight forward, framed symmetrically by braziers and curving horn pillars. The eye ascends the tiers to terminate directly upon the luminous vertical totem effigy.",
+  "shaped": {
+   "name": "symmetric",
+   "params": {
+    "tiers": 3,
+    "axis": "x",
+    "notch": 1
+   },
+   "seed": 1,
+   "start": [
+    8,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVGGGGVVVVVV",
+    "VVVVVGGGGGGVVVVV",
+    "VVVVGGGRRGGGVVVV",
+    "VVVVGGTRRTGGVVVV",
+    "VVVGGGTRRTGGGVVV",
+    "VVVGGGRFFRGGGVVV",
+    "VVVGGGTPPTGGGVVV",
+    "VVVVGGGPPGGGVVVV",
+    "VVVVGGGPPGGGVVVV",
+    "VVVVVGGPPGGVVVVV",
+    "VVVVVGGPPGGVVVVV",
+    "VVVVVVGPPGVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.08,
+   "types": [
+    {
+     "type": "dorsal_crest_fin",
+     "variant": "default",
+     "weight": 0.6
+    },
+    {
+     "type": "curved_ram_horn",
+     "variant": "default",
+     "weight": 0.4
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.52,
+  "decor_weights": {
+   "feathered_flame_flick": 0.4,
+   "obsidian_rock": 0.3,
+   "torch": 0.3
+  },
+  "lighting": {
+   "bg": "#121010",
+   "ambient": 0.6,
+   "sun": 0.35,
+   "tint": "#ffa040",
+   "notes": "the black ground of an airbrush ignited by an incandescent ember core: Matches ANALYSIS.palette.value_structure where 88% is pure dark void pierced solely by intense core fire."
+  },
+  "rules": [
+   "Keep strict left-right bilateral symmetry across all terrain and prop placements.",
+   "Place horn monuments only on designated flank cells flanking the raised terrace.",
+   "Keep void unbroken around the outer perimeter to echo the negative space of the painting."
+  ],
+  "decor_density": 0.12,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "stone",
+   "path": "sand",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "digital painting with soft airbrush layering, sharp silhouette horns, and high contrast against an absolute black void",
+  "place": "An abyssal obsidian dais holding an ancestral flame altar isolated inside a void",
+  "summary": "A strictly symmetrical raised obsidian platform where molten brushwork and horned totems emerge from sheer darkness.",
+  "differs": "Unlike garden terraces or natural forest settings, this island is completely isolated within black space with no organic foliage, focusing entirely on sculpted horns, blade-crests, and incandescent amber paving."
+ },
+ "shaper": {
+  "name": "symmetric",
+  "params": {
+   "tiers": 3,
+   "axis": "x",
+   "notch": 1
+  },
+  "why": "Directly embodies the strict bilateral symmetry and central vertical hourglass stacking established in ANALYSIS.composition."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "dirt",
+    "share": 0.55
+   },
+   {
+    "s": "sand",
+    "share": 0.3
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Concentric bands radiating out from the hot central amber path to charred earth and obsidian flagstones."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#523120",
+   "#3c2114",
+   "#27140b"
+  ],
+  "lower": [
+   "#382015",
+   "#25140d",
+   "#180c07"
+  ],
+  "why": "Deep, scorched dark cliff faces create hard drop-offs directly into the surrounding black background."
+ },
+ "lighting": {
+  "time": "the black ground of an airbrush ignited by an incandescent ember core",
+  "ambient": 0.6,
+  "sun": 0.35,
+  "tint": "#ffa040",
+  "bg": "#121010",
+  "why": "Matches ANALYSIS.palette.value_structure where 88% is pure dark void pierced solely by intense core fire."
+ },
+ "figure_pose": {
+  "pose": "An erect, rigid double-faced totem where the dragon brow crowns the lower horned skull facing forward.",
+  "action": "exhaling flame",
+  "facing": "camera",
+  "why": "Derived from ANALYSIS.subject.pose which dictates an unmoving vertically stacked totem facing directly forward."
+ },
+ "approach": {
+  "from": "south",
+  "passes": [
+   "twin threshold braziers",
+   "the straight amber processional path",
+   "flanking curved ram horn monoliths",
+   "the stepped stone dais"
+  ],
+  "shape": "A direct axial southern approach advancing northward straight along the vertical mirror plane."
+ },
+ "threshold": {
+  "kind": "A dual pair of ember braziers flanking the narrow southern stone stairway",
+  "prop": "torch"
+ },
+ "analysis": "pipeline/seed/analysis/ember.json",
+ "concept": {
+  "name": "lens-medium",
+  "lens": "medium",
+  "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+ }
+}
