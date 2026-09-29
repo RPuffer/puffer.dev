@@ -1,0 +1,1327 @@
+{
+ "source": {
+  "art": "pipeline/seed/cosmos.png",
+  "width": 2048,
+  "height": 1536,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "cosmic",
+  "unblinking",
+  "celestial",
+  "orbital",
+  "vast",
+  "serene"
+ ],
+ "observations": [
+  {
+   "what": "Massive human sclera with pale ivory flesh, curving across the upper and central left region",
+   "box": [
+    45,
+    40,
+    890,
+    680
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Vibrant blue and turquoise celestial iris with radiating fibrous striations and an electric-green zigzag corona",
+   "box": [
+    220,
+    290,
+    780,
+    710
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Pitch-black central planetary pupil forming a deep cosmic sinkhole at the core of the iris",
+   "box": [
+    400,
+    420,
+    600,
+    610
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Bright white stellar lens flare erupting on the right rim of the iris horizon",
+   "box": [
+    410,
+    690,
+    560,
+    790
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Curving luminous planetary accretion ring sweeping from the flare toward the lower right quadrant",
+   "box": [
+    490,
+    710,
+    890,
+    995
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Dense cluster of dark, pitted orbital asteroids casting cast shadows onto the lower sweep of the ring",
+   "box": [
+    715,
+    710,
+    930,
+    975
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Upper eyelid crease lined with heavy, sharp, curved black eyelash blades tapering upwards",
+   "box": [
+    60,
+    20,
+    360,
+    515
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Lower eyelid rim with fine bristling bottom eyelashes and moist tear duct margin",
+   "box": [
+    720,
+    5,
+    995,
+    410
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Delicate red vascular capillaries branching across the medial sclera",
+   "box": [
+    480,
+    110,
+    690,
+    255
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Glowing green and yellow interstellar nebula cloud floating in deep black vacuum at the upper right",
+   "box": [
+    0,
+    680,
+    520,
+    995
+   ],
+   "maps_to": "T"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#14120b",
+    "share": 0.236,
+    "role": "Deep outer space void, central pupil, and deepest eyelid crease shadows"
+   },
+   {
+    "hex": "#252118",
+    "share": 0.213,
+    "role": "Soft shadow framing the eyeball and shading the socket"
+   },
+   {
+    "hex": "#343831",
+    "share": 0.124,
+    "role": "Dark teal-grey transitional tones between space and the eyelid rim"
+   },
+   {
+    "hex": "#baa08a",
+    "share": 0.103,
+    "role": "Midtone skin shading along the brow ridge and eyelid margins"
+   },
+   {
+    "hex": "#416262",
+    "share": 0.087,
+    "role": "Outer ring of the iris and shadowed face of the planetary ring"
+   },
+   {
+    "hex": "#e6caaa",
+    "share": 0.085,
+    "role": "Pale highlight tone across the sclera and inner lower lid margin"
+   },
+   {
+    "hex": "#877966",
+    "share": 0.083,
+    "role": "Desaturated beige midtone bridging lid highlights to shadow"
+   },
+   {
+    "hex": "#654739",
+    "share": 0.07,
+    "role": "Warm brown-red vascular shading in the medial caruncle and crease"
+   }
+  ],
+  "translation": {
+   "bg": "#12151c",
+   "grass": {
+    "top": "#5de08f",
+    "fringe": "#3abf6d",
+    "fringeDark": "#259a52",
+    "speck": "#8effb9"
+   },
+   "sand": {
+    "top": "#f2cd62",
+    "lip": "#d89f28",
+    "edge": "#e2b339",
+    "dots": "#fae38e"
+   },
+   "dirt": {
+    "top": "#e6caaa",
+    "patch": "#d5b591",
+    "mottle": "#baa08a",
+    "border": "#9e816a"
+   },
+   "stone": {
+    "top": "#758896",
+    "pebble": "#9fb2bf",
+    "pebbleShade": "#5d6e7b",
+    "rim": "#43525e"
+   },
+   "cliffUpper": {
+    "left": "#465963",
+    "right": "#334149",
+    "seam": "#253138"
+   },
+   "cliffLower": {
+    "left": "#384750",
+    "right": "#27333a",
+    "seam": "#1b252a",
+    "speck": "#141c21"
+   },
+   "water": {
+    "top": "#5ed3e6",
+    "bubble": "#a6f2fc",
+    "deep": "#219cb2",
+    "fall": [
+     "#42c2d7",
+     "#2eaec2",
+     "#219cb2"
+    ],
+    "foam": "#d4faff"
+   },
+   "wood": {
+    "light": "#ff8e36",
+    "mid": "#dc7421",
+    "dark": "#b85310",
+    "shadow": "#923c06",
+    "end": "#f8dc93"
+   },
+   "treeMint": [
+    "#68e09e",
+    "#5ac389",
+    "#44a46b"
+   ],
+   "treeLime": [
+    "#c4ef86",
+    "#8ce263",
+    "#73aa4f"
+   ],
+   "treeLeaf": [
+    "#8ce263",
+    "#64c960",
+    "#50ab46"
+   ],
+   "treeTeal": [
+    "#2ee0bd",
+    "#1dc29f",
+    "#129e80",
+    "#0c7a62"
+   ],
+   "treeGold": [
+    "#f1cd52",
+    "#f1b900",
+    "#dd9200"
+   ],
+   "trunk": [
+    "#875748",
+    "#684238"
+   ],
+   "rock": [
+    "#a4b4be",
+    "#8597a2",
+    "#63747e",
+    "#44535b"
+   ],
+   "wellStone": [
+    "#dbc9a2",
+    "#c7b693",
+    "#b1a483"
+   ],
+   "flowerOrange": [
+    "#ff8e36",
+    "#f1b900"
+   ],
+   "berry": [
+    "#fe738f",
+    "#f45f7d"
+   ],
+   "bushTeal": [
+    "#72ebd1",
+    "#42cfaa",
+    "#2ca684"
+   ],
+   "gold": [
+    "#f5d35b",
+    "#dfb027",
+    "#fdf09d"
+   ]
+  },
+  "notes": "The palette maps the organic ivory sclera to a pale warm dirt layer, while the electric iris and planetary void shift into saturated cosmic teals, nebula greens, and dark starry cliff tones.",
+  "clamped": [
+   "trunk[0] #7d5c52->#875748",
+   "trunk[1] #63453d->#684238"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "eyelash-blade",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.6,
+   "passable": false,
+   "count": 5,
+   "cells": [
+    [
+     4,
+     1
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     8,
+     1
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ]
+   ],
+   "where": "Planted along the northern and north-western rim where the heavy upper eyelid lashes curve into the sky.",
+   "shape": {
+    "summary": "A curved, tapering black organic blade rising from a rounded socket mound.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.4,
+       0.25,
+       0.4,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#baa08a",
+       "#9e816a",
+       "#875748"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.12
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "to": [
+       0.08,
+       0.9,
+       -0.05
+      ],
+      "tones": [
+       "#343831",
+       "#252118",
+       "#14120b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.09
+      ],
+      "at": [
+       0.08,
+       0.9,
+       -0.05
+      ],
+      "to": [
+       0.22,
+       1.8,
+       -0.15
+      ],
+      "tones": [
+       "#252118",
+       "#1b1812",
+       "#14120b"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       0.22,
+       1.8,
+       -0.15
+      ],
+      "to": [
+       0.38,
+       2.5,
+       -0.22
+      ],
+      "tones": [
+       "#1b1812",
+       "#14120b",
+       "#14120b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.06,
+       0.01,
+       0.3,
+       6
+      ],
+      "at": [
+       0.38,
+       2.5,
+       -0.22
+      ],
+      "tones": [
+       "#252118",
+       "#14120b",
+       "#14120b"
+      ]
+     }
+    ]
+   },
+   "role": "threshold"
+  },
+  {
+   "name": "asteroid-tumbler",
+   "type": "new",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     13,
+     7
+    ],
+    [
+     14,
+     8
+    ],
+    [
+     14,
+     9
+    ]
+   ],
+   "where": "Hovering low along the lower-right orbital ring shelf where dark rocky asteroids cast shadows.",
+   "shape": {
+    "summary": "A faceted polygonal meteorite boulder balanced upon stacked sub-pebbles.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.2,
+       0.35,
+       0.05
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#44535b",
+       "#334149",
+       "#27333a"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.45,
+       0.55,
+       7
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "rot": [
+       12,
+       25,
+       -10
+      ],
+      "tones": [
+       "#8597a2",
+       "#63747e",
+       "#44535b"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.32,
+       0.9
+      ],
+      "at": [
+       0.1,
+       0.75,
+       -0.05
+      ],
+      "tones": [
+       "#a4b4be",
+       "#8597a2",
+       "#63747e"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.22,
+       0.22,
+       0.22
+      ],
+      "at": [
+       -0.18,
+       0.4,
+       0.12
+      ],
+      "rot": [
+       30,
+       45,
+       15
+      ],
+      "tones": [
+       "#63747e",
+       "#44535b",
+       "#334149"
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "stellar-beacon",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     12,
+     5
+    ]
+   ],
+   "where": "Placed on the eastern rim of the iris crater at the pivot where the brilliant four-point lens flare erupts.",
+   "shape": {
+    "summary": "A glittering diamond starburst light pillar perched on a stepped golden bracket.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.3,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f5d35b",
+       "#dfb027",
+       "#f1cd52"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       0.8,
+       6
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#fae38e",
+       "#f5d35b",
+       "#dfb027"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.42,
+       1
+      ],
+      "at": [
+       0,
+       1.25,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#eafaff",
+       "#c4effa"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       1.25,
+       0
+      ],
+      "to": [
+       0.8,
+       1.25,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#eafaff",
+       "#c4effa"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       1.25,
+       0
+      ],
+      "to": [
+       -0.8,
+       1.25,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#eafaff",
+       "#c4effa"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       1.25,
+       0
+      ],
+      "to": [
+       0,
+       2.05,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#eafaff",
+       "#c4effa"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       1.25,
+       0
+      ],
+      "to": [
+       0,
+       0.45,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#eafaff",
+       "#c4effa"
+      ]
+     }
+    ]
+   },
+   "role": "light"
+  },
+  {
+   "name": "nebula-spire",
+   "type": "new",
+   "variant_of": "tree-round",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.4,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     14,
+     3
+    ],
+    [
+     13,
+     3
+    ]
+   ],
+   "where": "Forming an ethereal cosmic canopy in the upper-right corner where green-gold nebulous gases swirl.",
+   "shape": {
+    "summary": "Stacked luminous cloud-puff volumes in radiant mint and yellow-green perched on a dark trunk stalk.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.14,
+       0.8,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#465963",
+       "#334149",
+       "#253138"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.45,
+       0.85,
+       0.12
+      ],
+      "at": [
+       0,
+       0.7,
+       0
+      ],
+      "tones": [
+       "#c4ef86",
+       "#8ce263",
+       "#73aa4f"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.4,
+       0.7,
+       0.1
+      ],
+      "at": [
+       0.05,
+       1.1,
+       -0.05
+      ],
+      "tones": [
+       "#68e09e",
+       "#5ac389",
+       "#44a46b"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.38,
+       0.85
+      ],
+      "at": [
+       -0.15,
+       1.5,
+       0.1
+      ],
+      "tones": [
+       "#2ee0bd",
+       "#1dc29f",
+       "#129e80"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.32,
+       0.85
+      ],
+      "at": [
+       0.12,
+       1.7,
+       -0.1
+      ],
+      "tones": [
+       "#8effb9",
+       "#5de08f",
+       "#3abf6d"
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "capillary-creeper",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.35,
+   "passable": true,
+   "count": 4,
+   "cells": [
+    [
+     5,
+     6
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     5,
+     8
+    ],
+    [
+     4,
+     7
+    ]
+   ],
+   "where": "Sprawling across the pale ground on the western sclera flank, tracing red vascular branches.",
+   "shape": {
+    "summary": "Low branching crimson vascular runners hugging the ground tile.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.05
+      ],
+      "at": [
+       -0.35,
+       0.05,
+       -0.2
+      ],
+      "to": [
+       0.05,
+       0.05,
+       0
+      ],
+      "tones": [
+       "#fe738f",
+       "#f45f7d",
+       "#d9435f"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       0.05,
+       0.05,
+       0
+      ],
+      "to": [
+       0.38,
+       0.05,
+       0.25
+      ],
+      "tones": [
+       "#fe738f",
+       "#f45f7d",
+       "#d9435f"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.03
+      ],
+      "at": [
+       0.05,
+       0.05,
+       0
+      ],
+      "to": [
+       -0.1,
+       0.05,
+       0.35
+      ],
+      "tones": [
+       "#f45f7d",
+       "#d9435f",
+       "#654739"
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  }
+ ],
+ "creatures": [
+  {
+   "name": "cosmic-pupil-sentinel",
+   "source": "The deep black circular pupil and concentric electric-green zigzag iris corona at the ocular centre",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.1,
+   "shape": {
+    "summary": "A massive spherical celestial eye-core with a glowing serrated crown of zigzag iris shards around an obsidian pupil sphere.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.85,
+       0.3,
+       10
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#1dc29f",
+       "#129e80",
+       "#0c7a62"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.75,
+       0.95
+      ],
+      "at": [
+       0,
+       0.7,
+       0
+      ],
+      "tones": [
+       "#2ee0bd",
+       "#1dc29f",
+       "#129e80"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.55,
+       0.6,
+       10
+      ],
+      "at": [
+       0,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#14120b",
+       "#14120b",
+       "#14120b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.35,
+       4
+      ],
+      "at": [
+       0.45,
+       1.2,
+       0.2
+      ],
+      "rot": [
+       15,
+       30,
+       -20
+      ],
+      "tones": [
+       "#8effb9",
+       "#5de08f",
+       "#3abf6d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.35,
+       4
+      ],
+      "at": [
+       -0.45,
+       1.2,
+       0.2
+      ],
+      "rot": [
+       15,
+       -30,
+       20
+      ],
+      "tones": [
+       "#8effb9",
+       "#5de08f",
+       "#3abf6d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.35,
+       4
+      ],
+      "at": [
+       0.1,
+       1.35,
+       -0.4
+      ],
+      "rot": [
+       -20,
+       10,
+       0
+      ],
+      "tones": [
+       "#8effb9",
+       "#5de08f",
+       "#3abf6d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.35,
+       4
+      ],
+      "at": [
+       -0.1,
+       1.35,
+       0.45
+      ],
+      "rot": [
+       20,
+       -10,
+       0
+      ],
+      "tones": [
+       "#8effb9",
+       "#5de08f",
+       "#3abf6d"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       0.8
+      ],
+      "at": [
+       0.22,
+       1.4,
+       0.22
+      ],
+      "tones": [
+       "#ffffff",
+       "#eafaff",
+       "#c4effa"
+      ]
+     }
+    ]
+   },
+   "pose": "A giant tiered spherical ocular core crowned with serrated electric-green iris cones, unblinking and facing straight forward.",
+   "cell": [
+    8,
+    5
+   ],
+   "facing": "s",
+   "why": "It embodies the central celestial pupil and zigzag coronal crest that anchors the entire painting."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVRRVRRRRGVVVV",
+   "VVVRRRRRRRRRGVVV",
+   "VRRRRRGGGGGGRRGV",
+   "VRRRGGGGGGGGGGGV",
+   "VVRRGGGGFFGGGGVV",
+   "VVRRGGGGFFGGGGVV",
+   "VVRRGGGGPGGGGGGV",
+   "VVRRRGGGPGGGGGGV",
+   "VVVRRGGGPGGGGGGV",
+   "VVVGGVVVPPGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000220332210000",
+   "0003332222221000",
+   "0233321111112210",
+   "0332111111111110",
+   "0032111111111100",
+   "0022111111111100",
+   "0022111111111110",
+   "0033211111111110",
+   "0002211111111110",
+   "0001100011110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 8,
+   "z": 5,
+   "what": "The central cosmic sentinel pupil within the raised iris crater wall"
+  },
+  "mass": "Visual weight concentrates in the left-centre ocular disc, balanced by the orbital sweep of the accretion path to the lower right.",
+  "read": "The viewer enters from the pale sclera terrace on the lower left, ascends past the branching capillaries, circles the crater rim of the iris where the cosmic pupil gazes outward, and follows the ring causeway down into the asteroid belt.",
+  "shaped": {
+   "name": "basin",
+   "params": {
+    "floor": 1,
+    "wall": 3,
+    "open": "se",
+    "pool": false,
+    "focal": "floor"
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVTGTGTGGGGTTTVV",
+    "VGGGGGGGGGGTGTVV",
+    "VTGGGGGGGGGGTTTV",
+    "VGGGRRRRRPGGGGVV",
+    "VTGGRFFRRPTPGGVV",
+    "VGGTGRRRRPPGPGVV",
+    "VGTGTPPPPPPTPTVV",
+    "VGGGGPPPGPPTTPVV",
+    "VVGGGPGGPPPPTTVV",
+    "VVVGGGGGGGGGGVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.16,
+   "types": [
+    {
+     "type": "nebula-spire",
+     "variant": "default",
+     "weight": 0.4
+    },
+    {
+     "type": "eyelash-blade",
+     "variant": "default",
+     "weight": 0.6
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.26,
+  "decor_weights": {
+   "asteroid-tumbler": 0.35,
+   "capillary-creeper": 0.35,
+   "stellar-beacon": 0.15,
+   "rock": 0.15
+  },
+  "lighting": {
+   "bg": "#29191e",
+   "ambient": 0.68,
+   "sun": 0.32,
+   "tint": "#d6f2ff",
+   "notes": "stellar ignition flare across vacuum: Directly quotes the absolute brightest point in ANALYSIS: the sharp white stellar flare erupting on the iris horizon against deep black space."
+  },
+  "rules": [
+   "Eyelash blades form a protective perimeter along the north-west rim.",
+   "Asteroid tumblers cluster tightly along the lower-right accretion arc.",
+   "Capillary creepers spread only over the pale dirt sclera ground on the west.",
+   "The stellar beacon sits precisely on the eastern break of the iris rim."
+  ],
+  "decor_density": 0.22,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "grass",
+   "path": "sand",
+   "shore": "dirt",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "subject.doing and story.world: the cosmic ocular world-entity projecting an accretion disk and stellar flare into cold interstellar vacuum",
+  "place": "An orbital eye-socket basin where a sentient planetary pupil radiates celestial accretion rings above deep void.",
+  "summary": "A grand ocular caldera sculpted from pale sclera flesh, crowned by an electric iris rim and an asteroid-swept ringway.",
+  "differs": "Unlike the radial observatory or twin-mass shelf, this place is shaped as a cupped orbital basin with an open south-eastern accretion breach.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took sand/dirt",
+   "lighting.bg #12151c->#29191e"
+  ]
+ },
+ "shaper": {
+  "name": "basin",
+  "params": {
+   "floor": 1,
+   "wall": 3,
+   "open": "se",
+   "pool": false,
+   "focal": "floor"
+  },
+  "why": "The eye structure naturally forms a deep biological crater bowl, held within the cupped orbital socket and opening out toward the ring accretion plain in the south-east."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 3,
+  "surfaces": [
+   {
+    "s": "dirt",
+    "share": 0.3
+   },
+   {
+    "s": "grass",
+    "share": 0.5
+   },
+   {
+    "s": "sand",
+    "share": 0.2
+   }
+  ],
+  "why": "Wide curved anatomical bands step outward from the electric-green iris rim across the pale ivory sclera dirt to the golden accretion dust path."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#465963",
+   "#334149",
+   "#253138"
+  ],
+  "lower": [
+   "#384750",
+   "#27333a",
+   "#1b252a"
+  ],
+  "why": "Clean stepped terrace drops echo the geometric airbrush frisket contours cutting through cosmic space."
+ },
+ "lighting": {
+  "time": "stellar ignition flare across vacuum",
+  "ambient": 0.68,
+  "sun": 0.32,
+  "tint": "#d6f2ff",
+  "bg": "#29191e",
+  "why": "Directly quotes the absolute brightest point in ANALYSIS: the sharp white stellar flare erupting on the iris horizon against deep black space."
+ },
+ "figure_pose": {
+  "pose": "A giant tiered spherical ocular core crowned with serrated electric-green iris cones, unblinking and facing straight forward.",
+  "action": "gazing and pulsing",
+  "facing": "camera",
+  "why": "Translates the clinical, unblinking central pupil sentinel described in ANALYSIS.subject."
+ },
+ "approach": {
+  "from": "the south-west sclera rim at [3, 10]",
+  "passes": [
+   "capillary-creeper trail",
+   "west sclera terrace",
+   "eyelash-blade palisade",
+   "stellar-beacon pivot",
+   "asteroid-tumbler orbital belt"
+  ],
+  "shape": "A counter-clockwise ascending spiral path that navigates the eye socket shelf before descending down the accretion ring arc."
+ },
+ "threshold": {
+  "kind": "A curving colonnade of upright tapered eyelash blades framing the entry into the ocular sanctuary.",
+  "prop": "eyelash-blade"
+ },
+ "analysis": "pipeline/seed/analysis/cosmos.json",
+ "concept": {
+  "name": "lens-subject",
+  "lens": "subject",
+  "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+ }
+}
