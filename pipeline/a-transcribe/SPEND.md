@@ -80,3 +80,9 @@ Round 3 so far: $3.03 of $15.00 (briefs $2.44, cat critic $0.59)
 2026-09-29 | swallow-2 | gemini-3.8-flash | 15 | 0.1183 | critic rounds 1 to 2 and final
 2026-09-29 | swallow-3 | gemini-3.8-flash | 24 | 0.1973 | critic rounds 1 to 4
 2026-09-29 | chimera-2 | gemini-3.8-flash | 9 | 0.0804 | critic runs on chimera-2 renders billed to the swallow profile: the chimera agent overwrote a shared scratchpad loop script
+2026-09-29 | wizard-1 | gemini-3.8-flash | 1 | 0.0510 | analyze.mjs --variant 1 --avoid wizard-2,wizard-3: the first reading walked 60 cells and failed "ramp 8,6: uphill cell not level"
+2026-09-29 | wizard-2 | gemini-3.8-flash | 1 | 0.0105 | analyze.mjs --variant 2 --avoid wizard-1,wizard-3: the first reading walked 78 cells on cobble pads everywhere
+2026-09-29 | wizard-1 | gemini-3.8-flash | 30 | 0.3462 | critic rounds 1 to 6, 351 and 900 (3 votes each)
+2026-09-29 | wizard-2 | gemini-3.8-flash | 30 | 0.3713 | critic rounds 1 to 6
+2026-09-29 | wizard-3 | gemini-3.8-flash | 18 | 0.1608 | critic rounds 1, 2 and 5
+2026-09-29 | swallow-1, swallow-3 | gemini-3.8-flash | 18 | 0.1527 | critic runs on swallow renders billed to the wizard agent: it ran a shared scratchpad loop.sh the swallow agent had overwritten
