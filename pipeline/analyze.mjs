@@ -6,12 +6,16 @@ import { PALETTE as PAL3D } from "../3d/palette.js";
 import { askJSON, imagePart, spend } from "./vision.mjs";
 
 const argv = process.argv.slice(2);
-const ci = argv.indexOf("--concept");
-const conceptName = ci >= 0 ? argv[ci + 1] : "literal";
-const positional = argv.filter((a, i) => i !== ci && i !== ci + 1);
+const flagIdx = new Set();
+const flag = (k, d) => { const i = argv.indexOf(k); if (i < 0) return d; flagIdx.add(i).add(i + 1); return argv[i + 1]; };
+const conceptName = flag("--concept", "scene");
+const variant = +flag("--variant", 0) || 0;
+const avoidList = String(flag("--avoid", "") || "").split(",").map((s) => s.trim()).filter(Boolean);
+const positional = argv.filter((a, i) => !flagIdx.has(i));
 const art = positional[0];
-const out = positional[1] || (ci >= 0 ? `pipeline/seed/concepts/${conceptName}.json` : null);
-if (!art || !out) { console.error("usage: node pipeline/analyze.mjs <art.png> [brief.json] [--concept literal|pack-first|scene|biome|motif-remap|composition-only]"); process.exit(2); }
+const slug = art ? path.basename(art).replace(/\.[^.]+$/, "") : "";
+const out = positional[1] || (variant ? `pipeline/seed/concepts/${slug}-${variant}.json` : `pipeline/seed/concepts/${conceptName}.json`);
+if (!art) { console.error("usage: node pipeline/analyze.mjs <art.png> [brief.json] [--concept scene|literal|pack-first|biome|motif-remap|composition-only] [--variant 1|2|3] [--avoid a.json,b.json]"); process.exit(2); }
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const REF = path.join(root, "ref/reference.png");
 const SHEET = path.join(root, "ref/tilesheet.png");
@@ -29,12 +33,14 @@ const CONCEPTS = {
 - motifs: 6 to 8. At most 4 are "new" and they are only the drawing's signature shapes: a chunky bare trunk, a low mist wisp, a root tangle, a fallen log. Each new motif has count 1 to 3 and all new-motif counts together total at most 8. Every other motif reuses a catalog type as it is (type set to tree-pine, tree-round, bush, bush-cluster, flower, rock, mushroom, stump, coin...), named after what it stands for in the drawing, with counts that make a lively pack island. The fire-bird is the only creature ("becomes":"npc") and keeps the pack's flame colours.
 - composition: a pack island in IMAGE 1's layout: a grass plateau tier (R, heights 2 and some 3) where IMAGE 1's trunks mass, an open grass and sand floor at height 1 where IMAGE 1 is open ground, one pale dirt path (P) from the near rim to the bird's feet, V on a ragged rim so the island stays irregular. Keep the focal cell where IMAGE 1's bird stands. No water unless a small pool fits the open floor.
 - biome: trees.density 0.12 to 0.2, types tree-pine and tree-round (weights about even) plus the bare trunk at weight 0.2 at most; decor_weights over flower, bush, rock, mushroom, coin, gem (and the new motifs at small weights); decor_density 0.12 to 0.18; plateau_share 0.25 to 0.35; water_share 0 to 0.05; surfaces {"ground":"grass","raised":"grass","path":"dirt","shore":"sand","mist":null}. Rules keep new props few and the island bright.`,
-  scene: `Read IMAGE 1 as a place in a souls-like game with a story: a shrine clearing where the fire-bird waits. Props and layout serve that scene.
-- mood: quiet, sacred, expectant words; dusk or twilight.
-- palette.translation: pack hue families at dusk, about 75 to 85% of the pack's value, slightly cooled; stone warm grey-ochre; bg and lighting.bg a deep blue-grey. lighting: ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool lavender. The fire-bird, torches and lanterns are the only warm hot accents.
-- composition: a raised shrine clearing (R, height 2) around the focal cell where the bird waits on a dais; one approach path (P) that starts at the near rim, passes a threshold (a gap between two tall trunks or a gate) about halfway, and climbs to the clearing; the drawing's trunk walls (T, heights 2 and 3) enclose the clearing on the far and side edges; V around a ragged rim.
-- motifs: 6 to 8, in scene order: the threshold (a new "threshold-gate" or pair of trunks flanking the path), the shrine dais or altar stone under the bird (new), offerings around it (catalog pot, gem, coin, or a new offering bowl), torches or lanterns lining the approach (catalog torch and lantern, 4 to 6 total), the enclosing bare trunks (new, from the drawing), roots on the approach (new). Place every motif's cells so the scene reads: torches in pairs on both sides of the path, offerings on the clearing next to the focal cell, gate straddling the path.
-- biome: trees.density 0.15 to 0.25 of the bare trunk and tree-pine; decor_weights torch, lantern, pot, gem, rock, mushroom, the new motifs; decor_density 0.08 to 0.12; plateau_share 0.25 to 0.35; water_share 0; surfaces {"ground":"grass","raised":"stone","path":"stone","shore":"grass","mist":null}. Rules describe the approach, threshold, clearing order.`,
+  scene: `Read IMAGE 1 as a place in a souls-like game with a story. IMAGE 1 is usually a creature portrait with no environment: invent the place the creature belongs to. This overrides the rules above that tie the grid and motifs to what IMAGE 1 draws: "observations" still describe IMAGE 1 honestly (the creature, its colours, its marks, its expression), but their maps_to, the grid, the motifs and the biome describe the invented place. Draw the place's motifs from the creature: its colours, markings, textures, attributes and the world it implies. Props and layout serve the scene.
+- The scene grammar: an approach path (P) that starts at the near rim (row 10 or 11), passes a threshold about halfway (a gate, arch, pair of pillars or pair of tall props straddling the path), and arrives at the focal point where the creature waits as a still figure. The creature stands on 2 to 4 F cells, near the middle or far half of the grid, never on the rim.
+- palette.translation: every group keeps the pack's saturation (top tones HSL saturation 45% or more, lightness 45 to 75%) and its hue family; IMAGE 1's own hues enter through the tree groups, flowers, gold, berry and wood accents and the lighting tint, never by greying the pack. bg and lighting.bg a dark hex that sets off the level. lighting: ambient 0.6 to 0.95, sun 0.1 to 0.4.
+- creatures: the first creature is IMAGE 1's creature ("becomes":"npc", "type":"new"), at the focal cell, facing "s". Build it as a still toy figure from 8 to 14 stacked flat blocks and wedges: box and rbox for body, head, legs, paws, tail segments; prism outlines for ears, wedges, beaks, fins, flames; at most one or two small balls for eyes. Height 1.5 to 3.0 tiles depending on the subject. It faces +z (the cell's front, "s"), its head turned slightly so the camera reads it three-quarter. Its tones are IMAGE 1's creature colours pushed to the pack's flat saturated grammar. Its "pose" says what it is doing, still, in this scene. Add a secondary creature only if the scene calls for one.
+- motifs: 6 to 8, in scene order: the threshold (new or a catalog pair), the dais, perch, nest or altar under the creature (new), story props next to the focal point (catalog pot, chest, barrel, gem, coin, crate, well, or new), lights along the approach in pairs on both sides of the path (catalog torch or lantern, 4 to 6 total), enclosing masses on the far and side edges (catalog trees or a new shape drawn from the creature), and ground detail. At most 4 motifs are "new"; every new motif is built from flat blocks and wedges like the creature. Place cells so the scene reads: lights in pairs along the path, story props on the clearing beside the focal cell, the threshold straddling the path.
+- composition: V on a ragged rim with void on every side; heights 1 to 3; the grid, heights and focal describe the invented place in plan, row 0 far, row 11 near.
+- biome: decor_weights over the scene's props; decor_density 0.08 to 0.14; trees.density 0.1 to 0.3 of catalog trees or the enclosing new motif; surfaces from grass|sand|dirt|stone. Rules describe the approach, threshold, focal order.
+- "scene": {"place": one sentence naming the place, "approach": one sentence on how the hero arrives and what the threshold is, "creature_doing": one sentence on what the creature is doing, "palette_key": one sentence naming the palette translation and light, "terrain": one sentence naming the terrain emphasis, "summary": one sentence that sums up the reading}.`,
   biome: `Read IMAGE 1 as a biome, a dark pine forest with a still pool, and build it from the pack's existing pieces at the drawing's density. The fire-bird is the only new prop.
 - mood: dense, dim, still, damp words.
 - palette.translation: dusk pine forest: treeMint and treeTeal and treeLeaf deep cool greens (still saturated), grass a moss green, water a deep teal, sand a cooled ochre, bg and lighting.bg a dark blue-green grey. lighting: ambient 0.65 to 0.8, sun 0.2 to 0.35, tint a cool green-blue.
@@ -57,6 +63,13 @@ const CONCEPTS = {
 - motifs: 5 to 7, every one a catalog type in the reference island's mix (tree-pine, tree-round, bush, bush-cluster, flower, rock, mushroom, fence, barrel, coin), none "new", named plainly after the piece; cells follow the masses (trees on the raised masses, flowers and bushes on open ground). The fire-bird is the only creature, in flame colours, standing at the focal cell.
 - biome: trees.density 0.2 to 0.3, types tree-pine and tree-round; decor_weights over the reference mix; decor_density 0.15 to 0.2; plateau_share 0.3 to 0.4; water_share 0 to 0.06; surfaces {"ground":"sand","raised":"grass","path":"dirt","shore":"sand","mist":null}.`,
 };
+const VARIANTS = {
+  1: `READING 1, THE HOME. The place is where the creature lives day to day, built up around it over time (a den, nest, garden, workshop, hoard, burrow, roost, whatever fits this creature), and it is doing an everyday, unguarded thing there. Terrain emphasis: stacked terraces that climb to a high home perch; plateau_share 0.35 to 0.5, at least 4 cells at height 3 around or behind the focal cell, water_share 0 to 0.04. Approach shape: the path winds, entering the near rim off-centre and switching back at least twice as it climbs the terraces. Palette key: warm midday light (ambient 0.85 to 0.95, sun 0.1 to 0.2, tint a pale warm white); grass and trees carry IMAGE 1's warmest dominant hue family as accents, surfaces lean grass and sand.`,
+  2: `READING 2, THE SHRINE. The place is built by others to honour, seal, or petition the creature (a temple, ruin, altar court, sunken sanctum, festival ground), and the creature is enthroned, sleeping, or keeping a vigil there. Terrain emphasis: water. A still pool, moat arm, or sacred spring of 12 to 24 W cells (water_share 0.08 to 0.15) that the approach path skirts or crosses over a land causeway, with the shrine clearing at height 2 beyond it; the land stays one connected mass. Approach shape: axial, a straight processional line from the near rim to the shrine. Palette key: dusk or night (ambient 0.6 to 0.75, sun 0.25 to 0.4, tint a cool colour drawn from IMAGE 1's coolest hue); stone and IMAGE 1's coolest hue lead; surfaces lean stone.`,
+  3: `READING 3, THE ENCOUNTER. The place is out in the wild or on the edge of the world where the hero meets the creature mid-act (hunting, calling out, guarding a pass, emerging, feeding, playing), a boss-arena clearing. Terrain emphasis: a mostly flat open arena floor at height 1 (plateau_share 0.15 to 0.25) walled by tall height 3 cliffs or pillars on the far and side edges, with void biting deep notches into the rim; water_share 0. Approach shape: the path enters from a near side corner (columns 0 to 4 or 11 to 15, rows 8 to 11) and crosses the arena floor on a diagonal of stepped segments. Palette key: a bold time of day unlike the other two, golden hour or strange-sky (ambient 0.7 to 0.85, sun 0.2 to 0.35, tint a saturated hue taken from IMAGE 1's second strongest colour); dirt and sand lead the surfaces.`,
+};
+const avoid = avoidList.map((f) => { const b = JSON.parse(fs.readFileSync(f, "utf8")); const sc = b.scene || {}; return `- ${path.basename(f)}: ${sc.summary || ""} Place: ${sc.place || ""} Approach: ${sc.approach || ""} Creature: ${sc.creature_doing || ""} Palette: ${sc.palette_key || ""} Terrain: ${sc.terrain || ""} Motifs: ${(b.motifs || []).map((m) => m.name).join(", ")}.`; });
+if (variant && !VARIANTS[variant]) { console.error(`unknown variant ${variant}; one of ${Object.keys(VARIANTS).join(", ")}`); process.exit(2); }
 if (!CONCEPTS[conceptName]) { console.error(`unknown concept ${conceptName}; one of ${Object.keys(CONCEPTS).join(", ")}`); process.exit(2); }
 
 const hex = (c) => "#" + c.map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
@@ -134,10 +147,18 @@ TASK. Return ONE JSON object, no prose outside it, with exactly these keys:
   "read": two to four sentences on the composition: framing, depth, where the eye enters and travels, what the level must preserve.
 }
 
-"biome": procgen rules another generator will follow without seeing IMAGE 1: {"trees": {"density": 0 to 1 share of land cells with a tree, "types": [{"type","variant","weight"}] using catalog types or your new motif names}, "water_share": 0 to 1 of the 16x12 grid, "plateau_share": 0 to 1 of land raised above base, "void_share": 0 to 1, "decor_weights": {type or motif name: weight}, "lighting": {"bg": hex, "ambient": 0 to 1, "sun": 0 to 1, "tint": hex, "notes": one sentence}, "rules": 3 to 6 short imperative placement rules, "decor_density": 0 to 1 share of land cells that carry scatter decor from decor_weights, "surfaces": {"ground": surface of plain G cells, "raised": surface of R cells, "path": surface of P cells, "shore": surface of land cells beside water or void, each one of grass|sand|dirt|stone, "mist": surface for pale mist ground or null to keep mist as props}}.
+"biome": procgen rules another generator will follow without seeing IMAGE 1: {"trees": {"density": 0 to 1 share of land cells with a tree, "types": [{"type","variant","weight"}] using catalog types or your new motif names}, "water_share": 0 to 1 of the 16x12 grid, "plateau_share": 0 to 1 of land raised above base, "void_share": 0 to 1, "decor_weights": {type or motif name: weight}, "lighting": {"bg": hex, "ambient": 0 to 1, "sun": 0 to 1, "tint": hex, "notes": one sentence}, "rules": 3 to 6 short imperative placement rules, "decor_density": 0 to 1 share of land cells that carry scatter decor from decor_weights, "surfaces": {"ground": surface of plain G cells, "raised": surface of R cells, "path": surface of P cells, "shore": surface of land cells beside water or void, each one of grass|sand|dirt|stone, "mist": surface for pale mist ground or null to keep mist as props}}.${conceptName === "scene" ? `
+
+"scene": the scene object the CONCEPT STRATEGY below defines.` : ""}
 
 CONCEPT STRATEGY "${conceptName}" (it overrides any rule above it contradicts, including which features the drawing must contain):
-${CONCEPTS[conceptName]}`;
+${CONCEPTS[conceptName]}${variant ? `
+
+VARIANT (it refines the strategy above and wins where they differ):
+${VARIANTS[variant]}` : ""}${avoid.length ? `
+
+EARLIER READINGS OF THIS SAME ARTWORK. Yours must be a different scene: a different kind of place, a different approach and threshold, a different creature action, a different palette key, a different terrain emphasis, and motif names that do not repeat theirs.
+${avoid.join("\n")}` : ""}`;
 
 const hsl = (h) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
@@ -212,6 +233,7 @@ function repair(b) {
     return h === "0" || !/[0-3]/.test(h) ? "1" : h;
   }).join(""));
   const onLand = ([x, z]) => { const g = c.grid[z]?.[x]; return g && g !== "W" && g !== "V"; };
+  for (const m of b.motifs || []) if (m && m.type && m.type !== "new" && !CATALOG[m.type]) { m.variant_of = m.variant_of || m.type; m.type = "new"; }
   for (const m of b.motifs || []) if (Array.isArray(m.cells)) { m.cells = m.cells.filter((cell) => Array.isArray(cell) && (m.type === "waterfall" ? c.grid[cell[1]]?.[cell[0]] === "W" || onLand(cell) : onLand(cell))); m.count = m.cells.length; }
   const nearestF = (x, z) => {
     let best = null, bd = Infinity;
@@ -234,6 +256,7 @@ function validate(b) {
   if (b.palette?.translation) for (const k of ["grass", "sand", "water", "wood", "treeMint", "treeLime", "treeLeaf", "treeTeal", "treeGold", "trunk", "bushTeal", "gold", "flowerOrange", "berry"]) clamped.push(...floorSaturation(b.palette.translation, k));
   if (b.palette?.translation) for (const [k, sk, min] of LIFT) clamped.push(...liftGroup(b.palette.translation, k, sk, min));
   const errs = [];
+  if (conceptName === "scene") { const sc = b.scene || {}; for (const k of ["place", "approach", "creature_doing", "palette_key", "terrain", "summary"]) if (typeof sc[k] !== "string" || !sc[k]) errs.push(`scene.${k} missing`); }
   for (const k of ["mood", "palette", "motifs", "creatures", "composition", "biome"]) if (!(k in b)) errs.push(`missing ${k}`);
   if (errs.length) return errs;
   if (!Array.isArray(b.mood) || b.mood.length < 3) errs.push("mood needs 3+ words");
@@ -302,7 +325,7 @@ function validate(b) {
 
 const parts = [await imagePart(art, 1280), await imagePart(REF, 700), await imagePart(SHEET, 700), { text: prompt }];
 process.on("exit", () => console.error(`spend: ${spend.calls} calls, ${spend.inTok} in / ${spend.outTok} out tokens, ~$${spend.usd.toFixed(4)}`));
-const { data, model } = await askJSON(parts, validate, { temperature: 0.2 });
+const { data, model } = await askJSON(parts, validate, { temperature: 0.2, retries: 3 });
 if (clamped.length) {
   data.palette.clamped = clamped;
   const swap = Object.fromEntries(clamped.map((t) => t.split(" ").pop().split("->")));
@@ -314,9 +337,11 @@ data.palette.measured = measured.map((m, i) => ({ ...m, role: data.palette.measu
 const brief = {
   source: { art: path.relative(root, path.resolve(art)), width: meta.width, height: meta.height, model, date: new Date().toISOString().slice(0, 10) },
   mood: data.mood, observations: data.observations, palette: data.palette, motifs: data.motifs, creatures: data.creatures, composition: { legend: CODES, ...data.composition }, biome: data.biome,
-  concept: { name: conceptName, fragment: CONCEPTS[conceptName] },
+  scene: data.scene,
+  concept: { name: conceptName, fragment: CONCEPTS[conceptName], variant: variant || undefined, variantFragment: VARIANTS[variant], avoid: avoidList.length ? avoidList : undefined },
 };
 fs.mkdirSync(path.dirname(path.resolve(out)), { recursive: true });
 fs.writeFileSync(out, JSON.stringify(brief, null, 2) + "\n");
+if (brief.scene) console.log(`scene: ${brief.scene.summary}`);
 console.log(`${out}: ${brief.motifs.length} motifs, ${brief.creatures.length} creatures, model ${model}`);
 console.log(brief.composition.grid.join("\n"));
