@@ -37,7 +37,7 @@ The picks sit far outside the pack's value band, so pulling islands toward its b
 **Detail passes**
 - Clutter density. Effect: fields stop reading empty. Mechanism: one small item per 3 to 4 walkable cells, none on paths.
 - Edge wear. Effect: age. Mechanism: cliff specks and a chipped lip on 1 in 8 edge tiles.
-- Story props. Effect: the subject's world. Mechanism: 3 to 5 props from the analysis's "details a viewer remembers".
+- Story props. Effect: the subject's world. Mechanism: 3 to 5 props from the analysis's remembered details.
 - Approach. Effect: a readable eye path. Mechanism: a path from spawn to the focal cell, flanked by the tallest props; clutter halves within 2 cells of the figure.
 
 ## Three approaches
@@ -45,7 +45,7 @@ The picks sit far outside the pack's value band, so pulling islands toward its b
 | Approach | Authoring cost | Consistency | Stays automatic |
 | --- | --- | --- | --- |
 | A. Richer code primitives plus a style bible enforced in `Baker` | Low | High: rules live in code every module calls | All of it |
-| B. Image-model reference sheets in pack style, hand-built by the agent | Medium: about $0.05 a sheet | Medium: sheets drift, code rules catch it | Brief and build; the builder reads a sheet |
+| B. Image-model reference sheets in pack style, then hand-built | Medium: about $0.05 a sheet | Medium: sheets drift, code rules catch it | Brief and build; the builder reads a sheet |
 | C. Blender or generated meshes, retopologised, loaded as GLB with `flat` and `snap` | High: a modelling job per creature | Low until `snap` recovers the palette | Partial; a human sits in the loop |
 
 Recommendation: A everywhere, B for focal creatures, where cube stacking fails on proportion.
