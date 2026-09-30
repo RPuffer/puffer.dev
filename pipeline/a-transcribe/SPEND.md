@@ -152,3 +152,6 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | sharkbear-medium | gemini-3.8-flash | 18 | 0.1091 | critic rounds 1 to 3 at 351 and 900 (3 votes each): 1, 0, 0 high (log across a ramp foot); round 4 got 402 credits depleted, no charge
 2026-09-29 | sharkbear-subject | gemini-3.8-flash | 12 | 0.0929 | critic rounds 1 to 2: 0, 0 high
 2026-09-29 | sharkbear-composition | gemini-3.8-flash | 18 | 0.1100 | critic rounds 1 to 3: 1, 0, 0 high (jaw-pit teeth past the tile edge)
+2026-09-29 | eagle-medium | gemini-3.8-flash | 12 | 0.0968 | critic rounds 1 and 3 at 351 and 900: 0, 0 high; rounds 8 and 9 read by eye after the 402 credit stop
+2026-09-29 | eagle-subject | gemini-3.8-flash | 12 | 0.0814 | critic rounds 1 and 2: 0, 0 high; round 9 read by eye
+2026-09-29 | eagle-composition | gemini-3.8-flash | 12 | 0.0774 | critic rounds 1 and 4: 0, 1 high (quill gate read as straddling the ramp foot); rounds 5 and 6 read by eye after the 402 credit stop
