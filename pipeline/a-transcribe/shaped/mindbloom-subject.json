@@ -1,0 +1,1443 @@
+{
+ "source": {
+  "art": "pipeline/seed/mindbloom.png",
+  "width": 1280,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "aromatic",
+  "hallucinatory",
+  "introspective",
+  "serene",
+  "nocturnal",
+  "psychedelic"
+ ],
+ "observations": [
+  {
+   "what": "Clear glass candle jar with wick, small flame, and stylized third-eye label",
+   "box": [
+    830,
+    424,
+    955,
+    570
+   ],
+   "maps_to": "threshold"
+  },
+  {
+   "what": "Thin undulating translucent lavender smoke trail rising upward in an S-curve",
+   "box": [
+    645,
+    375,
+    835,
+    600
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Calm disembodied face with closed smiling eyes and gentle downward lashes",
+   "box": [
+    485,
+    298,
+    680,
+    680
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Vertically aligned third eye resting on the forehead between brow arches",
+   "box": [
+    478,
+    437,
+    524,
+    539
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Expansive jagged multi-pointed black cranial silhouette framing the crown",
+   "box": [
+    102,
+    120,
+    620,
+    876
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Clusters of spotted neon-capped psychedelic mushrooms in the left cranial wing",
+   "box": [
+    245,
+    318,
+    368,
+    433
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Double helix DNA strand and floating neon planetary orbs in upper left quadrant",
+   "box": [
+    140,
+    225,
+    275,
+    335
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Vibrant concentric eye motifs peering from within the upper right lobe",
+   "box": [
+    310,
+    600,
+    395,
+    674
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Dense pastel bubble clusters and luminescent spheres packed along the upper center spine",
+   "box": [
+    170,
+    508,
+    305,
+    670
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Monolithic solid lilac-periwinkle negative space surrounding the entire central silhouette",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#c3bdff",
+    "share": 0.724,
+    "role": "dominant flat background field"
+   },
+   {
+    "hex": "#2e3536",
+    "share": 0.078,
+    "role": "deep charcoal contour and mass undertones"
+   },
+   {
+    "hex": "#0c0d0e",
+    "share": 0.071,
+    "role": "solid black cranial silhouette fill"
+   },
+   {
+    "hex": "#4d5e5e",
+    "share": 0.053,
+    "role": "muted slate-teal internal linear detailing"
+   },
+   {
+    "hex": "#787b9c",
+    "share": 0.024,
+    "role": "mid-value shadow on smoke and candle glass"
+   },
+   {
+    "hex": "#a5a2cf",
+    "share": 0.022,
+    "role": "translucent purple smoke trail"
+   },
+   {
+    "hex": "#7ea572",
+    "share": 0.015,
+    "role": "bright lime and mint green graphic accents"
+   },
+   {
+    "hex": "#d0c9fa",
+    "share": 0.013,
+    "role": "pale lavender highlights on the candle and brow"
+   }
+  ],
+  "translation": {
+   "bg": "#25213b",
+   "grass": {
+    "top": "#5ccf8d",
+    "fringe": "#46ab72",
+    "fringeDark": "#358a59",
+    "speck": "#7ae8ab"
+   },
+   "sand": {
+    "top": "#f2c752",
+    "lip": "#dca029",
+    "edge": "#b87e14",
+    "dots": "#fae08c"
+   },
+   "dirt": {
+    "top": "#8f6885",
+    "patch": "#795370",
+    "mottle": "#5d3c55",
+    "border": "#4a2d44"
+   },
+   "stone": {
+    "top": "#a5a2cf",
+    "pebble": "#c3bdff",
+    "pebbleShade": "#787b9c",
+    "rim": "#59597a"
+   },
+   "cliffUpper": {
+    "left": "#38314e",
+    "right": "#252037",
+    "seam": "#181426"
+   },
+   "cliffLower": {
+    "left": "#312b45",
+    "right": "#1f1b30",
+    "seam": "#151223",
+    "speck": "#453e5e"
+   },
+   "water": {
+    "top": "#8be9fd",
+    "bubble": "#c8f8ff",
+    "deep": "#4bb4d8",
+    "fall": [
+     "#6ee0fc",
+     "#4ebcd9",
+     "#389bb5"
+    ],
+    "foam": "#e6fbff"
+   },
+   "wood": {
+    "light": "#ff9a47",
+    "mid": "#dc7428",
+    "dark": "#a84f13",
+    "shadow": "#7a3406",
+    "end": "#fed199"
+   },
+   "treeMint": [
+    "#68e09e",
+    "#50c284",
+    "#3aa36c"
+   ],
+   "treeLime": [
+    "#b2eb63",
+    "#91cf44",
+    "#71ab30"
+   ],
+   "treeLeaf": [
+    "#5ccf8d",
+    "#43a86e",
+    "#2f8554"
+   ],
+   "treeTeal": [
+    "#42f5cb",
+    "#23d4a8",
+    "#17a884",
+    "#0f7d61"
+   ],
+   "treeGold": [
+    "#f7d355",
+    "#e0b028",
+    "#b8890f"
+   ],
+   "trunk": [
+    "#6c3a51",
+    "#502b3d"
+   ],
+   "rock": [
+    "#b8b5db",
+    "#9b97c4",
+    "#7c77a8",
+    "#5d5885"
+   ],
+   "wellStone": [
+    "#9f9cc9",
+    "#827fa8",
+    "#646187"
+   ],
+   "flowerOrange": [
+    "#ff9238",
+    "#e07119"
+   ],
+   "berry": [
+    "#ff6ea7",
+    "#db4882"
+   ],
+   "bushTeal": [
+    "#5df2c8",
+    "#38cca4",
+    "#23a380"
+   ],
+   "gold": [
+    "#ffd647",
+    "#e6b820",
+    "#fff099"
+   ]
+  },
+  "notes": "The dominant periwinkle field is deepened into a rich dusky lavender-indigo sky (#25213b), allowing the neon mint and acid-gold motifs of the subject's awakened mind to glow like aromatic embers while retaining clear three-tone contrast.",
+  "clamped": [
+   "trunk[0] #614552->#6c3a51",
+   "trunk[1] #4a313d->#502b3d",
+   "cliffLower.left #2d2840->#312b45",
+   "cliffLower.right #1c182b->#1f1b30",
+   "cliffLower.seam #120f1e->#151223",
+   "cliffLower.speck #413b59->#453e5e"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "apothecary-jar",
+   "type": "new",
+   "variant_of": null,
+   "role": "light",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     1,
+     4
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     5,
+     8
+    ]
+   ],
+   "where": "Placed around the meditation perimeter where ritual vessels and burning tinctures ground the sensory space.",
+   "shape": {
+    "summary": "A faceted translucent glass cylindrical jar containing glowing dyed oils and stoppered with a wooden cork.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.38,
+       0.8,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.32,
+       0.5,
+       8
+      ],
+      "at": [
+       0,
+       0.05,
+       0
+      ],
+      "tones": [
+       "#5df2c8",
+       "#38cca4",
+       "#23a380"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.22,
+       0.25,
+       8
+      ],
+      "at": [
+       0,
+       0.8,
+       0
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.24,
+       0.2,
+       8
+      ],
+      "at": [
+       0,
+       0.95,
+       0
+      ],
+      "tones": [
+       "#ff9a47",
+       "#dc7428",
+       "#a84f13"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.25,
+       0.35,
+       0.02
+      ],
+      "at": [
+       0,
+       0.3,
+       0.37
+      ],
+      "tones": [
+       "#ffd647",
+       "#e6b820",
+       "#fff099"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "scalloped-thought-fin",
+   "type": "new",
+   "variant_of": null,
+   "role": "mass",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     3,
+     1
+    ],
+    [
+     8,
+     1
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     10,
+     2
+    ]
+   ],
+   "where": "Rising like spiky monolithic wings along the rear basin rim to match the outer points of the dark silhouette.",
+   "shape": {
+    "summary": "An upright faceted black obsidian fin with layered stepped notches and glowing inlaid neon ribs.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       2,
+       0.3,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#38314e",
+       "#252037",
+       "#181426"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.05,
+       0.6,
+       6
+      ],
+      "at": [
+       0,
+       1.8,
+       0
+      ],
+      "tones": [
+       "#38314e",
+       "#252037",
+       "#181426"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.05
+      ],
+      "at": [
+       -0.15,
+       0.4,
+       0.16
+      ],
+      "to": [
+       -0.15,
+       1.6,
+       0.16
+      ],
+      "tones": [
+       "#5df2c8",
+       "#38cca4",
+       "#23a380"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.05
+      ],
+      "at": [
+       0.15,
+       0.6,
+       0.16
+      ],
+      "to": [
+       0.15,
+       1.4,
+       0.16
+      ],
+      "tones": [
+       "#ff6ea7",
+       "#db4882",
+       "#b82b63"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       1
+      ],
+      "at": [
+       0,
+       1.1,
+       0.18
+      ],
+      "tones": [
+       "#ffd647",
+       "#e6b820",
+       "#fff099"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "spotted-mind-shroom",
+   "type": "mushroom",
+   "variant_of": "mushroom",
+   "role": "detail",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     4,
+     1
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     9,
+     3
+    ]
+   ],
+   "where": "Clustering around the inner hollow where the subject's botanical thoughts sprout along the cliff base.",
+   "shape": {
+    "summary": "A trio of chunky toy mushrooms with luminous mint-green domed caps and bright lavender spots.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.1,
+       0.5,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.38,
+       0.6
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#68e09e",
+       "#50c284",
+       "#3aa36c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.08,
+       0.5
+      ],
+      "at": [
+       0.15,
+       0.65,
+       0.1
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.07,
+       0.35,
+       6
+      ],
+      "at": [
+       -0.22,
+       0,
+       0.15
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.24,
+       0.6
+      ],
+      "at": [
+       -0.22,
+       0.35,
+       0.15
+      ],
+      "tones": [
+       "#ff6ea7",
+       "#db4882",
+       "#b82b63"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "incense-coil-brazier",
+   "type": "new",
+   "variant_of": null,
+   "role": "threshold",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     4,
+     7
+    ]
+   ],
+   "where": "Stationed right at the southern threshold where the aromatic smoke originates, matching the candle tumbler in IMAGE 1.",
+   "shape": {
+    "summary": "A stout cylindrical glass tumbler supporting a smouldering golden coil and rising aromatic spiral.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.55,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#a5a2cf",
+       "#787b9c",
+       "#59597a"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.28,
+       0.45,
+       8
+      ],
+      "at": [
+       0,
+       0.05,
+       0
+      ],
+      "tones": [
+       "#f7d355",
+       "#e0b028",
+       "#b8890f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.01,
+       0.22,
+       6
+      ],
+      "at": [
+       0,
+       0.55,
+       0
+      ],
+      "tones": [
+       "#ffd647",
+       "#ff9a47",
+       "#dc7428"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.18,
+       0.08,
+       0.18,
+       0.04
+      ],
+      "at": [
+       0,
+       0.8,
+       0.05
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.24,
+       0.08,
+       0.24,
+       0.04
+      ],
+      "at": [
+       0.05,
+       1,
+       0
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "floating-orb-totem",
+   "type": "new",
+   "variant_of": null,
+   "role": "approach",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.7,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     2,
+     5
+    ],
+    [
+     6,
+     5
+    ]
+   ],
+   "where": "Flanking the smoke trail approach like the ascending floating orbs drawn along the subject's neck.",
+   "shape": {
+    "summary": "A slender brass armature lifting three stacked low-poly spheres of alternating mint, lavender, and yellow.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.08,
+       1.2,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffd647",
+       "#e6b820",
+       "#b8890f"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.22,
+       1
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#68e09e",
+       "#50c284",
+       "#3aa36c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       1
+      ],
+      "at": [
+       0,
+       1.1,
+       0
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.14,
+       1
+      ],
+      "at": [
+       0,
+       1.5,
+       0
+      ],
+      "tones": [
+       "#ffd647",
+       "#e6b820",
+       "#fff099"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "dried-lavender-stump",
+   "type": "stump",
+   "variant_of": "stump",
+   "role": "detail",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.7,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     1,
+     6
+    ],
+    [
+     8,
+     6
+    ]
+   ],
+   "where": "Bordering the entrance court, representing bundles of dried incense herbs.",
+   "shape": {
+    "summary": "A bound cluster of aromatic dried stems cut flat with soft purple flowering buds.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.3,
+       0.45,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8f6885",
+       "#795370",
+       "#5d3c55"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       0.8
+      ],
+      "at": [
+       0.1,
+       0.48,
+       0.05
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.16,
+       0.8
+      ],
+      "at": [
+       -0.1,
+       0.5,
+       -0.05
+      ],
+      "tones": [
+       "#ff6ea7",
+       "#db4882",
+       "#b82b63"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       -0.32,
+       0.25,
+       0
+      ],
+      "to": [
+       0.32,
+       0.25,
+       0
+      ],
+      "tones": [
+       "#ffd647",
+       "#e6b820",
+       "#b8890f"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "sensory-mystic",
+   "source": "Disembodied meditative face inhaling candle smoke into nostril at image center",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.5,
+   "shape": {
+    "summary": "A smooth lavender sculpted bust with serene closed eyelids, smiling lips, and an open third eye beneath a spiky black crested halo.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.9,
+       0.9,
+       0.7,
+       0.15
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.4,
+       0.45,
+       0.1
+      ],
+      "at": [
+       0,
+       0.1,
+       0.1
+      ],
+      "tones": [
+       "#c3bdff",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       1.4,
+       1.5,
+       0.4,
+       0.1
+      ],
+      "at": [
+       0,
+       1.1,
+       -0.2
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.3,
+       0.05,
+       0.7,
+       6
+      ],
+      "at": [
+       0,
+       1.9,
+       -0.2
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.04,
+       0.6,
+       6
+      ],
+      "at": [
+       -0.55,
+       1.7,
+       -0.2
+      ],
+      "rot": [
+       0,
+       0,
+       25
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.22,
+       0.04,
+       0.6,
+       6
+      ],
+      "at": [
+       0.55,
+       1.7,
+       -0.2
+      ],
+      "rot": [
+       0,
+       0,
+       -25
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       0.6
+      ],
+      "at": [
+       0,
+       0.95,
+       0.38
+      ],
+      "tones": [
+       "#ffd647",
+       "#e6b820",
+       "#fff099"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.06,
+       0.6
+      ],
+      "at": [
+       0,
+       0.95,
+       0.44
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.03
+      ],
+      "at": [
+       -0.25,
+       0.55,
+       0.37
+      ],
+      "to": [
+       -0.08,
+       0.52,
+       0.37
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.03
+      ],
+      "at": [
+       0.08,
+       0.52,
+       0.37
+      ],
+      "to": [
+       0.25,
+       0.55,
+       0.37
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.03
+      ],
+      "at": [
+       -0.12,
+       0.25,
+       0.37
+      ],
+      "to": [
+       0.12,
+       0.25,
+       0.37
+      ],
+      "tones": [
+       "#252037",
+       "#181426",
+       "#0f0c18"
+      ]
+     }
+    ]
+   },
+   "pose": "Serene head suspended slightly tilted back with closed smiling eyes, nostrils flared gently above the rising smoke path.",
+   "cell": [
+    4,
+    2
+   ],
+   "facing": "s",
+   "why": "Frozen at the apex of aromatic bliss, drawing the smoke upward from the incense brazier into an explosion of inner consciousness."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVRRRRRGVRGVVVV",
+   "VVVRFFRRRRRRGVVV",
+   "VRRRFFRRRGRRRGVV",
+   "VRRRPRRRGGGGRGVV",
+   "VRRRPRRRGGGGRGVV",
+   "VRRGPGGGGGGGRGVV",
+   "VGRRPPGGGGGGRGVV",
+   "VVGRRPGGGGGGRGVV",
+   "VVVGGPGGGGGGGVVV",
+   "VVVVVPPPPPGVVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0003333210210000",
+   "0003333323321000",
+   "0333333221322100",
+   "0333333211112100",
+   "0332222211112100",
+   "0221111111112100",
+   "0122111111112100",
+   "0012211111112100",
+   "0001111111111000",
+   "0000011111100000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 4,
+   "z": 2,
+   "what": "The sensory mystic bust crowned by spiky dark thoughts at the wall of the alcove"
+  },
+  "mass": "Visual weight forms an encompassing crescent cliff across the northern and lateral rims, sheltering the sunken incense floor.",
+  "read": "The viewer enters from the south at the single candle-brazier threshold, follows the sinuous paved smoke path north into the sunken meditation floor, and is drawn directly upward to the smiling serene mystic enshrined against the dark spiky cliffs.",
+  "shaped": {
+   "name": "basin",
+   "params": {
+    "floor": 1,
+    "wall": 3,
+    "open": "s",
+    "pool": false,
+    "focal": "wall"
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVRRRRRRRRRRVVV",
+    "VVRRTTTTTTTTRRVV",
+    "VVRTTTFFFFTTTRVV",
+    "VRRTTTFFFFTTTRRV",
+    "VRRTTGGPPGGTTTRV",
+    "VRRTGGPFFPGGTTRV",
+    "VVRRGGPPPPPGRRVV",
+    "VVVRRGGPPPGGRRVV",
+    "VVVVRRGGPGRRVVVV",
+    "VVVVVRRPPRRVVVVV",
+    "VVVVVVVRRVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.25,
+   "types": [
+    {
+     "type": "spotted-mind-shroom",
+     "variant": "0",
+     "weight": 0.5
+    },
+    {
+     "type": "scalloped-thought-fin",
+     "variant": "0",
+     "weight": 0.5
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.35,
+  "decor_weights": {
+   "flower": 0.4,
+   "gem": 0.3,
+   "rock": 0.3
+  },
+  "lighting": {
+   "bg": "#25213b",
+   "ambient": 0.75,
+   "sun": 0.2,
+   "tint": "#c3bdff",
+   "notes": "aromatic wick-flame glow over deep plum shadow: Quotes the high-key periwinkle field illuminating the dark cranial mass, highlighted with the candle flame's concentrated warmth."
+  },
+  "rules": [
+   "Keep the central smoke path completely unobstructed between the south entrance and the focal figure.",
+   "Flank the raised northern rim exclusively with dark jagged thought-fins and psychedelic fungi.",
+   "Cluster apothecary jars at the corners of the lower terrace to define the ritual bounds."
+  ],
+  "decor_density": 0.18,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "stone",
+   "path": "dirt",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "ANALYSIS.subject and ANALYSIS.story: the aromatic sensory mystic in a secluded meditation alcove experiencing mental bloom from scented vapor",
+  "place": "A secluded incense-filled meditation alcove sheltered within towering dark thought-spires where an aromatic visionary rests in a waking dream.",
+  "summary": "A tiered basin alcove enclosed by scalloped obsidian cliffs, entered past a smouldering candle tumbler along a winding path of herbal ash.",
+  "differs": "Unlike the flat vector medium interpretation, this reading grounds the scene in the mystic's tangible apothecary habitat: a sunken aromatic meditation haven enclosed by spiky psychological cliffs.",
+  "fixes": [
+   "surface_mix led with dirt after a sibling took sand"
+  ]
+ },
+ "shaper": {
+  "name": "basin",
+  "params": {
+   "floor": 1,
+   "wall": 3,
+   "open": "s",
+   "pool": false,
+   "focal": "wall"
+  },
+  "why": "A walled basin open to the south creates an intimate sensory alcove that embraces the meditator while focusing all sightlines onto the serene face resting on the back wall."
+ },
+ "surface_mix": {
+  "pattern": "patches",
+  "period": 3,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.3
+   },
+   {
+    "s": "dirt",
+    "share": 0.55
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Warm golden ritual sand represents fine aromatic incense ash, patched with deep purple dried herbal earth and stepping stone pads along the smoke trail."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#38314e",
+   "#252037",
+   "#181426"
+  ],
+  "lower": [
+   "#2d2840",
+   "#1c182b",
+   "#120f1e"
+  ],
+  "why": "Stepped obsidian tiers reflect the solid black layered terraces of the silhouette crown while remaining cleanly navigable."
+ },
+ "lighting": {
+  "time": "aromatic wick-flame glow over deep plum shadow",
+  "ambient": 0.75,
+  "sun": 0.2,
+  "tint": "#c3bdff",
+  "bg": "#25213b",
+  "why": "Quotes the high-key periwinkle field illuminating the dark cranial mass, highlighted with the candle flame's concentrated warmth."
+ },
+ "figure_pose": {
+  "pose": "Serene head suspended slightly tilted back with closed smiling eyes, nostrils flared gently above the rising smoke path.",
+  "action": "inhaling smoke trance",
+  "facing": "camera",
+  "why": "Captures the exact meditative action in ANALYSIS.subject.doing, serenely receiving the fragrant vapors."
+ },
+ "approach": {
+  "from": "south",
+  "passes": [
+   "incense-coil-brazier",
+   "dried-lavender-stump",
+   "floating-orb-totem",
+   "spotted-mind-shroom"
+  ],
+  "shape": "A curving ceremonial approach following the undulating lavender smoke trail straight into the hollow."
+ },
+ "threshold": {
+  "kind": "A stout glowing glass jar containing burning scented oils and rising smoke, establishing the boundary between mundane awareness and the trance state.",
+  "prop": "incense-coil-brazier"
+ },
+ "analysis": "pipeline/seed/analysis/mindbloom.json",
+ "concept": {
+  "name": "lens-subject",
+  "lens": "subject",
+  "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+ }
+}

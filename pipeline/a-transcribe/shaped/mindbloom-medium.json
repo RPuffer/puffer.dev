@@ -1,0 +1,1396 @@
+{
+ "source": {
+  "art": "pipeline/seed/mindbloom.png",
+  "width": 1280,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "psychedelic",
+  "meditative",
+  "hallucinatory",
+  "graphic",
+  "enamelled",
+  "serene"
+ ],
+ "observations": [
+  {
+   "what": "Flat solid lilac-periwinkle negative space surrounding the entire central silhouette",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  },
+  {
+   "what": "Glass tumbler candle container resting at the bottom centerline with label and tiny black flame",
+   "box": [
+    840,
+    423,
+    955,
+    570
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Thin looping translucent purple smoke filament meandering vertically from candle wick to nostrils",
+   "box": [
+    665,
+    375,
+    848,
+    597
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Serene lavender-skinned face with eyes closed in meditative inhalation and downward-slanting eyelashes",
+   "box": [
+    507,
+    303,
+    688,
+    670
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Open graphic third eye placed symmetrically at the brow center emitting upward linework",
+   "box": [
+    475,
+    437,
+    545,
+    545
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Jagged multi-pointed black crown representing volumetric hair expanding radially outward",
+   "box": [
+    105,
+    120,
+    625,
+    870
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Cluster of spotted psychedelic mushroom doodles in neon mint and violet in the upper-left hair lobe",
+   "box": [
+    245,
+    312,
+    368,
+    435
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Eyeball motifs floating inside decorative almond shapes along the outer hair lobes",
+   "box": [
+    440,
+    203,
+    502,
+    332
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Dense confetti-like multicolored concentric circles and floating bubbles in the upper central hair crest",
+   "box": [
+    170,
+    505,
+    300,
+    680
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Double-helix DNA strand and sinuous wave doodles drawn in yellow and mint along the mid-left hair wing",
+   "box": [
+    375,
+    297,
+    498,
+    385
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Spotted mushroom doodle and squiggly line filaments in the upper-right hair canopy",
+   "box": [
+    310,
+    680,
+    412,
+    835
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Curving chain link doodle and branching coral-like squiggles along the lower right perimeter",
+   "box": [
+    400,
+    660,
+    528,
+    852
+   ],
+   "maps_to": "T"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#c3bdff",
+    "share": 0.724,
+    "role": "dominant flat background field"
+   },
+   {
+    "hex": "#2e3536",
+    "share": 0.078,
+    "role": "deep charcoal contour and mass undertones"
+   },
+   {
+    "hex": "#0c0d0e",
+    "share": 0.071,
+    "role": "solid black cranial silhouette fill"
+   },
+   {
+    "hex": "#4d5e5e",
+    "share": 0.053,
+    "role": "muted slate-teal internal linear detailing"
+   },
+   {
+    "hex": "#787b9c",
+    "share": 0.024,
+    "role": "mid-value shadow on smoke and candle glass"
+   },
+   {
+    "hex": "#a5a2cf",
+    "share": 0.022,
+    "role": "translucent purple smoke trail"
+   },
+   {
+    "hex": "#7ea572",
+    "share": 0.015,
+    "role": "bright lime and mint green graphic accents"
+   },
+   {
+    "hex": "#d0c9fa",
+    "share": 0.013,
+    "role": "pale lavender highlights on the candle and brow"
+   }
+  ],
+  "translation": {
+   "bg": "#c3bdff",
+   "grass": {
+    "top": "#79ae69",
+    "fringe": "#609651",
+    "fringeDark": "#4a713d",
+    "speck": "#9cc991"
+   },
+   "sand": {
+    "top": "#f1cd52",
+    "lip": "#dd9200",
+    "edge": "#f1b900",
+    "dots": "#ffe082"
+   },
+   "dirt": {
+    "top": "#ffe082",
+    "patch": "#f8d87c",
+    "mottle": "#eec968",
+    "border": "#dd9200"
+   },
+   "stone": {
+    "top": "#d0c9fa",
+    "pebble": "#f0ecff",
+    "pebbleShade": "#a5a2cf",
+    "rim": "#787b9c"
+   },
+   "cliffUpper": {
+    "left": "#384142",
+    "right": "#16181a",
+    "seam": "#0e1114"
+   },
+   "cliffLower": {
+    "left": "#4d5e5e",
+    "right": "#2e3536",
+    "seam": "#1d2324",
+    "speck": "#0c0d0e"
+   },
+   "water": {
+    "top": "#a0eeff",
+    "bubble": "#daf7ff",
+    "deep": "#00d4ff",
+    "fall": [
+     "#00daff",
+     "#00ceff",
+     "#00c7ff"
+    ],
+    "foam": "#daf7ff"
+   },
+   "wood": {
+    "light": "#ff831d",
+    "mid": "#dc7016",
+    "dark": "#bd4c0b",
+    "shadow": "#a04b14",
+    "end": "#f6d881"
+   },
+   "treeMint": [
+    "#8fffc2",
+    "#68e09e",
+    "#44a46b"
+   ],
+   "treeLime": [
+    "#9cc991",
+    "#79ae69",
+    "#578a4a"
+   ],
+   "treeLeaf": [
+    "#79ae69",
+    "#63a157",
+    "#4b7a42"
+   ],
+   "treeTeal": [
+    "#00ffbf",
+    "#00e09b",
+    "#00c386",
+    "#00a568"
+   ],
+   "treeGold": [
+    "#f1cd52",
+    "#f1b900",
+    "#dd9200"
+   ],
+   "trunk": [
+    "#233d41",
+    "#090d11"
+   ],
+   "rock": [
+    "#d0c9fa",
+    "#a5a2cf",
+    "#787b9c",
+    "#4d5e5e"
+   ],
+   "wellStone": [
+    "#d0c9fa",
+    "#a5a2cf",
+    "#787b9c"
+   ],
+   "flowerOrange": [
+    "#ff831d",
+    "#f1b900"
+   ],
+   "berry": [
+    "#ff77a8",
+    "#d9437a"
+   ],
+   "bushTeal": [
+    "#8fffc2",
+    "#68e09e",
+    "#5ac389"
+   ],
+   "gold": [
+    "#f1cd52",
+    "#f1b900",
+    "#dd9200"
+   ]
+  },
+  "notes": "The dominant lilac periwinkle from the cardstock ground is maintained directly in the background and lavender stone pads. Cliffs translate into ink-black and slate-teal silhouettes matching the silkscreen silhouette of the hair.",
+  "clamped": [
+   "grass.top #7ea572->#79ae69",
+   "grass.fringe #668c5b->#609651",
+   "grass.fringeDark #4d6b43->#4a713d",
+   "treeLime[1] #7ea572->#79ae69",
+   "treeLime[2] #5c8252->#578a4a",
+   "treeLeaf[0] #7ea572->#79ae69",
+   "treeLeaf[1] #64a058->#63a157",
+   "treeLeaf[2] #4b7a42->#4b7a42",
+   "trunk[0] #2e3536->#233d41",
+   "trunk[1] #0c0d0e->#090d11",
+   "cliffUpper.left #2e3536->#384142",
+   "cliffUpper.right #0c0d0e->#16181a",
+   "cliffUpper.seam #050607->#0e1114"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "smoke-ribbon-pillar",
+   "role": "approach",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": true,
+   "count": 3,
+   "cells": [
+    [
+     7,
+     6
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     7,
+     4
+    ]
+   ],
+   "where": "Placed along the lower centerline where the thin purple smoke loops upward from the candle wick to the face.",
+   "shape": {
+    "summary": "Stacked twisting translucent lavender lozenge blocks mimicking the serpentine S-curve smoke line.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.4,
+       0.3,
+       0.4,
+       0.1
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.4,
+       0.35,
+       0.08
+      ],
+      "at": [
+       0.08,
+       0.3,
+       0
+      ],
+      "rot": [
+       0,
+       25,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.3,
+       0.4,
+       0.3,
+       0.08
+      ],
+      "at": [
+       -0.06,
+       0.7,
+       0.05
+      ],
+      "rot": [
+       0,
+       -20,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       0.8
+      ],
+      "at": [
+       0.02,
+       1.2,
+       0
+      ],
+      "tones": [
+       "#f0ecff",
+       "#d0c9fa",
+       "#a5a2cf"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "candlestick-dais",
+   "role": "threshold",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     7,
+     7
+    ]
+   ],
+   "where": "Placed at the southern threshold representing the cylindrical glass candle tumbler anchoring the bottom of the piece.",
+   "shape": {
+    "summary": "Faceted glass cylinder with a pale label box and miniature gold flame cone.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.42,
+       0.65,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.55,
+       0.35,
+       0.1
+      ],
+      "at": [
+       0,
+       0.15,
+       0.38
+      ],
+      "tones": [
+       "#f0ecff",
+       "#d0c9fa",
+       "#a5a2cf"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.04,
+       0.12,
+       6
+      ],
+      "at": [
+       0,
+       0.65,
+       0
+      ],
+      "tones": [
+       "#384142",
+       "#16181a",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0,
+       0.2,
+       6
+      ],
+      "at": [
+       0,
+       0.77,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffb31d",
+       "#ff831d"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "spotted-neon-cap",
+   "role": "detail",
+   "type": "new",
+   "variant_of": "mushroom",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.85,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     4,
+     1
+    ],
+    [
+     11,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     12,
+     2
+    ]
+   ],
+   "where": "Located in the peripheral raised hair lobes mirroring the spotted psychedelic mushrooms drawn in mint and purple.",
+   "shape": {
+    "summary": "Chunky cylindrical stalk supporting a domed mint-green mushroom cap dotted with bright yellow beads.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.5,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.38,
+       0.6
+      ],
+      "at": [
+       0,
+       0.55,
+       0
+      ],
+      "tones": [
+       "#8fffc2",
+       "#68e09e",
+       "#44a46b"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.08,
+       1
+      ],
+      "at": [
+       0.15,
+       0.75,
+       0.12
+      ],
+      "tones": [
+       "#ffe082",
+       "#f1cd52",
+       "#dd9200"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.07,
+       1
+      ],
+      "at": [
+       -0.14,
+       0.78,
+       -0.08
+      ],
+      "tones": [
+       "#ffe082",
+       "#f1cd52",
+       "#dd9200"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "eyeball-totem",
+   "role": "mass",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     3,
+     1
+    ],
+    [
+     13,
+     3
+    ]
+   ],
+   "where": "Anchoring the outer flaring wings of the hair silhouette where stylized almond-shaped eyes watch sideways.",
+   "shape": {
+    "summary": "Faceted black prism frame enclosing a concentric low-poly eyeball with cyan iris and dark pupil.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.3,
+       0.4,
+       0.3
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#384142",
+       "#16181a",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.6,
+       0.25,
+       0.12
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#4d5e5e",
+       "#384142",
+       "#16181a"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.24,
+       0.9
+      ],
+      "at": [
+       0,
+       0.7,
+       0.1
+      ],
+      "tones": [
+       "#f0ecff",
+       "#d0c9fa",
+       "#a5a2cf"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.06,
+       8
+      ],
+      "at": [
+       0,
+       0.7,
+       0.25
+      ],
+      "rot": [
+       90,
+       0,
+       0
+      ],
+      "tones": [
+       "#00ffbf",
+       "#00e09b",
+       "#00c386"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.05,
+       0.08,
+       6
+      ],
+      "at": [
+       0,
+       0.7,
+       0.28
+      ],
+      "rot": [
+       90,
+       0,
+       0
+      ],
+      "tones": [
+       "#16181a",
+       "#0e1114",
+       "#0e1114"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "orb-cluster-crest",
+   "role": "dais",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.6,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     1
+    ],
+    [
+     9,
+     1
+    ]
+   ],
+   "where": "Crowning the very top tier of the island representing the bubbles and floating spheres in the upper hair crest.",
+   "shape": {
+    "summary": "Slender dark totem pole capped with a cluster of bright colored spheres in teal, yellow, and magenta.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.9,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#384142",
+       "#16181a",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.3,
+       1
+      ],
+      "at": [
+       0,
+       1,
+       0
+      ],
+      "tones": [
+       "#00ffbf",
+       "#00e09b",
+       "#00a568"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.22,
+       1
+      ],
+      "at": [
+       0.2,
+       1.3,
+       0.05
+      ],
+      "tones": [
+       "#ffe082",
+       "#f1cd52",
+       "#dd9200"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       1
+      ],
+      "at": [
+       -0.18,
+       1.25,
+       -0.05
+      ],
+      "tones": [
+       "#ff77a8",
+       "#d9437a",
+       "#bd4c0b"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "doodle-helix-tree",
+   "role": "mass",
+   "type": "tree-round",
+   "variant_of": "tree-round",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.1,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     5,
+     1
+    ],
+    [
+     10,
+     1
+    ]
+   ],
+   "where": "Flanking the mid-level plateau like the twisting graphic DNA and coral doodles inside the hair silhouette.",
+   "shape": {
+    "summary": "Toy-like rounded cube foliage tiers resting on a charcoal stem, saturated in graphic mint enamel tones.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.2,
+       0.8,
+       0.2
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#384142",
+       "#16181a",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.9,
+       0.6,
+       0.9,
+       0.12
+      ],
+      "at": [
+       0,
+       0.8,
+       0
+      ],
+      "tones": [
+       "#8fffc2",
+       "#68e09e",
+       "#44a46b"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.5,
+       0.7,
+       0.1
+      ],
+      "at": [
+       0.05,
+       1.3,
+       -0.05
+      ],
+      "tones": [
+       "#9cc991",
+       "#79ae69",
+       "#578a4a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.4,
+       0.45,
+       0.08
+      ],
+      "at": [
+       -0.03,
+       1.7,
+       0.02
+      ],
+      "tones": [
+       "#00ffbf",
+       "#00e09b",
+       "#00a568"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "dreamer-effigy",
+   "source": "The serene floating face with downward eyelashes and central brow third-eye in IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.2,
+   "shape": {
+    "summary": "A peaceful head sculpted from smooth lavender rounded blocks with an open graphic third eye on its brow.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       1.4,
+       0.5,
+       1.2,
+       0.15
+      ],
+      "at": [
+       0.5,
+       0,
+       0.5
+      ],
+      "tones": [
+       "#384142",
+       "#16181a",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       1.2,
+       1.1,
+       1,
+       0.15
+      ],
+      "at": [
+       0.5,
+       0.5,
+       0.5
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.3,
+       0.08,
+       0.08,
+       0.03
+      ],
+      "at": [
+       0.2,
+       0.95,
+       1.02
+      ],
+      "rot": [
+       10,
+       0,
+       -5
+      ],
+      "tones": [
+       "#16181a",
+       "#0e1114",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.3,
+       0.08,
+       0.08,
+       0.03
+      ],
+      "at": [
+       0.8,
+       0.95,
+       1.02
+      ],
+      "rot": [
+       10,
+       0,
+       5
+      ],
+      "tones": [
+       "#16181a",
+       "#0e1114",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.12,
+       0.22,
+       0.1
+      ],
+      "at": [
+       0.5,
+       0.8,
+       1.03
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.25,
+       0.08,
+       0.06,
+       0.02
+      ],
+      "at": [
+       0.5,
+       0.65,
+       1.02
+      ],
+      "tones": [
+       "#ff77a8",
+       "#d9437a",
+       "#a5a2cf"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.3,
+       0.08,
+       0.05
+      ],
+      "at": [
+       0.5,
+       1.25,
+       1.01
+      ],
+      "tones": [
+       "#16181a",
+       "#0e1114",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.12,
+       0.8
+      ],
+      "at": [
+       0.5,
+       1.25,
+       1.06
+      ],
+      "tones": [
+       "#f0ecff",
+       "#d0c9fa",
+       "#a5a2cf"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.06,
+       1
+      ],
+      "at": [
+       0.5,
+       1.25,
+       1.12
+      ],
+      "tones": [
+       "#16181a",
+       "#0e1114",
+       "#0e1114"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.25,
+       0,
+       0.4,
+       6
+      ],
+      "at": [
+       0.5,
+       1.45,
+       0.9
+      ],
+      "tones": [
+       "#384142",
+       "#16181a",
+       "#0e1114"
+      ]
+     }
+    ]
+   },
+   "pose": "Upright head perched quietly facing directly south toward the entry axis with peaceful downcast eyes.",
+   "cell": [
+    7,
+    2
+   ],
+   "facing": "s",
+   "why": "It acts as the spiritual subject of the artwork floating at the center above the aromatic smoke trail."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVRRRRRRRRGVVVV",
+   "VVRRRRRFFRRRGVVV",
+   "VVRRRRRFFRRRRGVV",
+   "VRRRRRRPPRRRRRGV",
+   "VRRRRRRPPRRRRRGV",
+   "VGRRRRRPPRRRRRGV",
+   "VVGGRRRPPRRRGGVV",
+   "VVVGGGGPPGGGGGVV",
+   "VVVVGGGPPGGGGVVV",
+   "VVVVGGGGPGGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0003333333210000",
+   "0033333333321000",
+   "0033333333322100",
+   "0222233333322210",
+   "0222233333322210",
+   "0122222222222210",
+   "0011222222221100",
+   "0001111111111100",
+   "0000111111111000",
+   "0000111111110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 2,
+   "what": "The forehead third eye and placid countenance of the dreamer effigy."
+  },
+  "mass": "Concentrated in the wide upper-half terraced mass matching the expanding jagged cranial silhouette.",
+  "read": "The viewer enters at the southern candle altar at row 9, tracing the narrow smoke path upward through the middle ground. The eye ascends into the calm lavender face of the effigy before being drawn upward into the jagged tiered plateau packed with colorful totems.",
+  "shaped": {
+   "name": "symmetric",
+   "params": {
+    "tiers": 3,
+    "axis": "x",
+    "notch": 1
+   },
+   "seed": 1,
+   "start": [
+    8,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVTRRRRTVVVVV",
+    "VVVTRRRRRRRRTVVV",
+    "VVTRRRRRRRRRRTVV",
+    "VVTRRRRFFRRRRTVV",
+    "VVTRRRRFFRRRRTVV",
+    "VVVTRRPPPPRRTVVV",
+    "VVVVVVPFFPVVVVVV",
+    "VVVVVVPFFPVVVVVV",
+    "VVVVVVVPPVVVVVVV",
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.22,
+   "types": [
+    {
+     "type": "doodle-helix-tree",
+     "variant": "0",
+     "weight": 0.4
+    },
+    {
+     "type": "spotted-neon-cap",
+     "variant": "0",
+     "weight": 0.35
+    },
+    {
+     "type": "orb-cluster-crest",
+     "variant": "0",
+     "weight": 0.25
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.46,
+  "decor_weights": {
+   "eyeball-totem": 0.25,
+   "smoke-ribbon-pillar": 0.35,
+   "gem": 0.4
+  },
+  "lighting": {
+   "bg": "#c3bdff",
+   "ambient": 0.88,
+   "sun": 0.12,
+   "tint": "#d0c9fa",
+   "notes": "flat graphic silkscreen illumination: Reflects the high-key periwinkle field of the canvas which illuminates the subject evenly without cast shadows."
+  },
+  "rules": [
+   "Keep the peripheral void totally unpopulated to preserve the clean poster-cardstock margin.",
+   "Cluster eyeball and helix totems symmetrically along the east and west outer tiers.",
+   "Confine smoke ribbon props strictly to the central path leading up to the effigy.",
+   "Elevate the northern crown to height 3 to emphasize the spiky cranial crest."
+  ],
+  "decor_density": 0.18,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "grass",
+   "path": "stone",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "Digital ink monoline contours, silkscreen vector flat color fills, and symmetrical doodle iconography.",
+  "place": "A floating vector dais shaped like a crowned psyche hovering in an endless periwinkle void.",
+  "summary": "The artwork's flat graphic linework and sharp silkscreen edges become clean geometric blocks, tiered ink-black cliffs, and bright enameled decorative totems.",
+  "differs": "Unlike painterly or organic landscape readings, every feature here is rendered as crisp, solid silkscreen shapes with bilateral symmetry and stark graphic contrast."
+ },
+ "shaper": {
+  "name": "symmetric",
+  "params": {
+   "tiers": 3,
+   "axis": "x",
+   "notch": 1
+  },
+  "why": "Matches the drawing's strong bilateral vertical symmetry centered on the candle, nose, third eye, and radiating hair crown."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.52
+   },
+   {
+    "s": "grass",
+    "share": 0.33
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Paper-pale sand forms the smooth walkable floor, grass accents provide graphic mint fields, and stone pads cap out at 15% as pale lavender cobbles."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#2e3536",
+   "#0c0d0e",
+   "#050607"
+  ],
+  "lower": [
+   "#4d5e5e",
+   "#2e3536",
+   "#1d2324"
+  ],
+  "why": "Translates the dense pitch-black silkscreen mass of the hair silhouette directly into stark, sharp-edged drop-offs."
+ },
+ "lighting": {
+  "time": "flat graphic silkscreen illumination",
+  "ambient": 0.88,
+  "sun": 0.12,
+  "tint": "#d0c9fa",
+  "bg": "#c3bdff",
+  "why": "Reflects the high-key periwinkle field of the canvas which illuminates the subject evenly without cast shadows."
+ },
+ "figure_pose": {
+  "pose": "Upright head perched quietly facing directly south toward the entry axis with peaceful downcast eyes.",
+  "action": "inhaling meditation",
+  "facing": "camera",
+  "why": "Faithfully adopts the calm frontal alignment of the meditative face centered in the composition."
+ },
+ "approach": {
+  "from": "south",
+  "passes": [
+   "candlestick-dais",
+   "smoke-ribbon-pillar",
+   "dreamer-effigy",
+   "orb-cluster-crest"
+  ],
+  "shape": "A direct axial climb from the southern candle wick along the smoke trail into the mind's crowned crest."
+ },
+ "threshold": {
+  "kind": "A faceted glass candle jar emitting a rising plume of aromatic lavender smoke.",
+  "prop": "candlestick-dais"
+ },
+ "analysis": "pipeline/seed/analysis/mindbloom.json",
+ "concept": {
+  "name": "lens-medium",
+  "lens": "medium",
+  "fragment": "LENS \"medium\": the artwork's MATERIAL AND MARKS become the island's physical character. Start from ANALYSIS.medium and ANALYSIS.palette, not from the subject. The ground is made of the marks: single-stroke ink becomes ribbon land and sweeping arcs of path with void where the paper is empty (shaper \"ribbon\", or \"spiral\" for a curl); airbrush gradients become soft radial terraces fading outward (shaper \"radial\"); fauvist or knife strokes become a patchwork of flat colour blocks at different heights (shaper \"patchwork\"); charcoal smudge becomes soft-edged dark masses with pale mist lying in the hollows (shaper \"mound\" or \"basin\"); pencil hatching or scratchy ink becomes angular slabs split by thin seams (shaper \"shards\"); vector doodles become dense small ornament on a tidy mirrored plan (shaper \"symmetric\"). Choose shaper params from the marks themselves (how many strokes, how wide, which way they sweep, how many blocks). Palette, surface_mix and cliff_treatment follow the medium (ink: paper-pale sand and ink-dark cliffs; airbrush: rings of surfaces fading by value; fauvist: saturated patches; charcoal: soft grey-green, mossy or soft cliffs). New props are the marks made solid: a brush flick as a curved blade of stone, a smudge as a low soft boulder, a doodle as a ring of beads, a knife stroke as a flat tilted slab. The figure's pose comes from how it is drawn (a single continuous stroke, a stack of colour patches), and it may be a monument of the marks rather than a living creature."
+ }
+}

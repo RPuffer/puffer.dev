@@ -1,0 +1,1421 @@
+{
+ "source": {
+  "art": "pipeline/seed/mindbloom.png",
+  "width": 1280,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "tranquil",
+  "cerebral",
+  "hallucinatory",
+  "suspended",
+  "geometric",
+  "nocturnal"
+ ],
+ "observations": [
+  {
+   "what": "Clear glass candle jar with paper label and a central upright wick emitting a single vertical flame at bottom center",
+   "box": [
+    834,
+    421,
+    955,
+    574
+   ],
+   "maps_to": "motif glass-candle-pedestal"
+  },
+  {
+   "what": "Thin looping purple smoke plume winding upward in an S-curve from the candle wick toward the floating face",
+   "box": [
+    655,
+    375,
+    843,
+    600
+   ],
+   "maps_to": "motif serpentine-smoke-riser"
+  },
+  {
+   "what": "Pale lavender disembodied human face floating vertically with tranquil closed eyes, nostril inhaling smoke, and slight serene smile",
+   "box": [
+    486,
+    303,
+    686,
+    672
+   ],
+   "maps_to": "figure meditative-dreamer"
+  },
+  {
+   "what": "Frontally rendered third eye marked with radiant graphic iris centered directly above the nasal bridge on the forehead",
+   "box": [
+    478,
+    444,
+    529,
+    539
+   ],
+   "maps_to": "motif third-eye-oculus"
+  },
+  {
+   "what": "Spiky, starburst-shaped solid black hair silhouette flaring outwards in jagged lobes on both sides and crowning top",
+   "box": [
+    105,
+    126,
+    617,
+    866
+   ],
+   "maps_to": "R terrain plateau mass"
+  },
+  {
+   "what": "Clusters of rounded psychedelic mushroom caps detailed with spots and gills along the upper-left crest of the hair",
+   "box": [
+    247,
+    311,
+    374,
+    434
+   ],
+   "maps_to": "motif neon-cap-cluster"
+  },
+  {
+   "what": "Stylized graphic eye motifs staring out from dense doodle patterns within the left wing of the dark hair mass",
+   "box": [
+    447,
+    211,
+    502,
+    321
+   ],
+   "maps_to": "motif watchful-orb-totem"
+  },
+  {
+   "what": "Tight spiral coils, ladders, and chain links drawn in mint green and yellow along the upper right lobe",
+   "box": [
+    316,
+    677,
+    393,
+    762
+   ],
+   "maps_to": "motif coiled-helix-pillar"
+  },
+  {
+   "what": "Second cluster of spotted dome mushrooms and brain-like squiggles along the far right contour",
+   "box": [
+    386,
+    715,
+    461,
+    829
+   ],
+   "maps_to": "motif neon-cap-cluster"
+  },
+  {
+   "what": "Expansive, completely uniform periwinkle-purple negative space framing the central floating composition on all sides",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V void grid cells"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#c3bdff",
+    "share": 0.724,
+    "role": "dominant flat periwinkle background field"
+   },
+   {
+    "hex": "#2e3536",
+    "share": 0.078,
+    "role": "deep charcoal contour and mass undertones"
+   },
+   {
+    "hex": "#0c0d0e",
+    "share": 0.071,
+    "role": "solid black cranial silhouette fill"
+   },
+   {
+    "hex": "#4d5e5e",
+    "share": 0.053,
+    "role": "muted slate-teal internal linear detailing"
+   },
+   {
+    "hex": "#787b9c",
+    "share": 0.024,
+    "role": "mid-value shadow on smoke and candle glass"
+   },
+   {
+    "hex": "#a5a2cf",
+    "share": 0.022,
+    "role": "translucent purple smoke trail"
+   },
+   {
+    "hex": "#7ea572",
+    "share": 0.015,
+    "role": "bright lime and mint green graphic accents"
+   },
+   {
+    "hex": "#d0c9fa",
+    "share": 0.013,
+    "role": "pale lavender highlights on the candle and brow"
+   }
+  ],
+  "translation": {
+   "bg": "#1c1b2e",
+   "grass": {
+    "top": "#79ae69",
+    "fringe": "#609651",
+    "fringeDark": "#49723d",
+    "speck": "#9cc990"
+   },
+   "sand": {
+    "top": "#f1cd52",
+    "lip": "#dd9200",
+    "edge": "#f1b900",
+    "dots": "#ffe082"
+   },
+   "dirt": {
+    "top": "#a5a2cf",
+    "patch": "#b7b4df",
+    "mottle": "#918ebf",
+    "border": "#787b9c"
+   },
+   "stone": {
+    "top": "#d0c9fa",
+    "pebble": "#e2ddfc",
+    "pebbleShade": "#b9b2e8",
+    "rim": "#a59eda"
+   },
+   "cliffUpper": {
+    "left": "#384142",
+    "right": "#242b2c",
+    "seam": "#16181a"
+   },
+   "cliffLower": {
+    "left": "#4d5e5e",
+    "right": "#334141",
+    "seam": "#232e2e",
+    "speck": "#1a1f20"
+   },
+   "water": {
+    "top": "#8ac9e8",
+    "bubble": "#c8efff",
+    "deep": "#4b8dae",
+    "fall": [
+     "#66a8c7",
+     "#5292b0",
+     "#3f7c9a"
+    ],
+    "foam": "#dcf5ff"
+   },
+   "wood": {
+    "light": "#ff831d",
+    "mid": "#dc7016",
+    "dark": "#bd4c0b",
+    "shadow": "#a04b14",
+    "end": "#f6d881"
+   },
+   "treeMint": [
+    "#78ebb0",
+    "#5cc491",
+    "#439a70"
+   ],
+   "treeLime": [
+    "#9de069",
+    "#7ebd4d",
+    "#609939"
+   ],
+   "treeLeaf": [
+    "#79ae69",
+    "#5f934f",
+    "#49723d"
+   ],
+   "treeTeal": [
+    "#4ee0c6",
+    "#32bda3",
+    "#1f9982",
+    "#127361"
+   ],
+   "treeGold": [
+    "#f1cd52",
+    "#dca22e",
+    "#b88018"
+   ],
+   "trunk": [
+    "#774057",
+    "#552e3e"
+   ],
+   "rock": [
+    "#a5a2cf",
+    "#8a86be",
+    "#6b679f",
+    "#4e4a7a"
+   ],
+   "wellStone": [
+    "#c3bdff",
+    "#aba4eb",
+    "#9188d4"
+   ],
+   "flowerOrange": [
+    "#ff9233",
+    "#e57417"
+   ],
+   "berry": [
+    "#ff599c",
+    "#de3a7d"
+   ],
+   "bushTeal": [
+    "#68e2c7",
+    "#4abfa4",
+    "#319b82"
+   ],
+   "gold": [
+    "#f1cd52",
+    "#dd9200",
+    "#ffe082"
+   ]
+  },
+  "notes": "The dominant periwinkle field of IMAGE 1 is translated into cool lilac-stone pathways and soft violet dirt flats, while the dark graphic hair mass drives deep slate and obsidian cliff walls.",
+  "clamped": [
+   "grass.top #7ea572->#79ae69",
+   "grass.fringe #668c5b->#609651",
+   "grass.fringeDark #4d6b44->#49723d",
+   "treeLeaf[0] #7ea572->#79ae69",
+   "treeLeaf[1] #648a58->#5f934f",
+   "treeLeaf[2] #4b6e41->#49723d",
+   "trunk[0] #6b4c59->#774057",
+   "trunk[1] #4f343f->#552e3e",
+   "cliffUpper.left #2e3536->#384142",
+   "cliffUpper.right #1a1f20->#242b2c",
+   "cliffUpper.seam #0c0d0e->#16181a"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "glass-candle-pedestal",
+   "role": "threshold",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     7,
+     8
+    ]
+   ],
+   "where": "Placed at the lower centerline platform representing the glass candle jar that anchors the base of IMAGE 1.",
+   "shape": {
+    "summary": "A faceted cylindrical glass tumbler with an inner wax pool and glowing stepped wick flame.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.42,
+       0.7,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.38,
+       0.1,
+       8
+      ],
+      "at": [
+       0,
+       0.58,
+       0
+      ],
+      "tones": [
+       "#fff0c3",
+       "#e8dab1",
+       "#dbc9a2"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.44,
+       0.35,
+       0.05
+      ],
+      "at": [
+       0,
+       0.18,
+       0.39
+      ],
+      "tones": [
+       "#e2ddfc",
+       "#b9b2e8",
+       "#a59eda"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       0,
+       0.68,
+       0
+      ],
+      "to": [
+       0,
+       0.86,
+       0
+      ],
+      "tones": [
+       "#384142",
+       "#242b2c",
+       "#16181a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0,
+       0.42,
+       6
+      ],
+      "at": [
+       0,
+       0.86,
+       0
+      ],
+      "tones": [
+       "#ffe082",
+       "#ffb31d",
+       "#ff831d"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "serpentine-smoke-riser",
+   "role": "approach",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.5,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     7,
+     7
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     7,
+     4
+    ]
+   ],
+   "where": "Lined along the vertical median connecting the candle platform to the upper head plateau, embodying the winding smoke trail.",
+   "shape": {
+    "summary": "A twisting stack of semi-translucent pastel purple cylinders and spherical puffs curling upwards.",
+    "parts": [
+     {
+      "prim": "ball",
+      "dims": [
+       0.24,
+       0.7
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       0.25,
+       0
+      ],
+      "to": [
+       0.15,
+       0.75,
+       -0.1
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.28,
+       0.75
+      ],
+      "at": [
+       0.15,
+       0.78,
+       -0.1
+      ],
+      "tones": [
+       "#e2ddfc",
+       "#b9b2e8",
+       "#a59eda"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       0.15,
+       0.75,
+       -0.1
+      ],
+      "to": [
+       -0.1,
+       1.25,
+       0.05
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.22,
+       0.8
+      ],
+      "at": [
+       -0.1,
+       1.28,
+       0.05
+      ],
+      "tones": [
+       "#e2ddfc",
+       "#b9b2e8",
+       "#a59eda"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "third-eye-oculus",
+   "role": "dais",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.3,
+   "passable": true,
+   "count": 1,
+   "cells": [
+    [
+     6,
+     3
+    ]
+   ],
+   "where": "Positioned right at the front base of the focal figure, echoing the third eye centered on the forehead.",
+   "shape": {
+    "summary": "An almond-shaped concentric stone plinth with a gleaming black and white eye pupil inlay.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.12,
+       0.55,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.08,
+       0.38,
+       0.1
+      ],
+      "at": [
+       0,
+       0.12,
+       0
+      ],
+      "tones": [
+       "#16181a",
+       "#242b2c",
+       "#384142"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       0.06,
+       8
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "tones": [
+       "#4ee0c6",
+       "#32bda3",
+       "#1f9982"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.08,
+       0.8
+      ],
+      "at": [
+       0,
+       0.26,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e2ddfc",
+       "#b9b2e8"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "neon-cap-cluster",
+   "role": "mass",
+   "type": "mushroom",
+   "variant_of": "mushroom",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.1,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     4,
+     1
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     10,
+     1
+    ],
+    [
+     11,
+     1
+    ]
+   ],
+   "where": "Located along the elevated outer flanks of the upper tier, reflecting the psychedelic mushroom caps nested in the silhouette wings.",
+   "shape": {
+    "summary": "A cluster of two toy-like spotted mushroom domes on pale cylindrical stems.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.12,
+       0.55,
+       6
+      ],
+      "at": [
+       -0.15,
+       0,
+       -0.1
+      ],
+      "tones": [
+       "#fff0c3",
+       "#e8dab1",
+       "#dbc9a2"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.38,
+       0.6
+      ],
+      "at": [
+       -0.15,
+       0.55,
+       -0.1
+      ],
+      "tones": [
+       "#4ee0c6",
+       "#32bda3",
+       "#1f9982"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.09,
+       0.4,
+       6
+      ],
+      "at": [
+       0.2,
+       0,
+       0.15
+      ],
+      "tones": [
+       "#fff0c3",
+       "#e8dab1",
+       "#dbc9a2"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.26,
+       0.65
+      ],
+      "at": [
+       0.2,
+       0.4,
+       0.15
+      ],
+      "tones": [
+       "#ff599c",
+       "#de3a7d",
+       "#bd4c0b"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.06,
+       0.5
+      ],
+      "at": [
+       -0.15,
+       0.76,
+       -0.1
+      ],
+      "tones": [
+       "#ffffff",
+       "#e2ddfc",
+       "#b9b2e8"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "watchful-orb-totem",
+   "role": "detail",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     3,
+     1
+    ],
+    [
+     12,
+     1
+    ]
+   ],
+   "where": "Flanking the lateral perimeter of the upper thoughts plateau matching the large eyes drawn in the hair wings.",
+   "shape": {
+    "summary": "A slender faceted stone obelisk topped with an eye-shaped sphere gazing forward.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.2,
+       0.8,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#384142",
+       "#242b2c",
+       "#16181a"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.12,
+       0.4,
+       6
+      ],
+      "at": [
+       0,
+       0.8,
+       0
+      ],
+      "tones": [
+       "#4d5e5e",
+       "#334141",
+       "#232e2e"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.28,
+       0.7
+      ],
+      "at": [
+       0,
+       1.35,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e2ddfc",
+       "#b9b2e8"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.14,
+       0.9
+      ],
+      "at": [
+       0,
+       1.35,
+       0.18
+      ],
+      "tones": [
+       "#4ee0c6",
+       "#32bda3",
+       "#1f9982"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.06,
+       1
+      ],
+      "at": [
+       0,
+       1.35,
+       0.28
+      ],
+      "tones": [
+       "#16181a",
+       "#242b2c",
+       "#384142"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "coiled-helix-pillar",
+   "role": "detail",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.6,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     1
+    ],
+    [
+     9,
+     1
+    ]
+   ],
+   "where": "Framing the crown apex of the plateau, translating the geometric spirals and DNA-ladder lines in the upper hair.",
+   "shape": {
+    "summary": "A spiraling stack of alternating yellow and mint low-poly discs mimicking a molecular helix.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.1,
+       1.4,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#384142",
+       "#242b2c",
+       "#16181a"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.1,
+       0.18,
+       0.05
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f1cd52",
+       "#dca22e",
+       "#b88018"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.1,
+       0.18,
+       0.05
+      ],
+      "at": [
+       0,
+       0.65,
+       0
+      ],
+      "rot": [
+       0,
+       45,
+       0
+      ],
+      "tones": [
+       "#78ebb0",
+       "#5cc491",
+       "#439a70"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.1,
+       0.18,
+       0.05
+      ],
+      "at": [
+       0,
+       1,
+       0
+      ],
+      "rot": [
+       0,
+       90,
+       0
+      ],
+      "tones": [
+       "#f1cd52",
+       "#dca22e",
+       "#b88018"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.35,
+       0.1,
+       0.18,
+       0.05
+      ],
+      "at": [
+       0,
+       1.35,
+       0
+      ],
+      "rot": [
+       0,
+       135,
+       0
+      ],
+      "tones": [
+       "#78ebb0",
+       "#5cc491",
+       "#439a70"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "meditative-dreamer",
+   "source": "Disembodied serene face floating centrally with closed eyes in IMAGE 1",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    1
+   ],
+   "height": 2.2,
+   "shape": {
+    "summary": "A smooth, rounded low-poly lavender face with closed dark curved eye ridges and a serene smiling mouth, crowned by an obsidian jagged crest.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       1.4,
+       0.4,
+       0.8,
+       0.15
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.65,
+       0.85
+      ],
+      "at": [
+       0,
+       0.65,
+       0
+      ],
+      "tones": [
+       "#d0c9fa",
+       "#a5a2cf",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.65,
+       0.28,
+       0.6,
+       8
+      ],
+      "at": [
+       0,
+       0.1,
+       0
+      ],
+      "tones": [
+       "#a5a2cf",
+       "#9188d4",
+       "#787b9c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       -0.3,
+       0.68,
+       0.52
+      ],
+      "to": [
+       -0.1,
+       0.66,
+       0.55
+      ],
+      "tones": [
+       "#16181a",
+       "#242b2c",
+       "#384142"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.04
+      ],
+      "at": [
+       0.1,
+       0.66,
+       0.55
+      ],
+      "to": [
+       0.3,
+       0.68,
+       0.52
+      ],
+      "tones": [
+       "#16181a",
+       "#242b2c",
+       "#384142"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.03
+      ],
+      "at": [
+       -0.12,
+       0.38,
+       0.54
+      ],
+      "to": [
+       0.12,
+       0.38,
+       0.54
+      ],
+      "tones": [
+       "#16181a",
+       "#242b2c",
+       "#384142"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.9
+      ],
+      "at": [
+       0,
+       1.1,
+       -0.1
+      ],
+      "outline": [
+       [
+        -0.7,
+        -0.4
+       ],
+       [
+        -0.9,
+        0
+       ],
+       [
+        -0.6,
+        0.4
+       ],
+       [
+        0,
+        0.7
+       ],
+       [
+        0.6,
+        0.4
+       ],
+       [
+        0.9,
+        0
+       ],
+       [
+        0.7,
+        -0.4
+       ]
+      ],
+      "tones": [
+       "#16181a",
+       "#242b2c",
+       "#384142"
+      ]
+     }
+    ]
+   },
+   "pose": "The disembodied dreamer head rests perfectly horizontal, eyes gently closed in meditation while gazing out toward the viewer.",
+   "cell": [
+    7,
+    2
+   ],
+   "facing": "s",
+   "why": "Translates the primary focal subject of the illustration directly at the center of the upper head mass."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VRRRRRGGGGRRRGVV",
+   "VRRRRRGFFGRRRRGV",
+   "VGRRRRGFFGRRRRGV",
+   "VVGGGGGPPGGGGGGV",
+   "VVVVVVVVPGVVVVVV",
+   "VVVVVVVVPGVVVVVV",
+   "VGGGGRRRPRGGGGGV",
+   "VGGGGGGGPGGGGGGV",
+   "VGGGGGGGPGGGGGGV",
+   "VGGGGGGGPGGGGGGV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0222221111222100",
+   "0222221111222210",
+   "0122221111222210",
+   "0011111111111110",
+   "0000000021000000",
+   "0000000021000000",
+   "0111122222111110",
+   "0111111121111110",
+   "0111111111111110",
+   "0111111111111110",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 2,
+   "what": "The serene floating face resting at the summit of the upper plateau overlooking the smoke path"
+  },
+  "mass": "Visual mass is heavily concentrated in the broad upper cranial plateau across rows 0 to 5, counterbalanced by the small square candle terrace at rows 10 and 11.",
+  "read": "The viewer enters onto the small candle jar terrace at the near rim, then follows the narrow, rising serpentine smoke pathway upward across the void before arriving at the imposing elevated head plateau framed by psychic totems.",
+  "shaped": {
+   "name": "twin-mass",
+   "params": {
+    "split": "z",
+    "ratio": 0.38,
+    "heights": [
+     3,
+     1
+    ],
+    "bridge": "land",
+    "focal": "a"
+   },
+   "seed": 1,
+   "start": [
+    8,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVRRRRVVVVVV",
+    "VVVVRRRRRRRRVVVV",
+    "VVVRRRRRRRRRRVVV",
+    "VVVRRRRRRRRRRVVV",
+    "VVVVRRRFFRRRVVVV",
+    "VVVVVRRPPRRVVVVV",
+    "VVVVVVVPPVVVVVVV",
+    "VVVVVVVPPVVVVVVV",
+    "VVVVVVVVPPVVVVVV",
+    "VVVVVVVPPVVVVVVV",
+    "VVVVVVGGGGVVVVVV",
+    "VVVVVVGGGGVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0,
+   "types": []
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.52,
+  "decor_weights": {
+   "neon-cap-cluster": 0.35,
+   "watchful-orb-totem": 0.25,
+   "coiled-helix-pillar": 0.2,
+   "marker": 0.2
+  },
+  "lighting": {
+   "bg": "#2e1b2d",
+   "ambient": 0.88,
+   "sun": 0.12,
+   "tint": "#c3bdff",
+   "notes": "flat periwinkle silk-print radiance: ANALYSIS.palette.lighting notes zero directional cast shadow, relying instead on clean, high-key vector plane illumination against a dark backdrop."
+  },
+  "rules": [
+   "Keep all water cells at 0 to ensure the island floats entirely within open periwinkle void.",
+   "Anchor the glass-candle-pedestal on the lowest south platform at row 10.",
+   "Reserve the serpentine path strictly along the central corridor linking the two masses.",
+   "Place watchful-orb-totem and coiled-helix-pillar props only on the outer rim of the upper height-3 plateau."
+  ],
+  "decor_density": 0.18,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "dirt",
+   "path": "stone",
+   "shore": "dirt",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "ANALYSIS.composition: the two-part vertical hierarchy of massive top crown and small bottom candle connected by a curved smoke line",
+  "place": "A bilateral psychic observatory floating over a boundless violet expanse where visionary thoughts condense into stone.",
+  "summary": "A twin-mass vertical transcription translating the candle base and sprawling cranial canopy into two connected tiers across open void.",
+  "differs": "Unlike the symmetric dais or the enclosed basin readings, this composition directly preserves the stark asymmetric scale split between the life-size domestic candle platform and the giant elevated psychic mindscape above it.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took sand/dirt",
+   "lighting.bg #1c1b2e->#2e1b2d"
+  ]
+ },
+ "shaper": {
+  "name": "twin-mass",
+  "params": {
+   "split": "z",
+   "ratio": 0.38,
+   "heights": [
+    3,
+    1
+   ],
+   "bridge": "land",
+   "focal": "a"
+  },
+  "why": "ANALYSIS.composition isolates two distinct masses along the vertical axis: the massive sprawling head-bloom canopy (mass a) and the small grounding candle anchor (mass b), bridged by the rising smoke plume."
+ },
+ "surface_mix": {
+  "pattern": "height",
+  "period": 2,
+  "surfaces": [
+   {
+    "s": "dirt",
+    "share": 0.1
+   },
+   {
+    "s": "stone",
+    "share": 0.2
+   },
+   {
+    "s": "sand",
+    "share": 0.15
+   },
+   {
+    "s": "grass",
+    "share": 0.55
+   }
+  ],
+  "why": "Following the value hierarchy in ANALYSIS.palette.value_structure, the dark cranial mass maps to cool purple-gray dirt, while the pale smoke line and brow highlights become crisp lavender stone pavers."
+ },
+ "cliff_treatment": {
+  "style": "banded",
+  "upper": [
+   "#2e3536",
+   "#1a1f20",
+   "#0c0d0e"
+  ],
+  "lower": [
+   "#4d5e5e",
+   "#334141",
+   "#232e2e"
+  ],
+  "why": "The upper cliff faces adopt the solid black and charcoal value of the silhouetted hair mass, while the lower foundation echoes the slate-teal linear accents."
+ },
+ "lighting": {
+  "time": "flat periwinkle silk-print radiance",
+  "ambient": 0.88,
+  "sun": 0.12,
+  "tint": "#c3bdff",
+  "bg": "#2e1b2d",
+  "why": "ANALYSIS.palette.lighting notes zero directional cast shadow, relying instead on clean, high-key vector plane illumination against a dark backdrop."
+ },
+ "figure_pose": {
+  "pose": "The disembodied dreamer head rests perfectly horizontal, eyes gently closed in meditation while gazing out toward the viewer.",
+  "action": "inhaling smoke",
+  "facing": "camera",
+  "why": "ANALYSIS.subject specifies a front-facing head held level and suspended above the candle jar with closed lids and a placid smile."
+ },
+ "approach": {
+  "from": "the south candle pedestal terrace",
+  "passes": [
+   "glass-candle-pedestal threshold",
+   "serpentine-smoke-riser trail",
+   "third-eye-oculus plinth",
+   "meditative-dreamer summit"
+  ],
+  "shape": "A linear S-curved climb traveling from the intimate foreground platform up through a narrow bridge into the broad crowning mind plateau."
+ },
+ "threshold": {
+  "kind": "A radiant tabletop candle jar whose burning wick marks the passage from waking domestic reality into the psychic trail.",
+  "prop": "glass-candle-pedestal"
+ },
+ "analysis": "pipeline/seed/analysis/mindbloom.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}
