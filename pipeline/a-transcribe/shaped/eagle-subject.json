@@ -1,0 +1,1258 @@
+{
+ "source": {
+  "art": "pipeline/seed/eagle.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "predatory",
+  "stark",
+  "wind-scoured",
+  "focused",
+  "territorial",
+  "coastal"
+ ],
+ "observations": [
+  {
+   "what": "Massive hooked raptor beak in saturated ochre-yellow pointing sharply down and left",
+   "box": [
+    300,
+    31,
+    608,
+    615
+   ],
+   "maps_to": "creature_beak"
+  },
+  {
+   "what": "Piercing circular eye with mint-green iris and dense black contour rim beneath a heavy brow",
+   "box": [
+    295,
+    545,
+    355,
+    638
+   ],
+   "maps_to": "creature_eye"
+  },
+  {
+   "what": "Dark dense black feathers forming a deep triangular wedge along the throat and lower chin",
+   "box": [
+    470,
+    320,
+    642,
+    570
+   ],
+   "maps_to": "creature_throat"
+  },
+  {
+   "what": "Coarse dry-brush striations of cool grey and white sweeping back across the forehead and crown",
+   "box": [
+    45,
+    230,
+    342,
+    990
+   ],
+   "maps_to": "creature_crest"
+  },
+  {
+   "what": "Broad mantle of soft grey and bone-white plumage spreading across the upper back and neck",
+   "box": [
+    355,
+    410,
+    1000,
+    1000
+   ],
+   "maps_to": "creature_mantle"
+  },
+  {
+   "what": "Mottled charcoal scumble bridging the forehead feather line and the top of the yellow cere",
+   "box": [
+    318,
+    305,
+    408,
+    510
+   ],
+   "maps_to": "motif_weathered_snag"
+  },
+  {
+   "what": "Spiked triangular feather tips breaking outward along the lower breast contour",
+   "box": [
+    625,
+    128,
+    1000,
+    520
+   ],
+   "maps_to": "creature_breast_feathers"
+  },
+  {
+   "what": "Bare off-white textured paper field occupying the upper left quadrant",
+   "box": [
+    0,
+    0,
+    480,
+    290
+   ],
+   "maps_to": "grid_void"
+  },
+  {
+   "what": "Pale parchment negative space framing the throat and beak tip on the far left",
+   "box": [
+    485,
+    0,
+    1000,
+    370
+   ],
+   "maps_to": "grid_water_margin"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#cfc9b9",
+    "share": 0.227,
+    "role": "mid-tone warm grey in the crown and neck feathering"
+   },
+   {
+    "hex": "#e6dfd4",
+    "share": 0.199,
+    "role": "unpainted paper ground on the left and light feather highlights"
+   },
+   {
+    "hex": "#b9b4a6",
+    "share": 0.156,
+    "role": "shaded feathered planes behind the eye and across the mantle"
+   },
+   {
+    "hex": "#262622",
+    "share": 0.109,
+    "role": "deep black in the throat, chest, pupil, and orbital shadow"
+   },
+   {
+    "hex": "#9c988d",
+    "share": 0.107,
+    "role": "cool grey transitions across the upper crest"
+   },
+   {
+    "hex": "#515046",
+    "share": 0.08,
+    "role": "charcoal wash under the chin and along the back of the neck"
+   },
+   {
+    "hex": "#76746a",
+    "share": 0.079,
+    "role": "dark grey bristle streaks running through the forehead"
+   },
+   {
+    "hex": "#bc9e3b",
+    "share": 0.044,
+    "role": "saturated ochre-yellow beak and cere"
+   }
+  ],
+  "translation": {
+   "bg": "#2b2a27",
+   "grass": {
+    "top": "#7da459",
+    "fringe": "#668749",
+    "fringeDark": "#4d6537",
+    "speck": "#9ab97d"
+   },
+   "sand": {
+    "top": "#d6af4b",
+    "lip": "#b88f30",
+    "edge": "#c99e38",
+    "dots": "#e3c26b"
+   },
+   "dirt": {
+    "top": "#8a755d",
+    "patch": "#79654e",
+    "mottle": "#695742",
+    "border": "#584835"
+   },
+   "stone": {
+    "top": "#c2beb5",
+    "pebble": "#dedad2",
+    "pebbleShade": "#a39f96",
+    "rim": "#87837b"
+   },
+   "cliffUpper": {
+    "left": "#736b63",
+    "right": "#59524c",
+    "seam": "#403a35"
+   },
+   "cliffLower": {
+    "left": "#5e5750",
+    "right": "#47413b",
+    "seam": "#302b26",
+    "speck": "#24201c"
+   },
+   "water": {
+    "top": "#80bab7",
+    "bubble": "#b5e0de",
+    "deep": "#468280",
+    "fall": [
+     "#63aba7",
+     "#539b97",
+     "#488683"
+    ],
+    "foam": "#d4f2f0"
+   },
+   "wood": {
+    "light": "#bf7b3b",
+    "mid": "#9c5f28",
+    "dark": "#754316",
+    "shadow": "#522d0c",
+    "end": "#d49b5d"
+   },
+   "treeMint": [
+    "#76b599",
+    "#559e7f",
+    "#417a62"
+   ],
+   "treeLime": [
+    "#8eaa60",
+    "#738c4b",
+    "#576b37"
+   ],
+   "treeLeaf": [
+    "#699450",
+    "#54753f",
+    "#3d542d"
+   ],
+   "treeTeal": [
+    "#58a49e",
+    "#47857f",
+    "#366662",
+    "#254d4a"
+   ],
+   "treeGold": [
+    "#d4a037",
+    "#b88523",
+    "#946714"
+   ],
+   "trunk": [
+    "#74513f",
+    "#573c2f"
+   ],
+   "rock": [
+    "#d9d6ce",
+    "#b8b4ab",
+    "#8c8880",
+    "#5e5b55"
+   ],
+   "wellStone": [
+    "#aba59a",
+    "#8f897f",
+    "#6e6960"
+   ],
+   "flowerOrange": [
+    "#d97725",
+    "#b85c14"
+   ],
+   "berry": [
+    "#b84d56",
+    "#913840"
+   ],
+   "bushTeal": [
+    "#6db1a0",
+    "#519787",
+    "#3d7165"
+   ],
+   "gold": [
+    "#e5b634",
+    "#c2951f",
+    "#f0cf62"
+   ]
+  },
+  "notes": "The palette pulls inspiration from the eagle's coastal habitat: cool sea-stone grey and chalky bone feathers dominate, anchored by dark peat cliffs and highlighted by the brilliant cadmium beak gold.",
+  "clamped": [
+   "grass.top #7d9b62->#7da459",
+   "grass.fringe #66824e->#668749",
+   "grass.fringeDark #4d6438->#4d6537",
+   "grass.speck #9ab87e->#9ab97d",
+   "water.top #82b8b5->#80bab7",
+   "water.deep #4b7d7b->#468280",
+   "water.fall[0] #6ba3a0->#63aba7",
+   "water.fall[1] #5b9390->#539b97",
+   "water.fall[2] #4b8380->#488683",
+   "treeMint[0] #78b399->#76b599",
+   "treeMint[1] #5d967e->#559e7f",
+   "treeMint[2] #437862->#417a62",
+   "treeLime[0] #8ea862->#8eaa60",
+   "treeLime[1] #738a4d->#738c4b",
+   "treeLeaf[0] #6b8e56->#699450",
+   "treeLeaf[1] #547341->#54753f",
+   "treeLeaf[2] #3d542e->#3d542d",
+   "treeTeal[0] #5e9e99->#58a49e",
+   "treeTeal[1] #4a827d->#47857f",
+   "trunk[0] #6b5448->#74513f",
+   "trunk[1] #523e34->#573c2f",
+   "bushTeal[0] #76a89c->#6db1a0",
+   "bushTeal[1] #5c8c81->#519787",
+   "bushTeal[2] #436b62->#3d7165"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "bleached_snag",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.6,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     8,
+     2
+    ],
+    [
+     9,
+     6
+    ]
+   ],
+   "where": "Positioned on the rear cliff ridge where wind-blasted sea pines overlook the hunting waters below.",
+   "role": "mass",
+   "shape": {
+    "summary": "Tall stripped cedar trunk with angular broken branches bleached by wind and salt.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.22,
+       1.4,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#b8b4ab",
+       "#8c8880",
+       "#5e5b55"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       1.2,
+       8
+      ],
+      "at": [
+       0.03,
+       1.35,
+       0
+      ],
+      "tones": [
+       "#d9d6ce",
+       "#b8b4ab",
+       "#8c8880"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       1.6,
+       0
+      ],
+      "to": [
+       0.38,
+       2.05,
+       0.15
+      ],
+      "tones": [
+       "#d9d6ce",
+       "#b8b4ab",
+       "#8c8880"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       0,
+       2.1,
+       0
+      ],
+      "to": [
+       -0.35,
+       2.45,
+       -0.1
+      ],
+      "tones": [
+       "#d9d6ce",
+       "#b8b4ab",
+       "#8c8880"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.05,
+       0.35,
+       8
+      ],
+      "at": [
+       0.03,
+       2.5,
+       0
+      ],
+      "tones": [
+       "#dedad2",
+       "#b8b4ab",
+       "#8c8880"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "driftwood_nest_ring",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.55,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     3
+    ]
+   ],
+   "where": "Encircling the high aerie ledge behind the perched eagle.",
+   "role": "dais",
+   "shape": {
+    "summary": "Heavy interlocking grey driftwood logs forming a sturdy raptor aerie border.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.22,
+       0.25,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       -0.3
+      ],
+      "tones": [
+       "#b8b4ab",
+       "#8c8880",
+       "#5e5b55"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.2,
+       0.24,
+       0.08
+      ],
+      "at": [
+       0.32,
+       0.08,
+       0.1
+      ],
+      "rot": [
+       0,
+       65,
+       0
+      ],
+      "tones": [
+       "#dedad2",
+       "#b8b4ab",
+       "#8c8880"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.75,
+       0.22,
+       0.22,
+       0.08
+      ],
+      "at": [
+       -0.28,
+       0.05,
+       0.2
+      ],
+      "rot": [
+       0,
+       -50,
+       0
+      ],
+      "tones": [
+       "#8c8880",
+       "#5e5b55",
+       "#403a35"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "estuary_fish_bones",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.35,
+   "passable": true,
+   "count": 2,
+   "cells": [
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     5
+    ]
+   ],
+   "where": "Scattered across the approach rock, evidence of successful salmon hunts.",
+   "role": "offering",
+   "shape": {
+    "summary": "Bleached ribcage and curved spine of a large river salmon resting on stone.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.05
+      ],
+      "at": [
+       -0.3,
+       0.05,
+       -0.1
+      ],
+      "to": [
+       0.3,
+       0.08,
+       0.15
+      ],
+      "tones": [
+       "#dedad2",
+       "#c2beb5",
+       "#a39f96"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.03
+      ],
+      "at": [
+       -0.1,
+       0.07,
+       0
+      ],
+      "to": [
+       -0.05,
+       0.26,
+       0.18
+      ],
+      "tones": [
+       "#dedad2",
+       "#c2beb5",
+       "#a39f96"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.03
+      ],
+      "at": [
+       0.1,
+       0.07,
+       0.05
+      ],
+      "to": [
+       0.14,
+       0.24,
+       0.22
+      ],
+      "tones": [
+       "#dedad2",
+       "#c2beb5",
+       "#a39f96"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "salt_scoured_boulder",
+   "type": "rock-big",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.85,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     6
+    ]
+   ],
+   "where": "Stepping boulders marking the transitional slope from the shore up toward the high perch.",
+   "role": "approach",
+   "shape": {
+    "summary": "Blocky, rounded shore granite boulder with flat stepped planes.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.82,
+       0.55,
+       0.78,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#c2beb5",
+       "#a39f96",
+       "#736b63"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.35,
+       0.52,
+       0.1
+      ],
+      "at": [
+       0.08,
+       0.5,
+       -0.05
+      ],
+      "tones": [
+       "#dedad2",
+       "#c2beb5",
+       "#8c8880"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.2,
+       0.6
+      ],
+      "at": [
+       -0.25,
+       0.12,
+       0.28
+      ],
+      "tones": [
+       "#dedad2",
+       "#b8b4ab",
+       "#8c8880"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "weathered_cedar_stump",
+   "type": "stump",
+   "variant_of": "stump",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.6,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     6
+    ]
+   ],
+   "where": "Flanking the entry trail onto the rocky high spine.",
+   "role": "threshold",
+   "shape": {
+    "summary": "Hollowed ancient tree base with moss-draped roots anchoring into stone fissures.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.38,
+       0.45,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#9c5f28",
+       "#754316",
+       "#522d0c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.26,
+       0.15,
+       8
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#d49b5d",
+       "#9c5f28",
+       "#754316"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.09
+      ],
+      "at": [
+       0.25,
+       0.1,
+       0
+      ],
+      "to": [
+       0.45,
+       0,
+       0.2
+      ],
+      "tones": [
+       "#754316",
+       "#522d0c",
+       "#302b26"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "wind_whipped_scrub",
+   "type": "bush",
+   "variant_of": "bush",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.6,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     3,
+     2
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     7,
+     6
+    ]
+   ],
+   "where": "Clinging low to the wind-buffeted cliff flats.",
+   "role": "detail",
+   "shape": {
+    "summary": "Dense clump of low-profile coastal foliage huddled against sea gusts.",
+    "parts": [
+     {
+      "prim": "ball",
+      "dims": [
+       0.35,
+       0.8
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "tones": [
+       "#7da459",
+       "#668749",
+       "#4d6537"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.28,
+       0.75
+      ],
+      "at": [
+       -0.18,
+       0.18,
+       0.12
+      ],
+      "tones": [
+       "#9ab97d",
+       "#7da459",
+       "#668749"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.24,
+       0.7
+      ],
+      "at": [
+       0.2,
+       0.15,
+       -0.1
+      ],
+      "tones": [
+       "#668749",
+       "#4d6537",
+       "#366662"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "Apex Sea Eagle",
+   "source": "Bald eagle in strict left profile with prominent golden hooked beak, pale mint eye, and layered dry-brush plumage",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.1,
+   "shape": {
+    "summary": "Stately eagle perched upright, featuring a broad black feathered chest, snowy white head crown, and oversized golden hooked bill.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.85,
+       0.7,
+       0.12
+      ],
+      "at": [
+       0.05,
+       0.35,
+       0
+      ],
+      "tones": [
+       "#515046",
+       "#302b26",
+       "#262622"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.65,
+       0.55,
+       0.1
+      ],
+      "at": [
+       -0.02,
+       1.1,
+       0
+      ],
+      "tones": [
+       "#e6dfd4",
+       "#cfc9b9",
+       "#9c988d"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.08,
+       0.35,
+       6
+      ],
+      "at": [
+       -0.35,
+       1.25,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       85
+      ],
+      "tones": [
+       "#f0cf62",
+       "#e5b634",
+       "#bc9e3b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.08,
+       0.02,
+       0.22,
+       6
+      ],
+      "at": [
+       -0.55,
+       1.15,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       140
+      ],
+      "tones": [
+       "#e5b634",
+       "#bc9e3b",
+       "#946714"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.07,
+       0.9
+      ],
+      "at": [
+       -0.18,
+       1.38,
+       0.22
+      ],
+      "tones": [
+       "#b5e0de",
+       "#58a49e",
+       "#262622"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.03,
+       1
+      ],
+      "at": [
+       -0.19,
+       1.39,
+       0.24
+      ],
+      "tones": [
+       "#262622",
+       "#262622",
+       "#262622"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.08,
+       0.4,
+       6
+      ],
+      "at": [
+       -0.08,
+       0,
+       -0.12
+      ],
+      "tones": [
+       "#e5b634",
+       "#bc9e3b",
+       "#946714"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.08,
+       0.4,
+       6
+      ],
+      "at": [
+       0.12,
+       0,
+       0.12
+      ],
+      "tones": [
+       "#e5b634",
+       "#bc9e3b",
+       "#946714"
+      ]
+     }
+    ]
+   },
+   "pose": "Rigid upright raptor stance with mantle swept back, wings pinned tight, and head turned 90 degrees west with beak pointing down.",
+   "cell": [
+    4,
+    3
+   ],
+   "facing": "w",
+   "why": "Translates the intense lateral vigilance and proud profile of Haliaeetus leucocephalus overlooking its hunting territory."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VGRRRRRRGVVVVVVV",
+   "VRRGGGGRGVVVVGGV",
+   "VRRGFFGGVVVVGGGV",
+   "VRRGFFGVVVVVGWGV",
+   "VRRGPPPPVVVGGWGV",
+   "VRRRRGVPGGGWWWGV",
+   "VRRRGVVPPPWWWWGV",
+   "VGRGVVVVVPWWWWGV",
+   "VVGGVVVVGPPPPWGV",
+   "VVVVVVVVGGGGGGGV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0122222210000000",
+   "0221111210000110",
+   "0221111100001110",
+   "0221111000001010",
+   "0221111200011010",
+   "0232210211100010",
+   "0222100111000010",
+   "0121000001000010",
+   "0011000011111010",
+   "0000000011111110",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 4,
+   "z": 3,
+   "what": "The Apex Sea Eagle scanning from its tier-3 promontory"
+  },
+  "mass": "Visual weight concentrates in the upper-right plateau and central tier-3 promontory, with open tidal water along the lower-left.",
+  "read": "The viewer enters along the rocky shore path from the south, stepping past weathered stumps and salmon bone offerings before winding up the stone bluff to face the eagle seated on its high windward perch.",
+  "shaped": {
+   "name": "twin-mass",
+   "params": {
+    "split": "diag",
+    "ratio": 0.55,
+    "heights": [
+     3,
+     1
+    ],
+    "bridge": "land",
+    "focal": "a"
+   },
+   "seed": 1,
+   "start": [
+    12,
+    9
+   ],
+   "pool": 14,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVVGGGGGGVVVVV",
+    "VVVVGGGRRGGGGVVV",
+    "VVVGGGRRRRRGGGVV",
+    "VVGGGGFRRRRGGGVV",
+    "VVGGGGTRRRRGGGVV",
+    "VVGGGGPPPTGGGGVV",
+    "VVVGGGGPPGGGGGVV",
+    "VVVWWGGGGGGGGGVV",
+    "VVWWWWGGGGGGGVVV",
+    "VVVWWWGGGGGGVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.12,
+   "types": [
+    {
+     "type": "bleached_snag",
+     "variant": "mass",
+     "weight": 0.6
+    },
+    {
+     "type": "tree-pine",
+     "variant": "pine-frost",
+     "weight": 0.4
+    }
+   ]
+  },
+  "water_share": 0.08,
+  "plateau_share": 0,
+  "void_share": 0.38,
+  "decor_weights": {
+   "estuary_fish_bones": 0.35,
+   "wind_whipped_scrub": 0.4,
+   "salt_scoured_boulder": 0.25
+  },
+  "lighting": {
+   "bg": "#2b2a27",
+   "ambient": 0.78,
+   "sun": 0.28,
+   "tint": "#dedad2",
+   "notes": "pale sea-spray overcast: The artwork relies on the high-key chalk-white paper base interacting with dark charcoal ink strokes without harsh colored sunlight."
+  },
+  "rules": [
+   "Keep bleached snags along elevated rear cliff cells.",
+   "Fish bone props cluster along low shoreline and approach stones.",
+   "Water occupies only the sheltered inlet in the southwest corner."
+  ],
+  "decor_density": 0.18,
+  "surfaces": {
+   "ground": "stone",
+   "raised": "stone",
+   "path": "sand",
+   "shore": "stone",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "subject, story, and habitat from ANALYSIS",
+  "place": "A wind-scoured sea-stack aerie above a Pacific Northwest salmon estuary",
+  "summary": "A solitary raptor territory built of sheer grey sea cliffs, bleached driftwood snags, and leftover fish bones.",
+  "differs": "Replaces idyllic green meadow slopes with an austere, bone-strewn coastal hunting perch dominated by pale granites and sharp drops."
+ },
+ "shaper": {
+  "name": "twin-mass",
+  "params": {
+   "split": "diag",
+   "ratio": 0.55,
+   "heights": [
+    3,
+    1
+   ],
+   "bridge": "land",
+   "focal": "a"
+  },
+  "why": "Twin masses represent the eagle's elevated aerie stack directly confronting its lower hunting shelf and estuary waters."
+ },
+ "surface_mix": {
+  "pattern": "height",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "stone",
+    "share": 0.2
+   },
+   {
+    "s": "sand",
+    "share": 0.45
+   },
+   {
+    "s": "grass",
+    "share": 0.35
+   }
+  ],
+  "why": "Highest summit tiers use bare sea-scoured stone, transitional flats carry weathered coastal sand, and windward pockets hold hardy dune grass."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#736b63",
+   "#59524c",
+   "#403a35"
+  ],
+  "lower": [
+   "#5e5750",
+   "#47413b",
+   "#302b26"
+  ],
+  "why": "Dark, austere vertical rock walls mirror the deep charcoal throat plumage framing the eagle's profile."
+ },
+ "lighting": {
+  "time": "pale sea-spray overcast",
+  "ambient": 0.78,
+  "sun": 0.28,
+  "tint": "#dedad2",
+  "bg": "#2b2a27",
+  "why": "The artwork relies on the high-key chalk-white paper base interacting with dark charcoal ink strokes without harsh colored sunlight."
+ },
+ "figure_pose": {
+  "pose": "Rigid upright raptor stance with mantle swept back, wings pinned tight, and head turned 90 degrees west with beak pointing down.",
+  "action": "frozen scan",
+  "facing": "left",
+  "why": "Captures the intense lateral glare and predatory stillness detailed in ANALYSIS.subject.doing."
+ },
+ "approach": {
+  "from": "south",
+  "passes": [
+   "weathered_cedar_stump",
+   "estuary_fish_bones",
+   "salt_scoured_boulder",
+   "driftwood_nest_ring"
+  ],
+  "shape": "A curving path climbing up from the tidal shallows across worn boulders to the aerie crest."
+ },
+ "threshold": {
+  "kind": "A twin cedar stump gateway marking the boundary between the public tidal flat and the raptor's sovereign hunting roost.",
+  "prop": "weathered_cedar_stump"
+ },
+ "analysis": "pipeline/seed/analysis/eagle.json",
+ "concept": {
+  "name": "lens-subject",
+  "lens": "subject",
+  "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+ }
+}
