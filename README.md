@@ -73,6 +73,8 @@ Round 3 built three scene readings for each of the other eleven artworks (`cat`,
 
 Round 4 replaced those with readings derived from each artwork: a deep read per piece, then three lenses (medium, subject, composition) that each argue a different world from it, built with named terrain shapers. The 36 levels load as `?level=<slug>-<lens>`; round 3 is archived under `archive/round-3/`. Sheet `out/final/round4-sheet.jpg`, table under Round 4 results in `docs/RUN.md`.
 
+Round 5 rebuilt forest and cosmos with five aspect-derived readings each (`forest-tooth`, `-lift`, `-volute`, `-trunks`, `-roots`; `cosmos-frisket`, `-ringway`, `-lashline`, `-veinfield`, `-nebula`), authored by the build agents while the Gemini account was out of credits. Sheet `out/final/round5-sheet.jpg`, table under Round 5 results in `docs/RUN.md`.
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.

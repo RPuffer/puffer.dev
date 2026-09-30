@@ -287,3 +287,20 @@ Round spend: $10.200 across 48 ledger lines (briefs and critic calls only).
 | eagle-composition | shards | 118 | 17 | 6 |
 
 Round spend: $9.324 across 41 ledger lines (analyses and briefs $4.23, critic the rest).
+
+## Round 5 results
+
+2026-09-30, forest and cosmos rebuilt with five readings each after the round-4 verdict rejected both. The Gemini account was out of credits (HTTP 402), so the build agents authored the briefs themselves from the deep analyses and judged renders by eye against the critic rubric; no generative spend this round. Each reading grows from one aspect of the artwork and uses its own shaper; four of the five cosmos shapers needed the finish step to rebuild terrain (see docs/NOTES.md). QA: `tools/qa-levels.mjs`, cosmos 70 pass, 0 fail; forest 70 pass, 0 fail. Levels load at `3d/index.html?level=<slug>-<aspect>`. Sheet: `out/final/round5-sheet.jpg`, rows in `out/final/round5-forest.jpg` and `round5-cosmos.jpg`. Card: `puffer-isoworld-round-5-forest-cosmos` (pick-per-group).
+
+| Level | Shaper | Walkable | Decor | New types | Place |
+| --- | --- | --- | --- | --- | --- |
+| forest-tooth | patchwork | 111 | 22 | 6 | A cold-press sheet laid out as a quilt of paper tiles, charcoal dust caught blac |
+| forest-lift | ribbon | 113 | 25 | 6 | One stroke of paper rubbed clean through night-black charcoal, the eraser's path |
+| forest-volute | symmetric | 111 | 15 | 6 | A gilded rococo parterre carved out of the bird's scrollwork, clipped curl hedge |
+| forest-trunks | shards | 110 | 21 | 6 | A colonnade of pale trunks on bark slabs split by seams of mist, dawn haze glowi |
+| forest-roots | twin-mass | 113 | 13 | 6 | The forest floor at root height: a mossy root knee and a duff bank joined by the |
+| cosmos-frisket | patchwork | 114 | 22 | 7 | A stencil yard of lifted frisket plates, each a hard-edged masked sheet at its o |
+| cosmos-ringway | ribbon | 93 | 14 | 5 | The planet's ring as a road: one long pale band sprayed against a French curve,  |
+| cosmos-lashline | symmetric | 118 | 23 | 7 | A lid temple: a mirrored ridge of rose flesh terraces where the lashes stand as  |
+| cosmos-veinfield | shards | 97 | 19 | 6 | A porcelain plain of sclera cracked into slabs, where the zero-gauge capillaries |
+| cosmos-nebula | spiral | 99 | 28 | 5 | A coil of yellow-green and teal gas hanging in the black, the path climbing its  |
