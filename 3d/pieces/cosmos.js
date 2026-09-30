@@ -242,6 +242,427 @@ const LENS_BUILD = {
   },
 };
 
+const R5C = {
+  tape: ["#fff0d0", "#eedcb4", "#d4bf94"],
+  peach: ["#ffc9a3", "#f0a982", "#d88c66"],
+  rose: ["#f58fa6", "#e67a93", "#c85c78"],
+  lilac: ["#b8a4f2", "#9c86e0", "#7c66c4"],
+  plum: ["#6f5a9e", "#57457f", "#433466"],
+  cyanPale: ["#c8f6fa", "#a6e8f2", "#84d2e2"],
+  ice: ["#eaf4ff", "#c6d8f0", "#a6bedf"],
+  slate: ["#5a6698", "#48527e", "#364066"],
+  shadow: ["#161a34", "#12152a", "#0c0e20"],
+  coral: ["#ff9a8c", "#f07e72", "#d0645c"],
+  wine: ["#8e3a50", "#72283e", "#561c2e"],
+  lashInk: ["#3a2446", "#2c1a38", "#1e1028"],
+  amber: ["#ffd54f", "#ffb31d", "#ff8a1d"],
+  ivory: ["#fff4e6", "#eedcc6", "#d6c0a6"],
+  crimson: ["#e8364e", "#c82a42", "#a01e34"],
+  blush: ["#ffc2c8", "#f4a2ac", "#dc808c"],
+  dust: ["#2e3470", "#232858", "#181c40"],
+  tealGas: ["#5ee0d0", "#34c8b8", "#22a898"],
+};
+
+function upright(B, fn) { B.rot([1, 0, 0], Math.PI / 2, 0, 0, 0); fn(); B.pop(); }
+
+function faceCam(B, yaw, fn) { B.at(0, 0, 0, yaw, fn); }
+
+function gateBeam(B, d, y, th, w, c, reach = 1.0) {
+  if (!d.side) return;
+  if (d.axis === "x") B.box(w, th, reach + w, pal(c), 0, y, -d.side * (reach / 2));
+  else B.box(reach + w, th, w, pal(c), -d.side * (reach / 2), y, 0);
+}
+
+function chain(B, n, len, base, dir, bend, w0, w1, cols, y0 = 0) {
+  const seg = len / n;
+  for (let i = 0; i < n; i++) {
+    const k = i / (n - 1), off = bend * k * k, w = w0 + (w1 - w0) * k;
+    B.box(w, seg * 1.08, w, pal(cols[i % cols.length]), base[0] + dir[0] * off, y0 + i * seg, base[1] + dir[1] * off);
+  }
+}
+
+function orb(B, r, y, cols, n = 8) {
+  const sl = 6;
+  for (let i = 0; i < sl; i++) {
+    const a = -1 + (2 * i + 1) / sl, rr = r * Math.sqrt(1 - a * a) * 1.04;
+    B.cyl(rr, (2 * r) / sl + 0.01, pal(cols[i % cols.length]), 0, y - r + (i * 2 * r) / sl, 0, n);
+  }
+}
+
+function stencilEye(B, H) {
+  const s = H / 3.0;
+  B.push(0, 0, 0, 0, s);
+  B.rbox(1.86, 0.26, 1.7, 0.1, pal(R5C.tape));
+  B.box(1.5, 0.06, 1.3, pal(R5C.plum), 0, 0.26, 0);
+  faceCam(B, 0.62, () => {
+    const c = 1.62;
+    for (const x of [-1.02, 1.02]) {
+      B.box(0.22, 2.36, 0.5, pal(R5C.plum), x, 0.26, -0.12);
+      for (const y of [0.9, 1.6, 2.3]) B.box(0.26, 0.06, 0.54, pal(R5C.lilac), x, y, -0.12);
+    }
+    B.box(2.3, 0.14, 0.34, pal(R5C.tape), 0, 2.62, -0.12);
+    B.box(0.46, c - 0.8 - 0.26, 0.4, pal(R5C.plum), 0, 0.26, -0.24);
+    for (const [x, y, w, cc] of [[-0.9, c + 0.52, 0.5, R5C.cyanPale], [0.84, c + 0.6, 0.44, R5C.peach], [-0.96, c - 0.5, 0.4, R5C.rose], [0.9, c - 0.46, 0.46, R5C.cyanPale], [0, c + 0.84, 0.6, R5C.lilac]]) B.rbox(w, w * 0.6, 0.16, 0.06, pal(cc), x, y, -0.46);
+    B.push(0, c, 0, 0, 1);
+    upright(B, () => {
+      B.prism(circle(0, 0, 0.98, 0.8, 10, 0), -0.4, -0.26, pal(R5C.peach));
+      B.prism(circle(0, 0, 0.8, 0.62, 10, 0), -0.26, -0.22, pal(NEB.sclera));
+      B.cyl(0.58, 0.12, pal(NEB.iris), 0, -0.14, 0, 14);
+      B.cyl(0.46, 0.04, pal(NEB.irisDeep), 0, -0.02, 0, 14);
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2, r = i % 2 ? 0.34 : 0.44;
+        B.box(0.1, 0.06, 0.1, pal(NEB.lime), Math.cos(a) * r, -0.02, Math.sin(a) * r);
+      }
+      B.cyl(0.28, 0.14, pal(NEB.pupil), 0, 0.08, 0, 12);
+      B.box(0.1, 0.04, 0.1, pal(NEB.star), -0.14, 0.22, -0.14);
+    });
+    B.pop();
+  });
+  B.pop();
+}
+
+function ringedPlanet(B, H) {
+  const s = H / 3.1;
+  B.push(0, 0, 0, 0, s);
+  plinth(B, 0.94, 0.24, R5C.slate, NEB.indigo);
+  B.cyl(0.36, 0.24, pal(NEB.indigo), 0, 0.24, 0, 8);
+  const cy = 1.34, R = 0.86;
+  orb(B, R, cy, [NEB.sclera, R5C.peach, NEB.sclera, NEB.sclera, R5C.peach, NEB.sclera], 10);
+  faceCam(B, 0.66, () => {
+    B.push(0, cy, 0, 0, 1);
+    upright(B, () => {
+      B.cyl(0.5, 0.12, pal(NEB.iris), 0, 0.74, 0, 14);
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2, r = i % 2 ? 0.3 : 0.4;
+        B.box(0.09, 0.05, 0.09, pal(NEB.lime), Math.cos(a) * r, 0.86, Math.sin(a) * r);
+      }
+      B.cyl(0.22, 0.1, pal(NEB.pupil), 0, 0.86, 0, 12);
+      B.box(0.09, 0.03, 0.09, pal(NEB.star), -0.12, 0.96, -0.12);
+    });
+    B.rot([1, 0, 0], 0.5, 0, 0, 0);
+    B.rot([0, 0, 1], -0.18, 0, 0, 0);
+    const n = 26;
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2, x = Math.cos(a), z = Math.sin(a);
+      B.at(x * 1.28, -0.04, z * 1.28, -a, () => B.box(0.18, 0.08, 0.34, pal(R5C.ice)));
+      B.at(x * 1.02, -0.03, z * 1.02, -a, () => B.box(0.14, 0.06, 0.22, pal(R5C.cyanPale)));
+    }
+    for (const [a, sz] of [[2.2, 0.16], [2.5, 0.12], [2.85, 0.14], [3.3, 0.1]]) B.rbox(sz, sz * 0.9, sz, 0.03, pal(NEB.rock), Math.cos(a) * 1.18, 0.04, Math.sin(a) * 1.18);
+    B.at(1.28, 0.1, 0.1, 0, () => starburst(B, 0.4, 0.8));
+    B.pop(); B.pop();
+    B.pop();
+  });
+  B.pop();
+}
+
+function liddedEye(B, H) {
+  const s = H / 2.8;
+  B.push(0, 0, 0, 0, s);
+  plinth(B, 0.96, 0.3, R5C.wine, R5C.coral);
+  faceCam(B, 0.64, () => {
+    const c = 1.32;
+    B.box(0.8, c - 0.6 - 0.3, 0.6, pal(R5C.wine), 0, 0.3, -0.06);
+    B.rbox(1.4, 0.18, 0.66, 0.06, pal(R5C.coral), 0, c - 0.74, 0);
+    for (const x of [-0.44, -0.14, 0.16, 0.44]) {
+      B.rot([1, 0, 0], -0.5, x, c - 0.66, 0.28);
+      B.cone(0.05, 0, 0.24, pal(R5C.lashInk), 0, -0.24, 0, 4);
+      B.pop();
+    }
+    B.push(0, c, 0, 0, 1);
+    upright(B, () => {
+      B.prism(circle(0, 0, 1.0, 0.64, 8, 0), -0.28, 0.22, pal(NEB.sclera));
+      B.cyl(0.5, 0.08, pal(NEB.iris), 0, 0.22, 0, 12);
+      B.cyl(0.34, 0.03, pal(NEB.irisDeep), 0, 0.3, 0, 12);
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2, r = i % 2 ? 0.32 : 0.41;
+        B.box(0.09, 0.05, 0.09, pal(NEB.lime), Math.cos(a) * r, 0.3, Math.sin(a) * r);
+      }
+      B.cyl(0.21, 0.08, pal(NEB.pupil), 0, 0.32, 0, 10);
+      B.box(0.09, 0.03, 0.09, pal(NEB.star), -0.2, 0.32, -0.2);
+    });
+    B.pop();
+    B.rbox(1.72, 0.36, 0.86, 0.12, pal(R5C.coral), 0, c + 0.18, 0.02);
+    B.rbox(1.5, 0.2, 0.7, 0.1, pal(R5C.rose), 0, c + 0.54, -0.04);
+    B.rbox(1.1, 0.14, 0.5, 0.08, pal(R5C.wine), 0, c + 0.74, -0.08);
+    const lashes = [[-0.78, -1], [-0.52, -0.66], [-0.26, -0.3], [0, 0], [0.26, 0.3], [0.52, 0.66], [0.78, 1]];
+    for (const [x, k] of lashes) {
+      const len = 1.1 - Math.abs(k) * 0.3, n = 6, seg = len / n;
+      for (let i = 0; i < n; i++) {
+        const t = i / (n - 1), w = 0.16 - t * 0.1;
+        B.box(w, seg * 1.1, w, pal(i === 0 ? R5C.wine : R5C.lashInk), x + k * 0.5 * t * t, c + 0.5 + i * seg * 0.92, 0.38 + 0.36 * t * t);
+      }
+    }
+  });
+  B.pop();
+}
+
+function caruncle(B, H) {
+  const s = H / 2.8;
+  B.push(0, 0, 0, 0, s);
+  B.cyl(0.98, 0.16, pal(R5C.ivory), 0, 0, 0, 12);
+  for (let i = 0; i < 6; i++) {
+    const a = (i / 6) * Math.PI * 2 + 0.3;
+    B.at(Math.cos(a) * 0.72, 0.16, Math.sin(a) * 0.72, -a, () => B.box(0.5, 0.03, 0.07, pal(R5C.crimson)));
+  }
+  B.rbox(1.46, 0.42, 1.3, 0.16, pal(R5C.coral), 0, 0.16, 0);
+  B.rbox(0.56, 0.36, 0.5, 0.14, pal(R5C.blush), -0.5, 0.3, 0.42);
+  B.rbox(0.5, 0.3, 0.46, 0.12, pal(R5C.rose), 0.52, 0.34, -0.36);
+  B.rbox(1.12, 0.38, 1.0, 0.14, pal(R5C.rose), 0.04, 0.58, -0.02);
+  B.rbox(0.44, 0.3, 0.4, 0.12, pal(R5C.coral), 0.44, 0.7, 0.36);
+  B.rbox(0.82, 0.3, 0.74, 0.12, pal(R5C.blush), -0.02, 0.96, 0.02);
+  for (const [x, z, y0, h] of [[-0.7, 0.2, 0.2, 0.5], [0.66, 0.1, 0.2, 0.6], [0.1, 0.64, 0.2, 0.44], [-0.2, -0.62, 0.2, 0.52], [0.38, 0.48, 0.6, 0.4]]) B.box(0.07, h, 0.07, pal(R5C.crimson), x, y0, z);
+  B.cyl(0.46, 0.14, pal(R5C.coral), 0, 1.26, 0, 12);
+  B.ball(0.62, tone("#f6feff", "#c8f0fa", "#94d8ec"), 0, 1.96, 0, 0.94, 2);
+  B.ball(0.16, tone("#ffffff", "#ffffff", "#e8faff"), -0.26, 2.3, 0.3, 1, 1);
+  B.ball(0.12, tone("#dff8ff", "#a6e8f2", "#7ad2e6"), 0.12, 1.1, 0.6, 1.3, 1);
+  B.pop();
+}
+
+function flareStar(B, H) {
+  const s = H / 2.75;
+  B.push(0, 0, 0, 0, s);
+  plinth(B, 0.92, 0.22, R5C.dust, NEB.indigo);
+  faceCam(B, 0.7, () => {
+    B.push(0, 0.9, -0.1, 0, 1);
+    upright(B, () => {
+      B.prism(circle(0, 0, 0.78, 0.68, 10, 0), -0.2, 0.06, pal(NEB.sclera));
+      B.cyl(0.6, 0.08, pal(NEB.iris), 0, 0.06, 0, 14);
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2, r = i % 2 ? 0.36 : 0.47;
+        B.box(0.1, 0.05, 0.1, pal(NEB.lime), Math.cos(a) * r, 0.14, Math.sin(a) * r);
+      }
+      B.cyl(0.26, 0.1, pal(NEB.pupil), 0, 0.14, 0, 12);
+    });
+    B.pop();
+    const cx = 0.3, cy = 1.72, cz = 0.18;
+    const spike = (dx, dy, len) => {
+      const n = 4, seg = len / n;
+      for (let i = 0; i < n; i++) {
+        const w = 0.3 - i * 0.06, c = i < 2 ? NEB.star : NEB.cyan, m = (i + 0.5) * seg;
+        if (dx) B.box(seg * 1.02, w, w, pal(c), cx + dx * m, cy - w / 2, cz);
+        else if (dy > 0) B.box(w, seg * 1.02, w, pal(c), cx, cy + i * seg, cz);
+        else B.box(w, seg * 1.02, w, pal(c), cx, cy - (i + 1) * seg, cz);
+      }
+    };
+    spike(0, 1, 1.38);
+    spike(0, -1, 0.96);
+    spike(1, 0, 0.78);
+    spike(-1, 0, 1.1);
+    B.rot([0, 0, 1], Math.PI / 4, cx, cy, cz);
+    B.box(0.1, 1.2, 0.1, pal(NEB.cyan), 0, -0.6, 0);
+    B.box(1.2, 0.1, 0.1, pal(NEB.cyan), 0, -0.05, 0);
+    B.box(0.56, 0.56, 0.1, pal(R5C.cyanPale), 0, -0.28, -0.16);
+    B.pop();
+    B.box(0.42, 0.42, 0.42, pal(NEB.star), cx, cy - 0.21, cz);
+  });
+  B.pop();
+}
+
+const R5_FIG = [[/^stencil stack/i, stencilEye], [/^ringed planet/i, ringedPlanet], [/^lidded/i, liddedEye], [/^caruncle/i, caruncle], [/^flare star/i, flareStar]];
+
+const R5 = {
+  "frisket-arch"(B, H, v, d) {
+    B.box(0.5, 0.16, 0.5, pal(R5C.plum));
+    const along = d.axis === "x";
+    const w = along ? [0.18, 0.86] : [0.86, 0.18];
+    B.box(w[0], H - 0.36, w[1], pal(R5C.tape), 0, 0.16, 0);
+    B.box(along ? 0.22 : 0.5, 0.7, along ? 0.5 : 0.22, pal(R5C.rose), 0, H * 0.34, 0);
+    B.box(along ? 0.24 : 0.3, 0.34, along ? 0.3 : 0.24, pal(R5C.plum), 0, H * 0.34 + 0.18, 0);
+    gateBeam(B, d, H - 0.26, 0.2, 0.34, R5C.tape);
+    gateBeam(B, d, H - 0.3, 0.06, 0.4, R5C.peach);
+  },
+  "cut-stencil-sheet"(B, H, v) {
+    B.box(0.46, 0.14, 0.4, pal(R5C.plum));
+    B.at(0, 0.14, 0, v % 2 ? 0.5 : -0.3, () => {
+      B.box(0.9, H - 0.14, 0.12, pal(R5C.tape));
+      B.box(0.9, (H - 0.14) * 0.45, 0.14, pal(v % 2 ? R5C.cyanPale : R5C.peach), 0, 0, 0);
+      B.box(0.9, (H - 0.14) * 0.22, 0.15, pal(v % 2 ? NEB.teal : R5C.rose), 0, 0, 0);
+      B.cyl(0.2, 0.18, pal(R5C.plum), 0, (H - 0.14) * 0.66, 0, 10);
+    });
+  },
+  "overspray-plume"(B, H, v) {
+    const cols = v % 2 ? [NEB.teal, NEB.cyan, R5C.cyanPale] : [R5C.rose, R5C.peach, R5C.tape];
+    const ws = [0.34, 0.58, 0.84], hh = H / 3;
+    ws.forEach((w, i) => B.rbox(w, hh * 1.04, w * 0.9, Math.min(0.12, w * 0.2), pal(cols[i]), i % 2 ? 0.04 : -0.04, i * hh, 0));
+    for (const [x, y, z] of [[0.4, H * 0.5, 0.2], [-0.42, H * 0.7, -0.1], [0.3, H * 0.9, -0.3]]) B.box(0.08, 0.08, 0.08, pal(cols[1]), x, y, z);
+  },
+  "tape-roll"(B, H) {
+    const r = H * 0.5;
+    B.box(0.5, 0.02, 0.18, pal(R5C.tape), 0.26, 0, 0.18);
+    B.rot([0, 0, 1], Math.PI / 2, 0, r, 0);
+    B.cyl(r, 0.34, pal(R5C.tape), 0, -0.17, 0, 12);
+    B.cyl(r * 0.45, 0.36, pal(R5C.plum), 0, -0.18, 0, 10);
+    B.pop();
+  },
+  "airbrush-lamp"(B, H) {
+    B.box(0.4, 0.16, 0.4, pal(R5C.plum));
+    B.box(0.28, 0.1, 0.28, pal(R5C.lilac), 0, 0.16, 0);
+    B.cyl(0.11, H - 0.66, pal(NEB.gold), 0, 0.26, 0, 8);
+    B.box(0.1, 0.12, 0.18, pal(R5C.plum), 0, H * 0.55, 0.1);
+    B.cyl(0.15, 0.06, pal(R5C.plum), 0, H - 0.44, 0, 8);
+    B.cone(0.12, 0.03, 0.2, pal(NEB.gold), 0, H - 0.4, 0, 8);
+    B.rbox(0.26, 0.2, 0.26, 0.08, pal(NEB.cyan), 0, H - 0.22, 0);
+    B.box(0.08, 0.06, 0.08, pal(NEB.star), 0.12, H - 0.08, 0.1);
+  },
+  "spatter-pad"(B, H, v) {
+    const dots = [[-0.3, -0.2, 0.09, NEB.star], [0.2, -0.26, 0.06, NEB.cyan], [0.1, 0.1, 0.11, NEB.star], [-0.12, 0.28, 0.05, R5C.peach], [0.32, 0.26, 0.07, NEB.star], [-0.34, 0.12, 0.05, NEB.cyan], [0.02, -0.34, 0.04, NEB.star]];
+    for (const [x, z, r, c] of dots) B.cyl(r, 0.04, pal(c), v % 2 ? -x : x, 0, z, 8);
+  },
+  "curve-template-gate"(B, H, v, d) {
+    B.box(0.48, 0.16, 0.48, pal(R5C.slate));
+    const along = d.axis === "x", n = 5, seg = (H - 0.4) / n, dir = d.side ? -d.side : 1;
+    for (let i = 0; i < n; i++) {
+      const k = i / (n - 1), off = dir * 0.26 * Math.sin(k * Math.PI);
+      B.box(along ? 0.16 : 0.5, seg * 1.04, along ? 0.5 : 0.16, pal(i % 2 ? NEB.cyan : R5C.cyanPale), along ? 0 : off, 0.16 + i * seg, along ? off : 0);
+    }
+    B.box(0.2, 0.2, 0.2, pal(NEB.star), 0, H - 0.24, 0);
+    gateBeam(B, d, H - 0.3, 0.14, 0.26, R5C.cyanPale);
+    gateBeam(B, d, H - 0.16, 0.05, 0.3, NEB.star);
+  },
+  "ring-asteroid"(B, H, v) {
+    const m = v % 2 ? 1 : -1;
+    B.box(0.86, 0.03, 0.34, pal(R5C.shadow), -0.08, 0, m * 0.14);
+    B.box(0.5, H * 0.42, 0.46, pal(NEB.rock), 0.06, 0.03, -m * 0.04);
+    wedge(B, 0.5, H * 0.32, 0.46, NEB.rock, 0.06, 0.03 + H * 0.42, -m * 0.04);
+    B.rbox(0.28, H * 0.3, 0.26, 0.06, pal(R5C.dust), -0.14 * m, 0.03 + H * 0.42, 0.08);
+    B.box(0.12, 0.08, 0.12, pal(NEB.cyan), 0.24, 0.03 + H * 0.4, 0.2 * m);
+  },
+  "shepherd-moon"(B, H) {
+    B.box(0.44, 0.14, 0.44, pal(R5C.slate));
+    orb(B, 0.34, 0.14 + 0.36, [NEB.violet, R5C.lilac, R5C.lilac, NEB.violet, R5C.lilac, NEB.violet], 8);
+    B.box(0.14, 0.06, 0.14, pal(NEB.indigo), 0.1, 0.78, 0.1);
+    B.box(0.1, 0.1, 0.06, pal(NEB.indigo), -0.12, 0.44, 0.3);
+  },
+  "flare-spike"(B, H) {
+    B.box(0.42, 0.14, 0.42, pal(R5C.slate));
+    B.box(0.28, 0.12, 0.28, pal(NEB.indigo), 0, 0.14, 0);
+    B.box(0.14, H * 0.46, 0.14, pal(NEB.indigo), 0, 0.26, 0);
+    B.rbox(0.26, 0.2, 0.26, 0.08, pal(NEB.cyan), 0, 0.26 + H * 0.46, 0);
+    starburst(B, H - 0.02, H / 2.6);
+  },
+  "groove-lane"(B, H, v) {
+    for (const [r, c] of [[0.3, NEB.star], [0.42, R5C.ice], [0.54, NEB.star]]) for (let i = 0; i < 5; i++) {
+      const a = (v % 2 ? 0.2 : 1.8) + i * 0.3;
+      B.at(Math.cos(a) * r - 0.2, 0, Math.sin(a) * r - 0.2, -a, () => B.box(0.07, 0.03, 0.17, pal(c)));
+    }
+  },
+  "lash-arch"(B, H, v, d) {
+    B.rbox(0.6, 0.2, 0.6, 0.08, pal(R5C.coral));
+    B.rbox(0.44, 0.12, 0.44, 0.06, pal(R5C.rose), 0, 0.2, 0);
+    const dir = d.side ? -d.side : 1, ax = d.axis === "x" ? [0, 1] : [1, 0];
+    chain(B, 7, H * 0.78, [0, 0], [ax[0] * dir, ax[1] * dir], 0.42, 0.3, 0.14, [R5C.lashInk, R5C.lashInk, R5C.plum], 0.32);
+    gateBeam(B, d, H * 0.78, 0.22, 0.44, R5C.coral);
+    gateBeam(B, d, H * 0.78 + 0.22, 0.1, 0.34, R5C.rose);
+  },
+  "lash-column"(B, H, v) {
+    B.rbox(0.56, 0.2, 0.56, 0.08, pal(R5C.coral));
+    B.rbox(0.4, 0.1, 0.4, 0.06, pal(R5C.blush), 0, 0.2, 0);
+    const dir = v % 2 ? [1, -0.3] : [-0.3, 1];
+    chain(B, 8, H - 0.3, [0, 0], dir, 0.5, 0.32, 0.1, [R5C.lashInk, R5C.lashInk, R5C.lashInk, NEB.violet], 0.3);
+  },
+  "follicle-bulb"(B, H, v) {
+    B.cyl(0.3, H * 0.45, pal(R5C.blush), 0, 0, 0, 10);
+    B.rbox(0.46, H * 0.25, 0.46, 0.14, pal(R5C.coral), 0, H * 0.45, 0);
+    B.box(0.1, H * 0.3, 0.1, pal(R5C.lashInk), v % 2 ? 0.05 : -0.05, H * 0.7, 0);
+  },
+  "gland-lamp"(B, H) {
+    B.rbox(0.36, 0.14, 0.36, 0.06, pal(R5C.wine));
+    B.box(0.12, H - 0.62, 0.12, pal(R5C.wine), 0, 0.14, 0);
+    B.cyl(0.24, 0.14, pal(R5C.coral), 0, H - 0.5, 0, 10);
+    B.ball(0.22, tone(...R5C.amber), 0, H - 0.2, 0, 1, 1);
+  },
+  "tear-bead"(B, H) {
+    B.cyl(0.3, 0.1, pal(R5C.coral), 0, 0, 0, 10);
+    B.ball(0.24, tone("#f0fdff", "#a6ecf6", "#6ed0e6"), 0, 0.32, 0, 1.15, 1);
+    B.box(0.07, 0.05, 0.07, pal(NEB.star), -0.08, H - 0.1, 0.08);
+  },
+  "lash-shadow"(B, H, v) {
+    const m = v % 2 ? 1 : -1;
+    for (let i = 0; i < 6; i++) {
+      const t = i / 5;
+      B.box(0.14, 0.03, 0.08 - t * 0.03, pal(R5C.wine), -0.36 + t * 0.7, 0, m * (0.1 - 0.3 * t * t));
+      B.box(0.12, 0.03, 0.06 - t * 0.02, pal(R5C.wine), -0.3 + t * 0.6, 0, m * (-0.2 - 0.2 * t * t));
+    }
+  },
+  "vein-arch"(B, H, v, d) {
+    B.rbox(0.52, 0.18, 0.52, 0.08, pal(R5C.ivory));
+    B.rbox(0.4, H - 0.5, 0.4, 0.08, pal(R5C.ivory), 0, 0.18, 0);
+    for (let i = 0; i < 4; i++) B.at(0, 0.36 + i * (H - 0.8) / 4, 0, i * 0.6, () => B.box(0.46, 0.08, 0.46, pal(i % 2 ? R5C.crimson : R5C.wine)));
+    B.rbox(0.48, 0.16, 0.48, 0.06, pal(R5C.blush), 0, H - 0.32, 0);
+    gateBeam(B, d, H - 0.3, 0.16, 0.2, R5C.crimson);
+    gateBeam(B, d, H - 0.14, 0.06, 0.12, R5C.blush);
+  },
+  "porcelain-shard"(B, H, v) {
+    const m = v % 2 ? 1 : -1;
+    B.box(0.5, 0.12, 0.44, pal(R5C.blush));
+    B.box(0.56, H * 0.55, 0.3, pal(R5C.ivory), 0, 0.12, 0);
+    wedge(B, 0.56, H * 0.45 - 0.12, 0.3, R5C.ivory, 0, 0.12 + H * 0.55, 0);
+    B.box(0.05, H * 0.6, 0.02, pal(R5C.crimson), m * 0.1, 0.16, 0.15);
+    B.box(0.2, 0.05, 0.02, pal(R5C.crimson), m * 0.02, 0.16 + H * 0.35, 0.15);
+    B.rbox(0.18, 0.14, 0.16, 0.04, pal(R5C.ivory), m * 0.34, 0.12, 0.2);
+  },
+  "vein-knot"(B, H, v) {
+    B.rbox(0.5, 0.2, 0.46, 0.08, pal(R5C.wine));
+    const br = [[0, 0, 0.9, 0], [0.3, 0.5, 0.5, 0.8], [-0.4, 0.4, 0.45, -0.6], [0.5, 0.7, 0.35, 2.2], [-0.3, 0.75, 0.3, -2.4]];
+    for (const [lean, y0, len, yaw] of br) {
+      B.at(0, 0.2 + y0 * (H - 0.4), 0, yaw + (v % 2 ? 0.8 : 0), () => {
+        B.rot([0, 0, 1], -lean, 0, 0, 0);
+        B.box(0.12 - Math.abs(lean) * 0.04, len * (H - 0.2), 0.12, pal(R5C.crimson), 0, 0, 0);
+        B.box(0.16, 0.1, 0.16, pal(R5C.blush), 0, len * (H - 0.2), 0);
+        B.pop();
+      });
+    }
+  },
+  "blood-disc"(B, H, v) {
+    B.box(0.2, 0.14, 0.4, pal(R5C.ivory), v % 2 ? 0.22 : -0.22, 0, 0);
+    B.at(0, H * 0.5, 0, v % 2 ? 0.4 : -0.4, () => {
+      B.rot([1, 0, 0], Math.PI / 2 - 0.25, 0, 0, 0);
+      B.cyl(H * 0.5, 0.14, pal(["#ff5a6e", "#e0405a", "#b82a46"]), 0, -0.07, 0, 12);
+      B.cyl(H * 0.24, 0.16, pal(R5C.wine), 0, -0.08, 0, 10);
+      B.pop();
+    });
+  },
+  "slit-lamp"(B, H) {
+    B.rbox(0.44, 0.14, 0.44, 0.06, pal(R5C.blush));
+    B.box(0.16, H - 0.54, 0.16, pal(NEB.sclera), 0, 0.14, 0);
+    B.box(0.44, 0.24, 0.3, pal(NEB.sclera), 0, H - 0.4, 0);
+    B.box(0.46, 0.1, 0.32, pal(R5C.crimson), 0, H - 0.16, 0);
+    B.box(0.5, 0.08, 0.12, pal(NEB.cyan), 0.02, H - 0.34, 0.18);
+  },
+  "ion-gate"(B, H, v, d) {
+    B.box(0.5, 0.18, 0.5, pal(R5C.dust));
+    B.cone(0.3, 0.14, H * 0.5, pal(R5C.tealGas), 0, 0.18, 0, 4);
+    B.cone(0.2, 0.04, H * 0.34, pal(NEB.cyan), 0, 0.18 + H * 0.5, 0, 4);
+    B.box(0.18, 0.18, 0.18, pal(NEB.star), 0, H * 0.72, 0);
+    gateBeam(B, d, H * 0.74, 0.08, 0.12, NEB.star);
+    gateBeam(B, d, H * 0.74 - 0.08, 0.08, 0.2, NEB.cyan);
+  },
+  "dust-lane-shard"(B, H, v) {
+    const m = v % 2 ? 1 : -1;
+    B.box(0.54, 0.14, 0.4, pal(R5C.dust));
+    B.at(0, 0.14, 0, m * 0.4, () => {
+      B.box(0.5, H * 0.5, 0.26, pal(R5C.dust));
+      wedge(B, 0.5, H * 0.36 - 0.14, 0.26, R5C.dust, 0, H * 0.5, 0);
+      B.box(0.06, H * 0.5, 0.28, pal(R5C.tealGas), 0.24, 0.1, 0);
+      B.box(0.24, H * 0.3, 0.2, pal(NEB.indigo), -0.3 * m, 0, 0.1);
+    });
+  },
+  "ion-lamp"(B, H) {
+    B.box(0.32, 0.12, 0.32, pal(R5C.dust));
+    B.box(0.1, H - 0.7, 0.1, pal(R5C.dust), 0, 0.12, 0);
+    B.cyl(0.16, 0.08, pal(NEB.gold), 0, H - 0.58, 0, 8);
+    B.cone(0.02, 0.2, 0.2, pal(NEB.cyan), 0, H - 0.5, 0, 4);
+    B.cone(0.2, 0, 0.3, pal(NEB.cyan), 0, H - 0.3, 0, 4);
+  },
+  "star-speck"(B, H, v) {
+    for (const [x, z, r] of [[-0.3, -0.24, 0.06], [0.26, 0.3, 0.05], [-0.1, 0.3, 0.04], [0.34, -0.2, 0.04], [0.02, 0.0, 0.03]]) B.cyl(r, 0.04, pal(NEB.star), v % 2 ? -x : x, 0, z, 6);
+    B.box(0.3, 0.05, 0.05, pal(NEB.star), 0.1, 0.05, -0.02);
+    B.box(0.05, 0.05, 0.3, pal(NEB.star), 0.1, 0.05, -0.02);
+  },
+};
+R5["nebula-billow"] = (B, H, v) => LENS_BUILD.nebula(B, H, v, {});
+R5["capillary-fork"] = (B, H, v) => LENS_BUILD.capillary(B, H, v);
+
 export function register(style) {
   const P = style.palette;
   const props = P.props || {};
@@ -254,7 +675,8 @@ export function register(style) {
   for (const t of types) {
     const p = props[t], role = roleOf(P, t);
     const lead = role === "lead" || role === "creature";
-    catalog[t] = { footprint: lead ? [2, 2] : role === "threshold" ? [1, 1] : p.footprint || [1, 1], passable: lead ? false : !!p.passable, variants: 2, height: lead ? 2.7 : Math.min(2.6, Math.max(0.3, p.height || 1)) };
+    const r5fig = lead ? (R5_FIG.find(([re]) => re.test(String(p.pose || ""))) || [])[1] : null;
+    catalog[t] = { footprint: lead ? [2, 2] : role === "threshold" ? [1, 1] : p.footprint || [1, 1], passable: lead ? false : !!p.passable, variants: 2, height: lead ? (r5fig ? Math.min(3.3, Math.max(2.7, p.height || 3)) : 2.7) : Math.min(2.6, Math.max(R5[t] ? 0.1 : 0.3, p.height || 1)) };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, NEB.indigo), c1 = pick(tn, 1, NEB.violet);
     const rocky = /crag|asteroid|meteor|boulder|rock|barrier|rampart/i.test(t);
@@ -263,7 +685,9 @@ export function register(style) {
     const figure = /coronal ring|within/i.test(pose) ? coronalSentinel : /monolith/i.test(pose) || /singularity/i.test(t) ? pupilMonolith : null;
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
-      if (lead && figure) figure(B, H);
+      if (r5fig) r5fig(B, H);
+      else if (!lead && R5[t]) R5[t](B, H, v, d);
+      else if (lead && figure) figure(B, H);
       else if (lead) eye(B, H, look, v);
       else if (kind) LENS_BUILD[kind](B, H, v, { c0, d, gate: role === "threshold", spire: /spire|stalk/i.test(t), big: /tumbler|big/i.test(t) || H > 1 });
       else if (role === "threshold") {
@@ -732,8 +1156,388 @@ function globe(level, h) {
   h.log.push(`globe: anchor ${ax},${az} ramps ${r2 && r2.slice(1)} ${r3 && r3.slice(1)}, walk ${h.walkN()}`);
 }
 
+const R5LOOK = {
+  frisket: { bg: "#efe3d3", light: { dir: [-0.2, 1, 0.5], ambient: 0.92, sun: 0.16 } },
+  ringway: { bg: "#0c1024", light: { dir: [0.85, 0.9, 0.1], ambient: 0.64, sun: 0.46 } },
+  lashline: { bg: "#2a1020", light: { dir: [-0.8, 0.9, 0.2], ambient: 0.76, sun: 0.4 } },
+  veinfield: { bg: "#2c0a14", light: { dir: [0.1, 1, 0.3], ambient: 0.9, sun: 0.22 } },
+  nebula: { bg: "#070812", light: { dir: [0.3, 1, 0.6], ambient: 0.82, sun: 0.28 } },
+};
+
+const N4R = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+function plates(level, h) {
+  const seen = new Set(), comps = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (seen.has(h.key(x, z)) || !h.land(c) || c.s === "ramp") continue;
+    const comp = [], st = [[x, z]];
+    seen.add(h.key(x, z));
+    while (st.length) {
+      const [a, b] = st.pop();
+      comp.push([a, b]);
+      for (const [dx, dz] of N4R) {
+        const e = h.cell(a + dx, b + dz), k = h.key(a + dx, b + dz);
+        if (!seen.has(k) && h.land(e) && e.s !== "ramp" && e.h === c.h) { seen.add(k); st.push([a + dx, b + dz]); }
+      }
+    }
+    comps.push(comp);
+  }
+  return comps;
+}
+
+function sprayPlates(level, h) {
+  const comps = plates(level, h).map((c) => ({ c, k: c.reduce((a, [x, z]) => a + x - z, 0) / c.length }));
+  const cells = [];
+  for (const { c } of comps) for (const p of c) cells.push(p);
+  const steps = ["sand", "dirt", "grass"];
+  comps.sort((a, b) => a.k - b.k);
+  let acc = 0;
+  for (const q of comps) {
+    const mid = (acc + q.c.length / 2) / cells.length;
+    acc += q.c.length;
+    const s = steps[Math.min(2, Math.floor(mid * 3))];
+    for (const [x, z] of q.c) h.cell(x, z).s = s;
+  }
+  h.log.push(`sprayPlates ${comps.length} plates`);
+}
+
+function ringTerrain(level, h) {
+  const [ax, az] = h.figure.anchor, cx = ax + 1.5, cz = az + 2.6;
+  const rx = 11.5, rz = 5.2, u0 = 82, u1 = 262;
+  const band = (x, z) => {
+    const ex = (x + 0.5 - cx) / rx, ez = (z + 0.5 - cz) / rz, r = Math.hypot(ex, ez);
+    let u = (Math.atan2(ez, ex) * 180) / Math.PI;
+    if (u < 0) u += 360;
+    return { r, u, t: (u - u0) / (u1 - u0) };
+  };
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    h.removeDecor((d) => d.x === x && d.z === z);
+    const shoulder = x >= ax - 1 && x <= ax + 2 && z >= az - 1 && z <= az + 2;
+    const { r, u, t } = band(x, z);
+    const onBand = x > 0 && z > 0 && x < h.W - 1 && z < h.D - 1 && r >= 0.43 && r <= 1.0 && u >= u0 && u <= u1;
+    if (shoulder || h.isFig(x, z)) { h.set(x, z, { h: 3, s: "grass" }); continue; }
+    if (!onBand) { h.set(x, z, { h: 0, s: "none" }); continue; }
+    const hh = t < 0.34 ? 1 : t < 0.68 ? 2 : 3;
+    const outer = r > 0.84, inner = r < 0.62;
+    h.set(x, z, { h: hh, s: outer ? "sand" : inner ? "grass" : "dirt" });
+  }
+  let best = null;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.h !== 3 || (x >= ax - 1 && x <= ax + 2 && z >= az - 1 && z <= az + 2)) continue;
+    const d = Math.abs(x - (ax - 1)) + Math.abs(z - (az - 1));
+    if (!best || d < best[0]) best = [d, x, z];
+  }
+  if (best) {
+    let [, x, z] = best;
+    while (x !== ax - 1 || z !== az - 1) {
+      if (x !== ax - 1) x += Math.sign(ax - 1 - x); else z += Math.sign(az - 1 - z);
+      const c = h.cell(x, z);
+      if (!h.land(c)) h.set(x, z, { h: 3, s: "dirt" });
+    }
+  }
+  const mid = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c)) continue;
+    const { r, t } = band(x, z);
+    if (Math.abs(r - 0.73) < 0.1) mid.push([t, x, z]);
+  }
+  mid.sort((a, b) => a[0] - b[0]);
+  for (let i = 1; i < mid.length; i++) {
+    const [, x, z] = mid[i], c = h.cell(x, z);
+    for (const [dx, dz] of N4R) {
+      const lo = h.cell(x + dx, z + dz), hi = h.cell(x - dx, z - dz);
+      if (h.land(lo) && lo.s !== "ramp" && lo.h === c.h - 1 && h.land(hi) && hi.s !== "ramp" && hi.h === c.h && c.s !== "ramp") {
+        const dir = Object.keys(h.DIRS).find((k) => h.DIRS[k][0] === dx && h.DIRS[k][1] === dz);
+        if (!mid.some(([, a, b]) => h.cell(a, b)?.s === "ramp" && h.cell(a, b).h === c.h)) h.stairs(x, z, dir, { m: c.s });
+      }
+    }
+  }
+  const [sx, sz] = level.spawn;
+  if (!h.land(h.cell(sx, sz))) {
+    let q = null;
+    for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) { const c = h.cell(x, z); if (h.land(c) && c.h === 1 && c.s !== "ramp") { const d = Math.abs(x - sx) + Math.abs(z - sz); if (!q || d < q[0]) q = [d, x, z]; } }
+    let [, x, z] = q;
+    while (x !== sx || z !== sz) { if (x !== sx) x += Math.sign(sx - x); else z += Math.sign(sz - z); if (!h.land(h.cell(x, z))) h.set(x, z, { h: 1, s: "sand" }); }
+  }
+  h.repair();
+  h.log.push(`ringTerrain anchor ${ax},${az}, walk ${h.walkN()}`);
+}
+
+function tierRamps(level, h, order) {
+  let n = 0;
+  for (let i = 1; i < order.length; i++) {
+    const [x0, z0] = order[i - 1], [x1, z1] = order[i];
+    const a = h.cell(x0, z0), b = h.cell(x1, z1);
+    if (!h.land(a) || !h.land(b) || Math.abs(x0 - x1) + Math.abs(z0 - z1) !== 1 || Math.abs(a.h - b.h) !== 1 || a.s === "ramp" || b.s === "ramp") continue;
+    const [hi, lo] = a.h > b.h ? [[x0, z0], [x1, z1]] : [[x1, z1], [x0, z0]];
+    const dx = lo[0] - hi[0], dz = lo[1] - hi[1];
+    const up = h.cell(hi[0] - dx, hi[1] - dz);
+    if (!h.land(up) || up.s === "ramp" || up.h !== h.cell(...hi).h || h.isFig(...hi)) continue;
+    const dir = Object.keys(h.DIRS).find((k) => h.DIRS[k][0] === dx && h.DIRS[k][1] === dz);
+    h.stairs(hi[0], hi[1], dir, { m: h.cell(...hi).s });
+    n++;
+  }
+  return n;
+}
+
+function orderPath(cells, start) {
+  const left = cells.slice(), out = [];
+  let cur = start;
+  while (left.length) {
+    left.sort((a, b) => Math.abs(a[0] - cur[0]) + Math.abs(a[1] - cur[1]) - Math.abs(b[0] - cur[0]) - Math.abs(b[1] - cur[1]));
+    cur = left.shift();
+    out.push(cur);
+  }
+  return out;
+}
+
+function nebulaCoil(level, h) {
+  const [ax, az] = h.figure.anchor, cx = ax + 1, cz = az + 0.8;
+  const sx = 1.45, sz = 1, r0 = 5.6, turns = 1.05, a0 = 1.9, w = 1.4, rin = 2.2;
+  const k = (r0 - rin) / (turns * 2 * Math.PI), T = turns * 2 * Math.PI;
+  const arm = (x, z) => {
+    const dx = (x + 0.5 - cx) / sx, dz = (z + 0.5 - cz) / sz, r = Math.hypot(dx, dz);
+    let phi = Math.atan2(dz, dx) - a0;
+    phi = ((phi % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    let best = null;
+    for (let wd = 0; wd < 3; wd++) { const th = phi + wd * 2 * Math.PI; if (th > T) break; const d = Math.abs(r - (r0 - k * th)); if (d <= w) best = [th / T, d]; }
+    return best;
+  };
+  const tier = (t) => (t < 0.34 ? 1 : t < 0.67 ? 2 : 3);
+  const surf = { 1: "dirt", 2: "grass", 3: "sand" };
+  const mid = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    h.removeDecor((d) => d.x === x && d.z === z && !h.isFig(x, z));
+    const apron = Math.abs(x + 0.5 - cx) <= 2 && Math.abs(z + 0.5 - cz) <= 2;
+    const a = arm(x, z);
+    const orig = level.spawn[0] === x && level.spawn[1] === z;
+    if (apron || h.isFig(x, z)) { h.set(x, z, { h: 3, s: "sand" }); continue; }
+    if (x <= 0 || z <= 0 || x >= h.W - 1 || z >= h.D - 1 || (!a && !orig)) { h.set(x, z, { h: 0, s: "none" }); continue; }
+    const hh = a ? tier(a[0]) : 1;
+    h.set(x, z, { h: hh, s: surf[hh] });
+    if (a && a[1] <= 0.55) mid.push([a[0], x, z]);
+  }
+  mid.sort((p, q) => p[0] - q[0]);
+  const r = tierRamps(level, h, mid.map(([, x, z]) => [x, z]));
+  h.repair();
+  h.log.push(`nebulaCoil ${mid.length} spine cells, ${r} tier ramps, walk ${h.walkN()}`);
+}
+
+function veinSlabs(level, h) {
+  const [ax, az] = h.figure.anchor;
+  const S = [[ax + 1, az + 1, 3], [3, 3, 2], [12.5, 3, 2], [3.5, 8.8, 1], [11.5, 8.8, 1]];
+  const pairs = [[4, 3], [3, 1], [1, 0], [4, 2]];
+  const core = (x, z) => x >= ax - 1 && x <= ax + 2 && z >= az - 1 && z <= az + 2;
+  const moat = (x, z) => !core(x, z) && x >= ax - 2 && x <= ax + 3 && z >= az - 2 && z <= az + 3;
+  const near = (x, z) => S.slice(1).map(([sx, sz], i) => [Math.hypot(x + 0.5 - sx, (z + 0.5 - sz) * 1.15), i + 1]).sort((a, b) => a[0] - b[0]);
+  const inMask = (x, z) => {
+    const r = Math.hypot((x + 0.5 - 7.8) / 7.6, (z + 0.5 - 5.8) / 5.6) + (((x * 7 + z * 13) % 5) - 2) * 0.03;
+    return x > 0 && z > 0 && x < h.W - 1 && z < h.D - 1 && r <= 1.02;
+  };
+  const seam = (x, z) => { const n = near(x, z); return moat(x, z) || n[1][0] - n[0][0] < 0.8; };
+  const cross = new Map(), lines = [];
+  for (const [a, b] of pairs) {
+    let x = Math.floor(S[a][0]), z = Math.floor(S[a][1]);
+    const bx = Math.floor(S[b][0]), bz = Math.floor(S[b][1]), line = [[x, z]];
+    while (x !== bx || z !== bz) {
+      const rx = Math.abs(bx - x), rz = Math.abs(bz - z);
+      if (rx >= rz) x += Math.sign(bx - x); else z += Math.sign(bz - z);
+      line.push([x, z]);
+    }
+    lines.push(line);
+    for (const [px, pz] of line) if (!core(px, pz) && seam(px, pz)) cross.set(h.key(px, pz), Math.min(S[a][2], S[b][2]));
+  }
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    h.removeDecor((d) => d.x === x && d.z === z && !h.isFig(x, z));
+    const orig = level.spawn[0] === x && level.spawn[1] === z;
+    if (core(x, z)) { h.set(x, z, { h: 3, s: h.isFig(x, z) || (x + z) % 3 ? "sand" : "stone" }); continue; }
+    if (!inMask(x, z) && !orig) { h.set(x, z, { h: 0, s: "none" }); continue; }
+    const k = h.key(x, z);
+    if (cross.has(k)) { h.set(x, z, { h: cross.get(k), s: "dirt" }); continue; }
+    if (seam(x, z) && !orig) { h.set(x, z, { h: 0, s: "none" }); continue; }
+    const hh = S[near(x, z)[0][1]][2];
+    h.set(x, z, { h: hh, s: hh === 2 ? "grass" : "sand" });
+  }
+  let n = 0;
+  for (const line of lines) n += tierRamps(level, h, line);
+  h.repair();
+  h.log.push(`veinSlabs ${cross.size} crossings, ${n} ramps, walk ${h.walkN()}`);
+}
+
+function lashTemple(level, h) {
+  const [ax, az] = h.figure.anchor;
+  const mx = ax + 0.5;
+  const land = (x, z) => h.land(h.cell(x, z)) || h.cell(x, z)?.s === "ramp";
+  const mask = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const m = Math.round(2 * mx - x);
+    if (land(x, z) || (m >= 0 && m < h.W && land(m, z))) mask.push([x, z]);
+  }
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) if (!mask.some(([a, b]) => a === x && b === z)) h.set(x, z, { h: 0, s: "none" });
+  const front = az + 5;
+  for (const [x, z] of mask) {
+    if (x <= 0 || x >= h.W - 1 || z <= 0 || z >= h.D - 1) { h.set(x, z, { h: 0, s: "none" }); continue; }
+    const ox = Math.abs(x - mx);
+    const hh = z <= az + 2 && ox <= 3 ? 3 : z <= front ? 2 : 1;
+    h.set(x, z, { h: hh, s: hh === 3 ? "grass" : hh === 2 ? "dirt" : "sand" });
+  }
+  const rows = (z) => mask.filter(([x, zz]) => zz === z && h.land(h.cell(x, z))).map(([x]) => x);
+  const r2 = rows(front), sides = [Math.min(...r2), Math.max(...r2)];
+  const out = [];
+  for (const x of sides) {
+    const xi = x + (x < mx ? 1 : -1);
+    if (h.land(h.cell(xi, front + 1)) && h.cell(xi, front + 1).h === 1) { h.stairs(xi, front, "s", { m: "dirt" }); out.push([xi, front]); }
+  }
+  for (const x of [Math.floor(mx), Math.ceil(mx)]) { h.stairs(x, az + 2, "s", { m: "grass" }); out.push([x, az + 2]); }
+  h.repair();
+  h.log.push(`lashTemple axis ${mx}, stairs ${JSON.stringify(out)}, walk ${h.walkN()}`);
+}
+
+function mirrorLashes(level, h, mx, pairs) {
+  const onR = new Set(h.approach({ walkOnly: true }).map(([x, z]) => h.key(x, z)));
+  const ok = (x, z) => {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || c.h < 2 || h.isFig(x, z) || onR.has(h.key(x, z)) || h.decorAt(x, z).length) return false;
+    if (N4R.some(([dx, dz]) => h.cell(x + dx, z + dz)?.s === "ramp")) return false;
+    return !h.figure.cells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) <= 1);
+  };
+  const cand = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < mx; x++) {
+    const m = Math.round(2 * mx - x);
+    if (Math.abs(x - mx) < 2.5 || !ok(x, z) || !ok(m, z)) continue;
+    const edge = N4R.some(([dx, dz]) => { const q = h.cell(x + dx, z + dz); return !h.land(q) || q.h < h.cell(x, z).h; });
+    cand.push([(edge ? 0 : 3) + (z % 2) * 2 - Math.abs(x - mx) * 0.2, x, z, m]);
+  }
+  cand.sort((a, b) => a[0] - b[0]);
+  let n = 0;
+  for (const [, x, z, m] of cand) {
+    if (n >= pairs) break;
+    if (level.decor.some((d) => d.t === "lash-column" && Math.abs(d.z - z) <= 1 && (Math.abs(d.x - x) <= 1 || Math.abs(d.x - m) <= 1))) continue;
+    const miss = h.reach().missing.length;
+    if (!h.put("lash-column", x, z, { v: 0 })) continue;
+    if (!h.put("lash-column", m, z, { v: 1 })) { level.decor.pop(); continue; }
+    if (h.reach().missing.length > miss) { level.decor.pop(); level.decor.pop(); continue; }
+    n++;
+  }
+  h.log.push(`mirrorLashes ${n} pairs`);
+}
+
+function r5Scatter(level, h, lens, ax, az) {
+  const P = level.palette.props || {};
+  const has = (t) => !!P[t];
+  const cheb = (x, z) => Math.max(Math.abs(x - ax - 0.5), Math.abs(z - az - 0.5));
+  const plan = {
+    frisket: [["cut-stencil-sheet", 4, (x, z, c) => (c.h >= 2 && (x + z) % 3 === 0 ? -cheb(x, z) : null)], ["overspray-plume", 4, (x, z, c) => ((x * 5 + z) % 4 === 1 ? -c.h * 2 + (x % 3) : null)], ["tape-roll", 3, (x, z, c) => ((x + 2 * z) % 5 === 0 ? cheb(x, z) : null)], ["spatter-pad", 6, (x, z, c) => ((x * 3 + z) % 3 === 0 ? cheb(x, z) * 0.5 : null)]],
+    ringway: [["ring-asteroid", 6, (x, z, c) => (c.s === "grass" && (x + z) % 2 === 0 ? cheb(x, z) * 0.2 + ((x * 7) % 3) : null)], ["shepherd-moon", 2, (x, z, c) => (c.s === "sand" && cheb(x, z) > 3 ? -((x * 3 + z) % 7) : null)], ["groove-lane", 6, (x, z, c) => (c.s === "dirt" ? (x * 5 + z * 3) % 4 : null)]],
+    lashline: [["follicle-bulb", 4, (x, z, c) => ((x + z) % 3 === 0 && c.h >= 1 ? Math.abs(x - ax - 0.5) : null)], ["tear-bead", 2, (x, z, c) => (cheb(x, z) <= 2.5 && cheb(x, z) >= 1.5 ? cheb(x, z) : null)], ["lash-shadow", 5, (x, z, c) => (c.s === "stone" || (x + z) % 4 === 0 ? cheb(x, z) : null)]],
+    veinfield: [["porcelain-shard", 4, (x, z, c) => ((x * 3 + z * 5) % 4 === 0 ? -cheb(x, z) : null)], ["vein-knot", 3, (x, z, c) => ((x + z) % 3 === 1 && cheb(x, z) > 3 ? -((x * 7 + z) % 5) : null)], ["blood-disc", 4, (x, z, c) => ((x * 2 + z) % 5 === 2 ? cheb(x, z) * 0.3 : null)], ["capillary-fork", 7, (x, z, c) => (c.s === "sand" && (x + 2 * z) % 3 === 0 ? cheb(x, z) * 0.4 : null)]],
+    nebula: [["nebula-billow", 7, (x, z, c) => ((x + z) % 2 === 0 && cheb(x, z) > 2 ? -cheb(x, z) + ((x * 3 + z) % 4) * 0.5 : null)], ["dust-lane-shard", 3, (x, z, c) => ((x + z) % 3 === 1 && cheb(x, z) > 2.5 ? -((x * 5 + z) % 7) : null)], ["star-speck", 10, (x, z, c) => ((x * 5 + z * 3) % 3 === 0 ? cheb(x, z) * 0.3 : null)]],
+  }[lens] || [];
+  const apart = (t, pred) => (x, z, c) => (level.decor.some((d) => (d.t === t || P[d.t]?.role === "threshold") && Math.max(Math.abs(d.x - x), Math.abs(d.z - z)) <= (d.t === t && lens === "frisket" ? 2 : 1)) ? null : pred(x, z, c));
+  for (const [t, n, pred] of plan) if (has(t)) scatter(level, h, t, n, P[t].passable ? pred : apart(t, pred));
+  if (lens === "lashline" && has("lash-column")) mirrorLashes(level, h, ax + 0.5, 4);
+}
+
+function spurs(level, h, keep = []) {
+  let n = 0;
+  for (let pass = 0; pass < 3; pass++) for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || (level.spawn[0] === x && level.spawn[1] === z) || keep.some(([a, b]) => a === x && b === z)) continue;
+    const nb = N4R.filter(([dx, dz]) => { const q = h.cell(x + dx, z + dz); return h.land(q) || q?.s === "ramp"; }).length;
+    if (nb > 1) continue;
+    const r0 = h.reach();
+    const saved = { ...c }, dec = h.decorAt(x, z);
+    h.removeDecor((d) => dec.includes(d));
+    h.set(x, z, { h: 0, s: "none" });
+    if (h.reach().missing.length > r0.missing.length) { h.set(x, z, saved); level.decor.push(...dec); continue; }
+    n++;
+  }
+  if (n) h.log.push(`spurs: ${n} one-neighbour cells cut`);
+}
+
+function r5Spawn(level, h, lo, hi, score) {
+  let best = null;
+  const blocked = h.blockedSet();
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!h.land(c) || c.s === "ramp" || h.isFig(x, z) || blocked.has(h.key(x, z))) continue;
+    if (!N4R.some(([a, b]) => { const q = h.cell(x + a, z + b); return !q || q.s === "none"; })) continue;
+    if (N4R.some(([a, b]) => h.cell(x + a, z + b)?.s === "ramp")) continue;
+    const q = h.approach({ from: [x, z], walkOnly: true });
+    if (q.length < lo || q.length > hi) continue;
+    const sc = score(x, z) + q.length * 0.3;
+    if (!best || sc > best[0]) best = [sc, x, z];
+  }
+  if (!best) return frontSpawn(level, h, lo, hi, score);
+  h.clear(best[1], best[2]);
+  level.spawn = [best[1], best[2]];
+  h.log.push(`r5Spawn ${level.spawn}`);
+  return h.approach({ walkOnly: true });
+}
+
+function finishR5(level, brief, h, lens) {
+  const L = R5LOOK[lens];
+  level.bg = level.palette.bg = L.bg;
+  level.light = { ...L.light };
+  const props = level.palette.props || {};
+  const types = Object.keys(props);
+  const gateT = brief.threshold?.prop;
+  const lightT = types.find((t) => props[t].role === "light");
+  const leadT = h.lead?.t;
+  const passT = h.passes().filter((t) => t !== gateT && t !== lightT && t !== leadT && !props[t]?.passable);
+  h.removeDecor(() => true);
+  const orig = [...level.spawn];
+  const [ax, az] = h.figure.anchor;
+  if (lens === "ringway") ringTerrain(level, h);
+  if (lens === "nebula") nebulaCoil(level, h);
+  if (lens === "lashline") lashTemple(level, h);
+  if (lens === "veinfield") veinSlabs(level, h);
+  h.dryRim();
+  spurs(level, h, [orig]);
+  fillPits(level, h);
+  if (lens === "frisket") sprayPlates(level, h);
+  const score = { frisket: (x, z) => z + x * 0.6, ringway: (x, z) => z * 1.2 + x, lashline: (x, z) => z * 1.4 - Math.abs(x - ax - 0.5), veinfield: (x, z) => z + x, nebula: (x, z) => z + x * 0.3 }[lens];
+  let r = r5Spawn(level, h, lens === "ringway" ? 18 : 13, lens === "ringway" ? 40 : 30, score);
+  const before = lens === "nebula" ? level.cells.map((row) => row.map((c) => c.s)) : null;
+  if (r.length) h.path(r);
+  if (before) for (const [x, z] of r) { const c = h.cell(x, z); if (h.land(c) && c.s !== "ramp") c.s = before[z][x] === "ramp" ? { 1: "dirt", 2: "grass", 3: "sand" }[c.h] : before[z][x]; }
+  r = h.approach({ walkOnly: true });
+  if (!r.length) r = h.approach();
+  if (lens === "nebula" && props["star-speck"]) r.forEach(([x, z], i) => { const c = h.cell(x, z); if (i % 3 === 1 && h.land(c) && c.s !== "ramp" && !h.isFig(x, z)) h.put("star-speck", x, z, { v: i % 2 }); });
+  let g = null;
+  for (const gap of [2, 1]) for (const frac of [0.55, 0.45, 0.65, 0.35, 0.75]) if (!g && gateT) g = h.gate(gateT, { route: r, frac, figGap: gap, fill: false });
+  for (const [x, z] of [[ax - 1, az], [ax - 1, az + 1], [ax - 1, az + 2], [ax, az + 2], [ax + 1, az + 2], [ax + 2, az + 2], [ax + 2, az], [ax + 2, az + 1]]) h.removeDecor((d) => d.t !== gateT && d.x === x && d.z === z);
+  h.along(passT, { route: r });
+  const posts = level.decor.filter((d) => d.t === gateT);
+  h.removeDecor((d) => d.t !== gateT && !props[d.t]?.passable && posts.some((q) => Math.max(Math.abs(q.x - d.x), Math.abs(q.z - d.z)) <= 1));
+  if (lightT) h.lights(lightT, { route: r, every: 4, skip: 2, max: lens === "lashline" ? 4 : 3, avoid: g ? [g] : [], keep: [gateT, ...passT] });
+  r5Scatter(level, h, lens, ax, az);
+  h.ledges({ keep: [gateT, lightT] });
+  h.repair({ keep: [gateT] });
+  if (lens !== "lashline") {
+    h.pruneRamps({ route: h.approach({ walkOnly: true }) });
+    h.pruneRamps({ all: true, slotsOnly: true });
+  }
+  h.openRamps();
+  if (lens !== "lashline") h.pruneRamps({ all: true, nearFig: 1 });
+  levelRamps(h);
+  spareRamps(level, h, h.approach({ walkOnly: true }));
+  levelRamps(h);
+  backed(level, h);
+  const keepMass = { ringway: ["ring-asteroid"], nebula: ["nebula-billow"], veinfield: ["porcelain-shard", "vein-knot"], lashline: ["lash-column"], frisket: ["cut-stencil-sheet"] }[lens] || [];
+  if (h.walkN() < 82) h.thin(82, { keep: [gateT, lightT, ...keepMass] });
+  if (h.walkN() < 81) h.thin(81, { keep: [gateT, lightT] });
+  if (h.walkN() < 84 && lens !== "ringway" && lens !== "veinfield" && lens !== "nebula") h.grow(84, { s: h.surf.ground });
+  h.rampTone();
+  h.log.push(`r5 ${lens}: approach ${h.approach({ walkOnly: true }).length}, walk ${h.walkN()}, gate ${g}`);
+}
+
 function finishLens(level, brief, h) {
   const lens = brief.concept?.lens || (typeof brief.lens === "string" ? brief.lens : "");
+  if (R5LOOK[lens]) return finishR5(level, brief, h, lens);
   lensLook(level, lens);
   h.dryRim();
   resurface(level, h);
