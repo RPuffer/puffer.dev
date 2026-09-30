@@ -140,3 +140,6 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | wizard-medium | gemini-3.8-flash | 12 | 0.0861 | critic rounds 1 to 2 at 351 and 900: 0, 0 high (round 2 on the parchment-and-ink repaint)
 2026-09-29 | wizard-subject | gemini-3.8-flash | 12 | 0.1060 | critic rounds 1 to 2: 0, 0 high
 2026-09-29 | wizard-composition | gemini-3.8-flash | 12 | 0.0658 | critic rounds 3 to 4: 0, 0 high
+2026-09-29 | mindbloom-medium | gemini-3.8-flash | 12 | 0.0978 | critic rounds 1 and 2 at 351 and 900 (3 votes each): 0, 0 high
+2026-09-29 | mindbloom-subject | gemini-3.8-flash | 12 | 0.0998 | critic rounds 1 and 2: 0, 0 high
+2026-09-29 | mindbloom-composition | gemini-3.8-flash | 18 | 0.1579 | critic rounds 1 to 3: 0, 0, 0 high; round 3 checked the grass neck and path after round 2
