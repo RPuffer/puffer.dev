@@ -1,0 +1,844 @@
+{
+ "place": "The forest floor at root height: a mossy root knee and a duff bank joined by the drawing's fallen log, mycelium lamps and toadstools in the humus, the bird gripping the roots.",
+ "source": {
+  "art": "pipeline/seed/forest.png",
+  "width": 1454,
+  "height": 2048,
+  "model": "authored by build agent (round 5, analyzer offline)",
+  "date": "2026-09-30"
+ },
+ "mood": [
+  "damp",
+  "earthy",
+  "glowing",
+  "crowded",
+  "low",
+  "alive"
+ ],
+ "observations": [
+  {
+   "what": "Tall avian entity of calligraphic flame scrolls standing in profile-left",
+   "box": [
+    175,
+    208,
+    836,
+    794
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "The root tangle and gritty soil underfoot: cross-hatched charcoal scrubbed into the lower third, the dense knot of roots under the talons, the fallen log, and the creeping mycelium the analysis names",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "root_knee"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#868686",
+    "share": 0.152,
+    "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+   },
+   {
+    "hex": "#9f9f9f",
+    "share": 0.15,
+    "role": "Light gray diffused background wash and middle-value forest canopy"
+   },
+   {
+    "hex": "#333333",
+    "share": 0.142,
+    "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+   },
+   {
+    "hex": "#bcbcbc",
+    "share": 0.129,
+    "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+   },
+   {
+    "hex": "#181818",
+    "share": 0.119,
+    "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+   },
+   {
+    "hex": "#6c6c6c",
+    "share": 0.116,
+    "role": "Transitional blending tones across the creature's breast and shaded soil"
+   },
+   {
+    "hex": "#4f4f4f",
+    "share": 0.112,
+    "role": "Dark gray bark textures and deep secondary folds of the plumage"
+   },
+   {
+    "hex": "#dddddd",
+    "share": 0.079,
+    "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+   }
+  ],
+  "translation": {
+   "bg": "#18261e",
+   "grass": {
+    "top": "#6fb05a",
+    "fringe": "#579146",
+    "fringeDark": "#427236",
+    "speck": "#95cc7d"
+   },
+   "sand": {
+    "top": "#d9d69a",
+    "lip": "#bab77a",
+    "edge": "#c9c68a",
+    "dots": "#e8e6b8"
+   },
+   "dirt": {
+    "top": "#7a5236",
+    "patch": "#6a462e",
+    "mottle": "#5b3b26",
+    "border": "#4b301f"
+   },
+   "stone": {
+    "top": "#c7c1b0",
+    "pebble": "#dcd7c8",
+    "pebbleShade": "#a9a393",
+    "rim": "#8b8575"
+   },
+   "cliffUpper": {
+    "left": "#6e4a32",
+    "right": "#583a26",
+    "seam": "#432b1b"
+   },
+   "cliffLower": {
+    "left": "#4d3322",
+    "right": "#3b2619",
+    "seam": "#2a1a10",
+    "speck": "#6a462e"
+   },
+   "water": {
+    "top": "#7ec9dc",
+    "bubble": "#b5e8f4",
+    "deep": "#4493a7",
+    "fall": [
+     "#5fb4c9",
+     "#4d9eaf",
+     "#3e8b9b"
+    ],
+    "foam": "#d7f4fa"
+   },
+   "wood": {
+    "light": "#d8742b",
+    "mid": "#b85c1c",
+    "dark": "#92440f",
+    "shadow": "#703108",
+    "end": "#e8b870"
+   },
+   "treeMint": [
+    "#50a475",
+    "#3f895f",
+    "#2d6b47"
+   ],
+   "treeLime": [
+    "#7ebc52",
+    "#669b3f",
+    "#4e7a2d"
+   ],
+   "treeLeaf": [
+    "#5b9b4b",
+    "#477f39",
+    "#346328"
+   ],
+   "treeTeal": [
+    "#3aa68b",
+    "#2b876f",
+    "#1e6955",
+    "#134c3c"
+   ],
+   "treeGold": [
+    "#cfa43c",
+    "#b08627",
+    "#8c6717"
+   ],
+   "trunk": [
+    "#674637",
+    "#4c3329"
+   ],
+   "rock": [
+    "#dedcd7",
+    "#bdbab3",
+    "#8f8c85",
+    "#6b6861"
+   ],
+   "wellStone": [
+    "#b4aba0",
+    "#9b9288",
+    "#7e756c"
+   ],
+   "flowerOrange": [
+    "#e07525",
+    "#c76118"
+   ],
+   "berry": [
+    "#db516f",
+    "#b63652"
+   ],
+   "bushTeal": [
+    "#4ca38b",
+    "#3a8771",
+    "#2a6b57"
+   ],
+   "gold": [
+    "#e5b63b",
+    "#c29424",
+    "#f5d168"
+   ]
+  },
+  "notes": "The drawing's darkest greys become loam umber; moss green and lichen yellow-green give the pack's saturation, with toadstool red and mycelium white-blue as accents.",
+  "clamped": []
+ },
+ "motifs": [
+  {
+   "name": "root_knee",
+   "type": "new",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 5,
+   "cells": [
+    [
+     4,
+     2
+    ],
+    [
+     10,
+     2
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     6,
+     5
+    ]
+   ],
+   "where": "Heaped on the high mass around the bird, as in the root knot under its talons.",
+   "shape": {
+    "summary": "A gnarled root knee: a thick root rising out of the ground in an arch and diving back in, bark brown, moss on the crown.",
+    "parts": [
+     {
+      "prim": "beam",
+      "dims": [
+       0.14
+      ],
+      "at": [
+       -0.4,
+       0,
+       0
+      ],
+      "tones": [
+       "#7a5236",
+       "#6a462e",
+       "#4b301f"
+      ],
+      "to": [
+       0,
+       0.9,
+       0
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.12
+      ],
+      "at": [
+       0,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#7a5236",
+       "#6a462e",
+       "#4b301f"
+      ],
+      "to": [
+       0.4,
+       0,
+       0.1
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "root_mycel",
+   "type": "new",
+   "variant_of": "lantern",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     11,
+     8
+    ],
+    [
+     13,
+     5
+    ],
+    [
+     9,
+     5
+    ]
+   ],
+   "where": "Along the path and at the bridge ends, where the mycelium surfaces.",
+   "shape": {
+    "summary": "A mycelium lamp: a cluster of three pale stalks with glowing blue-white caps on a mossy base.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.06,
+       0.7,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#eef4f2",
+       "#d4e0dc",
+       "#b6c6c1"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.4,
+       0.12,
+       0.4,
+       0.1
+      ],
+      "at": [
+       0,
+       0.7,
+       0
+      ],
+      "tones": [
+       "#dff4ff",
+       "#b8e0f2",
+       "#8ec6de"
+      ]
+     }
+    ]
+   },
+   "role": "light"
+  },
+  {
+   "name": "root_toadstool",
+   "type": "new",
+   "variant_of": "mushroom",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.7,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     13,
+     9
+    ],
+    [
+     10,
+     10
+    ],
+    [
+     12,
+     10
+    ]
+   ],
+   "where": "In the humus of the duff bank.",
+   "shape": {
+    "summary": "A red-capped toadstool with white dots on a cream stem.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.08,
+       0.4,
+       6
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f2ead8",
+       "#dccfb4",
+       "#bcae90"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.06,
+       0.2,
+       8
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#e0493a",
+       "#c2352a",
+       "#9c261e"
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  },
+  {
+   "name": "root_duff",
+   "type": "new",
+   "variant_of": "bush",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.45,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     13,
+     8
+    ],
+    [
+     12,
+     9
+    ],
+    [
+     11,
+     10
+    ]
+   ],
+   "where": "Low hummocks along the approach on the duff bank.",
+   "shape": {
+    "summary": "A lichen duff hummock: a low mossy mound with pale yellow-green lichen dots and a twig.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.3,
+       0.6,
+       0.14
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#6fb05a",
+       "#579146",
+       "#427236"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.2,
+       0.06,
+       0.2,
+       0.05
+      ],
+      "at": [
+       0.1,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#d9d69a",
+       "#bab77a",
+       "#9a9860"
+      ]
+     }
+    ]
+   },
+   "role": "approach"
+  },
+  {
+   "name": "root_arch_gate",
+   "type": "new",
+   "variant_of": "gate",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.5,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     8,
+     4
+    ],
+    [
+     8,
+     5
+    ]
+   ],
+   "where": "Where the path climbs from the bridge onto the high mass.",
+   "shape": {
+    "summary": "Two root posts with an arched root looping over the path between them.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.34,
+       1.2,
+       0.34
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#7a5236",
+       "#6a462e",
+       "#4b301f"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.12
+      ],
+      "at": [
+       0,
+       1.2,
+       0
+      ],
+      "tones": [
+       "#7a5236",
+       "#6a462e",
+       "#4b301f"
+      ],
+      "to": [
+       1,
+       1.2,
+       0
+      ]
+     }
+    ]
+   },
+   "role": "threshold"
+  }
+ ],
+ "creatures": [
+  {
+   "name": "root_ember_bird",
+   "source": "The bird's intertwined legs anchored in the root knot, gaze turned down",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.8,
+   "pose": "A soot-and-ember bird gripping a knot of roots with splayed talons, head lowered and turned left, tail scroll high.",
+   "cell": [
+    7,
+    2
+   ],
+   "facing": "w",
+   "why": "At root height the bird's grip on the ground is the story: it stands in the knot it grew from.",
+   "shape": {
+    "summary": "A soot-and-ember bird gripping a knot of roots with splayed talons, head lowered and turned left, tail scroll high.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.7,
+       0.5,
+       0.12
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#5a544e",
+       "#4a4540",
+       "#34302c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.4,
+       1.9,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVRRRRRRRRGVVVV",
+   "VVRRRRRFFRRRRRGV",
+   "VRRRRRRFFRRRRRGV",
+   "VRRRRRRPRRRRRRGV",
+   "VGGGGGGPGGGGGGVV",
+   "VVVVVVVPVVVVVVVV",
+   "VGGGGGRPRRRGGGVV",
+   "VGGGGRRPRRGGGGVV",
+   "VVGGGRRPRRGGGGVV",
+   "VVGGGGGPPGGGGVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0002232222210000",
+   "0022232222322210",
+   "0222232222322210",
+   "0222222222222210",
+   "0111111211111100",
+   "0000000100000000",
+   "0111112122211100",
+   "0111122222111100",
+   "0011122222111100",
+   "0011111111111000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 2,
+   "what": "The bird gripping the root knot on the high mass"
+  },
+  "mass": "Seen from beetle height, the drawing's lower third becomes the whole world: two humus masses, the big one heaped with root knees, joined by the fallen log as a plank bridge, lit from within by pale mycelium lamps, with red toadstools and lichen duff along the path.",
+  "read": "Across the low duff bank past lichen hummocks and toadstools, over the fallen-log bridge, and up through root knees to the bird.",
+  "shaped": {
+   "name": "twin-mass",
+   "params": {
+    "split": "z",
+    "ratio": 0.55,
+    "heights": [
+     3,
+     2
+    ],
+    "bridge": "planks",
+    "focal": "a"
+   },
+   "seed": 2,
+   "start": [
+    8,
+    10
+   ],
+   "pool": 0,
+   "bridge": [
+    [
+     7,
+     6
+    ]
+   ],
+   "model_grid": [
+    "VVGGRRRGGVVVVVVV",
+    "VGGRRFFRGGVVVVVV",
+    "GGRRRFFRRGGVVVVV",
+    "GGRRRRRRRGGVVVVV",
+    "VGGRRRRRGGGVVVVV",
+    "VVGGGGGGGGPVVVVV",
+    "VVVVVGGGGGPPGVVV",
+    "VVVVVVVGGGGPGGGV",
+    "VVVVVVGGGGGGPGGG",
+    "VVVVVVGGGGGGGPGG",
+    "VVVVVVVGGGGGGGPV",
+    "VVVVVVVVGGGGGGVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.07,
+   "types": [
+    {
+     "type": "root_knee",
+     "variant": "root_knee",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.15,
+  "decor_weights": {
+   "root_toadstool": 0.4,
+   "root_duff": 0.4,
+   "root_mycel": 0.2
+  },
+  "lighting": {
+   "bg": "#18261e",
+   "ambient": 0.82,
+   "sun": 0.2,
+   "tint": "#d6f0d0",
+   "notes": "fungus glow under a closed canopy: The drawing's floor is its darkest zone (#333333 in the root crevices); under a closed canopy the light comes from the ground itself, so a dim green background and pale mycelium lamps carry it."
+  },
+  "rules": [
+   "Root knees heap on the high mass; the duff bank carries toadstools and hummocks.",
+   "The log bridge stays clear.",
+   "Mycelium lamps at the bridge ends and on the climb."
+  ],
+  "decor_density": 0.1,
+  "surfaces": {
+   "ground": "dirt",
+   "raised": "grass",
+   "path": "dirt",
+   "shore": "grass",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "The root tangle and gritty soil underfoot: cross-hatched charcoal scrubbed into the lower third, the dense knot of roots under the talons, the fallen log, and the creeping mycelium the analysis names",
+  "place": "The forest floor at root height: a mossy root knee and a duff bank joined by the drawing's fallen log, mycelium lamps and toadstools in the humus, the bird gripping the roots.",
+  "summary": "Seen from beetle height, the drawing's lower third becomes the whole world: two humus masses, the big one heaped with root knees, joined by the fallen log as a plank bridge, lit from within by pale mycelium lamps, with red toadstools and lichen duff along the path.",
+  "differs": "forest-subject raised a taproot knoll ringed by charred boles; this reading goes underfoot instead of up, loam and moss and fungus light rather than scorch, two masses joined by a log bridge rather than one hill."
+ },
+ "shaper": {
+  "name": "twin-mass",
+  "params": {
+   "split": "z",
+   "ratio": 0.55,
+   "heights": [
+    3,
+    2
+   ],
+   "bridge": "planks",
+   "focal": "a"
+  },
+  "why": "The drawing's lower third is two masses of scrubbed soil, the root knot under the bird behind and the foreground ground the log lies on, joined by the fallen log; twin-mass split front to back with a plank bridge is that log laid between them, with the bird on the far, higher mass."
+ },
+ "surface_mix": {
+  "pattern": "scatter",
+  "period": 2.3,
+  "surfaces": [
+   {
+    "s": "grass",
+    "share": 0.45
+   },
+   {
+    "s": "dirt",
+    "share": 0.4
+   },
+   {
+    "s": "sand",
+    "share": 0.1
+   },
+   {
+    "s": "stone",
+    "share": 0.05
+   }
+  ],
+  "why": "Moss cushions scattered through dark loam, pale lichen duff in patches, a few stones turned up by the roots."
+ },
+ "cliff_treatment": {
+  "style": "mossy",
+  "upper": [
+   "#6e4a32",
+   "#583a26",
+   "#432b1b"
+  ],
+  "lower": [
+   "#4d3322",
+   "#3b2619",
+   "#2a1a10"
+  ],
+  "why": "Cut banks of humus with roots and moss hanging over the lip."
+ },
+ "lighting": {
+  "time": "fungus glow under a closed canopy",
+  "ambient": 0.82,
+  "sun": 0.2,
+  "tint": "#d6f0d0",
+  "bg": "#18261e",
+  "why": "The drawing's floor is its darkest zone (#333333 in the root crevices); under a closed canopy the light comes from the ground itself, so a dim green background and pale mycelium lamps carry it."
+ },
+ "figure_pose": {
+  "pose": "A soot-and-ember bird gripping a knot of roots with splayed talons, head lowered and turned left, tail scroll high.",
+  "action": "gripping the roots and looking down",
+  "facing": "left",
+  "why": "The analysis: the dense intertwined legs anchor the mass and the bird turns its gaze downward and to the left, onto the root-covered ground."
+ },
+ "approach": {
+  "from": "the lower duff bank, over the log",
+  "passes": [
+   "root_duff",
+   "root_toadstool",
+   "root_mycel",
+   "root_knee"
+  ],
+  "shape": "Across the low duff bank past lichen hummocks and toadstools, over the fallen-log bridge, and up through root knees to the bird."
+ },
+ "threshold": {
+  "kind": "Two root posts with an arched root looping over the path between them",
+  "prop": "root_arch_gate"
+ },
+ "analysis": "pipeline/seed/analysis/forest.json",
+ "concept": {
+  "name": "aspect-roots",
+  "lens": "subject",
+  "fragment": "Round 5 reading authored by the build agent from pipeline/seed/analysis/forest.json and the drawing itself, without the analyzer (Gemini returns 402). One aspect of the charcoal drawing, \"roots\", becomes the place; the shaper, palette, lighting, props and the figure's pose are argued from that aspect alone. It must not repeat the round-4 forest readings (ash basin with soot trunks, taproot knoll with charred boles, birch spiral) or their shapers (basin, mound, spiral)."
+ }
+}
