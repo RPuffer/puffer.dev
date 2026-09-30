@@ -1,0 +1,813 @@
+{
+ "place": "One stroke of paper rubbed clean through night-black charcoal, the eraser's path forking and climbing to a bird cut white out of the dark.",
+ "source": {
+  "art": "pipeline/seed/forest.png",
+  "width": 1454,
+  "height": 2048,
+  "model": "authored by build agent (round 5, analyzer offline)",
+  "date": "2026-09-30"
+ },
+ "mood": [
+  "cold",
+  "stark",
+  "reductive",
+  "luminous",
+  "quiet",
+  "cut"
+ ],
+ "observations": [
+  {
+   "what": "Tall avian entity of calligraphic flame scrolls standing in profile-left",
+   "box": [
+    175,
+    208,
+    836,
+    794
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "The reductive eraser marks: highlights cut cleanly into charcoal tone with a kneaded eraser to form the white beak, blank eye and white tendril rims",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "lift_putty"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#868686",
+    "share": 0.152,
+    "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+   },
+   {
+    "hex": "#9f9f9f",
+    "share": 0.15,
+    "role": "Light gray diffused background wash and middle-value forest canopy"
+   },
+   {
+    "hex": "#333333",
+    "share": 0.142,
+    "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+   },
+   {
+    "hex": "#bcbcbc",
+    "share": 0.129,
+    "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+   },
+   {
+    "hex": "#181818",
+    "share": 0.119,
+    "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+   },
+   {
+    "hex": "#6c6c6c",
+    "share": 0.116,
+    "role": "Transitional blending tones across the creature's breast and shaded soil"
+   },
+   {
+    "hex": "#4f4f4f",
+    "share": 0.112,
+    "role": "Dark gray bark textures and deep secondary folds of the plumage"
+   },
+   {
+    "hex": "#dddddd",
+    "share": 0.079,
+    "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+   }
+  ],
+  "translation": {
+   "bg": "#141824",
+   "grass": {
+    "top": "#8fb0c8",
+    "fringe": "#7394ad",
+    "fringeDark": "#58778f",
+    "speck": "#b3cde0"
+   },
+   "sand": {
+    "top": "#eef1f5",
+    "lip": "#c9d0db",
+    "edge": "#dbe1ea",
+    "dots": "#f7f9fc"
+   },
+   "dirt": {
+    "top": "#3a4258",
+    "patch": "#2f364a",
+    "mottle": "#272d3e",
+    "border": "#1f2433"
+   },
+   "stone": {
+    "top": "#bcc6d6",
+    "pebble": "#d7dfeb",
+    "pebbleShade": "#9aa6b9",
+    "rim": "#7c889c"
+   },
+   "cliffUpper": {
+    "left": "#2c3348",
+    "right": "#222838",
+    "seam": "#171b28"
+   },
+   "cliffLower": {
+    "left": "#1f2433",
+    "right": "#171b27",
+    "seam": "#10131c",
+    "speck": "#2c3348"
+   },
+   "water": {
+    "top": "#7ec9dc",
+    "bubble": "#b5e8f4",
+    "deep": "#4493a7",
+    "fall": [
+     "#5fb4c9",
+     "#4d9eaf",
+     "#3e8b9b"
+    ],
+    "foam": "#d7f4fa"
+   },
+   "wood": {
+    "light": "#d8742b",
+    "mid": "#b85c1c",
+    "dark": "#92440f",
+    "shadow": "#703108",
+    "end": "#e8b870"
+   },
+   "treeMint": [
+    "#50a475",
+    "#3f895f",
+    "#2d6b47"
+   ],
+   "treeLime": [
+    "#7ebc52",
+    "#669b3f",
+    "#4e7a2d"
+   ],
+   "treeLeaf": [
+    "#5b9b4b",
+    "#477f39",
+    "#346328"
+   ],
+   "treeTeal": [
+    "#3aa68b",
+    "#2b876f",
+    "#1e6955",
+    "#134c3c"
+   ],
+   "treeGold": [
+    "#cfa43c",
+    "#b08627",
+    "#8c6717"
+   ],
+   "trunk": [
+    "#674637",
+    "#4c3329"
+   ],
+   "rock": [
+    "#dedcd7",
+    "#bdbab3",
+    "#8f8c85",
+    "#6b6861"
+   ],
+   "wellStone": [
+    "#b4aba0",
+    "#9b9288",
+    "#7e756c"
+   ],
+   "flowerOrange": [
+    "#e07525",
+    "#c76118"
+   ],
+   "berry": [
+    "#db516f",
+    "#b63652"
+   ],
+   "bushTeal": [
+    "#4ca38b",
+    "#3a8771",
+    "#2a6b57"
+   ],
+   "gold": [
+    "#e5b63b",
+    "#c29424",
+    "#f5d168"
+   ]
+  },
+  "notes": "Lifted paper is a cold white with a blue lean, the surrounding charcoal a blue-black; kneaded-eraser putty adds a soft grey-blue so the island is two-tone with one mid value.",
+  "clamped": []
+ },
+ "motifs": [
+  {
+   "name": "lift_putty",
+   "type": "new",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 5,
+   "cells": [
+    [
+     4,
+     7
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     7,
+     7
+    ],
+    [
+     10,
+     8
+    ]
+   ],
+   "where": "Lying at the stroke's edges where the kneaded eraser was pinched and set down.",
+   "shape": {
+    "summary": "A kneaded-eraser lump: soft grey-blue rounded putty stacked in two dough blocks with a pinched peak.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.5,
+       0.6,
+       0.18
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#9aa6b9",
+       "#7c889c",
+       "#5f6a7d"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.44,
+       0.4,
+       0.4,
+       0.14
+      ],
+      "at": [
+       0.05,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#bcc6d6",
+       "#9aa6b9",
+       "#7c889c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.3,
+       5
+      ],
+      "at": [
+       0.08,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#bcc6d6",
+       "#9aa6b9",
+       "#7c889c"
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "lift_crumb",
+   "type": "new",
+   "variant_of": "stepping-stones",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.14,
+   "passable": true,
+   "count": 5,
+   "cells": [
+    [
+     3,
+     9
+    ],
+    [
+     5,
+     8
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     10,
+     3
+    ]
+   ],
+   "where": "Rolled off the eraser along the stroke.",
+   "shape": {
+    "summary": "Eraser crumbs: three or four rolled grey pellets curled on the paper, one flecked with black.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.24,
+       0.1,
+       0.12,
+       0.05
+      ],
+      "at": [
+       -0.1,
+       0,
+       0
+      ],
+      "tones": [
+       "#bcc6d6",
+       "#9aa6b9",
+       "#7c889c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.2,
+       0.1,
+       0.1,
+       0.05
+      ],
+      "at": [
+       0.12,
+       0,
+       0.1
+      ],
+      "tones": [
+       "#3a4258",
+       "#2f364a",
+       "#1f2433"
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  },
+  {
+   "name": "lift_rim",
+   "type": "new",
+   "variant_of": "torch",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.5,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     5,
+     7
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     11,
+     2
+    ]
+   ],
+   "where": "Flaring up at the stroke's turns like the white tendril rims around the bird's scrolls.",
+   "shape": {
+    "summary": "A white tendril rim: a tall flame-shaped white blade curling at the tip, with a black contour strip down one edge, on a black smear base.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.44,
+       0.08,
+       0.4,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#3a4258",
+       "#2f364a",
+       "#1f2433"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.16,
+       1.2,
+       0.08
+      ],
+      "at": [
+       0,
+       0.08,
+       0
+      ],
+      "tones": [
+       "#eef1f5",
+       "#dbe1ea",
+       "#c9d0db"
+      ]
+     }
+    ]
+   },
+   "role": "light"
+  },
+  {
+   "name": "lift_smear",
+   "type": "new",
+   "variant_of": "rock",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.6,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     2,
+     9
+    ],
+    [
+     4,
+     8
+    ]
+   ],
+   "where": "At the stroke's tail where the eraser began and pushed the charcoal aside.",
+   "shape": {
+    "summary": "A charcoal smudge boulder: a soft blue-black rounded mound with one white erased streak across its top.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.45,
+       0.6,
+       0.2
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#3a4258",
+       "#2f364a",
+       "#1f2433"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.5,
+       0.04,
+       0.1
+      ],
+      "at": [
+       0,
+       0.45,
+       0
+      ],
+      "tones": [
+       "#eef1f5",
+       "#dbe1ea",
+       "#c9d0db"
+      ]
+     }
+    ]
+   },
+   "role": "approach"
+  },
+  {
+   "name": "lift_cut_gate",
+   "type": "new",
+   "variant_of": "gate",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.6,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     8,
+     5
+    ],
+    [
+     10,
+     5
+    ]
+   ],
+   "where": "Across the stroke two thirds of the way up.",
+   "shape": {
+    "summary": "Two paper-white blades with black contour edges, a white strip across their tops.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.3,
+       1.4,
+       0.2
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#eef1f5",
+       "#dbe1ea",
+       "#c9d0db"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       1.4,
+       0.1,
+       0.24
+      ],
+      "at": [
+       0.5,
+       1.4,
+       0
+      ],
+      "tones": [
+       "#eef1f5",
+       "#dbe1ea",
+       "#c9d0db"
+      ]
+     }
+    ]
+   },
+   "role": "threshold"
+  }
+ ],
+ "creatures": [
+  {
+   "name": "lift_white_bird",
+   "source": "The bird's erased beak, blank eye and white tendril rims, taken as the whole figure",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.9,
+   "pose": "A white cut-out of the bird, head bowed left, crest flaring up in white tendrils outlined in black, standing on a black smear.",
+   "cell": [
+    12,
+    1
+   ],
+   "facing": "w",
+   "why": "The erased white is the drawing's sharpest mark; making the bird entirely of it gives the dark stroke a bright end.",
+   "shape": {
+    "summary": "A white cut-out of the bird, head bowed left, crest flaring up in white tendrils outlined in black, standing on a black smear.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.7,
+       0.5,
+       0.12
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#5a544e",
+       "#4a4540",
+       "#34302c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.4,
+       1.9,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVGGGVV",
+   "VVVVVVVVVVGGFFGV",
+   "VVVVVVVVVGGGFFGV",
+   "VVVVVVVGGGGGGGVV",
+   "VVVVVVGGGGGGVVVV",
+   "VVVVVGGGGGGVVVVV",
+   "VVVVGGGGGGVVVVVV",
+   "VVVGGGGGGGGGVVVV",
+   "VVGGGGGVGGGGGVVV",
+   "VGGPGGVVVVGGVVVV",
+   "VPPGGVVVVVVVVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000011100",
+   "0000000000111110",
+   "0000000001111110",
+   "0000000111111100",
+   "0000001111110000",
+   "0000011111100000",
+   "0000111111000000",
+   "0001111111110000",
+   "0011111011111000",
+   "0111110000110000",
+   "0111100000000000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 12,
+   "z": 1,
+   "what": "The white cut-out bird at the head of the stroke"
+  },
+  "mass": "The island is the erased stroke itself, a pale ribbon of lifted paper hanging in black; kneaded-eraser putty lumps and crumbs lie along it, white tendril rims flare up as beacons, and the bird is white, drawn by what was taken away.",
+  "read": "Up the length of the erased stroke from its southwest tail, one tier at a time, past smudge boulders and crumbs to where the stroke ends at the bird."
+ },
+ "biome": {
+  "trees": {
+   "density": 0.06,
+   "types": [
+    {
+     "type": "lift_putty",
+     "variant": "lift_putty",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.15,
+  "decor_weights": {
+   "lift_crumb": 0.7,
+   "lift_smear": 0.3
+  },
+  "lighting": {
+   "bg": "#141824",
+   "ambient": 0.8,
+   "sun": 0.3,
+   "tint": "#dde7f6",
+   "notes": "cold desk lamp over black charcoal: Maximum black (#181818) is 12 percent of the drawing and holds every white cut; charcoal under cold light goes blue-black, and the erased paper reads bright against it."
+  },
+  "rules": [
+   "Everything walkable is lifted paper; charcoal only at the stroke's edges.",
+   "Tendril rims flare at the turns of the stroke.",
+   "Keep putty lumps off the centre line."
+  ],
+  "decor_density": 0.1,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "sand",
+   "path": "stone",
+   "shore": "dirt",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "The reductive eraser marks: highlights cut cleanly into charcoal tone with a kneaded eraser to form the white beak, blank eye and white tendril rims",
+  "place": "One stroke of paper rubbed clean through night-black charcoal, the eraser's path forking and climbing to a bird cut white out of the dark.",
+  "summary": "The island is the erased stroke itself, a pale ribbon of lifted paper hanging in black; kneaded-eraser putty lumps and crumbs lie along it, white tendril rims flare up as beacons, and the bird is white, drawn by what was taken away.",
+  "differs": "forest-medium used the eraser only for a few pale slabs in a dark basin; here the whole walkable world is the erasure, a single forked stroke over void, and the figure turns white while its surroundings go to blue-black."
+ },
+ "shaper": {
+  "name": "ribbon",
+  "params": {
+   "width": 4,
+   "waves": 1.1,
+   "rise": "up",
+   "fork": true,
+   "from": "sw"
+  },
+  "why": "An eraser pass is one continuous stroke that lifts a strip of paper out of the tone; ribbon land over void is that strip, forking where the drawing's white tendril rims split."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.6,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.6
+   },
+   {
+    "s": "stone",
+    "share": 0.2
+   },
+   {
+    "s": "dirt",
+    "share": 0.2
+   }
+  ],
+  "why": "Bands along the stroke: clean lifted paper (sand), grey crumb-strewn passes (stone) and the charcoal smear the eraser pushed to its edges (dirt)."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#2c3348",
+   "#222838",
+   "#171b28"
+  ],
+  "lower": [
+   "#1f2433",
+   "#171b27",
+   "#10131c"
+  ],
+  "why": "The un-erased charcoal around the stroke: sheer blue-black walls under the pale surface."
+ },
+ "lighting": {
+  "time": "cold desk lamp over black charcoal",
+  "ambient": 0.8,
+  "sun": 0.3,
+  "tint": "#dde7f6",
+  "bg": "#141824",
+  "why": "Maximum black (#181818) is 12 percent of the drawing and holds every white cut; charcoal under cold light goes blue-black, and the erased paper reads bright against it."
+ },
+ "figure_pose": {
+  "pose": "A white cut-out of the bird, head bowed left, crest flaring up in white tendrils outlined in black, standing on a black smear.",
+  "action": "emerging from the tone",
+  "facing": "left",
+  "why": "The beak and eye in the drawing exist only as erased paper; this reading extends the erasure to the whole body, so the bird is the brightest thing in the dark."
+ },
+ "approach": {
+  "from": "southwest tail of the stroke",
+  "passes": [
+   "lift_smear",
+   "lift_crumb",
+   "lift_rim",
+   "lift_putty"
+  ],
+  "shape": "Up the length of the erased stroke from its southwest tail, one tier at a time, past smudge boulders and crumbs to where the stroke ends at the bird."
+ },
+ "threshold": {
+  "kind": "Two paper-white blades cut from the dark with a white strip across their tops",
+  "prop": "lift_cut_gate"
+ },
+ "analysis": "pipeline/seed/analysis/forest.json",
+ "concept": {
+  "name": "aspect-lift",
+  "lens": "medium",
+  "fragment": "Round 5 reading authored by the build agent from pipeline/seed/analysis/forest.json and the drawing itself, without the analyzer (Gemini returns 402). One aspect of the charcoal drawing, \"lift\", becomes the place; the shaper, palette, lighting, props and the figure's pose are argued from that aspect alone. It must not repeat the round-4 forest readings (ash basin with soot trunks, taproot knoll with charred boles, birch spiral) or their shapers (basin, mound, spiral)."
+ }
+}

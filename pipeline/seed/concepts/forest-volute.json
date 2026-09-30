@@ -1,0 +1,854 @@
+{
+ "place": "A gilded rococo parterre carved out of the bird's scrollwork, clipped curl hedges and ionic volutes flanking a mirrored stair up to the flame crest.",
+ "source": {
+  "art": "pipeline/seed/forest.png",
+  "width": 1454,
+  "height": 2048,
+  "model": "authored by build agent (round 5, analyzer offline)",
+  "date": "2026-09-30"
+ },
+ "mood": [
+  "ornate",
+  "warm",
+  "courtly",
+  "coiled",
+  "candlelit",
+  "ceremonial"
+ ],
+ "observations": [
+  {
+   "what": "Tall avian entity of calligraphic flame scrolls standing in profile-left",
+   "box": [
+    175,
+    208,
+    836,
+    794
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "The rococo scrollwork of the figure: a concentric spiral curl at the wing joint like a carved ionic volute, teardrop apertures, rolling calligraphic arabesques",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "volute_scroll"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#868686",
+    "share": 0.152,
+    "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+   },
+   {
+    "hex": "#9f9f9f",
+    "share": 0.15,
+    "role": "Light gray diffused background wash and middle-value forest canopy"
+   },
+   {
+    "hex": "#333333",
+    "share": 0.142,
+    "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+   },
+   {
+    "hex": "#bcbcbc",
+    "share": 0.129,
+    "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+   },
+   {
+    "hex": "#181818",
+    "share": 0.119,
+    "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+   },
+   {
+    "hex": "#6c6c6c",
+    "share": 0.116,
+    "role": "Transitional blending tones across the creature's breast and shaded soil"
+   },
+   {
+    "hex": "#4f4f4f",
+    "share": 0.112,
+    "role": "Dark gray bark textures and deep secondary folds of the plumage"
+   },
+   {
+    "hex": "#dddddd",
+    "share": 0.079,
+    "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+   }
+  ],
+  "translation": {
+   "bg": "#3a2b3d",
+   "grass": {
+    "top": "#8fc7a2",
+    "fringe": "#72ab86",
+    "fringeDark": "#578b6b",
+    "speck": "#b4dcc0"
+   },
+   "sand": {
+    "top": "#f4e2bf",
+    "lip": "#dcc294",
+    "edge": "#e8d2a9",
+    "dots": "#fbeed4"
+   },
+   "dirt": {
+    "top": "#dc9a86",
+    "patch": "#c9846f",
+    "mottle": "#b6725e",
+    "border": "#9f5f4d"
+   },
+   "stone": {
+    "top": "#e9efe6",
+    "pebble": "#f7faf4",
+    "pebbleShade": "#cbd6c8",
+    "rim": "#a8b8a6"
+   },
+   "cliffUpper": {
+    "left": "#d99a8e",
+    "right": "#c07f74",
+    "seam": "#a3665c"
+   },
+   "cliffLower": {
+    "left": "#b58a4c",
+    "right": "#97703a",
+    "seam": "#79582b",
+    "speck": "#c9a060"
+   },
+   "water": {
+    "top": "#7ec9dc",
+    "bubble": "#b5e8f4",
+    "deep": "#4493a7",
+    "fall": [
+     "#5fb4c9",
+     "#4d9eaf",
+     "#3e8b9b"
+    ],
+    "foam": "#d7f4fa"
+   },
+   "wood": {
+    "light": "#d8742b",
+    "mid": "#b85c1c",
+    "dark": "#92440f",
+    "shadow": "#703108",
+    "end": "#e8b870"
+   },
+   "treeMint": [
+    "#50a475",
+    "#3f895f",
+    "#2d6b47"
+   ],
+   "treeLime": [
+    "#7ebc52",
+    "#669b3f",
+    "#4e7a2d"
+   ],
+   "treeLeaf": [
+    "#5b9b4b",
+    "#477f39",
+    "#346328"
+   ],
+   "treeTeal": [
+    "#3aa68b",
+    "#2b876f",
+    "#1e6955",
+    "#134c3c"
+   ],
+   "treeGold": [
+    "#cfa43c",
+    "#b08627",
+    "#8c6717"
+   ],
+   "trunk": [
+    "#674637",
+    "#4c3329"
+   ],
+   "rock": [
+    "#dedcd7",
+    "#bdbab3",
+    "#8f8c85",
+    "#6b6861"
+   ],
+   "wellStone": [
+    "#b4aba0",
+    "#9b9288",
+    "#7e756c"
+   ],
+   "flowerOrange": [
+    "#e07525",
+    "#c76118"
+   ],
+   "berry": [
+    "#db516f",
+    "#b63652"
+   ],
+   "bushTeal": [
+    "#4ca38b",
+    "#3a8771",
+    "#2a6b57"
+   ],
+   "gold": [
+    "#e5b63b",
+    "#c29424",
+    "#f5d168"
+   ]
+  },
+  "notes": "Rococo salon palette: cream, celadon, blush and gilt; the drawing's greys survive only in the pale marble landings.",
+  "clamped": []
+ },
+ "motifs": [
+  {
+   "name": "volute_scroll",
+   "type": "new",
+   "variant_of": "tree-round",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.7,
+   "passable": false,
+   "count": 6,
+   "cells": [
+    [
+     4,
+     3
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     12,
+     6
+    ],
+    [
+     4,
+     9
+    ],
+    [
+     11,
+     9
+    ]
+   ],
+   "where": "Paired either side of the axis at each tier, mirrored.",
+   "shape": {
+    "summary": "An ionic volute post: square cream plinth, fluted column, a large gilt spiral scroll curled on top.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.5,
+       0.2,
+       0.5
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f4e2bf",
+       "#dcc294",
+       "#c9a870"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       1,
+       8
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "tones": [
+       "#f4e2bf",
+       "#dcc294",
+       "#c9a870"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.3,
+       0.2,
+       10
+      ],
+      "at": [
+       0,
+       1.25,
+       0
+      ],
+      "tones": [
+       "#e7bb52",
+       "#c99a32",
+       "#a47a22"
+      ],
+      "rot": [
+       90,
+       0,
+       0
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "volute_tear",
+   "type": "new",
+   "variant_of": "fence",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     6,
+     8
+    ],
+    [
+     9,
+     8
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     9,
+     5
+    ]
+   ],
+   "where": "Framing the stair on each tier, like the teardrop apertures between the bird's scrolls.",
+   "shape": {
+    "summary": "A gilt teardrop frame standing upright on a cream base, open in the middle.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.4,
+       0.12,
+       0.3
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f4e2bf",
+       "#dcc294",
+       "#c9a870"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.3,
+       0.08,
+       8
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#e7bb52",
+       "#c99a32",
+       "#a47a22"
+      ],
+      "rot": [
+       90,
+       0,
+       0
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  },
+  {
+   "name": "volute_urn",
+   "type": "new",
+   "variant_of": "lantern",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.2,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     6,
+     10
+    ],
+    [
+     9,
+     10
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     9,
+     3
+    ]
+   ],
+   "where": "On the landings either side of the axis.",
+   "shape": {
+    "summary": "A cream urn on a short pedestal, a gilt flame tongue curling out of its mouth.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       0.3,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f4e2bf",
+       "#dcc294",
+       "#c9a870"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.24,
+       0.9
+      ],
+      "at": [
+       0,
+       0.45,
+       0
+      ],
+      "tones": [
+       "#f4e2bf",
+       "#dcc294",
+       "#c9a870"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.4,
+       6
+      ],
+      "at": [
+       0,
+       0.66,
+       0
+      ],
+      "tones": [
+       "#ffd36a",
+       "#f2a93a",
+       "#d98422"
+      ]
+     }
+    ]
+   },
+   "role": "light"
+  },
+  {
+   "name": "volute_curl_hedge",
+   "type": "new",
+   "variant_of": "bush",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.6,
+   "passable": false,
+   "count": 4,
+   "cells": [
+    [
+     5,
+     10
+    ],
+    [
+     10,
+     10
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     13,
+     5
+    ]
+   ],
+   "where": "Low clipped parterre hedges curled into scrolls along the outer beds.",
+   "shape": {
+    "summary": "A low clipped celadon hedge curled into a C-scroll, two stepped box segments with a round end.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.4,
+       0.3,
+       0.1
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8fc7a2",
+       "#72ab86",
+       "#578b6b"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.2,
+       0.5,
+       8
+      ],
+      "at": [
+       0.35,
+       0,
+       0.2
+      ],
+      "tones": [
+       "#8fc7a2",
+       "#72ab86",
+       "#578b6b"
+      ]
+     }
+    ]
+   },
+   "role": "approach"
+  },
+  {
+   "name": "volute_gate",
+   "type": "new",
+   "variant_of": "gate",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.7,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     4
+    ],
+    [
+     9,
+     4
+    ]
+   ],
+   "where": "At the top tier's landing, astride the axis.",
+   "shape": {
+    "summary": "Two gilt posts with scroll caps and a curved gilt lintel.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.3,
+       1.4,
+       0.3
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#e7bb52",
+       "#c99a32",
+       "#a47a22"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.2,
+       0.16,
+       10
+      ],
+      "at": [
+       0,
+       1.5,
+       0
+      ],
+      "tones": [
+       "#e7bb52",
+       "#c99a32",
+       "#a47a22"
+      ],
+      "rot": [
+       90,
+       0,
+       0
+      ]
+     }
+    ]
+   },
+   "role": "threshold"
+  }
+ ],
+ "creatures": [
+  {
+   "name": "volute_gilt_bird",
+   "source": "The bird's scrollwork body and ionic volute wing joint",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 3,
+   "pose": "A gilt bird built of stacked volutes, chest curled into a spiral scroll, tail rolled high, crest licking upward, head turned left over the stair.",
+   "cell": [
+    7,
+    1
+   ],
+   "facing": "w",
+   "why": "In a garden made of its own ornament the bird is the crowning gilt carving.",
+   "shape": {
+    "summary": "A gilt bird built of stacked volutes, chest curled into a spiral scroll, tail rolled high, crest licking upward, head turned left over the stair.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.7,
+       0.5,
+       0.12
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#5a544e",
+       "#4a4540",
+       "#34302c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.4,
+       1.9,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVGGRRRRRRGGVVV",
+   "VVGGRRRFFRRRGGVV",
+   "VGGRRRRFFRRRRGGV",
+   "VGGRRRRRRRRRRGGV",
+   "GGGGRRRRRRRRGGGG",
+   "GGGGGGGPPGGGGGGG",
+   "GGGGGGGPPGGGGGGG",
+   "VGGGGGGPPGGGGGGV",
+   "VGGGGGGPPGGGGGGV",
+   "VVGGGGGPPGGGGGVV",
+   "VVVGGGGPPGGGGVVV",
+   "VVVVVGGPPGGVVVVV"
+  ],
+  "heights": [
+   "0001122222211000",
+   "0011222112221100",
+   "0112222112222110",
+   "0112222222222110",
+   "1111222222221111",
+   "1111111111111111",
+   "1111111111111111",
+   "0111111111111110",
+   "0111111111111110",
+   "0011111111111100",
+   "0001111111111000",
+   "0000011111100000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 1,
+   "what": "The gilt volute bird at the head of the parterre"
+  },
+  "mass": "The bird's body is built of volutes and teardrop cut-outs, so its place is the salon garden those ornaments come from: a mirrored parterre in cream, celadon and blush, gilt volute posts at the tiers, teardrop frames and flame urns along a central stair.",
+  "read": "Straight up the mirror axis from the notch in the south rim, three tiers, curl hedges and teardrop frames paired either side."
+ },
+ "biome": {
+  "trees": {
+   "density": 0.05,
+   "types": [
+    {
+     "type": "volute_scroll",
+     "variant": "volute_scroll",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.15,
+  "decor_weights": {
+   "volute_curl_hedge": 0.6,
+   "volute_tear": 0.4
+  },
+  "lighting": {
+   "bg": "#3a2b3d",
+   "ambient": 0.84,
+   "sun": 0.3,
+   "tint": "#ffe6bf",
+   "notes": "candlelit salon glow: The scrolls read as carved and gilded only in warm, low light; the drawing's pale halo becomes candle warmth against a plum salon wall."
+  },
+  "rules": [
+   "Mirror every prop across the axis where the land allows.",
+   "Keep the stair axis clear.",
+   "Gilt only on the ornaments and the figure."
+  ],
+  "decor_density": 0.1,
+  "surfaces": {
+   "ground": "grass",
+   "raised": "sand",
+   "path": "stone",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "The rococo scrollwork of the figure: a concentric spiral curl at the wing joint like a carved ionic volute, teardrop apertures, rolling calligraphic arabesques",
+  "place": "A gilded rococo parterre carved out of the bird's scrollwork, clipped curl hedges and ionic volutes flanking a mirrored stair up to the flame crest.",
+  "summary": "The bird's body is built of volutes and teardrop cut-outs, so its place is the salon garden those ornaments come from: a mirrored parterre in cream, celadon and blush, gilt volute posts at the tiers, teardrop frames and flame urns along a central stair.",
+  "differs": "No round-4 forest reading touched the ornament: this one is warm, mirrored, formal and bright, with no trunks, mist or soot, and the bird turns gilt."
+ },
+ "shaper": {
+  "name": "symmetric",
+  "params": {
+   "tiers": 3,
+   "axis": "x",
+   "notch": 1
+  },
+  "why": "Rococo ornament is a mirrored plan around an axis; a three-tier parterre mirrored left to right puts the bird at its head, the way a volute crowns a cartouche."
+ },
+ "surface_mix": {
+  "pattern": "rings",
+  "period": 2.2,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.45
+   },
+   {
+    "s": "grass",
+    "share": 0.35
+   },
+   {
+    "s": "stone",
+    "share": 0.12
+   },
+   {
+    "s": "dirt",
+    "share": 0.08
+   }
+  ],
+  "why": "Rings of cream gravel and clipped celadon lawn around the figure echo the concentric volute at the wing joint; pale marble for the landings, a touch of rose gravel."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#d99a8e",
+   "#c07f74",
+   "#a3665c"
+  ],
+  "lower": [
+   "#b58a4c",
+   "#97703a",
+   "#79582b"
+  ],
+  "why": "Blush plaster over gilt-ochre footings: the colours of a rococo boiserie, stepped like its mouldings."
+ },
+ "lighting": {
+  "time": "candlelit salon glow",
+  "ambient": 0.84,
+  "sun": 0.3,
+  "tint": "#ffe6bf",
+  "bg": "#3a2b3d",
+  "why": "The scrolls read as carved and gilded only in warm, low light; the drawing's pale halo becomes candle warmth against a plum salon wall."
+ },
+ "figure_pose": {
+  "pose": "A gilt bird built of stacked volutes, chest curled into a spiral scroll, tail rolled high, crest licking upward, head turned left over the stair.",
+  "action": "presiding",
+  "facing": "left",
+  "why": "The analysis reads the pose as an upright S-curve with a helical chest and scrolled tail; in gilt it becomes the crowning ornament of its own parterre."
+ },
+ "approach": {
+  "from": "south, up the centre axis",
+  "passes": [
+   "volute_curl_hedge",
+   "volute_tear",
+   "volute_urn",
+   "volute_scroll"
+  ],
+  "shape": "Straight up the mirror axis from the notch in the south rim, three tiers, curl hedges and teardrop frames paired either side."
+ },
+ "threshold": {
+  "kind": "A pair of gilt posts capped with scroll volutes and a curved gilt lintel",
+  "prop": "volute_gate"
+ },
+ "analysis": "pipeline/seed/analysis/forest.json",
+ "concept": {
+  "name": "aspect-volute",
+  "lens": "subject",
+  "fragment": "Round 5 reading authored by the build agent from pipeline/seed/analysis/forest.json and the drawing itself, without the analyzer (Gemini returns 402). One aspect of the charcoal drawing, \"volute\", becomes the place; the shaper, palette, lighting, props and the figure's pose are argued from that aspect alone. It must not repeat the round-4 forest readings (ash basin with soot trunks, taproot knoll with charred boles, birch spiral) or their shapers (basin, mound, spiral)."
+ }
+}

@@ -1,0 +1,805 @@
+{
+ "place": "A cold-press sheet laid out as a quilt of paper tiles, charcoal dust caught black in the pits of its tooth, the charcoal bird standing on the top sheet.",
+ "source": {
+  "art": "pipeline/seed/forest.png",
+  "width": 1454,
+  "height": 2048,
+  "model": "authored by build agent (round 5, analyzer offline)",
+  "date": "2026-09-30"
+ },
+ "mood": [
+  "gritty",
+  "tactile",
+  "warm-lit",
+  "granular",
+  "patient",
+  "papery"
+ ],
+ "observations": [
+  {
+   "what": "Tall avian entity of calligraphic flame scrolls standing in profile-left",
+   "box": [
+    175,
+    208,
+    836,
+    794
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "The mechanical tooth of the cold-press paper that breaks dry charcoal dust into small white pits across the floor and background",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "grain_lump"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#868686",
+    "share": 0.152,
+    "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+   },
+   {
+    "hex": "#9f9f9f",
+    "share": 0.15,
+    "role": "Light gray diffused background wash and middle-value forest canopy"
+   },
+   {
+    "hex": "#333333",
+    "share": 0.142,
+    "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+   },
+   {
+    "hex": "#bcbcbc",
+    "share": 0.129,
+    "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+   },
+   {
+    "hex": "#181818",
+    "share": 0.119,
+    "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+   },
+   {
+    "hex": "#6c6c6c",
+    "share": 0.116,
+    "role": "Transitional blending tones across the creature's breast and shaded soil"
+   },
+   {
+    "hex": "#4f4f4f",
+    "share": 0.112,
+    "role": "Dark gray bark textures and deep secondary folds of the plumage"
+   },
+   {
+    "hex": "#dddddd",
+    "share": 0.079,
+    "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+   }
+  ],
+  "translation": {
+   "bg": "#c9bda6",
+   "grass": {
+    "top": "#a9b98e",
+    "fringe": "#8c9c73",
+    "fringeDark": "#6f7d5a",
+    "speck": "#c3d0a8"
+   },
+   "sand": {
+    "top": "#f1e6cf",
+    "lip": "#d6c6a4",
+    "edge": "#e2d4b6",
+    "dots": "#f8f0de"
+   },
+   "dirt": {
+    "top": "#5a544e",
+    "patch": "#4a4540",
+    "mottle": "#3d3935",
+    "border": "#34302c"
+   },
+   "stone": {
+    "top": "#e4ddd0",
+    "pebble": "#f4efe6",
+    "pebbleShade": "#c9c0b0",
+    "rim": "#a9a090"
+   },
+   "cliffUpper": {
+    "left": "#e6dcc6",
+    "right": "#cfc3aa",
+    "seam": "#b3a68c"
+   },
+   "cliffLower": {
+    "left": "#4a4541",
+    "right": "#38332f",
+    "seam": "#282420",
+    "speck": "#5c5650"
+   },
+   "water": {
+    "top": "#7ec9dc",
+    "bubble": "#b5e8f4",
+    "deep": "#4493a7",
+    "fall": [
+     "#5fb4c9",
+     "#4d9eaf",
+     "#3e8b9b"
+    ],
+    "foam": "#d7f4fa"
+   },
+   "wood": {
+    "light": "#d8742b",
+    "mid": "#b85c1c",
+    "dark": "#92440f",
+    "shadow": "#703108",
+    "end": "#e8b870"
+   },
+   "treeMint": [
+    "#50a475",
+    "#3f895f",
+    "#2d6b47"
+   ],
+   "treeLime": [
+    "#7ebc52",
+    "#669b3f",
+    "#4e7a2d"
+   ],
+   "treeLeaf": [
+    "#5b9b4b",
+    "#477f39",
+    "#346328"
+   ],
+   "treeTeal": [
+    "#3aa68b",
+    "#2b876f",
+    "#1e6955",
+    "#134c3c"
+   ],
+   "treeGold": [
+    "#cfa43c",
+    "#b08627",
+    "#8c6717"
+   ],
+   "trunk": [
+    "#674637",
+    "#4c3329"
+   ],
+   "rock": [
+    "#dedcd7",
+    "#bdbab3",
+    "#8f8c85",
+    "#6b6861"
+   ],
+   "wellStone": [
+    "#b4aba0",
+    "#9b9288",
+    "#7e756c"
+   ],
+   "flowerOrange": [
+    "#e07525",
+    "#c76118"
+   ],
+   "berry": [
+    "#db516f",
+    "#b63652"
+   ],
+   "bushTeal": [
+    "#4ca38b",
+    "#3a8771",
+    "#2a6b57"
+   ],
+   "gold": [
+    "#e5b63b",
+    "#c29424",
+    "#f5d168"
+   ]
+  },
+  "notes": "Paper cream, charcoal black and warm grey carry the drawing's values without a hue shift; the lamp's warmth and a sage fixative accent keep the pack's saturation.",
+  "clamped": []
+ },
+ "motifs": [
+  {
+   "name": "grain_lump",
+   "type": "new",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.1,
+   "passable": false,
+   "count": 6,
+   "cells": [
+    [
+     2,
+     2
+    ],
+    [
+     12,
+     1
+    ],
+    [
+     13,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     11,
+     8
+    ],
+    [
+     5,
+     8
+    ]
+   ],
+   "where": "Scattered on the tiles like the heaviest dust grains, thickest at the rim.",
+   "shape": {
+    "summary": "A faceted lump of compressed charcoal: two stacked octagonal blocks, matte black with a grey rubbed face.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.36,
+       0.55,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#4a4541",
+       "#38332f",
+       "#282420"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.26,
+       0.45,
+       8
+      ],
+      "at": [
+       0.05,
+       0.55,
+       0.03
+      ],
+      "tones": [
+       "#5a544e",
+       "#4a4540",
+       "#34302c"
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "grain_pit",
+   "type": "new",
+   "variant_of": "stepping-stones",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.12,
+   "passable": true,
+   "count": 5,
+   "cells": [
+    [
+     4,
+     9
+    ],
+    [
+     6,
+     9
+    ],
+    [
+     8,
+     7
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "where": "Sunk into the tiles along the walk, where dust sits in the tooth.",
+   "shape": {
+    "summary": "A shallow paper pit: a cream rim ring around a disc of black dust.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.4,
+       0.06,
+       10
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.26,
+       0.08,
+       10
+      ],
+      "at": [
+       0,
+       0.02,
+       0
+      ],
+      "tones": [
+       "#3d3935",
+       "#34302c",
+       "#282420"
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  },
+  {
+   "name": "grain_stick",
+   "type": "new",
+   "variant_of": "log",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.4,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     2,
+     9
+    ],
+    [
+     3,
+     8
+    ]
+   ],
+   "where": "Lying across the entry tiles like the fallen log in the drawing's lower left.",
+   "shape": {
+    "summary": "A hexagonal stick of vine charcoal lying on its side with a cream paper wrapper band and a snapped tip.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       1,
+       6
+      ],
+      "at": [
+       0,
+       0.16,
+       0
+      ],
+      "tones": [
+       "#3d3935",
+       "#34302c",
+       "#282420"
+      ],
+      "rot": [
+       0,
+       45,
+       90
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.17,
+       0.3,
+       6
+      ],
+      "at": [
+       0.2,
+       0.16,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ],
+      "rot": [
+       0,
+       45,
+       90
+      ]
+     }
+    ]
+   },
+   "role": "approach"
+  },
+  {
+   "name": "grain_stump",
+   "type": "new",
+   "variant_of": "torch",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     6,
+     6
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     5,
+     3
+    ]
+   ],
+   "where": "Stood upright beside the climb as beacons, as a blending stump stands in a jar.",
+   "shape": {
+    "summary": "A rolled paper blending stump stood on end: a cream cylinder tapering to a grey smudged point, a spiral seam wound round it.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       0.9,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.03,
+       0.45,
+       8
+      ],
+      "at": [
+       0,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#8a827a",
+       "#6f6861",
+       "#56504a"
+      ]
+     }
+    ]
+   },
+   "role": "light"
+  },
+  {
+   "name": "grain_clip_gate",
+   "type": "new",
+   "variant_of": "gate",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.5,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     5
+    ],
+    [
+     8,
+     5
+    ]
+   ],
+   "where": "Across the last step below the top sheet.",
+   "shape": {
+    "summary": "Two compressed charcoal sticks stood on end, a torn cream paper strip laid across their tops.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.3,
+       1.3,
+       0.3
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#4a4541",
+       "#38332f",
+       "#282420"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       1.4,
+       0.08,
+       0.3
+      ],
+      "at": [
+       0.5,
+       1.3,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     }
+    ]
+   },
+   "role": "threshold"
+  }
+ ],
+ "creatures": [
+  {
+   "name": "grain_charcoal_bird",
+   "source": "The scroll bird drawn in charcoal with an erased white beak and blank eye",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.9,
+   "pose": "Upright S-curve in charcoal black, paper-white beak and blank eye, head bowed to the left as drawn, standing on a stack of three offset paper sheets.",
+   "cell": [
+    7,
+    3
+   ],
+   "facing": "w",
+   "why": "It is the drawing's figure in the drawing's own materials, standing on the sheet it was drawn on.",
+   "shape": {
+    "summary": "Upright S-curve in charcoal black, paper-white beak and blank eye, head bowed to the left as drawn, standing on a stack of three offset paper sheets.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.7,
+       0.5,
+       0.12
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#5a544e",
+       "#4a4540",
+       "#34302c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.4,
+       1.9,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVGGGGGRRRGGGVVV",
+   "VGGGRRRRRRRGGGGV",
+   "GGGRRRRRRRRRGGGV",
+   "GGGRRRRFFRRRGGGG",
+   "GGGGRRRFFRRGGGGG",
+   "VGGGGRRRRRGGGGGG",
+   "VGGGGGGGGGGGGGGV",
+   "GGGGGGGGGGGGGGGV",
+   "GPGGGGGGGGGGGGVV",
+   "GPPGGGGGGGGGGGVV",
+   "VVPPPGGGGGGGGVVV",
+   "VVVVPPPGGGGVVVVV"
+  ],
+  "heights": [
+   "0011111222111000",
+   "0111222222211110",
+   "1112222222221110",
+   "1112222112221111",
+   "1111222112211111",
+   "0111122222111111",
+   "0111111111111110",
+   "1111111111111110",
+   "1111111111111100",
+   "1111111111111100",
+   "0011111111111000",
+   "0000111111100000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 3,
+   "what": "The charcoal bird on the top paper sheet"
+  },
+  "mass": "The paper itself is the ground: cream tiles at three heights with charcoal dust settled in their pits, compressed charcoal sticks and grains lying on them like boulders, a rolled blending stump for a beacon.",
+  "read": "A walk across the paper tiles from the bitten southwest corner, stepping up two sheets past a fallen charcoal stick and the dust pits to the top sheet."
+ },
+ "biome": {
+  "trees": {
+   "density": 0.07,
+   "types": [
+    {
+     "type": "grain_lump",
+     "variant": "grain_lump",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.15,
+  "decor_weights": {
+   "grain_pit": 0.5,
+   "grain_lump": 0.5
+  },
+  "lighting": {
+   "bg": "#c9bda6",
+   "ambient": 0.8,
+   "sun": 0.36,
+   "tint": "#f6e7c8",
+   "notes": "raking lamp across a drawing board: Tooth only shows under light skimming the sheet, so the light is low and warm from one side and the background is the kraft board the sheet lies on."
+  },
+  "rules": [
+   "Leave the tiles open: no trees, only charcoal lumps and dust pits.",
+   "Keep the blending stumps beside the climb, never on the rim lip.",
+   "The top sheet around the bird stays clean paper."
+  ],
+  "decor_density": 0.1,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "sand",
+   "path": "dirt",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "The mechanical tooth of the cold-press paper that breaks dry charcoal dust into small white pits across the floor and background",
+  "place": "A cold-press sheet laid out as a quilt of paper tiles, charcoal dust caught black in the pits of its tooth, the charcoal bird standing on the top sheet.",
+  "summary": "The paper itself is the ground: cream tiles at three heights with charcoal dust settled in their pits, compressed charcoal sticks and grains lying on them like boulders, a rolled blending stump for a beacon.",
+  "differs": "forest-medium read the marks as a dark ash basin with soot trunks under a haze; this reading is bright, warm and flat-lit like a sheet on a drawing board, with no trees at all, only the drawing tools and the grain they leave."
+ },
+ "shaper": {
+  "name": "patchwork",
+  "params": {
+   "patch": 3,
+   "levels": 3,
+   "holes": 3
+  },
+  "why": "Cold-press tooth is a regular grid of raised paper and sunken pits; a patchwork of flat paper tiles at three heights, with holes bitten from the edge, is that grain enlarged until a visitor can walk on it."
+ },
+ "surface_mix": {
+  "pattern": "patches",
+  "period": 2.2,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.5
+   },
+   {
+    "s": "dirt",
+    "share": 0.3
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   },
+   {
+    "s": "grass",
+    "share": 0.05
+   }
+  ],
+  "why": "Sand is the untouched paper (#dddddd reads warm on cold-press under lamp light), dirt is the dust settled into the tooth, stone the eraser-lifted paper, and a sliver of grass the sage of fixative spray."
+ },
+ "cliff_treatment": {
+  "style": "banded",
+  "upper": [
+   "#e6dcc6",
+   "#cfc3aa",
+   "#b3a68c"
+  ],
+  "lower": [
+   "#4a4541",
+   "#38332f",
+   "#282420"
+  ],
+  "why": "A sheet seen edge-on: a cream paper band on top of the dark charcoal-stained board beneath it."
+ },
+ "lighting": {
+  "time": "raking lamp across a drawing board",
+  "ambient": 0.8,
+  "sun": 0.36,
+  "tint": "#f6e7c8",
+  "bg": "#c9bda6",
+  "why": "Tooth only shows under light skimming the sheet, so the light is low and warm from one side and the background is the kraft board the sheet lies on."
+ },
+ "figure_pose": {
+  "pose": "Upright S-curve in charcoal black, paper-white beak and blank eye, head bowed to the left as drawn, standing on a stack of three offset paper sheets.",
+  "action": "vigilant pause",
+  "facing": "left",
+  "why": "The drawing's own pose and values: the only reading where the bird keeps its charcoal body and erased white beak, because this place is the paper it was drawn on."
+ },
+ "approach": {
+  "from": "southwest rim",
+  "passes": [
+   "grain_stick",
+   "grain_pit",
+   "grain_stump",
+   "grain_lump"
+  ],
+  "shape": "A walk across the paper tiles from the bitten southwest corner, stepping up two sheets past a fallen charcoal stick and the dust pits to the top sheet."
+ },
+ "threshold": {
+  "kind": "Two compressed charcoal sticks stood on end with a torn paper strip laid across their tops",
+  "prop": "grain_clip_gate"
+ },
+ "analysis": "pipeline/seed/analysis/forest.json",
+ "concept": {
+  "name": "aspect-tooth",
+  "lens": "medium",
+  "fragment": "Round 5 reading authored by the build agent from pipeline/seed/analysis/forest.json and the drawing itself, without the analyzer (Gemini returns 402). One aspect of the charcoal drawing, \"tooth\", becomes the place; the shaper, palette, lighting, props and the figure's pose are argued from that aspect alone. It must not repeat the round-4 forest readings (ash basin with soot trunks, taproot knoll with charred boles, birch spiral) or their shapers (basin, mound, spiral)."
+ }
+}

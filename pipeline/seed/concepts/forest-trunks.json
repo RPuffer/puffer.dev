@@ -1,0 +1,795 @@
+{
+ "place": "A colonnade of pale trunks on bark slabs split by seams of mist, dawn haze glowing through the gaps behind a charcoal bird with a pale halo.",
+ "source": {
+  "art": "pipeline/seed/forest.png",
+  "width": 1454,
+  "height": 2048,
+  "model": "authored by build agent (round 5, analyzer offline)",
+  "date": "2026-09-30"
+ },
+ "mood": [
+  "tall",
+  "hushed",
+  "backlit",
+  "vertical",
+  "misty",
+  "cool"
+ ],
+ "observations": [
+  {
+   "what": "Tall avian entity of calligraphic flame scrolls standing in profile-left",
+   "box": [
+    175,
+    208,
+    836,
+    794
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "The bare trunk verticals: broad vertical dry sweeps dragged downward for the background trunks, the strong vertical boles on the right, and the pale halo of light between them",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "trunk_column"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#868686",
+    "share": 0.152,
+    "role": "Midtone atmospheric smoke and rubbed charcoal ground behind the creature"
+   },
+   {
+    "hex": "#9f9f9f",
+    "share": 0.15,
+    "role": "Light gray diffused background wash and middle-value forest canopy"
+   },
+   {
+    "hex": "#333333",
+    "share": 0.142,
+    "role": "Deep charcoal shading along the underbelly, root crevices, and shadow ribbons"
+   },
+   {
+    "hex": "#bcbcbc",
+    "share": 0.129,
+    "role": "Pale gray halo surrounding the crest and highlighting vertical tree barks"
+   },
+   {
+    "hex": "#181818",
+    "share": 0.119,
+    "role": "Maximum black linear accents defining inner volutes, eye socket boundary, and ground fissures"
+   },
+   {
+    "hex": "#6c6c6c",
+    "share": 0.116,
+    "role": "Transitional blending tones across the creature's breast and shaded soil"
+   },
+   {
+    "hex": "#4f4f4f",
+    "share": 0.112,
+    "role": "Dark gray bark textures and deep secondary folds of the plumage"
+   },
+   {
+    "hex": "#dddddd",
+    "share": 0.079,
+    "role": "Untouched paper whites forming the beak, pupil-less eye, and brightest backlights"
+   }
+  ],
+  "translation": {
+   "bg": "#bdb6d4",
+   "grass": {
+    "top": "#b3cf7a",
+    "fringe": "#96b261",
+    "fringeDark": "#78924b",
+    "speck": "#cfe29e"
+   },
+   "sand": {
+    "top": "#e9e4f2",
+    "lip": "#cbc4db",
+    "edge": "#dad4e7",
+    "dots": "#f4f1f9"
+   },
+   "dirt": {
+    "top": "#8c84a8",
+    "patch": "#7c7498",
+    "mottle": "#6e6689",
+    "border": "#5d5779"
+   },
+   "stone": {
+    "top": "#d6d3e0",
+    "pebble": "#e8e6ef",
+    "pebbleShade": "#b9b5c7",
+    "rim": "#9994ab"
+   },
+   "cliffUpper": {
+    "left": "#8a83a6",
+    "right": "#716a8d",
+    "seam": "#5a5474"
+   },
+   "cliffLower": {
+    "left": "#5d5779",
+    "right": "#4a4563",
+    "seam": "#38344e",
+    "speck": "#6e6689"
+   },
+   "water": {
+    "top": "#7ec9dc",
+    "bubble": "#b5e8f4",
+    "deep": "#4493a7",
+    "fall": [
+     "#5fb4c9",
+     "#4d9eaf",
+     "#3e8b9b"
+    ],
+    "foam": "#d7f4fa"
+   },
+   "wood": {
+    "light": "#d8742b",
+    "mid": "#b85c1c",
+    "dark": "#92440f",
+    "shadow": "#703108",
+    "end": "#e8b870"
+   },
+   "treeMint": [
+    "#50a475",
+    "#3f895f",
+    "#2d6b47"
+   ],
+   "treeLime": [
+    "#7ebc52",
+    "#669b3f",
+    "#4e7a2d"
+   ],
+   "treeLeaf": [
+    "#5b9b4b",
+    "#477f39",
+    "#346328"
+   ],
+   "treeTeal": [
+    "#3aa68b",
+    "#2b876f",
+    "#1e6955",
+    "#134c3c"
+   ],
+   "treeGold": [
+    "#cfa43c",
+    "#b08627",
+    "#8c6717"
+   ],
+   "trunk": [
+    "#674637",
+    "#4c3329"
+   ],
+   "rock": [
+    "#dedcd7",
+    "#bdbab3",
+    "#8f8c85",
+    "#6b6861"
+   ],
+   "wellStone": [
+    "#b4aba0",
+    "#9b9288",
+    "#7e756c"
+   ],
+   "flowerOrange": [
+    "#e07525",
+    "#c76118"
+   ],
+   "berry": [
+    "#db516f",
+    "#b63652"
+   ],
+   "bushTeal": [
+    "#4ca38b",
+    "#3a8771",
+    "#2a6b57"
+   ],
+   "gold": [
+    "#e5b63b",
+    "#c29424",
+    "#f5d168"
+   ]
+  },
+  "notes": "Charcoal greys pushed toward violet and lavender for the haze, with lichen lime as the one warm accent on the slab tops.",
+  "clamped": []
+ },
+ "motifs": [
+  {
+   "name": "trunk_column",
+   "type": "new",
+   "variant_of": "tree-pine",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.7,
+   "passable": false,
+   "count": 11,
+   "cells": [
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     9,
+     0
+    ],
+    [
+     10,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     11,
+     2
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     12,
+     5
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     9,
+     7
+    ],
+    [
+     12,
+     8
+    ]
+   ],
+   "where": "In rows along the slab edges, like the vertical strokes of the drawing.",
+   "shape": {
+    "summary": "A tall pale silver trunk in three stacked segments with dark vertical drag strokes down its face, a stubby snapped bough and a broken top.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.36,
+       0.9,
+       0.36
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#e2dfea",
+       "#c4c0d2",
+       "#a5a0b8"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.3,
+       0.9,
+       0.3
+      ],
+      "at": [
+       0,
+       0.9,
+       0
+      ],
+      "tones": [
+       "#e2dfea",
+       "#c4c0d2",
+       "#a5a0b8"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.24,
+       0.8,
+       0.24
+      ],
+      "at": [
+       0,
+       1.8,
+       0
+      ],
+      "tones": [
+       "#e2dfea",
+       "#c4c0d2",
+       "#a5a0b8"
+      ]
+     }
+    ]
+   },
+   "role": "mass"
+  },
+  {
+   "name": "trunk_fork",
+   "type": "new",
+   "variant_of": "tree-round",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.3,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     13,
+     3
+    ],
+    [
+     5,
+     7
+    ]
+   ],
+   "where": "Leaning across a seam like the diagonal branch on the drawing's right.",
+   "shape": {
+    "summary": "A leaning pale trunk with a forked top, roots splayed at its base.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.34,
+       2,
+       0.34
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#e2dfea",
+       "#c4c0d2",
+       "#a5a0b8"
+      ],
+      "rot": [
+       0,
+       0,
+       20
+      ]
+     }
+    ]
+   },
+   "role": "detail"
+  },
+  {
+   "name": "trunk_mist",
+   "type": "new",
+   "variant_of": "lantern",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.1,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     6,
+     9
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     9,
+     4
+    ]
+   ],
+   "where": "Standing in the seams and beside the bridges where the haze pours through.",
+   "shape": {
+    "summary": "A mist lamp: three pale lavender slabs stacked and offset on a short stone post, glowing white at the top.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.2,
+       0.5,
+       0.2
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d6d3e0",
+       "#b9b5c7",
+       "#9994ab"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.7,
+       0.08,
+       0.5,
+       0.14
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#f4f1f9",
+       "#dad4e7",
+       "#cbc4db"
+      ]
+     }
+    ]
+   },
+   "role": "light"
+  },
+  {
+   "name": "trunk_fallen",
+   "type": "new",
+   "variant_of": "log",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.5,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     2,
+     9
+    ],
+    [
+     3,
+     10
+    ]
+   ],
+   "where": "At the southwest entry, like the fallen log that leads the eye to the bird.",
+   "shape": {
+    "summary": "A fallen pale trunk section lying on its side, dark striations along it and a lichen patch on top.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.22,
+       1,
+       8
+      ],
+      "at": [
+       0,
+       0.22,
+       0
+      ],
+      "tones": [
+       "#e2dfea",
+       "#c4c0d2",
+       "#a5a0b8"
+      ],
+      "rot": [
+       0,
+       45,
+       90
+      ]
+     }
+    ]
+   },
+   "role": "approach"
+  },
+  {
+   "name": "trunk_lintel",
+   "type": "new",
+   "variant_of": "gate",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.8,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     3
+    ],
+    [
+     8,
+     3
+    ]
+   ],
+   "where": "At the colonnade's mouth below the bird.",
+   "shape": {
+    "summary": "Two pale trunk posts with a leaning branch laid across as the lintel.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.34,
+       1.6,
+       0.34
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#e2dfea",
+       "#c4c0d2",
+       "#a5a0b8"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       1.5,
+       0.22,
+       0.26
+      ],
+      "at": [
+       0.5,
+       1.6,
+       0
+      ],
+      "tones": [
+       "#c4c0d2",
+       "#a5a0b8",
+       "#8a83a6"
+      ]
+     }
+    ]
+   },
+   "role": "threshold"
+  }
+ ],
+ "creatures": [
+  {
+   "name": "trunk_halo_bird",
+   "source": "The charcoal bird standing between vertical boles with pale haze behind its crest",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 2.9,
+   "pose": "A tall charcoal bird with white rims standing straight among the trunks, crest up, head turned left, a pale halo disc behind its head.",
+   "cell": [
+    7,
+    1
+   ],
+   "facing": "w",
+   "why": "The drawing's figure keeps its charcoal and white, now backed by the halo the trunks frame.",
+   "shape": {
+    "summary": "A tall charcoal bird with white rims standing straight among the trunks, crest up, head turned left, a pale halo disc behind its head.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.7,
+       0.5,
+       0.12
+      ],
+      "at": [
+       0,
+       0.6,
+       0
+      ],
+      "tones": [
+       "#5a544e",
+       "#4a4540",
+       "#34302c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.2,
+       0.02,
+       0.5,
+       6
+      ],
+      "at": [
+       -0.4,
+       1.9,
+       0
+      ],
+      "tones": [
+       "#f1e6cf",
+       "#d6c6a4",
+       "#b3a68c"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVGTTGGGGTTGGVVV",
+   "VGGTGGGFFGTGGGVV",
+   "VGTGGGGFFGGTGGGV",
+   "GGTGGGGGGGGTGGGV",
+   "GGGGVGGGGGVGGGGG",
+   "VGTGVGGTGGVGTGGV",
+   "VGGGGGGGGGGGGGGV",
+   "GGTGGVGGGTGGGGGV",
+   "GPGGGVGGGGGGTGVV",
+   "GPPGGGGGGGGGGGVV",
+   "VVPPGGGTGGGGGVVV",
+   "VVVPPGGGGGVVVVVV"
+  ],
+  "heights": [
+   "0011111111111000",
+   "0111111111111100",
+   "0111111111111110",
+   "1111111111111110",
+   "1111011111011111",
+   "0111011111011110",
+   "0111111111111110",
+   "1111101111111110",
+   "1111101111111100",
+   "1111111111111100",
+   "0011111111111000",
+   "0001111111000000"
+  ],
+  "focal": {
+   "x": 7,
+   "z": 1,
+   "what": "The charcoal bird with its halo among the trunks"
+  },
+  "mass": "The drawing's vertical strokes stand up as a colonnade of silver trunks on four or five slabs, the seams between slabs are the gaps between trunks where mist pours through, a leaning branch makes the gate, and the pale glow behind the bird becomes a halo disc on its perch.",
+  "read": "Across three slabs, over the one-cell land bridges in the seams, past a fallen trunk and the mist lamps, into the colonnade where the bird stands."
+ },
+ "biome": {
+  "trees": {
+   "density": 0.16,
+   "types": [
+    {
+     "type": "trunk_column",
+     "variant": "trunk_column",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.15,
+  "decor_weights": {
+   "trunk_mist": 0.5,
+   "trunk_fallen": 0.5
+  },
+  "lighting": {
+   "bg": "#bdb6d4",
+   "ambient": 0.86,
+   "sun": 0.28,
+   "tint": "#e8e2ff",
+   "notes": "haze glowing behind the trunks: The analysis puts pale grey (#bcbcbc) around the crest and on the tree barks: light comes from behind the trees, so the background is bright lavender haze and the trunks read pale-edged against it."
+  },
+  "rules": [
+   "Trunks line slab edges in rows, never on the approach.",
+   "Mist lamps sit by the seam crossings.",
+   "Keep a clear ring around the bird so the halo reads."
+  ],
+  "decor_density": 0.1,
+  "surfaces": {
+   "ground": "grass",
+   "raised": "grass",
+   "path": "dirt",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "The bare trunk verticals: broad vertical dry sweeps dragged downward for the background trunks, the strong vertical boles on the right, and the pale halo of light between them",
+  "place": "A colonnade of pale trunks on bark slabs split by seams of mist, dawn haze glowing through the gaps behind a charcoal bird with a pale halo.",
+  "summary": "The drawing's vertical strokes stand up as a colonnade of silver trunks on four or five slabs, the seams between slabs are the gaps between trunks where mist pours through, a leaning branch makes the gate, and the pale glow behind the bird becomes a halo disc on its perch.",
+  "differs": "forest-medium's trunks were soot black in a dark basin and forest-composition's birches ringed a spiral; here the trunks are the architecture, pale and backlit, in rows on split slabs under a lavender dawn haze."
+ },
+ "shaper": {
+  "name": "shards",
+  "params": {
+   "count": 5,
+   "spread": 0.6,
+   "cracks": true
+  },
+  "why": "The vertical drag strokes cut the drawing into tall strips of tone with pale seams between them; shards gives slabs split by thin void seams, and the trunks line the slab edges like the strokes."
+ },
+ "surface_mix": {
+  "pattern": "height",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "grass",
+    "share": 0.45
+   },
+   {
+    "s": "dirt",
+    "share": 0.3
+   },
+   {
+    "s": "sand",
+    "share": 0.15
+   },
+   {
+    "s": "stone",
+    "share": 0.1
+   }
+  ],
+  "why": "Lichen on the high slabs where light lands, cool violet duff below, pale mist-sand at the seams."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#8a83a6",
+   "#716a8d",
+   "#5a5474"
+  ],
+  "lower": [
+   "#5d5779",
+   "#4a4563",
+   "#38344e"
+  ],
+  "why": "Violet-grey bark slabs stepped in bands like the vertical striations of the trunks."
+ },
+ "lighting": {
+  "time": "haze glowing behind the trunks",
+  "ambient": 0.86,
+  "sun": 0.28,
+  "tint": "#e8e2ff",
+  "bg": "#bdb6d4",
+  "why": "The analysis puts pale grey (#bcbcbc) around the crest and on the tree barks: light comes from behind the trees, so the background is bright lavender haze and the trunks read pale-edged against it."
+ },
+ "figure_pose": {
+  "pose": "A tall charcoal bird with white rims standing straight among the trunks, crest up, head turned left, a pale halo disc behind its head.",
+  "action": "watching between the trunks",
+  "facing": "left",
+  "why": "The drawing frames the bird between vertical boles with a pale glow behind the crest; the halo disc is that glow made solid."
+ },
+ "approach": {
+  "from": "southwest slab",
+  "passes": [
+   "trunk_fallen",
+   "trunk_mist",
+   "trunk_fork",
+   "trunk_column"
+  ],
+  "shape": "Across three slabs, over the one-cell land bridges in the seams, past a fallen trunk and the mist lamps, into the colonnade where the bird stands."
+ },
+ "threshold": {
+  "kind": "Two pale trunk posts with the drawing's diagonal branch laid across as a leaning lintel",
+  "prop": "trunk_lintel"
+ },
+ "analysis": "pipeline/seed/analysis/forest.json",
+ "concept": {
+  "name": "aspect-trunks",
+  "lens": "composition",
+  "fragment": "Round 5 reading authored by the build agent from pipeline/seed/analysis/forest.json and the drawing itself, without the analyzer (Gemini returns 402). One aspect of the charcoal drawing, \"trunks\", becomes the place; the shaper, palette, lighting, props and the figure's pose are argued from that aspect alone. It must not repeat the round-4 forest readings (ash basin with soot trunks, taproot knoll with charred boles, birch spiral) or their shapers (basin, mound, spiral)."
+ }
+}
