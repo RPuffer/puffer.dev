@@ -143,3 +143,6 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | mindbloom-medium | gemini-3.8-flash | 12 | 0.0978 | critic rounds 1 and 2 at 351 and 900 (3 votes each): 0, 0 high
 2026-09-29 | mindbloom-subject | gemini-3.8-flash | 12 | 0.0998 | critic rounds 1 and 2: 0, 0 high
 2026-09-29 | mindbloom-composition | gemini-3.8-flash | 18 | 0.1579 | critic rounds 1 to 3: 0, 0, 0 high; round 3 checked the grass neck and path after round 2
+2026-09-29 | gremlin-medium | gemini-3.8-flash | 18 | 0.0961 | critic rounds 1, 3 and 4 at 351 and 900: 0, 0, 0 high
+2026-09-29 | gremlin-subject | gemini-3.8-flash | 18 | 0.1458 | critic rounds 1, 3 and 4: 0, 0, 0 high
+2026-09-29 | gremlin-composition | gemini-3.8-flash | 24 | 0.1753 | critic rounds 1, 3, 4 and 5: 0, 1, 0, 0 high (orb-plinth gate beam across the ramp foot)
