@@ -507,7 +507,8 @@ const LOOK = {
     light: { dir: [0.7, 1, 0.2], ambient: 0.66, sun: 0.45 },
   },
   composition: {
-    dirt: { top: "#5a86e4", patch: "#6e9cf0", mottle: "#4670cc", border: "#3558a8" },
+    grass: { top: "#6c5ce0", fringe: "#5446c0", fringeDark: "#3e3298", speck: "#c4f25e" },
+    dirt: { top: "#d9907c", patch: "#e6a690", mottle: "#c07866", border: "#9c5a4c" },
     sand: { top: "#f4e6d2", lip: "#dac6aa", edge: "#e6d4bc", dots: "#fffaf0" },
     stone: { top: "#fffaf0", pebble: "#ffffff", pebbleShade: "#d8d0c0", rim: "#b8b0a0" },
     cliffUpper: { left: "#2e4878", right: "#22365c", seam: "#172644" },
@@ -572,12 +573,14 @@ function scatter(level, h, t, n, pred) {
 function streak(level, h) {
   const [ax, az] = h.figure.anchor;
   let n = 0;
+  level.streak = [];
   for (let k = 2; k < 14; k++) {
     const x = ax + 1 + k, z = az + Math.round(k * 0.35);
     const c = h.cell(x, z);
     if (!c || c.s === "none") { if (n) break; continue; }
     if (!h.land(c) || c.s === "ramp" || c.s === "water") continue;
     c.s = "stone";
+    level.streak.push(h.key(x, z));
     n++;
   }
   h.log.push(`streak ${n} cells`);
@@ -668,6 +671,67 @@ function flareAt(level, h, t) {
   }
 }
 
+function growRing(level, h, min) {
+  const [ax, az] = h.figure.anchor;
+  let n = 0;
+  for (let guard = 0; guard < 40 && h.walkN() < min; guard++) {
+    let best = null;
+    for (let z = 1; z < h.D - 1; z++) for (let x = ax + 5; x < h.W - 1; x++) {
+      const c = h.cell(x, z);
+      if (c && c.s !== "none") continue;
+      const d = Math.hypot(x - ax - 1, z - az - 1);
+      if (d < 6.6 || d > 10.6) continue;
+      const nb = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(([dx, dz]) => h.cell(x + dx, z + dz)).filter((q) => h.land(q) && q.s !== "ramp" && q.h === 1);
+      if (!nb.length) continue;
+      const sc = d - nb.length;
+      if (!best || sc < best[0]) best = [sc, x, z];
+    }
+    if (!best) break;
+    h.set(best[1], best[2], { h: 1, s: "sand" });
+    n++;
+  }
+  h.log.push(`growRing ${n}, walk ${h.walkN()}`);
+}
+
+function globe(level, h) {
+  const [ax, az] = h.figure.anchor;
+  const x0 = ax, x1 = ax + 1, z0 = az, z1 = az + 1, mid = x1 + 3;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    const ox = Math.max(x0 - x, x - x1, 0), oz = Math.max(z0 - z, z - z1, 0), db = Math.max(ox, oz);
+    if (x <= mid) {
+      const bridge = x === mid && (z === z0 || z === z1);
+      const keep = db <= 2 || (db === 3 && (x > x1 || z > z1 || x < x0) && !(z < z0 && ox + oz >= 5)) || bridge;
+      if (!keep) { if (h.land(c)) { h.removeDecor((e) => e.x === x && e.z === z); h.set(x, z, { h: 0, s: "none" }); } continue; }
+      const hh = db <= 1 ? 3 : db === 2 ? 2 : 1;
+      h.set(x, z, { h: hh, s: hh === 3 ? "grass" : hh === 2 ? "sand" : "dirt" });
+      if (h.isFig(x, z)) continue;
+    } else if (h.land(c)) {
+      const d = Math.hypot(x - x1, z - z1);
+      const onBridge = z === z0 || z === z1;
+      if (d > 9.6 || (d > 4.2 && d < 6.6 && !onBridge)) { h.removeDecor((e) => e.x === x && e.z === z); h.set(x, z, { h: 0, s: "none" }); continue; }
+      h.set(x, z, { h: 1, s: "sand" });
+    } else if ((z === z0 || z === z1) && Math.hypot(x - x1, z - z1) < 7) h.set(x, z, { h: 1, s: "sand" });
+  }
+  const put = (hh) => {
+    let best = null;
+    for (const dir of ["e", "s", "w", "n"]) {
+      const [dx, dz] = h.DIRS[dir];
+      for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+        const c = h.cell(x, z), up = h.cell(x - dx, z - dz), dn = h.cell(x + dx, z + dz);
+        if (!h.land(c) || c.s === "ramp" || c.h !== hh || h.isFig(x, z) || h.isFig(x - dx, z - dz)) continue;
+        if (!h.land(up) || up.s === "ramp" || up.h !== hh || !h.land(dn) || dn.s === "ramp" || dn.h !== hh - 1) continue;
+        const sc = Math.abs(z - z1 - 1.5) + Math.abs(x - mid) * 0.5 + (dir === "e" ? 0 : 1);
+        if (!best || sc < best[0]) best = [sc, x, z, dir];
+      }
+    }
+    if (best) h.stairs(best[1], best[2], best[3], { m: "sand" });
+    return best;
+  };
+  const r2 = put(2), r3 = put(3);
+  h.log.push(`globe: anchor ${ax},${az} ramps ${r2 && r2.slice(1)} ${r3 && r3.slice(1)}, walk ${h.walkN()}`);
+}
+
 function finishLens(level, brief, h) {
   const lens = brief.concept?.lens || (typeof brief.lens === "string" ? brief.lens : "");
   lensLook(level, lens);
@@ -684,19 +748,20 @@ function finishLens(level, brief, h) {
   const capT = find(/capillar|creeper|tendril|ridge/);
   const nebT = find(/nebula/);
   const astT = find(/asteroid/);
-  const passT = h.passes().filter((t) => t !== gateT && t !== lightT && t !== capT && !daisTypes.includes(t));
+  const passT = h.passes().filter((t) => !h.ofRole("lead").includes(t) && t !== h.lead?.t && t !== gateT && t !== lightT && t !== capT && !daisTypes.includes(t));
   h.removeDecor((d) => d.t === gateT || d.t === lightT || d.t === capT || passT.includes(d.t) || d.t === "lantern");
   if (astT) h.removeDecor((d) => d.t === astT);
+  if (lens === "composition") globe(level, h);
   if (lens === "subject" && nebT) h.removeDecor((d) => d.t === nebT || d.t === "rock");
   let stairs = [];
   if (lens === "medium") { disc(level, h, 5.2, 84); stairs = frontStairs(level, h); }
   const st0 = stairs[0] || [0, 0];
-  const side = { medium: (x, z) => z * 0.6 - Math.abs(x - st0[0]) * 1.5, subject: (x, z) => z * 1.2 + x * 0.4, composition: (x, z) => z * 1.2 - x * 0.8 }[lens];
+  const side = { medium: (x, z) => z * 0.6 - Math.abs(x - st0[0]) * 1.5, subject: (x, z) => z * 1.2 + x * 0.4, composition: (x, z) => z * 1.0 + x * 0.8 }[lens];
   let r = frontSpawn(level, h, { medium: 5, subject: 8, composition: 12 }[lens] || 9, lens === "composition" ? 22 : 18, side);
   if (r.length) h.path(r);
   r = h.approach();
   if (lens === "composition") streak(level, h);
-  const f0 = lens === "medium" ? 0.45 : lens === "subject" ? 0.6 : 0.7;
+  const f0 = lens === "medium" ? 0.45 : lens === "subject" ? 0.6 : 0.3;
   let g = null;
   for (const gap of [2, 1]) for (const frac of [f0, 0.3, 0.55, 0.7, 0.2, 0.85]) if (!g && gateT) g = h.gate(gateT, { route: r, frac, figGap: gap });
   for (const at of r.slice(0, 3)) if (!g && gateT) g = h.gate(gateT, { route: r, at });
@@ -717,7 +782,7 @@ function finishLens(level, brief, h) {
     scatter(level, h, capT, 5, (x, z, c) => (c.s === "dirt" && (x + z) % 2 === 0 ? -(x + z) : null));
     scatter(level, h, astT, 4, (x, z, c) => (x - ax + z - az >= 5 ? -(x + z) + (x % 3) * 0.4 : null));
   } else if (lens === "composition") {
-    scatter(level, h, astT, 5, (x, z, c) => (x > ax + 3 ? -z + (x % 2) * 0.3 : null));
+    scatter(level, h, astT, 4, (x, z, c) => { const d = Math.hypot(x - ax - 1, z - az - 1); return x > ax + 5 && d > 7 ? -d : null; });
     scatter(level, h, capT, 4, (x, z, c) => (c.s === "sand" && x <= ax + 1 && (x * 3 + z) % 2 === 0 ? -z : null));
   }
   h.ledges({ keep: [gateT, lightT] });
@@ -727,13 +792,23 @@ function finishLens(level, brief, h) {
   h.openRamps();
   h.pruneRamps({ all: true, nearFig: 1 });
   levelRamps(h);
+  if (lens === "composition") {
+    spareRamps(level, h, h.approach());
+    levelRamps(h);
+    const keep = new Set(level.streak || []);
+    for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) { const c = h.cell(x, z); if (h.land(c) && c.s === "stone" && !keep.has(h.key(x, z))) c.s = c.h === 3 ? "grass" : "sand"; }
+    delete level.streak;
+  }
   if (lens === "medium") {
     spareRamps(level, h, h.approach());
     gradient(level, h, new Set(h.approach().map(([x, z]) => h.key(x, z))));
   }
   backed(level, h);
-  if (h.walkN() < 86) h.thin(86, { keep: [gateT, lightT] });
-  if (h.walkN() < 86) h.grow(86);
+  const floor = lens === "composition" ? 80 : 86;
+  if (h.walkN() < floor) h.thin(floor, { keep: lens === "composition" ? [gateT, lightT, astT] : [gateT, lightT] });
+  if (lens === "composition") growRing(level, h, 88);
+  if (h.walkN() < (lens === "composition" ? 80 : 86)) h.grow(lens === "composition" ? 80 : 86, { s: "sand" });
+  if (lens === "composition") for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) { const c = h.cell(x, z); if (h.land(c) && c.s === "stone" && c.h !== 1) c.s = "sand"; }
   h.rampTone();
 }
 
