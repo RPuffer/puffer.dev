@@ -1,0 +1,1348 @@
+{
+ "source": {
+  "art": "pipeline/seed/gremlin.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "clinical",
+  "synthetic",
+  "inscrutable",
+  "deliberate",
+  "subterranean",
+  "poised"
+ ],
+ "observations": [
+  {
+   "what": "Segmented mechanical conduit looping from the upper spine toward the front claw",
+   "box": [
+    50,
+    115,
+    420,
+    580
+   ],
+   "maps_to": "bio-conduit-spool"
+  },
+  {
+   "what": "Auxiliary anatomical study of an everted toothed pharyngeal mouth inside a ribbed sleeve",
+   "box": [
+    45,
+    655,
+    360,
+    975
+   ],
+   "maps_to": "auxiliary-proboscis-turret"
+  },
+  {
+   "what": "Smooth, completely featureless white oval head dome resting on a slender neck",
+   "box": [
+    220,
+    288,
+    480,
+    492
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Mechanical sensor claw suspended directly over the handheld disc",
+   "box": [
+    270,
+    115,
+    430,
+    222
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Slender alien hand grasping a bright unshaded circular specimen orb",
+   "box": [
+    420,
+    108,
+    545,
+    255
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Emaciated ribcage and slender forward-angled torso with segmented lower spine",
+   "box": [
+    380,
+    310,
+    680,
+    510
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Slender front arm reaching forward with planted knuckle support on the ground",
+   "box": [
+    530,
+    250,
+    900,
+    520
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Arched dorsal tail conduit looping upward from the sacrum",
+   "box": [
+    170,
+    480,
+    570,
+    728
+   ],
+   "maps_to": "bio-conduit-spool"
+  },
+  {
+   "what": "Zigzag digitigrade hind leg with hyper-extended hock and prominent tendon lines",
+   "box": [
+    540,
+    490,
+    880,
+    785
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Broad splayed webbed rear foot with four clawed digits anchored on the floor",
+   "box": [
+    870,
+    505,
+    1000,
+    755
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Faint trailing connective tubing extending down from the upper auxiliary maw",
+   "box": [
+    245,
+    770,
+    470,
+    982
+   ],
+   "maps_to": "T"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#dfdfdf",
+    "share": 0.221,
+    "role": "Base paper surface tone surrounding the subject"
+   },
+   {
+    "hex": "#e9e9e9",
+    "share": 0.185,
+    "role": "Brightest paper highlights inside the blank head and hand disc"
+   },
+   {
+    "hex": "#d3d3d3",
+    "share": 0.18,
+    "role": "Light graphite wash over the mid-body and tail"
+   },
+   {
+    "hex": "#c4c4c4",
+    "share": 0.143,
+    "role": "Intermediate midtone shading defining muscle curvature on the limbs"
+   },
+   {
+    "hex": "#aeaeae",
+    "share": 0.093,
+    "role": "Denser gray shading across the chest, calves, and dorsal cord"
+   },
+   {
+    "hex": "#919191",
+    "share": 0.083,
+    "role": "Core shadows on the underside of limbs and neck armature"
+   },
+   {
+    "hex": "#606060",
+    "share": 0.05,
+    "role": "Deep graphite tone in joint creases and spinal ridges"
+   },
+   {
+    "hex": "#2c2c2c",
+    "share": 0.045,
+    "role": "Near-black burnished accents along foot edges and mechanical knuckles"
+   }
+  ],
+  "translation": {
+   "bg": "#1c2326",
+   "grass": {
+    "top": "#72c484",
+    "fringe": "#55a767",
+    "fringeDark": "#3f844f",
+    "speck": "#9ae2a8"
+   },
+   "sand": {
+    "top": "#dcb858",
+    "lip": "#b99338",
+    "edge": "#cfa744",
+    "dots": "#ecce7b"
+   },
+   "dirt": {
+    "top": "#8a7b68",
+    "patch": "#796a57",
+    "mottle": "#695b4a",
+    "border": "#584b3c"
+   },
+   "stone": {
+    "top": "#cad2d6",
+    "pebble": "#e2e8eb",
+    "pebbleShade": "#abb5ba",
+    "rim": "#909ca2"
+   },
+   "cliffUpper": {
+    "left": "#78878c",
+    "right": "#59666b",
+    "seam": "#465256"
+   },
+   "cliffLower": {
+    "left": "#5c6b70",
+    "right": "#445054",
+    "seam": "#353e42",
+    "speck": "#2d3538"
+   },
+   "water": {
+    "top": "#7fe2df",
+    "bubble": "#c8f8f6",
+    "deep": "#3ba8ab",
+    "fall": [
+     "#5fcfcb",
+     "#4bb5b3",
+     "#3da3a1"
+    ],
+    "foam": "#dcfcfb"
+   },
+   "wood": {
+    "light": "#de7d3c",
+    "mid": "#be5e24",
+    "dark": "#9b4514",
+    "shadow": "#78320c",
+    "end": "#f3b97b"
+   },
+   "treeMint": [
+    "#50b894",
+    "#3c9778",
+    "#2a7259"
+   ],
+   "treeLime": [
+    "#9ecf6d",
+    "#7fab4f",
+    "#628b37"
+   ],
+   "treeLeaf": [
+    "#67b25e",
+    "#4f9247",
+    "#3a7033"
+   ],
+   "treeTeal": [
+    "#38c9b2",
+    "#2aa794",
+    "#1f8776",
+    "#176659"
+   ],
+   "treeGold": [
+    "#dcb858",
+    "#be963c",
+    "#9f7724"
+   ],
+   "trunk": [
+    "#467682",
+    "#375c66"
+   ],
+   "rock": [
+    "#d5dde0",
+    "#b4bec2",
+    "#8c979c",
+    "#677175"
+   ],
+   "wellStone": [
+    "#b5c0c4",
+    "#98a3a7",
+    "#7e888c"
+   ],
+   "flowerOrange": [
+    "#e57e3b",
+    "#cb6523"
+   ],
+   "berry": [
+    "#d8526d",
+    "#b23b53"
+   ],
+   "bushTeal": [
+    "#69d9c2",
+    "#4bbca5",
+    "#359a85"
+   ],
+   "gold": [
+    "#e0bb53",
+    "#c29c36",
+    "#f1d47c"
+   ]
+  },
+  "notes": "Translates the stark graphite-on-paper values into a subterranean synthetic incubation facility with cool slate cliffs, sterile amber-sand extraction beds, and soft teal bioluminescent accents.",
+  "clamped": [
+   "trunk[0] #5f6769->#467682",
+   "trunk[1] #4a5153->#375c66"
+  ]
+ },
+ "motifs": [
+  {
+   "name": "auxiliary-proboscis-turret",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.1,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     14,
+     3
+    ]
+   ],
+   "where": "Perched on the high eastern rim, directly translating the auxiliary everted mouth study drawn in the upper-right corner of the sketch.",
+   "role": "mass",
+   "shape": {
+    "summary": "An upright ribbed biological sleeve with an everted toothed secondary maw extending outward.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.42,
+       0.7,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#b4bec2",
+       "#8c979c",
+       "#677175"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.38,
+       0.48,
+       0.65,
+       8
+      ],
+      "at": [
+       0,
+       0.65,
+       0
+      ],
+      "tones": [
+       "#d5dde0",
+       "#b4bec2",
+       "#8c979c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.36,
+       0.3,
+       0.36,
+       0.08
+      ],
+      "at": [
+       0.08,
+       1.25,
+       0
+      ],
+      "tones": [
+       "#de7d3c",
+       "#be5e24",
+       "#9b4514"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.28,
+       0.12,
+       0.45,
+       8
+      ],
+      "at": [
+       0.15,
+       1.5,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       25
+      ],
+      "tones": [
+       "#f3b97b",
+       "#de7d3c",
+       "#be5e24"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       0.1,
+       1.9,
+       0
+      ],
+      "to": [
+       0.35,
+       2.1,
+       0.1
+      ],
+      "tones": [
+       "#cad2d6",
+       "#abb5ba",
+       "#909ca2"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       0.1,
+       1.9,
+       0
+      ],
+      "to": [
+       0.35,
+       2.1,
+       -0.1
+      ],
+      "tones": [
+       "#cad2d6",
+       "#abb5ba",
+       "#909ca2"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "umbilical-rib-pylon",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.4,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     13,
+     8
+    ],
+    [
+     10,
+     10
+    ]
+   ],
+   "where": "Flanking the south-eastern breach into the basin, marking the boundary where visitors cross into the creature's diagnostic territory.",
+   "role": "threshold",
+   "shape": {
+    "summary": "A tall ribbed vertebral pylon arched inward like the creature's dorsal spine segment.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.35,
+       0.4,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8c979c",
+       "#677175",
+       "#445054"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.38,
+       0.35,
+       0.28,
+       0.08
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#d5dde0",
+       "#b4bec2",
+       "#8c979c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.34,
+       0.35,
+       0.26,
+       0.08
+      ],
+      "at": [
+       -0.05,
+       0.75,
+       0
+      ],
+      "tones": [
+       "#cad2d6",
+       "#abb5ba",
+       "#909ca2"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.3,
+       0.35,
+       0.24,
+       0.08
+      ],
+      "at": [
+       -0.1,
+       1.1,
+       0
+      ],
+      "tones": [
+       "#d5dde0",
+       "#b4bec2",
+       "#8c979c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.26,
+       0.35,
+       0.22,
+       0.08
+      ],
+      "at": [
+       -0.18,
+       1.45,
+       0
+      ],
+      "tones": [
+       "#cad2d6",
+       "#abb5ba",
+       "#909ca2"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       -0.18,
+       1.8,
+       0
+      ],
+      "to": [
+       -0.35,
+       2.35,
+       0
+      ],
+      "tones": [
+       "#78878c",
+       "#59666b",
+       "#465256"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bio-conduit-spool",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.4,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     5,
+     2
+    ],
+    [
+     8,
+     1
+    ],
+    [
+     11,
+     2
+    ]
+   ],
+   "where": "Anchored along the northern upper wall of the crater, mimicking the thick cables looping from the creature's armature.",
+   "role": "detail",
+   "shape": {
+    "summary": "A heavy synthetic coil spooling thick flexible conduits that loop along the rim.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.4,
+       0.5,
+       8
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#8c979c",
+       "#677175",
+       "#445054"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.48,
+       0.15,
+       8
+      ],
+      "at": [
+       0,
+       0.5,
+       0
+      ],
+      "tones": [
+       "#b4bec2",
+       "#8c979c",
+       "#677175"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0.1,
+       0.65,
+       0
+      ],
+      "to": [
+       0.4,
+       1.1,
+       0.2
+      ],
+      "tones": [
+       "#78878c",
+       "#59666b",
+       "#465256"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0.4,
+       1.1,
+       0.2
+      ],
+      "to": [
+       0.2,
+       1.35,
+       0.45
+      ],
+      "tones": [
+       "#b4bec2",
+       "#8c979c",
+       "#677175"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.15,
+       1
+      ],
+      "at": [
+       0.2,
+       1.35,
+       0.45
+      ],
+      "tones": [
+       "#e0bb53",
+       "#c29c36",
+       "#9f7724"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "specimen-pod-rack",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     5,
+     5
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     10,
+     4
+    ]
+   ],
+   "where": "Resting within the floor basin around the scout drone, containing retrieved core spheres awaiting inspection.",
+   "role": "offering",
+   "shape": {
+    "summary": "A modular ground rack housing two translucent spherical cores in molded indentations.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.25,
+       0.45,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#b4bec2",
+       "#8c979c",
+       "#677175"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       0.12,
+       6
+      ],
+      "at": [
+       -0.22,
+       0.25,
+       0
+      ],
+      "tones": [
+       "#677175",
+       "#445054",
+       "#353e42"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       0.12,
+       6
+      ],
+      "at": [
+       0.22,
+       0.25,
+       0
+      ],
+      "tones": [
+       "#677175",
+       "#445054",
+       "#353e42"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       1
+      ],
+      "at": [
+       -0.22,
+       0.45,
+       0
+      ],
+      "tones": [
+       "#e2e8eb",
+       "#abb5ba",
+       "#909ca2"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       1
+      ],
+      "at": [
+       0.22,
+       0.45,
+       0
+      ],
+      "tones": [
+       "#dcb858",
+       "#b99338",
+       "#9f7724"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "rock-big",
+   "type": "rock-big",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     4,
+     3
+    ],
+    [
+     13,
+     3
+    ]
+   ],
+   "where": "Blocky stepped containment rocks reinforcing the high terrace corners of the chamber.",
+   "role": "mass",
+   "shape": {
+    "summary": "Dense blocky stone clusters embedded in the crater shelf.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.75,
+       0.5,
+       0.7,
+       0.1
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d5dde0",
+       "#b4bec2",
+       "#8c979c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.55,
+       0.4,
+       0.5,
+       0.08
+      ],
+      "at": [
+       0.08,
+       0.5,
+       -0.05
+      ],
+      "tones": [
+       "#e2e8eb",
+       "#cad2d6",
+       "#abb5ba"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "synthetic-specimen-scout",
+   "source": "The primary biomechanical digitigrade creature holding a spherical core beneath an arched sensor arm",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "shape": {
+    "summary": "A slender toy-like alien scout crouched on digitigrade webbed limbs with a blank egg-like head and an overhead scanning arch.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.15,
+       0.55,
+       0.06
+      ],
+      "at": [
+       0.08,
+       0,
+       0.1
+      ],
+      "tones": [
+       "#b4bec2",
+       "#8c979c",
+       "#677175"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.09
+      ],
+      "at": [
+       0.15,
+       0.15,
+       0.2
+      ],
+      "to": [
+       0.25,
+       0.75,
+       0
+      ],
+      "tones": [
+       "#d5dde0",
+       "#b4bec2",
+       "#8c979c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0.25,
+       0.75,
+       0
+      ],
+      "to": [
+       0.05,
+       0.95,
+       -0.1
+      ],
+      "tones": [
+       "#cad2d6",
+       "#abb5ba",
+       "#909ca2"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.24,
+       0.55,
+       8
+      ],
+      "at": [
+       -0.05,
+       0.85,
+       -0.1
+      ],
+      "rot": [
+       0,
+       0,
+       -25
+      ],
+      "tones": [
+       "#d5dde0",
+       "#b4bec2",
+       "#8c979c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.24,
+       1.3
+      ],
+      "at": [
+       -0.25,
+       1.45,
+       -0.1
+      ],
+      "tones": [
+       "#e2e8eb",
+       "#cad2d6",
+       "#abb5ba"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       -0.15,
+       1,
+       -0.05
+      ],
+      "to": [
+       -0.42,
+       1,
+       0.1
+      ],
+      "tones": [
+       "#b4bec2",
+       "#8c979c",
+       "#677175"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.16,
+       1
+      ],
+      "at": [
+       -0.48,
+       1.05,
+       0.15
+      ],
+      "tones": [
+       "#e2e8eb",
+       "#cad2d6",
+       "#abb5ba"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.07
+      ],
+      "at": [
+       0.02,
+       1.05,
+       -0.1
+      ],
+      "to": [
+       0.18,
+       1.85,
+       0
+      ],
+      "tones": [
+       "#78878c",
+       "#59666b",
+       "#465256"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.06
+      ],
+      "at": [
+       0.18,
+       1.85,
+       0
+      ],
+      "to": [
+       -0.42,
+       1.65,
+       0.12
+      ],
+      "tones": [
+       "#8c979c",
+       "#677175",
+       "#59666b"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.1,
+       0.05,
+       0.18,
+       6
+      ],
+      "at": [
+       -0.45,
+       1.5,
+       0.15
+      ],
+      "rot": [
+       0,
+       0,
+       180
+      ],
+      "tones": [
+       "#e0bb53",
+       "#c29c36",
+       "#9f7724"
+      ]
+     }
+    ]
+   },
+   "pose": "Poised in a deep digitigrade crouch with splayed webbed feet and planted knuckles, raising a pristine spherical token beneath an arched scanning sensor.",
+   "cell": [
+    8,
+    5
+   ],
+   "facing": "w",
+   "why": "Faithfully reconstructs the artwork's subject mid-action in its habitat, holding the central blank sphere steady beneath the curved cranial scan claw."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVRRVRRRRGVVVV",
+   "VVVRRRRRRRRRGVVV",
+   "VRRRRRGGGGGGRRGV",
+   "VRRRGGGGGGGGGGGV",
+   "VVRRGGGGFFGGGGVV",
+   "VVRRGGGGFFGGGGVV",
+   "VVRRGGGGPGGGGGGV",
+   "VVRRRGGGPGGGGGGV",
+   "VVVRRGGGPGGGGGGV",
+   "VVVGGVVVPPGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000220332210000",
+   "0003332222221000",
+   "0233321111112210",
+   "0332111111111110",
+   "0032111111111100",
+   "0022111111111100",
+   "0022111111111110",
+   "0033211111111110",
+   "0002211111111110",
+   "0001100011110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 8,
+   "z": 5,
+   "what": "The synthetic scout drone holding the bright specimen sphere under its dorsal scanner"
+  },
+  "mass": "The visual weight wraps around the north and west stepped crater walls, descending into the central floor where the focal drone anchors the scene.",
+  "read": "The viewer enters through the lower-southeast path opening, ascends the stepped threshold pylons, and descends into the sunken diagnostic basin where the scout creature is poised over its gathered specimens.",
+  "shaped": {
+   "name": "basin",
+   "params": {
+    "floor": 1,
+    "wall": 3,
+    "open": "se",
+    "pool": false,
+    "focal": "floor"
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVRRRRRRRRRRVVV",
+    "VVRRRTTTTRRRTRRV",
+    "VRRGGGGGGGGGRRRV",
+    "VRGGGGGGGGGGGRRV",
+    "RRGGGGTTGGGGGGRR",
+    "RGGGGGFGGGGGGGRR",
+    "RGGGGGGGGGGGGGRR",
+    "RRGGGTGGGGGGGPRR",
+    "VRGGGGGGGGGPPRRV",
+    "VRRGGGGGGGPPTRRV",
+    "VVRRGGGGPPPRRRVV",
+    "VVVRRPPPPRRRVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.12,
+   "types": [
+    {
+     "type": "bio-conduit-spool",
+     "variant": "default",
+     "weight": 0.4
+    },
+    {
+     "type": "umbilical-rib-pylon",
+     "variant": "default",
+     "weight": 0.3
+    },
+    {
+     "type": "auxiliary-proboscis-turret",
+     "variant": "default",
+     "weight": 0.3
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.18,
+  "decor_weights": {
+   "specimen-pod-rack": 0.5,
+   "rock-big": 0.3,
+   "rock": 0.2
+  },
+  "lighting": {
+   "bg": "#1c2326",
+   "ambient": 0.74,
+   "sun": 0.26,
+   "tint": "#cce2e8",
+   "notes": "pressurized autoclave luminescence: Derived from the high-key graphite values and sterile, unshaded paper negative space of the figure's face and token."
+  },
+  "rules": [
+   "Keep the basin floor clear around cell [6,5] to preserve space for the scout drone and its inspection racks.",
+   "Place bio-conduit spools exclusively along the upper northern stepped rim.",
+   "Flank the entrance path at [11,8] and [8,10] with umbilical rib pylons to act as threshold markers."
+  ],
+  "decor_density": 0.14,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "dirt",
+   "path": "stone",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "ANALYSIS.subject, ANALYSIS.story",
+  "place": "A subterranean incubation pit where a bio-synthetic scout processes retrieved core tokens.",
+  "summary": "A sterile amphitheatre-like basin enclosed by stepped slate terraces where a tethered alien scout inspects spherical samples.",
+  "differs": "Unlike the drafting shard quarry or the suspended telemetry shaft, this is an enclosed operational nesting basin with stepped retaining walls, specimen racks, and a ground-level threshold.",
+  "fixes": [
+   "surface_mix led with grass after a sibling took sand/dirt"
+  ]
+ },
+ "shaper": {
+  "name": "basin",
+  "params": {
+   "floor": 1,
+   "wall": 3,
+   "open": "se",
+   "pool": false,
+   "focal": "floor"
+  },
+  "why": "A basin provides the perfect sunken incubation pit or diagnostic hollow where the artificial scout guards and analyzes its retrieved spherical specimens."
+ },
+ "surface_mix": {
+  "pattern": "rings",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "grass",
+    "share": 0.55
+   },
+   {
+    "s": "dirt",
+    "share": 0.3
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Concentric rings emphasize the focused clinical target circles of the diagnostic basin floor."
+ },
+ "cliff_treatment": {
+  "style": "stepped",
+  "upper": [
+   "#78878c",
+   "#59666b",
+   "#465256"
+  ],
+  "lower": [
+   "#5c6b70",
+   "#445054",
+   "#353e42"
+  ],
+  "why": "Clean stepped terraces reflect the engineered artificial containment architecture of an incubation pit."
+ },
+ "lighting": {
+  "time": "pressurized autoclave luminescence",
+  "ambient": 0.74,
+  "sun": 0.26,
+  "tint": "#cce2e8",
+  "bg": "#1c2326",
+  "why": "Derived from the high-key graphite values and sterile, unshaded paper negative space of the figure's face and token."
+ },
+ "figure_pose": {
+  "pose": "Poised in a deep digitigrade crouch with splayed webbed feet and planted knuckles, raising a pristine spherical token beneath an arched scanning sensor.",
+  "action": "scanning core token",
+  "facing": "left",
+  "why": "Directly embodies the subject's primary action in ANALYSIS.subject.doing, inspecting the spherical specimen."
+ },
+ "approach": {
+  "from": "south-east",
+  "passes": [
+   "umbilical-rib-pylon",
+   "stepped containment shelf",
+   "specimen-pod-rack",
+   "synthetic-specimen-scout"
+  ],
+  "shape": "A curved path entering the low gap in the south-east wall and spiraling inward toward the central evaluation floor."
+ },
+ "threshold": {
+  "kind": "A pair of inward-curving spinal rib pylons arching over the entry path to delineate the drone's containment boundary.",
+  "prop": "umbilical-rib-pylon"
+ },
+ "analysis": "pipeline/seed/analysis/gremlin.json",
+ "concept": {
+  "name": "lens-subject",
+  "lens": "subject",
+  "fragment": "LENS \"subject\": the SUBJECT'S NATURE AND STORY become the place. Start from ANALYSIS.subject and ANALYSIS.story. Ask where this creature or figure actually lives or would be found in its own world, what it builds, eats, guards, leaves behind, what is broken or abandoned there, and what a visitor would pass on the way in (its tracks, its leftovers, its kin, the things that fear it). The place is specific to this species or character, not a generic shrine: a swallow's mud-cup colony under a barn eave, an eagle's aerie on a sea stack, a wizard's cluttered cookhouse. Pick the shaper that fits that habitat (for example \"twin-mass\" for a nest facing its hunting ground, \"basin\" for a den hollow, \"mound\" for a burrow hill, \"shards\" for a broken ruin, \"spiral\" for a tower climb) and argue it in \"why\". The figure's pose and the props come from what the subject is DOING in the piece (ANALYSIS.subject.doing), shown as that action frozen, not seated on a plinth. Props are the subject's world: its nest material, prey, tools, trail, the structures it uses. Palette and light come from that world's own materials and the subject's own colours (river silt and wet stone, sea spray and guano, soot and copper pots), not from the paper or canvas the piece is made on."
+ }
+}
