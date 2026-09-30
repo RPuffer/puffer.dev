@@ -720,7 +720,7 @@
  "shaper": {
   "name": "twin-mass",
   "params": {
-   "split": "diag",
+   "split": "z",
    "ratio": 0.55,
    "heights": [
     3,
@@ -729,7 +729,7 @@
    "bridge": "planks",
    "focal": "a"
   },
-  "why": "The drawing's lower third is two masses of scrubbed soil, the root knot under the bird and the ground at the left, joined by the diagonal fallen log; twin-mass with a plank bridge is that log laid between them."
+  "why": "The drawing's lower third is two masses of scrubbed soil, the root knot under the bird behind and the foreground ground the log lies on, joined by the fallen log; twin-mass split front to back with a plank bridge is that log laid between them, with the bird on the far, higher mass."
  },
  "surface_mix": {
   "pattern": "scatter",

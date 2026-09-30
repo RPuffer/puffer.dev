@@ -760,7 +760,7 @@
   "surfaces": {
    "ground": "grass",
    "raised": "sand",
-   "path": "stone",
+   "path": "dirt",
    "shore": "sand",
    "mist": null
   }
@@ -775,10 +775,10 @@
   "name": "symmetric",
   "params": {
    "tiers": 3,
-   "axis": "x",
+   "axis": "diag",
    "notch": 1
   },
-  "why": "Rococo ornament is a mirrored plan around an axis; a three-tier parterre mirrored left to right puts the bird at its head, the way a volute crowns a cartouche."
+  "why": "Rococo ornament is a mirrored plan around an axis; a three-tier parterre mirrored across the screen's vertical puts the bird at its head and gives the stair the long diagonal of the drawing's rising S-curve, the way a volute crowns a cartouche."
  },
  "surface_mix": {
   "pattern": "rings",

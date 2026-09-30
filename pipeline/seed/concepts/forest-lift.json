@@ -721,7 +721,7 @@
   "surfaces": {
    "ground": "sand",
    "raised": "sand",
-   "path": "stone",
+   "path": "sand",
    "shore": "dirt",
    "mist": null
   }
@@ -749,18 +749,18 @@
   "surfaces": [
    {
     "s": "sand",
-    "share": 0.6
+    "share": 0.68
    },
    {
     "s": "stone",
-    "share": 0.2
+    "share": 0.08
    },
    {
     "s": "dirt",
-    "share": 0.2
+    "share": 0.24
    }
   ],
-  "why": "Bands along the stroke: clean lifted paper (sand), grey crumb-strewn passes (stone) and the charcoal smear the eraser pushed to its edges (dirt)."
+  "why": "Bands along the stroke: clean lifted paper (sand), a few grey crumb-strewn passes (stone) and the charcoal smear the eraser pushed to its edges (dirt)."
  },
  "cliff_treatment": {
   "style": "sheer",
