@@ -156,3 +156,4 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | eagle-subject | gemini-3.8-flash | 12 | 0.0814 | critic rounds 1 and 2: 0, 0 high; round 9 read by eye
 2026-09-29 | eagle-composition | gemini-3.8-flash | 12 | 0.0774 | critic rounds 1 and 4: 0, 1 high (quill gate read as straddling the ramp foot); rounds 5 and 6 read by eye after the 402 credit stop
 2026-09-30 | cosmos-frisket, cosmos-ringway, cosmos-lashline, cosmos-veinfield, cosmos-nebula | none | 0 | 0.0000 | round 5: briefs hand-authored and renders judged by eye (Gemini 402), rounds 1 to 5 at 351 and 900
+2026-09-30 | forest-tooth, forest-lift, forest-volute, forest-trunks, forest-roots | none | 0 | 0.0000 | round 5: briefs hand-authored and renders judged by eye (Gemini 402), rounds 1 to 6 at 351 and 900
