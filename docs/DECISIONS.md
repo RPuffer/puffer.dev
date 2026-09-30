@@ -14,3 +14,4 @@
 - 2026-09-23 Bake-off verdict: pipeline A carries forward; round 2 varies the concept step only, five strategies, forest-a kept as baseline.
 - 2026-09-29 Round-2 verdict: scene strategy picked; round 3 builds three scene readings for each of the eleven remaining artworks.
 - 2026-09-29 Round-3 verdict: levels too similar; round 4 derives three readings per artwork from a deep read through medium, subject, and composition lenses, with terrain shapers; round-3 card retracted.
+- 2026-09-30 Round-4 verdict: ten picks, seven medium-lens; forest and cosmos rejected, five new readings each in round 5 authored by the agents (Gemini out of credits).
