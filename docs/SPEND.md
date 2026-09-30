@@ -126,4 +126,46 @@ Total: $2.835
 2026-09-29 | round 3 cat-1 | gemini-3.8-flash | 1 | 0.0236 | analyze.mjs --variant 1 --avoid cat-2,cat-3: rebuild of the pre-floor cat-1; new reading walked 97 cells before finish
 2026-09-29 | round 3 cat-1 | gemini-3.8-flash | 24 | 0.1720 | critic rounds 1 to 4, 351 and 900 (3 votes each); 0, 0, 1, 0 high; round 3 high on stone stairs read as floating pads
 
-Running total: $20.205
+2026-09-29 | round 4 cat-1 | gemini-3.8-flash | 1 | 0.0236 | analyze.mjs --variant 1 --avoid cat-2,cat-3: rebuild of the pre-floor cat-1; new reading walked 97 cells before finish
+2026-09-29 | round 4 cat-1 | gemini-3.8-flash | 24 | 0.1720 | critic rounds 1 to 4, 351 and 900 (3 votes each); 0, 0, 1, 0 high; round 3 high on stone stairs read as floating pads
+2026-09-29 | round 4 analyses | gemini-3.8-flash | 17 | 0.1527 | analyze.mjs --deep: three tuning runs (swallow, cosmos, cat), then all twelve seeds after the story prompt asked for a concrete habitat
+2026-09-29 | round 4 swallow-* | gemini-3.8-flash | 18 | 0.7954 | analyze.mjs --lens: medium once, subject twice (second after the palette-from-habitat rule), composition four times (two runs failed validation before surface and bg clashes became repairs)
+2026-09-29 | round 4 eleven artworks | gemini-3.8-flash | 51 | 3.2836 | analyze.mjs --lens for the other 33 briefs; 8 failed on the old strict sibling checks and were regenerated
+2026-09-29 | round 4 swallow-medium | gemini-3.8-flash | 30 | 0.2020 | critic r0 check, rounds 1 to 4 at 351 and 900 (3 votes each): 0, 1, 0, 0 high
+2026-09-29 | round 4 swallow-subject | gemini-3.8-flash | 36 | 0.2400 | critic r0 check, rounds 1 to 5: 0, 0, 0, 1, 0 high; round 5 checked the finish change after round 4
+2026-09-29 | round 4 swallow-composition | gemini-3.8-flash | 24 | 0.1780 | critic rounds 1 to 4: 0, 0, 1, 0 high
+2026-09-29 | round 4 ember-medium | gemini-3.8-flash | 18 | ~0.12 | critic rounds 1, 2, 4 at 351 and 900 (3 votes each): 0, 0, 0 high; round 3 changed only subject and composition
+2026-09-29 | round 4 ember-subject | gemini-3.8-flash | 24 | ~0.19 | critic rounds 1 to 4: 3, 0, 0, 0 high (bone piles beside vents read as critters clipping into props)
+2026-09-29 | round 4 ember-composition | gemini-3.8-flash | 24 | ~0.17 | critic rounds 1 to 4: 0, 1, 0, 0 high (horn gate beam floated off the curled posts)
+2026-09-29 | round 4 chimera-medium | gemini-3.8-flash | 18 | ~0.20 | critic rounds 1 to 3 at 351 and 900 (3 votes each): 0, 0, 0 high
+2026-09-29 | round 4 chimera-subject | gemini-3.8-flash | 12 | ~0.12 | critic rounds 1 and 2: 0, 0 high
+2026-09-29 | round 4 chimera-composition | gemini-3.8-flash | 18 | ~0.12 | critic rounds 2 to 4 (round 1 rebuilt before a critic run): 0, 1, 0 high (curled tail overhung the rim and read as a cairn)
+2026-09-29 | round 4 dragon-medium | gemini-3.8-flash | 18 | 0.1353 | critic rounds 1 to 3 at 351 and 900: 1, 0, 0 high
+2026-09-29 | round 4 dragon-subject | gemini-3.8-flash | 18 | 0.1434 | critic rounds 1 to 3: 0, 0, 0 high
+2026-09-29 | round 4 dragon-composition | gemini-3.8-flash | 18 | 0.1454 | critic rounds 1 to 3: 2, 0, 0 high
+2026-09-29 | round 4 cat-medium | gemini-3.8-flash | 18 | 0.1066 | critic rounds 1 to 3 at 351 and 900: 1, 0, 0 high (bristle tuft on a plateau lip read as a pencil pot on a bridge)
+2026-09-29 | round 4 cat-subject | gemini-3.8-flash | 12 | 0.0741 | critic rounds 1 to 2: 0, 0 high
+2026-09-29 | round 4 cat-composition | gemini-3.8-flash | 24 | 0.1338 | critic rounds 1 to 4: 0, 1, 0, 0 high (route markers on the teal stair read as stepping stones in a stream)
+2026-09-29 | round 4 forest-medium | gemini-3.8-flash | 18 | 0.1163 | critic rounds 4, 5 and 8 at 351 and 900 (3 votes each): 0, 0, 0 high
+2026-09-29 | round 4 forest-subject | gemini-3.8-flash | 30 | 0.2655 | critic rounds 4, 5, 6, 7 and 9: 1, 1, 0, 0, 0 high; round 9 checked the unhide pass
+2026-09-29 | round 4 forest-composition | gemini-3.8-flash | 24 | 0.1811 | critic rounds 4, 5, 8 and 9: 1, 0, 0, 0 high
+2026-09-29 | round 4 wizard-medium | gemini-3.8-flash | 12 | 0.0861 | critic rounds 1 to 2 at 351 and 900: 0, 0 high (round 2 on the parchment-and-ink repaint)
+2026-09-29 | round 4 wizard-subject | gemini-3.8-flash | 12 | 0.1060 | critic rounds 1 to 2: 0, 0 high
+2026-09-29 | round 4 wizard-composition | gemini-3.8-flash | 12 | 0.0658 | critic rounds 3 to 4: 0, 0 high
+2026-09-29 | round 4 mindbloom-medium | gemini-3.8-flash | 12 | 0.0978 | critic rounds 1 and 2 at 351 and 900 (3 votes each): 0, 0 high
+2026-09-29 | round 4 mindbloom-subject | gemini-3.8-flash | 12 | 0.0998 | critic rounds 1 and 2: 0, 0 high
+2026-09-29 | round 4 mindbloom-composition | gemini-3.8-flash | 18 | 0.1579 | critic rounds 1 to 3: 0, 0, 0 high; round 3 checked the grass neck and path after round 2
+2026-09-29 | round 4 gremlin-medium | gemini-3.8-flash | 18 | 0.0961 | critic rounds 1, 3 and 4 at 351 and 900: 0, 0, 0 high
+2026-09-29 | round 4 gremlin-subject | gemini-3.8-flash | 18 | 0.1458 | critic rounds 1, 3 and 4: 0, 0, 0 high
+2026-09-29 | round 4 gremlin-composition | gemini-3.8-flash | 24 | 0.1753 | critic rounds 1, 3, 4 and 5: 0, 1, 0, 0 high (orb-plinth gate beam across the ramp foot)
+2026-09-29 | round 4 cosmos-medium | gemini-3.8-flash | 36 | 0.2131 | critic rounds 1 to 6 at 351 and 900: 2, 1, 0, 1, 2, 0 high (capillary decal over a cliff lip, off-route wedge ramp, blue cobble h3 read as water)
+2026-09-29 | round 4 cosmos-subject | gemini-3.8-flash | 12 | 0.1073 | critic rounds 1 and 2: 0, 0 high
+2026-09-29 | round 4 cosmos-composition | gemini-3.8-flash | 18 | 0.1361 | critic rounds 1 to 3: 2, 0, 0 high (blue iris top read as a basin, gate posts on the flare bridge)
+2026-09-29 | round 4 sharkbear-medium | gemini-3.8-flash | 18 | 0.1091 | critic rounds 1 to 3 at 351 and 900 (3 votes each): 1, 0, 0 high (log across a ramp foot); round 4 got 402 credits depleted, no charge
+2026-09-29 | round 4 sharkbear-subject | gemini-3.8-flash | 12 | 0.0929 | critic rounds 1 to 2: 0, 0 high
+2026-09-29 | round 4 sharkbear-composition | gemini-3.8-flash | 18 | 0.1100 | critic rounds 1 to 3: 1, 0, 0 high (jaw-pit teeth past the tile edge)
+2026-09-29 | round 4 eagle-medium | gemini-3.8-flash | 12 | 0.0968 | critic rounds 1 and 3 at 351 and 900: 0, 0 high; rounds 8 and 9 read by eye after the 402 credit stop
+2026-09-29 | round 4 eagle-subject | gemini-3.8-flash | 12 | 0.0814 | critic rounds 1 and 2: 0, 0 high; round 9 read by eye
+2026-09-29 | round 4 eagle-composition | gemini-3.8-flash | 12 | 0.0774 | critic rounds 1 and 4: 0, 1 high (quill gate read as straddling the ramp foot); rounds 5 and 6 read by eye after the 402 credit stop
+
+Running total: $29.529

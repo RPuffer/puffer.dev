@@ -71,6 +71,8 @@ Round 2 kept pipeline A and varied only the analyzer's concept prompt (`node pip
 
 Round 3 built three scene readings for each of the other eleven artworks (`cat`, `dragon`, `ember`, `chimera`, `wizard`, `swallow`, `cosmos`, `sharkbear`, `gremlin`, `mindbloom`, `eagle`), loadable as `?level=<slug>-<k>`, with one pieces module per artwork in `3d/pieces/<slug>.js` and the readings in `pipeline/seed/concepts/`. The sheet is `out/final/round3-sheet.jpg` and the table is under Round 3 results in `docs/RUN.md`.
 
+Round 4 replaced those with readings derived from each artwork: a deep read per piece, then three lenses (medium, subject, composition) that each argue a different world from it, built with named terrain shapers. The 36 levels load as `?level=<slug>-<lens>`; round 3 is archived under `archive/round-3/`. Sheet `out/final/round4-sheet.jpg`, table under Round 4 results in `docs/RUN.md`.
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.

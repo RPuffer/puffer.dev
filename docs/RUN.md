@@ -242,3 +242,48 @@ Shared round-2 brief generation: $0.27 (five analyze runs) plus $0.13 of critic 
 | eagle-3 | 16x12 | 105 | 18 | 4 |
 
 Round spend: $10.200 across 48 ledger lines (briefs and critic calls only).
+
+## Round 4 results
+
+2026-09-29, twelve artworks through pipeline A with artwork-derived readings: `analyze.mjs --deep` writes an analysis per piece (`pipeline/seed/analysis/`), then `--lens medium|subject|composition` argues one world from one aspect of it (briefs in `pipeline/seed/concepts/<slug>-<lens>.json`); build-level picks a named terrain shaper from the brief (used this round: basin 7, mound 5, spiral 2, patchwork 1, twin-mass 8, shards 5, ribbon 5, symmetric 2, radial 1). Round 3's levels are archived under `archive/round-3/` (tag `round-3`). Walkable counts every cell with h >= 1 and a walkable surface. QA: `tools/qa-levels.mjs` over all 36 levels, 503 pass, 1 fail (a dropped keypress on forest-medium in the batch run; it passed 14 of 14 alone). Every level loads at `3d/index.html?level=<slug>-<lens>`. Sheet: `out/final/round4-sheet.jpg`, one row per artwork in `out/final/round4-<slug>.jpg`. Card: `puffer-isoworld-round-4-lenses` (pick-per-group). The Gemini account ran out of credits (HTTP 402) during the last sharkbear and eagle loops; those final rounds were judged by eye, and the critic stays offline until the account is topped up.
+
+| Level | Shaper | Walkable | Decor | New types |
+| --- | --- | --- | --- | --- |
+| forest-medium | basin | 110 | 24 | 5 |
+| forest-subject | mound | 112 | 24 | 6 |
+| forest-composition | spiral | 112 | 15 | 5 |
+| cat-medium | patchwork | 112 | 23 | 5 |
+| cat-subject | twin-mass | 114 | 20 | 8 |
+| cat-composition | mound | 112 | 10 | 5 |
+| dragon-medium | shards | 112 | 18 | 5 |
+| dragon-subject | twin-mass | 105 | 19 | 4 |
+| dragon-composition | ribbon | 100 | 24 | 6 |
+| ember-medium | symmetric | 112 | 15 | 3 |
+| ember-subject | basin | 99 | 15 | 6 |
+| ember-composition | ribbon | 95 | 12 | 5 |
+| chimera-medium | shards | 106 | 26 | 6 |
+| chimera-subject | basin | 103 | 16 | 6 |
+| chimera-composition | mound | 113 | 19 | 6 |
+| wizard-medium | ribbon | 112 | 22 | 5 |
+| wizard-subject | basin | 108 | 17 | 5 |
+| wizard-composition | mound | 113 | 10 | 5 |
+| swallow-medium | ribbon | 112 | 17 | 3 |
+| swallow-subject | twin-mass | 104 | 18 | 4 |
+| swallow-composition | spiral | 113 | 27 | 5 |
+| cosmos-medium | radial | 102 | 16 | 7 |
+| cosmos-subject | basin | 108 | 18 | 6 |
+| cosmos-composition | twin-mass | 97 | 14 | 5 |
+| sharkbear-medium | shards | 112 | 13 | 4 |
+| sharkbear-subject | twin-mass | 100 | 12 | 4 |
+| sharkbear-composition | mound | 112 | 12 | 5 |
+| gremlin-medium | shards | 113 | 19 | 7 |
+| gremlin-subject | basin | 108 | 19 | 5 |
+| gremlin-composition | twin-mass | 93 | 12 | 6 |
+| mindbloom-medium | symmetric | 112 | 44 | 8 |
+| mindbloom-subject | basin | 105 | 31 | 8 |
+| mindbloom-composition | twin-mass | 114 | 33 | 7 |
+| eagle-medium | ribbon | 117 | 26 | 7 |
+| eagle-subject | twin-mass | 96 | 10 | 6 |
+| eagle-composition | shards | 118 | 17 | 6 |
+
+Round spend: $9.324 across 41 ledger lines (analyses and briefs $4.23, critic the rest).
