@@ -149,3 +149,6 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | cosmos-medium | gemini-3.8-flash | 36 | 0.2131 | critic rounds 1 to 6 at 351 and 900: 2, 1, 0, 1, 2, 0 high (capillary decal over a cliff lip, off-route wedge ramp, blue cobble h3 read as water)
 2026-09-29 | cosmos-subject | gemini-3.8-flash | 12 | 0.1073 | critic rounds 1 and 2: 0, 0 high
 2026-09-29 | cosmos-composition | gemini-3.8-flash | 18 | 0.1361 | critic rounds 1 to 3: 2, 0, 0 high (blue iris top read as a basin, gate posts on the flare bridge)
+2026-09-29 | sharkbear-medium | gemini-3.8-flash | 18 | 0.1091 | critic rounds 1 to 3 at 351 and 900 (3 votes each): 1, 0, 0 high (log across a ramp foot); round 4 got 402 credits depleted, no charge
+2026-09-29 | sharkbear-subject | gemini-3.8-flash | 12 | 0.0929 | critic rounds 1 to 2: 0, 0 high
+2026-09-29 | sharkbear-composition | gemini-3.8-flash | 18 | 0.1100 | critic rounds 1 to 3: 1, 0, 0 high (jaw-pit teeth past the tile edge)
