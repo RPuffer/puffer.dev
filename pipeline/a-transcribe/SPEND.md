@@ -146,3 +146,6 @@ Round 4 running total: $4.8517 (briefs and analyses $4.2317, swallow critic $0.6
 2026-09-29 | gremlin-medium | gemini-3.8-flash | 18 | 0.0961 | critic rounds 1, 3 and 4 at 351 and 900: 0, 0, 0 high
 2026-09-29 | gremlin-subject | gemini-3.8-flash | 18 | 0.1458 | critic rounds 1, 3 and 4: 0, 0, 0 high
 2026-09-29 | gremlin-composition | gemini-3.8-flash | 24 | 0.1753 | critic rounds 1, 3, 4 and 5: 0, 1, 0, 0 high (orb-plinth gate beam across the ramp foot)
+2026-09-29 | cosmos-medium | gemini-3.8-flash | 36 | 0.2131 | critic rounds 1 to 6 at 351 and 900: 2, 1, 0, 1, 2, 0 high (capillary decal over a cliff lip, off-route wedge ramp, blue cobble h3 read as water)
+2026-09-29 | cosmos-subject | gemini-3.8-flash | 12 | 0.1073 | critic rounds 1 and 2: 0, 0 high
+2026-09-29 | cosmos-composition | gemini-3.8-flash | 18 | 0.1361 | critic rounds 1 to 3: 2, 0, 0 high (blue iris top read as a basin, gate posts on the flare bridge)
