@@ -1,0 +1,797 @@
+{
+ "place": "The planet's ring as a road: one long pale band sprayed against a French curve, hard on its outer edge and fading on its inner edge, arcing over the black to the eye-planet where the flare ignites.",
+ "source": {
+  "art": "pipeline/seed/cosmos.png",
+  "width": 2048,
+  "height": 1536,
+  "model": "claude-opus-5-5 (hand-authored, round 5)",
+  "date": "2026-09-30"
+ },
+ "mood": [
+  "orbital",
+  "cold",
+  "streamlined",
+  "precise",
+  "silent",
+  "far"
+ ],
+ "observations": [
+  {
+   "what": "Ring band with an abrupt outer border and a soft inner fade",
+   "box": [
+    900,
+    1450,
+    1536,
+    2048
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Ovoid asteroids resting on the ring with sharp cast shadows",
+   "box": [
+    1300,
+    1400,
+    1536,
+    1900
+   ],
+   "maps_to": "T"
+  },
+  {
+   "what": "Four-point flare at the ring's root on the iris horizon",
+   "box": [
+    650,
+    1350,
+    800,
+    1550
+   ],
+   "maps_to": "F"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#14120b",
+    "share": 0.236,
+    "role": "Deep outer space void, central pupil, and deepest eyelid crease shadows"
+   },
+   {
+    "hex": "#252118",
+    "share": 0.213,
+    "role": "Soft shadow framing the eyeball and shading the socket"
+   },
+   {
+    "hex": "#343831",
+    "share": 0.124,
+    "role": "Dark teal-grey transitional tones between space and the eyelid rim"
+   },
+   {
+    "hex": "#baa08a",
+    "share": 0.103,
+    "role": "Midtone skin shading along the brow ridge and eyelid margins"
+   },
+   {
+    "hex": "#416262",
+    "share": 0.087,
+    "role": "Outer ring of the iris and shadowed face of the planetary ring"
+   },
+   {
+    "hex": "#e6caaa",
+    "share": 0.085,
+    "role": "Pale highlight tone across the sclera and inner lower lid margin"
+   },
+   {
+    "hex": "#877966",
+    "share": 0.083,
+    "role": "Desaturated beige midtone bridging lid highlights to shadow"
+   },
+   {
+    "hex": "#654739",
+    "share": 0.07,
+    "role": "Warm brown-red vascular shading in the medial caruncle and crease"
+   }
+  ],
+  "translation": {
+   "bg": "#0c1024",
+   "grass": {
+    "top": "#8ec2ff",
+    "fringe": "#6aa4f0",
+    "fringeDark": "#4a82d0",
+    "speck": "#e8f6ff"
+   },
+   "sand": {
+    "top": "#eaf4ff",
+    "lip": "#c6d8f0",
+    "edge": "#d6e4f6",
+    "dots": "#ffffff"
+   },
+   "dirt": {
+    "top": "#b6d0f2",
+    "patch": "#cfe0f8",
+    "mottle": "#9cb8e0",
+    "border": "#7896c4"
+   },
+   "stone": {
+    "top": "#7a86b8",
+    "pebble": "#98a4d4",
+    "pebbleShade": "#58649a",
+    "rim": "#444e7e"
+   },
+   "cliffUpper": {
+    "left": "#4c5a9c",
+    "right": "#3a467e",
+    "seam": "#2c3664"
+   },
+   "cliffLower": {
+    "left": "#2c2c62",
+    "right": "#22224e",
+    "seam": "#18183a",
+    "speck": "#8ec2ff"
+   },
+   "water": {
+    "top": "#8fe9ff",
+    "bubble": "#dcffff",
+    "deep": "#008ba8",
+    "fall": [
+     "#3fd8f8",
+     "#00b2d6",
+     "#008ba8"
+    ],
+    "foam": "#e6faff"
+   },
+   "wood": {
+    "light": "#ff831d",
+    "mid": "#dc7016",
+    "dark": "#bd4c0b",
+    "shadow": "#a04b14",
+    "end": "#f6d881"
+   },
+   "treeMint": [
+    "#8fffc2",
+    "#68e09e",
+    "#44a46b"
+   ],
+   "treeLime": [
+    "#c4ef86",
+    "#8ce263",
+    "#50ab46"
+   ],
+   "treeLeaf": [
+    "#64c960",
+    "#50ab46",
+    "#3a8032"
+   ],
+   "treeTeal": [
+    "#478585",
+    "#3a6d6d",
+    "#2e5656",
+    "#224141"
+   ],
+   "treeGold": [
+    "#f1cd52",
+    "#dd9200",
+    "#b27400"
+   ],
+   "trunk": [
+    "#674637",
+    "#452e24"
+   ],
+   "rock": [
+    "#5c6260",
+    "#414644",
+    "#2c302f",
+    "#1a1c1c"
+   ],
+   "wellStone": [
+    "#baa08a",
+    "#9c826e",
+    "#7c6655"
+   ],
+   "flowerOrange": [
+    "#ff831d",
+    "#f1b900"
+   ],
+   "berry": [
+    "#fe738f",
+    "#d9435f"
+   ],
+   "bushTeal": [
+    "#68e09e",
+    "#396a6a",
+    "#223e3e"
+   ],
+   "gold": [
+    "#f1cd52",
+    "#dd9200",
+    "#bea086"
+   ]
+  },
+  "notes": "Ice white outer lane, powder-blue inner lane, slate cobble grooves, on a navy void; the flare and the iris are the only warm-to-electric notes.",
+  "clamped": []
+ },
+ "motifs": [
+  {
+   "name": "curve-template-gate",
+   "type": "new",
+   "variant_of": null,
+   "role": "threshold",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.2,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     6,
+     8
+    ],
+    [
+     7,
+     9
+    ]
+   ],
+   "where": "Across the band at its middle bend.",
+   "shape": {
+    "summary": "Two posts cut as translucent cyan French-curve templates, each a chunky curved plate on a block foot, joined by a curved strip lintel.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.4,
+       0.16,
+       0.4
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#444e7e",
+       "#3a467e",
+       "#2c3664"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.2,
+       1.9,
+       0.6
+      ],
+      "at": [
+       0,
+       0.16,
+       0
+      ],
+      "tones": [
+       "#8ef2ff",
+       "#5ed8f2",
+       "#38b6d6"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "ring-asteroid",
+   "type": "new",
+   "variant_of": "rock",
+   "role": "mass",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 5,
+   "cells": [
+    [
+     4,
+     10
+    ],
+    [
+     8,
+     7
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     12,
+     6
+    ],
+    [
+     5,
+     8
+    ]
+   ],
+   "where": "Resting on the ring's inner lane.",
+   "shape": {
+    "summary": "A lumpy dark ovoid of three stacked faceted blocks resting on a flat dark cast-shadow slab that runs off to one side.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.8,
+       0.03,
+       0.4
+      ],
+      "at": [
+       0.2,
+       0,
+       0.2
+      ],
+      "tones": [
+       "#1b1532",
+       "#150f28",
+       "#0e0a1c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.5,
+       0.4,
+       0.45,
+       0.1
+      ],
+      "at": [
+       0,
+       0.03,
+       0
+      ],
+      "tones": [
+       "#6a6494",
+       "#554f7c",
+       "#403b62"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "shepherd-moon",
+   "type": "new",
+   "variant_of": null,
+   "role": "detail",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     3,
+     9
+    ],
+    [
+     13,
+     5
+    ]
+   ],
+   "where": "At the band's edges.",
+   "shape": {
+    "summary": "A small round moon of stacked octagon slabs in pale violet with one dark crater block, on a squat plinth.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       0.3,
+       0.6,
+       8
+      ],
+      "at": [
+       0,
+       0.2,
+       0
+      ],
+      "tones": [
+       "#c6b8f0",
+       "#a898d8",
+       "#8a78bc"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "flare-spike",
+   "type": "new",
+   "variant_of": null,
+   "role": "light",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.9,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     5,
+     10
+    ],
+    [
+     9,
+     7
+    ],
+    [
+     11,
+     6
+    ]
+   ],
+   "where": "Along the inner lane.",
+   "shape": {
+    "summary": "A slim indigo post topped by a small four-point white star with a cyan core.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.14,
+       1.3,
+       0.14
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#5c50c4",
+       "#473ca4",
+       "#352c84"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.7,
+       0.07,
+       0.07
+      ],
+      "at": [
+       0,
+       1.5,
+       0
+      ],
+      "tones": [
+       "#fffbe8",
+       "#f3efd2",
+       "#dcd6b2"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "groove-lane",
+   "type": "new",
+   "variant_of": null,
+   "role": "approach",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.1,
+   "passable": true,
+   "count": 6,
+   "cells": [
+    [
+     2,
+     10
+    ],
+    [
+     4,
+     9
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     3,
+     10
+    ]
+   ],
+   "where": "Down the path.",
+   "shape": {
+    "summary": "A flat decal of three thin pale arcs, the grooves between ring lanes.",
+    "parts": [
+     {
+      "prim": "box",
+      "dims": [
+       0.9,
+       0.03,
+       0.06
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#ffffff",
+       "#e8f2ff",
+       "#c6d8f0"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "ringed-eye-planet",
+   "source": "The eye read as the planet the ring orbits.",
+   "becomes": "prop",
+   "type": "new",
+   "footprint": [
+    2,
+    2
+   ],
+   "height": 3.1,
+   "shape": {
+    "summary": "A chunky globe of stacked octagonal slabs in sclera cream with the blue iris and black pupil on its camera face, a flat tilted ring of pale blocks around it, and a four-point flare where the ring meets the globe.",
+    "parts": [
+     {
+      "prim": "cyl",
+      "dims": [
+       1,
+       1.8,
+       8
+      ],
+      "at": [
+       0,
+       0.4,
+       0
+      ],
+      "tones": [
+       "#fff2dc",
+       "#eeddc0",
+       "#d8c4a4"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       1.6,
+       0.1,
+       16
+      ],
+      "at": [
+       0,
+       1.2,
+       0
+      ],
+      "tones": [
+       "#eaf4ff",
+       "#c6d8f0",
+       "#9cb8e0"
+      ]
+     }
+    ]
+   },
+   "pose": "ringed planet: the eye as a globe with its iris facing the camera, a tilted ring of pale blocks orbiting it, the flare bursting at the ring root.",
+   "cell": [
+    11,
+    3
+   ],
+   "facing": "s",
+   "why": "ANALYSIS.subject.what: a macroscopic eye that transforms into a ringed planet."
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVVVVVVRRRRGV",
+   "VVVVVVVVVRRRRRGV",
+   "VVVVVVVVRRRFFPGV",
+   "VVVVVVVRRRRFFRGV",
+   "VVVGGGRRRRPPRRGV",
+   "VGGGGGGRRRPRRRGV",
+   "VGGGGGGRRPPRRGVV",
+   "VGGGGGGPPPRRRGVV",
+   "VGPPPPPPRRRRGVVV",
+   "VGPGGGGGGGGGVVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000000000333210",
+   "0000000003222210",
+   "0000000033222210",
+   "0000000233222210",
+   "0001112223222210",
+   "0111111223333210",
+   "0111111222222100",
+   "0111111222222100",
+   "0111111222221000",
+   "0111111111110000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 11,
+   "z": 3,
+   "what": "A chunky globe of stacked octagonal slabs in sclera cream with the blue iris and black pupil on its camera face, a flat tilted ring of pale blocks around it, and a four-point flare where the ring meets the globe."
+  },
+  "mass": "Weight at the far north-east end where the band thickens into the planet's shoulder.",
+  "read": "An arc of ring walked from its thin tail to the planet.",
+  "shaped": {
+   "name": "ribbon",
+   "params": {
+    "width": 3,
+    "waves": 0.6,
+    "rise": "up",
+    "from": "sw"
+   },
+   "seed": 1,
+   "start": [
+    2,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVVGGRRRRRRVVVV",
+    "VVGGGGRRRRRFFRVV",
+    "VGGGGGRRRRRFFRRV",
+    "VGGGGGRRRPPRRRRV",
+    "VGGGGGRRPRRRRRRV",
+    "VGGGGGRPRRRRRRRV",
+    "VGGGGGPRRRRRRRRV",
+    "VGGGPPRRRRRRRRRV",
+    "VVPPGGRRRRRRRRVV",
+    "VVVVGGRRRRRRVVVV",
+    "VVVVVVVVVVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.05,
+   "types": [
+    {
+     "type": "ring-asteroid",
+     "variant": "default",
+     "weight": 1
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.3,
+  "decor_weights": {
+   "ring-asteroid": 0.5,
+   "groove-lane": 0.3,
+   "shepherd-moon": 0.2
+  },
+  "lighting": {
+   "bg": "#0c1024",
+   "ambient": 0.64,
+   "sun": 0.48,
+   "tint": "#e4f0ff",
+   "notes": "The asteroids cast sharp directional shadows on the ring (ANALYSIS.details); a low hard light from the flare side makes every rock throw one."
+  },
+  "rules": [
+   "Asteroids rest on the inner lane only.",
+   "No props on the hard outer edge."
+  ],
+  "decor_density": 0.14,
+  "surfaces": {
+   "ground": "grass",
+   "raised": "sand",
+   "path": "dirt",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "ANALYSIS.medium.marks: the ring sprayed against a curved French curve or acetate stencil, an abrupt outer border and a diffuse inner fade, with asteroids casting cast shadows on its surface",
+  "place": "The planet's ring as a road: one long pale band sprayed against a French curve, hard on its outer edge and fading on its inner edge, arcing over the black to the eye-planet where the flare ignites.",
+  "summary": "A single curved ribbon of land over void, striped along its length with a white hard outer lane and a fading blue inner lane, asteroids resting on it with their shadows, rising to the ringed eye-planet.",
+  "differs": "No terraces around a centre and no bowl: the island is one narrow arc, walked end to end, and the eye appears as a planet at the far end rather than a pupil column or a socket."
+ },
+ "shaper": {
+  "name": "ribbon",
+  "params": {
+   "width": 3,
+   "waves": 0.6,
+   "rise": "up",
+   "from": "sw"
+  },
+  "why": "The ring is one continuous stencil stroke; a ribbon of land over void, rising toward the planet, is that stroke walked (ANALYSIS.composition.flow_lines, planetary ring band)."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.4,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.45
+   },
+   {
+    "s": "grass",
+    "share": 0.35
+   },
+   {
+    "s": "dirt",
+    "share": 0.2
+   }
+  ],
+  "why": "Lanes along the ring: the white hard edge, the powder fade, the pale groove between them."
+ },
+ "cliff_treatment": {
+  "style": "sheer",
+  "upper": [
+   "#4c5a9c",
+   "#3a467e",
+   "#2c3664"
+  ],
+  "lower": [
+   "#2c2c62",
+   "#22224e",
+   "#18183a"
+  ],
+  "why": "The French curve cut the ring's outer edge clean; the band drops sheer into the void."
+ },
+ "lighting": {
+  "time": "low raking starlight across the ring plane from the flare",
+  "ambient": 0.64,
+  "sun": 0.48,
+  "tint": "#e4f0ff",
+  "bg": "#0c1024",
+  "why": "The asteroids cast sharp directional shadows on the ring (ANALYSIS.details); a low hard light from the flare side makes every rock throw one."
+ },
+ "figure_pose": {
+  "pose": "ringed planet: the eye as a globe with its iris facing the camera, a tilted ring of pale blocks orbiting it, the flare bursting at the ring root.",
+  "action": "orbiting still",
+  "facing": "camera",
+  "why": "ANALYSIS.subject.what: a macroscopic eye that transforms into a ringed planet."
+ },
+ "approach": {
+  "from": "the thin tail of the ring in the south-west",
+  "passes": [
+   "groove-lane",
+   "ring-asteroid",
+   "curve-template-gate",
+   "flare-spike",
+   "shepherd-moon"
+  ],
+  "shape": "One long arc along the band, never leaving it, rising two tiers to the planet at the far end."
+ },
+ "threshold": {
+  "kind": "A gate of two French-curve stencil templates standing across the band.",
+  "prop": "curve-template-gate"
+ },
+ "analysis": "pipeline/seed/analysis/cosmos.json",
+ "concept": {
+  "name": "aspect-ringway",
+  "lens": "ringway",
+  "round": 5,
+  "lean": "medium",
+  "fragment": "Round 5, hand-authored by the build agent from pipeline/seed/analysis/cosmos.json and pipeline/seed/cosmos.png while the analyzer is offline (402)."
+ }
+}
