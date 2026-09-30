@@ -1,0 +1,1307 @@
+{
+ "source": {
+  "art": "pipeline/seed/sharkbear.png",
+  "width": 1536,
+  "height": 2048,
+  "model": "gemini-3.8-flash",
+  "date": "2026-09-29"
+ },
+ "mood": [
+  "predatory",
+  "stalking",
+  "chimeric",
+  "coastal",
+  "sinuous",
+  "tense"
+ ],
+ "observations": [
+  {
+   "what": "Triangular dorsal fin crest extending vertically from the upper cervicothoracic spine",
+   "box": [
+    50,
+    130,
+    310,
+    390
+   ],
+   "maps_to": "dorsal-ridge-spire"
+  },
+  {
+   "what": "Smooth, high-value unshaded shark cranial cowl curving downward toward the snout",
+   "box": [
+    70,
+    40,
+    560,
+    380
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Open toothy selachian jaw with exposed serrated teeth and dark interior shading",
+   "box": [
+    420,
+    125,
+    600,
+    290
+   ],
+   "maps_to": "jaw-crevasse-marker"
+  },
+  {
+   "what": "Dark almond-shaped sunken eye slit set into the smooth cranial hood",
+   "box": [
+    430,
+    220,
+    500,
+    295
+   ],
+   "maps_to": "F"
+  },
+  {
+   "what": "Three dark vertical graphite gill slits behind the jaw hinge on the neck",
+   "box": [
+    360,
+    320,
+    480,
+    380
+   ],
+   "maps_to": "rib-arch-gate"
+  },
+  {
+   "what": "Dense arched quadrupedal back and torso covered in rough, directional fur strokes",
+   "box": [
+    120,
+    280,
+    520,
+    710
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Left forelimb planted heavily forward ending in four rounded digitigrade paw pads",
+   "box": [
+    550,
+    80,
+    790,
+    275
+   ],
+   "maps_to": "G"
+  },
+  {
+   "what": "Muscular right foreleg stepping inward with thick fur contours and broad paw base",
+   "box": [
+    360,
+    300,
+    825,
+    520
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Heavy rear haunch and hind leg braced backward against the lower terrain",
+   "box": [
+    200,
+    550,
+    680,
+    865
+   ],
+   "maps_to": "R"
+  },
+  {
+   "what": "Long, thick fin-rimmed tail sweeping in an S-curve along the beast's right flank",
+   "box": [
+    240,
+    720,
+    850,
+    960
+   ],
+   "maps_to": "caudal-sweep-berm"
+  },
+  {
+   "what": "Sharply pointed crescent caudal fin tip curling along the bottom foreground edge",
+   "box": [
+    710,
+    295,
+    935,
+    765
+   ],
+   "maps_to": "P"
+  },
+  {
+   "what": "Untouched off-white paper ground framing the entire creature silhouette",
+   "box": [
+    0,
+    0,
+    1000,
+    1000
+   ],
+   "maps_to": "V"
+  }
+ ],
+ "palette": {
+  "measured": [
+   {
+    "hex": "#e0e0e0",
+    "share": 0.215,
+    "role": "unworked paper ground in the margins and highlights on the cranial dome"
+   },
+   {
+    "hex": "#c4c4c4",
+    "share": 0.171,
+    "role": "ambient paper tone and soft tonal wash across the tail surface"
+   },
+   {
+    "hex": "#d2d2d2",
+    "share": 0.162,
+    "role": "subtle mid-light shading on the forehead ridge and tail fin plane"
+   },
+   {
+    "hex": "#b3b3b3",
+    "share": 0.107,
+    "role": "light midtone graphite hatching along the upper flanks"
+   },
+   {
+    "hex": "#9e9e9e",
+    "share": 0.102,
+    "role": "primary midtone shading across the bristled fur body"
+   },
+   {
+    "hex": "#626262",
+    "share": 0.089,
+    "role": "deep core shading under the chest, belly, and upper joints"
+   },
+   {
+    "hex": "#848484",
+    "share": 0.089,
+    "role": "transitional shadow values along the limbs and hindquarter"
+   },
+   {
+    "hex": "#3c3c3c",
+    "share": 0.066,
+    "role": "maximum value graphite lines in the mouth interior, eye socket, paw creases, and underbelly crevice"
+   }
+  ],
+  "translation": {
+   "bg": "#22272e",
+   "grass": {
+    "top": "#82b85a",
+    "fringe": "#669c42",
+    "fringeDark": "#4d7a2f",
+    "speck": "#9cd474"
+   },
+   "sand": {
+    "top": "#e6bb45",
+    "lip": "#c4982b",
+    "edge": "#a87e1a",
+    "dots": "#fae075"
+   },
+   "dirt": {
+    "top": "#d9ab5b",
+    "patch": "#bf8f41",
+    "mottle": "#9e712a",
+    "border": "#7d5519"
+   },
+   "stone": {
+    "top": "#cfcfc8",
+    "pebble": "#e2e2dc",
+    "pebbleShade": "#a8a89f",
+    "rim": "#85857c"
+   },
+   "cliffUpper": {
+    "left": "#a87158",
+    "right": "#87533e",
+    "seam": "#693b2a"
+   },
+   "cliffLower": {
+    "left": "#87533e",
+    "right": "#693b2a",
+    "seam": "#4d291c",
+    "speck": "#3d1e13"
+   },
+   "water": {
+    "top": "#5dd5ea",
+    "bubble": "#a3effa",
+    "deep": "#19a3bd",
+    "fall": [
+     "#28bbd6",
+     "#1ca4bd",
+     "#128ca2"
+    ],
+    "foam": "#dcf9fd"
+   },
+   "wood": {
+    "light": "#e87820",
+    "mid": "#c45c10",
+    "dark": "#9c4205",
+    "shadow": "#732c00",
+    "end": "#f3c672"
+   },
+   "treeMint": [
+    "#4ec98b",
+    "#3ca670",
+    "#2a7d52"
+   ],
+   "treeLime": [
+    "#9cd474",
+    "#78b350",
+    "#5a8c39"
+   ],
+   "treeLeaf": [
+    "#67b84d",
+    "#4f9438",
+    "#387024"
+   ],
+   "treeTeal": [
+    "#1dc49e",
+    "#149e7e",
+    "#0d785e",
+    "#085743"
+   ],
+   "treeGold": [
+    "#e6bb45",
+    "#c4982b",
+    "#9c7317"
+   ],
+   "trunk": [
+    "#965241",
+    "#73392b"
+   ],
+   "rock": [
+    "#d9d9d4",
+    "#babab4",
+    "#94948e",
+    "#6b6b66"
+   ],
+   "wellStone": [
+    "#cfcfc8",
+    "#a8a89f",
+    "#85857c"
+   ],
+   "flowerOrange": [
+    "#e87820",
+    "#e6bb45"
+   ],
+   "berry": [
+    "#d9435f",
+    "#b32b44"
+   ],
+   "bushTeal": [
+    "#52d9b2",
+    "#34ab89",
+    "#218266"
+   ],
+   "gold": [
+    "#f0c438",
+    "#cf9e1d",
+    "#fae075"
+   ]
+  },
+  "notes": "The monochrome graphite drawing is translated into a cool, wind-scoured maritime tundra palette with muted golden sand moraine tops, crisp bleached-stone cranial markers, and cold dark slate cliff underpinnings set against a deep oceanic dusk void."
+ },
+ "motifs": [
+  {
+   "name": "dorsal-ridge-spire",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.1,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     7,
+     1
+    ],
+    [
+     8,
+     1
+    ]
+   ],
+   "where": "Erected along the highest northern ridge where the creature's dorsal shark fin peaks above the arched spine.",
+   "role": "mass",
+   "shape": {
+    "summary": "A tall, sharp low-poly cartilaginous fin monolith standing upright on a faceted stone plinth.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.8,
+       0.3,
+       0.8,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#85857c"
+      ]
+     },
+     {
+      "prim": "box",
+      "dims": [
+       0.3,
+       1.2,
+       0.6
+      ],
+      "at": [
+       0,
+       0.3,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.35,
+       0.04,
+       0.9,
+       6
+      ],
+      "at": [
+       0,
+       1.3,
+       -0.1
+      ],
+      "rot": [
+       -12,
+       0,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#94948e"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0,
+       0.3,
+       0.3
+      ],
+      "to": [
+       0,
+       1.8,
+       -0.15
+      ],
+      "tones": [
+       "#fae075",
+       "#c4982b",
+       "#9c7317"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "rib-arch-gate",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 1.7,
+   "passable": true,
+   "count": 2,
+   "cells": [
+    [
+     8,
+     6
+    ],
+    [
+     13,
+     6
+    ]
+   ],
+   "where": "Straddling the main pathway, marking the structural transition into the creature's inner lair like the dark gill slits behind the jaw.",
+   "role": "threshold",
+   "shape": {
+    "summary": "Three curved bone-like selachian rib struts arching over a stepped pebble threshold.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.9,
+       0.15,
+       0.9,
+       0.06
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#85857c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       -0.35,
+       0.15,
+       -0.2
+      ],
+      "to": [
+       0,
+       1.6,
+       -0.2
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       0.35,
+       0.15,
+       -0.2
+      ],
+      "to": [
+       0,
+       1.6,
+       -0.2
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#85857c"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       -0.35,
+       0.15,
+       0.2
+      ],
+      "to": [
+       0,
+       1.45,
+       0.2
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.1
+      ],
+      "at": [
+       0.35,
+       0.15,
+       0.2
+      ],
+      "to": [
+       0,
+       1.45,
+       0.2
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#85857c"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "caudal-sweep-berm",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.8,
+   "passable": false,
+   "count": 3,
+   "cells": [
+    [
+     13,
+     3
+    ],
+    [
+     13,
+     4
+    ],
+    [
+     14,
+     5
+    ]
+   ],
+   "where": "Tracing the sweeping curve of the tail fin contour along the eastern edge of the plateau.",
+   "role": "approach",
+   "shape": {
+    "summary": "An elongated, low-slung earthen fin berm capped with pale shark cartilage pebbles.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.45,
+       0.95,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d9ab5b",
+       "#bf8f41",
+       "#7d5519"
+      ]
+     },
+     {
+      "prim": "prism",
+      "dims": [
+       0.4
+      ],
+      "outline": [
+       [
+        -0.2,
+        -0.4
+       ],
+       [
+        0.3,
+        -0.2
+       ],
+       [
+        0.1,
+        0.4
+       ],
+       [
+        -0.3,
+        0.3
+       ]
+      ],
+      "at": [
+       0,
+       0.45,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.18,
+       0.6
+      ],
+      "at": [
+       0.15,
+       0.7,
+       -0.1
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#6b6b66"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "jaw-crevasse-marker",
+   "type": "new",
+   "variant_of": null,
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.6,
+   "passable": false,
+   "count": 1,
+   "cells": [
+    [
+     6,
+     3
+    ]
+   ],
+   "where": "Located directly beside the head at row 4, col 2, translating the jagged toothy maw.",
+   "role": "detail",
+   "shape": {
+    "summary": "A cluster of jagged white enamel stone teeth protruding upward from a dark soil pit.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.85,
+       0.2,
+       0.85,
+       0.08
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#4d291c",
+       "#3d1e13",
+       "#22272e"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.14,
+       0.02,
+       0.45,
+       4
+      ],
+      "at": [
+       -0.2,
+       0.2,
+       -0.2
+      ],
+      "rot": [
+       0,
+       45,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.16,
+       0.02,
+       0.5,
+       4
+      ],
+      "at": [
+       0.1,
+       0.2,
+       -0.1
+      ],
+      "rot": [
+       0,
+       30,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.12,
+       0.02,
+       0.4,
+       4
+      ],
+      "at": [
+       -0.1,
+       0.2,
+       0.2
+      ],
+      "rot": [
+       0,
+       60,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "rock-big",
+   "type": "rock-big",
+   "variant_of": "rock-big",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 0.9,
+   "passable": false,
+   "count": 2,
+   "cells": [
+    [
+     10,
+     1
+    ],
+    [
+     12,
+     2
+    ]
+   ],
+   "where": "Anchoring the heavy shoulder and rear rump mass on the upper plateau.",
+   "role": "mass",
+   "shape": {
+    "summary": "Bulky stacked moraine boulders reflecting the heavy rounded joints of the beast.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.9,
+       0.5,
+       0.8,
+       0.12
+      ],
+      "at": [
+       0,
+       0,
+       0
+      ],
+      "tones": [
+       "#d9d9d4",
+       "#babab4",
+       "#94948e"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.38,
+       0.8
+      ],
+      "at": [
+       -0.1,
+       0.5,
+       0.1
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#85857c"
+      ]
+     },
+     {
+      "prim": "ball",
+      "dims": [
+       0.28,
+       0.75
+      ],
+      "at": [
+       0.2,
+       0.45,
+       -0.15
+      ],
+      "tones": [
+       "#babab4",
+       "#94948e",
+       "#6b6b66"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "creatures": [
+  {
+   "name": "shark-bear-stalker",
+   "source": "The chimeric apex predator stalking in a three-quarter crouch across the sketch",
+   "becomes": "npc",
+   "type": "new",
+   "footprint": [
+    1,
+    1
+   ],
+   "height": 2.4,
+   "pose": "Prowling in a tense three-quarter crouch, broad paws planted, skull turned toward the approach with serrated jaw parted and tail fin sweeping forward.",
+   "cell": [
+    6,
+    4
+   ],
+   "facing": "s",
+   "why": "Stands directly at the focal prowl position identified in the composition analysis.",
+   "shape": {
+    "summary": "Chunky toy chimera combining a woolly dark-furred quadruped torso and paws with a sleek bone-white shark head, dorsal crest, and caudal tail.",
+    "parts": [
+     {
+      "prim": "rbox",
+      "dims": [
+       0.75,
+       0.55,
+       0.9,
+       0.12
+      ],
+      "at": [
+       0,
+       0.55,
+       0
+      ],
+      "tones": [
+       "#bf8f41",
+       "#9e712a",
+       "#7d5519"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.65,
+       0.5,
+       0.6,
+       0.1
+      ],
+      "at": [
+       0,
+       0.95,
+       -0.2
+      ],
+      "tones": [
+       "#d9ab5b",
+       "#bf8f41",
+       "#7d5519"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.32,
+       0.08,
+       0.65,
+       8
+      ],
+      "at": [
+       0,
+       1.25,
+       -0.5
+      ],
+      "rot": [
+       -25,
+       0,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.15,
+       0.02,
+       0.5,
+       5
+      ],
+      "at": [
+       0,
+       1.35,
+       -0.15
+      ],
+      "rot": [
+       -15,
+       0,
+       0
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#94948e"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       0.6,
+       8
+      ],
+      "at": [
+       -0.3,
+       0,
+       -0.3
+      ],
+      "tones": [
+       "#9e712a",
+       "#7d5519",
+       "#4d291c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.16,
+       0.6,
+       8
+      ],
+      "at": [
+       0.3,
+       0,
+       -0.2
+      ],
+      "tones": [
+       "#9e712a",
+       "#7d5519",
+       "#4d291c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       0.65,
+       8
+      ],
+      "at": [
+       -0.28,
+       0,
+       0.35
+      ],
+      "tones": [
+       "#9e712a",
+       "#7d5519",
+       "#4d291c"
+      ]
+     },
+     {
+      "prim": "cyl",
+      "dims": [
+       0.18,
+       0.65,
+       8
+      ],
+      "at": [
+       0.28,
+       0,
+       0.35
+      ],
+      "tones": [
+       "#9e712a",
+       "#7d5519",
+       "#4d291c"
+      ]
+     },
+     {
+      "prim": "rbox",
+      "dims": [
+       0.45,
+       0.18,
+       0.35,
+       0.06
+      ],
+      "at": [
+       0,
+       0.95,
+       -0.55
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#6b6b66"
+      ]
+     },
+     {
+      "prim": "beam",
+      "dims": [
+       0.08
+      ],
+      "at": [
+       0.1,
+       0.7,
+       0.45
+      ],
+      "to": [
+       0.55,
+       0.45,
+       0.9
+      ],
+      "tones": [
+       "#cfcfc8",
+       "#a8a89f",
+       "#85857c"
+      ]
+     },
+     {
+      "prim": "cone",
+      "dims": [
+       0.18,
+       0.02,
+       0.6,
+       4
+      ],
+      "at": [
+       0.55,
+       0.35,
+       0.9
+      ],
+      "rot": [
+       0,
+       45,
+       30
+      ],
+      "tones": [
+       "#e2e2dc",
+       "#cfcfc8",
+       "#a8a89f"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "composition": {
+  "legend": {
+   "G": "ground",
+   "R": "raised ground (plateau, one or more blocks above G)",
+   "W": "water",
+   "V": "void (no land, background shows)",
+   "T": "vegetation (trees, bushes, roots)",
+   "F": "the figure or focal creature",
+   "P": "path"
+  },
+  "grid": [
+   "VVVVVVVVVVVVVVVV",
+   "VVVVVGGGGGGGVVVV",
+   "VVGRRRRRRRRGGVVV",
+   "VGGRRRRRRRRGGGVV",
+   "VGGRRRFFRRGGGGVV",
+   "VGGRRRFFRRGRRGGV",
+   "VGGGRRPRRRGGGGGV",
+   "VVGGRRPRRRGGGGGV",
+   "VVVGGGPGGGGGGGVV",
+   "VVVGGGPPGGGGGVVV",
+   "VVVVVVVPPPGGGVVV",
+   "VVVVVVVVVVVVVVVV"
+  ],
+  "heights": [
+   "0000000000000000",
+   "0000011111110000",
+   "0012322222211000",
+   "0112333333211100",
+   "0112333332111100",
+   "0112333332122110",
+   "0111233332111110",
+   "0011222222111110",
+   "0001111111111100",
+   "0001111111111000",
+   "0000000111111000",
+   "0000000000000000"
+  ],
+  "focal": {
+   "x": 6,
+   "z": 4,
+   "what": "apex predator shark-bear crouched at the brow of the moraine"
+  },
+  "mass": "Visual weight pools heavily across the north-central high ridge [cols 3-8, rows 2-5] where the arched spine peaks at tier 3, sloping southward into the looping tail pathway.",
+  "read": "The level enters from the southern shore along a sweeping S-curve path mimicking the long tail fin sweep in the drawing. As the eye ascends the winding moraine path, it is guided around the eastern flank through rib gates toward the western headland where the beast waits poised over the void.",
+  "shaped": {
+   "name": "mound",
+   "params": {
+    "peak": [
+     0.38,
+     0.35
+    ],
+    "height": 3,
+    "spread": 1.05,
+    "lobes": 2
+   },
+   "seed": 1,
+   "start": [
+    9,
+    10
+   ],
+   "pool": 0,
+   "bridge": [],
+   "model_grid": [
+    "VVVVVVVVVVVVVVVV",
+    "VVVGGGGVVVVVVVVV",
+    "VVGRRRRRGGVVVVVV",
+    "VGRRRRRRRRGGVVVV",
+    "VGRRRRRRRRRGVVVV",
+    "VGFRRRRRRRRGVVVV",
+    "VGGRRRRRRRRGGVVV",
+    "VGTPRPRRRPTGGVVV",
+    "VGPPPGGGPPPGVVVV",
+    "VVGPPPPPPPGGVVVV",
+    "VVVGTTPPTTGVVVVV",
+    "VVVVVVGGGVVVVVVV"
+   ]
+  }
+ },
+ "biome": {
+  "trees": {
+   "density": 0.08,
+   "types": [
+    {
+     "type": "rock-big",
+     "variant": "0",
+     "weight": 0.6
+    },
+    {
+     "type": "dorsal-ridge-spire",
+     "variant": "0",
+     "weight": 0.4
+    }
+   ]
+  },
+  "water_share": 0,
+  "plateau_share": 0,
+  "void_share": 0.42,
+  "decor_weights": {
+   "rock": 0.4,
+   "caudal-sweep-berm": 0.3,
+   "jaw-crevasse-marker": 0.1,
+   "rib-arch-gate": 0.2
+  },
+  "lighting": {
+   "bg": "#313f52",
+   "ambient": 0.72,
+   "sun": 0.28,
+   "tint": "#d2d8e0",
+   "notes": "overcast sea-spray glare with deep graphite crevice drop: Translates the high-key off-white paper background into a bright diffuse ambient skylight while keeping deep, crisp drop values in the cliff creases."
+  },
+  "rules": [
+   "Keep the highest tier 3 blocks concentrated in rows 2 to 5 matching the arched torso mass.",
+   "Sweep all P path cells in a smooth arc from row 10 up to the western headland at row 5.",
+   "Reserve pure white stone decor exclusively for dorsal crests and cranial markers along the spine."
+  ],
+  "decor_density": 0.14,
+  "surfaces": {
+   "ground": "sand",
+   "raised": "dirt",
+   "path": "stone",
+   "shore": "sand",
+   "mist": null
+  }
+ },
+ "lens": {
+  "aspect": "composition.mass and composition.flow_lines",
+  "place": "An elevated wind-scoured coastal moraine where an apex chimera stalks along a crescent spine ridge above the ocean void.",
+  "summary": "A massive arched mound whose structural spine and sweeping caudal causeway directly replicate the prowling silhouette of the drawing.",
+  "differs": "Unlike the fractured planar slate moraine of the medium reading, this layout directly translates the anatomical volume and curving gestural flow lines into continuous stepped terrain terraces and looping spine paths.",
+  "fixes": [
+   "surface_mix led with dirt after a sibling took sand",
+   "lighting.bg #22272e->#313f52"
+  ]
+ },
+ "shaper": {
+  "name": "mound",
+  "params": {
+   "peak": [
+    0.38,
+    0.35
+   ],
+   "height": 3,
+   "spread": 1.05,
+   "lobes": 2
+  },
+  "why": "Directly transcribes the heavy mass concentration at [0.38, 0.35] where the arched back reaches its apex, throwing lobes outward toward the planted front limb and the long caudal tail sweep."
+ },
+ "surface_mix": {
+  "pattern": "bands",
+  "period": 2.5,
+  "surfaces": [
+   {
+    "s": "sand",
+    "share": 0.3
+   },
+   {
+    "s": "dirt",
+    "share": 0.55
+   },
+   {
+    "s": "stone",
+    "share": 0.15
+   }
+  ],
+  "why": "Bands of golden coastal sand and dark moraine dirt alternate parallel to the beast's arched body contours, accented with bleached cobble along the high paths."
+ },
+ "cliff_treatment": {
+  "style": "banded",
+  "upper": [
+   "#a87158",
+   "#87533e",
+   "#693b2a"
+  ],
+  "lower": [
+   "#87533e",
+   "#693b2a",
+   "#4d291c"
+  ],
+  "why": "Banded cliff faces separate the high dorsal moraine tier from the lower sand terrace, echoing the graphite value transition from midtone flanks to dark underbelly core shadows."
+ },
+ "lighting": {
+  "time": "overcast sea-spray glare with deep graphite crevice drop",
+  "ambient": 0.72,
+  "sun": 0.28,
+  "tint": "#d2d8e0",
+  "bg": "#313f52",
+  "why": "Translates the high-key off-white paper background into a bright diffuse ambient skylight while keeping deep, crisp drop values in the cliff creases."
+ },
+ "figure_pose": {
+  "pose": "Prowling in a tense three-quarter crouch, broad paws planted, skull turned toward the approach with serrated jaw parted and tail fin sweeping forward.",
+  "action": "stalking coiled",
+  "facing": "camera",
+  "why": "Matches the subject's poised, predatory gait where weight is distributed forward immediately prior to lunging."
+ },
+ "approach": {
+  "from": "south",
+  "passes": [
+   "caudal crescent shore",
+   "sweeping sand tail ramp",
+   "rib-arch-gate",
+   "prowling cranial bluff"
+  ],
+  "shape": "A broad ascending S-curve rising from the southern void lip and coiling clockwise up to the predator's headland."
+ },
+ "threshold": {
+  "kind": "A selachian bone gateway of arching rib struts spanning the narrowing moraine path.",
+  "prop": "rib-arch-gate"
+ },
+ "analysis": "pipeline/seed/analysis/sharkbear.json",
+ "concept": {
+  "name": "lens-composition",
+  "lens": "composition",
+  "fragment": "LENS \"composition\": the drawing's STRUCTURE becomes the terrain literally. Start from ANALYSIS.composition. The main mass becomes the highest land, placed where it sits in the frame; the flow lines become the path and the ridges, running the same way; the negative space becomes void (bays and gaps cut into the island) or open ground; symmetry or its absence decides \"symmetric\" versus an asymmetric shaper; scale cues decide how big the figure stands against the land. Choose the shaper and its params as a transcription: peak, center, from, ratio, split, turns and hand must be read off the frame positions in the analysis (x left to right 0..1, z top to bottom 0..1). Map picture to plan this way: the top of the frame is the far rim (row 0), the bottom is the near rim (row 11). Lighting follows ANALYSIS.palette.value_structure: where the lights and darks fall becomes where sun and shadow fall, and a high-key or low-key picture sets ambient. The figure stands at the focal point and its pose repeats the drawing's main gesture line. Palette follows the value map: the surfaces are ranked by value as the picture's areas are (the emptiest area becomes the palest surface, the densest the darkest), with the piece's accent hue kept for the focal point and its threshold. Props mark the structure: posts along a flow line, a gap where the negative space opens, a counterweight at the second mass."
+ }
+}
