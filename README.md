@@ -75,6 +75,10 @@ Round 4 replaced those with readings derived from each artwork: a deep read per 
 
 Round 5 rebuilt forest and cosmos with five aspect-derived readings each (`forest-tooth`, `-lift`, `-volute`, `-trunks`, `-roots`; `cosmos-frisket`, `-ringway`, `-lashline`, `-veinfield`, `-nebula`), authored by the build agents while the Gemini account was out of credits. Sheet `out/final/round5-sheet.jpg`, table under Round 5 results in `docs/RUN.md`.
 
+## Refinement
+
+A fourth stage after brief, build, and critic, planned in `docs/REFINEMENT.md` with the lane research under `docs/refinement/`. Four stages landed, each proven on one island and judged on a before-and-after card: wind (baked vertex sway on crowns, flames, water, waterfall bands, mist, and pickups; frozen at `hero=0`; draw calls unchanged), stamps (a per-cell mask schema and arch, bridge-span, canopy, fence-run, and road-run stamps placed by the finish helpers; proven on `ember-subject`), the style bible (`docs/STYLE.md`, `3d/prims.js`, creatures rebuilt from the pack-style reference sheets in `pipeline/refsheets/`; proven on `cat-medium`), and things (`core/interact.js`: bonfire, chest, gate, elevator, watcher; E or Enter or tap; proven on `wizard-medium`). Commands and numbers per stage are under the Refinement headings in `docs/RUN.md`; `tools/clip.mjs` captures motion clips, `tools/cohesion.mjs` prints the cohesion metrics, `tools/qa-things.mjs` drives the interactions.
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.

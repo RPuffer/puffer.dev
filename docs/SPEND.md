@@ -189,4 +189,6 @@ Total: $2.835
 2026-10-01 | refine stage 3 stamps | gemini-3.8-flash | 12 | 0.0660 | critic rounds 1 and 2 on ember-subject at 351 and 900
 2026-10-01 | refine stage 2 style bible | gemini-3.8-flash | 6 | 0.0380 | critic round 1 on cat-medium at 351 and 900
 
-Running total: $30.791
+2026-10-01 | refine stage 4 things | gemini-3.8-flash | 15 | 0.1080 | critic rounds on wizard-medium at 351 and 900
+
+Running total: $30.899
