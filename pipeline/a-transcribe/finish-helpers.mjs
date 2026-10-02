@@ -1,5 +1,6 @@
-import { CATALOG } from "../../core/catalog.js";
-import { reachability } from "../../core/procgen.js";
+import { CATALOG, maskCells, blockedCells } from "../../core/catalog.js";
+import { reachability, frameView } from "../../core/procgen.js";
+import { makeProjection } from "../../core/iso.js";
 import { DIRS, OPPOSITE, canStep } from "../../core/level.js";
 
 const N4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
@@ -32,7 +33,7 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
   const put = (t, x, z, o = {}) => {
     if (!CATALOG[t]) { log.push(`put ${t}: not in catalog`); return false; }
     const d = { t, x, z, v: o.v ?? 0, rot: o.rot ?? 0, ox: o.ox ?? 0, oz: o.oz ?? 0 };
-    for (const [a, b] of footprint(d)) { const c = cell(a, b); if ((!land(c) || c.s === "ramp") && t !== "waterfall") { log.push(`put ${t} ${x},${z}: not on flat land`); return false; } }
+    for (const m of maskCells(t, x, z, d.rot)) { const c = cell(m.x, m.z); if (m.span ? !c || !["bridge", "water", "none"].includes(c.s) : (!land(c) || c.s === "ramp" || (CATALOG[t].stamp && c.s === "bridge")) && t !== "waterfall") { log.push(`put ${t} ${x},${z}: ${m.span ? "span needs bridge, water or void" : "not on flat land"}`); return false; } }
     if (o.keep && footprint(d).some(([a, b]) => decorAt(a, b).some((e) => e !== lead && o.keep.includes(e.t)))) return false;
     for (const [a, b] of footprint(d)) clear(a, b);
     for (const k of Object.keys(o)) if (!(k in d)) d[k] = o[k];
@@ -41,7 +42,7 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
   };
   const blockedSet = () => {
     const s = new Set();
-    for (const d of level.decor) if (!CATALOG[d.t]?.passable && d.t !== "waterfall") for (const [a, b] of footprint(d)) s.add(key(a, b));
+    for (const d of level.decor) if (CATALOG[d.t] && d.t !== "waterfall") for (const [a, b] of blockedCells(d)) s.add(key(a, b));
     return s;
   };
   const reach = () => reachability({ ...level, blocked: blockedSet() });
@@ -184,7 +185,8 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     }
     if (!use.length) return 0;
     const snap = level.decor.slice(), miss0 = o.miss0 ?? reach().missing.length;
-    for (const [a, b, side] of use) put(t, a, b, { v: o.v ?? 0, rot: o.rot ?? 0, side: o.pair ? side : undefined, axis, gapX: x, gapZ: z });
+    if (o.stamp) put(o.stamp, axis === "z" ? x - 1 : x, axis === "z" ? z : z - 1, { rot: axis === "z" ? 0 : 1, gapX: x, gapZ: z });
+    else for (const [a, b, side] of use) put(t, a, b, { v: o.v ?? 0, rot: o.rot ?? 0, side: o.pair ? side : undefined, axis, gapX: x, gapZ: z });
     if (o.safe !== false && reach().missing.length > miss0) {
       level.decor.length = 0; level.decor.push(...snap);
       snapC.forEach((row, zz) => row.forEach((c, xx) => { level.cells[zz][xx] = c; }));
@@ -200,7 +202,8 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     const figDist = ([x, z]) => Math.min(...figCells.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
     const order = r.map((c, i) => [c, i]).filter(([c, i]) => i > 0 && i < r.length - 1 && figDist(c) >= 1 && cell(...c).s !== "ramp").sort((a, b) => (figDist(a[0]) > (o.figGap ?? 2) ? 0 : 50) + (figDist(a[0]) > 1 ? 0 : 50) + Math.abs(a[1] - want) - (figDist(b[0]) > (o.figGap ?? 2) ? 0 : 50) - (figDist(b[0]) > 1 ? 0 : 50) - Math.abs(b[1] - want));
     const miss0 = reach().missing.length;
-    for (const [shape, fill] of [[false, false], [true, false], [true, o.fill !== false]]) for (const [at] of o.at ? [[o.at]] : order) if (flank(at[0], at[1], t, { ...o, route: r, pair: true, shape, fill, miss0 })) { log.push(`gate ${t} flanking ${at}${fill ? " (flanks built up)" : shape ? " (flanks levelled)" : ""}`); return at; }
+    const st = o.stamp === false ? null : o.stamp || (CATALOG.arch?.stamp ? "arch" : null);
+    for (const [shape, fill] of [[false, false], [true, false], [true, o.fill !== false]]) for (const [at] of o.at ? [[o.at]] : order) if (flank(at[0], at[1], t, { ...o, route: r, pair: true, shape, fill, miss0, stamp: st })) { log.push(`gate ${st || t} ${st ? "spanning" : "flanking"} ${at}${fill ? " (flanks built up)" : shape ? " (flanks levelled)" : ""}`); return at; }
     log.push(`gate ${t}: no cell on the route with two flat flanks`);
     return null;
   };
@@ -262,6 +265,7 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
       for (let z = 1; z < D - 1; z++) for (let x = 1; x < W - 1; x++) {
         const c = cell(x, z);
         if (!c || c.s !== "none") continue;
+        if (N4.some(([dx, dz]) => decorAt(x + dx, z + dz).some((e) => CATALOG[e.t]?.attach === "edge"))) continue;
         const nb = N4.map(([dx, dz]) => cell(x + dx, z + dz)).filter((q) => land(q) && q.s !== "ramp");
         if (!nb.length) continue;
         const h = Math.min(...nb.map((q) => q.h));
@@ -392,7 +396,218 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     log.push(`pruneRamps ${n}`);
     return n;
   };
+
+  const snapshot = () => ({ cells: level.cells.map((row) => row.map((c) => ({ ...c }))), decor: level.decor.slice() });
+  const restore = (S) => { S.cells.forEach((row, z) => row.forEach((c, x) => { level.cells[z][x] = c; })); level.decor.length = 0; level.decor.push(...S.decor); };
+  const onList = (list) => { const s = new Set(list.map(([x, z]) => key(x, z))); return (x, z) => s.has(key(x, z)); };
+  const runsOf = (r) => {
+    const out = [];
+    let cur = [r[0]];
+    for (let i = 1; i < r.length; i++) {
+      const p = cur[cur.length - 1], q = r[i], dir = [q[0] - p[0], q[1] - p[1]];
+      const ok = cur.length < 2 || (dir[0] === p[0] - cur[cur.length - 2][0] && dir[1] === p[1] - cur[cur.length - 2][1]);
+      if (ok) cur.push(q); else { out.push(cur); cur = [p, q]; }
+    }
+    out.push(cur);
+    return out;
+  };
+  const stampAt = (t, cells, alongX) => {
+    const x = Math.min(...cells.map((c) => c[0])), z = Math.min(...cells.map((c) => c[1]));
+    const [w] = CATALOG[t].footprint;
+    return { x, z, rot: w > 1 === alongX ? 0 : 1 };
+  };
+
+  const bridge = (o = {}) => {
+    const r = o.route || approach();
+    if (r.length < 6) { log.push("bridge: route too short"); return null; }
+    const want = o.frac ?? 0.25, n = Math.max(1, Math.min(3, o.n ?? 1));
+    const have = r.map((c, i) => [c, i]).filter(([c]) => cell(...c).s === "bridge");
+    const fig2 = (x, z) => figCells.some(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) <= 2);
+    const tries = [];
+    if (have.length) tries.push(have[0][1]);
+    else for (let i = 2; i < r.length - n - 1; i++) tries.push(i);
+    tries.sort((a, b) => Math.abs(a / (r.length - 1) - want) - Math.abs(b / (r.length - 1) - want));
+    for (const i of tries) {
+      const seg = r.slice(i - 1, i + n + 1);
+      const dx = seg[1][0] - seg[0][0], dz = seg[1][1] - seg[0][1];
+      if (!seg.every((c, j) => j === 0 || (c[0] - seg[j - 1][0] === dx && c[1] - seg[j - 1][1] === dz))) continue;
+      const span = seg.slice(1, -1), h0 = cell(...seg[0]).h;
+      const S = snapshot();
+      if (!have.length) {
+        const stamped = (x, z) => decorAt(x, z).some((e) => CATALOG[e.t]?.stamp || e === lead);
+        if (!seg.every((c) => { const q = cell(...c); return land(q) && q.s !== "ramp" && q.s !== "bridge" && q.h === h0 && !isFig(...c) && !fig2(...c) && !stamped(...c); })) continue;
+        if (o.before != null && i + n > o.before - 1) continue;
+        const before = reach(), onR = onList(r);
+        for (const [x, z] of span) {
+          set(x, z, { h: h0, s: "bridge", m: o.m ?? "planks", w: o.void ? 0 : o.sunk ? 0 : h0 });
+          clear(x, z);
+          for (const sd of [-1, 1]) for (let k = 1; k <= (o.reach ?? 2); k++) {
+            const X = x + sd * dz * k, Z = z + sd * dx * k, q = cell(X, Z);
+            if (!land(q) || q.s === "ramp" || q.h !== h0 || onR(X, Z) || isFig(X, Z) || fig2(X, Z) || stamped(X, Z)) break;
+            const rim = N4.some(([ex, ez]) => { const e = cell(X + ex, Z + ez); return !e || e.s === "none"; });
+            if (rim && !o.split) break;
+            set(X, Z, o.void ? { h: 0, s: "none" } : { h: o.sunk ? 0 : h0, s: "water" });
+            clear(X, Z);
+          }
+        }
+        const after = reach();
+        const nr = onList(approach());
+        if (after.missing.length > before.missing.length || !span.every((c) => nr(...c))) { restore(S); continue; }
+      }
+      const at = stampAt(`bridge-span-${n}`, span, dx !== 0);
+      if (!CATALOG[`bridge-span-${n}`] || !put(`bridge-span-${n}`, at.x, at.z, { rot: dx !== 0 ? 1 : 0 })) { restore(S); continue; }
+      log.push(`bridge span ${n} at ${span.map((c) => c.join(",")).join(" ")} (route ${i}/${r.length - 1})`);
+      return span;
+    }
+    log.push("bridge: no straight level run to span");
+    return null;
+  };
+
+  const canopy = (o = {}) => {
+    const t = o.t || "canopy";
+    if (!CATALOG[t]) return null;
+    const r = o.route || approach(), onR = onList(r);
+    const fx = figCells.map((c) => c[0]), fz = figCells.map((c) => c[1]);
+    const fMax = Math.max(...figCells.map(([x, z]) => x + z)), fLat = (Math.min(...fx) + Math.max(...fx)) / 2 - (Math.min(...fz) + Math.max(...fz)) / 2;
+    const cand = [];
+    for (let z = 0; z < D - 1; z++) for (let x = 0; x < W - 1; x++) {
+      const cs = [[x, z], [x + 1, z], [x, z + 1], [x + 1, z + 1]], c0 = cell(x, z);
+      if (!cs.every(([a, b]) => { const q = cell(a, b); return land(q) && q.s !== "ramp" && q.s !== "bridge" && c0 && q.h === c0.h && !isFig(a, b) && !onR(a, b) && !decorAt(a, b).some((e) => e === lead || (o.keep || []).includes(e.t)); })) continue;
+      if ([[1, 0], [0, 1]].some(([dx, dz]) => cs.some(([a, b]) => { const q = cell(a + dx, b + dz); return !q || q.s === "none"; }))) continue;
+      const gap = Math.max(Math.max(0, Math.min(...fx) - (x + 1), x - Math.max(...fx)), Math.max(0, Math.min(...fz) - (z + 1), z - Math.max(...fz)));
+      if (gap < 1 || gap > (o.near ?? 3)) continue;
+      const inFront = cs.some(([a, b]) => a + b > fMax && Math.abs(a - b - fLat) <= 2.5);
+      if (inFront) continue;
+      cand.push([gap + Math.abs((x + z + 1) - (fMax - 1)) * 0.3 + (c0.h < (cell(...figure.anchor)?.h ?? 1) ? 0.5 : 0), x, z]);
+    }
+    cand.sort((a, b) => a[0] - b[0]);
+    for (const [, x, z] of cand) {
+      const S = snapshot(), m0 = reach().missing.length;
+      if (!put(t, x, z, { v: o.v ?? 0 })) { restore(S); continue; }
+      if (reach().missing.length > m0) { restore(S); continue; }
+      log.push(`canopy ${t} at ${x},${z}`);
+      return [x, z];
+    }
+    log.push(`canopy ${t}: no clear 2x2 near the figure`);
+    return null;
+  };
+
+  const fence = (o = {}) => {
+    const r = o.route || approach(), onR = onList(r);
+    const nearR = (x, z) => r.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) <= 1);
+    const free = (x, z) => { const q = cell(x, z); return land(q) && q.s !== "ramp" && q.s !== "bridge" && q.h >= (o.minH ?? 2) && !isFig(x, z) && !onR(x, z) && !decorAt(x, z).some((e) => e === lead || CATALOG[e.t]?.stamp || (o.keep || []).includes(e.t)); };
+    const drop = (x, z, dx, dz) => { const q = cell(x + dx, z + dz), c = cell(x, z); return !q || q.s === "none" || q.h < c.h; };
+    const runs = [];
+    for (const [dx, dz, rot] of [[0, 1, 0], [1, 0, 3]]) {
+      for (let a = 0; a < (dz ? D : W); a++) {
+        let cur = [];
+        const flush = () => { if (cur.length >= 2) runs.push({ cells: cur, rot, h: cell(...cur[0]).h, onLand: cur.every(([x, z]) => land(cell(x + dx, z + dz))) }); cur = []; };
+        for (let b = 0; b < (dz ? W : D); b++) {
+          const [x, z] = dz ? [b, a] : [a, b];
+          if (free(x, z) && drop(x, z, dx, dz) && (!cur.length || cell(...cur[0]).h === cell(x, z).h)) cur.push([x, z]); else flush();
+        }
+        flush();
+      }
+    }
+    const score = (run) => -Math.min(4, run.cells.length) - run.h * 0.5 + (run.cells.some(([x, z]) => nearR(x, z)) ? -2 : 0) + (run.onLand ? -3 : 0);
+    runs.sort((a, b) => score(a) - score(b));
+    let placed = 0;
+    for (const run of runs) {
+      if (placed >= (o.max ?? 1)) break;
+      const cells = run.cells.length > 4 ? run.cells.slice(0, 4) : run.cells;
+      for (let len = cells.length; len >= 2; len--) {
+        for (let off = 0; off + len <= cells.length; off++) {
+          const part = cells.slice(off, off + len), t = `fence-run-${len}`;
+          if (!CATALOG[t]) continue;
+          const x = Math.min(...part.map((c) => c[0])), z = Math.min(...part.map((c) => c[1]));
+          const S = snapshot(), m0 = reach().missing.length;
+          if (!put(t, x, z, { rot: run.rot })) { restore(S); continue; }
+          if (reach().missing.length > m0) { restore(S); continue; }
+          log.push(`fence ${t} at ${part.map((c) => c.join(",")).join(" ")} rot ${run.rot}`);
+          placed++;
+          len = 0;
+          break;
+        }
+      }
+    }
+    if (!placed) log.push("fence: no plateau edge run");
+    return placed;
+  };
+
+  const road = (o = {}) => {
+    const r = o.route || approach();
+    let n = 0;
+    const lim = o.until ?? r.length;
+    for (const run of runsOf(r.slice(0, lim))) {
+      if (n >= (o.max ?? 2)) break;
+      if (run.length < 2) continue;
+      const ok = run.filter(([x, z]) => { const c = cell(x, z); return c.s === surf.path && !decorAt(x, z).length && !isFig(x, z); });
+      const parts = [];
+      let cur = [];
+      for (const c of run) { if (ok.includes(c) && (!cur.length || cell(...cur[0]).h === cell(...c).h)) cur.push(c); else { if (cur.length >= 2) parts.push(cur); cur = ok.includes(c) ? [c] : []; } }
+      if (cur.length >= 2) parts.push(cur);
+      for (const p of parts) {
+        if (n >= (o.max ?? 2)) break;
+        const seg = p.slice(0, 4), t = `road-run-${seg.length}`;
+        if (!CATALOG[t]) continue;
+        const alongX = seg[1][0] !== seg[0][0];
+        const at = stampAt(t, seg, alongX);
+        if (put(t, at.x, at.z, { rot: at.rot })) { n++; log.push(`road ${t} at ${seg.map((c) => c.join(",")).join(" ")}`); }
+      }
+    }
+    return n;
+  };
+
+  const readability = (o = {}) => {
+    const r = o.route || approach();
+    const bl = blockedSet(), stuck = r.filter(([x, z], i) => bl.has(key(x, z)) || (i > 0 && !canStep({ ...level, blocked: bl }, r[i - 1][0], r[i - 1][1], DIR_OF(x - r[i - 1][0], z - r[i - 1][1]))));
+    if (stuck.length) log.push(`readability: route cannot walk ${stuck.map((c) => c.join(",")).join(" ")}`);
+    const view = o.view || level.view || frameView(level).view;
+    const proj = makeProjection(view), T = view.tileH;
+    const covered = new Map();
+    for (const d of level.decor) if (CATALOG[d.t]?.mask) for (const m of maskCells(d.t, d.x, d.z, d.rot || 0)) if (m.pass) covered.set(key(m.x, m.z), d.t);
+    const onPath = r.filter(([x, z]) => { const c = cell(x, z); return c.s === surf.path || c.s === "bridge" || covered.has(key(x, z)); }).length;
+    const gateT = o.gate || "arch";
+    const gi = r.findIndex(([x, z]) => decorAt(x, z).some((d) => d.t === gateT));
+    const blocked = blockedSet();
+    let flanks = false;
+    if (gi > 0) {
+      const [x, z] = r[gi], p = r[gi - 1], ax = p[0] !== x;
+      flanks = (ax ? [[x, z - 1], [x, z + 1]] : [[x - 1, z], [x + 1, z]]).every(([a, b]) => blocked.has(key(a, b)));
+    }
+    const sc = (x, y, z) => proj.project(x, y, z);
+    const top = (x, z, extra = 0) => sc(x + 0.5, (cell(x, z)?.h || 0) * T + extra, z + 0.5);
+    const centre = sc(...view.center);
+    const [ax, az] = figure.anchor, fc = sc(ax + 1, (cell(ax, az)?.h || 0) * T + 1.2, az + 1);
+    const zoom = view.zoom || 1, fw = o.frame?.[0] ?? 351, fh = o.frame?.[1] ?? 390;
+    const fxs = (fc.sx - centre.sx) * zoom / fw + 0.5, fys = 0.5 + (fc.sy - centre.sy) * zoom / fh;
+    const figH = CATALOG[lead?.t]?.height ?? 2.7, fMax = Math.max(...figCells.map(([x, z]) => x + z));
+    const fLat = ax + 1 - (az + 1);
+    const taller = level.decor.filter((d) => d !== lead && CATALOG[d.t]).flatMap((d) => maskCells(d.t, d.x, d.z, d.rot || 0).map((m) => ({ ...m, t: d.t }))).filter((m) => m.x + m.z > fMax && m.x + m.z <= fMax + 2 && Math.abs(m.x - m.z - fLat) <= 2 && (cell(m.x, m.z).h * T + m.h) > (cell(ax, az).h * T + figH));
+    const xray = r.map(([x, z]) => {
+      const hc = cell(x, z), feet = top(x, z, 0.35), head = top(x, z, 1.0);
+      for (const d of level.decor) {
+        if (!CATALOG[d.t] || d === lead) continue;
+        for (const m of maskCells(d.t, d.x, d.z, d.rot || 0)) {
+          if (m.x + m.z <= x + z || (m.x === x && m.z === z)) continue;
+          const c = cell(m.x, m.z);
+          if (!c) continue;
+          const tp = sc(m.x + 0.5, (c.s === "bridge" ? c.h : Math.max(c.h, 0)) * T + (m.h || CATALOG[d.t].height || 0), m.z + 0.5);
+          if (Math.abs(tp.sx - feet.sx) < 0.55 && tp.sy < feet.sy + (head.sy - feet.sy) * 0.4) return true;
+        }
+      }
+      for (const [dx, dz] of [[1, 0], [0, 1], [1, 1]]) { const q = cell(x + dx, z + dz); if (q && q.s !== "none" && q.h > hc.h) return true; }
+      return false;
+    });
+    let run = 0, worst = 0;
+    for (const v of xray) { run = v ? run + 1 : 0; worst = Math.max(worst, run); }
+    const out = { route: r.length, onPath: +(onPath / r.length).toFixed(2), gate: gi > 0 ? +(gi / (r.length - 1)).toFixed(2) : null, flanks, focalX: +fxs.toFixed(2), focalY: +fys.toFixed(2), tallerInFront: taller.map((m) => `${m.t}@${m.x},${m.z}`), xrayRun: worst, walks: !stuck.length };
+    const ok = out.route >= 9 && out.route <= 16 && out.onPath >= 0.7 && out.gate != null && out.gate >= 0.3 && out.gate <= 0.7 && flanks && fxs > 1 / 3 && fxs < 2 / 3 && !taller.length && worst <= 3 && !stuck.length;
+    log.push(`readability ${ok ? "PASS" : "FAIL"} ${JSON.stringify(out)}`);
+    return { ...out, ok };
+  };
+
   const role = (t) => level.palette?.props?.[t]?.role || (CATALOG[t] ? t : null);
   const ofRole = (r) => Object.entries(level.palette?.props || {}).filter(([, p]) => p.role === r).map(([t]) => t);
-  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, log };
+  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, bridge, canopy, fence, road, readability, snapshot, restore, log };
 }
