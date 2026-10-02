@@ -30,7 +30,7 @@ export function extractTris(root, { swatches = null, flat = false, shade = null 
   root.updateMatrixWorld(true);
   const inv = new THREE.Matrix4().copy(root.matrixWorld).invert();
   const snap = swatches?.length ? snapper(swatches) : null;
-  const pos = [], col = [], nor = [], shadeTri = [], extras = [];
+  const pos = [], col = [], nor = [], shadeTri = [], tags = [], extras = [];
   const rel = new THREE.Matrix4(), nm = new THREE.Matrix3(), v = new THREE.Vector3(), n = new THREE.Vector3(), c = new THREE.Color(), t = new THREE.Color();
   root.traverse((o) => {
     if (!o.isMesh && !o.isLine && !o.isPoints && !o.isSprite) return;
@@ -46,6 +46,7 @@ export function extractTris(root, { swatches = null, flat = false, shade = null 
     if (!flat && !g.attributes.normal) { if (g === o.geometry) g = g.clone(); g.computeVertexNormals(); }
     nm.getNormalMatrix(rel);
     const P = g.attributes.position, C = g.attributes.color, U = g.attributes.uv, N = g.attributes.normal;
+    const SW = g.attributes.aSway, RT = g.attributes.aRoot, AL = g.attributes.aAlt;
     const groups = g.groups.length ? g.groups : [{ start: 0, count: P.count, materialIndex: 0 }];
     const sh = shade ?? !C;
     for (const grp of groups) {
@@ -55,6 +56,16 @@ export function extractTris(root, { swatches = null, flat = false, shade = null 
       const end = Math.min(P.count, grp.start + grp.count);
       for (let i = grp.start; i + 2 < end; i += 3) {
         const cols = [], tp = [], tn = [];
+        let tg = null;
+        if (SW && (SW.getX(i) > 0 || SW.getX(i + 1) > 0 || SW.getX(i + 2) > 0)) {
+          tg = { sw: [], rt: [], alt: [] };
+          for (let k = 0; k < 3; k++) {
+            const j = i + k;
+            tg.sw.push(SW.getX(j), SW.getY(j), SW.getZ(j), SW.getW(j));
+            v.fromBufferAttribute(RT, j).applyMatrix4(rel); tg.rt.push(v.x, v.y, v.z);
+            tg.alt.push(AL ? AL.getX(j) : 0, AL ? AL.getY(j) : 0, AL ? AL.getZ(j) : 0);
+          }
+        }
         for (let k = 0; k < 3; k++) {
           const j = i + k;
           v.fromBufferAttribute(P, j).applyMatrix4(rel); tp.push(v.x, v.y, v.z);
@@ -75,6 +86,7 @@ export function extractTris(root, { swatches = null, flat = false, shade = null 
           col.push(cols[a], cols[b], cols[d]);
           nor.push(!flat && tn.length ? [tn.slice(a * 3, a * 3 + 3), tn.slice(b * 3, b * 3 + 3), tn.slice(d * 3, d * 3 + 3)] : null);
           shadeTri.push(sh);
+          tags.push(tg && { sw: [a, b, d].flatMap((q) => tg.sw.slice(q * 4, q * 4 + 4)), rt: [a, b, d].flatMap((q) => tg.rt.slice(q * 3, q * 3 + 3)), alt: [a, b, d].flatMap((q) => tg.alt.slice(q * 3, q * 3 + 3)) });
         };
         push(0, 1, 2);
         if (both) push(0, 2, 1);
@@ -89,7 +101,7 @@ export function extractTris(root, { swatches = null, flat = false, shade = null 
     if (!e.geometry.boundingBox) e.geometry.computeBoundingBox();
     box.union(e.geometry.boundingBox.clone().applyMatrix4(e.userData.rel));
   }
-  return { pos, col, nor, shade: shadeTri, extras, box, tris: pos.length / 9 };
+  return { pos, col, nor, shade: shadeTri, tags, extras, box, tris: pos.length / 9 };
 }
 
 export function fitMatrix(data, height) {
@@ -101,10 +113,12 @@ export function fitMatrix(data, height) {
 }
 
 export function bakeInto(B, data, extrasParent, prepMaterial) {
-  const { pos, col, nor, shade } = data;
+  const { pos, col, nor, shade, tags } = data;
   for (let t = 0, i = 0; i < pos.length; i += 9, t++) {
+    B.vtag = tags?.[t] || null;
     B.ctri([pos[i], pos[i + 1], pos[i + 2]], [pos[i + 3], pos[i + 4], pos[i + 5]], [pos[i + 6], pos[i + 7], pos[i + 8]], [col[t * 3], col[t * 3 + 1], col[t * 3 + 2]], nor[t], true, shade[t]);
   }
+  B.vtag = null;
   for (const e of data.extras) {
     const o = e.clone();
     o.matrixAutoUpdate = false;

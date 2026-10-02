@@ -8,6 +8,7 @@ import { BUILDERS, GLBS } from "./hooks.js";
 import { extractTris, bakeInto } from "./bake.js";
 import { surfaceY, WATER_DROP, liftLevel } from "./terrain.js";
 import { applyXray } from "./xray.js";
+import { applyMotion } from "./motion.js";
 
 const SIDE = ["n", "e", "s", "w"];
 
@@ -53,13 +54,13 @@ function makerFor(d, spec, H, rot, style, pieces, extrasFor) {
   return pieces[d.t] || fallback;
 }
 
-const xrayCopy = (m) => applyXray(m.clone());
+const xrayCopy = (m) => applyMotion(applyXray(m.clone()));
 
 export function buildDecor(L, view, style = makeStyle(L)) {
   L = liftLevel(L);
   const pieces = makePieces(style);
   const group = new THREE.Group(), spinners = [];
-  const mat = applyXray(bakedMaterial());
+  const mat = applyMotion(applyXray(bakedMaterial()));
   const S = new Baker(style.light);
   let spinMesh = null;
   const extrasFor = (B) => (B === S ? group : spinMesh);
@@ -77,7 +78,7 @@ export function buildDecor(L, view, style = makeStyle(L)) {
       const b = new Baker(style.light);
       const m = new THREE.Mesh(undefined, mat);
       spinMesh = m;
-      make(b, H, d.v || 0, ctx);
+      b.sway("pickup", { amp: 0.05, phase: ((x * 12.9898 + z * 78.233) % 6.2832 + 6.2832) % 6.2832 }, () => make(b, H, d.v || 0, ctx));
       m.geometry = b.geometry();
       m.position.set(x, base, z);
       m.rotation.y = -rot * (Math.PI / 2);

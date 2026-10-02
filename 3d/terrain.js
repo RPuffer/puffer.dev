@@ -4,6 +4,7 @@ import { makeStyle } from "./style.js";
 import { cellAt, isWalkable } from "../core/level.js";
 import { mulberry32, hashSeed } from "../core/rng.js";
 import { applyXray } from "./xray.js";
+import { applyMotion } from "./motion.js";
 
 export const BASE_Y = -0.4;
 export const WATER_Y = 0;
@@ -223,9 +224,11 @@ function waterCell(B, L, x, z, h, T, rnd, below) {
   B.prism(roundRect(x + 0.012, z + 0.012, x + 0.988, z + 0.988, 0.1), top - 0.06, top, tone(P.water.top, P.water.deep, P.water.fall[2]));
   B.flat(roundRect(x + 0.07, z + 0.07, x + 0.93, z + 0.93, 0.08), top + 0.002, P.water.top);
   const cx = x + 0.28 + rnd() * 0.12, cz = z + 0.26 + rnd() * 0.1;
-  B.flat(circle(cx, cz, 0.13, 0.1, 10), top + 0.004, P.water.bubble);
-  B.flat(circle(cx + 0.24, cz + 0.03, 0.09, 0.07, 10), top + 0.004, P.water.bubble);
-  B.flat(circle(cx + 0.08, cz + 0.22, 0.07, 0.06, 10), top + 0.004, P.water.bubble);
+  B.sway("ripple", { amp: 0.035, root: [cx, top, cz] }, () => {
+    B.flat(circle(cx, cz, 0.13, 0.1, 10), top + 0.004, P.water.bubble);
+    B.flat(circle(cx + 0.24, cz + 0.03, 0.09, 0.07, 10), top + 0.004, P.water.bubble);
+    B.flat(circle(cx + 0.08, cz + 0.22, 0.07, 0.06, 10), top + 0.004, P.water.bubble);
+  });
 }
 
 function bridgeCell(B, L, x, z, c, T, rnd) {
@@ -302,7 +305,7 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
   }
   const group = new THREE.Group();
   const landMesh = new THREE.Mesh(B.geometry(), applyXray(bakedMaterial()));
-  const waterMesh = new THREE.Mesh(Wb.geometry(), bakedMaterial());
+  const waterMesh = new THREE.Mesh(Wb.geometry(), applyMotion(bakedMaterial()));
   landMesh.name = "land"; waterMesh.name = "water";
   group.add(landMesh, waterMesh);
   return { group, pickables: [landMesh, waterMesh] };

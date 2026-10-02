@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { lightFactor, packShade } from "./style.js";
+import { SWAY } from "./motion.js";
 
 const HALF = Math.PI / 2;
 const cache = new Map();
@@ -13,7 +14,7 @@ export const col = (hex) => {
 export const tone = (top, left, right, mid) => ({ top, left, right, mid });
 export const solid = (hex) => ({ top: hex, left: hex, right: hex, mid: hex });
 
-const tmp = new THREE.Color(), tmp2 = new THREE.Color();
+const tmp = new THREE.Color(), tmp2 = new THREE.Color(), tmpA = new THREE.Color(), tmpN = new THREE.Vector3(), tmpV = new THREE.Vector3();
 
 export function shadeFor(pal, nx, ny, nz, out = new THREE.Color()) {
   if (typeof pal === "string" || pal instanceof THREE.Color) return out.copy(col(pal));
@@ -53,6 +54,8 @@ export class Baker {
   constructor(light = null) {
     this.light = light;
     this.pos = []; this.col = []; this.nor = [];
+    this.sw = []; this.rt = []; this.alt = [];
+    this.tag = null; this.vtag = null;
     this.m = new THREE.Matrix4();
     this.stack = [];
     this.nm = new THREE.Matrix3();
@@ -72,6 +75,34 @@ export class Baker {
 
   at(x, y, z, rotY, fn, s = 1) { this.push(x, y, z, rotY, s); fn(); this.pop(); }
 
+  sway(kind, opts, fn) {
+    const r = opts.root || [0, 0, 0];
+    const root = new THREE.Vector3(r[0], r[1], r[2]).applyMatrix4(this.m);
+    const prev = this.tag;
+    this.tag = { mode: SWAY[kind] || 0, amp: opts.rate ?? opts.amp ?? 0, phase: opts.phase || 0, span: opts.duty ?? opts.span ?? 1, root, alt: opts.alt || null };
+    fn();
+    this.tag = prev;
+    return this;
+  }
+
+  emitTag(n, i, f = 1) {
+    const v = this.vtag, t = this.tag;
+    if (v && v.sw[i * 4] > 0) {
+      const R = tmpV.set(v.rt[i * 3], v.rt[i * 3 + 1], v.rt[i * 3 + 2]).applyMatrix4(this.m);
+      this.sw.push(v.sw[i * 4], v.sw[i * 4 + 1], v.sw[i * 4 + 2], v.sw[i * 4 + 3]);
+      this.rt.push(R.x, R.y, R.z);
+      this.alt.push(v.alt[i * 3] * f, v.alt[i * 3 + 1] * f, v.alt[i * 3 + 2] * f);
+      return;
+    }
+    if (!t) { this.sw.push(0, 0, 0, 0); this.rt.push(0, 0, 0); this.alt.push(0, 0, 0); return; }
+    this.sw.push(t.mode, t.amp, t.phase, t.span);
+    this.rt.push(t.root.x, t.root.y, t.root.z);
+    if (!t.alt) { this.alt.push(0, 0, 0); return; }
+    const a = shadeFor(t.alt, n.x, n.y, n.z, tmpA);
+    if (this.light) a.multiplyScalar(lightFactor(this.light, n.x, n.y, n.z));
+    this.alt.push(a.r, a.g, a.b);
+  }
+
   tri(a, b, c, pal, cull = true) {
     const [A, B, C] = this._v;
     A.set(a[0], a[1], a[2]).applyMatrix4(this.m);
@@ -85,7 +116,9 @@ export class Baker {
     if (cull && !this.noCull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
     const c0 = shadeFor(pal, nx, ny, nz, tmp2);
     if (this.light) c0.multiplyScalar(lightFactor(this.light, nx, ny, nz));
-    for (const P of [A, B, C]) { this.pos.push(P.x, P.y, P.z); this.col.push(c0.r, c0.g, c0.b); this.nor.push(nx, ny, nz); }
+    tmpN.set(nx, ny, nz);
+    let i = 0;
+    for (const P of [A, B, C]) { this.pos.push(P.x, P.y, P.z); this.col.push(c0.r, c0.g, c0.b); this.nor.push(nx, ny, nz); this.emitTag(tmpN, i++); }
   }
 
   ctri(a, b, c, cols, norms = null, cull = true, shade = false) {
@@ -103,10 +136,12 @@ export class Baker {
     const P = [A, B, C], n = new THREE.Vector3();
     for (let i = 0; i < 3; i++) {
       if (norms) n.set(norms[i][0], norms[i][1], norms[i][2]).applyMatrix3(nm).normalize(); else n.set(nx, ny, nz);
+      const f = (shade ? packShade(n.x, n.y, n.z) : 1) * (this.light ? lightFactor(this.light, n.x, n.y, n.z) : 1);
       tmp2.copy(cols[i]);
       if (shade) tmp2.multiplyScalar(packShade(n.x, n.y, n.z));
       if (this.light) tmp2.multiplyScalar(lightFactor(this.light, n.x, n.y, n.z));
       this.pos.push(P[i].x, P[i].y, P[i].z); this.col.push(tmp2.r, tmp2.g, tmp2.b); this.nor.push(n.x, n.y, n.z);
+      this.emitTag(n, i, f);
     }
   }
 
@@ -180,6 +215,9 @@ export class Baker {
     g.setAttribute("position", new THREE.Float32BufferAttribute(this.pos, 3));
     g.setAttribute("normal", new THREE.Float32BufferAttribute(this.nor, 3));
     g.setAttribute("color", new THREE.Float32BufferAttribute(this.col, 3));
+    g.setAttribute("aSway", new THREE.Float32BufferAttribute(this.sw, 4));
+    g.setAttribute("aRoot", new THREE.Float32BufferAttribute(this.rt, 3));
+    g.setAttribute("aAlt", new THREE.Float32BufferAttribute(this.alt, 3));
     g.computeBoundingSphere();
     return g;
   }

@@ -6,6 +6,7 @@ import { levelScreenBounds } from "../core/iso.js";
 import { xray } from "./xray.js";
 import { liftAt } from "./terrain.js";
 import { makeStyle } from "./style.js";
+import { initMotion, stepMotion } from "./motion.js";
 
 const FRAME = [351, 390];
 
@@ -16,7 +17,7 @@ export function createRenderer(container = document.body) {
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
-  let lift = 0, spinT = 0, S, pickables = [], spinners = [], hero, bounds, zoom = 60;
+  let lift = 0, S, pickables = [], hero, bounds, zoom = 60;
   const focus = new THREE.Vector3();
 
   const resize = () => {
@@ -54,6 +55,7 @@ export function createRenderer(container = document.body) {
     three: { gl, scene, camera },
     init(state) {
       S = state;
+      initMotion(state.params);
       const L = state.level, seed = state.params.seed;
       const style = makeStyle(L);
       scene.background = new THREE.Color(style.bg);
@@ -62,7 +64,6 @@ export function createRenderer(container = document.body) {
       pickables = terrain.pickables;
       const decor = buildDecor(L, state.view, style);
       scene.add(decor.group);
-      spinners = decor.spinners;
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       scene.add(hero);
@@ -77,8 +78,7 @@ export function createRenderer(container = document.body) {
       lift += (liftAt(state.level, a.pos.x, a.pos.z) - lift) * Math.min(1, dt * 12);
       hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH, a.pos.z);
       hero.userData.animate(a, dt);
-      spinT += dt;
-      for (const s of spinners) s.rotation.y = -(s.userData.decor.rot || 0) * (Math.PI / 2) + Math.sin(spinT * 1.6 + s.position.x) * 0.25;
+      stepMotion(dt);
       const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * 4) : 1;
       focus.lerp(t, k);
     },
