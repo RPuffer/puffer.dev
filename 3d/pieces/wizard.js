@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { reachability } from "../../core/procgen.js";
+import { CATALOG } from "../../core/catalog.js";
+import { canStep, DIRS } from "../../core/level.js";
 
 const ART = {
   robe: ["#2a4fb8", "#1f3d96", "#162c70"],
@@ -47,7 +50,7 @@ function flame(B, x, y, z, k = 1) {
   B.cone(0.05 * k, 0, 0.16 * k, pal(ART.flame), x - 0.08 * k, y + 0.06 * k, z, 4);
 }
 
-function wizard(B, H, look, v, pose = {}) {
+function wizard(B, H, look, v, pose = {}, head = null) {
   const s = H / 2.75;
   B.push(0, 0, 0, 0, s);
   plinth(B, 0.92, 0.22, look.plinthLo, look.plinthHi, look.trim);
@@ -98,7 +101,10 @@ function wizard(B, H, look, v, pose = {}) {
       B.box(0.1, 0.12, 0.1, pal(ART.staff), sx - 0.18, y0 + 1.6, sz);
     }
     B.box(0.08, 0.06, 0.08, pal(ART.skinLight), sx + 0.03, y0 + 1.2, sz + 0.03);
-    B.at(0, y0 + 1.82, 0, 0.42 + (v % 2) * 0.08, () => {
+    const HB = head || B;
+    if (head) head.m.copy(B.m);
+    HB.at(0, y0 + 1.82, 0, 0.42 + (v % 2) * 0.08, () => {
+      const B = HB;
       const t = 0.2;
       B.rbox(0.36, 0.3 + t, 0.34, 0.12, pal(ART.skin), 0, 0, 0);
       B.box(0.06, 0.07, 0.03, pal(ART.ink), -0.08, 0.14, 0.17);
@@ -113,6 +119,12 @@ function wizard(B, H, look, v, pose = {}) {
         B.cone(0.14, 0.05, 0.24, pal(ART.robe), 0, 0, 0, 6);
         B.box(0.26, 0.08, 0.08, pal(ART.robe), 0.12, 0.2, 0);
         B.cone(0.05, 0, 0.14, pal(ART.robe), 0.3, 0.2, 0, 4);
+        if (head) {
+          const a = B.pos.length / 3;
+          flame(B, 0.32, 0.3, 0, 0.55);
+          head.flame = [a, B.pos.length / 3];
+          head.flameRoot = new THREE.Vector3(0.32, 0.3, 0).applyMatrix4(B.m).toArray();
+        }
       });
       B.box(0.12, 0.12, 0.04, pal(ART.star), 0.02, 0.62, 0.22);
       B.pop();
@@ -310,6 +322,18 @@ export function register(style) {
     const pose = poseOf(p.pose || "");
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
+      if (role === "lead" && d.watch) {
+        const HB = new Baker(st.light);
+        wizard(B, H, look, v, p.pose ? pose : {}, HB);
+        const g = new THREE.Group();
+        g.add(mesh(B));
+        const hm = mesh(HB);
+        const rest = -(rot || 0) * (Math.PI / 2) + (p.pose ? pose.yaw ?? -0.12 : -0.12) + 0.42 + (v % 2) * 0.08;
+        hm.userData.noMerge = true;
+        hm.userData.live = { thing: d.watch, part: "head", rest, limit: 1.5, pivot: [0, 0, 0], flame: HB.flame, flameRoot: HB.flameRoot, hot: [0.86, 1, 1] };
+        g.add(hm);
+        return g;
+      }
       if (role === "lead") wizard(B, H, look, v, p.pose ? pose : {});
       else if (lens && (p.summary || p.parts)) LENS_BUILD[lens](B, H, v, { c0, c1, c2, d });
       else if (role === "threshold") post(B, H, c0, c1, c2, d, v);
@@ -569,6 +593,136 @@ function finishLens(level, brief, h) {
   h.rampTone();
   const lost = posts.filter((q) => !level.decor.includes(q));
   if (lost.length) h.log.push(`gate posts lost ${lost.length}`);
+  if (L === "medium") placeThings(level, h, { look: THINGS_LOOK });
+}
+
+const FACE = [[0, 1], [-1, 0], [0, -1], [1, 0]];
+const THINGS_LOOK = { stone: ART.stone, ash: ART.ink, wood: ART.wood, metal: ART.gold, blade: ART.collar, flame: ART.flame, core: ART.flameCore, lamp: ART.flame, deck: ART.stone, trim: ART.gold, post: ART.robe, cap: ART.star };
+const SIDES = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+
+export function placeThings(level, h, o = {}) {
+  const key = h.key, P = level.palette || {};
+  const lead = level.decor.find((d) => kindOf(P, d.t) === "lead");
+  const [sx, sz] = level.spawn;
+  const base = h.blockedSet();
+  const reachWith = (cells) => reachability({ ...level, blocked: new Set([...base, ...cells.filter(Boolean).map(([x, z]) => key(x, z))]) });
+  const missing = (r) => new Set(r.missing.map(([x, z]) => key(x, z)));
+  const open0 = reachWith([]);
+  const route = h.approach({ walkOnly: true });
+  const onR = new Set(route.map(([x, z]) => key(x, z)));
+  const fig = h.figure.cells;
+  const [fw, fd] = CATALOG[lead?.t]?.footprint || [2, 2];
+  const fc = lead ? [lead.x + fw / 2, lead.z + fd / 2] : [0, 0];
+  const steps = (x, z) => Object.keys(DIRS).filter((d) => canStep({ ...level, blocked: base }, x, z, d));
+  const tail = (m, i) => route.slice(i + 1).some(([a, b]) => m.has(key(a, b)));
+  const plugs = cand0();
+  function cand0() {
+    const out = [];
+    level.cells.forEach((row, z) => row.forEach((c, x) => { if (walkable(c) && !h.isFig(x, z) && !h.decorAt(x, z).length && !onR.has(key(x, z)) && Math.abs(x - sx) + Math.abs(z - sz) > 3) out.push([x, z]); }));
+    return out;
+  }
+  const figD0 = (x, z) => Math.min(...fig.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
+  let G = null, gi = -1, best = Infinity, plug = null;
+  route.forEach(([x, z], i) => {
+    const frac = i / (route.length - 1);
+    if (i < 2 || i > route.length - 2 || frac < 0.3 || frac > 0.85 || h.cell(x, z).s === "ramp") return;
+    const [px, pz] = route[i - 1], [nx, nz] = route[i + 1];
+    if (px !== nx && pz !== nz) return;
+    if (steps(x, z).length !== 2 && !level.decor.some((d) => d.gapX === x && d.gapZ === z)) return;
+    let p = null;
+    if (!tail(missing(reachWith([[x, z]])), i)) {
+      const opts = plugs.filter((b) => {
+        const one = reachWith([b]);
+        return one.missing.length === open0.missing.length && tail(missing(reachWith([[x, z], b])), i);
+      }).sort((a, b) => figD0(...a) - figD0(...b));
+      if (!opts.length) return;
+      p = opts[0];
+    }
+    const th = route[i - 1];
+    const d = Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]);
+    const posts = level.decor.some((q) => q.gapX === x && q.gapZ === z) ? 0 : 0.3;
+    const score = Math.abs(frac - 0.6) + 0.2 * Math.max(0, d - 4.5) + posts + (p ? 0.2 : 0);
+    if (score < best) { best = score; G = [x, z]; gi = i; plug = p; }
+  });
+  if (plug) {
+    const t = o.plug || Object.keys(P.props || {}).find((q) => /spire|crag|rock/.test(q)) || "rock";
+    if (h.put(t, plug[0], plug[1], { v: 1 })) { h.log.push(`things plug ${t}@${plug}`); base.add(key(...plug)); }
+    else plug = null;
+  }
+  const closed0 = G ? reachWith([G]) : open0;
+  const cut = new Set([...missing(closed0)].filter((k) => !missing(open0).has(k)));
+  const free = (x, z) => { const c = h.cell(x, z); return walkable(c) && !h.isFig(x, z) && !h.decorAt(x, z).length && !(x === sx && z === sz) && !(G && x === G[0] && z === G[1]); };
+  const near = (x, z) => Math.min(...route.map(([a, b]) => Math.abs(a - x) + Math.abs(b - z)));
+  const keeps = (cells) => reachWith(cells).missing.length === open0.missing.length && reachWith([G, ...cells]).missing.length === closed0.missing.length;
+  const cand = [];
+  level.cells.forEach((row, z) => row.forEach((c, x) => { if (free(x, z) && !onR.has(key(x, z))) cand.push([x, z]); }));
+  const out = [];
+  const md = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+  let bon = null;
+  for (const c of cand.filter((c) => md(c, [sx, sz]) <= 3 && !cut.has(key(...c))).sort((a, b) => (near(...a) - near(...b)) || (Math.abs(md(a, [sx, sz]) - 2) - Math.abs(md(b, [sx, sz]) - 2)))) {
+    if (!keeps([c])) continue;
+    bon = c;
+    break;
+  }
+  if (bon) out.push({ id: "b1", kind: "bonfire", x: bon[0], z: bon[1], rot: 0 });
+  const idxOf = (x, z) => { let bi = 0, bd = Infinity; route.forEach(([a, b], i) => { const d = Math.abs(a - x) + Math.abs(b - z); if (d < bd) { bd = d; bi = i; } }); return bi; };
+  const want = gi > 0 ? Math.round(gi * 0.6) : Math.round(route.length / 2);
+  let chest = null;
+  for (const c of cand.filter((c) => near(...c) >= 1 && near(...c) <= 2 && !cut.has(key(...c)) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 3)).sort((a, b) => (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
+    if (!keeps(bon ? [c, bon] : [c])) continue;
+    chest = c;
+    break;
+  }
+  if (chest) {
+    const r = route[idxOf(...chest)];
+    const dx = Math.sign(r[0] - chest[0]), dz = Math.sign(r[1] - chest[1]);
+    const rot = Math.max(0, FACE.findIndex(([a, b]) => a === (dz ? 0 : dx) && b === dz));
+    out.push({ id: "c1", kind: "chest", x: chest[0], z: chest[1], rot, text: o.chestText || "Star-dusted sleeve. Still warm from the frankfurter's spell." });
+  }
+  if (lead) {
+    const th = gi > 0 ? route[gi - 1] : route[Math.max(0, route.length - 3)];
+    const radius = +(Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6).toFixed(2);
+    lead.watch = "w1";
+    out.push({ id: "w1", kind: "watcher", x: lead.x, z: lead.z, size: [fw, fd], radius });
+    if (G) {
+      const [px] = route[gi - 1];
+      out.push({ id: "g1", kind: "gate", x: G[0], z: G[1], span: px !== G[0] ? "z" : "x", blocks: [G], open: "watcher:w1", threshold: [th], ...(level.decor.some((q) => q.gapX === G[0] && q.gapZ === G[1]) ? { frame: false, width: 1.5, height: 1.5 } : {}) });
+    }
+  }
+  const figD = (x, z) => Math.min(...fig.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
+  const rim = [];
+  for (const [x, z] of cand) {
+    if ((chest && x === chest[0] && z === chest[1]) || (bon && x === bon[0] && z === bon[1])) continue;
+    const side = SIDES.findIndex(([a, b]) => { const n = h.cell(x + a, z + b); return !n || n.s === "none"; });
+    if (side < 0) continue;
+    const back = side === 2 || side === 3 ? 0 : 3;
+    const beyond = cut.has(key(x, z)) ? 0 : 4;
+    rim.push([x, z, side, back + beyond + Math.abs(figD(x, z) - 2.5) + (h.cell(x, z).s === h.surf.path ? 1 : 0)]);
+  }
+  rim.sort((a, b) => a[3] - b[3]);
+  if (rim.length) {
+    const [x, z, side] = rim[0];
+    out.push({ id: "e1", kind: "elevator", x, z, rot: side, run: o.run || ["wizard-medium", "cat-medium"] });
+  }
+  level.things = out;
+  if (o.look) level.palette.things = o.look;
+  const solid = out.filter((t) => t.kind === "bonfire" || t.kind === "chest").map((t) => [t.x, t.z]);
+  const rOpen = missing(reachWith(solid)), rClosed = missing(reachWith([G, ...solid]));
+  const besideOk = (m, t) => t && [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]].some(([a, b]) => walkable(h.cell(t.x + a, t.z + b)) && !base.has(key(t.x + a, t.z + b)) && !m.has(key(t.x + a, t.z + b)) && !solid.some(([p, q]) => p === t.x + a && q === t.z + b));
+  const el = out.find((t) => t.kind === "elevator");
+  const ok = {
+    route: route.length,
+    gateAt: G ? +(gi / (route.length - 1)).toFixed(2) : null,
+    gateCuts: cut.size,
+    allOpen: rOpen.size === missing(open0).size,
+    bonfireClosed: besideOk(rClosed, out.find((t) => t.kind === "bonfire")),
+    bonfireToSpawn: bon ? md(bon, [sx, sz]) : null,
+    chestOpen: besideOk(rOpen, out.find((t) => t.kind === "chest")),
+    elevatorOpen: !!el && !rOpen.has(key(el.x, el.z)),
+    elevatorGated: !!el && rClosed.has(key(el.x, el.z)),
+  };
+  h.log.push(`things ${out.map((t) => `${t.kind}@${t.x},${t.z}`).join(" ")} ${JSON.stringify(ok)}`);
+  return ok;
 }
 
 function occluders(level, h, props, keep) {
