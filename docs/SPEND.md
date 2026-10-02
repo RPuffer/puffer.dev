@@ -174,4 +174,19 @@ Total: $2.835
 2026-10-01 | refsheets | gemini-3.1-flash-image | 8 | 0.360 | regenerated dragon, chimera, swallow, sharkbear, eagle, mindbloom, cosmos, ember once for style or proportion; better of two kept
 2026-10-01 | stage 2 cat-medium | gemini-3.8-flash | 6 | 0.0382 | critic round 1 at 900x800 and 351x390 on the rebuilt cat: 0 high, 0 medium
 
-Running total: $30.467
+2026-10-01 | round 5 forest-tooth | gemini-3.8-flash | 3 | 0.0177 | critic retroactive pass (built blind after 402 credit stop): 0 high, 0 medium
+2026-10-01 | round 5 forest-lift | gemini-3.8-flash | 3 | 0.0255 | critic retroactive pass: 0 high, 0 medium
+2026-10-01 | round 5 forest-volute | gemini-3.8-flash | 3 | 0.0239 | critic retroactive pass: 0 high, 0 medium
+2026-10-01 | round 5 forest-trunks | gemini-3.8-flash | 3 | 0.0315 | critic retroactive pass: 0 high, 0 medium
+2026-10-01 | round 5 forest-roots | gemini-3.8-flash | 3 | 0.0185 | critic retroactive pass: 0 high, 0 medium
+2026-10-01 | round 5 cosmos-frisket | gemini-3.8-flash | 3 | 0.0267 | critic retroactive pass: 1 high (banner prop planted on sloped ramp face instead of flat terrace, box 586,322,624,410 — looks real on the annotated render, recommend fix), 0 medium
+2026-10-01 | round 5 cosmos-ringway | gemini-3.8-flash | 3 | 0.0159 | critic retroactive pass: 0 high, 1 medium (eye-platform has no bridge to main route)
+2026-10-01 | round 5 cosmos-lashline | gemini-3.8-flash | 3 | 0.0193 | critic retroactive pass: 0 high, 0 medium
+2026-10-01 | round 5 cosmos-veinfield | gemini-3.8-flash | 3 | 0.0229 | critic retroactive pass: 0 high, 1 medium (ramp runs into cliff wall with no landing)
+2026-10-01 | round 5 cosmos-nebula | gemini-3.8-flash | 3 | 0.0181 | critic retroactive pass: 0 high, 1 medium (cyan platform isolated, no bridge to yellow terrace)
+2026-10-01 | round 5 critic pass total | gemini-3.8-flash | 30 | 0.2200 | ten islands, 1 high agreed fault total (cosmos-frisket banner), four medium items (all missing-bridge/landing notes); no 402s hit, well under $1.50 budget
+
+2026-10-01 | refine stage 3 stamps | gemini-3.8-flash | 12 | 0.0660 | critic rounds 1 and 2 on ember-subject at 351 and 900
+2026-10-01 | refine stage 2 style bible | gemini-3.8-flash | 6 | 0.0380 | critic round 1 on cat-medium at 351 and 900
+
+Running total: $30.791
