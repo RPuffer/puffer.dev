@@ -168,4 +168,9 @@ Total: $2.835
 2026-09-29 | round 4 eagle-subject | gemini-3.8-flash | 12 | 0.0814 | critic rounds 1 and 2: 0, 0 high; round 9 read by eye
 2026-09-29 | round 4 eagle-composition | gemini-3.8-flash | 12 | 0.0774 | critic rounds 1 and 4: 0, 1 high (quill gate read as straddling the ramp foot); rounds 5 and 6 read by eye after the 402 credit stop
 
-Running total: $29.529
+## Refinement
+
+2026-10-01 | refsheets | gemini-3.1-flash-image | 12 | 0.540 | stage 2 creature reference sheets, first pass, one per focal figure
+2026-10-01 | refsheets | gemini-3.1-flash-image | 8 | 0.360 | regenerated dragon, chimera, swallow, sharkbear, eagle, mindbloom, cosmos, ember once for style or proportion; better of two kept
+
+Running total: $30.429
