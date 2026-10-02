@@ -341,3 +341,53 @@ node tools/clip.mjs "http://localhost:8765/3d/index.html?level=cat-medium&ui=0" 
 
 `tools/clip.mjs <url> <out.mp4> [w=900] [h=800] [seconds=6] [fps=30] [start=2]` loads the page, calls `__setTime` once per frame from `start`, screenshots each frame into `<out>-frames/`, and encodes with libx264, yuv420p, crf 18. A 6 s clip takes about 45 s under swiftshader.
 
+
+## Refinement stage 3
+
+2026-10-01, stamps on ember-subject (Approach A in `docs/refinement/setpieces.md`).
+
+### Schema
+
+A catalog entry may carry `mask`, one object per footprint cell in row-major order of the unrotated footprint (`dz` outer, `dx` inner): `{ pass, h, over, span }`. `pass` says whether the hero may stand on the cell, `h` is the height the piece occupies there in world units, `over` is the bottom of geometry above head height (the hero walks under it), and `span: true` lets the cell sit on a bridge, water or void cell instead of land. `attach` names the placement rule: `route` (arch, road), `span` (bridge), `edge` (fence on a terrace lip) and the existing `cliff` and `under`. `x,z` stays the footprint's minimum corner after rotation.
+
+`core/catalog.js` exports `stamp(footprint, mask, extra)`, which builds the entry from its mask (`passable` when every cell passes, `height` as the tallest cell, `rotates`, `stamp: true`), plus `maskCells(t, x, z, rot)` and `blockedCells(decor)`. Rotation turns the mask the way `3d/decor.js` turns the mesh: rot 1 maps local cell `(dx, dz)` of a `[w, d]` footprint to `(d - 1 - dz, dx)`. `prepareLevel` blocks only cells whose mask says `pass: false` and records cells under `over` geometry in `L.cover`. `checkLevel` reads the mask too: `span` cells may sit on bridge, water or void, and only blocking cells count against reach. An entry without `mask` behaves as before, so every existing level loads unchanged; `home` at `hero=0` compares MAD 0.0 against `out/final-3d.png`.
+
+The 3d build needs no sort or x-ray change: the decor mesh is depth-tested, and the x-ray window cuts any fragment nearer than the hero and above its feet, so a lintel or crown over the hero opens like any other occluder. The 2d build still draws each sprite at its footprint centre and has no sprites for stamps; it skips them with an unknown-type warning.
+
+### Stamps
+
+`3d/stamps.js` exports `registerStamps(style, look)`. A pieces module merges its `catalog` and `builders` into its own `register()` result and passes a `look` (base, post, lintel, trim, rail, cobble, kerb, trunk, crown, and an optional `crest(B, x, y, z)` for the post tops); missing keys fall back to the level palette. `3d/pieces/ember.js` passes the HOT ramps and a flame crest.
+
+| Type | Footprint | Mask | Helper |
+| --- | --- | --- | --- |
+| `arch` | 3x1 | posts block (h 2.6), centre passes under a lintel at 1.6 | `h.gate` places it in place of the post pair whenever `CATALOG.arch` is a stamp; `stamp: false` restores the posts |
+| `bridge-span-1..3` | 1xN | every cell passes, `span` | `h.bridge({ route, frac, n, before, reach, void, sunk, split })` spans route bridge cells, or cuts a level straight run into bridge cells with a lava or water channel `reach` cells to each side and reverts when reach or the route breaks |
+| `canopy` | 2x2 | trunk cell blocks, three cells pass under a crown at 1.9 tagged `crown` sway | `h.canopy({ route, near })` puts it 1 to `near` cells beside the figure, never in front of it, on four level land cells |
+| `fence-run-2..4` | Nx1 | every cell blocks (h 0.8), rail on the `+z` lip | `h.fence({ route, max, minH })` finds straight runs on a terrace lip facing `+x` (rot 3) or `+z` (rot 0), prefers drops onto land near the route; `h.grow` leaves void beside an `edge` stamp alone |
+| `road-run-2..4` | Nx1 | every cell passes (h 0.06) | `h.road({ route, max, until })` lays cobbles on straight path-surface runs of the route before index `until` |
+
+`h.readability({ route })` logs the stage-3 check: route length, share of route cells on path surface, bridge or a passable stamp, gate position and blocked flanks, the figure's screen position at 351x390, taller pieces within two cells in front of the figure, the longest run of route cells under an occluder, and whether the route walks with decor blocking.
+
+### ember-subject
+
+`finishLens` paints the approach, places the arch, cuts a lava channel before it and spans it, then lays the canopy, road and, after the terrain repairs, the fence (an earlier fence lost its lip to `openRamps`).
+
+```sh
+node pipeline/a-transcribe/build-level.mjs --art ember --brief pipeline/seed/concepts/ember-subject.json --level ember-subject --pieces ember
+```
+
+Build log: arch spanning 8,7; bridge span 1 at 8,9 over a four-cell lava channel; canopy at 1,3 beside the figure; road-run-2 at 8..9,10; fence-run-2 at 7,4..7,5 above the route. Readability PASS: route 12 cells, 0.83 on path, gate at 0.36 with both flanks blocked, figure at x 0.52, y 0.30 of the frame, nothing taller in front, longest x-ray run 1, route walks. Walkable 84, reach 84/84.
+
+Critic (`node pipeline/critic.mjs <png> --annotate ... --out ...`, 3 votes, files in `out/refine/critic/`): round 1 at 900x800 gave 0 high, 1 medium (the cobble road ran past the arch into a cliff, so roads now stop at the gate); round 2 gave 0 high, 0 medium at both 900x800 and 351x390. Spend $0.066 across 9 calls.
+
+QA: `tools/qa-levels.mjs http://localhost:8765 ember-subject` 14 pass, 0 fail; its ramp climb walks 8,10, 8,9 (bridge), 8,8, 8,7 (arch) up to 9,2. `tools/qa.mjs` 134 pass, 0 fail. `tools/procgen-check.mjs 50` PASS.
+
+Capture:
+
+```sh
+export PP_PROFILE=.pp-profile-stamps
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=ember-subject&hero=0" out/refine/stage3-after.png 900 800
+node tools/clip.mjs "http://localhost:8765/3d/index.html?level=ember-subject&ui=0" out/refine/stage3-after.mp4
+```
+
+`out/refine/stage3-before.png` is the committed level before this stage at the same framing.
