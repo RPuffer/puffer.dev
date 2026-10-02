@@ -32,7 +32,7 @@ export function register(style) {
       const k = ctx.height / 0.28;
       const pal = tone(cloud[0], cloud[1], cloud[2]);
       const lobes = v ? [[-0.1, 0, -0.06, 0.62, 0.12, 0.42], [0.14, 0.11, 0.12, 0.44, 0.13, 0.32]] : [[0.06, 0, 0.04, 0.7, 0.12, 0.45], [-0.12, 0.12, -0.1, 0.5, 0.14, 0.35]];
-      for (const [x, y, z, w, h, d] of lobes) B.rbox(w, h * k, d, 0.12, pal, x, y * k, z);
+      B.sway("mist", { amp: 0.05 }, () => { for (const [x, y, z, w, h, d] of lobes) B.rbox(w, h * k, d, 0.12, pal, x, y * k, z); });
       return new THREE.Mesh(B.geometry(), bakedMaterial());
     },
   };

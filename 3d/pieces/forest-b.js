@@ -203,7 +203,7 @@ export function register(style) {
         const at = ctx.decor?.at || [0, 0, 0];
         B.push(at[0], y + at[1], at[2], Math.PI / 4);
         B.rot([1, 0, 0], -Math.PI / 2);
-        B.prism(pts.reverse(), -0.06, 0.06, tone(P.mist[1], P.mist[1], P.mist[2]), { bottom: true });
+        B.sway("mist", { amp: 0.05 }, () => B.prism(pts.reverse(), -0.06, 0.06, tone(P.mist[1], P.mist[1], P.mist[2]), { bottom: true }));
         B.pop(); B.pop();
         return new THREE.Mesh(B.geometry(), new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.8, depthWrite: false }));
       },

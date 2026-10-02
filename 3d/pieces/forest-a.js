@@ -175,7 +175,7 @@ export function register(style) {
       const B = new Baker();
       const pal = tone(mist[0], mist[1], mist[2]);
       const lobes = v ? [[-0.12, -0.08, 0.42, 0.3], [0.22, 0.16, 0.26, 0.22]] : [[0.02, 0.02, 0.46, 0.36], [-0.2, 0.22, 0.24, 0.18]];
-      lobes.forEach(([x, z, rx, rz], i) => B.prism(circle(x, z, rx, rz, 12), 0.02 + i * 0.03, 0.05 + i * 0.03, pal));
+      B.sway("mist", { amp: 0.05 }, () => lobes.forEach(([x, z, rx, rz], i) => B.prism(circle(x, z, rx, rz, 12), 0.02 + i * 0.03, 0.05 + i * 0.03, pal)));
       const m = new THREE.Mesh(B.geometry(), new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.5, depthWrite: false }));
       m.userData.noMerge = true;
       return m;

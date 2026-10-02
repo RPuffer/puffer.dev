@@ -176,10 +176,12 @@ const LENS_BUILD = {
   },
   bristle(B, H, v) {
     B.rbox(0.34, 0.16, 0.3, 0.05, pal(["#dfe3ea", "#b8bec9", "#8e95a3"]), 0, 0, 0);
-    for (let i = 0; i < 7; i++) {
-      const a = (i - 3) * 0.32, c = HUES[(i + v) % 6];
-      slab(B, [[0, -0.05], [H * 0.9, -0.03], [H, 0], [H * 0.9, 0.04], [0, 0.05]], V(Math.sin(a) * 0.06, 0.14, 0), V(Math.sin(a) * 0.7, 1, (i % 2 ? 0.18 : -0.12)), V(Math.cos(a), 0, 0), 0.12, c);
-    }
+    B.sway("crown", { amp: 0.045, root: [0, 0.14, 0], span: H }, () => {
+      for (let i = 0; i < 7; i++) {
+        const a = (i - 3) * 0.32, c = HUES[(i + v) % 6];
+        slab(B, [[0, -0.05], [H * 0.9, -0.03], [H, 0], [H * 0.9, 0.04], [0, 0.05]], V(Math.sin(a) * 0.06, 0.14, 0), V(Math.sin(a) * 0.7, 1, (i % 2 ? 0.18 : -0.12)), V(Math.cos(a), 0, 0), 0.12, c);
+      }
+    });
   },
   paintBars(B, H, v, { d }) {
     const bars = [F.blue, F.magenta, F.yellow, F.orange, F.blue];
@@ -333,7 +335,7 @@ export function register(style) {
         B.box(0.24, 0.12, 0.24, pal(c0));
         B.box(0.1, H - 0.5, 0.1, pal(c0), 0, 0.12, 0);
         B.box(0.28, 0.06, 0.28, pal(c2), 0, H - 0.4, 0);
-        B.box(0.2, 0.22, 0.2, pal(P.flame || FAUVE.yellow), 0, H - 0.34, 0);
+        B.sway("swatch", { rate: 0.35, duty: 0.5, root: [0, H - 0.34, 0], alt: pal(FAUVE.orange) }, () => B.box(0.2, 0.22, 0.2, pal(P.flame || FAUVE.yellow), 0, H - 0.34, 0));
         B.cone(0.2, 0, 0.14, pal(c2), 0, H - 0.12, 0, 4);
       } else if (role === "offering") {
         B.cyl(0.2, H * 0.55, pal(c0), 0, 0, 0, 8);

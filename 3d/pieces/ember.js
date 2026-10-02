@@ -179,7 +179,9 @@ function hornArc(B, H, side, lo, hi) {
 }
 
 function flames(B, spots) {
-  for (const [x, z, r, h, c, l] of spots) tongue(B, r, h, c, x, 0, z, l);
+  B.sway("flame", { amp: 0.04, span: Math.max(...spots.map((s) => s[3])) }, () => {
+    for (const [x, z, r, h, c, l] of spots) tongue(B, r, h, c, x, 0, z, l);
+  });
 }
 
 const LENS_BUILD = {
@@ -276,8 +278,8 @@ const LENS_BUILD = {
   vent(B, H, v) {
     B.prism(circle(0, 0, 0.46, 0.4, 7, 0.2), 0, 0.24, pal(HOT.coal));
     B.prism(circle(0, 0, 0.34, 0.3, 7, 0.2), 0.24, 0.3, pal(HOT.soot));
-    B.cyl(0.26, 0.06, pal(HOT.yellow), 0, 0.26, 0, 7);
-    B.cyl(0.14, 0.04, pal(HOT.pale), 0, 0.3, 0, 7);
+    B.sway("swatch", { rate: 0.35, duty: 0.5, root: [0, 0.26, 0], alt: pal(HOT.pale) }, () => B.cyl(0.26, 0.06, pal(HOT.yellow), 0, 0.26, 0, 7));
+    B.sway("swatch", { rate: 0.35, duty: 0.5, root: [0, 0.26, 0], alt: pal(HOT.yellow) }, () => B.cyl(0.14, 0.04, pal(HOT.pale), 0, 0.3, 0, 7));
     B.push(0, 0.3, 0);
     flames(B, [[0, 0, 0.16, Math.max(0.3, H - 0.4), HOT.orange, 0], [-0.14, 0.06, 0.08, Math.max(0.2, H - 0.6), HOT.amber, 0.3], [0.14, -0.04, 0.08, Math.max(0.2, H - 0.7), HOT.yellow, -0.3]]);
     B.pop();
