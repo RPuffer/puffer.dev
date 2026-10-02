@@ -1,4 +1,4 @@
-import { CATALOG, SURFACES, WALKABLE, footprintCells } from "./catalog.js";
+import { CATALOG, SURFACES, WALKABLE, blockedCells, maskCells } from "./catalog.js";
 
 export const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
 export const OPPOSITE = { n: "s", s: "n", e: "w", w: "e" };
@@ -58,9 +58,10 @@ export function prepareLevel(raw) {
   const [W, D] = L.size;
   L.decor = (raw.decor || []).filter((d) => CATALOG[d.t] && d.x >= 0 && d.x < W && d.z >= 0 && d.z < D);
   L.blocked = new Set();
+  L.cover = new Map();
   for (const d of L.decor) {
-    if (CATALOG[d.t].passable) continue;
-    for (const [x, z] of footprintCells(d.t, d.x, d.z, d.rot || 0)) L.blocked.add(x + "," + z);
+    for (const [x, z] of blockedCells(d)) L.blocked.add(x + "," + z);
+    if (CATALOG[d.t].mask) for (const m of maskCells(d.t, d.x, d.z, d.rot || 0)) if (m.over != null) L.cover.set(m.x + "," + m.z, { t: d.t, over: m.over, h: m.h });
   }
   if (!isWalkable(L, L.spawn[0], L.spawn[1])) {
     const alt = firstWalkable(L);

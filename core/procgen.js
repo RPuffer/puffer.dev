@@ -1,4 +1,4 @@
-import { CATALOG, footprintCells } from "./catalog.js";
+import { CATALOG, footprintCells, maskCells } from "./catalog.js";
 import { DIRS, OPPOSITE, cellAt, isWalkable, canStep, validateLevel } from "./level.js";
 import { makeProjection } from "./iso.js";
 import { createRng, valueNoise } from "./rng.js";
@@ -596,8 +596,8 @@ export function checkLevel(raw) {
   for (const d of L.decor) {
     const spec = CATALOG[d.t];
     if (!spec) { problems.push(`decor ${d.t}: unknown`); continue; }
-    for (const [x, z] of footprintCells(d.t, d.x, d.z, d.rot || 0)) {
-      const c = cellAt(L, x, z), k = key(x, z);
+    for (const m of maskCells(d.t, d.x, d.z, d.rot || 0)) {
+      const x = m.x, z = m.z, c = cellAt(L, x, z), k = key(x, z);
       if (!c) { problems.push(`decor ${d.t} at ${d.x},${d.z}: footprint off grid`); continue; }
       if (occ.has(k)) problems.push(`decor ${d.t} overlaps ${occ.get(k)} at ${k}`);
       occ.set(k, d.t);
@@ -606,8 +606,8 @@ export function checkLevel(raw) {
         const hi = cellAt(L, x + DIRS[dir][0], z + DIRS[dir][1]);
         if (c.s !== "water" || c.h !== 0) problems.push(`waterfall at ${k} not on h0 water`);
         if (!hi || !(hi.h > c.h && hi.s !== "none")) problems.push(`waterfall at ${k} faces no cliff`);
-      } else if (!isLand(c)) problems.push(`decor ${d.t} at ${k} on ${c.s}`);
-      if (!spec.passable && d.t !== "waterfall") L.blocked.add(k);
+      } else if (m.span ? !(c.s === "bridge" || c.s === "water" || c.s === "none") : !isLand(c)) problems.push(`decor ${d.t} at ${k} on ${c.s}`);
+      if (!m.pass && d.t !== "waterfall") L.blocked.add(k);
     }
   }
   if (L.blocked.has(key(...L.spawn))) problems.push("spawn blocked by decor");

@@ -69,6 +69,32 @@ export function registerCatalog(entries = {}) {
   return CATALOG;
 }
 
+export function stamp(footprint, mask, extra = {}) {
+  const [w, d] = footprint;
+  if (mask.length !== w * d) throw new Error(`stamp mask has ${mask.length} cells, footprint ${w}x${d} needs ${w * d}`);
+  const cells = mask.map((m) => ({ pass: !!m.pass, h: m.h ?? 0, ...(m.over != null ? { over: m.over } : {}), ...(m.span ? { span: true } : {}) }));
+  return { cat: "decor", footprint: [w, d], mask: cells, passable: cells.every((m) => m.pass), variants: 1, height: Math.max(...cells.map((m) => m.h)), rotates: true, stamp: true, ...extra };
+}
+
+const turn = (a, b, w, d, rot) => {
+  for (let k = 0; k < ((rot % 4) + 4) % 4; k++) [a, b, w, d] = [d - 1 - b, a, d, w];
+  return [a, b];
+};
+
+export function maskCells(t, x, z, rot = 0) {
+  const spec = CATALOG[t];
+  if (!spec) return [];
+  const [w, d] = spec.footprint, out = [];
+  for (let dz = 0; dz < d; dz++) for (let dx = 0; dx < w; dx++) {
+    const [a, b] = turn(dx, dz, w, d, rot);
+    const m = spec.mask?.[dz * w + dx] || { pass: !!spec.passable, h: spec.height || 0 };
+    out.push({ x: x + a, z: z + b, ...m });
+  }
+  return out;
+}
+
+export const blockedCells = (d) => (CATALOG[d.t]?.mask ? maskCells(d.t, d.x, d.z, d.rot || 0).filter((c) => !c.pass).map((c) => [c.x, c.z]) : CATALOG[d.t]?.passable ? [] : footprintCells(d.t, d.x, d.z, d.rot || 0));
+
 export const footprintCells = (t, x, z, rot = 0) => {
   const [w, d] = CATALOG[t].footprint;
   const [fw, fd] = rot % 2 ? [d, w] : [w, d];
