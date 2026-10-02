@@ -7,6 +7,7 @@ import { xray } from "./xray.js";
 import { liftAt } from "./terrain.js";
 import { makeStyle } from "./style.js";
 import { initMotion, stepMotion } from "./motion.js";
+import { buildThings, bakeThingBases } from "./things.js";
 
 const FRAME = [351, 390];
 
@@ -17,7 +18,7 @@ export function createRenderer(container = document.body) {
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
-  let lift = 0, S, pickables = [], hero, bounds, zoom = 60;
+  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, things = null, ride = 0;
   const focus = new THREE.Vector3();
 
   const resize = () => {
@@ -47,7 +48,7 @@ export function createRenderer(container = document.body) {
   const heroTarget = (a) => {
     const c = S.params.hero === "0" && (String(S.params.center || "").split(",").map(Number).filter((n) => !isNaN(n)).length === 3 ? S.params.center.split(",").map(Number) : S.level.view?.center);
     if (S.params.hero === "0" && Array.isArray(c) && c.length === 3) return new THREE.Vector3(c[0], c[1], c[2]);
-    return new THREE.Vector3(a.pos.x, (a.y + lift) * S.view.tileH + 0.4, a.pos.z);
+    return new THREE.Vector3(a.pos.x, (a.y + lift) * S.view.tileH + ride + 0.4, a.pos.z);
   };
 
   return {
@@ -62,8 +63,14 @@ export function createRenderer(container = document.body) {
       const terrain = buildTerrain(L, state.view, seed, style);
       scene.add(terrain.group);
       pickables = terrain.pickables;
-      const decor = buildDecor(L, state.view, style);
+      const hasThings = !!L.things?.length;
+      const decor = buildDecor(L, state.view, style, hasThings ? { bakeExtra: (B) => bakeThingBases(B, L, state.view, style) } : {});
       scene.add(decor.group);
+      if (hasThings) {
+        things = buildThings(L, state.view, style, decor.group);
+        scene.add(things.group);
+        state.things?.on(things.onEvent);
+      }
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       scene.add(hero);
@@ -76,7 +83,8 @@ export function createRenderer(container = document.body) {
     update(state, dt) {
       const a = state.actor;
       lift += (liftAt(state.level, a.pos.x, a.pos.z) - lift) * Math.min(1, dt * 12);
-      hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH, a.pos.z);
+      if (things) { things.update(state, dt); ride = things.rideOffset(state); }
+      hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH + ride, a.pos.z);
       hero.userData.animate(a, dt);
       stepMotion(dt);
       const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * 4) : 1;
@@ -85,7 +93,7 @@ export function createRenderer(container = document.body) {
     render() {
       placeCamera(focus);
       camera.updateMatrixWorld();
-      const a = S.actor, feet = (a.y + lift) * S.view.tileH, v = new THREE.Vector3(a.pos.x, feet + 0.45, a.pos.z).project(camera);
+      const a = S.actor, feet = (a.y + lift) * S.view.tileH + ride, v = new THREE.Vector3(a.pos.x, feet + 0.45, a.pos.z).project(camera);
       const px = gl.getPixelRatio(), w = gl.domElement.width, h = gl.domElement.height;
       xray.uHero.value = [(v.x * 0.5 + 0.5) * w, (v.y * 0.5 + 0.5) * h];
       xray.uDepth.value = v.z * 0.5 + 0.5 - 0.35 / (camera.far - camera.near);

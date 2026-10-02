@@ -56,7 +56,7 @@ function makerFor(d, spec, H, rot, style, pieces, extrasFor) {
 
 const xrayCopy = (m) => applyMotion(applyXray(m.clone()));
 
-export function buildDecor(L, view, style = makeStyle(L)) {
+export function buildDecor(L, view, style = makeStyle(L), { bakeExtra } = {}) {
   L = liftLevel(L);
   const pieces = makePieces(style);
   const group = new THREE.Group(), spinners = [];
@@ -90,6 +90,7 @@ export function buildDecor(L, view, style = makeStyle(L)) {
     }
     S.at(x, base, z, -rot * (Math.PI / 2), () => make(S, H, d.v || 0, ctx));
   }
+  if (bakeExtra) bakeExtra(S, L);
   if (!S.empty) {
     const m = new THREE.Mesh(S.geometry(), mat);
     m.name = "decor";
