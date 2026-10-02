@@ -391,3 +391,52 @@ node tools/clip.mjs "http://localhost:8765/3d/index.html?level=ember-subject&ui=
 ```
 
 `out/refine/stage3-before.png` is the committed level before this stage at the same framing.
+
+## Refinement stage 2
+
+2026-10-01, style bible on cat-medium (Approach A plus B in `docs/refinement/cohesion.md`). The numbers live in `docs/STYLE.md` and in `BIBLE` in `3d/prims.js`.
+
+### prims.js
+
+`kit(B, { light, rot })` wraps a `Baker` and draws `rbox`, `box`, `wedge`, `spike`, `cone`, `cyl` and `disc` from a base hex. Each solid's faces take a step of `ramp(hex)` by world normal: top step 0, chamfer band step +1, left step -1, right step -2, bevel corners the midpoint, underside step -2; parts under 0.15 tile go two-tone. The kit divides every face colour by `lightFactor(light, n)` for the normal the decor baker will see after `rot`, so the level light multiplies it back to the ramp step. `lockedKit(B, style, rot)` reads `style.light`. Faces pass to `B.tri`, so `B.sway` tags still apply to anything drawn inside a sway block.
+
+`figure(K, spec)` lays out `spec.parts` (`id`, `prim`, `dims` in tiles, `at`, optional `on` to stack on another part's top, `group` to turn with a pivot in `spec.groups`, `face: true` for details, `prim: "chain"` with `links` for a tail) and records each part's triangle range on `K.parts`. `audit(spec)` counts parts with a side of 0.15 tile or more, flags sub-0.08 parts off the face, and checks the `role: "head"` part against 0.35 to 0.45 of height; `figure` throws when the audit fails.
+
+### The cat
+
+`3d/pieces/cat.js` builds every `lead` or `creature` prop through `catSpec`: haunch, back, bib, two legs, paws, a four-link tail, head, blaze, muzzle and two ears (12 parts), plus eyes, pupils, nose, open mouth, tongue, fangs and inner ears as face details. Head block 0.82 of a 2.3-tile figure (0.36), ears to the top. `catColours` picks the darkest lead tone as body, the most saturated yellow-orange as coat, the palest as bib and a pink-red as accent, so cat-subject and cat-composition get their own cats. Lead height now clamps to 2.4..3 (was 2.6..3); the lens bases (palette, box, tiers) and every lens prop are unchanged. The head turns 0.12 to 0.26 rad by variant through the `head` group. `figures(style)` exports the specs, and the builder's mesh carries `userData.parts` and `userData.audit`. No level JSON changed.
+
+### Cohesion
+
+```sh
+node tools/cohesion.mjs <render.png> <level> [--json]
+```
+
+Rows: highlight V p90 of non-background pixels; palette CIEDE2000 from each swatch (exact colours covering 0.1% of the foreground, edge pixels against the background dropped) to the nearest step of a ramp built from every palette hex and every hex literal in the engine and the level's piece modules, as shown raw, under the level light, under the pack shade and darkened 0.85; terrain cliff right/left from the palette under the level light, with the pixel count of each tone in the render; creature parts and head ratio from the module's `figures()`; face left/top and right/left per part from the module's bake under the level light, with how many of those tones the render contains; scale bands from the catalog (decals exempt). Exit code 1 on any FAIL.
+
+| Row | cat-medium before | cat-medium after | home (control) |
+| --- | --- | --- | --- |
+| highlight V p90 | 1.000 | 1.000 | 1.000 |
+| palette max / p90 | 1.84 / 0.43 | 1.84 / 0.43 | 3.32 / 0.00 |
+| upper cliff right/left | 0.627 FAIL | 0.627 FAIL | 0.814 |
+| lower cliff right/left | 0.673 | 0.673 | 0.709 |
+| cat parts | no `figures()` | 12, head 0.36 | n/a |
+| cat face left/top | 0.79 mean, 0.73 to 0.86 | 0.881, worst 0.883 | n/a |
+| cat face right/left | 0.72 mean, 0.58 to 0.78 | 0.748, worst 0.747 | n/a |
+| scale bands | pass | pass | pass |
+
+The before face ratios come from the old FAUVE tone triples under the cat-medium light; the old module records no part ranges. Home compares identical at `hero=0`, 351x390: MAD 0.0 against its pre-stage render, MAD 23.7, NCC 0.795, silhouette 92.6% against `ref/reference.png`.
+
+### Validation
+
+Critic, 3 votes, files in `out/refine/s2/critic/`: round 1 gave 0 high, 0 medium at 900x800 and 351x390 (three single-vote items at 351, none agreed). Spend $0.038. `tools/qa-levels.mjs http://localhost:8765 cat-medium` 14 pass, 0 fail; cat-subject and cat-composition 14 pass each. `tools/qa.mjs` 134 pass, 0 fail.
+
+Capture:
+
+```sh
+export PP_PROFILE=.pp-profile-style
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=cat-medium&hero=0" out/refine/stage2-after.png 900 800
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=cat-medium&hero=0&zoom=102.87" out/refine/s2/after-2x.png 1800 1600
+```
+
+`zoom=102.87` at 1800x1600 doubles the 900x800 framing (the renderer skips its frame fit when `zoom` is set). `out/refine/stage2-before.png` is the committed cat-medium at 900x800; `out/refine/stage2-cat-crop.png` puts the 400 px crops at 450,220 of the 2x renders side by side, before on the left.
