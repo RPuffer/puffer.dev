@@ -1478,6 +1478,34 @@ function r5Spawn(level, h, lo, hi, score) {
   return h.approach({ walkOnly: true });
 }
 
+function rampDecor(level, h, keep) {
+  const props = level.palette.props || {};
+  const axis = (d) => (d === "e" || d === "w" ? [[1, 0], [-1, 0]] : [[0, 1], [0, -1]]);
+  const landing = new Set();
+  level.cells.forEach((row, z) => row.forEach((c, x) => { if (c?.s === "ramp") for (const [dx, dz] of axis(c.d)) landing.add(h.key(x + dx, z + dz)); }));
+  const bad = (d, x, z) => h.cell(x, z)?.s === "ramp" || (!props[d.t]?.passable && landing.has(h.key(x, z)));
+  const ring = [];
+  for (let dz = -2; dz <= 2; dz++) for (let dx = -2; dx <= 2; dx++) if (dx || dz) ring.push([dx, dz]);
+  ring.sort((a, b) => Math.abs(a[0]) + Math.abs(a[1]) - Math.abs(b[0]) - Math.abs(b[1]) || Math.max(Math.abs(a[0]), Math.abs(a[1])) - Math.max(Math.abs(b[0]), Math.abs(b[1])));
+  let moved = 0, dropped = 0;
+  for (const d of [...level.decor]) {
+    if (d === h.lead || keep.includes(d.t) || !h.footprint(d).some(([x, z]) => bad(d, x, z))) continue;
+    const ox = d.x, oz = d.z, r0 = h.reach().missing.length, w0 = h.walkN();
+    let ok = false;
+    for (const [dx, dz] of ring) {
+      const x = ox + dx, z = oz + dz, c = h.cell(x, z);
+      if (!h.land(c) || c.s === "ramp" || bad(d, x, z) || h.isFig(x, z) || h.decorAt(x, z).some((e) => e !== d)) continue;
+      d.x = x; d.z = z;
+      if (h.reach().missing.length <= r0 && h.walkN() >= w0 - 1) { ok = true; break; }
+    }
+    if (ok) { moved++; continue; }
+    d.x = ox; d.z = oz;
+    h.removeDecor((e) => e === d);
+    dropped++;
+  }
+  if (moved || dropped) h.log.push(`rampDecor: ${moved} moved, ${dropped} dropped`);
+}
+
 function finishR5(level, brief, h, lens) {
   const L = R5LOOK[lens];
   level.bg = level.palette.bg = L.bg;
@@ -1532,6 +1560,7 @@ function finishR5(level, brief, h, lens) {
   if (h.walkN() < 81) h.thin(81, { keep: [gateT, lightT] });
   if (h.walkN() < 84 && lens !== "ringway" && lens !== "veinfield" && lens !== "nebula") h.grow(84, { s: h.surf.ground });
   h.rampTone();
+  rampDecor(level, h, [gateT]);
   h.log.push(`r5 ${lens}: approach ${h.approach({ walkOnly: true }).length}, walk ${h.walkN()}, gate ${g}`);
 }
 
