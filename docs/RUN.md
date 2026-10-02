@@ -36,6 +36,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `center` | `x,y,z` world point the camera centres on when `hero=0`, else the level's `view.center` |
 | `dpad` | `1` forces the on-screen d-pad |
 | `xray` | `0` switches off the see-through window around the hero (both builds) |
+| `t` | Freezes the wind clock at `t` seconds (3d); `hero=0` and `prefers-reduced-motion` freeze it at 0 |
 | `ui` | `0` hides the seed overlay |
 | `view` | Root page only: `both`, `3d`, or `2d` |
 
@@ -304,3 +305,39 @@ Round spend: $9.324 across 41 ledger lines (analyses and briefs $4.23, critic th
 | cosmos-lashline | symmetric | 118 | 23 | 7 | A lid temple: a mirrored ridge of rose flesh terraces where the lashes stand as  |
 | cosmos-veinfield | shards | 97 | 19 | 6 | A porcelain plain of sclera cracked into slabs, where the zero-gauge capillaries |
 | cosmos-nebula | spiral | 99 | 28 | 5 | A coil of yellow-green and teal gas hanging in the black, the path climbing its  |
+
+## Refinement stage 1
+
+2026-10-01, wind and ambient life (Route A, baked vertex motion, from `docs/refinement/motion.md`).
+
+`Baker.sway(kind, opts, fn)` in `3d/baker.js` tags every triangle `fn` emits. Each vertex carries `aSway` (mode, amplitude or swatch rate, phase, span or duty), `aRoot` (the tag's root point in mesh space) and `aAlt` (a second swatch, shaded like the face). Untagged vertices carry zeros. `extractTris` and `bakeInto` in `3d/bake.js` carry the tags through pieces-module builders, so a module tags its own Baker and the engine bakes the tag into the merged decor mesh. `applyMotion` in `3d/motion.js` chains onto the x-ray `onBeforeCompile`: it displaces `transformed` after `begin_vertex`, before `project_vertex`, so the see-through window cuts the moved vertex. The decor mesh, the water mesh and the cloned x-ray materials of unmerged extras carry it. Phase adds a hash of the root's x and z, so neighbours differ and a reload keeps the same phase.
+
+| Mode | Tagged pieces | Motion | Amplitude (world) |
+| --- | --- | --- | --- |
+| `crown` | pine tiers and round-tree cubes (root at the trunk top), `bush`, `bush-cluster`, `flower`, cat `bristle` tufts | slow sine lean, weighted by height above root, 1.3 and 0.97 rad/s | 0.045 crowns and tufts, 0.035 bushes and flowers |
+| `flame` | `flame()` in torch and campfire, ember `flames()` | lean plus stretch, weighted by height squared, 9 to 13.7 rad/s | 0.04 |
+| `ripple` | bubble discs on every water cell (`3d/terrain.js`) | circular drift, 0.7 to 0.9 rad/s | 0.035 |
+| `fall` | waterfall bubble streaks, split into 8 segments | each segment shrinks onto its lower edge, the wave travelling down | at most 0.6 of a half segment |
+| `mist` | forest-a `mist-bank`, forest-b `mist`, forest-a-pack-first `mist-wisp` | slow drift, 0.37 to 0.8 rad/s | 0.05 |
+| `pickup` | coin, gem, star, heart (their spinner meshes) | bob plus a 0.18 rad yaw swing about the piece's centre | 0.05 |
+| `swatch` | lantern glass, cat light box, ember vent pools (0.35 Hz, half duty); waterfall bands (0.7 Hz, 0.2 duty, phase stepping down the 8 segments) | colour steps between the baked swatch and `aAlt` | none |
+
+Trunks, terrain, buildings and the hero carry no tag. `uTime` ramps the displacement in over its first 1.5 s, so motion starts from the rest pose. The game loop runs fixed 1/60 s steps and caps catch-up at 0.25 s, which is the clamp on tab return; `stepMotion` also caps one step at 0.1 s. The JS spinner swing in `3d/renderer.js` is gone: the shader drives pickups.
+
+Frozen clock: `hero=0`, `t=<seconds>` and `prefers-reduced-motion: reduce` stop the clock. `window.__setTime(s)` sets it and stops the automatic clock, for frame-exact capture.
+
+Draw calls from `renderer.info` at 900x800 are unchanged from the build before the stage: home 11 (5 with `hero=0`: land, water, decor, two coin spinners), cat-medium 9, ember-subject 9, gen seed 7 13. Home grows from 14457 to 14709 triangles (`hero=0`), the waterfall segments.
+
+Compare at `?level=home&hero=0`, 351x390: MAD 23.7, NCC 0.795, silhouette 92.6%, and MAD 0.0 against the render from before the stage.
+
+Capture:
+
+```sh
+export PP_PROFILE=.pp-profile-wind
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=home&hero=0" out/refine/stage1-before.png 900 800
+node tools/clip.mjs "http://localhost:8765/3d/index.html?level=home&ui=0" out/refine/stage1-after.mp4
+node tools/clip.mjs "http://localhost:8765/3d/index.html?level=cat-medium&ui=0" out/refine/stage1-cat-medium.mp4
+```
+
+`tools/clip.mjs <url> <out.mp4> [w=900] [h=800] [seconds=6] [fps=30] [start=2]` loads the page, calls `__setTime` once per frame from `start`, screenshots each frame into `<out>-frames/`, and encodes with libx264, yuv420p, crf 18. A 6 s clip takes about 45 s under swiftshader.
+
