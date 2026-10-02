@@ -87,3 +87,11 @@
 - The palette row passes the old cat too: its FAUVE hexes sit in the module source, which the tool reads as authored swatches. The row catches stray colours, not ramp discipline; the face rows carry the lock.
 - A breathing chest, blink and watching head need new `SWAY` modes in `3d/motion.js`; this stage left the shader alone. `spec.groups.head` already turns the head and face as one piece, so a live head can reuse it.
 - `B.tri` culls on the module-space normal before `rot` turns the piece; `kit()` passes `cull = false`, so a rotated prims piece keeps its faces and also bakes its hidden back faces.
+- 2026-10-01 stage 4 traps. `core/level.js` and `core/interact.js` import each other; both only touch the other's exports inside functions, so the cycle loads. Keep top-level code in either file free of the other's names.
+- A puppeteer profile keeps `localStorage`, so a lit bonfire from one run respawns the hero on the next and `qa-levels.mjs` fails its spawn check. `qa-things.mjs` clears `isoworld:things:<level>` when it ends; after an aborted run, load once with `?reset=1`.
+- The approach route from `h.approach()` crosses one-step height changes; `placeThings` asks for `walkOnly: true`, or the gate lands on a cell the hero reaches by another way. On wizard-medium the south terrace bypassed every route cell, so the finish plugs the bypass with one ink spire at 9,6 that drops no reach.
+- `.iw-prompt{display:flex}` beats the UA `[hidden]` rule; the stylesheet restates `[hidden]{display:none}`.
+- Extras from `bakeInto` get `matrixAutoUpdate = false` and a baked matrix. The watcher head keeps that matrix as `userData.base` and multiplies a pivot rotation onto it each frame; setting `rotation` does nothing.
+- Unmerged parts skip the decor Baker's light, so `3d/things.js` and the wizard head bake with `new Baker(style.light)`; a rotated head keeps the light of its rest normals.
+- The 2d build shares `core/game.js`, so wizard-medium in 2d gets the prompts and the blocked bonfire and chest cells with nothing drawn on them.
+- The gate bars first rose 1.6 above the posts and read as bars floating over the arch in the clip; they now scale down into the lintel.
