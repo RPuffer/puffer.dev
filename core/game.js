@@ -3,6 +3,7 @@ import { createActor } from "./actor.js";
 import { pathToward } from "./path.js";
 import { DIRS, isWalkable } from "./level.js";
 import { makeProjection, viewFrom } from "./iso.js";
+import { createInteract } from "./interact.js";
 
 export const STEP = 1 / 60;
 
@@ -32,9 +33,11 @@ export function start(level, renderer, { params = readParams() } = {}) {
   const view = viewFrom(level, params);
   const proj = makeProjection(view);
   const sp = String(params.spawn || "").split(",").map(Number);
-  const spawn = sp.length === 2 && isWalkable(level, sp[0], sp[1]) ? sp : level.spawn;
+  const things = level.things?.length ? createInteract(level, { params }) : null;
+  const spawn = sp.length === 2 && isWalkable(level, sp[0], sp[1]) ? sp : things?.spawnCell() || level.spawn;
   const actor = createActor(level, spawn);
-  const state = { level, view, proj, actor, params, time: 0, frame: 0 };
+  things?.bind(actor);
+  const state = { level, view, proj, actor, params, things, time: 0, frame: 0 };
   renderer.init?.(state);
 
   const input = createInput(renderer.element || document.body, { dpad: params.dpad === "1" ? true : "auto" });
@@ -43,6 +46,7 @@ export function start(level, renderer, { params = readParams() } = {}) {
     if (it.kind === "tap") {
       const cell = renderer.pick?.(it.x, it.y, it.w, it.h);
       if (!cell) return;
+      if (actor.locked || things?.tap(cell)) return;
       const from = actor.path[0] || actor.cell;
       const p = pathToward(level, from, cell);
       if (p) actor.setPath(p);
@@ -56,6 +60,7 @@ export function start(level, renderer, { params = readParams() } = {}) {
     last = now;
     while (acc >= STEP) {
       actor.update(STEP);
+      things?.update(STEP);
       renderer.update?.(state, STEP);
       state.time += STEP;
       acc -= STEP;
@@ -71,7 +76,18 @@ export function start(level, renderer, { params = readParams() } = {}) {
   const game = {
     state,
     renderer,
-    stop() { running = false; cancelAnimationFrame(raf); input.dispose(); },
+    stop() { running = false; cancelAnimationFrame(raf); input.dispose(); things?.dispose(); },
+    pause() { running = false; cancelAnimationFrame(raf); },
+    advance(seconds) {
+      for (let n = Math.round(seconds / STEP); n > 0; n--) {
+        actor.update(STEP);
+        things?.update(STEP);
+        renderer.update?.(state, STEP);
+        state.time += STEP;
+      }
+      renderer.render(state, 0);
+      state.frame++;
+    },
   };
   window.__game = game;
   return game;

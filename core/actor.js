@@ -11,6 +11,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
     moving: false,
     walkPhase: 0,
     held: null,
+    locked: false,
   };
   a.y = surfaceHeight(L, a.pos.x, a.pos.z);
 
@@ -34,6 +35,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
   };
 
   a.update = (dt) => {
+    if (a.locked) { a.path = []; a.moving = false; a.walkPhase = 0; return; }
     let budget = a.speed * dt;
     if (!a.path.length && a.held) a.stepDir(a.held);
     const wasMoving = a.path.length > 0;

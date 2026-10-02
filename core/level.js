@@ -1,4 +1,5 @@
 import { CATALOG, SURFACES, WALKABLE, blockedCells, maskCells } from "./catalog.js";
+import { THING_KINDS, normalizeThing, thingBlocks } from "./interact.js";
 
 export const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
 export const OPPOSITE = { n: "s", s: "n", e: "w", w: "e" };
@@ -48,6 +49,15 @@ export function validateLevel(L) {
     else if (!(d.x >= 0 && d.x < W && d.z >= 0 && d.z < D)) warnings.push(`decor ${i}: ${d.t} at ${d.x},${d.z} outside level, skipped`);
   }
   if (!Array.isArray(L.spawn)) errors.push("spawn must be [x, z]");
+  if (L.things != null && !Array.isArray(L.things)) errors.push("things must be an array");
+  const ids = new Set();
+  for (const [i, t] of (Array.isArray(L.things) ? L.things : []).entries()) {
+    const kind = t?.kind || t?.t;
+    if (!THING_KINDS.includes(kind)) warnings.push(`thing ${i}: unknown kind ${kind}, skipped`);
+    else if (!(t.x >= 0 && t.x < W && t.z >= 0 && t.z < D)) warnings.push(`thing ${i}: ${kind} at ${t.x},${t.z} outside level, skipped`);
+    if (t?.id != null && ids.has(t.id)) warnings.push(`thing ${i}: duplicate id ${t.id}`);
+    ids.add(t?.id);
+  }
   return { errors, warnings };
 }
 
@@ -63,6 +73,8 @@ export function prepareLevel(raw) {
     for (const [x, z] of blockedCells(d)) L.blocked.add(x + "," + z);
     if (CATALOG[d.t].mask) for (const m of maskCells(d.t, d.x, d.z, d.rot || 0)) if (m.over != null) L.cover.set(m.x + "," + m.z, { t: d.t, over: m.over, h: m.h });
   }
+  L.things = (Array.isArray(raw.things) ? raw.things : []).filter((t) => THING_KINDS.includes(t?.kind || t?.t) && t.x >= 0 && t.x < W && t.z >= 0 && t.z < D).map((t, i) => normalizeThing({ id: "t" + i, ...t }));
+  for (const t of L.things) for (const [x, z] of thingBlocks(t)) L.blocked.add(x + "," + z);
   if (!isWalkable(L, L.spawn[0], L.spawn[1])) {
     const alt = firstWalkable(L);
     warnings.push(`spawn ${L.spawn} not walkable, using ${alt}`);
