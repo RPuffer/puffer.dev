@@ -20,3 +20,4 @@
 - 2026-10-01 Cohesion locks value ramps and face-shading ratios to the pack; hue and key stay free per island.
 - 2026-10-01 Stage order: wind on home, stamps on ember-subject, style bible on cat-medium (after a Gemini top-up for reference sheets), things on wizard-medium. Each stage lands as a before-and-after fortress card.
 - 2026-10-01 Motion scope: ambient life everywhere plus one reaction per island, the focal creature turning to watch the hero cross its threshold.
+- 2026-10-01 Operator loaded $100 onto the Gemini account for runway; the pipeline keeps logging every batch in docs/SPEND.md against that balance.
