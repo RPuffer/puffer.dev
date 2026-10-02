@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { registerStamps, flameCrest } from "../stamps.js";
 
 const HOT = {
   coal: ["#2e1a10", "#24140b", "#170c06"],
@@ -355,8 +356,16 @@ export function register(style) {
       return mesh(B);
     };
   }
-  return { catalog, builders };
+  const st = registerStamps(style, {
+    base: HOT.coal, post: [HOT.soot, HOT.hornDark], lintel: HOT.brow, trim: HOT.orange, rail: HOT.horn,
+    cobble: HOT.horn, kerb: HOT.coal, trunk: HOT.coal, crown: [HOT.amber[0], HOT.orange[0], HOT.red[0]],
+    crest: flameCrest(flames, [HOT.coal, HOT.orange, HOT.red, HOT.amber]),
+  });
+  return { catalog: { ...catalog, ...st.catalog }, builders: { ...builders, ...st.builders } };
 }
+
+const CATALOG_HAS_ARCH = (level) => level.decor.some((d) => d.t === "arch");
+const STAMPS = /^(arch|canopy|bridge-span-\d|fence-run-\d|road-run-\d)$/;
 
 function resurface(level, h) {
   const cells = [];
@@ -464,15 +473,18 @@ function finishLens(level, brief, h) {
   let r = h.spawnAt({ min: 9, max: 16 });
   if (r.length) h.path(r);
   r = h.approach();
+  h.path(r);
   let g = null;
   for (const frac of [0.6, 0.45, 0.75, 0.3]) if (!g && gateT) g = h.gate(gateT, { route: r, frac });
+  const gi = g ? r.findIndex(([x, z]) => x === g[0] && z === g[1]) : r.length;
+  if (h.bridge({ route: r, frac: 0.2, n: 2, before: gi }) || h.bridge({ route: r, frac: 0.2, before: gi })) r = h.approach();
   const posts = level.decor.filter((d) => d.t === gateT);
   const avoid = g ? [g] : [];
   h.along(passT, { route: r });
   for (const t of lineT) torches(level, h, r, t, g, 5, 1);
   if (props[lightT] && lightT !== gateT && !h.lights(lightT, { route: r, every: 4, skip: 2, max: 4, avoid, keep: [gateT, ...passT, ...lineT] })) torches(level, h, r, lightT, g, 3, 3);
   const gateN = (brief.motifs || []).find((m) => m.name === gateT || m.type === gateT)?.count || 0;
-  if (g && gateN >= 4) {
+  if (g && gateN >= 4 && !CATALOG_HAS_ARCH(level)) {
     const gi = r.findIndex(([x, z]) => x === g[0] && z === g[1]);
     for (const i of [gi - 3, gi - 4, gi + 3, gi - 2]) {
       if (i < 1 || i >= r.length - 1) continue;
@@ -480,17 +492,23 @@ function finishLens(level, brief, h) {
       if (h.gate(gateT, { route: r, at: r[i] })) { posts.push(...level.decor.slice(snap).filter((d) => d.t === gateT)); break; }
     }
   }
+  h.canopy({ route: r, near: 3 });
+  h.road({ route: r, max: 2, until: g ? r.findIndex(([x, z]) => x === g[0] && z === g[1]) : r.length });
   scatter(level, h, r, offT[0], 4 - kept.length);
   for (const q of posts) if (!level.decor.includes(q) && !level.decor.some((d) => d.t === gateT && d.x === q.x && d.z === q.z)) { h.clear(q.x, q.z); level.decor.push(q); h.log.push(`gate post restored ${q.x},${q.z}`); }
-  h.ledges({ keep: [gateT] });
-  h.repair({ keep: [gateT, ...lineT] });
-  h.pruneRamps({ route: h.approach() });
+  const stampT = level.decor.map((d) => d.t).filter((t) => STAMPS.test(t));
+  h.ledges({ keep: [gateT, ...stampT] });
+  h.repair({ keep: [gateT, ...lineT, ...stampT] });
+  h.pruneRamps({ route: r });
   h.pruneRamps({ all: true, slotsOnly: true });
   h.openRamps();
   h.pruneRamps({ all: true, nearFig: 1 });
   if (h.walkN() < 84) h.grow(84);
-  if (h.walkN() < 84) h.thin(84, { keep: [gateT, lightT, ...lineT] });
+  if (h.walkN() < 84) h.thin(84, { keep: [gateT, lightT, ...lineT, ...stampT] });
+  h.fence({ route: r, max: 1 });
+  if (h.walkN() < 84) h.grow(84);
   h.rampTone();
+  h.readability({ route: r });
 }
 
 export function finish(level, brief, h) {
