@@ -1,0 +1,214 @@
+{
+  "cat": {
+    "file": "pipeline/refsheets/cat.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 1,
+    "hero_px": 246,
+    "figure_px": 557,
+    "height_ratio": 2.26,
+    "target_ratio": 2.5,
+    "figure_tiles": 2.1,
+    "proportions": [
+      "head is 0.5 of figure height: a big block head on a seated body",
+      "legs 0.17 tile thick, tail a chain of 0.15 tile blocks curling forward",
+      "widest at the haunches plus tail, 1.37 tiles",
+      "accent #c4616d on inner ears and the open mouth only"
+    ],
+    "verdict": "current figure is a 2.5-tile head-and-bib bust of cones; the sheet is a seated full-body cat 2.1 tiles tall, so it needs a body and fewer cones"
+  },
+  "dragon": {
+    "file": "pipeline/refsheets/dragon.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "first",
+    "hero_px": 208,
+    "figure_px": 625,
+    "height_ratio": 3,
+    "target_ratio": 3,
+    "figure_tiles": 2.79,
+    "proportions": [
+      "head 0.3 of height, thrust forward on an arched plated neck",
+      "legs 0.3 tile thick, tail plates 0.15 tile in a curl",
+      "widest across the folded wings and crest, about 1.7 tiles",
+      "accent #303030 in the eye socket and gullet only"
+    ],
+    "verdict": "current figure is a black 8-part head-and-neck statue; the sheet stands a white wyvern 2.8 tiles tall with wings and legs, so the body is missing and the value is inverted"
+  },
+  "ember": {
+    "file": "pipeline/refsheets/ember.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "second",
+    "hero_px": 245,
+    "figure_px": 666,
+    "height_ratio": 2.72,
+    "target_ratio": 2.5,
+    "figure_tiles": 2.53,
+    "proportions": [
+      "dragon head 0.3 of height on top, skull 0.25 at the base, flame slabs between",
+      "ram horns 0.15 tile thick, curled out to both sides of the skull",
+      "widest at the horns, 1.41 tiles",
+      "accent #d78d37 on the horn and skull faces"
+    ],
+    "verdict": "current 6-part totem reads as a small skull under a flame cone; the sheet stacks a crested dragon head over a horned skull wrapped in flame slabs, so horns and flame mass are under-built"
+  },
+  "chimera": {
+    "file": "pipeline/refsheets/chimera.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "second",
+    "hero_px": 193,
+    "figure_px": 445,
+    "height_ratio": 2.31,
+    "target_ratio": 2,
+    "figure_tiles": 2.15,
+    "proportions": [
+      "head 0.3 of height, carried at the front on a ribbed neck arched higher than the back",
+      "forelimbs 0.25 tile thick, splayed wide with spiked claws",
+      "widest at the splayed forelegs, 1.85 tiles",
+      "accent #2d251f in the gaps between armour plates and the eyes"
+    ],
+    "verdict": "current figure is a grey cluster with no readable head; the sheet gives a ribbed arched neck and a big crested head low at the front"
+  },
+  "wizard": {
+    "file": "pipeline/refsheets/wizard.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 1,
+    "hero_px": 268,
+    "figure_px": 629,
+    "height_ratio": 2.35,
+    "target_ratio": 2.5,
+    "figure_tiles": 2.19,
+    "proportions": [
+      "head and hat 0.4 of height; hat brim 0.75 tile wide, twice the sausage width",
+      "legs and arms 0.06 tile noodles, staff 0.06 tile",
+      "widest at the open palm and staff, 1.17 tiles",
+      "accent #c2674e on the sausage body, #644b48 on the staff"
+    ],
+    "verdict": "current figure is close; the sheet widens the hat brim, adds a white collar and shows noodle legs below a shorter robe"
+  },
+  "swallow": {
+    "file": "pipeline/refsheets/swallow.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "second",
+    "hero_px": 290,
+    "figure_px": 431,
+    "height_ratio": 1.49,
+    "target_ratio": 1.5,
+    "figure_tiles": 1.39,
+    "proportions": [
+      "head 0.3 of height, a single block with a wedge beak",
+      "tail forks are two 0.08 tile blades reaching below the perch",
+      "widest at the folded wing tips, 0.92 tile",
+      "accent #3f2723 on beak and eyes only"
+    ],
+    "verdict": "current figure is a brown bird with long wing spikes at 2.4 tiles; the sheet perches it at 1.4 tiles, so it is 1.7 times too tall and the spikes too long"
+  },
+  "cosmos": {
+    "file": "pipeline/refsheets/cosmos.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "second",
+    "hero_px": 201,
+    "figure_px": 624,
+    "height_ratio": 3.1,
+    "target_ratio": 3,
+    "figure_tiles": 2.88,
+    "proportions": [
+      "eyeball 0.5 of height on a three-step plinth 0.35 of height",
+      "ring a chain of 0.15 tile blocks tilted about 20 degrees",
+      "widest at the ring, 2.09 tiles",
+      "accent #416262 on two ring blocks only"
+    ],
+    "verdict": "current figure is a black sphere with a green zigzag collar; the sheet is a tan ringed eyeball with a dark iris on a stepped plinth, so ring, iris and palette all differ"
+  },
+  "sharkbear": {
+    "file": "pipeline/refsheets/sharkbear.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "second",
+    "hero_px": 148,
+    "figure_px": 458,
+    "height_ratio": 3.09,
+    "target_ratio": 2.5,
+    "figure_tiles": 2.87,
+    "proportions": [
+      "shark head 0.35 of height, low and forward, dorsal fin a 0.4 tile wedge",
+      "legs 0.3 tile thick bear pillars",
+      "widest at the tail blade sweeping forward, 2.34 tiles",
+      "accent #3c3c3c on eye and mouth slit only"
+    ],
+    "verdict": "current figure reads as a small grey lump; the sheet is a 2.9-tile hunched bear with a fin and a long tail blade, so it is too small and the tail is missing"
+  },
+  "gremlin": {
+    "file": "pipeline/refsheets/gremlin.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 1,
+    "hero_px": 224,
+    "figure_px": 663,
+    "height_ratio": 2.96,
+    "target_ratio": 2.5,
+    "figure_tiles": 2.75,
+    "proportions": [
+      "faceless box head 0.17 of height on a long neck",
+      "limbs 0.1 tile thick with long webbed feet",
+      "widest at the crouched knees and raised arm, 1.55 tiles",
+      "accent #2c2c2c on the held jaw sphere only"
+    ],
+    "verdict": "current white crouched robot shares the palette; the sheet is taller, 2.75 tiles, with thinner, longer limbs and a box head"
+  },
+  "mindbloom": {
+    "file": "pipeline/refsheets/mindbloom.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "first",
+    "hero_px": 239,
+    "figure_px": 702,
+    "height_ratio": 2.94,
+    "target_ratio": 2.5,
+    "figure_tiles": 2.73,
+    "proportions": [
+      "face 0.25 of height, hair cloud 0.4, plinth 0.35",
+      "neck and plinth steps 0.3 tile, jar a clear 0.4 tile cube",
+      "widest at the spiky hair cloud, 1.37 tiles, about twice the face",
+      "accent green on one flame motif at the brow; the doodle decals are optional"
+    ],
+    "verdict": "current head with ringed colour hair on a teal base is close; the sheet is taller with a black spiky hair cloud twice the face width on a stepped lavender plinth"
+  },
+  "eagle": {
+    "file": "pipeline/refsheets/eagle.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 2,
+    "kept": "second",
+    "hero_px": 325,
+    "figure_px": 581,
+    "height_ratio": 1.79,
+    "target_ratio": 1.5,
+    "figure_tiles": 1.66,
+    "proportions": [
+      "head 0.55 of height, beak 0.35 tile long",
+      "neck ruff 0.8 tile wide over a 0.3 tile post plinth",
+      "widest at the shoulders, 0.87 tile",
+      "accent #bc9e3b on the beak only"
+    ],
+    "verdict": "current totem carries a huge beak and a mint lens at 2.1 tiles; the sheet is a 1.7-tile bust with a modest beak and plain eye"
+  },
+  "forest": {
+    "file": "pipeline/refsheets/forest.png",
+    "model": "gemini-3.1-flash-image",
+    "tries": 1,
+    "hero_px": 264,
+    "figure_px": 664,
+    "height_ratio": 2.52,
+    "target_ratio": 2.5,
+    "figure_tiles": 2.34,
+    "proportions": [
+      "head and crest 0.3 of height, body 0.35, legs 0.35",
+      "legs 0.1 tile, tail a curled 0.2 tile scroll above the back",
+      "widest at the body plus tail scroll, 1.13 tiles",
+      "the charcoal artwork gives a grey sheet: keep the island's flame palette, accent on the beak"
+    ],
+    "verdict": "current orange flame bird on a pedestal matches the sheet's upright crest and scrolled tail; the 11-part build needs only its crest raised and tail scrolled"
+  }
+}
