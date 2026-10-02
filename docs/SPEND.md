@@ -172,5 +172,6 @@ Total: $2.835
 
 2026-10-01 | refsheets | gemini-3.1-flash-image | 12 | 0.540 | stage 2 creature reference sheets, first pass, one per focal figure
 2026-10-01 | refsheets | gemini-3.1-flash-image | 8 | 0.360 | regenerated dragon, chimera, swallow, sharkbear, eagle, mindbloom, cosmos, ember once for style or proportion; better of two kept
+2026-10-01 | stage 2 cat-medium | gemini-3.8-flash | 6 | 0.0382 | critic round 1 at 900x800 and 351x390 on the rebuilt cat: 0 high, 0 medium
 
-Running total: $30.429
+Running total: $30.467

@@ -86,4 +86,4 @@
 - cat-medium's upper cliff (`#363a56` over `#25273d`) renders right/left at 0.627 and fails the 0.75 band. The palette is level data and terrain is outside this stage; a rebuild that derives `cliffUpper.right` from `ramp(left)[0]` would fix it.
 - The palette row passes the old cat too: its FAUVE hexes sit in the module source, which the tool reads as authored swatches. The row catches stray colours, not ramp discipline; the face rows carry the lock.
 - A breathing chest, blink and watching head need new `SWAY` modes in `3d/motion.js`; this stage left the shader alone. `spec.groups.head` already turns the head and face as one piece, so a live head can reuse it.
-- `B.tri` culls on the module-space normal before `rot` turns the piece; `kit()` passes `cull = false`, so a rotated prims piece keeps its faces at about 20% more triangles.
+- `B.tri` culls on the module-space normal before `rot` turns the piece; `kit()` passes `cull = false`, so a rotated prims piece keeps its faces and also bakes its hidden back faces.
