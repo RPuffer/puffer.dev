@@ -15,3 +15,8 @@
 - 2026-09-29 Round-2 verdict: scene strategy picked; round 3 builds three scene readings for each of the eleven remaining artworks.
 - 2026-09-29 Round-3 verdict: levels too similar; round 4 derives three readings per artwork from a deep read through medium, subject, and composition lenses, with terrain shapers; round-3 card retracted.
 - 2026-09-30 Round-4 verdict: ten picks, seven medium-lens; forest and cosmos rejected, five new readings each in round 5 authored by the agents (Gemini out of credits).
+- 2026-10-01 Refinement route: the hybrid (docs/REFINEMENT.md Route 3). Procedural life, stamps, and a style bible; image-model reference sheets only to fix creature proportion; GLB clips only for bosses, decided when the first boss is designed.
+- 2026-10-01 Islands are a run joined by elevators, not postcards; the interactive stage (bonfire, chest, gate, elevator stub) ships in this pass.
+- 2026-10-01 Cohesion locks value ramps and face-shading ratios to the pack; hue and key stay free per island.
+- 2026-10-01 Stage order: wind on home, stamps on ember-subject, style bible on cat-medium (after a Gemini top-up for reference sheets), things on wizard-medium. Each stage lands as a before-and-after fortress card.
+- 2026-10-01 Motion scope: ambient life everywhere plus one reaction per island, the focal creature turning to watch the hero cross its threshold.
