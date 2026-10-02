@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { BIBLE, ramp, luma, hexRgb, figure, lockedKit } from "../prims.js";
 
 const FAUVE = {
   magenta: ["#ee4f8e", "#cf3a78", "#a82a62"],
@@ -88,52 +89,71 @@ function catBase(B, kind, style) {
   return 0.24;
 }
 
-function cat(B, H, style, v, o = {}) {
-  const s = H / 2.2;
-  const F = FAUVE;
+const BASE_H = { palette: 0.14, box: 0.38, tiers: 0.4 };
+const FIG_H = 2.3;
+const hueOf = (hex) => { const [r, g, b] = hexRgb(hex), mx = Math.max(r, g, b), d = mx - Math.min(r, g, b); if (d < 1e-6) return -1; const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; return (h * 60 + 360) % 360; };
+const satOf = (hex) => { const c = hexRgb(hex), mx = Math.max(...c); return mx ? (mx - Math.min(...c)) / mx : 0; };
+const lum = (hex) => luma(hexRgb(hex));
+
+function catColours(list) {
+  const hexes = [...new Set(list.map((t) => (Array.isArray(t) ? t[0] : t)).filter((h) => /^#[0-9a-f]{6}$/i.test(h)).map((h) => h.toLowerCase()))];
+  const dark = hexes.filter((h) => lum(h) < 0.3).sort((a, b) => lum(a) - lum(b))[0] || "#363a56";
+  const cream = hexes.filter((h) => satOf(h) < 0.25 && lum(h) > 0.7).sort((a, b) => lum(b) - lum(a))[0] || "#e8dfce";
+  const warm = hexes.filter((h) => { const u = hueOf(h); return u >= 30 && u <= 60 && satOf(h) > 0.6; }).sort((a, b) => satOf(b) - satOf(a))[0] || "#df9e0c";
+  const accent = hexes.find((h) => { const u = hueOf(h); return (u >= 330 || u <= 15) && satOf(h) > 0.3 && lum(h) < 0.6; }) || "#c4616d";
+  return { body: dark, coat: warm, bib: cream, accent };
+}
+
+export function catSpec(c, o = {}) {
+  const eye = ramp(c.coat)[3], ink = BIBLE.ink, white = BIBLE.white;
+  const head = { pivot: [0, 0.08], ry: o.head ?? 0 };
+  return {
+    name: "cat",
+    groups: { head },
+    parts: [
+      { id: "haunch", prim: "rbox", dims: [1.0, 0.62, 0.8], at: [0, 0, -0.14], base: c.coat },
+      { id: "back", prim: "rbox", dims: [0.74, 0.58, 0.62], at: [0, 0.56, -0.12], base: c.body },
+      { id: "bib", prim: "rbox", dims: [0.56, 0.86, 0.36], at: [0, 0.26, 0.2], base: c.bib },
+      { id: "legL", prim: "rbox", dims: [0.2, 0.62, 0.2], at: [-0.17, 0.08, 0.4], base: c.coat },
+      { id: "legR", prim: "rbox", dims: [0.2, 0.62, 0.2], at: [0.17, 0.08, 0.4], base: c.body },
+      { id: "paws", prim: "rbox", dims: [0.62, 0.11, 0.3], at: [0, 0, 0.44], base: c.bib },
+      { id: "tail", prim: "chain", at: [0.52, 0, -0.42], base: c.body, links: [
+        { dims: [0.17, 0.15, 0.3], at: [0, 0, 0], base: c.body },
+        { dims: [0.17, 0.15, 0.3], at: [0.08, 0, 0.3], base: c.coat },
+        { dims: [0.17, 0.15, 0.3], at: [0.07, 0, 0.6], base: c.body },
+        { dims: [0.17, 0.15, 0.26], at: [-0.04, 0, 0.86], ry: 0.6, base: c.coat },
+      ] },
+      { id: "head", role: "head", group: "head", prim: "rbox", dims: [0.86, 0.82, 0.74], at: [0, 1.06, 0.08], base: c.body },
+      { id: "blaze", group: "head", prim: "rbox", dims: [0.2, 0.05, 0.62], at: [0.02, 1.88, 0.1], base: c.bib },
+      { id: "muzzle", group: "head", prim: "rbox", dims: [0.42, 0.22, 0.18], at: [0, 1.24, 0.5], base: c.bib },
+      { id: "earL", group: "head", prim: "spike", dims: [0.34, 0.42, 0.16, -0.06], at: [-0.24, 1.88, -0.02], base: c.body },
+      { id: "earR", group: "head", prim: "spike", dims: [0.34, 0.42, 0.16, 0.06], at: [0.24, 1.88, -0.02], base: c.coat },
+      { id: "innerL", face: true, group: "head", prim: "spike", dims: [0.18, 0.26, 0.04, -0.04], at: [-0.24, 1.88, 0.08], base: c.accent },
+      { id: "innerR", face: true, group: "head", prim: "spike", dims: [0.18, 0.26, 0.04, 0.04], at: [0.24, 1.88, 0.08], base: c.accent },
+      { id: "eyeL", face: true, group: "head", prim: "box", dims: [0.17, 0.11, 0.04], at: [-0.2, 1.52, 0.46], base: eye },
+      { id: "eyeR", face: true, group: "head", prim: "box", dims: [0.17, 0.11, 0.04], at: [0.2, 1.52, 0.46], base: eye },
+      { id: "pupilL", face: true, group: "head", prim: "box", dims: [0.05, 0.1, 0.03], at: [-0.17, 1.525, 0.49], base: ink },
+      { id: "pupilR", face: true, group: "head", prim: "box", dims: [0.05, 0.1, 0.03], at: [0.23, 1.525, 0.49], base: ink },
+      { id: "nose", face: true, group: "head", prim: "box", dims: [0.1, 0.06, 0.05], at: [0, 1.43, 0.58], base: c.accent },
+      { id: "mouth", face: true, group: "head", prim: "box", dims: [0.3, 0.15, 0.06], at: [0, 1.09, 0.47], base: ink },
+      { id: "tongue", face: true, group: "head", prim: "box", dims: [0.16, 0.05, 0.05], at: [0, 1.09, 0.5], base: c.accent },
+      { id: "fangL", face: true, group: "head", prim: "box", dims: [0.05, 0.06, 0.03], at: [-0.08, 1.18, 0.51], base: white },
+      { id: "fangR", face: true, group: "head", prim: "box", dims: [0.05, 0.06, 0.03], at: [0.08, 1.18, 0.51], base: white },
+    ],
+  };
+}
+
+function cat(B, H, style, v, o = {}, ctx = {}) {
+  const yb = BASE_H[o.base] ?? 0.24;
+  const s = H / (yb + FIG_H);
   B.push(0, 0, 0, 0, s);
   const y0 = catBase(B, o.base, style);
-  B.push(0, 0, 0, o.yaw ?? 0, 1);
-  B.rbox(0.44, 0.46, 0.7, 0.08, pal(F.magenta), -0.24, y0, -0.12);
-  B.rbox(0.44, 0.46, 0.7, 0.08, pal(F.yellow), 0.24, y0, -0.12);
-  B.box(0.2, 0.14, 0.26, pal(F.orange), -0.26, y0, 0.3);
-  B.box(0.2, 0.14, 0.26, pal(F.orange), 0.26, y0, 0.3);
-  B.rbox(0.36, 0.52, 0.34, 0.06, pal(F.magenta), -0.14, y0 + 0.14, 0.12);
-  B.rbox(0.36, 0.52, 0.34, 0.06, pal(F.yellow), 0.16, y0 + 0.14, 0.12);
-  B.box(0.14, 0.44, 0.14, pal(F.pink), -0.16, y0 + 0.02, 0.28);
-  B.box(0.14, 0.44, 0.14, pal(F.orange), 0.16, y0 + 0.02, 0.28);
-  B.rbox(0.62, 0.4, 0.5, 0.08, pal(F.orange), 0, y0 + 0.66, 0.04);
-  wedge(B, 0.62, 0.16, 0.2, F.teal, 0, y0 + 0.66, 0.34);
-  B.rbox(0.44, 0.22, 0.3, 0.05, pal(F.yellow), 0.02, y0 + 1.02, 0.02);
-  B.box(0.18, 0.14, 0.18, pal(F.blue), 0.5, y0, -0.32);
-  B.box(0.16, 0.14, 0.34, pal(F.teal), 0.56, y0, -0.02);
-  B.box(0.14, 0.12, 0.3, pal(F.orange), 0.46, y0, 0.28);
-  B.box(0.12, 0.1, 0.14, pal(F.magenta), 0.34, y0, 0.46);
-  const hy = y0 + 1.2, tilt = o.tilt ?? 0, earR = o.earR ?? 0.46, earL = o.earL ?? 0.34;
-  B.at(0, hy, 0.08, o.head ?? (0.38 + (v % 2) * 0.1), () => {
-    B.rbox(0.36, 0.5, 0.52, 0.08, pal(F.blue), -0.19, 0, 0);
-    B.rbox(0.36, 0.5, 0.52, 0.08, pal(F.magenta), 0.17, 0, 0);
-    B.rbox(0.18, 0.36, 0.54, 0.05, pal(F.yellow), 0.04, 0.12, 0.01);
-    B.box(0.5, 0.14, 0.2, pal(F.yellow), 0.02, 0.2, 0.3);
-    B.box(0.26, 0.14, 0.14, pal(F.orange), -0.12, -0.02, 0.33);
-    B.box(0.2, 0.12, 0.14, pal(F.pink), 0.13, -0.02, 0.33);
-    B.box(0.14, 0.1, 0.1, pal(F.lilac), 0.0, 0.2, 0.4);
-    B.box(0.26, 0.15 + tilt * 0.1, 0.06, pal(F.ink), 0.02, 0.04, 0.4);
-    B.box(0.18, 0.05, 0.05, pal(F.lilac), 0.02, 0.04, 0.42);
-    B.cone(0.035, 0, 0.08, pal(F.white), -0.07, 0.11, 0.44, 4);
-    B.cone(0.035, 0, 0.08, pal(F.white), 0.11, 0.11, 0.44, 4);
-    for (const [x, c] of [[-0.14, F.yellow], [0.18, F.yellow]]) {
-      B.box(0.14, 0.12, 0.04, pal(F.ink), x, 0.3, 0.26);
-      B.box(0.12, 0.1, 0.04, pal(c), x, 0.31, 0.27);
-      B.box(0.04, 0.09, 0.03, pal(F.ink), x, 0.32, 0.29);
-    }
-    B.cone(0.15, 0, earL, pal(F.orange), -0.2, 0.5, -0.04, 4);
-    B.cone(0.07, 0, earL * 0.5, pal(F.blue), -0.2, 0.5 + earL * 0.56, -0.04, 4);
-    B.cone(0.16, 0, earR, pal(F.pink), 0.21, 0.5, -0.04, 4);
-    B.cone(0.07, 0, earR * 0.5, pal(F.yellow), 0.21, 0.5 + earR * 0.56, -0.04, 4);
-  });
+  B.push(0, y0, 0, o.yaw ?? 0, 1);
+  const K = lockedKit(B, ctx.style, ctx.rot || 0);
+  const a = figure(K, catSpec(style.colours, { head: (o.head ?? 0.3) * 0.4 + (v % 2) * 0.12 }));
   B.pop();
   B.pop();
+  return { K, audit: a };
 }
 
 const ROLE_RE = [["threshold", /gate|arch|torii|threshold|portal|fang/i], ["dais", /dais|altar|plinth|pedestal|roost|perch|throne|cushion|crag/i], ["light", /lantern|torch|brazier|lamp/i], ["offering", /pot|basket|bowl|offering|chest|cairn|urn/i], ["mass", /tree|pine|spire|pillar|monolith|rock|cliff|totem/i]];
@@ -293,6 +313,12 @@ const EXTRA = {
 
 const BASE_OF = (t, pose) => /fauvist/.test(t) ? "palette" : /calico|sentinel/.test(t) ? "box" : /fauve-cat/.test(t) ? "tiers" : null;
 
+export function figures(style) {
+  const P = style.palette, out = {};
+  for (const [t, p] of Object.entries(P.props || {})) if (p.role === "lead" || p.role === "creature") out[t] = catSpec(catColours(tonesOf(P, t)));
+  return out;
+}
+
 export function register(style) {
   const P = style.palette;
   const props = P.props || {};
@@ -308,14 +334,14 @@ export function register(style) {
     const p = props[t], role = p.role;
     const kind = lensKind(t, role);
     const tall = role === "threshold" ? 1.7 : kind === "ear" ? 2.4 : null;
-    catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" || role === "threshold" ? false : !!p.passable, variants: kind ? 6 : 2, height: role === "lead" ? Math.min(3, Math.max(2.6, p.height || 2.6)) : tall || Math.min(2.6, Math.max(0.3, p.height || 1)) };
+    catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" || role === "threshold" ? false : !!p.passable, variants: kind ? 6 : 2, height: role === "lead" ? Math.min(BIBLE.scale.focal[1], Math.max(2.4, p.height || 2.5)) : tall || Math.min(2.6, Math.max(0.3, p.height || 1)) };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, FAUVE.orange), c1 = pick(tn, 1, FAUVE.yellow), c2 = pick(tn, 2, FAUVE.magenta);
     const base = BASE_OF(t, p.pose);
     const lensPose = base === "tiers" ? { base, yaw: 0.35, head: 0.3, earR: 0.62, earL: 0.46, tilt: 1 } : base === "box" ? { base, yaw: 0.3, head: 0.62, earR: 0.5, earL: 0.3 } : base ? { base, yaw: 0.4, head: 0.35 } : null;
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
-      if (role === "lead" || role === "creature") cat(B, H, look, v, lensPose || {});
+      if (role === "lead" || role === "creature") { const r = cat(B, H, { ...look, colours: catColours(tonesOf(P, t)) }, v, lensPose || {}, { style, rot }); const m = mesh(B); m.userData.parts = r.K.parts; m.userData.audit = r.audit; return m; }
       else if (kind) LENS_BUILD[kind](B, H, v, { c0, c1, c2, d });
       else if (role === "threshold") {
         B.box(0.44, 0.24, 0.44, pal(c0));
