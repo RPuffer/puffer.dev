@@ -440,3 +440,59 @@ node tools/shot.mjs "http://localhost:8765/3d/index.html?level=cat-medium&hero=0
 ```
 
 `zoom=102.87` at 1800x1600 doubles the 900x800 framing (the renderer skips its frame fit when `zoom` is set). `out/refine/stage2-before.png` is the committed cat-medium at 900x800; `out/refine/stage2-cat-crop.png` puts the 400 px crops at 450,220 of the 2x renders side by side, before on the left.
+
+## Refinement stage 4
+
+2026-10-01, things on wizard-medium (`docs/refinement/setpieces.md` step 2, `docs/refinement/motion.md` live parts).
+
+### Schema
+
+A level may carry `things`, a list of `{ "id", "kind", "x", "z", "rot", "state", ...params }`. `prepareLevel` drops unknown kinds and out-of-bounds entries with a warning, fills `rot` 0 and the starting `state`, and adds each thing's blocked cells to `L.blocked`. A level without `things` loads as before.
+
+| Kind | Start state | Params | Behaviour |
+| --- | --- | --- | --- |
+| `bonfire` | `unlit` | `text` | Blocks its cell. Use from any of the 8 neighbours: it lights, toasts, and saves the hero's cell as the respawn. Use again to rest. |
+| `chest` | `closed` | `text` (the toast line) | Blocks its cell. Use from a neighbour: the lid swings back, the toast shows `text`, and the chest stays open. `rot` turns the front toward the route. |
+| `gate` | `closed` | `blocks`, `open`, `threshold`, `span` (`x` or `z`), `width`, `height`, `frame` | `blocks` cells (default its own) stay blocked until `open` holds: `watcher:<id>` (the watcher has turned to face the hero, at least 0.9 of its turn, while the hero stands on a `threshold` cell), `chest:<id>` (that chest is open) or `bonfire:<id>`. Opening deletes the cells from `L.blocked`; the bars retract into the lintel. `frame: false` skips the engine's posts and lintel when decor posts already flank the cell. |
+| `elevator` | `idle` | `run`, `to` | Passable. Use while standing on it: the deck rises 2.4 world units over 1.6 s with the hero on it, then the page loads the next level in `run` after the current one (or `to`) with `?level=<next>&from=<current>`. With no next level it toasts a stub line and descends. |
+| `watcher` | `idle` | `size`, `radius` | Sits on the lead decor at the same `x,z`, which carries `"watch": "<id>"`. Inside `radius` (world distance from the footprint centre) the head turns to face the hero and the hat crest flame brightens; outside it the head returns to its pose. |
+
+### Interaction
+
+`core/interact.js` owns the state. `createInteract(level, { params })` runs once per page when the level has things; `core/game.js` calls its `update(dt)` each fixed step after the actor, with `dt` clamped to 0.1 s. The action key is E, Enter or numpad Enter. A tap on a bonfire, chest or elevator cell walks the hero beside it (onto it for the elevator) and uses it on arrival. A pill at the bottom centre names the action while a thing is in range and can itself be tapped; a toast at the top centre holds for 2.6 s. Neither shows with `hero=0`.
+
+State persists per level in `localStorage` under `isoworld:things:<level name>`: thing states and the bonfire respawn cell. `?reset=1` clears it on load. A lit bonfire puts the hero on its respawn cell at load, unless `spawn=` says otherwise. `nav=0` stops the elevator from changing page (the clip uses it). `window.__game.pause()` and `window.__game.advance(seconds)` step the game without the frame loop.
+
+### Engine
+
+`3d/things.js` bakes the static bodies (bonfire ring and sword, chest base, elevator frame, gate frame) into the merged decor mesh through the new `bakeExtra` option of `buildDecor`, so they cost no draw call. Each moving part is its own small mesh with `userData.noMerge` and the x-ray and motion material: the bonfire flame (hidden until lit, flame sway), the chest lid, the gate bars and the elevator deck. A pieces-module builder splits a live part out by returning a group with a `noMerge` child tagged `userData.live = { thing, part, rest, limit, pivot, flame, flameRoot, hot }`; `3d/pieces/wizard.js` does this for the wizard's head and hat when `ctx.decor.watch` is set. The head turns about its pivot, clamped to 1.5 rad of its rest yaw, and the crest flame's vertex colours and size lerp toward the hot tone.
+
+`3d/tween.js` runs the triggers: each tween starts from the current value, eases back-out by default (in-out for the ride and the glow fading), and clamps `dt` to 0.1 s.
+
+A level palette may carry `things` (`stone`, `ash`, `wood`, `metal`, `blade`, `flame`, `core`, `lamp`, `deck`, `trim`, `post`, `cap`, each a tone triple) to dress the things; the wizard finish writes the wizard's own.
+
+Draw calls from `renderer.info` at 900x800: wizard-medium 16 before the stage, 20 after (10 and 14 with `hero=0`), so four live parts plus one more when the bonfire lights: at most one per thing, five things. Home stays at 11.
+
+### wizard-medium
+
+`placeThings(level, h, o)` in `3d/pieces/wizard.js` runs at the end of the medium-lens finish. It picks the gate on a straight, flat approach cell at 0.3 to 0.85 of the route that cuts the figure off; when a side path goes round it (here the south terrace), it plugs the bypass with one more ink spire that costs no reach. Then: the bonfire within 3 cells of spawn off the route, the chest one or two cells off the route before the gate, the watcher on the wizard with its radius reaching the threshold cell, and the elevator on a rim cell past the gate facing the void.
+
+```sh
+node pipeline/a-transcribe/build-level.mjs --art wizard --brief pipeline/seed/concepts/wizard-medium.json --level wizard-medium --pieces wizard
+```
+
+Build log: plug brush-flick-spire at 9,6; bonfire 1,9 (2 cells from spawn 2,10), chest 5,8, gate 7,6 between the star-doodle totems at 0.64 of a 15-cell route, threshold 7,7, watcher radius 6.3, elevator 8,1 with run `wizard-medium`, `cat-medium`. Reach: every cell reachable with the gate open, the bonfire and chest reachable with it closed, the elevator and 51 cells only past the gate. checkLevel and prepareLevel clean, reach 96/96.
+
+### QA and critic
+
+```sh
+export PP_PROFILE=.pp-profile-things
+node tools/qa-things.mjs [base-url] [level]
+node tools/qa-things.mjs --clip out/refine/stage4-after.mp4
+```
+
+`qa-things.mjs` loads with `?reset=1` and drives the hero with keys: prompt beside the bonfire, E lights it (state, toast, flame part); Enter opens the chest (state, toast, lid at -1.95 rad, stays open); the watcher idles until the hero reaches the threshold, then turns (head matrix moves, crest glow 1); the gate opens and its cell turns walkable; the hero walks through to the elevator, E rides it and the page lands on `level=cat-medium&from=wizard-medium`. A reload keeps the states and respawns at the bonfire, `?reset=1` clears them, a tap on the bonfire from the threshold walks over and lights it, and the watcher returns to its pose. It clears its storage key at the end. `--clip` steps the same walk at 30 fps through `advance` with `nav=0` and encodes like `tools/clip.mjs`.
+
+Results: `qa-things.mjs` 34 pass, 0 fail; `qa.mjs` 134 pass, 0 fail; `qa-levels.mjs` over wizard-medium, wizard-subject, wizard-composition, cat-medium and ember-subject 70 pass, 0 fail; `procgen-check.mjs 50` PASS; home at `hero=0`, 351x390, MAD 0.0 against `out/final-3d.png`. Critic (3 votes, `out/refine/s4/critic/`): round 1 at 900x800 0 high, 0 medium; at 351x390 0 high, 1 medium, a whole-frame "pixelated raster" style note. Round 2: a mid-walk frame (bonfire lit, chest open, gate up) 0 high, 0 medium; the committed level before this stage draws the same 351x390 medium note, so the stage left it as a baseline. Spend $0.108 across 15 calls.
+
+Capture: `out/refine/stage4-before.png` is `out/final/wizard-medium.png`; `stage4-after.png` is `?level=wizard-medium&hero=0&reset=1` at 900x800; `stage4-after.mp4` is the 9.6 s `--clip` walk: bonfire, chest, threshold as the wizard turns, gate, elevator ride.
