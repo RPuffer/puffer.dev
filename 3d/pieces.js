@@ -3,6 +3,8 @@ import { PALETTE } from "./palette.js";
 
 const tri3 = (a) => tone(a[0], a[1], a[2]);
 
+export const CROWN = 0.045, LEAF = 0.035, FLAME = 0.04, MIST = 0.05, FALL_SEGMENTS = 8;
+
 function beam(B, a, b, r, pal, n = 5) {
   const dx = b[0] - a[0], dy = b[1] - a[1], dz = b[2] - a[2], len = Math.hypot(dx, dy, dz);
   if (len < 1e-6) return;
@@ -58,10 +60,12 @@ export function makePieces(style) {
     const tiers = [[1, 0.55], [0.83, 0.5], [0.63, 0.45], [0.41, 0.4]].map(([w, h]) => [w * wk, h]);
     const k = (H - trunk) / tiers.reduce((a, t) => a + t[1], 0);
     let y = trunk;
-    for (const [w, h] of tiers) {
-      B.rbox(w, h * k * 1.02, w, 0.1, pal, 0, y, 0);
-      y += h * k;
-    }
+    B.sway("crown", { amp: CROWN, root: [0, trunk, 0], span: H - trunk }, () => {
+      for (const [w, h] of tiers) {
+        B.rbox(w, h * k * 1.02, w, 0.1, pal, 0, y, 0);
+        y += h * k;
+      }
+    });
   }
 
   function roundTree(B, H, cols) {
@@ -69,10 +73,12 @@ export function makePieces(style) {
     const k = H / 3.8;
     B.box(0.17, 1.2 * k, 0.17, trunkPal);
     const cubes = [[1.05, 0, 1.8, 0.05], [0.62, 0.74, 1.15, 0.2], [0.6, -0.74, 2.3, -0.1], [0.88, 0.16, 2.8, -0.05]];
-    for (const [a, sx, hc, sd] of cubes) {
-      const dx = (sx + sd) / 2, dz = (sd - sx) / 2;
-      B.rbox(a * k, a * k * 0.95, a * k, 0.14 * k, pal, dx * k, (hc - a * 0.55) * k, dz * k);
-    }
+    B.sway("crown", { amp: CROWN, root: [0, 1.2 * k, 0], span: H - 1.2 * k }, () => {
+      for (const [a, sx, hc, sd] of cubes) {
+        const dx = (sx + sd) / 2, dz = (sd - sx) / 2;
+        B.rbox(a * k, a * k * 0.95, a * k, 0.14 * k, pal, dx * k, (hc - a * 0.55) * k, dz * k);
+      }
+    });
   }
 
   function post(B, x, z, h = 0.45, r = 0.14) {
@@ -268,9 +274,15 @@ export function makePieces(style) {
     waterfall(B, H, v, ctx) {
       const drop = ctx.drop, zf = -0.5 + 0.008;
       const streaks = [[0.06, 0.05, P.water.fall[0]], [0.2, 0.025, P.water.bubble], [0.34, 0.07, P.water.fall[1]], [0.52, 0.03, P.water.bubble], [0.66, 0.05, P.water.fall[2]], [0.84, 0.03, P.water.bubble]];
+      const n = FALL_SEGMENTS;
       for (const [u, w, hex] of streaks) {
-        const x0 = -0.5 + u, top = drop - (hex === P.water.bubble ? 0.12 : 0.08);
-        B.vpoly([[x0, 0, zf], [x0 + w, 0, zf], [x0 + w, top, zf], [x0, top, zf]], hex);
+        const x0 = -0.5 + u, top = drop - (hex === P.water.bubble ? 0.12 : 0.08), bubble = hex === P.water.bubble;
+        for (let i = 0; i < n; i++) {
+          const y1 = top - (top * i) / n, y0 = top - (top * (i + 1)) / n, mid = [x0 + w / 2, (y0 + y1) / 2, zf];
+          const quad = () => B.vpoly([[x0, y0, zf], [x0 + w, y0, zf], [x0 + w, y1, zf], [x0, y1, zf]], hex);
+          if (bubble) B.sway("fall", { phase: i * 0.9, root: mid, span: (y1 - y0) / 2 }, quad);
+          else B.sway("swatch", { rate: 0.7, duty: 0.2, phase: -i * 1.1, root: mid, alt: P.water.top }, quad);
+        }
       }
       const foam = tone(P.water.bubble, P.water.foamShade, P.water.top);
       const k = v % 2 ? -1 : 1;
@@ -292,7 +304,7 @@ export function makePieces(style) {
     lantern(B, H) {
       B.box(0.07, H - 0.25, 0.07, woodPal);
       B.box(0.3, 0.05, 0.05, woodPal, 0.1, H - 0.3, 0);
-      B.box(0.16, 0.2, 0.16, tone(P.flame[0], P.flame[1], P.flame[2]), 0.2, H - 0.52, 0);
+      B.sway("swatch", { rate: 0.35, duty: 0.5, root: [0.2, H - 0.52, 0], alt: tone(P.flame[0], P.flame[0], P.flame[1]) }, () => B.box(0.16, 0.2, 0.16, tone(P.flame[0], P.flame[1], P.flame[2]), 0.2, H - 0.52, 0));
       B.box(0.2, 0.04, 0.2, tri3(P.metal), 0.2, H - 0.33, 0);
       B.box(0.18, 0.03, 0.18, tri3(P.metal), 0.2, H - 0.55, 0);
     },
@@ -340,10 +352,16 @@ export function makePieces(style) {
   };
 
   function flame(B, x, y, z, r) {
-    B.cone(r, 0, r * 2.6, tone(P.flame[0], P.flame[1], P.flame[2]), x, y, z, 6);
-    B.cone(r * 0.55, 0, r * 1.6, tone(P.flame[0], P.flame[0], P.flame[1]), x + r * 0.2, y, z + r * 0.35, 5);
+    B.sway("flame", { amp: FLAME, root: [x, y, z], span: r * 2.6 }, () => {
+      B.cone(r, 0, r * 2.6, tone(P.flame[0], P.flame[1], P.flame[2]), x, y, z, 6);
+      B.cone(r * 0.55, 0, r * 1.6, tone(P.flame[0], P.flame[0], P.flame[1]), x + r * 0.2, y, z + r * 0.35, 5);
+    });
   }
 
+  const swayed = (fn, kind, opts) => (B, ...a) => B.sway(kind, opts, () => fn(B, ...a));
+  PIECES.bush = swayed(PIECES.bush, "crown", { amp: LEAF, span: 0.6 });
+  PIECES["bush-cluster"] = swayed(PIECES["bush-cluster"], "crown", { amp: LEAF, span: 0.8 });
+  PIECES.flower = swayed(PIECES.flower, "crown", { amp: LEAF, span: 0.06 });
   return PIECES;
 }
 
