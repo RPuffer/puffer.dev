@@ -191,4 +191,7 @@ Total: $2.835
 
 2026-10-01 | refine stage 4 things | gemini-3.8-flash | 15 | 0.1080 | critic rounds on wizard-medium at 351 and 900
 
-Running total: $30.899
+2026-10-02 | multitile | gemini-3.1-flash-image | 21 | 0.945 | round 6 multi-tile prop samples, first pass: 8 generic pack items, 12 island items, windmill scale ramp
+2026-10-02 | multitile | gemini-3.1-flash-image | 6 | 0.270 | regenerated cat, cosmos, shipwreck, waterfall-cliff, gremlin and the ramp once for style or footprint; better of two kept
+
+Running total: $32.114
