@@ -8,7 +8,7 @@
 | `ember-subject` | 14 | 0.15 | 11 | 8 | 2 |
 | `gremlin-subject` | 19 | 0.18 | 9 | 5 | 6 |
 
-On `home` barrels sit by the well and flowers fill the yard; on `ember-subject` bone piles and horns stand one per plateau. Singleton share separates the pack from our builds. `home` also runs at 0.59 per walkable cell, double the rubric's 0.25 to 0.35 (REFINEMENT.md critic line 9), so that target needs a recount before any loop optimises toward it.
+On `home` barrels sit by the well and flowers fill the yard; on `ember-subject` bone piles and horns stand one per plateau. Singleton share separates pack from build. `home` also runs at 0.59 per walkable cell, double the rubric's 0.25 to 0.35 (REFINEMENT.md critic line 9), so that target needs a recount before any loop optimises toward it.
 
 ## Principles and their tests
 
@@ -31,7 +31,7 @@ On `home` barrels sit by the well and flowers fill the yard; on `ember-subject` 
 
 **Saliency loop.** Render at `hero=0`, compute a saliency map (colour, intensity and orientation contrast, or spectral residual) plus edge density, and score the figure's box and the route's screen polygon against the rim band. Where a rim prop wins, the loop swaps it for a quieter variant or moves it one cell off the sightline, then rerenders. It measures the picture the operator judges and catches occlusion. Each step costs a headless render, scores jitter when a prop shifts one cell, and saliency rewards a dull island whose figure wins by default, so it needs the rule loop's floor beneath it.
 
-**Story loop.** From the deep analysis, a reader writes three to five beats along the approach (a broken threshold, a last meal, the creature's leavings by its lair), each with a cell range and prop family. The check passes when each beat has a cluster of two or more in range, in route order. With Gemini out, the build agent writes beats by hand as in round 5. This loop carries the artwork into the decor, as the round-4 verdict asked. It costs a model call or agent judgment, and it can't tell whether a bone pile reads as a story.
+**Story loop.** From the deep analysis, a reader writes three to five beats along the approach (a broken threshold, a last meal, the creature's leavings by its lair), each with a cell range and prop family. The check passes when each beat has a cluster of two or more in range, in route order. With Gemini out, the build agent writes beats by hand as in round 5. This loop carries the artwork into the decor. It costs a model call or agent judgment, and it can't tell whether a bone pile reads as a story.
 
 ## Build first
 
@@ -39,13 +39,13 @@ The rule loop: no render, no model, it targets the failure the table shows, and 
 
 First three metrics:
 
-1. **Singleton share**: props with no neighbour within 1.5 cells, over all props. `home` 0.03, `ember-subject` 0.57. Target under 0.15.
+1. **Singleton share**: props with no neighbour within 1.5 cells, over all props. `home` 0.03, `ember-subject` 0.57. Target 0.15.
 2. **Zone density**: props per walkable cell in the figure ring, the approach and the rim, targets taken from `home`.
 3. **Figure-versus-rim edge ratio** on the render.
 
 ## The decor card
 
-A fortress `approve` card per island with before and after side by side, each with overlays: clusters outlined, singletons ringed red, the saliency heat map, beat labels on their cells. The note lists singleton share, zone densities, edge ratio and reach count before and after. The context names each beat and flags any left unmet. The operator judges whether the island looks lived in; the numbers say what changed.
+A fortress `approve` card per island with, before and after side by side, each with overlays: clusters outlined, singletons ringed red, the saliency heat map, beat labels on their cells. The note lists singleton share, zone densities, edge ratio and reach count before and after. The context names each beat and flags any left unmet. The operator judges whether the island looks lived in; the numbers say what changed.
 
 ## Sources
 
