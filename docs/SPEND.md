@@ -195,4 +195,9 @@ Total: $2.835
 2026-10-02 | multitile | gemini-3.1-flash-image | 6 | 0.270 | regenerated cat, cosmos, shipwreck, waterfall-cliff, gremlin and the ramp once for style or footprint; better of two kept
 2026-10-02 | multitile route A | fal-ai/trellis | 4 | 0.080 | windmill and canopy-tree meshes, two tries each, cut from the samples (no Gemini)
 
-Running total: $32.114
+2026-10-03 | multitile route A trellis | fal trellis | 4 | 0.0800 | windmill and canopy-tree meshes, two tries each
+2026-10-03 | multitile themed props A | gemini-3.8-flash | 18 | 0.1360 | critic once per island: cat, dragon, chimera, wizard, swallow, sharkbear
+2026-10-03 | multitile themed props B | gemini-3.8-flash | 18 | 0.1500 | critic once per island: gremlin, mindbloom, eagle, forest, cosmos, ember
+2026-10-03 | loops stage 1 decor | gemini-3.8-flash | 6 | 0.0250 | critic on ember-subject after the rule loop and the diversity rerun
+
+Running total: $32.505

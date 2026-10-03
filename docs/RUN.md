@@ -552,3 +552,24 @@ PP_PROFILE=.pp-profile-generic node tools/qa-levels.mjs http://localhost:8765 sh
 `out/multitile/code-<type>.png` renders each prop alone on a 5x5 slab with the hero on a front tile: a 900x1000 shot at zoom 40 of a one-slab level, cropped 800x800 from 50,100 and scaled to 600. The one-slab levels never touch `levels/`: the render script served them through request interception. `out/multitile/generic-compare.png` puts each sample above its build, eight columns.
 
 Results, 2026-10-02: `qa-levels.mjs` on showcase 14 pass, 0 fail (one earlier run failed the first KeyW step and passed on rerun). Key walks from 20,0 go 20,1, 20,2, 20,3 under the gatehouse arch; from 8,5 they go through the shrine to 8,9, and from 6,8 across it to 10,8. Reach 161/161.
+
+## Multi-tile placement
+
+2026-10-03, the twelve themed props placed on their islands through each island module's finishLens, terrain unchanged, levels rebuilt through the pipeline. Walk QA 14 of 14 per island; critic 0 high except cat-medium (a knife reading as cutting the plinth, hub since raised) and swallow-medium (an old feather spire). Five props dropped one footprint step to fit.
+
+| Island | Prop | Footprint | Cell | Note |
+| --- | --- | --- | --- | --- |
+| cat-medium | paint-tube windmill | 3x3 | 9,1 | east field, seven cells from the cat |
+| dragon-medium | graphite crane | 3x2 | 11,8 | beside the figure court; rebuild needs --seed 6 |
+| chimera-medium | ink monolith | 2x2 | 1,4 | h2 shelf behind the figure |
+| wizard-medium | scroll tower | 2x2 | 5,2 | h3 behind the gate |
+| swallow-medium | blade arch | 3x1 | 9,1 | behind the figure |
+| sharkbear-medium | shard watchtower | 2x2 | 1,1 | back corner; rebuild needs --seed 8 |
+| gremlin-subject | specimen vat | 2x2 | 6,6 | west of the scout |
+| mindbloom-medium | doodle fountain | 2x2 (from 3x3) | 2,5 | west shelf; reads small |
+| eagle-composition | slate eyrie | 2x2 (from 3x3) | 8,5 | beside the bust |
+| forest-volute | gilt gazebo | 2x2 (from 3x3) | 2,3 | behind the bird; placed after finishAspect |
+| cosmos-frisket | stencil press | 3x2 (from 4x3) | 7,1 | back strip; bed hidden by the court |
+| ember-subject | brimstone forge | 2x2 (from 3x3) | 5,7 | beside the approach; decor loop undershoots density after it |
+
+Sheet: `out/multitile/islands-sheet.jpg`. Card: `puffer-isoworld-multitile-build`.
