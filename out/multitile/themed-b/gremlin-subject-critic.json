@@ -1,0 +1,159 @@
+{
+  "render": "out/multitile/themed-b/gremlin-subject.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [
+    {
+      "issue": "Angled cannon cylinder intersects into the adjacent sloped cliff block.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        356,
+        243,
+        418,
+        336
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "engraved monolith",
+      "rests_on": "block top",
+      "box": [
+        304,
+        280,
+        414,
+        459
+      ]
+    },
+    {
+      "prop": "robot guardian",
+      "rests_on": "block top",
+      "box": [
+        417,
+        301,
+        521,
+        478
+      ]
+    },
+    {
+      "prop": "angled vent pipe",
+      "rests_on": "block top",
+      "box": [
+        354,
+        243,
+        415,
+        343
+      ]
+    },
+    {
+      "prop": "stele terminal 1",
+      "rests_on": "block top",
+      "box": [
+        437,
+        142,
+        483,
+        213
+      ]
+    },
+    {
+      "prop": "stele terminal 2",
+      "rests_on": "block top",
+      "box": [
+        545,
+        244,
+        592,
+        318
+      ]
+    },
+    {
+      "prop": "stele terminal 3",
+      "rests_on": "block top",
+      "box": [
+        631,
+        350,
+        677,
+        421
+      ]
+    },
+    {
+      "prop": "stele terminal 4",
+      "rests_on": "block top",
+      "box": [
+        587,
+        456,
+        635,
+        530
+      ]
+    },
+    {
+      "prop": "energy pillar 1",
+      "rests_on": "block top",
+      "box": [
+        482,
+        470,
+        524,
+        580
+      ]
+    },
+    {
+      "prop": "energy pillar 2",
+      "rests_on": "block top",
+      "box": [
+        560,
+        414,
+        600,
+        538
+      ]
+    },
+    {
+      "prop": "orb pedestal 1",
+      "rests_on": "block top",
+      "box": [
+        298,
+        435,
+        354,
+        483
+      ]
+    },
+    {
+      "prop": "orb pedestal 2",
+      "rests_on": "block top",
+      "box": [
+        516,
+        558,
+        566,
+        610
+      ]
+    },
+    {
+      "prop": "rock cluster left",
+      "rests_on": "block top",
+      "box": [
+        258,
+        390,
+        320,
+        467
+      ]
+    },
+    {
+      "prop": "rock cluster right",
+      "rests_on": "block top",
+      "box": [
+        724,
+        451,
+        787,
+        534
+      ]
+    }
+  ]
+}

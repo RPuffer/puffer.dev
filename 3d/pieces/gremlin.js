@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-b.js";
 
 const SKINS = {
   artisan: {
@@ -892,5 +893,6 @@ function finishLens(level, brief, h) {
   if (h.walkN() < 84) h.grow(84);
   levelRamps(level, h);
   h.rampTone();
+  if (L === "subject") placeLandmark(level, h, "gremlin-specimen-vat");
   h.log.push(`lens ${L}: approach ${h.approach().length}, walk ${h.walkN()}, missing ${JSON.stringify(h.reach().missing)}`);
 }
