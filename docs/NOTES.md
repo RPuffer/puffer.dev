@@ -95,3 +95,6 @@
 - Unmerged parts skip the decor Baker's light, so `3d/things.js` and the wizard head bake with `new Baker(style.light)`; a rotated head keeps the light of its rest normals.
 - The 2d build shares `core/game.js`, so wizard-medium in 2d gets the prompts and the blocked bonfire and chest cells with nothing drawn on them.
 - The gate bars first rose 1.6 above the posts and read as bars floating over the arch in the clip; they now scale down into the lintel.
+- 2026-10-02 loops stage 1. The decor loop counts `reach` against walkable cells free of decor, so each blocking prop it adds drops the total; it checks `missing`, never `reached`. ember-subject went 84/84 to 81/81. `h.walkN() < 84` in `finishLens` would call `grow` if the pass ever ran inside finish before that line.
+- The loop draws only from the island's own 1x1 movable types. On ember-subject only `calcined_bone_pile` stands under height 1, so 13 of 23 props are bone piles; an island with one low type gets a repetitive floor.
+- Edge ratio from `decor-metrics.mjs --render` maps cells to pixels with the renderer's `view.zoom * min(w/351, h/390)` around `view.center`; the overlay lines up at 900x800 with `hero=0`. A camera clamp at another size would shift it.

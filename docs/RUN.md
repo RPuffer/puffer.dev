@@ -496,3 +496,29 @@ node tools/qa-things.mjs --clip out/refine/stage4-after.mp4
 Results: `qa-things.mjs` 34 pass, 0 fail; `qa.mjs` 134 pass, 0 fail; `qa-levels.mjs` over wizard-medium, wizard-subject, wizard-composition, cat-medium and ember-subject 70 pass, 0 fail; `procgen-check.mjs 50` PASS; home at `hero=0`, 351x390, MAD 0.0 against `out/final-3d.png`. Critic (3 votes, `out/refine/s4/critic/`): round 1 at 900x800 0 high, 0 medium; at 351x390 0 high, 1 medium, a whole-frame "pixelated raster" style note. Round 2: a mid-walk frame (bonfire lit, chest open, gate up) 0 high, 0 medium; the committed level before this stage draws the same 351x390 medium note, so the stage left it as a baseline. Spend $0.108 across 15 calls.
 
 Capture: `out/refine/stage4-before.png` is `out/final/wizard-medium.png`; `stage4-after.png` is `?level=wizard-medium&hero=0&reset=1` at 900x800; `stage4-after.mp4` is the 9.6 s `--clip` walk: bonfire, chest, threshold as the wizard turns, gate, elevator ride.
+
+## Loops stage 1
+
+2026-10-02, the decor rule loop from `docs/loops/decor.md`, proven on ember-subject.
+
+```sh
+node pipeline/a-transcribe/build-level.mjs --art ember --brief pipeline/seed/concepts/ember-subject.json --level ember-subject --pieces ember
+node tools/loops/decor-loop.mjs ember-subject --write
+node tools/loops/decor-metrics.mjs home,ember-subject,cat-medium,wizard-medium
+```
+
+The loop runs as a second command after the build. It reads the level JSON and the brief at `pipeline/seed/concepts/<level>.json`, seeds itself from the level name (`--seed n` overrides it), and writes the same file for the same seed. A finish script can call the same pass as `h.cluster()`; `pipeline/a-transcribe/finish-cluster.mjs` holds both. `--out file.json` writes elsewhere; neither flag means a dry run.
+
+`decor-metrics.mjs` counts as props every decor entry except the figure, flat passable floor stamps (`road-run`, `bridge-span`, `stepping-stones`, `marker`) and floating pickups. Props link into a cluster when any of their cells touch (Chebyshev 1). Zones split the land outside the figure: figure court within 2 cells of the figure, threshold within 1 of the gate on the route, approach within 1 of the BFS route from spawn to the figure, rim the rest. Bands: figure 0 to 0.15, threshold 0.2 to 0.5, approach 0.15 to 0.35, rim 0.25 to 0.4, whole island 0.25 to 0.35. `--render png --overlay out.png` adds the figure-versus-rim edge ratio and draws clusters, singletons and the route.
+
+| Level | Props/walkable | Figure | Threshold | Approach | Rim | All | Singleton share | Clusters | Mean spacing | Fit mismatches | Beats | Trail gap |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `home` | 33/66 | n/a | n/a | 0.38 | 0.62 | 0.50 | 0.03 | 8 | 3.8 | 0 | n/a | 1 |
+| `ember-subject` before | 12/92 | 0.17 | 0.13 | 0.14 | 0.10 | 0.13 | 0.50 | 9 | 2.6 | 0 | 1/5 | 1 |
+| `ember-subject` after | 23/92 | 0.13 | 0.20 | 0.21 | 0.36 | 0.25 | 0.00 | 7 | 3.5 | 0 | 3/5 | 1 |
+| `cat-medium` | 10/108 | 0.08 | 0.18 | 0.07 | 0.09 | 0.09 | 0.70 | 8 | 3.2 | 0 | 1/5 | 1 |
+| `wizard-medium` | 12/108 | 0.13 | 0.19 | 0.12 | 0.06 | 0.11 | 0.58 | 9 | 2.3 | 0 | 3/5 | 3 |
+
+ember-subject singleton share reads 0.50 under these rules; LOOPS.md's 0.57 counted the road and bridge stamps. The loop made 9 moves: two gathers, one fill beside the ember vent, four new pairs, two grows. Every zone and the whole island now sit in band, reach goes 84/84 to 81/81 with nothing missing (new props block three cells), the route stays 12 steps, and the longest x-ray run stays 3. Beats rose from 1/5 to 3/5; the two left need the `feathered_flame_flick` colonnade, which the build never places (the arch stands in for it). The figure-versus-rim edge ratio fell from 0.96 to 0.77, so the rim now out-shouts the figure. Dry runs on cat-medium (0.70 to 0.04, density 0.25) and wizard-medium (0.58 to 0.14, density 0.20) wrote nothing.
+
+Files in `out/loops/`: `ember-decor-before.png` renders the committed level before the loop (`out/final/ember-subject.png` predates stage 3 and no longer matches it), `ember-decor-after.png`, `ember-decor-overlay.png`, `ember-decor-overlay-before.png`. Critic on the after render (3 votes, `out/loops/critic-ember-after.json`): 0 high, 1 medium, the stepped path at the ramp meeting a cliff face, terrain the loop does not touch. Spend $0.0254 across 3 calls. QA: `PP_PROFILE=.pp-profile-loops1 node tools/qa-levels.mjs http://localhost:8765 ember-subject` 14 pass, 0 fail.

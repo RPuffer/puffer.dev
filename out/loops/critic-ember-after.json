@@ -1,0 +1,141 @@
+{
+  "render": "out/loops/ember-decor-after.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 1 lesser item.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "The stone stepped path at the base abuts directly into an unaligned cliff face.",
+      "rule": 8,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        318,
+        614,
+        403,
+        678
+      ],
+      "fix_hint": "Align the paved walkway directly with the bridge or an open pathway."
+    }
+  ],
+  "minority": [],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "stylized tree",
+      "rests_on": "block top",
+      "box": [
+        273,
+        83,
+        388,
+        232
+      ]
+    },
+    {
+      "prop": "boss figure on altar",
+      "rests_on": "block top",
+      "box": [
+        415,
+        182,
+        517,
+        310
+      ]
+    },
+    {
+      "prop": "spiral horn fossil",
+      "rests_on": "block top",
+      "box": [
+        263,
+        235,
+        318,
+        300
+      ]
+    },
+    {
+      "prop": "spiral horn fossil",
+      "rests_on": "block top",
+      "box": [
+        160,
+        462,
+        213,
+        530
+      ]
+    },
+    {
+      "prop": "spiral horn fossil",
+      "rests_on": "block top",
+      "box": [
+        306,
+        503,
+        356,
+        565
+      ]
+    },
+    {
+      "prop": "torii archway",
+      "rests_on": "block top",
+      "box": [
+        375,
+        438,
+        491,
+        605
+      ]
+    },
+    {
+      "prop": "wooden footbridge",
+      "rests_on": "block top",
+      "box": [
+        320,
+        563,
+        402,
+        637
+      ]
+    },
+    {
+      "prop": "wood railing",
+      "rests_on": "block top",
+      "box": [
+        457,
+        398,
+        537,
+        467
+      ]
+    },
+    {
+      "prop": "torch brazier",
+      "rests_on": "block top",
+      "box": [
+        517,
+        524,
+        562,
+        566
+      ]
+    },
+    {
+      "prop": "wooden pike",
+      "rests_on": "block top",
+      "box": [
+        698,
+        414,
+        735,
+        486
+      ]
+    },
+    {
+      "prop": "wooden pike",
+      "rests_on": "block top",
+      "box": [
+        240,
+        526,
+        280,
+        604
+      ]
+    }
+  ]
+}
