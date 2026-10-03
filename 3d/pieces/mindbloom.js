@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-b.js";
 
 const BLOOM = {
   skin: ["#d6cfff", "#bdb4f0", "#9d93d6"],
@@ -590,6 +591,7 @@ function finishLens(level, brief, h) {
   if (L === "composition") discs(level, h, (x, z, c) => c.h === 3, 16);
   h.rampTone();
   if (L === "medium") for (const row of level.cells) for (const c of row) if (c && c.s === "ramp") c.m = "grass";
+  if (L === "medium") placeLandmark(level, h, "mindbloom-doodle-fountain");
 }
 
 export function finish(level, brief, h) {

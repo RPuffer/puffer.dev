@@ -1,0 +1,131 @@
+{
+  "render": "out/multitile/themed-b/mindbloom-medium.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "No agreed high-severity faults; 1 lesser item.",
+  "votes": 3,
+  "high": 0,
+  "items": [
+    {
+      "issue": "Continuous wedge slopes deviate from the terraced block terrain structure.",
+      "rule": 6,
+      "severity": "medium",
+      "support": "2/3",
+      "box": [
+        646,
+        251,
+        729,
+        386
+      ],
+      "fix_hint": "Replace large slope wedges with stepped voxel terrain blocks."
+    }
+  ],
+  "minority": [],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "eye monolith top",
+      "rests_on": "block top",
+      "box": [
+        429,
+        89,
+        469,
+        150
+      ]
+    },
+    {
+      "prop": "spiral tree top",
+      "rests_on": "block top",
+      "box": [
+        463,
+        109,
+        518,
+        214
+      ]
+    },
+    {
+      "prop": "giant head statue",
+      "rests_on": "block top",
+      "box": [
+        512,
+        129,
+        631,
+        305
+      ]
+    },
+    {
+      "prop": "pillar monument",
+      "rests_on": "block top",
+      "box": [
+        287,
+        191,
+        356,
+        323
+      ]
+    },
+    {
+      "prop": "eye monolith left",
+      "rests_on": "block top",
+      "box": [
+        203,
+        442,
+        242,
+        505
+      ]
+    },
+    {
+      "prop": "spiral tree lower left",
+      "rests_on": "block top",
+      "box": [
+        231,
+        416,
+        293,
+        523
+      ]
+    },
+    {
+      "prop": "gate barrier",
+      "rests_on": "block top",
+      "box": [
+        278,
+        486,
+        393,
+        598
+      ]
+    },
+    {
+      "prop": "spiral tree center",
+      "rests_on": "block top",
+      "box": [
+        462,
+        346,
+        517,
+        455
+      ]
+    },
+    {
+      "prop": "spiral tree mid right",
+      "rests_on": "block top",
+      "box": [
+        497,
+        418,
+        557,
+        525
+      ]
+    },
+    {
+      "prop": "spiral tree right",
+      "rests_on": "block top",
+      "box": [
+        611,
+        393,
+        672,
+        502
+      ]
+    }
+  ]
+}
