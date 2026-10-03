@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-a.js";
 import { BIBLE, ramp, luma, hexRgb, figure, lockedKit } from "../prims.js";
 
 const FAUVE = {
@@ -787,4 +788,5 @@ function finishLens(level, brief, h) {
   h.rampTone();
   if (L === "composition") for (const [x, z, c] of landCells(h)) if (c.s === "ramp") c.m = "dirt";
   h.log.push(`lens ${L}: approach ${h.approach().length}, walk ${h.walkN()}, gate ${g}, missing ${JSON.stringify(h.reach().missing)}`);
+  if (level.name === "cat-medium") placeLandmark(level, h, "cat-paint-tube-windmill");
 }
