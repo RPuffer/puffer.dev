@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-a.js";
 import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 
 const INK = {
@@ -385,6 +386,7 @@ function finishLens(level, brief, h) {
   if (h.walkN() < 84) h.thin(84, { keep: [gateT, lightT] });
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();
+  if (level.name === "swallow-medium") placeLandmark(level, h, "swallow-blade-arch");
 }
 
 export function finish(level, brief, h) {

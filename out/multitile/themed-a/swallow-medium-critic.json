@@ -1,0 +1,113 @@
+{
+  "render": "out/multitile/themed-a/swallow-medium.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "1 high-severity fault agreed by 2+ of 3 passes: Bird statue wing overlaps the decorative feather prop behind it.",
+  "votes": 3,
+  "high": 1,
+  "items": [
+    {
+      "issue": "Bird statue wing overlaps the decorative feather prop behind it.",
+      "rule": 3,
+      "severity": "high",
+      "support": "2/3",
+      "box": [
+        540,
+        328,
+        653,
+        440
+      ],
+      "fix_hint": "Reposition the bird statue forward to avoid clipping."
+    }
+  ],
+  "minority": [
+    {
+      "issue": "Planar slope ramp breaks the stepped-block style grammar.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        445,
+        466,
+        540,
+        566
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "wooden gate",
+      "rests_on": "block top",
+      "box": [
+        377,
+        294,
+        465,
+        407
+      ]
+    },
+    {
+      "prop": "white statue",
+      "rests_on": "block top",
+      "box": [
+        338,
+        374,
+        384,
+        426
+      ]
+    },
+    {
+      "prop": "standing blade left",
+      "rests_on": "block top",
+      "box": [
+        460,
+        206,
+        526,
+        333
+      ]
+    },
+    {
+      "prop": "standing blade right",
+      "rests_on": "block top",
+      "box": [
+        513,
+        204,
+        556,
+        288
+      ]
+    },
+    {
+      "prop": "stone arch",
+      "rests_on": "block top",
+      "box": [
+        608,
+        282,
+        707,
+        425
+      ]
+    },
+    {
+      "prop": "bird statue",
+      "rests_on": "block top",
+      "box": [
+        541,
+        342,
+        669,
+        459
+      ]
+    },
+    {
+      "prop": "standing blade front",
+      "rests_on": "block top",
+      "box": [
+        407,
+        466,
+        446,
+        538
+      ]
+    }
+  ]
+}
