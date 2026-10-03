@@ -2,6 +2,7 @@ import { CATALOG, maskCells, blockedCells } from "../../core/catalog.js";
 import { reachability, frameView } from "../../core/procgen.js";
 import { makeProjection } from "../../core/iso.js";
 import { DIRS, OPPOSITE, canStep } from "../../core/level.js";
+import { decorPass } from "./finish-cluster.mjs";
 
 const N4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 const DIR_OF = (dx, dz) => Object.keys(DIRS).find((d) => DIRS[d][0] === dx && DIRS[d][1] === dz);
@@ -609,5 +610,5 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
 
   const role = (t) => level.palette?.props?.[t]?.role || (CATALOG[t] ? t : null);
   const ofRole = (r) => Object.entries(level.palette?.props || {}).filter(([, p]) => p.role === r).map(([t]) => t);
-  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, bridge, canopy, fence, road, readability, snapshot, restore, log };
+  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, bridge, canopy, fence, road, readability, snapshot, restore, log, cluster: (o = {}) => decorPass(level, { brief, log, ...o }) };
 }
