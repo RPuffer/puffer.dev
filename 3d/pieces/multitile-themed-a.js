@@ -36,7 +36,7 @@ function paintTubeWindmill(K, L) {
   K.part("crimp", {}, () => {
     for (let i = 0; i < 5; i++) K.rbox(0.22, 0.24, 0.6, L.cream, -0.48 + i * 0.24, 3.81, 0);
   });
-  const hub = [0, 2.55, 0.74], ang = 0.72;
+  const hub = [0, 2.72, 0.74], ang = Math.PI / 4;
   K.part("hub", {}, () => K.rbox(0.36, 0.36, 0.4, L.orange, hub[0], hub[1] - 0.18, 0.56));
   B.sway("crown", { amp: CROWN * 0.6, root: hub, span: 2.0 }, () => {
     K.part("collars", {}, () => {
@@ -49,7 +49,7 @@ function paintTubeWindmill(K, L) {
       });
     });
     K.part("blades", {}, () => {
-      for (let k = 0; k < 4; k++) tilt(B, hub, [0, 0, 1], ang + k * Math.PI / 2, () => K.rbox(0.44, 0.9, 0.16, L.orange, 0, 1.32, 0));
+      for (let k = 0; k < 4; k++) tilt(B, hub, [0, 0, 1], ang + k * Math.PI / 2, () => K.rbox(0.44, 0.82, 0.16, L.orange, 0, 1.28, 0));
     });
   });
 }
@@ -328,12 +328,12 @@ function candidates(level, h, type, route) {
       if (cs.some(([a, b]) => a + b > fMax && Math.abs(a - b - fLat) <= 2.5)) continue;
       const C = [x + w / 2, z + d / 2];
       const gap = Math.max(Math.max(0, Math.min(...fx) - (x + w - 1), x - Math.max(...fx)), Math.max(0, Math.min(...fz) - (z + d - 1), z - Math.max(...fz)));
-      if (gap < 1 || gap > 5) continue;
+      if (gap < 1 || gap > 7) continue;
       const depth = (C[0] + C[1]) - (F[0] + F[1]);
       let ang = Math.abs(Math.atan2(C[1] - S[1], C[0] - S[0]) - toF);
       if (ang > Math.PI) ang = 2 * Math.PI - ang;
       const rim = cs.filter(([a, b]) => [[1, 0], [0, 1]].some(([p, q]) => !h.land(h.cell(a + p, b + q)))).length / cs.length;
-      out.push({ x, z, rot, score: gap + Math.max(0, depth) * 1.5 + ang * 2 + (c0.h < fh ? 1 : 0) + rim * 0.5 });
+      out.push({ x, z, rot, score: gap * 1.5 + Math.max(0, depth) * 0.6 + ang * 2 + Math.max(0, 5 - Math.hypot(C[0] - S[0], C[1] - S[1])) + (c0.h < fh ? 1 : 0) + rim * 0.5 });
     }
   }
   return out.sort((a, b) => a.score - b.score);
