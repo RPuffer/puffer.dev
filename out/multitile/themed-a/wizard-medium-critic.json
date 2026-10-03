@@ -1,0 +1,117 @@
+{
+  "render": "out/multitile/themed-a/wizard-medium.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "signpost/staff",
+      "rests_on": "block top",
+      "box": [
+        168,
+        337,
+        203,
+        423
+      ]
+    },
+    {
+      "prop": "chest",
+      "rests_on": "block top",
+      "box": [
+        291,
+        355,
+        326,
+        392
+      ]
+    },
+    {
+      "prop": "golden gate",
+      "rests_on": "block top",
+      "box": [
+        378,
+        302,
+        469,
+        401
+      ]
+    },
+    {
+      "prop": "temple gazebo",
+      "rests_on": "block top",
+      "box": [
+        420,
+        158,
+        543,
+        334
+      ]
+    },
+    {
+      "prop": "blue portal frame",
+      "rests_on": "block top",
+      "box": [
+        574,
+        202,
+        626,
+        362
+      ]
+    },
+    {
+      "prop": "wizard figure",
+      "rests_on": "block top",
+      "box": [
+        597,
+        362,
+        653,
+        478
+      ]
+    },
+    {
+      "prop": "spire left back",
+      "rests_on": "block top",
+      "box": [
+        222,
+        253,
+        265,
+        345
+      ]
+    },
+    {
+      "prop": "spire center mid",
+      "rests_on": "block top",
+      "box": [
+        381,
+        370,
+        414,
+        436
+      ]
+    },
+    {
+      "prop": "spire right back",
+      "rests_on": "block top",
+      "box": [
+        664,
+        341,
+        705,
+        422
+      ]
+    },
+    {
+      "prop": "small crystal prop",
+      "rests_on": "block top",
+      "box": [
+        494,
+        401,
+        522,
+        454
+      ]
+    }
+  ]
+}

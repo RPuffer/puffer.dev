@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-a.js";
 import { reachability } from "../../core/procgen.js";
 import { CATALOG } from "../../core/catalog.js";
 import { canStep, DIRS } from "../../core/level.js";
@@ -594,6 +595,7 @@ function finishLens(level, brief, h) {
   const lost = posts.filter((q) => !level.decor.includes(q));
   if (lost.length) h.log.push(`gate posts lost ${lost.length}`);
   if (L === "medium") placeThings(level, h, { look: THINGS_LOOK });
+  if (level.name === "wizard-medium") placeLandmark(level, h, "wizard-scroll-tower");
 }
 
 const FACE = [[0, 1], [-1, 0], [0, -1], [1, 0]];
