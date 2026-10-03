@@ -1,6 +1,6 @@
 # Level-design feedback loops
 
-You said you have no concrete concept for these loops yet and you are not sold on the current islands. This page turns the three lane studies into one harness and a path to try it on islands you already know. Detail lives in `docs/loops/layout.md`, `docs/loops/pathing.md` and `docs/loops/decor.md`.
+This page turns the three lane studies into one harness and a path to try it on islands you know. Detail lives in `docs/loops/layout.md`, `docs/loops/pathing.md` and `docs/loops/decor.md`.
 
 ## What a loop means here
 
@@ -23,7 +23,7 @@ A level-design loop takes an island the pipeline generated from its brief, measu
 | Figure-versus-rim edge ratio | decor | The figure carries more contrast than the rim, target above 1.2 | yes | not measured |
 | Story beat coverage | decor | Each brief beat has a cluster of 2 or more near its cell | no | needs beats in the brief schema |
 
-`home` runs at 0.59 props per walkable cell, about double the 0.25 to 0.35 band in REFINEMENT.md critic line 9. Someone has to settle that target before any loop optimises toward it.
+`home` runs at 0.59 props per walkable cell, about double the 0.25 to 0.35 band in REFINEMENT.md critic line 9. You settle that target before any loop optimises toward it (question 3).
 
 ## Loop designs
 
@@ -45,11 +45,11 @@ Decor (`docs/loops/decor.md`):
 - **Saliency loop.** Score the render's figure box against the rim band and swap or nudge the loudest rim props.
 - **Story loop.** Three to five beats along the approach, each checked for a matching cluster in route order.
 
-### The recommended harness
+## The recommended harness
 
 The inner loop runs on its own and costs $0. It computes the metrics, runs the four agent walks, and applies rule-based moves from all three lanes: layout placement perturbations, graph-loop connector edits and decor rule-loop moves. It freezes the lens fields (`shaper`, `surface_mix`, `composition`) and the picked silhouette so it cannot flatten an island toward a generic score. Each move keeps only when the combined score rises and `qa-levels.mjs` passes.
 
-The outer loop is a critic. It sends the best inner-loop candidate to a vision model with one rubric covering all three lanes, over the render plus metric overlays, with the numbers in the prompt so the verdict stays anchored. With the Gemini account funded this costs cents per island, logged in `docs/SPEND.md`. The critic can veto a candidate the numbers liked, for example a cluster that reads well in plan but hides behind a cliff in iso.
+The outer loop is a critic. It sends the best inner-loop candidate to a vision model with one rubric covering all three lanes, over the render plus metric overlays, with the numbers in the prompt so the verdict stays anchored. With the Gemini account funded this costs cents per island, logged in `docs/SPEND.md`. It can veto a cluster that reads in plan but hides behind a cliff in iso.
 
 Each island then gets one operator card. It shows before and after renders, and beside them four overlays: the agents' visit heatmap, the critical path from spawn through the gate to the figure and elevator with x-ray cells marked, the isovist from spawn, and the decor clusters with singletons ringed. The note carries the before and after numbers; the context names what moved. Use an `approve` card for one candidate and `pick-one` when the outer loop returns variants. Your picks on `pick-one` cards later train the comparative loop.
 
@@ -57,7 +57,7 @@ Each island then gets one operator card. It shows before and after renders, and 
 
 The order follows what should move your "not sold" reaction fastest: visible emptiness first, then shape, then flow, then scale.
 
-**Stage 1: decor rule loop on `ember-subject`.** Bone piles and horns stand one per plateau today. The inner loop's decor moves gather them into vignettes and trail them along the approach. Check: singleton share falls from 0.57 to under 0.15, density lands in the band you choose, reach count unchanged, and the card shows clusters before and after. This stage also builds the card template and the overlay renderer the later stages reuse.
+**Stage 1: decor rule loop on `ember-subject`.** Bone piles and horns stand one per plateau today. The inner loop's decor moves gather them into vignettes and trail them along the approach. Check: singleton share falls from 0.57 to under 0.15, density lands in the band you choose, reach count unchanged, and the card shows clusters before and after. It also builds the card and overlay renderer the later stages reuse.
 
 **Stage 2: layout metric loop on `wizard-medium`.** The empty white plateau is the clearest layout failure in the set. Isovist, district and convex-fill metrics drive placement moves, plus terrain cuts if question 4 allows them, until the plateau splits into rooms. Check: district count reaches 3 to 5 with each hull fill above 0.7, spawn isovist lands in 25 to 55%, and frame balance passes on the render.
 
@@ -65,7 +65,7 @@ Stages 1 and 2 come before the multi-tile build. They fix where things go, so th
 
 **Stage 3: agent walks and graph loop on `cat-medium`.** It has no loop in its region graph, and spawn faces a flat field with the cat hidden behind a terrace wall. The graph loop adds a connector that folds the route back toward the bonfire, and the walkers measure the result. Check: at least one region-graph loop with an edge saving 8 or more steps, figure-to-bonfire return under 0.6 of the outbound steps, and no x-ray run over 3.
 
-**Stage 4: critic outer loop on `home` as control, then the twelve picks.** Run the full harness with the vision critic over the overlays, starting on `home` so you can see the critic agree with the pack reference before it judges builds. Check: the critic passes `home` unchanged, and the twelve cards land in the queue, one per island.
+**Stage 4: critic outer loop on `home` as control, then the twelve picks.** Start the critic on `home` so you see it agree with the pack reference before it judges builds. Check: the critic passes `home` unchanged, and the twelve cards land in the queue, one per island.
 
 Stages 3 and 4 come after the multi-tile build. Multi-tile items change sightlines and x-ray exposure, so flow and critique should measure the islands with those items in place.
 
