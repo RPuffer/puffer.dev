@@ -11,29 +11,74 @@
   "high": 0,
   "items": [
     {
-      "issue": "Continuous wedge slopes deviate from the terraced block terrain structure.",
-      "rule": 6,
+      "issue": "The harsh magenta bridge beam clashes with the muted pastel palette.",
+      "rule": 7,
       "severity": "medium",
       "support": "2/3",
       "box": [
-        646,
-        251,
-        729,
-        386
+        283,
+        486,
+        391,
+        561
       ],
-      "fix_hint": "Replace large slope wedges with stepped voxel terrain blocks."
+      "fix_hint": "Desaturate the pink bridge bar to match the environment tones."
     }
   ],
-  "minority": [],
+  "minority": [
+    {
+      "issue": "Spiral tree is planted directly on a sloped ramp tile.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        465,
+        354,
+        517,
+        454
+      ]
+    },
+    {
+      "issue": "Lamp post is placed on a transitional slope surface.",
+      "severity": "high",
+      "support": "1/3",
+      "box": [
+        434,
+        407,
+        469,
+        485
+      ]
+    },
+    {
+      "issue": "The oversized sculpted head dominates the isometric grid disproportionately.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        512,
+        128,
+        630,
+        300
+      ]
+    },
+    {
+      "issue": "Continuous wedge ramps replace blocky stepped cliff terrain.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        644,
+        250,
+        770,
+        584
+      ]
+    }
+  ],
   "dropped": [],
   "inventory": [
     {
       "prop": "eye monolith top",
       "rests_on": "block top",
       "box": [
-        429,
+        427,
         89,
-        469,
+        472,
         150
       ]
     },
@@ -41,80 +86,60 @@
       "prop": "spiral tree top",
       "rests_on": "block top",
       "box": [
-        463,
+        462,
         109,
-        518,
-        214
+        519,
+        216
       ]
     },
     {
-      "prop": "giant head statue",
+      "prop": "shrine statue head",
       "rests_on": "block top",
       "box": [
         512,
-        129,
+        127,
         631,
-        305
+        306
       ]
     },
     {
-      "prop": "pillar monument",
+      "prop": "spire monument",
       "rests_on": "block top",
       "box": [
-        287,
-        191,
-        356,
+        204,
+        198,
+        310,
         323
       ]
     },
     {
-      "prop": "eye monolith left",
-      "rests_on": "block top",
+      "prop": "spiral tree on ramp",
+      "rests_on": "stair",
       "box": [
-        203,
-        442,
-        242,
-        505
-      ]
-    },
-    {
-      "prop": "spiral tree lower left",
-      "rests_on": "block top",
-      "box": [
-        231,
-        416,
-        293,
-        523
-      ]
-    },
-    {
-      "prop": "gate barrier",
-      "rests_on": "block top",
-      "box": [
-        278,
-        486,
-        393,
-        598
-      ]
-    },
-    {
-      "prop": "spiral tree center",
-      "rests_on": "block top",
-      "box": [
-        462,
-        346,
+        465,
+        354,
         517,
-        455
+        454
       ]
     },
     {
-      "prop": "spiral tree mid right",
+      "prop": "lamp post",
+      "rests_on": "stair",
+      "box": [
+        434,
+        407,
+        469,
+        485
+      ]
+    },
+    {
+      "prop": "spiral tree mid",
       "rests_on": "block top",
       "box": [
-        497,
-        418,
-        557,
-        525
+        500,
+        416,
+        553,
+        527
       ]
     },
     {
@@ -122,9 +147,39 @@
       "rests_on": "block top",
       "box": [
         611,
-        393,
-        672,
+        394,
+        666,
         502
+      ]
+    },
+    {
+      "prop": "spiral tree lower left",
+      "rests_on": "block top",
+      "box": [
+        232,
+        418,
+        287,
+        526
+      ]
+    },
+    {
+      "prop": "eye monolith bottom",
+      "rests_on": "block top",
+      "box": [
+        202,
+        446,
+        243,
+        507
+      ]
+    },
+    {
+      "prop": "barrier gate",
+      "rests_on": "block top",
+      "box": [
+        276,
+        488,
+        392,
+        599
       ]
     }
   ]
