@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 import { register as registerA } from "./forest-a.js";
+import { placeLandmark } from "./multitile-themed-b.js";
 
 const INK = {
   soot: ["#5a4d48", "#463b37", "#342b28"],
@@ -505,7 +506,11 @@ function tint(level, kind) {
 
 export function finish(level, brief, h) {
   const aspect = aspectOf(level.palette, Object.keys(level.palette?.props || {}));
-  if (aspect) return finishAspect(level, brief, h, aspect);
+  if (aspect) {
+    finishAspect(level, brief, h, aspect);
+    if (aspect === "volute") placeLandmark(level, h, "forest-gilt-gazebo");
+    return;
+  }
   if (brief.lens) return finishLens(level, brief, h);
 }
 

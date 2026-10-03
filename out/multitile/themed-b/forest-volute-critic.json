@@ -1,0 +1,157 @@
+{
+  "render": "out/multitile/themed-b/forest-volute.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "column with scroll",
+      "rests_on": "block top",
+      "box": [
+        185,
+        180,
+        242,
+        276
+      ]
+    },
+    {
+      "prop": "column with scroll",
+      "rests_on": "block top",
+      "box": [
+        227,
+        164,
+        278,
+        255
+      ]
+    },
+    {
+      "prop": "gazebo pavilion",
+      "rests_on": "block top",
+      "box": [
+        331,
+        125,
+        457,
+        255
+      ]
+    },
+    {
+      "prop": "column with scroll",
+      "rests_on": "block top",
+      "box": [
+        484,
+        99,
+        529,
+        186
+      ]
+    },
+    {
+      "prop": "golden bird statue on pedestal",
+      "rests_on": "block top",
+      "box": [
+        491,
+        97,
+        617,
+        288
+      ]
+    },
+    {
+      "prop": "golden marker pin",
+      "rests_on": "block top",
+      "box": [
+        525,
+        326,
+        560,
+        382
+      ]
+    },
+    {
+      "prop": "curved hedge",
+      "rests_on": "block top",
+      "box": [
+        552,
+        310,
+        601,
+        362
+      ]
+    },
+    {
+      "prop": "golden archway",
+      "rests_on": "block top",
+      "box": [
+        452,
+        457,
+        564,
+        585
+      ]
+    },
+    {
+      "prop": "column with scroll",
+      "rests_on": "block top",
+      "box": [
+        377,
+        498,
+        424,
+        590
+      ]
+    },
+    {
+      "prop": "curved hedge",
+      "rests_on": "block top",
+      "box": [
+        371,
+        586,
+        419,
+        637
+      ]
+    },
+    {
+      "prop": "lantern stand",
+      "rests_on": "block top",
+      "box": [
+        413,
+        590,
+        450,
+        648
+      ]
+    },
+    {
+      "prop": "lantern stand",
+      "rests_on": "block top",
+      "box": [
+        483,
+        550,
+        521,
+        610
+      ]
+    },
+    {
+      "prop": "lantern stand",
+      "rests_on": "block top",
+      "box": [
+        594,
+        422,
+        631,
+        486
+      ]
+    },
+    {
+      "prop": "column with scroll",
+      "rests_on": "block top",
+      "box": [
+        699,
+        479,
+        747,
+        572
+      ]
+    }
+  ]
+}
