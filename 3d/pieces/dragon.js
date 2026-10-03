@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-a.js";
 
 const SKINS = {
   lounge: {
@@ -499,6 +500,7 @@ function finishLens(level, brief, h) {
   if (h.walkN() < 82) h.grow(82);
   h.rampTone();
   h.log.push(`lens ${lens} passes ${passT.join(",")} gate ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")} walk ${h.walkN()} approach ${h.approach().length}`);
+  if (level.name === "dragon-medium") placeLandmark(level, h, "dragon-graphite-crane");
 }
 
 function dress(level, brief, h, lens) {
