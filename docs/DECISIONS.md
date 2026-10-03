@@ -21,3 +21,6 @@
 - 2026-10-01 Stage order: wind on home, stamps on ember-subject, style bible on cat-medium (after a Gemini top-up for reference sheets), things on wizard-medium. Each stage lands as a before-and-after fortress card.
 - 2026-10-01 Motion scope: ambient life everywhere plus one reaction per island, the focal creature turning to watch the hero cross its threshold.
 - 2026-10-01 Operator loaded $100 onto the Gemini account for runway; the pipeline keeps logging every batch in docs/SPEND.md against that balance.
+- 2026-10-02 Refinement verdicts: wind approved; stamps approved ("not the multi-tile I had in mind, but keep the improvements"); things approved ("neat, still needs work"); style bible rejected ("didn't seem to do much"). Round 5 picks: forest-volute, cosmos-frisket. All twelve starting points are now chosen.
+- 2026-10-02 Multi-tile decoration means large models of single items spanning several tiles (2x2 to 4x3), not helper stamps. Generative images set the standard first; samples go to the operator for alignment before any batch build.
+- 2026-10-02 Level-design feedback loops: research from sources outside the ones used so far (not Townscaper, Bad North, WFC, Tunic, Monument Valley), on layout, pathing, and ambient decor, before any loop is built.
