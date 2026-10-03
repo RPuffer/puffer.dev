@@ -524,3 +524,31 @@ The loop draws new props round-robin from the brief's named motifs, the island's
 ember-subject singleton share reads 0.50 under these rules; LOOPS.md's 0.57 counted the road and bridge stamps. The loop made 10 moves: two gathers, one fill, three mixed pairs, two extensions into the figure court, two grows. After it, the props run `calcined_bone_pile` 4, `glowing_ember_vent` 4, `curved_ram_horn` 3, `dorsal_crest_fin` 3, `feathered_flame_flick` 3, `rock-big` 1, `rock` 1, plus the four fixed stamps. Every zone sits in band, no cluster holds one type, reach goes 84/84 to 76/76 with nothing missing (new props block eight cells), the route stays 12 steps, and the longest x-ray run stays 3. Same-family share for clusters of three or more reads 0.50: mixed clusters trade family coherence for type variety. The figure-versus-rim edge ratio reads 0.92 against 0.96 before, still under the 1.2 target; matching rim density to the figure court held it near level but did not raise it. Dry runs: cat-medium 0.70 to 0.04, wizard-medium 0.58 to 0.00, neither written.
 
 Files in `out/loops/`: `ember-decor-before.png` renders the committed level before the loop (`out/final/ember-subject.png` predates stage 3 and no longer matches it), `ember-decor-after.png`, `ember-decor-overlay.png`, `ember-decor-overlay-before.png`. Critic on the after render (3 votes, `out/loops/critic-ember-after.json`): 0 high, 0 medium, clean. An earlier pass that piled 13 bone piles drew 0 high, 1 medium; total critic spend $0.047 across 6 calls. QA: `PP_PROFILE=.pp-profile-loops1 node tools/qa-levels.mjs http://localhost:8765 ember-subject` 14 pass, 0 fail.
+
+## Multi-tile props
+
+`3d/pieces/multitile.js` builds the eight generic props on `3d/prims.js` from the samples in `pipeline/multitile/`. Each `PROPS` entry carries `footprint`, `height`, `build` and an optional `mask`; `register()` turns it into a stamp, solid when `mask` is absent. `partsOf(type)` lists the non-face parts.
+
+| Type | Footprint | Height | Parts | Mask | Sway |
+| --- | --- | --- | --- | --- | --- |
+| `windmill` | 3x3 | 4 | 13 | solid | sails `crown` |
+| `canopy-tree` | 3x3 | 4 | 10 | solid | crown cubes `crown`, root at 2.75 |
+| `watchtower` | 2x2 | 4 | 14 | solid | none |
+| `gatehouse` | 3x2 | 3 | 14 | middle column passes, arch `over` 1.6 on the back cell; front-right cell passes | none |
+| `shipwreck` | 4x2 | 3 | 15 | back row blocks with `span` (water), front row: two hull cells block, two dock cells pass | flag `crown` |
+| `shrine` | 3x3 | 2 | 12 | four column corners block, the centre cross passes under the roof (`over` 1.6) | none |
+| `market-row` | 3x1 | 2 | 12 | solid | awning, roll and valance `crown` at 0.5 amplitude |
+| `waterfall-cliff` | 2x3 | 3 | 14 | cliff rows block, front pool row blocks with `span` | falls `fall` and `swatch` per segment, pool cubes `ripple` |
+
+The builder origin sits at the footprint centre on the anchor cell's surface. The shipwreck anchor is a water cell, so its dock rises 0.1 to meet sand.
+
+`levels/showcase.json` lays the eight props on 5x5 sand slabs in a 23x11 grid, joined by one-cell necks, with a two-high step and ramp beside the waterfall slab for the QA climb. The shipwreck and gatehouse slabs place their props at `rot` 3 and 0 to match the samples' orientation. Spawn 22,10. `levels/showcase-code.json` keeps the first two props.
+
+```sh
+PP_PROFILE=.pp-profile-generic node tools/shot.mjs "http://localhost:8765/3d/index.html?level=showcase&hero=0&ui=0" out/multitile/showcase.png 1200 900
+PP_PROFILE=.pp-profile-generic node tools/qa-levels.mjs http://localhost:8765 showcase
+```
+
+`out/multitile/code-<type>.png` renders each prop alone on a 5x5 slab with the hero on a front tile: a 900x1000 shot at zoom 40 of a one-slab level, cropped 800x800 from 50,100 and scaled to 600. The one-slab levels never touch `levels/`: the render script served them through request interception. `out/multitile/generic-compare.png` puts each sample above its build, eight columns.
+
+Results, 2026-10-02: `qa-levels.mjs` on showcase 14 pass, 0 fail (one earlier run failed the first KeyW step and passed on rerun). Key walks from 20,0 go 20,1, 20,2, 20,3 under the gatehouse arch; from 8,5 they go through the shrine to 8,9, and from 6,8 across it to 10,8. Reach 161/161.
