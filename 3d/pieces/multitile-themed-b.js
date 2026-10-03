@@ -242,22 +242,28 @@ export const PROPS = {
   "ember-brimstone-forge": { footprint: [3, 3], height: 3, build: brimstoneForge, look: FORGE },
 };
 
+const COMPACT = Object.fromEntries(Object.entries(PROPS).filter(([, p]) => Math.min(...p.footprint) > 2).map(([t, p]) => {
+  const [w, d] = p.footprint, k = Math.min((w - 1) / w, (d - 1) / d);
+  return [`${t}-s`, { footprint: [w - 1, d - 1], height: Math.ceil(p.height * k), build: (K, L) => { K.B.push(0, 0, 0, 0, k); p.build(K, L); K.B.pop(); }, look: p.look, of: t }];
+}));
+const ALL = { ...PROPS, ...COMPACT };
+
 export function partsOf(type, style = {}) {
   const B = new Baker();
   const K = lockedKit(B, style, 0);
-  PROPS[type].build(K, { ...PROPS[type].look });
+  ALL[type].build(K, { ...ALL[type].look });
   return K.parts.filter((p) => !p.face && !p.chainOf).map((p) => p.id);
 }
 
 export function register(style = {}) {
   const catalog = {}, builders = {};
-  for (const [t, p] of Object.entries(PROPS)) {
+  for (const [t, p] of Object.entries(ALL)) {
     const [w, d] = p.footprint;
     catalog[t] = stamp(p.footprint, solidMask(w, d, p.height), { multitile: true });
     builders[t] = (v, rot, st) => {
       const B = new Baker();
       const K = lockedKit(B, st || style, rot || 0);
-      p.build(K, { ...p.look, ...(st?.palette?.multitile?.[t] || {}) });
+      p.build(K, { ...p.look, ...(st?.palette?.multitile?.[p.of || t] || {}) });
       const m = mesh(B);
       m.userData.parts = K.parts.filter((q) => !q.face).map((q) => q.id);
       return m;
@@ -270,6 +276,13 @@ const SELF = "pieces/multitile-themed-b.js";
 const KEEP_ROLES = ["lead", "threshold", "dais", "light"];
 
 export function placeLandmark(level, h, type, o = {}) {
+  const at = placeOne(level, h, type, o);
+  if (at || !COMPACT[`${type}-s`]) return at;
+  h.log.push(`landmark ${type}: shrinking one footprint step`);
+  return placeOne(level, h, `${type}-s`, o);
+}
+
+function placeOne(level, h, type, o) {
   registerCatalog(register().catalog);
   if (!level.pieces) level.pieces = [];
   if (!level.pieces.includes(SELF)) level.pieces.push(SELF);
@@ -281,7 +294,7 @@ export function placeLandmark(level, h, type, o = {}) {
   const fLat = (Math.min(...fx) + Math.max(...fx)) / 2 - (Math.min(...fz) + Math.max(...fz)) / 2;
   const hard = (d) => d === h.lead || CATALOG[d.t]?.stamp || d.side || d.axis || KEEP_ROLES.includes(level.palette?.props?.[d.t]?.role) || (o.keep || []).includes(d.t);
   const [W, D] = level.size;
-  const spec = PROPS[type];
+  const spec = ALL[type];
   const rots = spec.footprint[0] === spec.footprint[1] ? [0] : [0, 1];
   const cand = [];
   for (const rot of rots) {
@@ -316,7 +329,10 @@ export function placeLandmark(level, h, type, o = {}) {
     if (!h.put(type, c.x, c.z, { rot: c.rot })) { h.restore(S); continue; }
     const r2 = h.approach();
     if (h.reach().missing.length > m0 || !r2 || r2.length !== len0) { h.restore(S); continue; }
-    h.log.push(`landmark ${type} at ${c.x},${c.z} rot ${c.rot}, ${c.removed} decor cleared`);
+    const [w, d] = c.rot ? [spec.footprint[1], spec.footprint[0]] : spec.footprint;
+    const fs = c.x + w - 1 + c.z + d - 1, lat = c.x + (w - 1) / 2 - c.z - (d - 1) / 2;
+    const veil = h.removeDecor((e) => !hard(e) && (CATALOG[e.t]?.height ?? 0) >= 1.2 && e.x + e.z > fs && e.x + e.z <= fs + 3 && Math.abs(e.x - e.z - lat) <= (w + d) / 2);
+    h.log.push(`landmark ${type} at ${c.x},${c.z} rot ${c.rot}, ${c.removed} decor cleared, ${veil} tall decor in front cleared`);
     return [c.x, c.z];
   }
   h.log.push(`landmark ${type}: no flat clear footprint beside the figure`);
