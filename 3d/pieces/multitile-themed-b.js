@@ -319,7 +319,9 @@ function placeOne(level, h, type, o) {
       const sum = x + z + (w + d) / 2 - 1;
       const behind = sum <= fMin ? 0 : sum <= fMax ? 0.5 : 2;
       const rim = cs.filter(([a, b]) => [[1, 0], [0, 1], [-1, 0], [0, -1]].some(([dx, dz]) => !h.land(h.cell(a + dx, b + dz)))).length;
-      cand.push({ score: gap + behind + removed * 0.4 + rim * 0.05 + (c0.h < (h.cell(...h.figure.anchor)?.h ?? 1) ? 0.3 : 0), x, z, rot, removed });
+      let veil = 0;
+      for (const [a, b] of cs) for (const [dx, dz] of [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2], [2, 2]]) { const q = h.cell(a + dx, b + dz); if (q && q.h > c0.h && !cs.some(([u, v]) => u === a + dx && v === b + dz)) veil = Math.max(veil, q.h - c0.h); }
+      cand.push({ score: gap + behind + removed * 0.4 + rim * 0.05 + veil * 1.5 + (c0.h < (h.cell(...h.figure.anchor)?.h ?? 1) ? 0.3 : 0), x, z, rot, removed });
     }
   }
   cand.sort((a, b) => a.score - b.score);
