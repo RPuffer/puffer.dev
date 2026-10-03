@@ -193,5 +193,6 @@ Total: $2.835
 
 2026-10-02 | multitile | gemini-3.1-flash-image | 21 | 0.945 | round 6 multi-tile prop samples, first pass: 8 generic pack items, 12 island items, windmill scale ramp
 2026-10-02 | multitile | gemini-3.1-flash-image | 6 | 0.270 | regenerated cat, cosmos, shipwreck, waterfall-cliff, gremlin and the ramp once for style or footprint; better of two kept
+2026-10-02 | multitile route A | fal-ai/trellis | 4 | 0.080 | windmill and canopy-tree meshes, two tries each, cut from the samples (no Gemini)
 
 Running total: $32.114
