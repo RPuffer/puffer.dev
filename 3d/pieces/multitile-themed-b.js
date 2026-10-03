@@ -284,8 +284,6 @@ export function placeLandmark(level, h, type, o = {}) {
 
 function placeOne(level, h, type, o) {
   registerCatalog(register().catalog);
-  if (!level.pieces) level.pieces = [];
-  if (!level.pieces.includes(SELF)) level.pieces.push(SELF);
   const route = o.route || h.approach() || [];
   const onR = new Set(route.map(([x, z]) => h.key(x, z)));
   const figs = h.figure.cells;
@@ -325,7 +323,7 @@ function placeOne(level, h, type, o) {
     }
   }
   cand.sort((a, b) => a.score - b.score);
-  const len0 = route.length, m0 = h.reach().missing.length;
+  const len0 = (h.approach() || []).length, m0 = h.reach().missing.length;
   for (const c of cand) {
     const S = h.snapshot();
     if (!h.put(type, c.x, c.z, { rot: c.rot })) { h.restore(S); continue; }
@@ -335,6 +333,8 @@ function placeOne(level, h, type, o) {
     const fs = c.x + w - 1 + c.z + d - 1, lat = c.x + (w - 1) / 2 - c.z - (d - 1) / 2;
     const veil = h.removeDecor((e) => !hard(e) && (CATALOG[e.t]?.height ?? 0) >= 1.2 && e.x + e.z > fs && e.x + e.z <= fs + 3 && Math.abs(e.x - e.z - lat) <= (w + d) / 2);
     h.log.push(`landmark ${type} at ${c.x},${c.z} rot ${c.rot}, ${c.removed} decor cleared, ${veil} tall decor in front cleared`);
+    if (!level.pieces) level.pieces = [];
+    if (!level.pieces.includes(SELF)) level.pieces.push(SELF);
     return [c.x, c.z];
   }
   h.log.push(`landmark ${type}: no flat clear footprint beside the figure`);
