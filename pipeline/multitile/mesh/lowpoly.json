@@ -1,0 +1,68 @@
+{
+ "windmill": {
+  "src": "windmill.2",
+  "mode": "qem",
+  "faces": 1000,
+  "yaw": 90,
+  "footprint": [
+   3,
+   3
+  ],
+  "height": 4,
+  "baseBand": 0.12,
+  "baseSpan": 2.9,
+  "minComp": 0.02,
+  "families": {
+   "stone": [
+    "#bcb5ab",
+    "#949188",
+    "#64645c"
+   ],
+   "timber": [
+    "#c48c44",
+    "#9c5c2c",
+    "#74442c"
+   ],
+   "roof": [
+    "#dcac34",
+    "#c4842c",
+    "#946424"
+   ],
+   "sail": [
+    "#e2c48c",
+    "#d4b47c",
+    "#b4945c"
+   ]
+  },
+  "maxStretch": 1.3,
+  "lattice": 0
+ },
+ "canopy-tree": {
+  "src": "canopy-tree.1",
+  "mode": "voxel",
+  "yaw": 0,
+  "footprint": [
+   3,
+   3
+  ],
+  "height": 4,
+  "baseBand": 0.12,
+  "baseSpan": 2.9,
+  "minComp": 0.02,
+  "sway": "leaf",
+  "families": {
+   "leaf": [
+    "#94dc64",
+    "#54a45c",
+    "#2c7454"
+   ],
+   "trunk": [
+    "#b46c54",
+    "#945c44",
+    "#6c3c34"
+   ]
+  },
+  "voxel": 16,
+  "smooth": 2
+ }
+}

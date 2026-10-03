@@ -1,0 +1,4 @@
+{"t":"2026-10-03T02:33:40.547Z","model":"fal-ai/trellis","id":"windmill.1","usd":0.02,"input":{"ss_sampling_steps":20,"slat_sampling_steps":20,"ss_guidance_strength":7.5,"slat_guidance_strength":3,"mesh_simplify":0.98,"texture_size":512}}
+{"t":"2026-10-03T02:34:02.412Z","model":"fal-ai/trellis","id":"canopy-tree.1","usd":0.02,"input":{"ss_sampling_steps":20,"slat_sampling_steps":20,"ss_guidance_strength":7.5,"slat_guidance_strength":3,"mesh_simplify":0.98,"texture_size":512}}
+{"t":"2026-10-03T02:40:44.361Z","model":"fal-ai/trellis","id":"canopy-tree.2","usd":0.02,"input":{"ss_sampling_steps":50,"slat_sampling_steps":50,"ss_guidance_strength":9,"slat_guidance_strength":4,"mesh_simplify":0.98,"texture_size":512}}
+{"t":"2026-10-03T02:41:16.680Z","model":"fal-ai/trellis","id":"windmill.2","usd":0.02,"input":{"ss_sampling_steps":50,"slat_sampling_steps":50,"ss_guidance_strength":9,"slat_guidance_strength":4,"mesh_simplify":0.98,"texture_size":512}}
