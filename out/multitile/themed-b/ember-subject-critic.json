@@ -1,0 +1,140 @@
+{
+  "render": "out/multitile/themed-b/ember-subject.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [
+    {
+      "issue": "The wooden fence completely obstructs the base of the upper ramp.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        462,
+        398,
+        537,
+        467
+      ]
+    },
+    {
+      "issue": "The bridge stairs terminate immediately over an open cliff drop.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        296,
+        568,
+        403,
+        674
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "geometric tree",
+      "rests_on": "block top",
+      "box": [
+        273,
+        82,
+        388,
+        237
+      ]
+    },
+    {
+      "prop": "horned creature figure",
+      "rests_on": "block top",
+      "box": [
+        420,
+        182,
+        514,
+        314
+      ]
+    },
+    {
+      "prop": "spiral horn relic",
+      "rests_on": "block top",
+      "box": [
+        265,
+        237,
+        316,
+        300
+      ]
+    },
+    {
+      "prop": "spiky relic",
+      "rests_on": "block top",
+      "box": [
+        619,
+        355,
+        670,
+        418
+      ]
+    },
+    {
+      "prop": "furnace",
+      "rests_on": "block top",
+      "box": [
+        274,
+        434,
+        375,
+        554
+      ]
+    },
+    {
+      "prop": "wooden arch gate",
+      "rests_on": "block top",
+      "box": [
+        378,
+        437,
+        492,
+        604
+      ]
+    },
+    {
+      "prop": "wooden fence",
+      "rests_on": "block top",
+      "box": [
+        462,
+        398,
+        537,
+        467
+      ]
+    },
+    {
+      "prop": "small wooden bridge",
+      "rests_on": "block top",
+      "box": [
+        326,
+        561,
+        400,
+        643
+      ]
+    },
+    {
+      "prop": "tall brazier",
+      "rests_on": "block top",
+      "box": [
+        517,
+        515,
+        561,
+        599
+      ]
+    },
+    {
+      "prop": "low brazier",
+      "rests_on": "block top",
+      "box": [
+        547,
+        504,
+        590,
+        545
+      ]
+    }
+  ]
+}

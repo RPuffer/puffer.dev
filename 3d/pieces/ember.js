@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { registerStamps, flameCrest } from "../stamps.js";
+import { placeLandmark } from "./multitile-themed-b.js";
 
 const HOT = {
   coal: ["#2e1a10", "#24140b", "#170c06"],
@@ -508,6 +509,7 @@ function finishLens(level, brief, h) {
   h.fence({ route: r, max: 1 });
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();
+  placeLandmark(level, h, "ember-brimstone-forge", { route: r });
   h.readability({ route: r });
 }
 
