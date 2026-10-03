@@ -9,7 +9,8 @@ const key = (x, z) => `${x},${z}`;
 const cheb = (a, b) => Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1]));
 const TILE = 1.5;
 
-export const BANDS = { figure: [0, 0.15], approach: [0.15, 0.35], threshold: [0.2, 0.5], rim: [0.25, 0.4], all: [0.25, 0.35] };
+export const BANDS = { figure: [0.15, 0.4], approach: [0.15, 0.35], threshold: [0.2, 0.5], rim: [0.2, 0.35], all: [0.25, 0.35] };
+export const TYPE_MAX = 0.35;
 export const SINGLETON_MAX = 0.15;
 
 const FAMILIES = [
@@ -130,7 +131,10 @@ export function analyse(level, o = {}) {
   }
   const parent = props.map((_, i) => i);
   const find = (i) => (parent[i] === i ? i : (parent[i] = find(parent[i])));
-  for (let i = 0; i < props.length; i++) for (let j = i + 1; j < props.length; j++) if (props[i].cells.some((a) => props[j].cells.some((b) => cheb(a, b) <= 1))) parent[find(i)] = find(j);
+  const touch = (i, j) => props[i].cells.some((a) => props[j].cells.some((b) => cheb(a, b) <= 1));
+  const stamp = (p) => p.cells.length > 1 || !!CATALOG[p.d.t]?.mask;
+  for (let i = 0; i < props.length; i++) for (let j = i + 1; j < props.length; j++) if (!stamp(props[i]) && !stamp(props[j]) && touch(i, j)) parent[find(i)] = find(j);
+  props.forEach((p, i) => { if (!stamp(p)) return; const j = props.findIndex((q, k) => k !== i && !stamp(q) && touch(i, k)); if (j >= 0) parent[find(i)] = find(j); });
   const groups = new Map();
   props.forEach((p, i) => { const r = find(i); if (!groups.has(r)) groups.set(r, []); groups.get(r).push(p); });
   const clusters = [...groups.values()];
@@ -211,7 +215,11 @@ export function analyse(level, o = {}) {
       spacing: cents.length > 1 ? nn.reduce((a, v) => a + v, 0) / nn.length : null,
       similar: big.length ? big.filter((c) => sameShare(c) >= 2 / 3).length / big.length : null,
       mixed: multi.filter((c) => sameShare(c) < 2 / 3).length,
-      oversize: clusters.reduce((a, c) => a + Math.max(0, c.filter((p) => !p.fixed).length - 4), 0),
+      types: Object.fromEntries(Object.entries(props.reduce((a, p) => ((a[p.d.t] = (a[p.d.t] || 0) + 1), a), {})).sort((a, b) => b[1] - a[1])),
+      typeShare: props.length ? Math.max(...Object.values(props.reduce((a, p) => ((a[p.d.t] = (a[p.d.t] || 0) + 1), a), {}))) / props.length : 0,
+      mono: multi.filter((c) => c.filter((p) => !p.fixed).length >= 2 && new Set(c.filter((p) => !p.fixed).map((p) => p.d.t)).size === 1).length,
+      rimOverFigure: density.rim != null && density.figure != null ? Math.max(0, density.rim - density.figure) : 0,
+      oversize: clusters.reduce((a, c) => a + Math.max(0, c.filter((p) => !p.fixed).length - 4) + Math.max(0, c.length - 6), 0),
       trailGap, fit, xrayRun, route: route.length, reach: `${reach.reached}/${reach.total}`, missing: reach.missing.length,
       beats,
     },
@@ -223,12 +231,12 @@ const bandDist = (v, [lo, hi]) => (v == null ? 0 : v < lo ? lo - v : v > hi ? v 
 export function cost(m) {
   let c = 3 * m.singletonShare + 5 * bandDist(m.density.all, BANDS.all);
   for (const zn of ["figure", "threshold", "approach", "rim"]) c += (zn === "figure" ? 8 : 4) * bandDist(m.density[zn], BANDS[zn]);
-  c += 0.25 * Math.max(0, m.trailGap - 3) + 1 * m.fit.length +  0.15 * m.mixed + 0.3 * m.oversize + 0.5 * Math.max(0, m.xrayRun - 3);
+  c += 0.25 * Math.max(0, m.trailGap - 3) + 1 * m.fit.length + 0.25 * m.mono + 4 * Math.max(0, m.typeShare - TYPE_MAX) + 6 * m.rimOverFigure + 0.3 * m.oversize + 0.5 * Math.max(0, m.xrayRun - 3);
   c += 0.4 * m.beats.filter((b) => !b.ok).length;
   return c;
 }
 
-export const passes = (m) => m.singletonShare < SINGLETON_MAX && ["figure", "threshold", "approach", "rim", "all"].every((zn) => bandDist(m.density[zn], BANDS[zn]) === 0);
+export const passes = (m) => m.singletonShare < SINGLETON_MAX && m.typeShare <= TYPE_MAX && !m.rimOverFigure && !m.mono && ["figure", "threshold", "approach", "rim", "all"].every((zn) => bandDist(m.density[zn], BANDS[zn]) === 0);
 
 export function decorPass(level, o = {}) {
   const log = o.log || [];
@@ -246,13 +254,47 @@ export function decorPass(level, o = {}) {
   for (const d of level.decor) if (d.gapX != null) forbid.add(key(d.gapX, d.gapZ));
   for (const [x, z, dir] of A0.ramps) { const [dx, dz] = DIRS[dir] || [0, 0]; forbid.add(key(x + dx, z + dz)); forbid.add(key(x - dx, z - dz)); }
   const islandTypes = [...new Set(A0.props.filter((p) => !p.fixed).map((p) => p.d.t))].filter((t) => CATALOG[t] && CATALOG[t].footprint[0] === 1 && CATALOG[t].footprint[1] === 1);
-  const pickType = (near, hero = true, salt = 0) => {
-    const f = fam(near);
-    const same = islandTypes.filter((t) => fam(t) === f);
-    const pool = (same.length ? same : islandTypes).slice().sort((a, b) => (CATALOG[a].height - CATALOG[b].height) || a.localeCompare(b));
-    if (hero || pool.length === 1) return pool[0];
-    return pool[Math.floor(hash(seed, salt, pool.length, 61) * pool.length)];
+  const ok1 = (t) => { const sp = CATALOG[t]; return sp && !sp.mask && !sp.attach && !sp.floats && sp.footprint[0] === 1 && sp.footprint[1] === 1 && (sp.height ?? 0) > 0.12 && !["lead", "creature"].includes(props0[t]?.role) && !/^(coin|gem|star|heart|marker)$/.test(t); };
+  const named = [...(o.brief?.motifs || []), ...(o.brief?.creatures || [])].map((m) => (CATALOG[m.name] ? m.name : m.type && CATALOG[m.type] ? m.type : null)).filter(Boolean);
+  const generic = [...(level.palette?.rock ? ["rock", "rock-big"] : []), ...(level.palette?.mushroomStem || level.palette?.cap ? ["mushroom"] : [])];
+  const pool = [...new Set([...named, ...islandTypes, ...generic])].filter(ok1).map((t, i) => [t, hash(seed, i, t.length, 71)]).sort((a, b) => a[1] - b[1]).map((e) => e[0]);
+  let rr = 0;
+  const small = (t) => CATALOG[t].passable || CATALOG[t].height <= 0.6;
+  const chooseTypes = (A, x, z, occ, inCluster = new Set(), n = 3) => {
+    const out = [];
+    for (const strict of [2, 1, 0]) for (let k = 0; k < pool.length && out.length < n; k++) {
+      const t = pool[(rr + k) % pool.length];
+      if (out.includes(t) || !admit(A, t, x, z, occ, inCluster, strict)) continue;
+      out.push(t);
+    }
+    return out;
   };
+  const admit = (A, t, x, z, occ, inCluster, strict) => {
+    const near = A0.route.some((r) => cheb(r, [x, z]) <= 1) || A.zoneMap.get(key(x, z)) === "figure";
+    const count = A.props.filter((p) => p.d.t === t).length;
+    if (!placeable(t, x, z, occ)) return false;
+    if ((count + 1) / (A.props.length + 1) > TYPE_MAX && A.props.length >= 6) return false;
+    if (strict >= 1 && inCluster.has(t) && inCluster.size < 3) return false;
+    if (strict >= 1 && inCluster.size >= 3 && !inCluster.has(t)) return false;
+    if (strict === 2 && near !== small(t)) return false;
+    return true;
+  };
+  const chooseType = (A, x, z, occ, inCluster = new Set()) => {
+    const near = A0.route.some((r) => cheb(r, [x, z]) <= 1) || A.zoneMap.get(key(x, z)) === "figure";
+    const count = (t) => A.props.filter((p) => p.d.t === t).length;
+    for (const strict of [2, 1, 0]) for (let k = 0; k < pool.length; k++) {
+      const t = pool[(rr + k) % pool.length];
+      if (!placeable(t, x, z, occ)) continue;
+      if ((count(t) + 1) / (A.props.length + 1) > TYPE_MAX && A.props.length >= 6) continue;
+      if (strict >= 1 && inCluster.has(t) && inCluster.size < 3) continue;
+      if (strict >= 1 && inCluster.size >= 3 && !inCluster.has(t)) continue;
+      if (strict === 2 && near !== small(t)) continue;
+      return t;
+    }
+    return null;
+  };
+  const mk = (t, x, z, salt = 0) => { const spec = CATALOG[t]; return { t, x, z, v: Math.floor(hash(seed, x, z, 41 + salt) * (spec.variants || 1)), rot: spec.rotates ? Math.floor(hash(seed, x, z, 42) * 4) : 0, ox: +((hash(seed, x, z, 43) - 0.5) * 0.24).toFixed(2), oz: +((hash(seed, x, z, 44) - 0.5) * 0.24).toFixed(2) }; };
+  const typesOf = (c) => new Set((c || []).filter((p) => !p.fixed).map((p) => p.d.t));
 
   const occupied = () => { const s = new Set(); for (const d of level.decor) for (const c of cellsOf(d)) s.add(key(...c)); return s; };
   const placeable = (t, x, z, occ, ignore) => {
@@ -272,6 +314,7 @@ export function decorPass(level, o = {}) {
     if (A.props.some((p) => !p.fixed && p.cells.some((c) => baseRouteSet.has(key(...c))))) return false;
     if (m.fit.length > base.fit.length) return false;
     if (m.xrayRun > Math.max(3, base.xrayRun)) return false;
+    if (m.typeShare > Math.max(TYPE_MAX, base.typeShare) + 1e-9) return false;
     return true;
   };
   const evalNow = () => { const A = analyse(level, { brief: o.brief, lead }); return valid(A) ? { A, c: cost(A.metrics) } : null; };
@@ -293,59 +336,75 @@ export function decorPass(level, o = {}) {
           const x = px + dx, z = pz + dz;
           if (!placeable(s.d.t, x, z, occ, key(sx, sz))) continue;
           if (s.cells.some((c) => cheb(c, [x, z]) === 0)) continue;
-          const pen = (p.fam === s.fam ? 0 : 3) + (p.fixed ? 1 : 0) + Math.hypot(x - sx, z - sz) * 0.2 + hash(seed, x, z, it) * 0.1;
+          const pen = (p.d.t === s.d.t ? 1 : 0) + (p.fam === s.fam ? 0 : 0.5) + (p.fixed ? 1 : 0) + Math.hypot(x - sx, z - sz) * 0.2 + hash(seed, x, z, it) * 0.1;
           targets.push([x, z, pen]);
         }
       }
       targets.sort((a, b) => a[2] - b[2]);
       for (const [x, z] of targets.slice(0, 10)) cands.push({ kind: "gather", desc: `${s.d.t} ${sx},${sz} -> ${x},${z}`, apply: () => { const ox = s.d.x, oz = s.d.z; s.d.x = x; s.d.z = z; return () => { s.d.x = ox; s.d.z = oz; }; } });
     }
-    const addAround = (anchor, t, kind, salt) => {
+    const addAround = (anchor, kind, salt) => {
       const out = [];
       for (const [ax, az] of anchor.cells) for (const [dx, dz] of N8) {
         const x = ax + dx, z = az + dz;
-        if (!placeable(t, x, z, occ)) continue;
+        if (occ.has(key(x, z)) || out.some((q) => q[0] === x && q[1] === z)) continue;
         out.push([x, z, hash(seed, x, z, it + salt)]);
       }
       out.sort((a, b) => a[2] - b[2]);
-      for (const [x, z] of out.slice(0, 4)) {
-        const spec = CATALOG[t];
-        const d = { t, x, z, v: Math.floor(hash(seed, x, z, 41) * (spec.variants || 1)), rot: spec.rotates ? Math.floor(hash(seed, x, z, 42) * 4) : 0, ox: +((hash(seed, x, z, 43) - 0.5) * 0.24).toFixed(2), oz: +((hash(seed, x, z, 44) - 0.5) * 0.24).toFixed(2) };
-        cands.push({ kind, desc: `add ${t} ${x},${z} by ${anchor.d.t}`, apply: () => { level.decor.push(d); return () => { level.decor.splice(level.decor.indexOf(d), 1); }; } });
+      let n = 0;
+      for (const [x, z] of out) {
+        if (n >= 4) break;
+        const ts = chooseTypes(A, x, z, occ, typesOf(anchor.cluster));
+        if (!ts.length) continue;
+        n++;
+        for (const t of ts) { const d = mk(t, x, z); cands.push({ kind, t: [t], desc: `add ${t} ${x},${z} by ${anchor.d.t}`, apply: () => { level.decor.push(d); return () => { level.decor.splice(level.decor.indexOf(d), 1); }; } }); }
       }
     };
-    if (islandTypes.length && cur.A.metrics.density.all < BANDS.all[1]) {
-      for (const s of order(A.singles, 2)) addAround(s, pickType(s.d.t), "fill", 3);
-      for (const c of order(A.clusters.filter((c) => c.length >= 2 && c.filter((p) => !p.fixed).length < 4), 4)) addAround(c[0].fixed ? c[1] : c[0], pickType(c.find((p) => !p.fixed)?.d.t || c[0].d.t, c.some((p) => p.h >= 1), it), "grow", 5);
-      const r = A.route, end = A.gateIdx > 0 ? A.gateIdx : r.length - 1;
-      for (let i = 1; i <= end; i++) {
-        if (A.props.some((p) => p.cells.some((c) => cheb(c, r[i]) <= 1))) continue;
-        const kerb = [];
-        for (const [dx, dz] of N8) { const x = r[i][0] + dx, z = r[i][1] + dz; const t = pickType(islandTypes[0]); if (placeable(t, x, z, occ)) kerb.push([x, z, t]); }
-        for (const [x, z, t] of kerb.slice(0, 2)) {
-          const spec = CATALOG[t];
-          const pair = [[x, z]];
-          for (const [dx, dz] of N8) { const X = x + dx, Z = z + dz; if (placeable(t, X, Z, occ) && !(X === x && Z === z) && !baseRouteSet.has(key(X, Z))) { pair.push([X, Z]); break; } }
-          const ds = pair.map(([a, b], j) => ({ t, x: a, z: b, v: Math.floor(hash(seed, a, b, 45 + j) * (spec.variants || 1)), rot: spec.rotates ? Math.floor(hash(seed, a, b, 46) * 4) : 0, ox: +((hash(seed, a, b, 47) - 0.5) * 0.24).toFixed(2), oz: +((hash(seed, a, b, 48) - 0.5) * 0.24).toFixed(2) }));
-          cands.push({ kind: "trail", desc: `trail ${t} ${pair.map((p) => p.join(",")).join(" ")} at route ${i}`, apply: () => { level.decor.push(...ds); return () => { for (const d of ds) level.decor.splice(level.decor.indexOf(d), 1); }; } });
-        }
+    if (pool.length && A.metrics.density.all < BANDS.all[1]) {
+      for (const sgl of order(A.singles, 2)) addAround(sgl, "fill", 3);
+      for (const c of order(A.clusters.filter((c) => c.length >= 2 && c.filter((p) => !p.fixed).length < 4), 4)) addAround(c.find((p) => !p.fixed) || c[0], "grow", 5);
+      const lowZones = ["figure", "threshold", "approach", "rim"].filter((zn) => A.metrics.density[zn] != null && A.metrics.density[zn] < BANDS[zn][1]);
+      const edge = [];
+      for (const p of A.props) for (const [px, pz] of p.cells) for (const [dx, dz] of N8) {
+        const x = px + dx, z = pz + dz;
+        if (occ.has(key(x, z)) || !lowZones.includes(A.zoneMap.get(key(x, z))) || edge.some((q) => q[0] === x && q[1] === z)) continue;
+        edge.push([x, z, p, (A.zoneMap.get(key(x, z)) === "figure" ? 0 : 1) + hash(seed, x, z, it + 13)]);
       }
-    }
-    if (islandTypes.length && A.metrics.density.rim != null && A.metrics.density.rim < BANDS.rim[1] && A.metrics.density.all < BANDS.all[0]) {
-      const spots = A.walk.filter(([x, z]) => A.zoneMap.get(key(x, z)) !== "figure" && !A.props.some((p) => p.cells.some((c) => cheb(c, [x, z]) <= 1))).map(([x, z]) => [x, z, hash(seed, x, z, it + 7)]).sort((a, b) => a[2] - b[2]);
+      edge.sort((a, b) => a[3] - b[3]);
+      let ne = 0;
+      for (const [x, z, p] of edge) {
+        if (ne >= 12) break;
+        const ts = chooseTypes(A, x, z, occ, typesOf(p.cluster));
+        if (!ts.length) continue;
+        ne++;
+        for (const t of ts) { const d = mk(t, x, z); cands.push({ kind: "extend", t: [t], desc: `add ${t} ${x},${z} (${A.zoneMap.get(key(x, z))}) by ${p.d.t}`, apply: () => { level.decor.push(d); return () => { level.decor.splice(level.decor.indexOf(d), 1); }; } }); }
+      }
+      const spots = A.walk.filter(([x, z]) => !A.props.some((p) => p.cells.some((c) => cheb(c, [x, z]) <= 1))).map(([x, z]) => [x, z, hash(seed, x, z, it + 7)]).sort((a, b) => a[2] - b[2]);
       let n = 0;
       for (const [x, z] of spots) {
-        if (n >= 6) break;
-        const ts = islandTypes.slice().sort((a, b) => hash(seed, x, z, a.length) - hash(seed, z, x, b.length));
-        const t0 = ts[0], t1 = pickType(t0, CATALOG[t0].height >= 1, x + z);
-        if (!placeable(t0, x, z, occ)) continue;
-        const mate = N8.map(([dx, dz]) => [x + dx, z + dz]).find(([X, Z]) => placeable(t1, X, Z, occ));
+        if (n >= 8) break;
+        const t0 = chooseType(A, x, z, occ);
+        if (!t0) continue;
+        let mate = null, t1 = null;
+        for (const [dx, dz] of N8) { const X = x + dx, Z = z + dz; if (occ.has(key(X, Z))) continue; const occ2 = new Set([...occ, key(x, z)]); t1 = chooseType(A, X, Z, occ2, new Set([t0])); if (t1) { mate = [X, Z]; break; } }
         if (!mate) continue;
         n++;
-        const ds = [[t0, x, z], [t1, ...mate]].map(([t, a, b], j) => ({ t, x: a, z: b, v: Math.floor(hash(seed, a, b, 51 + j) * (CATALOG[t].variants || 1)), rot: CATALOG[t].rotates ? Math.floor(hash(seed, a, b, 52) * 4) : 0, ox: +((hash(seed, a, b, 53) - 0.5) * 0.24).toFixed(2), oz: +((hash(seed, a, b, 54) - 0.5) * 0.24).toFixed(2) }));
-        cands.push({ kind: "vignette", desc: `pair ${t0} ${x},${z} + ${t1} ${mate.join(",")}`, apply: () => { level.decor.push(...ds); return () => { for (const d of ds) level.decor.splice(level.decor.indexOf(d), 1); }; } });
+        const ds = [mk(t0, x, z), mk(t1, ...mate, 1)];
+        cands.push({ kind: "vignette", t: [t0, t1], desc: `pair ${t0} ${x},${z} + ${t1} ${mate.join(",")}`, apply: () => { level.decor.push(...ds); return () => { for (const d of ds) level.decor.splice(level.decor.indexOf(d), 1); }; } });
       }
     }
+    for (const p of order(movable.filter((p) => A.metrics.typeShare > TYPE_MAX && A.metrics.types[p.d.t] / A.metrics.props > TYPE_MAX), 8).slice(0, 6)) {
+      const occ2 = new Set([...occ].filter((k) => k !== key(p.d.x, p.d.z)));
+      const t = chooseType(A, p.d.x, p.d.z, occ2, typesOf(p.cluster.filter((q) => q !== p)));
+      if (t && t !== p.d.t) cands.push({ kind: "swap", t: [t], desc: `${p.d.t} ${p.d.x},${p.d.z} -> ${t}`, apply: () => { const was = p.d.t; p.d.t = t; return () => { p.d.t = was; }; } });
+    }
+    for (const c of A.clusters.filter((c) => c.filter((p) => !p.fixed).length >= 2 && typesOf(c).size === 1)) {
+      const p = c.filter((q) => !q.fixed)[1];
+      const occ2 = new Set([...occ].filter((k) => k !== key(p.d.x, p.d.z)));
+      const t = chooseType(A, p.d.x, p.d.z, occ2, typesOf(c));
+      if (t && t !== p.d.t) cands.push({ kind: "swap", t: [t], desc: `${p.d.t} ${p.d.x},${p.d.z} -> ${t}`, apply: () => { const was = p.d.t; p.d.t = t; return () => { p.d.t = was; }; } });
+    }
+    if (A.metrics.rimOverFigure) for (const p of order(movable.filter((p) => p.zone === "rim"), 9).slice(0, 8)) cands.push({ kind: "thin", desc: `drop ${p.d.t} ${p.d.x},${p.d.z} (rim over figure)`, apply: () => { const i = level.decor.indexOf(p.d); level.decor.splice(i, 1); return () => level.decor.splice(i, 0, p.d); } });
     for (const zn of ["figure", "rim", "approach", "threshold", "all"]) {
       if (bandDist(A.metrics.density[zn], BANDS[zn]) === 0 || A.metrics.density[zn] < BANDS[zn][1]) continue;
       for (const p of order(movable.filter((p) => zn === "all" || p.zone === zn), 6)) cands.push({ kind: "thin", desc: `drop ${p.d.t} ${p.d.x},${p.d.z} (${p.zone})`, apply: () => { const i = level.decor.indexOf(p.d); level.decor.splice(i, 1); return () => level.decor.splice(i, 0, p.d); } });
@@ -359,10 +418,12 @@ export function decorPass(level, o = {}) {
     }
     if (!best) break;
     best.cand.apply();
+    if (best.cand.t) rr = (pool.indexOf(best.cand.t[best.cand.t.length - 1]) + 1) % pool.length;
     cur = evalNow();
     done.push(`${best.cand.kind}: ${best.cand.desc} (cost ${cur.c.toFixed(3)})`);
   }
   const m = cur.A.metrics;
+  log.push(`pool ${pool.join(" ")}`);
   log.push(`decor loop ${done.length} moves, singletons ${base.singletonShare.toFixed(2)} -> ${m.singletonShare.toFixed(2)}, density ${base.density.all.toFixed(2)} -> ${m.density.all.toFixed(2)}, reach ${m.reach}, ${passes(m) ? "in band" : "not in band"}`);
   return { before: base, after: m, moves: done, pass: passes(m) };
 }

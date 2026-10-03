@@ -6,135 +6,111 @@
   ],
   "model": "gemini-3.8-flash",
   "style": "ref/reference.png",
-  "verdict": "No agreed high-severity faults; 1 lesser item.",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
   "votes": 3,
   "high": 0,
-  "items": [
-    {
-      "issue": "The stone stepped path at the base abuts directly into an unaligned cliff face.",
-      "rule": 8,
-      "severity": "medium",
-      "support": "2/3",
-      "box": [
-        318,
-        614,
-        403,
-        678
-      ],
-      "fix_hint": "Align the paved walkway directly with the bridge or an open pathway."
-    }
-  ],
+  "items": [],
   "minority": [],
   "dropped": [],
   "inventory": [
     {
-      "prop": "stylized tree",
+      "prop": "voxel tree",
       "rests_on": "block top",
       "box": [
-        273,
-        83,
-        388,
-        232
+        271,
+        84,
+        386,
+        233
       ]
     },
     {
-      "prop": "boss figure on altar",
+      "prop": "boss creature",
       "rests_on": "block top",
       "box": [
-        415,
-        182,
+        419,
+        183,
         517,
-        310
+        313
       ]
     },
     {
       "prop": "spiral horn fossil",
       "rests_on": "block top",
       "box": [
-        263,
-        235,
+        265,
+        237,
         318,
         300
       ]
     },
     {
-      "prop": "spiral horn fossil",
+      "prop": "stone cairn",
       "rests_on": "block top",
       "box": [
-        160,
-        462,
-        213,
-        530
+        612,
+        348,
+        674,
+        426
       ]
     },
     {
-      "prop": "spiral horn fossil",
+      "prop": "skull prop",
       "rests_on": "block top",
       "box": [
-        306,
-        503,
-        356,
-        565
+        200,
+        363,
+        253,
+        402
       ]
     },
     {
-      "prop": "torii archway",
+      "prop": "skull prop",
+      "rests_on": "block top",
+      "box": [
+        335,
+        361,
+        386,
+        402
+      ]
+    },
+    {
+      "prop": "stone archway",
       "rests_on": "block top",
       "box": [
         375,
-        438,
+        439,
         491,
-        605
-      ]
-    },
-    {
-      "prop": "wooden footbridge",
-      "rests_on": "block top",
-      "box": [
-        320,
-        563,
-        402,
-        637
-      ]
-    },
-    {
-      "prop": "wood railing",
-      "rests_on": "block top",
-      "box": [
-        457,
-        398,
-        537,
-        467
-      ]
-    },
-    {
-      "prop": "torch brazier",
-      "rests_on": "block top",
-      "box": [
-        517,
-        524,
-        562,
-        566
-      ]
-    },
-    {
-      "prop": "wooden pike",
-      "rests_on": "block top",
-      "box": [
-        698,
-        414,
-        735,
-        486
-      ]
-    },
-    {
-      "prop": "wooden pike",
-      "rests_on": "block top",
-      "box": [
-        240,
-        526,
-        280,
         604
+      ]
+    },
+    {
+      "prop": "wood fence",
+      "rests_on": "block top",
+      "box": [
+        459,
+        393,
+        560,
+        469
+      ]
+    },
+    {
+      "prop": "torch pillar",
+      "rests_on": "block top",
+      "box": [
+        197,
+        502,
+        237,
+        583
+      ]
+    },
+    {
+      "prop": "torch pillar",
+      "rests_on": "block top",
+      "box": [
+        515,
+        514,
+        562,
+        602
       ]
     }
   ]

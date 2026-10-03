@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { registerCatalog } from "../../core/catalog.js";
-import { analyse, BANDS, SINGLETON_MAX } from "../../pipeline/a-transcribe/finish-cluster.mjs";
+import { analyse, BANDS, SINGLETON_MAX, TYPE_MAX } from "../../pipeline/a-transcribe/finish-cluster.mjs";
 
 export const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
 
@@ -28,6 +28,9 @@ export function rows(m) {
     out.push([`density ${zn}`, `${f2(v)} (${n} cells)`, `${BANDS[zn][0]}-${BANDS[zn][1]}`, v == null ? "n/a" : mark(inBand(v, BANDS[zn]))]);
   }
   out.push(["singleton share", `${f2(m.singletonShare)} (${m.singletons}/${m.props})`, `< ${SINGLETON_MAX}`, mark(m.singletonShare < SINGLETON_MAX)]);
+  out.push(["top type share", `${f2(m.typeShare)} ${Object.entries(m.types).map(([t, n]) => `${t} ${n}`).join(", ")}`, `<= ${TYPE_MAX}`, mark(m.typeShare <= TYPE_MAX)]);
+  out.push(["rim density <= figure court", `${f2(m.density.rim)} vs ${f2(m.density.figure)}`, "", m.density.figure == null ? "n/a" : mark(!m.rimOverFigure)]);
+  out.push(["one-type clusters", `${m.mono}`, "0", mark(!m.mono)]);
   out.push(["clusters", `${m.clusters} (${m.multi} of 2+, largest ${m.largest})`, "", ""]);
   out.push(["mean cluster spacing", m.spacing == null ? "n/a" : `${m.spacing.toFixed(2)} cells`, "", ""]);
   out.push(["same-family share (3+)", f2(m.similar), ">= 0.67", m.similar == null ? "n/a" : mark(m.similar >= 2 / 3)]);
