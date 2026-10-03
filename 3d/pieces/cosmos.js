@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-b.js";
 
 const NEB = {
   sclera: ["#f4eefc", "#ddd3f0", "#bfb1dc"],
@@ -1566,7 +1567,11 @@ function finishR5(level, brief, h, lens) {
 
 function finishLens(level, brief, h) {
   const lens = brief.concept?.lens || (typeof brief.lens === "string" ? brief.lens : "");
-  if (R5LOOK[lens]) return finishR5(level, brief, h, lens);
+  if (R5LOOK[lens]) {
+    finishR5(level, brief, h, lens);
+    if (lens === "frisket") placeLandmark(level, h, "cosmos-stencil-press", { near: 5 });
+    return;
+  }
   lensLook(level, lens);
   h.dryRim();
   resurface(level, h);

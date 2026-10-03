@@ -1,0 +1,129 @@
+{
+  "render": "out/multitile/themed-b/cosmos-frisket.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [
+    {
+      "issue": "The striped light beacon on the far right has an unclear alignment relative to the sloped tile edge.",
+      "severity": "low",
+      "support": "1/3",
+      "box": [
+        654,
+        399,
+        707,
+        494
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "giant eye shrine",
+      "rests_on": "block top",
+      "box": [
+        302,
+        102,
+        429,
+        268
+      ]
+    },
+    {
+      "prop": "cyan mushroom tree top",
+      "rests_on": "block top",
+      "box": [
+        335,
+        270,
+        391,
+        342
+      ]
+    },
+    {
+      "prop": "cyan mushroom tree mid",
+      "rests_on": "block top",
+      "box": [
+        267,
+        327,
+        321,
+        402
+      ]
+    },
+    {
+      "prop": "cyan mushroom tree right",
+      "rests_on": "block top",
+      "box": [
+        611,
+        487,
+        663,
+        564
+      ]
+    },
+    {
+      "prop": "lamp post left",
+      "rests_on": "block top",
+      "box": [
+        354,
+        363,
+        380,
+        441
+      ]
+    },
+    {
+      "prop": "lamp post center",
+      "rests_on": "block top",
+      "box": [
+        385,
+        461,
+        413,
+        544
+      ]
+    },
+    {
+      "prop": "archway structure",
+      "rests_on": "block top",
+      "box": [
+        378,
+        370,
+        485,
+        504
+      ]
+    },
+    {
+      "prop": "standing banner left",
+      "rests_on": "block top",
+      "box": [
+        547,
+        446,
+        594,
+        524
+      ]
+    },
+    {
+      "prop": "standing banner right",
+      "rests_on": "block top",
+      "box": [
+        589,
+        497,
+        621,
+        585
+      ]
+    },
+    {
+      "prop": "striped pole prop",
+      "rests_on": "block top",
+      "box": [
+        665,
+        406,
+        696,
+        485
+      ]
+    }
+  ]
+}
