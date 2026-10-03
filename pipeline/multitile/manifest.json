@@ -1,0 +1,275 @@
+{
+  "model": "gemini-3.1-flash-image",
+  "price_per_image": 0.045,
+  "style_images": [
+    "ref/tilesheet.png",
+    "2d/assets/sheet.png"
+  ],
+  "items": [
+    {
+      "item": "windmill",
+      "island": null,
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/windmill.png",
+      "tries": 1,
+      "note": "reads well: stone base and timber cap, sails clear; base sits a little back of centre and covers closer to 2x2 than 3x3"
+    },
+    {
+      "item": "watchtower",
+      "island": null,
+      "footprint": [
+        2,
+        2
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/watchtower.png",
+      "tries": 1,
+      "note": "reads well: four legs on 2x2, ladder and roof, hero scale right"
+    },
+    {
+      "item": "gatehouse",
+      "island": null,
+      "footprint": [
+        3,
+        2
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/gatehouse.png",
+      "tries": 1,
+      "note": "reads well: walk-through arch and broken tower; grey stone sits close to the pack's white rocks"
+    },
+    {
+      "item": "canopy-tree",
+      "island": null,
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/canopy-tree.png",
+      "tries": 1,
+      "note": "reads well: root blocks spread over 3x3, crown matches the pack's round trees"
+    },
+    {
+      "item": "shipwreck",
+      "island": null,
+      "footprint": [
+        4,
+        2
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/shipwreck.png",
+      "tries": 2,
+      "note": "retry: 5x5 slab with a water back row, hull and dock clear; first try mixed two sand tones and lost the slab edge"
+    },
+    {
+      "item": "shrine",
+      "island": null,
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 2,
+      "file": "pipeline/multitile/shrine.png",
+      "tries": 1,
+      "note": "reads well: stepped plinth fills 3x3, pillars and roof slab, low and wide"
+    },
+    {
+      "item": "market-row",
+      "island": null,
+      "footprint": [
+        3,
+        1
+      ],
+      "height_tiles": 2,
+      "file": "pipeline/multitile/market-row.png",
+      "tries": 1,
+      "note": "reads well: three stalls on a 3x1 strip under one awning, the clearest footprint of the set"
+    },
+    {
+      "item": "waterfall-cliff",
+      "island": null,
+      "footprint": [
+        2,
+        3
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/waterfall-cliff.png",
+      "tries": 2,
+      "note": "retry: flat 5x5 slab with the cliff on top; adds grey rock blocks the pack lacks; first try merged cliff and slab"
+    },
+    {
+      "item": "cat-paint-tube-windmill",
+      "island": "cat-medium",
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/cat-paint-tube-windmill.png",
+      "tries": 2,
+      "note": "weak: plinth fills 3x3 and colours fit the island, but the tower still reads as a stack, not a paint tube; sails are palette-knife shaped"
+    },
+    {
+      "item": "dragon-graphite-crane",
+      "island": "dragon-medium",
+      "footprint": [
+        3,
+        2
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/dragon-graphite-crane.png",
+      "tries": 1,
+      "note": "reads well: crane over a pit cut into the slab; spread runs past 3x2 and the timber is tan, not graphite"
+    },
+    {
+      "item": "ember-brimstone-forge",
+      "island": "ember-subject",
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/ember-brimstone-forge.png",
+      "tries": 1,
+      "note": "reads well: glowing mouth, chimney, anvil and horn blocks on sand, island palette"
+    },
+    {
+      "item": "chimera-ink-monolith",
+      "island": "chimera-medium",
+      "footprint": [
+        2,
+        2
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/chimera-ink-monolith.png",
+      "tries": 1,
+      "note": "reads well: three leaning slabs on a 2x2 rock base; slab tops are rounded, edging off-style"
+    },
+    {
+      "item": "wizard-scroll-tower",
+      "island": "wizard-medium",
+      "footprint": [
+        2,
+        2
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/wizard-scroll-tower.png",
+      "tries": 1,
+      "note": "reads well: rolled scrolls under a blue hat roof and star; scrolls are cylinders, smoother than the pack"
+    },
+    {
+      "item": "swallow-blade-arch",
+      "island": "swallow-medium",
+      "footprint": [
+        3,
+        1
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/swallow-blade-arch.png",
+      "tries": 1,
+      "note": "reads well: two leaning blades form a walk-through arch on 3x1; colours drift to plain grey"
+    },
+    {
+      "item": "sharkbear-shard-watchtower",
+      "island": "sharkbear-medium",
+      "footprint": [
+        2,
+        2
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/sharkbear-shard-watchtower.png",
+      "tries": 1,
+      "note": "middling: crooked paper slabs read, but the top cap looks like a lantern and the slab is 4x5"
+    },
+    {
+      "item": "gremlin-specimen-vat",
+      "island": "gremlin-subject",
+      "footprint": [
+        2,
+        2
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/gremlin-specimen-vat.png",
+      "tries": 2,
+      "note": "retry: flat cyan glass with a dark creature silhouette, base and spool on 2x2; first try used see-through glass and loose pipes"
+    },
+    {
+      "item": "mindbloom-doodle-fountain",
+      "island": "mindbloom-medium",
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/mindbloom-doodle-fountain.png",
+      "tries": 1,
+      "note": "reads well: lilac stepped basin, black bloom crown, four gold caps on 3x3"
+    },
+    {
+      "item": "eagle-slate-eyrie",
+      "island": "eagle-composition",
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 4,
+      "file": "pipeline/multitile/eagle-slate-eyrie.png",
+      "tries": 1,
+      "note": "reads well: slate crag, log nest and gold spire on 3x3"
+    },
+    {
+      "item": "forest-gilt-gazebo",
+      "island": "forest-volute",
+      "footprint": [
+        3,
+        3
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/forest-gilt-gazebo.png",
+      "tries": 1,
+      "note": "reads well: gold dome, volute capitals, stepped plinth; grey-lilac island colours mostly absent"
+    },
+    {
+      "item": "cosmos-stencil-press",
+      "island": "cosmos-frisket",
+      "footprint": [
+        4,
+        3
+      ],
+      "height_tiles": 3,
+      "file": "pipeline/multitile/cosmos-stencil-press.png",
+      "tries": 2,
+      "note": "retry: plain stencil frame, spray arm and tape rolls on 4x3; first try printed a picture on the stencil"
+    }
+  ],
+  "ramp": {
+    "item": "windmill-ramp",
+    "footprints": [
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "heights_tiles": [
+      3,
+      4,
+      5
+    ],
+    "file": "pipeline/multitile/windmill-ramp.png",
+    "tries": 2,
+    "note": "retry: square stone plinths that fill each footprint make 2x2, 3x3 and 4x4 read apart; first try grew in height only"
+  }
+}
