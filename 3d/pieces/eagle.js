@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-b.js";
 
 const INK = {
   coat: ["#5b4a45", "#463833", "#322724"],
@@ -854,6 +855,7 @@ function finishLens(level, brief, h) {
   const occ = h.removeDecor((d) => tall(d.t) && [[-1, 0], [0, -1], [-1, -1]].some(([a, b]) => { const q = h.cell(d.x + a, d.z + b); return walk(q) && q.h < h.cell(d.x, d.z).h && !h.isFig(d.x + a, d.z + b); }));
   h.log.push(`occluders ${occ}`);
   rampTone(level, h);
+  if (L === "composition") placeLandmark(level, h, "eagle-slate-eyrie");
   h.log.push(`lens ${L} posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")} approach ${h.approach().length} walk ${h.walkN()}`);
 }
 

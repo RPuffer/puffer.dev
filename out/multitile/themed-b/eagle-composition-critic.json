@@ -1,0 +1,109 @@
+{
+  "render": "out/multitile/themed-b/eagle-composition.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [
+    {
+      "issue": "The sharp voxel geometry and stark monochrome palette deviate moderately from the soft-beveled, vibrant aesthetic of the target style.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        106,
+        82,
+        800,
+        749
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "eagle monument",
+      "rests_on": "block top",
+      "box": [
+        537,
+        278,
+        734,
+        504
+      ]
+    },
+    {
+      "prop": "beacon shrine",
+      "rests_on": "block top",
+      "box": [
+        435,
+        398,
+        524,
+        527
+      ]
+    },
+    {
+      "prop": "gate barrier",
+      "rests_on": "block top",
+      "box": [
+        371,
+        493,
+        465,
+        614
+      ]
+    },
+    {
+      "prop": "top light post",
+      "rests_on": "block top",
+      "box": [
+        439,
+        246,
+        464,
+        336
+      ]
+    },
+    {
+      "prop": "middle light post",
+      "rests_on": "block top",
+      "box": [
+        339,
+        428,
+        370,
+        524
+      ]
+    },
+    {
+      "prop": "foreground light post",
+      "rests_on": "block top",
+      "box": [
+        526,
+        541,
+        573,
+        629
+      ]
+    },
+    {
+      "prop": "left stone stack",
+      "rests_on": "block top",
+      "box": [
+        263,
+        378,
+        320,
+        457
+      ]
+    },
+    {
+      "prop": "right stone stack",
+      "rests_on": "block top",
+      "box": [
+        550,
+        486,
+        605,
+        570
+      ]
+    }
+  ]
+}
