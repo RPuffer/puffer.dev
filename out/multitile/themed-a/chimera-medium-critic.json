@@ -1,0 +1,137 @@
+{
+  "render": "out/multitile/themed-a/chimera-medium.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "pillar monument",
+      "rests_on": "block top",
+      "box": [
+        246,
+        143,
+        360,
+        311
+      ]
+    },
+    {
+      "prop": "spiked wing structure",
+      "rests_on": "block top",
+      "box": [
+        193,
+        246,
+        250,
+        327
+      ]
+    },
+    {
+      "prop": "thorn bush",
+      "rests_on": "block top",
+      "box": [
+        135,
+        309,
+        175,
+        362
+      ]
+    },
+    {
+      "prop": "golem figure",
+      "rests_on": "block top",
+      "box": [
+        345,
+        298,
+        427,
+        410
+      ]
+    },
+    {
+      "prop": "spiked wing structure",
+      "rests_on": "block top",
+      "box": [
+        491,
+        262,
+        546,
+        342
+      ]
+    },
+    {
+      "prop": "cubic rock cluster",
+      "rests_on": "block top",
+      "box": [
+        510,
+        312,
+        597,
+        378
+      ]
+    },
+    {
+      "prop": "cubic rock cluster",
+      "rests_on": "block top",
+      "box": [
+        548,
+        390,
+        601,
+        454
+      ]
+    },
+    {
+      "prop": "thorn bush",
+      "rests_on": "block top",
+      "box": [
+        519,
+        442,
+        560,
+        494
+      ]
+    },
+    {
+      "prop": "small gargoyle",
+      "rests_on": "block top",
+      "box": [
+        726,
+        469,
+        770,
+        520
+      ]
+    },
+    {
+      "prop": "double thorn tree",
+      "rests_on": "block top",
+      "box": [
+        491,
+        502,
+        537,
+        588
+      ]
+    },
+    {
+      "prop": "thorn bush",
+      "rests_on": "block top",
+      "box": [
+        460,
+        550,
+        504,
+        605
+      ]
+    },
+    {
+      "prop": "stone gate",
+      "rests_on": "block top",
+      "box": [
+        282,
+        466,
+        381,
+        570
+      ]
+    }
+  ]
+}

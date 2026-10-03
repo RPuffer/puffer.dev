@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-a.js";
 
 const INK = {
   bone: ["#ebe8dc", "#d6d2c4", "#beb9a8"],
@@ -627,6 +628,7 @@ function finishLens(level, brief, h) {
   h.repair({ keep: [gateT] });
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();
+  if (level.name === "chimera-medium") placeLandmark(level, h, "chimera-ink-monolith");
 }
 
 const CATALOG_PASS = (level, t) => !!level.palette?.props?.[t]?.passable && !/perch|oculus|ribbed/i.test(t);
