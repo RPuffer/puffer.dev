@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-a.js";
 
 const HIDE = {
   back: ["#5b7091", "#4a5c79", "#3a4860"],
@@ -745,6 +746,7 @@ function finishLens(level, brief, h) {
   badRamps(level, h);
   h.rampTone();
   h.log.push(`lens ${lens}: walk ${h.walkN()}, posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")}`);
+  if (level.name === "sharkbear-medium") placeLandmark(level, h, "sharkbear-shard-watchtower");
 }
 
 export function finish(level, brief, h) {

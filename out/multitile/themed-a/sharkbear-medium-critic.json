@@ -1,0 +1,110 @@
+{
+  "render": "out/multitile/themed-a/sharkbear-medium.png",
+  "size": [
+    900,
+    800
+  ],
+  "model": "gemini-3.8-flash",
+  "style": "ref/reference.png",
+  "verdict": "Clean: no fault agreed by a majority of passes.",
+  "votes": 3,
+  "high": 0,
+  "items": [],
+  "minority": [
+    {
+      "issue": "Stone archway is placed directly across the top of an inclined ramp.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        404,
+        446,
+        495,
+        534
+      ]
+    },
+    {
+      "issue": "Smooth wedge ramps diverge from the stepped block grammar of the target style.",
+      "severity": "medium",
+      "support": "1/3",
+      "box": [
+        278,
+        286,
+        362,
+        426
+      ]
+    }
+  ],
+  "dropped": [],
+  "inventory": [
+    {
+      "prop": "stone tower",
+      "rests_on": "block top",
+      "box": [
+        343,
+        110,
+        443,
+        286
+      ]
+    },
+    {
+      "prop": "creature statue",
+      "rests_on": "block top",
+      "box": [
+        363,
+        337,
+        462,
+        455
+      ]
+    },
+    {
+      "prop": "stone torii arch",
+      "rests_on": "block top",
+      "box": [
+        402,
+        451,
+        498,
+        534
+      ]
+    },
+    {
+      "prop": "spike trap 1",
+      "rests_on": "block top",
+      "box": [
+        488,
+        312,
+        537,
+        358
+      ]
+    },
+    {
+      "prop": "spike trap 2",
+      "rests_on": "block top",
+      "box": [
+        607,
+        379,
+        675,
+        436
+      ]
+    },
+    {
+      "prop": "spike trap 3",
+      "rests_on": "block top",
+      "box": [
+        113,
+        414,
+        155,
+        455
+      ]
+    },
+    {
+      "prop": "spike trap 4",
+      "rests_on": "block top",
+      "box": [
+        554,
+        431,
+        585,
+        472
+      ]
+    }
+  ]
+}
