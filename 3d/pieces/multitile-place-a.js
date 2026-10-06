@@ -52,6 +52,28 @@ function held(level, h) {
   return out;
 }
 
+function tint(level) {
+  const P = level.palette || {}, d = P.dirt, s = P.stone, n = P.sand, r = P.rock;
+  if (!P.wood || !d || !s || !n) return;
+  const sat = (c) => { const v = parseInt(String(c).slice(1), 16), q = [v >> 16 & 255, v >> 8 & 255, v & 255], hi = Math.max(...q); return hi ? (hi - Math.min(...q)) / hi : 0; };
+  const grey = Array.isArray(r) && r.length >= 4 && sat(n.top) < 0.2 && sat(d.top) < 0.2;
+  const w = grey ? { light: r[0], mid: r[1], dark: r[2], shadow: r[3] } : P.wood;
+  const out = {};
+  const set = (v, ...ks) => { if (v) for (const k of ks) out[k] = v; };
+  set(w.light, "plank", "stallTop", "hullDeck");
+  set(w.mid, "timber", "post", "spar", "trunk", "stall", "crate", "hull", "dock");
+  set(w.dark, "postDark", "ridge", "root", "mast", "hullDark", "dockAlt");
+  set(w.shadow, "door", "window");
+  set(d.top, "roof", "shingle");
+  set(d.patch, "roofAlt", "shingleAlt");
+  set(s.top, "stone", "gate", "shrine");
+  set(s.pebble, "stoneLight", "gateLight", "shrineLight");
+  set(s.rim, "gateDark", "shrineDark");
+  set(n.top, "infill", "sail", "goods");
+  if (Array.isArray(r)) { set(r[1], "rock"); set(r[3], "slit"); }
+  level.palette = { ...P, multitile: { ...(P.multitile || {}), ...out } };
+}
+
 function sight(h) {
   const r = h.readability();
   h.log.pop();
@@ -100,6 +122,7 @@ export function placeGeneric(level, h, type, o = {}) {
       if (!ok) { h.restore(S); continue; }
       const mod = t === type ? FULL : MODULE;
       level.pieces = [...new Set([...(level.pieces || []), mod])];
+      tint(level);
       h.log.push(`generic ${t} at ${c.x},${c.z} rot ${c.rot} h${h.cell(c.x, c.z).h}${t !== type ? " (footprint shrunk one step)" : ""}`);
       return { t, ...c };
     }
