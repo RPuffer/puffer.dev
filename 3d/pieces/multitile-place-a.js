@@ -97,6 +97,7 @@ function spots(level, h, type, route, o) {
       if (!h.land(c0)) continue;
       if (cs.some(([a, b]) => { const q = h.cell(a, b); return !h.land(q) || q.s === "ramp" || q.s === "bridge" || q.h !== c0.h || res.has(h.key(a, b)) || onR.has(h.key(a, b)) || ramps.has(h.key(a, b)); })) continue;
       if (Math.min(...cs.map(([a, b]) => ring(a, b, fc))) < (o.figGap ?? 2)) continue;
+      if (o.spawnGap && cs.some(([a, b]) => Math.abs(a - level.spawn[0]) + Math.abs(b - level.spawn[1]) < o.spawnGap)) continue;
       if (cs.some(([a, b]) => fc.some(([u, v]) => a + b > u + v && Math.abs(a - b - (u - v)) <= 2))) continue;
       const hide = route.filter(([a, b]) => cs.some(([u, v]) => u + v > a + b && u + v <= a + b + 3 && Math.abs(u - v - (a - b)) <= 1)).length;
       const dr = Math.min(...cs.map(([a, b]) => ring(a, b, span)));
