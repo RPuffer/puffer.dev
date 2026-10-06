@@ -388,7 +388,7 @@ function finishLens(level, brief, h) {
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();
   if (level.name === "swallow-medium") placeLandmark(level, h, "swallow-blade-arch");
-  if (level.name === "swallow-medium") placeGeneric(level, h, "watchtower", { near: 1, span: 0.4 });
+  if (level.name === "swallow-medium") placeGeneric(level, h, "watchtower", { near: 1, span: 0.4, spawnGap: 6, at: [9, 9] });
 }
 
 export function finish(level, brief, h) {
