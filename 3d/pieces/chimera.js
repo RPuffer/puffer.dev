@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
+import { placeGeneric } from "./multitile-place-a.js";
 
 const INK = {
   bone: ["#ebe8dc", "#d6d2c4", "#beb9a8"],
@@ -629,6 +630,7 @@ function finishLens(level, brief, h) {
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();
   if (level.name === "chimera-medium") placeLandmark(level, h, "chimera-ink-monolith");
+  if (level.name === "chimera-medium") placeGeneric(level, h, "watchtower", { near: 2, span: 0.6 });
 }
 
 const CATALOG_PASS = (level, t) => !!level.palette?.props?.[t]?.passable && !/perch|oculus|ribbed/i.test(t);
