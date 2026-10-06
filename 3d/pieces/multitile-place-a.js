@@ -56,7 +56,7 @@ function tint(level) {
   const P = level.palette || {}, d = P.dirt, s = P.stone, n = P.sand, r = P.rock;
   if (!P.wood || !d || !s || !n) return;
   const sat = (c) => { const v = parseInt(String(c).slice(1), 16), q = [v >> 16 & 255, v >> 8 & 255, v & 255], hi = Math.max(...q); return hi ? (hi - Math.min(...q)) / hi : 0; };
-  const grey = Array.isArray(r) && r.length >= 4 && sat(n.top) < 0.5 && r.every((c) => sat(c) < 0.15);
+  const grey = Array.isArray(r) && r.length >= 4 && sat(n.top) < 0.5 && r.every((c) => sat(c) < 0.2);
   const w = grey ? { light: r[0], mid: r[1], dark: r[2], shadow: r[3] } : P.wood;
   const out = {};
   const set = (v, ...ks) => { if (v) for (const k of ks) out[k] = v; };
