@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
+import { placeGeneric } from "./multitile-place-a.js";
 import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 
 const INK = {
@@ -387,6 +388,7 @@ function finishLens(level, brief, h) {
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();
   if (level.name === "swallow-medium") placeLandmark(level, h, "swallow-blade-arch");
+  if (level.name === "swallow-medium") placeGeneric(level, h, "watchtower", { near: 1, span: 0.4 });
 }
 
 export function finish(level, brief, h) {
