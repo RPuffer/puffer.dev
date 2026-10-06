@@ -573,3 +573,36 @@ Results, 2026-10-02: `qa-levels.mjs` on showcase 14 pass, 0 fail (one earlier ru
 | ember-subject | brimstone forge | 2x2 (from 3x3) | 5,7 | beside the approach; decor loop undershoots density after it |
 
 Sheet: `out/multitile/islands-sheet.jpg`. Card: `puffer-isoworld-multitile-build`.
+
+## Loops stage 2
+
+2026-10-05, layout metric loop from `docs/loops/layout.md`, proven on `levels/wizard-medium-layout.json`, a copy of `wizard-medium` taken before the sibling rebuilds landed.
+
+```sh
+node tools/loops/layout-metrics.mjs home,wizard-medium,cat-medium,dragon-medium,ember-subject
+node tools/loops/layout-loop.mjs wizard-medium-layout --write
+PP_PROFILE=.pp-profile-layout node tools/shot.mjs "http://localhost:8765/3d/index.html?level=wizard-medium-layout&hero=0" out/loops/layout/wizard-after.png 900 800
+node tools/loops/layout-metrics.mjs wizard-medium-layout --render out/loops/layout/wizard-after.png --overlay out/loops/layout/wizard-overlay.png
+```
+
+`tools/loops/graph.mjs` holds the shared walk model: walkable cells with decor, bonfire and chest blocking and the gate open or closed, BFS, the figure ring, the region graph (same-height plateaus plus ramp and bridge connector nodes), districts and convex-hull fill. `layout-metrics.mjs` casts isovists from an eye 1.5 world units above the cell top; a cell counts as seen when the ray to its centre or one of four inset points clears terrain (ramps by their slope), blocking decor at catalogue height, mask cells, the closed gate at 1.5 and bonfire or chest at 0.6. The figure counts as seen when a ray reaches 55% or 90% of its height over any footprint cell. Reveal counts cells seen from the threshold that no route cell before it sees. Dead ends are leaf region nodes off the critical path with no bonfire, chest or elevator and no sightline to the figure. Frame balance projects the figure, the largest blocking prop and the land centroid through the level's `view` block at 900x800; pass needs the figure and the weighted mass in the middle third and the land centroid within 12%. Route detour divides BFS steps by the Manhattan distance; the `*` marks a ratio outside pathing.md's 1.3 to 1.8, which a linear approach rarely reaches.
+
+Readings on the live files at 2026-10-05 (siblings were rebuilding `wizard-medium`, so its row differs from the copy's before row):
+
+| Level | Spawn isovist | Threshold isovist / reveal | Figure seen (spawn, threshold, mid; route share) | Districts / plateaus | Lips cliff/ramp, 1-cell runs | Figure third | Route / straight (ratio) | Choice | Dead ends / leaves |
+|---|---|---|---|---|---|---|---|---|---|
+| `home` | 78% | n/a | no figure | 2/7 | 4/1, 4/4 | n/a | n/a | 0 | 8/8 |
+| `wizard-medium` | 43% | 14% / 0% | n n n, 33% | 3/6 | 39/6, 10/18 | right middle | 14 / 14 (1.00) | 1 | 0/3 |
+| `cat-medium` | 48% | 38% / 1% | n n y, 77% | 4/5 | 27/4, 4/10 | middle top | 12 / 12 (1.00) | 1 | 1/2 |
+| `dragon-medium` | 58% | 72% / 2% | y y y, 100% | 2/6 | 20/5, 5/9 | right middle | 13 / 13 (1.00) | 1 | 0/4 |
+| `ember-subject` | 50% | 42% / 1% | y n n, 58% | 3/7 | 36/8, 16/23 | middle top | 11 / 11 (1.00) | 2 | 0/4 |
+| `wizard-medium-layout` before | 42% | 22% / 3% | n n n, 33% | 3/6 | 39/6, 10/18 | right middle | 14 / 14 (1.00) | 1 | 0/3 |
+| `wizard-medium-layout` after | 42% | 24% / 3% | y n n, 64% | 3/6 | 39/6, 10/18 | right middle | 13 / 11 (1.18) | 1 | 0/4 |
+
+`home` reads 39/46 reach because its islets sit apart by design, and its eight dead ends are those islets and bridge stubs.
+
+The loop scores spawn isovist against 33 to 55%, threshold reveal against 20%, figure sight from spawn, threshold and route midpoint, route share seeing the figure against 70%, dead ends, route length and choice points. Moves: relocate a single-cell blocking prop whose removal alone lowers the cost to one of the 16 nearest free cells (seed breaks ties), add a ramp between existing heights off the rim, drop a ramp off the route, add a one-cell bridge between equal heights, shift spawn to a rim cell within 4 of the bonfire, and shift or rotate the gate with its posts along the route. It never touches cell heights or surfaces outside a connector cell, the figure, things other than the gate, the themed prop, lights or gate posts. A move keeps only if the cost falls and every walk check holds: reach, bonfire, chest, elevator and figure reachable with the gate open; figure cut off and threshold reachable with it closed; threshold inside the watcher radius; a climb from spawn; route length in band; no new region-graph cycle (`--loops` lifts that, per the 2026-10-03 linear-approach decision); no new prop-to-surface misfit; x-ray run held at 3; and the qa-levels see-through window kept as strong. A first run moved the spire at 8,8 off the threshold diagonal, and qa-levels then failed its see-through check on the next-best piece; the window check came from that.
+
+On the copy the loop stopped after four moves, with no improving candidate among 26: spawn 2,10 to 2,6, spire 1,6 to 3,4, spawn 2,6 to 1,6, staff perch 1,8 to 1,10. Cost 5.21 to 3.39. The figure now shows from spawn and from 64% of route cells, up from 33%; spawn isovist holds at 42%; the route runs 13 steps against 14. Three targets stay out of reach without terrain: the threshold at 7,7 cannot see the figure because the right gate post at 8,6 stands 2.6 above an h3 cell on the sightline; the threshold reveals 3% because the open h3 plateau shows nearly everything before the gate; and districts stay 3 with hull fill 0.52 and 0.51 on the two big plateaus. No other gate cell on the route still cuts the figure off when closed.
+
+Files in `out/loops/layout/` (gitignored): `wizard-before.png`, `wizard-after.png`, `wizard-overlay-before.png`, `wizard-overlay.png` (green cells seen from spawn, red unseen, route dashed, sightlines yellow when clear and red when blocked), `wizard-medium-layout.before.json`, `critic-wizard-after.json`, `qa.txt`. Critic on the after render, 3 votes: 0 high, 0 other, $0.0216; an earlier critic pass on the first, discarded after render also read clean at $0.0220. QA: `PP_PROFILE=.pp-profile-layout node tools/qa-levels.mjs http://localhost:8765 wizard-medium-layout` 14 pass, 0 fail.
