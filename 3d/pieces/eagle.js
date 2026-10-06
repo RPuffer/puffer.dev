@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
+import { register as registerProps } from "./multitile.js";
+import { registerCatalog, CATALOG } from "../../core/catalog.js";
 
 const INK = {
   coat: ["#5b4a45", "#463833", "#322724"],
@@ -793,6 +795,50 @@ function unhide(level, h) {
   h.log.push(`unhide ${n}`);
 }
 
+function placeProp(level, h, type, o = {}) {
+  registerCatalog(registerProps().catalog);
+  const route = h.approach() || [];
+  const onR = new Set(route.map(([x, z]) => h.key(x, z)));
+  const lead = route.slice(0, Math.ceil(route.length * (o.span ?? 0.7)));
+  const fixed = level.decor.filter((d) => d === h.lead || CATALOG[d.t]?.stamp || d.side || d.axis || ["lead", "threshold", "dais", "light"].includes(level.palette?.props?.[d.t]?.role));
+  const held = new Set(fixed.flatMap((d) => h.footprint(d)).map(([x, z]) => h.key(x, z)));
+  const ring = (x, z, cs) => Math.min(...cs.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
+  const big = fixed.filter((d) => CATALOG[d.t]?.stamp && !CATALOG[d.t]?.passable).flatMap((d) => h.footprint(d));
+  const [W, D] = level.size, cand = [];
+  for (const rot of CATALOG[type].footprint[0] === CATALOG[type].footprint[1] ? [0] : [0, 1]) {
+    const [w, d] = rot ? [CATALOG[type].footprint[1], CATALOG[type].footprint[0]] : CATALOG[type].footprint;
+    for (let z = 0; z + d <= D; z++) for (let x = 0; x + w <= W; x++) {
+      const cs = [];
+      for (let b = 0; b < d; b++) for (let a = 0; a < w; a++) cs.push([x + a, z + b]);
+      const c0 = h.cell(x, z);
+      if (!h.land(c0) || cs.some(([a, b]) => { const q = h.cell(a, b); return !h.land(q) || q.s === "ramp" || q.s === "bridge" || q.h !== c0.h || h.isFig(a, b) || onR.has(h.key(a, b)) || held.has(h.key(a, b)); })) continue;
+      if (Math.min(...cs.map(([a, b]) => ring(a, b, h.figure.cells))) < (o.figGap ?? 2)) continue;
+      if (big.length && Math.min(...cs.map(([a, b]) => ring(a, b, big))) < 2) continue;
+      const hide = route.filter(([a, b]) => cs.some(([u, v]) => u + v > a + b && u + v <= a + b + 4 && Math.abs(u - v - (a - b)) <= 1)).length;
+      const dr = lead.length ? Math.min(...cs.map(([a, b]) => ring(a, b, lead))) : 9;
+      const front = cs.some(([a, b]) => h.figure.cells.some(([u, v]) => a + b > u + v && Math.abs(a - b - (u - v)) <= 2));
+      if (front) continue;
+      cand.push({ x, z, rot, score: hide * 3 + Math.abs(dr - (o.near ?? 2)) + cs.reduce((s, [a, b]) => s + h.decorAt(a, b).length, 0) * 0.3 });
+    }
+  }
+  cand.sort((a, b) => a.score - b.score);
+  const len0 = route.length, m0 = h.reach().missing.length;
+  for (const c of cand) {
+    const S = h.snapshot();
+    const ok = h.put(type, c.x, c.z, { rot: c.rot });
+    if (ok && h.reach().missing.length > m0) h.removeDecor((e) => e !== h.lead && !fixed.includes(e) && !CATALOG[e.t]?.stamp && !CATALOG[e.t]?.passable && h.reach().missing.some(([a, b]) => Math.abs(a - e.x) + Math.abs(b - e.z) === 1));
+    if (ok && h.reach().missing.length <= m0 && h.approach()?.length === len0) {
+      if (!level.pieces.includes("pieces/multitile.js")) level.pieces.push("pieces/multitile.js");
+      if (o.look) level.palette.multitile = { ...level.palette.multitile, ...o.look };
+      h.log.push(`prop ${type} at ${c.x},${c.z} rot ${c.rot}, score ${c.score.toFixed(1)}, ${cand.length} spots`);
+      return [c.x, c.z];
+    }
+    h.restore(S);
+  }
+  h.log.push(`prop ${type}: no flat footprint (${cand.length} spots)`);
+  return null;
+}
+
 function finishLens(level, brief, h) {
   const L = lensName(level, brief);
   const props = level.palette?.props || {};
@@ -856,6 +902,7 @@ function finishLens(level, brief, h) {
   h.log.push(`occluders ${occ}`);
   rampTone(level, h);
   if (L === "composition") placeLandmark(level, h, "eagle-slate-eyrie");
+  if (L === "composition") placeProp(level, h, "watchtower", { look: { post: "#7e7a71", postDark: "#5d5a53", plank: "#b8b4aa", shingle: "#4d4b43" } });
   h.log.push(`lens ${L} posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")} approach ${h.approach().length} walk ${h.walkN()}`);
 }
 
