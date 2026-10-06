@@ -200,4 +200,9 @@ Total: $2.835
 2026-10-03 | multitile themed props B | gemini-3.8-flash | 18 | 0.1500 | critic once per island: gremlin, mindbloom, eagle, forest, cosmos, ember
 2026-10-03 | loops stage 1 decor | gemini-3.8-flash | 6 | 0.0250 | critic on ember-subject after the rule loop and the diversity rerun
 
-Running total: $32.505
+2026-10-05 | pass 2 islands A | gemini-3.8-flash | 24 | 0.1900 | critic once per island after generic props and the decor loop
+2026-10-05 | pass 2 islands B | gemini-3.8-flash | 18 | 0.1550 | critic once per island after generic props and the decor loop
+2026-10-05 | loops stage 2 layout | gemini-3.8-flash | 6 | 0.0440 | critic on the wizard-medium copy after the layout loop
+2026-10-05 | pass 2 tap fix | gemini-3.8-flash | 12 | 0.0800 | critic on wizard-medium and swallow-medium after moving the occluders
+
+Running total: $32.974

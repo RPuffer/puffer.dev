@@ -606,3 +606,24 @@ The loop scores spawn isovist against 33 to 55%, threshold reveal against 20%, f
 On the copy the loop stopped after four moves, with no improving candidate among 26: spawn 2,10 to 2,6, spire 1,6 to 3,4, spawn 2,6 to 1,6, staff perch 1,8 to 1,10. Cost 5.21 to 3.39. The figure now shows from spawn and from 64% of route cells, up from 33%; spawn isovist holds at 42%; the route runs 13 steps against 14. Three targets stay out of reach without terrain: the threshold at 7,7 cannot see the figure because the right gate post at 8,6 stands 2.6 above an h3 cell on the sightline; the threshold reveals 3% because the open h3 plateau shows nearly everything before the gate; and districts stay 3 with hull fill 0.52 and 0.51 on the two big plateaus. No other gate cell on the route still cuts the figure off when closed.
 
 Files in `out/loops/layout/` (gitignored): `wizard-before.png`, `wizard-after.png`, `wizard-overlay-before.png`, `wizard-overlay.png` (green cells seen from spawn, red unseen, route dashed, sightlines yellow when clear and red when blocked), `wizard-medium-layout.before.json`, `critic-wizard-after.json`, `qa.txt`. Critic on the after render, 3 votes: 0 high, 0 other, $0.0216; an earlier critic pass on the first, discarded after render also read clean at $0.0220. QA: `PP_PROFILE=.pp-profile-layout node tools/qa-levels.mjs http://localhost:8765 wizard-medium-layout` 14 pass, 0 fail.
+
+## Pass 2: generic props and the decor loop
+
+2026-10-05, after the multi-tile and decor-loop approvals. Each picked island got one or two generic props chosen from its brief, placed through finishLens as secondary landmarks (never on the route, a ramp, the figure, the things, the stamps, or the themed prop; terrain untouched), then the decor loop ran as the pass after build. Nine of twelve islands took a prop; forest-volute, ember-subject, and sharkbear-medium had no spot that kept every cell reachable. Two islands then failed the tap check because an h2 terrace hid route cell 2,7 and the loop had put the tap target there; moving the occluders (a watchtower on swallow, scroll pads on wizard) fixed both. Walk QA 14 of 14 on every island after the fix.
+
+| Island | Generic prop | Cell | Singletons | Density | Critic high |
+| --- | --- | --- | --- | --- | --- |
+| cat-medium | market row | 11,6 | 0.04 | 0.23 | 0 |
+| dragon-medium | watchtower | 2,7 | 0.00 | 0.26 | 0 |
+| chimera-medium | watchtower | 12,2 | 0.05 | 0.22 | 0 |
+| wizard-medium | market row (shrunk) | 11,9 | 0.00 | 0.26 | 0 |
+| swallow-medium | watchtower (1x1) | 9,9 | 0.00 | 0.25 | 1 (tower read as floating) |
+| sharkbear-medium | none | | 0.00 | 0.25 | 1 (threshold lintel, posts verified on flat tiles) |
+| gremlin-subject | market row | 6,9 | 0.00 | 0.25 | 0 |
+| mindbloom-medium | shrine | 3,1 | 0.04 | 0.22 | 0 (medium: shrine too large) |
+| eagle-composition | watchtower | 7,9 | 0.00 | 0.25 | 0 |
+| forest-volute | none | | 0.00 | 0.24 | 0 |
+| cosmos-frisket | market row | 13,6 | 0.00 | 0.25 | 0 |
+| ember-subject | none | | 0.00 | 0.18 | 0 |
+
+Known: the decor loop stalls when rim density exceeds the figure court's; the generic placer lives in `3d/pieces/multitile-place-a.js` (with a `spawnGap` option) and inline in four B modules, to be unified. Sheet: `out/pass2/islands-sheet.jpg`. Card: `puffer-isoworld-pass-2-islands`.
