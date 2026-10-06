@@ -596,6 +596,7 @@ function finishLens(level, brief, h) {
   const lost = posts.filter((q) => !level.decor.includes(q));
   if (lost.length) h.log.push(`gate posts lost ${lost.length}`);
   if (L === "medium") placeThings(level, h, { look: THINGS_LOOK });
+  if (level.name === "wizard-medium") for (const [x, z] of [[1, 8], [1, 7]]) h.put("stepping-stones", x, z, { v: z % 2 });
   if (level.name === "wizard-medium") placeLandmark(level, h, "wizard-scroll-tower");
   if (level.name === "wizard-medium") placeGeneric(level, h, "market-row", { near: 2 });
 }
