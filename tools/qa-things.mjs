@@ -90,7 +90,7 @@ async function suite() {
   if (!done) return;
   const info = await page.evaluate(() => {
     const S = window.__game.state, T = S.things;
-    return { things: T.things.map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, run: t.run || null, to: t.to || null, x: t.x, z: t.z, state: t.state, threshold: t.threshold, blocks: t.blocks })), spawn: S.actor.cell.slice(), file: S.level.spawn.slice(), calls: (() => { const gl = window.__game.renderer.three.gl; window.__game.renderer.render(S, 0); return gl.info.render.calls; })() };
+    return { things: T.things.map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, run: t.run || null, to: t.to || null, x: t.x, z: t.z, state: t.state, threshold: t.threshold, blocks: t.blocks, edge: t.edge || null, hold: !!t.hold })), spawn: S.actor.cell.slice(), file: S.level.spawn.slice(), calls: (() => { const gl = window.__game.renderer.three.gl; window.__game.renderer.render(S, 0); return gl.info.render.calls; })() };
   });
   const by = Object.fromEntries(info.things.map((t) => [t.kind, t]));
   const lifts = info.things.filter((t) => t.kind === "elevator");
@@ -105,8 +105,30 @@ async function suite() {
   record("fresh state: things closed", by.bonfire.state === "unlit" && by.chest.state === "closed" && by.gate.state === "closed" && lifts.every((t) => t.state === "idle"), info.things.map((t) => t.state).join(","));
   if (lifts.some((t) => t.role)) record("elevators report their role", by.elevator.role === "exit" && (!entry || entry.role === "entry"), lifts.map((t) => `${t.id} ${t.role || "none"}@${t.x},${t.z}`).join(" "));
   const gateCell = by.gate.blocks[0];
+  const edge = by.gate.edge;
+  const crossable = (pg = page) => pg.evaluate(async (g) => {
+    const { isWalkable, canStep, DIRS } = await import("/core/level.js");
+    const L = window.__game.state.level;
+    if (!g.edge) return isWalkable(L, g.blocks[0][0], g.blocks[0][1]);
+    const [[ax, az], [bx, bz]] = g.edge;
+    const dir = Object.keys(DIRS).find((d) => ax + DIRS[d][0] === bx && az + DIRS[d][1] === bz);
+    return canStep(L, ax, az, dir);
+  }, by.gate);
   const walkable = (c) => page.evaluate(async (c) => { const { isWalkable } = await import("/core/level.js"); return isWalkable(window.__game.state.level, c[0], c[1]); }, c);
-  record("gate mask blocks while closed", !(await walkable(gateCell)), `${gateCell}`);
+  record("gate is an edge gate", !!edge, edge ? `${edge[0]} | ${edge[1]}${by.gate.hold ? ", migrated with its cell held" : ""}` : `cell gate ${gateCell}`);
+  record("closed gate blocks crossing", !(await crossable()), edge ? `${edge[0]} -> ${edge[1]}` : `${gateCell}`);
+  if (edge && !by.gate.hold) record("closed edge leaves both cells walkable", (await walkable(edge[0])) && (await walkable(edge[1])), `${edge[0]} ${edge[1]}`);
+  if (edge) {
+    const bypass = await page.evaluate(async (g) => {
+      const { reachable } = await import("/core/path.js");
+      const S = window.__game.state;
+      return reachable(S.level, S.actor.cell).some((c) => c[0] === g.edge[1][0] && c[1] === g.edge[1][1]);
+    }, by.gate);
+    record("closed gate cannot be bypassed", !bypass, `${edge[1]} ${bypass ? "reachable" : "unreachable"} from spawn`);
+    const at = await page.evaluate((id) => { const m = window.__game.renderer.three.scene.getObjectByName("things").children.find((o) => o.userData.thing === id); return m ? [+m.position.x.toFixed(2), +m.position.z.toFixed(2)] : null; }, by.gate.id);
+    const mid = [(edge[0][0] + edge[1][0]) / 2 + 0.5, (edge[0][1] + edge[1][1]) / 2 + 0.5];
+    record("gate bars drawn on the edge", !!at && Math.abs(at[0] - mid[0]) < 0.01 && Math.abs(at[1] - mid[1]) < 0.01, `${at} vs ${mid}`);
+  }
   console.log(`draw calls at ${W}x${H}: ${info.calls}`);
   await idle(page);
   await wait(400);
@@ -169,7 +191,7 @@ async function suite() {
   else console.log("no live head part: crest check skipped");
   const g = await thing(page, by.gate.id);
   record("gate opens at the threshold", g.state === "open", g.state);
-  record("gate mask flips to passable", await walkable(gateCell));
+  record("open gate lets the hero cross", await crossable());
   const lift = await page.evaluate((id) => { const m = window.__game.renderer.three.scene.getObjectByName("things").children.find((o) => o.userData.thing === id); return m ? +m.userData.lift.toFixed(2) : null; }, by.gate.id);
   record("gate bars lifted", lift > 0.95, `${lift}`);
 
@@ -210,7 +232,7 @@ async function suite() {
   const back = await r.page.evaluate(() => { const S = window.__game.state; return { cell: S.actor.cell.slice(), things: Object.fromEntries(S.things.things.map((t) => [t.id, t.state])) }; });
   record("reload keeps state", back.things[by.bonfire.id] === "lit" && back.things[by.chest.id] === "open" && back.things[by.gate.id] === "open", JSON.stringify(back.things));
   record("reload respawns at the bonfire", back.cell.join() === respawn.join(), `${back.cell} vs ${respawn}`);
-  record("open gate stays passable after reload", await r.page.evaluate(async (c) => { const { isWalkable } = await import("/core/level.js"); return isWalkable(window.__game.state.level, c[0], c[1]); }, gateCell));
+  record("open gate stays passable after reload", await crossable(r.page));
   await r.page.close();
 
   const t = await open(`level=${LEVEL}&reset=1&spawn=${th.join(",")}`);

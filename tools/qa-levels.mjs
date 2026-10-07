@@ -130,8 +130,11 @@ async function plan(page, file) {
     if (!plateau) {
       const shut = [];
       for (const t of S.things?.things || []) if (t.kind === "gate" && t.state !== "open") for (const [x, z] of t.blocks) if (L.blocked.delete(x + "," + z)) shut.push(x + "," + z);
+      const edges = L.edges;
+      if (edges?.size) { L.edges = new Set(); shut.push("edges"); }
       if (shut.length) { [plateau, route] = climb(); viaGate = !!plateau; }
-      for (const k of shut) L.blocked.add(k);
+      for (const k of shut) if (k !== "edges") L.blocked.add(k);
+      if (edges) L.edges = edges;
     }
     const keyFor = {};
     for (const [code, sd] of [["KeyW", "up"], ["KeyD", "right"], ["KeyS", "down"], ["KeyA", "left"]]) keyFor[screenToWorldDir(S.proj, sd)] = code;

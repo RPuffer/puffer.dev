@@ -45,7 +45,7 @@ const snap = () => page.evaluate(() => {
     cell: S.actor.cell.slice(),
     spawn: S.level.spawn.slice(),
     url: location.search,
-    things: (T?.things || []).map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, x: t.x, z: t.z, state: t.state, open: t.open || null, threshold: t.threshold || null, blocks: t.blocks })),
+    things: (T?.things || []).map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, x: t.x, z: t.z, state: t.state, open: t.open || null, threshold: t.threshold || null, edge: t.edge || null, blocks: t.blocks })),
   };
 });
 
@@ -92,7 +92,7 @@ async function reachExit(s, exit) {
     const o = cur.things.find((t) => t.id === id);
     if (!o) return { ok: false, steps, via, why: `gate ${gate.id} opens on unknown ${gate.open}` };
     if (kind === "watcher") {
-      const goals = gate.threshold?.length ? gate.threshold : around(gate.blocks[0] ? { x: gate.blocks[0][0], z: gate.blocks[0][1] } : gate);
+      const goals = gate.edge ? [gate.edge[0]] : gate.threshold?.length ? gate.threshold : around(gate.blocks[0] ? { x: gate.blocks[0][0], z: gate.blocks[0][1] } : gate);
       const m = await walk(goals);
       if (m == null) return { ok: false, steps, via, why: `no path to gate ${gate.id} threshold` };
       steps += m;
