@@ -802,8 +802,8 @@
   ],
   "creatures": [
     {
-      "name": "chimera-sharkbear",
-      "source": "The prowling shark-bear hybrid dominating the graphite sketch from cranial horn to sweeping caudal fin.",
+      "name": "chimera-shark-gorilla",
+      "source": "The prowling shark-gorilla hybrid dominating the graphite sketch from cranial horn to sweeping caudal fin.",
       "becomes": "npc",
       "type": "new",
       "footprint": [
@@ -1179,7 +1179,7 @@
     }
   },
   "lens": {
-    "aspect": "ANALYSIS.subject and ANALYSIS.story: the territorial habitat and predatory lifestyle of a terrestrial-adapted shark-bear chimera.",
+    "aspect": "ANALYSIS.subject and ANALYSIS.story: the territorial habitat and predatory lifestyle of a terrestrial-adapted shark-gorilla chimera.",
     "place": "A wind-scoured subpolar coastal spit where an apex chimera prowls between its raised shale den and sea-scavenged pebble hunting flats.",
     "summary": "A twin-mass coastal formation split between an upper den bluff and a lower flotsam beach connected by a rib-bone threshold.",
     "differs": "Unlike the fractured graphite shards of medium or the solitary spine mound of composition, this reading constructs the creature's actual functional ecological territory: a two-tier hunting lair and feast shingle.",

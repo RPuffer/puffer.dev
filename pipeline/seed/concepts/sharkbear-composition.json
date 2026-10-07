@@ -844,7 +844,7 @@
   ],
   "creatures": [
     {
-      "name": "shark-bear-stalker",
+      "name": "shark-gorilla-stalker",
       "source": "The chimeric apex predator stalking in a three-quarter crouch across the sketch",
       "becomes": "npc",
       "type": "new",
@@ -1130,7 +1130,7 @@
     "focal": {
       "x": 2,
       "z": 5,
-      "what": "apex predator shark-bear crouched at the brow of the moraine"
+      "what": "apex predator shark-gorilla crouched at the brow of the moraine"
     },
     "mass": "Visual weight pools heavily across the north-central high ridge [cols 3-8, rows 2-5] where the arched spine peaks at tier 3, sloping southward into the looping tail pathway.",
     "read": "The level enters from the southern shore along a sweeping S-curve path mimicking the long tail fin sweep in the drawing. As the eye ascends the winding moraine path, it is guided around the eastern flank through rib gates toward the western headland where the beast waits poised over the void."

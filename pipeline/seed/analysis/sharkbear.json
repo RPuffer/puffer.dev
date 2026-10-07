@@ -75,7 +75,7 @@
     "temperature": "Neutral achromatic grayscale with no warm or cool chroma bias."
   },
   "subject": {
-    "what": "a chimeric quadrupedal predator combining a shark's head, dorsal fin, and caudal tail with the dense fur and heavy limbs of a bear",
+    "what": "a chimeric quadrupedal predator combining a shark's head, dorsal fin, and caudal tail with the dark hide and knuckle-walking arms and hunched back of a gorilla",
     "doing": "stalking forward in a low, prowling crouch with three limbs planted and head turned toward the viewer",
     "pose": "hunched back arching upward, right foreleg planted forward, left foreleg angled inward, and a long finned tail sweeping around the lower flank toward the front",
     "facing": "three-quarter left toward the foreground",
@@ -136,7 +136,7 @@
     ],
     "negative_space": "untouched paper surrounding the entire perimeter, occupying roughly forty-five percent of the frame",
     "symmetry": "strictly asymmetrical, weighted toward the left prowl with the tail counterbalancing to the lower right",
-    "scale_cues": "the muscular bulk of the bear-like legs relative to the shark head implies an animal weighing several hundred kilograms",
+    "scale_cues": "the muscular bulk of the gorilla-like legs relative to the shark head implies an animal weighing several hundred kilograms",
     "focal": {
       "what": "the smooth white shark skull with its dark eye and serrated open mouth",
       "at": [
@@ -163,7 +163,7 @@
       "why": "maintains aquatic respiratory anatomy on a terrestrial body"
     },
     {
-      "what": "flattened paw pads terminating in four rounded, bear-like digits",
+      "what": "flattened paw pads terminating in four knuckles",
       "where": "bottom-left foreground",
       "why": "grounds the creature solidly as a land-treading quadruped rather than a swimmer"
     },

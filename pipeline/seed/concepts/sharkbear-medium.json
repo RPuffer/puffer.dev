@@ -813,7 +813,7 @@
   "creatures": [
     {
       "name": "selachian-ursine-stalker",
-      "source": "The chimeric shark-bear quadruped drawn in graphite in the center of IMAGE 1",
+      "source": "The chimeric shark-gorilla quadruped drawn in graphite in the center of IMAGE 1",
       "becomes": "npc",
       "type": "new",
       "footprint": [
@@ -827,7 +827,7 @@
         5
       ],
       "facing": "w",
-      "why": "It is the sole monumental predator depicted in IMAGE 1, combining shark cranial architecture with heavily furred bear limbs.",
+      "why": "It is the sole monumental predator depicted in IMAGE 1, combining shark cranial architecture with heavily furred gorilla limbs.",
       "shape": {
         "summary": "A chunky chimera with a heavy grey-furred quadruped torso, a smooth ivory shark hood and dorsal fin, and a sweeping tail blade.",
         "parts": [
@@ -1102,7 +1102,7 @@
     "focal": {
       "x": 6,
       "z": 5,
-      "what": "The prowling shark-bear predator stalker"
+      "what": "The prowling shark-gorilla predator stalker"
     },
     "mass": "Visual weight sits heavily on the central raised plateau tiers (rows 4 to 6) where the massive torso and predatory skull loom.",
     "read": "The viewer enters from the south across stepped graphite-shard path tiles, moving between framing bristle clusters. The path leads directly to the cleft at the foot of the raised stone plateau where the chimera stalker holds its hunting crouch, its caudal fin sweeping low to frame the right foreground."
@@ -1150,7 +1150,7 @@
   "lens": {
     "aspect": "medium.marks and medium.surface: translates dense graphite cross-hatching, sharp pencil contour lines, and raw sketch paper tooth into fractured slate slabs and bristled terrain.",
     "place": "A wind-scoured graphite moraine of fractured paper slate and bristle quills.",
-    "summary": "A fragmented shard plateau sculpted from dense graphite hatching lines, holding a prowling shark-bear titan atop layered slate terraces.",
+    "summary": "A fragmented shard plateau sculpted from dense graphite hatching lines, holding a prowling shark-gorilla titan atop layered slate terraces.",
     "differs": "Replaces soft organic turf with pale paper-sand plates and sharp charcoal shale cliffs, emphasizing hard strokes and fibrous quill clusters."
   },
   "shaper": {

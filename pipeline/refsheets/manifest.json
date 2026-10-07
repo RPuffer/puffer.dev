@@ -123,7 +123,7 @@
     ],
     "verdict": "current figure is a black sphere with a green zigzag collar; the sheet is a tan ringed eyeball with a dark iris on a stepped plinth, so ring, iris and palette all differ"
   },
-  "sharkbear": {
+  "shark-gorilla": {
     "file": "pipeline/refsheets/sharkbear.png",
     "model": "gemini-3.1-flash-image",
     "tries": 2,
@@ -135,11 +135,11 @@
     "figure_tiles": 2.87,
     "proportions": [
       "shark head 0.35 of height, low and forward, dorsal fin a 0.4 tile wedge",
-      "legs 0.3 tile thick bear pillars",
+      "legs 0.3 tile thick gorilla pillars",
       "widest at the tail blade sweeping forward, 2.34 tiles",
       "accent #3c3c3c on eye and mouth slit only"
     ],
-    "verdict": "current figure reads as a small grey lump; the sheet is a 2.9-tile hunched bear with a fin and a long tail blade, so it is too small and the tail is missing"
+    "verdict": "current figure reads as a small grey lump; the sheet is a 2.9-tile hunched gorilla with a fin and a long tail blade, so it is too small and the tail is missing"
   },
   "gremlin": {
     "file": "pipeline/refsheets/gremlin.png",
