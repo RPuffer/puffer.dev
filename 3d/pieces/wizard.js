@@ -595,10 +595,11 @@ function finishLens(level, brief, h) {
   h.rampTone();
   const lost = posts.filter((q) => !level.decor.includes(q));
   if (lost.length) h.log.push(`gate posts lost ${lost.length}`);
-  if (L === "medium") placeThings(level, h, { look: THINGS_LOOK });
-  if (level.name === "wizard-medium") for (const [x, z] of [[1, 8], [1, 7]]) h.put("stepping-stones", x, z, { v: z % 2 });
+  if (level.name === "wizard-medium") for (const [x, z] of [[1, 8], [1, 7]]) if (!(level.things || []).some((t) => t.x === x && t.z === z)) h.put("stepping-stones", x, z, { v: z % 2 });
   if (level.name === "wizard-medium") placeLandmark(level, h, "wizard-scroll-tower");
   if (level.name === "wizard-medium") placeGeneric(level, h, "market-row", { near: 2 });
+  if (level.name === "wizard-medium" && h.land(h.cell(3, 5)) && !h.blockedSet().has(h.key(3, 5))) level.spawn = [3, 5];
+  if (L === "medium") placeThings(level, h, { look: THINGS_LOOK, chestText: "A curl of dried ink, peeled off the Ribbonway." });
 }
 
 const FACE = [[0, 1], [-1, 0], [0, -1], [1, 0]];
@@ -607,7 +608,7 @@ const SIDES = [[0, 1], [1, 0], [0, -1], [-1, 0]];
 
 export function placeThings(level, h, o = {}) {
   const key = h.key, P = level.palette || {};
-  const lead = level.decor.find((d) => kindOf(P, d.t) === "lead");
+  const lead = h.lead && level.decor.includes(h.lead) ? h.lead : level.decor.find((d) => kindOf(P, d.t) === "lead");
   const [sx, sz] = level.spawn;
   const base = h.blockedSet();
   const reachWith = (cells) => reachability({ ...level, blocked: new Set([...base, ...cells.filter(Boolean).map(([x, z]) => key(x, z))]) });
@@ -663,9 +664,14 @@ export function placeThings(level, h, o = {}) {
   level.cells.forEach((row, z) => row.forEach((c, x) => { if (free(x, z) && !onR.has(key(x, z))) cand.push([x, z]); }));
   const out = [];
   const md = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+  const frail = (c, extra = []) => {
+    const m0 = reachWith([c, ...extra]).missing.length;
+    return [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => free(c[0] + a, c[1] + b)).reduce((n, [a, b]) => n + (reachWith([c, ...extra, [c[0] + a, c[1] + b]]).missing.length > m0 + 1 ? 1 : 0), 0);
+  };
+  const sides4 = (c) => [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => { const n = h.cell(c[0] + a, c[1] + b); return walkable(n) && n.h === h.cell(...c).h && !base.has(key(c[0] + a, c[1] + b)) && !h.isFig(c[0] + a, c[1] + b); }).length;
   let bon = null;
-  for (const c of cand.filter((c) => md(c, [sx, sz]) <= 3 && !cut.has(key(...c))).sort((a, b) => (near(...a) - near(...b)) || (Math.abs(md(a, [sx, sz]) - 2) - Math.abs(md(b, [sx, sz]) - 2)))) {
-    if (!keeps([c])) continue;
+  for (const k4 of [2, 1]) for (const c of cand.filter((c) => md(c, [sx, sz]) <= 3 && !cut.has(key(...c)) && sides4(c) >= k4).sort((a, b) => (frail(a) - frail(b)) || (sides4(b) - sides4(a)) || (near(...a) - near(...b)) || (Math.abs(md(a, [sx, sz]) - 2) - Math.abs(md(b, [sx, sz]) - 2)))) {
+    if (bon || !keeps([c])) continue;
     bon = c;
     break;
   }
@@ -673,10 +679,13 @@ export function placeThings(level, h, o = {}) {
   const idxOf = (x, z) => { let bi = 0, bd = Infinity; route.forEach(([a, b], i) => { const d = Math.abs(a - x) + Math.abs(b - z); if (d < bd) { bd = d; bi = i; } }); return bi; };
   const want = gi > 0 ? Math.round(gi * 0.6) : Math.round(route.length / 2);
   let chest = null;
-  for (const c of cand.filter((c) => near(...c) >= 1 && near(...c) <= 2 && !cut.has(key(...c)) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 3)).sort((a, b) => (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
-    if (!keeps(bon ? [c, bon] : [c])) continue;
-    chest = c;
-    break;
+  for (const [far, gap, k4] of [[2, 3, 2], [3, 2, 2], [4, 2, 2], [2, 3, 1], [4, 2, 1]]) {
+    if (chest) break;
+    for (const c of cand.filter((c) => near(...c) >= 1 && near(...c) <= far && !cut.has(key(...c)) && Math.max(Math.abs(c[0] - sx), Math.abs(c[1] - sz)) >= 2 && sides4(c) >= k4 && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= gap)).sort((a, b) => (frail(a, bon ? [bon] : []) - frail(b, bon ? [bon] : [])) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
+      if (!keeps(bon ? [c, bon] : [c])) continue;
+      chest = c;
+      break;
+    }
   }
   if (chest) {
     const r = route[idxOf(...chest)];
@@ -686,7 +695,7 @@ export function placeThings(level, h, o = {}) {
   }
   if (lead) {
     const th = gi > 0 ? route[gi - 1] : route[Math.max(0, route.length - 3)];
-    const radius = +(Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6).toFixed(2);
+    const radius = +Math.max(o.radius ?? 6, Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6).toFixed(2);
     lead.watch = "w1";
     out.push({ id: "w1", kind: "watcher", x: lead.x, z: lead.z, size: [fw, fd], radius });
     if (G) {
@@ -695,26 +704,39 @@ export function placeThings(level, h, o = {}) {
     }
   }
   const figD = (x, z) => Math.min(...fig.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
-  const rim = [];
-  for (const [x, z] of cand) {
-    if ((chest && x === chest[0] && z === chest[1]) || (bon && x === bon[0] && z === bon[1])) continue;
-    const side = SIDES.findIndex(([a, b]) => { const n = h.cell(x + a, z + b); return !n || n.s === "none"; });
-    if (side < 0) continue;
-    const back = side === 2 || side === 3 ? 0 : 3;
-    const beyond = cut.has(key(x, z)) ? 0 : 4;
-    rim.push([x, z, side, back + beyond + Math.abs(figD(x, z) - 2.5) + (h.cell(x, z).s === h.surf.path ? 1 : 0)]);
-  }
-  rim.sort((a, b) => a[3] - b[3]);
-  if (rim.length) {
-    const [x, z, side] = rim[0];
-    out.push({ id: "e1", kind: "elevator", x, z, rot: side, run: o.run || ["wizard-medium", "cat-medium"] });
-  }
+  const taken = (x, z) => out.some((t) => t.x === x && t.z === z) || (chest && x === chest[0] && z === chest[1]) || (bon && x === bon[0] && z === bon[1]);
+  const rimSide = (x, z) => SIDES.findIndex(([a, b]) => { const n = h.cell(x + a, z + b); return !n || n.s === "none"; });
+  const rimAt = (score) => {
+    const rim = [];
+    for (const [x, z] of cand) {
+      if (taken(x, z)) continue;
+      const side = rimSide(x, z);
+      if (side < 0) continue;
+      const sc = score(x, z, side);
+      if (sc != null) rim.push([x, z, side, sc]);
+    }
+    return rim.sort((a, b) => a[3] - b[3])[0] || null;
+  };
+  const exit = rimAt((x, z, side) => {
+    if (G && !cut.has(key(x, z))) return null;
+    return (side === 2 || side === 3 ? 0 : 3) + Math.abs(figD(x, z) - 2.5) + (h.cell(x, z).s === h.surf.path ? 1 : 0) - 0.05 * md([x, z], [sx, sz]);
+  });
+  if (exit) out.push({ id: "e1", kind: "elevator", role: "exit", x: exit[0], z: exit[1], rot: exit[2] });
+  const entryAt = (gap) => rimAt((x, z, side) => {
+    const d = md([x, z], [sx, sz]);
+    if (d > 4 || d < 1 || cut.has(key(x, z)) || (exit && md([x, z], exit) < 4)) return null;
+    if (bon && Math.max(Math.abs(x - bon[0]), Math.abs(z - bon[1])) < gap) return null;
+    return d + (side === 2 || side === 3 ? 0 : 1.5) + (h.cell(x, z).s === h.surf.path ? 1 : 0);
+  });
+  const entry = entryAt(2) || entryAt(1);
+  if (entry) out.push({ id: "e0", kind: "elevator", role: "entry", x: entry[0], z: entry[1], rot: entry[2] });
   level.things = out;
   if (o.look) level.palette.things = o.look;
   const solid = out.filter((t) => t.kind === "bonfire" || t.kind === "chest").map((t) => [t.x, t.z]);
   const rOpen = missing(reachWith(solid)), rClosed = missing(reachWith([G, ...solid]));
   const besideOk = (m, t) => t && [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]].some(([a, b]) => walkable(h.cell(t.x + a, t.z + b)) && !base.has(key(t.x + a, t.z + b)) && !m.has(key(t.x + a, t.z + b)) && !solid.some(([p, q]) => p === t.x + a && q === t.z + b));
-  const el = out.find((t) => t.kind === "elevator");
+  const el = out.find((t) => t.kind === "elevator" && t.role === "exit");
+  const en = out.find((t) => t.kind === "elevator" && t.role === "entry");
   const ok = {
     route: route.length,
     gateAt: G ? +(gi / (route.length - 1)).toFixed(2) : null,
@@ -725,8 +747,10 @@ export function placeThings(level, h, o = {}) {
     chestOpen: besideOk(rOpen, out.find((t) => t.kind === "chest")),
     elevatorOpen: !!el && !rOpen.has(key(el.x, el.z)),
     elevatorGated: !!el && rClosed.has(key(el.x, el.z)),
+    entryOpen: !!en && !rClosed.has(key(en.x, en.z)),
+    entryToSpawn: en ? md([en.x, en.z], [sx, sz]) : null,
   };
-  h.log.push(`things ${out.map((t) => `${t.kind}@${t.x},${t.z}`).join(" ")} ${JSON.stringify(ok)}`);
+  h.log.push(`things ${out.map((t) => `${t.role || t.kind}@${t.x},${t.z}`).join(" ")} ${JSON.stringify(ok)}`);
   return ok;
 }
 
