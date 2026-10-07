@@ -546,6 +546,29 @@ function closeBypass(level, h) {
   h.log.push(`closeBypass: ${n} ramps flattened, bypass ${path(true) ? "still open" : "closed"}`);
 }
 
+function exitLanding(level, h) {
+  const r = h.cell(7, 1), o = h.cell(8, 1);
+  if (r?.s !== "ramp" || r.h !== 3 || o?.h !== 2 || h.cell(6, 1)?.h !== 3) return;
+  const S0 = h.snapshot(), m0 = h.reach().missing.length;
+  h.clear(7, 1);
+  h.clear(8, 1);
+  level.cells[1][7] = { h: 3, s: r.m || h.cell(6, 1).s };
+  level.cells[1][8] = { h: 0, s: "none" };
+  if (h.reach().missing.length > m0) { h.restore(S0); h.log.push("exit landing 7,1 undone"); return; }
+  h.log.push("exit landing: ramp 7,1 flattened to h3, 8,1 cut");
+}
+
+function moveExit(level, h, [x, z], rot) {
+  const e = (level.things || []).find((t) => t.kind === "elevator" && t.role === "exit");
+  const c = h.cell(x, z);
+  if (!e || !c || c.h < 1 || ["none", "water", "ramp", "bridge"].includes(c.s) || h.isFig(x, z) || (level.things || []).some((t) => t !== e && t.x === x && t.z === z)) return;
+  const S0 = h.snapshot(), m0 = h.reach().missing.length;
+  h.removeDecor((d) => d.x === x && d.z === z);
+  if (h.reach().missing.length > m0) { h.restore(S0); return; }
+  h.log.push(`run exit ${e.x},${e.z} -> ${x},${z}`);
+  Object.assign(e, { x, z, rot });
+}
+
 export function finish(level, brief, h) {
   const aspect = aspectOf(level.palette, Object.keys(level.palette?.props || {}));
   if (aspect) {
@@ -553,7 +576,9 @@ export function finish(level, brief, h) {
     if (aspect === "volute") closeBypass(level, h);
     if (aspect === "volute") placeLandmark(level, h, "forest-gilt-gazebo");
     if (aspect === "volute") placeGeneric(level, h, "shade", { ...UNPADDED, look: { trunk: "#c98a6a", root: "#b0705a", leaf: "#8fc7a2", leafDeep: "#72ab86", leafTop: "#e8c25a" } });
+    if (level.name === "forest-volute") exitLanding(level, h);
     if (level.name === "forest-volute") placeRunThings(level, h, { chestText: "A gilt volute snipped from the parterre hedge, still curling." });
+    if (level.name === "forest-volute") moveExit(level, h, [7, 1], 2);
     return;
   }
   if (brief.lens) return finishLens(level, brief, h);
