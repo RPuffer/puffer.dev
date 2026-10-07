@@ -537,7 +537,8 @@ function finishLens(level, brief, h) {
   h.rampTone();
   placeLandmark(level, h, "ember-brimstone-forge", { route: r });
   h.readability({ route: r });
-  if (level.name === "ember-subject") placeRunThings(level, h, { spawn: [11, 10], chestText: "Drake-scale ash, still glowing from the crevasse floor." });
+  if (level.name === "ember-subject" && h.cell(11, 2)?.s === "sand" && h.cell(11, 3)?.s === "ramp") { h.clear(11, 2); h.put("stepping-stones", 11, 2, { v: 0 }); }
+  if (level.name === "ember-subject") placeRunThings(level, h, { spawn: [12, 8], chestText: "Drake-scale ash, still glowing from the crevasse floor." });
 }
 
 export function finish(level, brief, h) {
