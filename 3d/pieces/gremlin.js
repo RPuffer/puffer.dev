@@ -869,6 +869,13 @@ function finishLens(level, brief, h) {
   h.rampTone();
   if (L === "subject") placeLandmark(level, h, "gremlin-specimen-vat");
   if (L === "subject" && !placeGeneric(level, h, "watchtower", { ...UNPADDED, shrink: false, look: { post: "#5f7f86", postDark: "#4d6a70", plank: "#a9c3c5", shingle: "#38c9b2" } })) placeGeneric(level, h, "market-row", { ...UNPADDED, look: { stall: "#5f7f86", stallTop: "#6d8f96", awning: "#38c9b2", awningWhite: "#e4efec", crate: "#a9c3c5", pot: "#4d6a70", goods: "#e0bb53" } });
-  if (level.name === "gremlin-subject") placeRunThings(level, h, { clear: [[14, 7]], gate: [11, 7], chestText: "A core token, still warm from the incubation pit." });
+  if (level.name === "gremlin-subject" && h.cell(13, 4)?.h === 1 && h.cell(13, 3)?.h === 2 && h.cell(12, 3)?.s === "ramp") {
+    for (const [x, z] of [[12, 3], [13, 3], [13, 4], [14, 4]]) h.clear(x, z);
+    level.cells[3][12] = { h: 2, s: h.cell(12, 3).m || "grass" };
+    level.cells[4][13] = { h: 2, s: "ramp", d: "s", m: h.cell(13, 4).s };
+    level.cells[4][14] = { h: 0, s: "none" };
+    h.log.push("lens gremlin-subject: ramp 13,4 up to the 12..13,3 shelf before the gate");
+  }
+  if (level.name === "gremlin-subject") placeRunThings(level, h, { clear: [[14, 7]], gate: [11, 7], chest: [12, 3], chestText: "A core token, still warm from the incubation pit." });
   h.log.push(`lens ${L}: approach ${h.approach().length}, walk ${h.walkN()}, missing ${JSON.stringify(h.reach().missing)}`);
 }
