@@ -597,8 +597,12 @@ function finishLens(level, brief, h) {
   if (lost.length) h.log.push(`gate posts lost ${lost.length}`);
   if (level.name === "wizard-medium") for (const [x, z] of [[1, 8], [1, 7]]) if (!(level.things || []).some((t) => t.x === x && t.z === z)) h.put("stepping-stones", x, z, { v: z % 2 });
   if (level.name === "wizard-medium") placeLandmark(level, h, "wizard-scroll-tower");
-  if (level.name === "wizard-medium") placeGeneric(level, h, "market-row", { near: 2, at: [4, 9], hideWeight: 0 });
+  if (level.name === "wizard-medium") placeGeneric(level, h, "market-row", { near: 2, hideDepth: 4, hideWeight: 3 });
   if (level.name === "wizard-medium" && h.land(h.cell(3, 5)) && !h.blockedSet().has(h.key(3, 5))) level.spawn = [3, 5];
+  if (level.name === "wizard-medium" && faceRamps(level, h, { budget: 4 }).length) {
+    const fronts = new Set(h.approach({ walkOnly: true }).flatMap(([x, z]) => [[1, 0], [0, 1], [1, 1]].map(([a, b]) => h.key(x + a, z + b))));
+    if (h.removeDecor((d) => d.t === "market-row" && h.footprint(d).some(([x, z]) => fronts.has(h.key(x, z))))) h.log.push("market-row dropped: it fronts the new climb");
+  }
   if (L === "medium") placeThings(level, h, { look: THINGS_LOOK, bonfire: level.name === "wizard-medium" ? [2, 6] : null, chestText: "A curl of dried ink, peeled off the Ribbonway." });
 }
 
@@ -644,6 +648,75 @@ export function sealGate(level, h, G, th, base, plugT, things = [], o = {}) {
   if (tryEdge(th, G)) return [th.slice(), G.slice()];
   if (o.next && (!o.near || o.near(G)) && tryEdge(G, o.next)) return [G.slice(), o.next.slice()];
   return null;
+}
+
+export function faceRamps(level, h, o = {}) {
+  const key = h.key, budget = o.budget ?? 3, edits = [];
+  const v = level.view || {}, pi = ((v.pitch ?? 35.264) * Math.PI) / 180, yi = ((v.yaw ?? 45) * Math.PI) / 180, tH = v.tileH ?? 1;
+  const cam = [Math.cos(pi) * Math.sin(yi), Math.sin(pi), Math.cos(pi) * Math.cos(yi)];
+  const faces = (d) => DIRS[d][0] * tH * cam[0] + cam[1] + DIRS[d][1] * tH * cam[2] > 0.05;
+  const away = (c) => c?.s === "ramp" && !faces(c.d);
+  const flat = (c) => h.land(c) && c.s !== "ramp" && c.s !== "bridge";
+  const lost = () => reachability({ ...level, blocked: h.blockedSet() }).missing.length;
+  const route0 = h.approach({ walkOnly: true });
+  const ri = route0.findIndex(([x, z]) => away(h.cell(x, z)));
+  if (ri < 1 || ri >= route0.length - 1) return edits;
+  const [rx, rz] = route0[ri], R = h.cell(rx, rz), m0 = lost();
+  const hiOf = (x, z, d) => [x - DIRS[d][0], z - DIRS[d][1]], loOf = (x, z, d) => [x + DIRS[d][0], z + DIRS[d][1]];
+  const open = (x, z) => !h.decorAt(x, z).length && !h.isFig(x, z);
+  const small = (x, z) => !h.isFig(x, z) && h.decorAt(x, z).every((d) => d !== h.lead && !d.watch && h.footprint(d).length === 1 && (CATALOG[d.t]?.height ?? 1) < 1.5);
+  const clear = (x, z) => h.removeDecor((d) => h.footprint(d).some(([a, b]) => a === x && b === z));
+  let best = null;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const C = h.cell(x, z);
+    if (!flat(C) || C.h < 2 || !small(x, z) || (x === level.spawn[0] && z === level.spawn[1])) continue;
+    for (const d of Object.keys(DIRS).filter(faces)) {
+      const hi = h.cell(...hiOf(x, z, d)), lo = h.cell(...loOf(x, z, d));
+      if (!flat(hi) || hi.h !== C.h || !flat(lo) || lo.h !== C.h - 1 || !small(...loOf(x, z, d)) || !small(...hiOf(x, z, d))) continue;
+      const S = h.snapshot();
+      h.set(rx, rz, { h: R.h - 1, s: R.m || "sand" });
+      clear(x, z); clear(...loOf(x, z, d)); clear(...hiOf(x, z, d));
+      h.set(x, z, { h: C.h, s: "ramp", d, m: C.s });
+      const extra = [];
+      for (const [mx, mz] of reachability({ ...level, blocked: h.blockedSet() }).missing) {
+        const M = h.cell(mx, mz);
+        if (extra.length >= budget - 2 || !flat(M) || M.h < 2) continue;
+        h.set(mx, mz, { ...M, h: M.h - 1 });
+        extra.push([mx, mz]);
+      }
+      const r = h.approach({ walkOnly: true });
+      const ok = r.length && lost() <= m0 && r.some(([a, b]) => route0.slice(ri + 1).some(([c, e]) => c === a && e === b)) && !r.some(([a, b]) => away(h.cell(a, b)));
+      const keeps = route0.slice(ri + 2).every(([a, b]) => r.some(([c, e]) => c === a && e === b));
+      const score = r.length + (keeps ? 0 : 100);
+      if (ok && (!best || score < best.score)) best = { x, z, d, score, extra };
+      h.restore(S);
+    }
+  }
+  if (!best) { h.log.push(`faceRamps: no camera-facing climb replaces ${rx},${rz}`); return edits; }
+  const edit = (x, z, to, kind) => { const c = h.cell(x, z); edits.push({ x, z, kind, from: { h: c.h, s: c.s }, to: { h: to.h, s: to.s } }); h.set(x, z, to); };
+  edit(rx, rz, { h: R.h - 1, s: R.m || "sand" }, "lower");
+  clear(best.x, best.z); clear(...loOf(best.x, best.z, best.d)); clear(...hiOf(best.x, best.z, best.d));
+  edit(best.x, best.z, { h: h.cell(best.x, best.z).h, s: "ramp", d: best.d, m: h.cell(best.x, best.z).s }, "ramp");
+  for (const [mx, mz] of best.extra) edit(mx, mz, { ...h.cell(mx, mz), h: h.cell(mx, mz).h - 1 }, "lower");
+  const route = h.approach({ walkOnly: true });
+  const onR = new Set(route.map(([a, b]) => key(a, b)));
+  const upTo = route.findIndex(([a, b]) => a === best.x && b === best.z);
+  const fronts = [[1, 0], [0, 1], [1, 1]].map(([a, b]) => [Math.sign(cam[0]) * a, Math.sign(cam[2]) * b]);
+  for (const [qx, qz] of route.slice(0, upTo)) {
+    for (const [a, b] of fronts) {
+      if (edits.length >= budget) break;
+      const nx = qx + a, nz = qz + b, N = h.cell(nx, nz), q = h.cell(qx, qz);
+      if (!flat(N) || !flat(q) || N.h <= q.h || onR.has(key(nx, nz)) || !small(nx, nz) || (level.things || []).some((t) => t.x === nx && t.z === nz)) continue;
+      const S = h.snapshot(), before = edits.length;
+      clear(nx, nz);
+      edit(nx, nz, { ...N, h: q.h }, "lower");
+      const r = h.approach({ walkOnly: true });
+      if (!r.length || lost() > m0 || r.length > route.length || r.some(([c, e]) => away(h.cell(c, e)))) { h.restore(S); edits.length = before; }
+    }
+  }
+  level.edits = [...(level.edits || []), ...edits];
+  h.log.push(`faceRamps ${edits.map((e) => `${e.kind} ${e.x},${e.z}`).join(", ")}`);
+  return edits;
 }
 
 export function placeThings(level, h, o = {}) {
