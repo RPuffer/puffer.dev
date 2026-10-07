@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
-import { placeThings } from "./wizard.js";
+import { placeThings, orphanPosts } from "./wizard.js";
 import { placeGeneric } from "./multitile-place.js";
 import { CATALOG } from "../../core/catalog.js";
 import { BIBLE, audit, figure, lockedKit } from "../prims.js";
@@ -707,6 +707,7 @@ function finishLens(level, brief, h) {
   if (level.name === "chimera-medium") clearFace(level, h);
   if (level.name === "chimera-medium" && h.land(h.cell(10, 10)) && !h.blockedSet().has(h.key(10, 10))) level.spawn = [10, 10];
   if (level.name === "chimera-medium") placeThings(level, h, { chestText: "A flake of calcified chitin, cold from the shale shelf." });
+  if (level.name === "chimera-medium") orphanPosts(level, h);
 }
 
 const CATALOG_PASS = (level, t) => !!level.palette?.props?.[t]?.passable && !/perch|oculus|ribbed/i.test(t);
