@@ -3,6 +3,7 @@ import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
 import { lockedKit } from "../prims.js";
+import { CATALOG } from "../../core/catalog.js";
 
 const NEB = {
   sclera: ["#f4eefc", "#ddd3f0", "#bfb1dc"],
@@ -1596,6 +1597,7 @@ function finishLens(level, brief, h) {
   if (R5LOOK[lens]) {
     finishR5(level, brief, h, lens);
     if (lens === "frisket") placeLandmark(level, h, "cosmos-stencil-press", { near: 5 });
+    if (lens === "frisket") revealLandmark(level, h, level.decor.find((d) => /^cosmos-stencil-press/.test(d.t))?.t);
     if (lens === "frisket") placeGeneric(level, h, "market-row", { ...UNPADDED, look: { stall: "#8f78d6", stallTop: "#b8a4f2", awning: "#5fd6e6", awningWhite: "#fff0e2", crate: "#f6dfb2", pot: "#f58fa6", goods: "#ffc9a3" } });
     return;
   }
@@ -1675,6 +1677,46 @@ function finishLens(level, brief, h) {
   if (h.walkN() < (lens === "composition" ? 80 : 86)) h.grow(lens === "composition" ? 80 : 86, { s: "sand" });
   if (lens === "composition") for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) { const c = h.cell(x, z); if (h.land(c) && c.s === "stone" && c.h !== 1) c.s = "sand"; }
   h.rampTone();
+}
+
+function revealLandmark(level, h, type, near = 6) {
+  const cur = level.decor.find((d) => d.t === type);
+  if (!cur) return;
+  const fp = CATALOG[type]?.footprint || [1, 1];
+  const cellsOf = (x, z, rot) => { const [w, d] = rot ? [fp[1], fp[0]] : fp; const cs = []; for (let dz = 0; dz < d; dz++) for (let dx = 0; dx < w; dx++) cs.push([x + dx, z + dz]); return cs; };
+  const veil = (cs) => { const h0 = h.cell(...cs[0]).h; let v = 0; for (const [a, b] of cs) for (const [dx, dz] of [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2], [2, 2]]) { const q = h.cell(a + dx, b + dz); if (q && h.land(q) && q.h > h0 && !cs.some(([u, w]) => u === a + dx && w === b + dz)) v = Math.max(v, q.h - h0); } return v; };
+  if (!veil(cellsOf(cur.x, cur.z, cur.rot || 0))) return;
+  const figs = h.figure.cells, fMax = Math.max(...figs.map(([x, z]) => x + z));
+  const fx = figs.map((c) => c[0]), fz = figs.map((c) => c[1]);
+  const fLat = (Math.min(...fx) + Math.max(...fx)) / 2 - (Math.min(...fz) + Math.max(...fz)) / 2;
+  const S0 = h.snapshot();
+  h.removeDecor((d) => d === cur);
+  const route = h.approach() || [], onR = new Set(route.map(([x, z]) => h.key(x, z)));
+  const len0 = route.length, m0 = h.reach().missing.length;
+  const hard = (d) => d === h.lead || CATALOG[d.t]?.stamp || d.side || d.axis || ["threshold", "light", "lead"].includes(level.palette?.props?.[d.t]?.role);
+  const cand = [];
+  for (const rot of fp[0] === fp[1] ? [0] : [0, 1]) for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const cs = cellsOf(x, z, rot), c0 = h.cell(x, z);
+    if (!c0 || !h.land(c0)) continue;
+    if (cs.some(([a, b]) => { const q = h.cell(a, b); return !q || !h.land(q) || q.s === "ramp" || q.s === "bridge" || q.h !== c0.h || h.isFig(a, b) || onR.has(h.key(a, b)) || h.decorAt(a, b).some(hard); })) continue;
+    if (cs.some(([a, b]) => a + b > fMax && Math.abs(a - b - fLat) <= 2.5)) continue;
+    if (veil(cs)) continue;
+    const gap = Math.min(...cs.map(([a, b]) => Math.min(...figs.map(([u, w]) => Math.max(Math.abs(a - u), Math.abs(b - w))))));
+    if (gap < 2 || gap > near) continue;
+    const removed = cs.reduce((n, [a, b]) => n + h.decorAt(a, b).length, 0);
+    cand.push({ x, z, rot, score: gap + removed * 0.4 });
+  }
+  cand.sort((a, b) => a.score - b.score);
+  for (const c of cand) {
+    const S = h.snapshot();
+    if (!h.put(type, c.x, c.z, { rot: c.rot })) { h.restore(S); continue; }
+    const r2 = h.approach();
+    if (h.reach().missing.length > m0 || !r2 || r2.length !== len0) { h.restore(S); continue; }
+    h.log.push(`landmark ${type} moved ${cur.x},${cur.z} -> ${c.x},${c.z} rot ${c.rot}, bed in view`);
+    return;
+  }
+  h.restore(S0);
+  h.log.push(`landmark ${type}: no unveiled spot within ${near}`);
 }
 
 export function finish(level, brief, h) {
