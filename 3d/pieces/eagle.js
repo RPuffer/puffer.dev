@@ -260,7 +260,7 @@ function lensLead(B, H, kind) {
     B.pop();
     return;
   }
-  B.push(0, 0, 0, 0, (H / 2.6) * (kind === "shard" ? 1.45 : 1.35));
+  B.push(0, 0, 0, 0, (H / 2.6) * (kind === "shard" ? 1.06 : 1.35));
   B.at(0, 0, 0, -0.3, () => bust(B, kind));
   B.pop();
 }
