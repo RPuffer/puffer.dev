@@ -856,3 +856,37 @@ PP_PROFILE=.pp-profile-start node tools/shot.mjs "http://localhost:8765/" out/pa
 
 At 400 px wide the tiles wrap to three columns; at 900 px, four; above that, six.
 
+
+## Pass 5 engine
+
+2026-10-07.
+
+### The stuck after an elevator
+
+A ride sets `actor.locked`, raises the platform and navigates. Browser Back (or a trackpad or phone swipe back) restores the island you left from the back-forward cache exactly as it was: hero locked on a raised exit platform, keys and taps ignored. `createInteract` now listens for `pageshow` with `persisted` and settles every elevator to `idle`, unlocks the hero and clears its path; `core/input.js` drops held keys on `pagehide`. A forward ride, `?arrive=entry` and direct loads never left the hero stuck in a real-time Chrome, by keys or taps, on any island.
+
+Two smaller causes rode along. A key or d-pad press released before the next frame vanished, because the actor only read the held direction; the input now sends the fresh press and the actor steps once (`actor.tapDir`). A watcher gate needed the hero standing on the threshold at the moment the figure finished turning; walking east through wizard's 7,7 left the look at 0.88 as the hero stepped onto 8,7, and the gate stayed shut. The gate now opens once the hero has stood on the threshold while watched (`g.primed`, cleared when the hero leaves the watcher radius).
+
+### Edge gates
+
+A gate carries `edge: [[x1, z1], [x2, z2]]`, the threshold cell first and the far cell second, 4-adjacent. While shut it blocks crossing that edge only: `prepareLevel` builds `L.edges` (keys from `edgeKey`), `canStep` refuses a closed edge, and `findPath`, `reachable` and procgen's `reachability` inherit that through `canStep`. An edge gate does not add its `blocks` cells to `L.blocked`. Opening deletes the edge. `things.js` draws the gate centred on the edge, posts at its two ends, bars one tile wide, at the shared edge height; it ignores `frame`, `width` and `span` on an edge gate.
+
+Migration on load: a gate with `blocks` and `threshold` and no `edge` takes its edge from the threshold cell to the blocked cell beside it. When that edge has a way around (the far cell reachable from the threshold with the edge shut), the gate is marked `hold` and keeps its far cell blocked while shut, and `L.notes` records it. On the committed levels only ember-subject holds (8,5 to 8,4: 9,4 and 10,4 lead round). A gate with an explicit `edge` that leaks gets a `prepareLevel` warning, which fails `build-level`.
+
+`placeThings` (wizard.js) and `placeRunThings` (ember.js) call `sealGate`: it tries the edge from the route cell before the gate to the gate cell, plugs the far cell's two flanks with the plug prop where that costs no reach, and checks the far cell is unreachable with the edge shut. If that edge leaks it tries the next route edge when its approach cell sits 0.2 inside the watcher radius; failing both it writes the old cell gate. New gates keep `x`, `z` and `blocks` on the far cell, so `tools/loops` graph and metrics still treat it as the cut cell. On a scratch rebuild wizard-medium gets 7,7 | 7,6, cat-medium 4,8 | 3,8, gremlin-subject 12,7 | 11,7, and ember-subject 8,4 | 8,3 (the second edge).
+
+### Touch
+
+On a coarse pointer, after the first touch, or with `?touch=1`, a round use button sits right of the d-pad and fires the same action as E; it turns gold when something is in reach, and the prompt moves above it without the E key cap. `?touch=1` also forces the d-pad.
+
+### Checks
+
+```sh
+PP_PROFILE=.pp-profile-ridekeys node tools/qa-ride-keys.mjs [base-url] [--order a,b,...]
+```
+
+`qa-ride-keys.mjs` plays the run in real time with keys and taps, no frame stepping. Per island: land on the entry platform, step off by key and back, tap a cell within four and walk there, walk by keys beside the bonfire and press E, walk to the gate threshold, wait for the watcher, step through the edge by key, walk to the exit, leave it by key and tap, return, press E, then Back and Forward and step off the restored page. A key step holds the key until the hero starts moving, so one press is one cell. Last, at 400x800 with touch it taps a path to the first island's bonfire and lights it with the use button. Lines read `PASS|FAIL <hop> <detail>`.
+
+`qa-things.mjs` adds: gate is an edge gate, closed gate blocks crossing, closed edge leaves both cells walkable, closed gate cannot be bypassed, gate bars drawn on the edge; "gate mask" checks now test the crossing. `qa-run.mjs` walks to `edge[0]`. `qa-levels.mjs` clears `L.edges` with the gate cells when it plans its climb through a gate.
+
+Results on the committed levels (migrated gates): `qa-ride-keys` 13 pass, 0 fail (twelve hops plus touch); `qa-run` 14 pass, 0 fail, 0 skip; `qa-things wizard-medium` 40 pass, 0 fail; `qa.mjs` crashes in its root suite after 37 pass, because `/` is now the start page with no panes; with the root suite pointed at `compare.html` it reads 134 pass, 0 fail.
