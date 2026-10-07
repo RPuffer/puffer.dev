@@ -719,6 +719,104 @@ export function faceRamps(level, h, o = {}) {
   return edits;
 }
 
+function thingPath(level, h, from, to) {
+  const key = h.key, things = level.things || [];
+  const base = new Set([...h.blockedSet(), ...things.filter((t) => t.kind === "bonfire" || t.kind === "chest").map((t) => key(t.x, t.z))]);
+  const L1 = { ...level, blocked: base };
+  const prev = new Map([[key(...from), null]]), q = [from];
+  while (q.length) {
+    const c = q.shift();
+    if (c[0] === to[0] && c[1] === to[1]) { const out = []; for (let k = key(...c); k; k = prev.get(k)) out.unshift(k.split(",").map(Number)); return out; }
+    for (const d of Object.keys(DIRS)) {
+      if (!canStep(L1, c[0], c[1], d)) continue;
+      const n = [c[0] + DIRS[d][0], c[1] + DIRS[d][1]];
+      if (!prev.has(key(...n))) { prev.set(key(...n), key(...c)); q.push(n); }
+    }
+  }
+  return null;
+}
+
+export function exitRoute(level, h) {
+  const exit = (level.things || []).find((t) => t.kind === "elevator" && t.role === "exit");
+  return (exit && thingPath(level, h, level.spawn, [exit.x, exit.z])) || h.approach({ walkOnly: true });
+}
+
+export function entryWalk(level, h, o = {}) {
+  const things = level.things || [];
+  const entry = things.find((t) => t.kind === "elevator" && t.role === "entry");
+  const exit = things.find((t) => t.kind === "elevator" && t.role === "exit");
+  const p = entry && exit && thingPath(level, h, o.from || [entry.x, entry.z], [exit.x, exit.z]);
+  if (!p || p.length < 2) return [];
+  let ti = Math.min(o.ahead ?? 6, p.length - 1);
+  for (let i = 1; i <= ti; i++) if (h.cell(...p[i]).s === "ramp") { ti = i; break; }
+  return p.slice(1, ti + 1);
+}
+
+export function backEntry(level, h, o = {}) {
+  const key = h.key, things = level.things || [];
+  const entry = things.find((t) => t.kind === "elevator" && t.role === "entry");
+  const exit = things.find((t) => t.kind === "elevator" && t.role === "exit");
+  const gate = things.find((t) => t.kind === "gate");
+  if (!entry || !exit || !gate?.edge) return null;
+  const [A, B] = gate.edge, dir = Object.keys(DIRS).find((d) => A[0] + DIRS[d][0] === B[0] && A[1] + DIRS[d][1] === B[1]);
+  const behind = dir === "e" || dir === "s" ? A : B;
+  const gateKeys = new Set([key(...A), key(...B)]);
+  const base = new Set([...h.blockedSet(), ...things.filter((t) => t.kind === "bonfire" || t.kind === "chest").map((t) => key(t.x, t.z))]);
+  const target = (from) => entryWalk(level, h, { ...o, from });
+  const bad = (from) => { const w = target(from); return !w.length || w.some((c) => c[0] === behind[0] && c[1] === behind[1]); };
+  if (!bad([entry.x, entry.z])) return null;
+  const [sx, sz] = level.spawn;
+  const md = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+  const sides = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+  const rimSide = (x, z) => sides.findIndex(([a, b]) => { const n = h.cell(x + a, z + b); return !n || n.s === "none"; });
+  const shut = reachability({ ...level, blocked: new Set([...base, key(...gate.blocks?.[0] || B)]) });
+  const cut = new Set(shut.missing.map(([x, z]) => key(x, z)));
+  const small = (x, z) => h.decorAt(x, z).every((d) => d !== h.lead && !d.watch && d.gapX == null && h.footprint(d).length === 1 && (CATALOG[d.t]?.height ?? 1) < 1.5);
+  const busy = (x, z) => things.some((t) => t.kind !== "watcher" && t.kind !== "gate" && t !== entry && ((t.x === x && t.z === z) || ((t.kind === "bonfire" || t.kind === "chest") && md([t.x, t.z], [x, z]) === 1)));
+  let best = null;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z), k = key(x, z);
+    if (!walkable(c) || h.isFig(x, z) || (x === sx && z === sz) || busy(x, z) || !small(x, z) || cut.has(k) || gateKeys.has(k)) continue;
+    const d = md([x, z], [sx, sz]), side = rimSide(x, z);
+    if (side < 0 || d < 1 || d > (o.max ?? 7) || md([x, z], [exit.x, exit.z]) < 4 || bad([x, z])) continue;
+    const score = d + (side === entry.rot ? 0 : 1) + 0.5 * md([x, z], [entry.x, entry.z]);
+    if (!best || score < best.score) best = { x, z, side, score };
+  }
+  if (!best) { h.log.push(`backEntry: no rim cell keeps the gate out of the landing from ${entry.x},${entry.z}`); return null; }
+  const was = [entry.x, entry.z];
+  h.removeDecor((d) => h.footprint(d).some(([a, b]) => a === best.x && b === best.z));
+  entry.x = best.x; entry.z = best.z; entry.rot = best.side;
+  h.log.push(`backEntry ${was} -> ${best.x},${best.z}: the landing from ${was} ended on gate cell ${target(was).slice(-1)[0]}`);
+  return [best.x, best.z];
+}
+
+export function orphanPosts(level, h) {
+  const gates = (level.things || []).filter((t) => t.kind === "gate").flatMap((t) => [...(t.blocks || []), ...(t.threshold || []), ...(t.edge || [])]);
+  const live = new Set(gates.map(([x, z]) => h.key(x, z)));
+  const gone = [];
+  const n = h.removeDecor((d) => { const o = d.gapX != null && d !== h.lead && !live.has(h.key(d.gapX, d.gapZ)); if (o) gone.push(`${d.t}@${d.x},${d.z}`); return o; });
+  if (n) h.log.push(`orphan posts dropped: ${gone.join(" ")} (gate left ${gates.map((c) => c.join(",")).join(" ")})`);
+  return n;
+}
+
+export function floorClear(level, h, cells, o = {}) {
+  const key = h.key, min = o.min ?? 0.3, keep = new Set(cells.map(([x, z]) => key(x, z)));
+  const onR = new Set([...exitRoute(level, h), ...entryWalk(level, h)].map(([x, z]) => key(x, z)));
+  const [sx, sz] = level.spawn;
+  const things = level.things || [];
+  const flat = (c) => walkable(c) && c.s !== "bridge";
+  const lid = (d) => CATALOG[d.t]?.passable && d !== h.lead && !d.watch && d.gapX == null && h.footprint(d).length === 1 && (CATALOG[d.t].height ?? 1) >= min && !/stepping|road/.test(d.t);
+  const moved = [], dropped = [];
+  for (const [x, z] of cells) for (const d of h.decorAt(x, z).filter(lid)) {
+    const c = h.cell(x, z);
+    const to = [[1, 0], [0, 1], [-1, 0], [0, -1]].map(([a, b]) => [x + a, z + b]).find(([a, b]) => { const n = h.cell(a, b); return flat(n) && n.h === c.h && !h.isFig(a, b) && !h.decorAt(a, b).length && !keep.has(key(a, b)) && !onR.has(key(a, b)) && !(a === sx && b === sz) && !things.some((t) => t.x === a && t.z === b); });
+    if (to) { moved.push(`${d.t} ${x},${z} -> ${to}`); d.x = to[0]; d.z = to[1]; }
+    else { dropped.push(`${d.t}@${x},${z}`); h.removeDecor((e) => e === d); }
+  }
+  if (moved.length || dropped.length) h.log.push(`floorClear: moved ${moved.join("; ") || "none"}; dropped ${dropped.join(" ") || "none"}`);
+  return moved.length + dropped.length;
+}
+
 export function placeThings(level, h, o = {}) {
   const key = h.key, P = level.palette || {};
   const lead = h.lead && level.decor.includes(h.lead) ? h.lead : level.decor.find((d) => kindOf(P, d.t) === "lead");

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
-import { placeThings } from "./wizard.js";
+import { placeThings, backEntry } from "./wizard.js";
 import { placeGeneric } from "./multitile-place.js";
 import { BIBLE, audit, figure, lockedKit } from "../prims.js";
 
@@ -506,6 +506,7 @@ function finishLens(level, brief, h) {
   if (level.name === "dragon-medium") placeLandmark(level, h, "dragon-graphite-crane");
   if (level.name === "dragon-medium") placeGeneric(level, h, "watchtower", { near: 2, span: 0.5 });
   if (level.name === "dragon-medium") placeThings(level, h, { chestText: "A lead shard pried from the anthracite quarry, edges still sharp." });
+  if (level.name === "dragon-medium") backEntry(level, h);
 }
 
 function dress(level, brief, h, lens) {
