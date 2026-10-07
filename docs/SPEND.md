@@ -218,4 +218,7 @@ Total: $2.835
 
 2026-10-07 | pass 4 islands A | gemini-3.8-flash | 30 | 0.2500 | critic once per island after things and the pass
 
-Running total: $34.087
+2026-10-07 | pass 5 islands A | gemini-3.8-flash | 18 | 0.0980 | critic once per island after edge gates and the snout
+2026-10-07 | pass 5 islands B | gemini-3.8-flash | 30 | 0.2500 | critic once per island after edge gates and the walk polish
+
+Running total: $34.435

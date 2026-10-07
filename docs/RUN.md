@@ -890,3 +890,22 @@ PP_PROFILE=.pp-profile-ridekeys node tools/qa-ride-keys.mjs [base-url] [--order 
 `qa-things.mjs` adds: gate is an edge gate, closed gate blocks crossing, closed edge leaves both cells walkable, closed gate cannot be bypassed, gate bars drawn on the edge; "gate mask" checks now test the crossing. `qa-run.mjs` walks to `edge[0]`. `qa-levels.mjs` clears `L.edges` with the gate cells when it plans its climb through a gate.
 
 Results on the committed levels (migrated gates): `qa-ride-keys` 13 pass, 0 fail (twelve hops plus touch); `qa-run` 14 pass, 0 fail, 0 skip; `qa-things wizard-medium` 40 pass, 0 fail; `qa.mjs` crashes in its root suite after 37 pass, because `/` is now the start page with no panes; with the root suite pointed at `compare.html` it reads 134 pass, 0 fail.
+
+## Pass 5: nits, polish, start page
+
+2026-10-07. The operator's two play nits: gates drawn mid-tile, and the wizard island unplayable after the elevator. The stuck was the browser's back-forward cache restoring a left island with the hero locked on its exit platform; core/interact.js resets elevators and unlocks the hero on page restore, quick key taps count as a step, and a watcher gate opens when the hero crosses the threshold without stopping. Gates are edge gates (`edge: [threshold, far]`, blocking only that crossing while closed, drawn on the edge with posts at the tile corners; a gate with blocks and threshold but no edge migrates on load); the layout loop's gate move now carries the edge and reseals the flanks. A use button sits beside the d-pad on touch. The root page is the run's start page (Begin, Continue from the last lit bonfire, twelve tiles); the old side-by-side page is compare.html; tools/qa.mjs covers both. Polish: eagle ring walk 22 to 12, forest exit 27 to 12, cosmos exit 46 to 22 (shortest 18), gremlin walkable 61 to 64, the shark-gorilla's snout sharpened. Sheets: out/pass5/run-sheet.jpg, out/pass5/gates-sheet.jpg. Card: puffer-isoworld-pass-5-nits.
+
+| # | Island | Gate edge (threshold to far) | Walkable |
+| --- | --- | --- | --- |
+| 1 | cat-medium | 3,8 to 2,8 | 112 |
+| 2 | wizard-medium | 7,7 to 7,6 | 111 |
+| 3 | swallow-medium | 7,7 to 7,6 | 111 |
+| 4 | forest-volute | 9,6 to 9,5 | 111 |
+| 5 | mindbloom-medium | 7,7 to 7,6 | 112 |
+| 6 | cosmos-frisket | 7,5 to 6,5 | 114 |
+| 7 | gremlin-subject | 12,7 to 11,7 | 108 |
+| 8 | eagle-composition | 10,7 to 10,6 | 113 |
+| 9 | dragon-medium | 8,9 to 9,9 | 114 |
+| 10 | sharkbear-medium | 9,6 to 8,6 | 113 |
+| 11 | chimera-medium | 6,8 to 6,7 | 109 |
+| 12 | ember-subject | 8,4 to 8,3 | 98 |

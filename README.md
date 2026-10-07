@@ -85,7 +85,7 @@ Twenty multi-tile props (eight generic, twelve themed) were standardised as gene
 
 ## The run
 
-The twelve picked islands form one run in the order of `levels/run.json`: each island has a bonfire near spawn, a chest, a gate that opens when the focal creature turns to watch you at its threshold, and entry and exit elevators that ride to the previous and next island. Start at http://localhost:8765/3d/index.html?level=cat-medium, walk with WASD or arrows, press E at things, ride the exit. `node tools/qa-run.mjs` rides it headless; `node tools/loops/pass.mjs <level>` is the standing per-island pass (rebuild, decor loop, layout loop, walks, overlay).
+The twelve picked islands form one run in the order of `levels/run.json`: each island has a bonfire near spawn, a chest, a gate that opens when the focal creature turns to watch you at its threshold, and entry and exit elevators that ride to the previous and next island. Open http://localhost:8765/ and press Begin (or start an island at 3d/index.html?level=cat-medium), walk with WASD or arrows, press E at things, ride the exit. `node tools/qa-run.mjs` rides it headless; `node tools/loops/pass.mjs <level>` is the standing per-island pass (rebuild, decor loop, layout loop, walks, overlay).
 
 ## Spend
 
