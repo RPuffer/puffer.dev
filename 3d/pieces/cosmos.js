@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
+import { lockedKit } from "../prims.js";
 
 const NEB = {
   sclera: ["#f4eefc", "#ddd3f0", "#bfb1dc"],
@@ -291,36 +292,59 @@ function orb(B, r, y, cols, n = 8) {
   }
 }
 
-function stencilEye(B, H) {
-  const s = H / 3.0;
-  B.push(0, 0, 0, 0, s);
-  B.rbox(1.86, 0.26, 1.7, 0.1, pal(R5C.tape));
-  B.box(1.5, 0.06, 1.3, pal(R5C.plum), 0, 0.26, 0);
-  faceCam(B, 0.62, () => {
-    const c = 1.62;
-    for (const x of [-1.02, 1.02]) {
-      B.box(0.22, 2.36, 0.5, pal(R5C.plum), x, 0.26, -0.12);
-      for (const y of [0.9, 1.6, 2.3]) B.box(0.26, 0.06, 0.54, pal(R5C.lilac), x, y, -0.12);
-    }
-    B.box(2.3, 0.14, 0.34, pal(R5C.tape), 0, 2.62, -0.12);
-    B.box(0.46, c - 0.8 - 0.26, 0.4, pal(R5C.plum), 0, 0.26, -0.24);
-    for (const [x, y, w, cc] of [[-0.9, c + 0.52, 0.5, R5C.cyanPale], [0.84, c + 0.6, 0.44, R5C.peach], [-0.96, c - 0.5, 0.4, R5C.rose], [0.9, c - 0.46, 0.46, R5C.cyanPale], [0, c + 0.84, 0.6, R5C.lilac]]) B.rbox(w, w * 0.6, 0.16, 0.06, pal(cc), x, y, -0.46);
-    B.push(0, c, 0, 0, 1);
-    upright(B, () => {
-      B.prism(circle(0, 0, 0.98, 0.8, 10, 0), -0.4, -0.26, pal(R5C.peach));
-      B.prism(circle(0, 0, 0.8, 0.62, 10, 0), -0.26, -0.22, pal(NEB.sclera));
-      B.cyl(0.58, 0.12, pal(NEB.iris), 0, -0.14, 0, 14);
-      B.cyl(0.46, 0.04, pal(NEB.irisDeep), 0, -0.02, 0, 14);
-      for (let i = 0; i < 12; i++) {
-        const a = (i / 12) * Math.PI * 2, r = i % 2 ? 0.34 : 0.44;
-        B.box(0.1, 0.06, 0.1, pal(NEB.lime), Math.cos(a) * r, -0.02, Math.sin(a) * r);
-      }
-      B.cyl(0.28, 0.14, pal(NEB.pupil), 0, 0.08, 0, 12);
-      B.box(0.1, 0.04, 0.1, pal(NEB.star), -0.14, 0.22, -0.14);
-    });
-    B.pop();
-  });
+const UPV = new THREE.Vector3(0, 1, 0);
+function orient(B, x, y, z, q, fn) {
+  B.pushMatrix(new THREE.Matrix4().compose(new THREE.Vector3(x, y, z), q, new THREE.Vector3(1, 1, 1)));
+  fn();
   B.pop();
+}
+const eul = (x, y, z) => new THREE.Quaternion().setFromEuler(new THREE.Euler(x, y, z, "XYZ"));
+
+function stencilEye(B, H, ctx = {}) {
+  const s = H / 3.3, c = (k) => k[0];
+  B.push(0, 0, 0, 0, s);
+  const P = lockedKit(B, ctx.style, ctx.rot || 0);
+  const part = (id, fn, meta = {}) => P.part(id, meta, fn);
+  part("step1", () => P.rbox(1.76, 0.16, 1.66, c(R5C.plum), 0, 0, 0));
+  part("step2", () => P.rbox(1.42, 0.16, 1.34, c(R5C.lilac), 0, 0.16, 0));
+  part("step3", () => P.rbox(1.08, 0.16, 1.02, c(R5C.tape), 0, 0.32, 0));
+  part("neck", () => P.rbox(0.46, 0.44, 0.42, c(R5C.plum), 0, 0.48, -0.04));
+  const cy = 1.66;
+  B.push(0, cy, 0, 0.62, 1);
+  const up = eul(Math.PI / 2, 0, 0);
+  part("eyeball", () => orient(B, 0, 0, 0, up, () => P.cyl(0.8, 0.58, c(R5C.peach), 0, -0.36, 0, 10)));
+  part("sclera", () => orient(B, 0, 0, 0, up, () => P.cyl(0.66, 0.06, c(NEB.sclera), 0, 0.22, 0, 10)));
+  part("iris", () => orient(B, 0, 0, 0, up, () => P.cyl(0.46, 0.07, c(NEB.iris), 0, 0.28, 0, 12)));
+  for (let i = 0; i < 10; i++) {
+    const a = (i / 10) * Math.PI * 2, r = 0.37;
+    part("cut", () => P.box(0.07, 0.07, 0.04, c(NEB.lime), Math.cos(a) * r, Math.sin(a) * r, 0.36), { face: true });
+  }
+  part("pupil", () => orient(B, 0, 0, 0, up, () => P.cyl(0.24, 0.06, c(NEB.pupil), 0, 0.35, 0, 10)));
+  part("glint", () => P.box(0.07, 0.07, 0.03, c(NEB.star), -0.09, 0.1, 0.42), { face: true });
+  part("lid", () => P.rbox(0.96, 0.18, 0.5, c(R5C.tape), 0, 0.7, -0.2));
+  part("lashes", () => {
+    for (let i = 0; i < 7; i++) {
+      const a = -1.15 + (i / 6) * 2.3;
+      orient(B, Math.sin(a) * 0.8, Math.cos(a) * 0.8, 0.12, eul(0, 0, -a), () => P.spike(0.16, 0.3 + (i % 2) * 0.08, 0.14, c(R5C.plum), 0, 0, 0));
+    }
+  });
+  part("lowlash", () => {
+    for (let i = 0; i < 5; i++) {
+      const a = Math.PI - 0.7 + (i / 4) * 1.4;
+      orient(B, Math.sin(a) * 0.78, Math.cos(a) * 0.78, 0.12, eul(0, 0, -a), () => P.spike(0.12, 0.2, 0.12, c(R5C.plum), 0, 0, 0));
+    }
+  });
+  const ringQ = eul(-0.22, 0, -0.3);
+  part("ring", () => {
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2, R = 1.16;
+      const p = new THREE.Vector3(Math.cos(a) * R, 0, Math.sin(a) * R).applyQuaternion(ringQ);
+      orient(B, p.x, p.y - 0.36, p.z, ringQ.clone().multiply(eul(0, -a, 0)), () => P.rbox(0.17, 0.15, 0.4, c(i === 3 || i === 11 ? R5C.cyanPale : R5C.tape), 0, -0.075, 0));
+    }
+  }, { chain: true });
+  B.pop();
+  B.pop();
+  return P;
 }
 
 function ringedPlanet(B, H) {
@@ -687,6 +711,7 @@ export function register(style) {
     const figure = /coronal ring|within/i.test(pose) ? coronalSentinel : /monolith/i.test(pose) || /singularity/i.test(t) ? pupilMonolith : null;
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
+      if (r5fig === stencilEye) { const k = stencilEye(B, H, { style, rot }); const m = mesh(B); m.userData.parts = k.parts; return m; }
       if (r5fig) r5fig(B, H);
       else if (!lead && R5[t]) R5[t](B, H, v, d);
       else if (lead && figure) figure(B, H);
