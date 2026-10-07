@@ -387,6 +387,7 @@ function finishLens(level, brief, h) {
   if (level.name === "swallow-medium") {
     const t = placeGeneric(level, h, "watchtower", { near: 1, span: 0.4, spawnGap: 6, at: [9, 9] });
     if (t) for (const [x, z] of h.footprint(level.decor.find((d) => d.t === t.t && d.x === t.x && d.z === t.z))) level.cells[z][x] = { h: h.cell(x, z).h, s: "stone" };
+    if (h.land(h.cell(2, 8)) && !h.blockedSet().has(h.key(2, 8))) level.spawn = [2, 8];
   }
 }
 
