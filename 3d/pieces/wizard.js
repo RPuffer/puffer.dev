@@ -601,7 +601,11 @@ function finishLens(level, brief, h) {
   if (level.name === "wizard-medium" && h.land(h.cell(3, 5)) && !h.blockedSet().has(h.key(3, 5))) level.spawn = [3, 5];
   if (level.name === "wizard-medium" && faceRamps(level, h, { budget: 4 }).length) {
     const fronts = new Set(h.approach({ walkOnly: true }).flatMap(([x, z]) => [[1, 0], [0, 1], [1, 1]].map(([a, b]) => h.key(x + a, z + b))));
-    if (h.removeDecor((d) => d.t === "market-row" && h.footprint(d).some(([x, z]) => fronts.has(h.key(x, z))))) h.log.push("market-row dropped: it fronts the new climb");
+    const fronting = (d) => d.t === "market-row" && h.footprint(d).some(([x, z]) => fronts.has(h.key(x, z)));
+    if (h.removeDecor(fronting)) {
+      h.log.push("market-row dropped: it fronts the new climb");
+      if (placeGeneric(level, h, "market-row", { near: 2, hideDepth: 4, hideWeight: 3, sight: false }) && h.removeDecor(fronting)) h.log.push("market-row dropped again: the second footprint fronts the climb too");
+    }
   }
   if (L === "medium") placeThings(level, h, { look: THINGS_LOOK, bonfire: level.name === "wizard-medium" ? [2, 6] : null, chestText: "A curl of dried ink, peeled off the Ribbonway." });
 }
