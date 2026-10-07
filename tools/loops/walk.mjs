@@ -18,7 +18,8 @@ export function world(level) {
   const gate = things.find((t) => (t.kind || t.t) === "gate") || null;
   const [ck, cid] = String(gate?.open || "").split(":");
   const watcher = ck === "watcher" ? things.find((t) => t.id === cid) : null;
-  const elevator = things.find((t) => (t.kind || t.t) === "elevator") || null;
+  const lifts = things.filter((t) => (t.kind || t.t) === "elevator");
+  const elevator = lifts.find((t) => t.role === "exit") || lifts.find((t) => t.role !== "entry") || null;
   const lead = leadOf(level), fig = lead ? cellsOf(lead) : [];
   const ring = figureRing(level, Po, lead), ringSet = new Set(ring.map((c) => key(...c)));
   const elevCells = elevator ? [[elevator.x, elevator.z], ...N4.map(([dx, dz]) => [elevator.x + dx, elevator.z + dz])].filter(([x, z]) => Po.walkable(x, z)) : [];
