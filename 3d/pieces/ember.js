@@ -5,6 +5,7 @@ import { placeLandmark } from "./multitile-themed-b.js";
 import { reachability } from "../../core/procgen.js";
 import { CATALOG } from "../../core/catalog.js";
 import { canStep, DIRS } from "../../core/level.js";
+import { sealGate } from "./wizard.js";
 
 const HOT = {
   coal: ["#2e1a10", "#24140b", "#170c06"],
@@ -756,7 +757,14 @@ export function placeRunThings(level, h, o = {}) {
     const radius = +radW.toFixed(2);
     lead.watch = "w1";
     out.push({ id: "w1", kind: "watcher", x: wx, z: wz, size: [fw, fd], radius });
-    if (G) out.push({ id: "g1", kind: "gate", x: G[0], z: G[1], span: route[gi - 1][0] !== G[0] ? "z" : "x", blocks: [G], open: "watcher:w1", threshold: [th], ...(gap(G[0], G[1]) ? { frame: false, width: 1.5, height: 1.5 } : {}) });
+    if (G) {
+    const P = level.palette?.props || {};
+    const near = (c) => Math.hypot(c[0] + 0.5 - fc[0], c[1] + 0.5 - fc[1]) <= radW - 0.2;
+    const e = sealGate(level, h, G, th, base, o.plug || ["rock-big", "rock"].find((q) => P[q]) || Object.keys(P).find((q) => /spire|crag|rock|boulder|stack/.test(q) && !P[q].passable) || "rock", out, { next: route[gi + 1], near });
+    const F = e ? e[1] : G;
+    out.push({ id: "g1", kind: "gate", x: F[0], z: F[1], span: (e ? e[0][0] : route[gi - 1][0]) !== F[0] ? "z" : "x", blocks: [F], open: "watcher:w1", threshold: [e ? e[0] : th], ...(e ? { edge: e } : gap(G[0], G[1]) ? { frame: false, width: 1.5, height: 1.5 } : {}) });
+    h.log.push(e ? `gate edge ${e[0]} | ${e[1]}` : `gate ${G} kept as a cell gate: no edge without a way around`);
+  }
   }
   const used = (x, z) => out.some((t) => t.x === x && t.z === z && t.kind !== "watcher");
   const rimSide = (x, z) => RUN_SIDES.findIndex(([a, b]) => { const n = h.cell(x + a, z + b); return !n || n.s === "none"; });

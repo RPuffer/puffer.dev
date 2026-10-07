@@ -606,6 +606,46 @@ const FACE = [[0, 1], [-1, 0], [0, -1], [1, 0]];
 const THINGS_LOOK = { stone: ART.stone, ash: ART.ink, wood: ART.wood, metal: ART.gold, blade: ART.collar, flame: ART.flame, core: ART.flameCore, lamp: ART.flame, deck: ART.stone, trim: ART.gold, post: ART.robe, cap: ART.star };
 const SIDES = [[0, 1], [1, 0], [0, -1], [-1, 0]];
 
+export function sealGate(level, h, G, th, base, plugT, things = [], o = {}) {
+  const key = h.key;
+  const tryEdge = (A, F) => {
+    const d = [F[0] - A[0], F[1] - A[1]], perp = [d[1], d[0]];
+    const edges = new Set([[A, F].sort((a, b) => a[0] - b[0] || a[1] - b[1]).map((c) => c.join(",")).join("|")]);
+    const L1 = () => ({ ...level, blocked: base, edges });
+    const added = [];
+    for (const s of [1, -1]) {
+      const x = F[0] + s * perp[0], z = F[1] + s * perp[1];
+      const dir = Object.keys(DIRS).find((k) => DIRS[k][0] === x - F[0] && DIRS[k][1] === z - F[1]);
+      if (!canStep(L1(), F[0], F[1], dir)) continue;
+      const c = h.cell(x, z);
+      if (!c || c.s === "ramp" || h.isFig(x, z) || h.decorAt(x, z).length || things.some((t) => t.x === x && t.z === z)) continue;
+      const m0 = reachability({ ...level, blocked: base }).missing.length;
+      if (!h.put(plugT, x, z, { v: (x + z) % 2 })) continue;
+      base.add(key(x, z));
+      if (reachability({ ...level, blocked: base }).missing.filter(([a, b]) => a !== x || b !== z).length > m0) { base.delete(key(x, z)); h.removeDecor((q) => q.t === plugT && q.x === x && q.z === z); continue; }
+      added.push([x, z]);
+    }
+    const seen = new Set([key(...A)]), q = [A];
+    while (q.length) {
+      const [x, z] = q.shift();
+      for (const k of Object.keys(DIRS)) {
+        if (!canStep(L1(), x, z, k)) continue;
+        const nx = x + DIRS[k][0], nz = z + DIRS[k][1];
+        if (nx === F[0] && nz === F[1]) {
+          for (const [ax, az] of added) { base.delete(key(ax, az)); h.removeDecor((q2) => q2.t === plugT && q2.x === ax && q2.z === az); }
+          return false;
+        }
+        if (!seen.has(key(nx, nz))) { seen.add(key(nx, nz)); q.push([nx, nz]); }
+      }
+    }
+    for (const c of added) h.log.push(`gate flank ${plugT}@${c}`);
+    return true;
+  };
+  if (tryEdge(th, G)) return [th.slice(), G.slice()];
+  if (o.next && (!o.near || o.near(G)) && tryEdge(G, o.next)) return [G.slice(), o.next.slice()];
+  return null;
+}
+
 export function placeThings(level, h, o = {}) {
   const key = h.key, P = level.palette || {};
   const lead = h.lead && level.decor.includes(h.lead) ? h.lead : level.decor.find((d) => kindOf(P, d.t) === "lead");
@@ -701,7 +741,11 @@ export function placeThings(level, h, o = {}) {
     out.push({ id: "w1", kind: "watcher", x: lead.x, z: lead.z, size: [fw, fd], radius });
     if (G) {
       const [px] = route[gi - 1];
-      out.push({ id: "g1", kind: "gate", x: G[0], z: G[1], span: px !== G[0] ? "z" : "x", blocks: [G], open: "watcher:w1", threshold: [th], ...(level.decor.some((q) => q.gapX === G[0] && q.gapZ === G[1]) ? { frame: false, width: 1.5, height: 1.5 } : {}) });
+      const near = (c) => Math.hypot(c[0] + 0.5 - fc[0], c[1] + 0.5 - fc[1]) <= radius - 0.2;
+    const e = sealGate(level, h, G, th, base, o.plug || Object.keys(P.props || {}).find((q) => /spire|crag|rock/.test(q)) || "rock", out, { next: route[gi + 1], near });
+    const F = e ? e[1] : G;
+    out.push({ id: "g1", kind: "gate", x: F[0], z: F[1], span: (e ? e[0][0] : px) !== F[0] ? "z" : "x", blocks: [F], open: "watcher:w1", threshold: [e ? e[0] : th], ...(e ? { edge: e } : level.decor.some((q) => q.gapX === G[0] && q.gapZ === G[1]) ? { frame: false, width: 1.5, height: 1.5 } : {}) });
+    h.log.push(e ? `gate edge ${e[0]} | ${e[1]}` : `gate ${G} kept as a cell gate: no edge without a way around`);
     }
   }
   const figD = (x, z) => Math.min(...fig.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
