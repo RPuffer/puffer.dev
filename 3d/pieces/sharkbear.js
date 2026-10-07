@@ -198,8 +198,11 @@ export function sharkbearSpec(c, o = {}) {
       { id: "fin", prim: "spike", dims: [0.66, 0.62, 0.12, -0.22], at: [0, 1.8, 0.08], ry: Math.PI / 2, base: c.hide },
       { id: "tail", prim: "chain", at: [0.3, 0, -0.62], base: c.hide, links: [3.6, 3.15, 2.7, 2.25, 1.8, 1.35].map((f, i) => ({ dims: [0.34 - i * 0.03, 0.3 - i * 0.03, 0.4], at: [0.56 * Math.sin(f), 0.74 - i * 0.14, 0.56 * Math.cos(f)], ry: Math.atan2(-Math.cos(f), Math.sin(f)), base: i % 2 ? c.dark : c.hide })).concat([[0.8, 0.62, 0.36], [0.42, 0.3, -0.12]].map(([w, h, l]) => ({ prim: "spike", dims: [w, h, 0.1, l], at: [0.56 * Math.sin(1.0), 0.02, 0.56 * Math.cos(1.0)], ry: Math.atan2(-Math.cos(1.0), Math.sin(1.0)) - Math.PI / 2, base: l > 0 ? c.hide : c.dark }))) },
       { id: "head", ...hd, prim: "rbox", dims: [0.74, 0.5, 0.74], at: [0, 0.98, 1.0], base: c.hide },
-      { id: "snout", ...hd, prim: "wedge", dims: [0.56, 0.38, 0.62], at: [0, 1.06, 1.64], base: c.hide },
-      { id: "jaw", ...hd, prim: "rbox", dims: [0.56, 0.2, 0.98], at: [0, 0.82 - open, 1.3], base: c.belly },
+      { id: "snout", ...hd, prim: "chain", at: [0, 1.06, 1.36], base: c.hide, links: [
+        { prim: "wedge", dims: [0.6, 0.42, 0.56], at: [0, 0, 0.12], base: c.hide },
+        { prim: "wedge", dims: [0.34, 0.3, 0.7], at: [0, 0, 0.48], base: c.hide },
+      ] },
+      { id: "jaw", ...hd, prim: "rbox", dims: [0.46, 0.2, 1.02], at: [0, 0.82 - open, 1.36], base: c.belly },
       { id: "mouth", ...hd, face: true, prim: "chain", at: [0, 1.0 - open, 1.06], base: c.accent, links: [
         { prim: "box", dims: [0.58, 0.1, 0.8], at: [0, 0, 0.22], base: c.accent },
         ...teeth,
