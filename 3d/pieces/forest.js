@@ -3,6 +3,7 @@ import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 import { register as registerA } from "./forest-a.js";
 import { placeLandmark } from "./multitile-themed-b.js";
+import { placeGeneric, UNPADDED } from "./multitile-place.js";
 
 const INK = {
   soot: ["#5a4d48", "#463b37", "#342b28"],
@@ -509,6 +510,7 @@ export function finish(level, brief, h) {
   if (aspect) {
     finishAspect(level, brief, h, aspect);
     if (aspect === "volute") placeLandmark(level, h, "forest-gilt-gazebo");
+    if (aspect === "volute") placeGeneric(level, h, "shade", { ...UNPADDED, look: { trunk: "#c98a6a", root: "#b0705a", leaf: "#8fc7a2", leafDeep: "#72ab86", leafTop: "#e8c25a" } });
     return;
   }
   if (brief.lens) return finishLens(level, brief, h);
