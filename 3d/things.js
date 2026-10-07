@@ -4,6 +4,7 @@ import { applyXray } from "./xray.js";
 import { applyMotion } from "./motion.js";
 import { surfaceY, liftLevel } from "./terrain.js";
 import { createTweens, ease } from "./tween.js";
+import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
 
 export const RISE = 2.4;
 const t3 = (c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
@@ -68,11 +69,11 @@ function chestLid(B, k) {
   for (const x of [-0.2, 0.2]) B.box(0.07, 0.16, 0.46, t3(k.metal), x, 0, 0.22);
 }
 
-function gateFrame(B, k, span) {
+function gateFrame(B, k, span, half = 0.44) {
   B.push(0, 0, 0, span === "z" ? Math.PI / 2 : 0);
   for (const s of [-1, 1]) {
-    B.rbox(0.2, 1.86, 0.24, 0.04, t3(k.post), s * 0.44, 0, 0);
-    B.box(0.26, 0.1, 0.3, t3(k.cap), s * 0.44, 1.86, 0);
+    B.rbox(0.2, 1.86, 0.24, 0.04, t3(k.post), s * half, 0, 0);
+    B.box(0.26, 0.1, 0.3, t3(k.cap), s * half, 1.86, 0);
   }
   B.rbox(1.12, 0.18, 0.3, 0.04, t3(k.post), 0, 1.94, 0);
   B.box(0.16, 0.16, 0.06, t3(k.cap), 0, 1.95, 0.16);
@@ -114,6 +115,16 @@ function elevatorDeck(B, k) {
   B.box(0.22, 0.03, 0.22, t3(k.lamp), 0, 0.11, 0);
 }
 
+export function gatePlace(LL, view, t) {
+  if (!t.edge) return { x: t.x + 0.5, y: surfaceY(LL, view, t.x, t.z), z: t.z + 0.5, span: t.span || "x", width: t.width, height: t.height, frame: t.frame !== false, half: 0.44 };
+  const [[ax, az], [bx, bz]] = t.edge;
+  const dir = Object.keys(DIRS).find((d) => ax + DIRS[d][0] === bx && az + DIRS[d][1] === bz);
+  const ca = cellAt(LL, ax, az), cb = cellAt(LL, bx, bz);
+  const ha = ca && dir ? edgeHeight(ca, dir) : null, hb = cb && dir ? edgeHeight(cb, OPPOSITE[dir]) : null;
+  const y = ha != null || hb != null ? Math.max(ha ?? -Infinity, hb ?? -Infinity) * view.tileH : Math.max(surfaceY(LL, view, ax, az), surfaceY(LL, view, bx, bz));
+  return { x: (ax + bx) / 2 + 0.5, y, z: (az + bz) / 2 + 0.5, span: ax !== bx ? "z" : "x", width: 0.84, height: Math.min(t.height || 1.62, 1.62), frame: true, half: 0.48 };
+}
+
 const xrayMat = () => applyMotion(applyXray(bakedMaterial()));
 
 function partMesh(build, light, k, at, rotY) {
@@ -133,7 +144,7 @@ export function bakeThingBases(S, L, view, style) {
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
     else if (t.kind === "elevator") S.at(x, y, z, 0, () => elevatorFrame(S, k, SIDE[((t.rot || 0) % 4 + 4) % 4]));
-    else if (t.kind === "gate" && t.frame !== false) S.at(x, y, z, 0, () => gateFrame(S, k, t.span || "x"));
+    else if (t.kind === "gate") { const g = gatePlace(LL, view, t); if (g.frame) S.at(g.x, g.y, g.z, 0, () => gateFrame(S, k, g.span, g.half)); }
   }
 }
 
@@ -163,12 +174,12 @@ export function buildThings(L, view, style, decorGroup) {
       group.add(m);
       parts[t.id] = m;
     } else if (t.kind === "gate") {
-      const span = t.span || "x";
-      const top = (t.height || 1.62) + 0.18;
-      const m = partMesh((B) => { B.push(0, -top, 0); gateBars(B, k, span, t.width, t.height); B.pop(); }, light, k, new THREE.Vector3(x, y + top, z), 0);
+      const g = gatePlace(LL, view, t);
+      const top = (g.height || 1.62) + 0.18;
+      const m = partMesh((B) => { B.push(0, -top, 0); gateBars(B, k, g.span, g.width, g.height); B.pop(); }, light, k, new THREE.Vector3(g.x, g.y + top, g.z), 0);
       m.userData.thing = t.id;
       m.userData.lift = t.state === "open" ? 1 : 0;
-      m.userData.y0 = y + top;
+      m.userData.y0 = g.y + top;
       group.add(m);
       parts[t.id] = m;
     } else if (t.kind === "elevator") {
