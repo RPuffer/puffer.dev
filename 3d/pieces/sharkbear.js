@@ -575,13 +575,13 @@ function onRim(h, x, z) { return N4.some(([a, b]) => { const q = h.cell(x + a, z
 
 function eachLand(h, fn) { for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) { const c = h.cell(x, z); if (h.land(c)) fn(x, z, c); } }
 
-function safeGate(level, h, gateT, fracs) {
+function safeGate(level, h, gateT, fracs, at) {
   const posts = () => level.decor.filter((d) => d.t === gateT);
   for (const strict of [true, false]) for (const frac of fracs) {
     const saved = level.cells.map((row) => row.map((c) => ({ ...c }))), dec = level.decor.slice();
     const before = JSON.stringify(level.cells.map((r) => r.map((c) => c.h)));
     const miss = h.reach().missing.length;
-    const g = h.gate(gateT, { route: h.approach(), frac, figGap: 2 });
+    const g = h.gate(gateT, { route: h.approach(), frac, figGap: 2, ...(at ? { at } : {}) });
     const ps = posts();
     const ok = g && ps.length === 2 && new Set(ps.map((d) => h.cell(d.x, d.z).h)).size === 1 && h.reach().missing.length <= miss;
     if (ok && (!strict || JSON.stringify(level.cells.map((r) => r.map((c) => c.h))) === before)) return g;
@@ -776,7 +776,7 @@ function finishLens(level, brief, h) {
   if (r.length) h.path(r);
   r = h.approach();
   h.repair();
-  const g = gateT ? safeGate(level, h, gateT, lens === "composition" ? [0.45, 0.35, 0.55, 0.65] : [0.6, 0.5, 0.7, 0.4]) : null;
+  const g = gateT ? safeGate(level, h, gateT, lens === "composition" ? [0.45, 0.35, 0.55, 0.65] : [0.6, 0.5, 0.7, 0.4], level.name === "sharkbear-medium" ? [8, 6] : null) : null;
   r = h.approach();
   frontClear(level, h, [gateT]);
   if (spireT) ridge(level, h, spireT);
