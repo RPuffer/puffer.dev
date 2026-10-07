@@ -4,6 +4,7 @@ import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 import { register as registerA } from "./forest-a.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
+import { neighbours } from "../../core/level.js";
 
 const INK = {
   soot: ["#5a4d48", "#463b37", "#342b28"],
@@ -505,10 +506,50 @@ function tint(level, kind) {
   }
 }
 
+function closeBypass(level, h) {
+  const post = level.decor.find((d) => d.gapX != null);
+  if (!post) return;
+  const gap = h.key(post.gapX, post.gapZ);
+  const ring = new Set(h.figRing().map(([x, z]) => h.key(x, z)));
+  const path = (shut) => {
+    const blocked = new Set(level.decor.filter((d) => d.gapX != null || d === h.lead).map((d) => h.key(d.x, d.z)));
+    if (shut) blocked.add(gap);
+    const L = { ...level, blocked };
+    const start = h.key(...level.spawn), prev = new Map([[start, null]]), q = [level.spawn];
+    while (q.length) {
+      const [x, z] = q.shift(), k = h.key(x, z);
+      if (ring.has(k)) { const out = []; for (let c = k; c; c = prev.get(c)) out.push(c.split(",").map(Number)); return out; }
+      for (const [X, Z] of neighbours(L, x, z)) { const K = h.key(X, Z); if (prev.has(K) || h.isFig(X, Z)) continue; prev.set(K, k); q.push([X, Z]); }
+    }
+    return null;
+  };
+  if (!path(false)) return;
+  const m0 = h.reach().missing.length;
+  let n = 0;
+  for (let guard = 0; guard < 8; guard++) {
+    const by = path(true);
+    if (!by) break;
+    let done = false;
+    for (const [x, z] of by.slice().reverse()) {
+      const c = h.cell(x, z);
+      if (c?.s !== "ramp") continue;
+      const S = h.snapshot();
+      const [dx, dz] = h.DIRS[c.d], low = h.cell(x + dx, z + dz);
+      h.set(x, z, { h: c.h - 1, s: low && h.land(low) && low.s !== "ramp" ? low.s : "dirt" });
+      if (h.reach().missing.length > m0 || !path(false)) { h.restore(S); continue; }
+      h.log.push(`closeBypass: ramp ${x},${z} flattened to h${c.h - 1}`);
+      n++; done = true; break;
+    }
+    if (!done) break;
+  }
+  h.log.push(`closeBypass: ${n} ramps flattened, bypass ${path(true) ? "still open" : "closed"}`);
+}
+
 export function finish(level, brief, h) {
   const aspect = aspectOf(level.palette, Object.keys(level.palette?.props || {}));
   if (aspect) {
     finishAspect(level, brief, h, aspect);
+    if (aspect === "volute") closeBypass(level, h);
     if (aspect === "volute") placeLandmark(level, h, "forest-gilt-gazebo");
     if (aspect === "volute") placeGeneric(level, h, "shade", { ...UNPADDED, look: { trunk: "#c98a6a", root: "#b0705a", leaf: "#8fc7a2", leafDeep: "#72ab86", leafTop: "#e8c25a" } });
     return;
