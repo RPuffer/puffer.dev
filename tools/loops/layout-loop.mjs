@@ -183,7 +183,7 @@ export function layoutPass(level, o = {}) {
       for (const [dx, dz] of [[1, 0], [0, 1]]) {
         const a = cellOf(x - dx, z - dz), b = cellOf(x + dx, z + dz);
         if (!land(a) || !land(b) || a.h !== b.h || a.s === "ramp" || b.s === "ramp" || a.s === "bridge" || b.s === "bridge") continue;
-        cands.push({ kind: "bridge+", desc: `bridge ${x},${z} at h${a.h}`, apply: () => { const old = level.cells[z][x]; level.cells[z][x] = { h: a.h, s: "bridge", m: "planks", w: 0 }; return () => { level.cells[z][x] = old; }; } });
+        cands.push({ kind: "bridge+", desc: `bridge ${x},${z} at h${a.h}`, apply: () => { const old = level.cells[z][x]; level.cells[z][x] = { h: a.h, s: "bridge", m: "planks", ...(c.s === "water" ? { w: c.h } : {}) }; return () => { level.cells[z][x] = old; }; } });
       }
     }));
 
@@ -206,7 +206,7 @@ export function layoutPass(level, o = {}) {
         if (ds.length) continue;
         if (c.h < maxH) cands.push({ kind: "raise", desc: `raise ${x},${z} h${c.h} -> h${c.h + 1}`, apply: () => edit(x, z, { ...c, h: c.h + 1 }, "raise") });
         if (c.h >= 2) cands.push({ kind: "lower", desc: `lower ${x},${z} h${c.h} -> h${c.h - 1}`, apply: () => edit(x, z, { ...c, h: c.h - 1 }, "lower") });
-        if (voidNear(x, z) && Math.abs(area0 - (landN() - 1)) <= 0.05 * area0) cands.push({ kind: "cut", desc: `cut rim ${x},${z} to void`, apply: () => edit(x, z, { h: 0, s: "none" }, "cut") });
+        if (voidNear(x, z) && !N4.some(([dx, dz]) => cellOf(x + dx, z + dz)?.s === "bridge" || decorAt(x + dx, z + dz).some((d) => CATALOG[d.t]?.attach === "span")) && Math.abs(area0 - (landN() - 1)) <= 0.05 * area0) cands.push({ kind: "cut", desc: `cut rim ${x},${z} to void`, apply: () => edit(x, z, { h: 0, s: "none" }, "cut") });
       }
     }
 
