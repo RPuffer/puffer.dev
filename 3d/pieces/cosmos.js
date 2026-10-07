@@ -3,6 +3,7 @@ import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
 import { placeRunThings } from "./ember.js";
+import { courtCell, moveFront } from "./sightline.js";
 import { lockedKit } from "../prims.js";
 import { CATALOG } from "../../core/catalog.js";
 
@@ -1617,6 +1618,7 @@ function finishLens(level, brief, h) {
     if (lens === "frisket") placeGeneric(level, h, "market-row-small", { ...UNPADDED, at: [11, 6], look: { stall: "#8f78d6", stallTop: "#b8a4f2", awning: "#5fd6e6", awningWhite: "#fff0e2", crate: "#f6dfb2", pot: "#f58fa6", goods: "#ffc9a3" } });
     if (level.name === "cosmos-frisket") placeRunThings(level, h, { spawn: [7, 10], clear: [[5, 6]], chestText: "A lifted frisket plate, its masked edge dusted peach to cyan." });
     if (level.name === "cosmos-frisket") moveExit(level, h, [1, 6], 3, [2, 6]);
+    if (level.name === "cosmos-frisket") { const court = courtCell(level, h); if (court) moveFront(level, h, court); }
     const g = level.name === "cosmos-frisket" && (level.things || []).find((t) => t.kind === "gate" && t.edge);
     if (g) for (const d of level.decor.filter((d) => d.gapX != null && /arch/.test(d.t) && g.edge.some(([a, b]) => Math.max(Math.abs(a - d.gapX), Math.abs(b - d.gapZ)) <= 1))) {
       h.removeDecor((q) => q === d);
