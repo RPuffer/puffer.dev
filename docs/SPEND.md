@@ -210,4 +210,7 @@ Total: $2.835
 2026-10-06 | pass 3 islands B | gemini-3.8-flash | 30 | 0.2300 | critic once per island plus the forest and cosmos re-fix
 2026-10-06 | pass 3 fixer | gemini-3.8-flash | 6 | 0.0610 | critic on sharkbear and swallow after the gate and spawn moves
 
-Running total: $33.464
+2026-10-07 | pass 4 shark-gorilla sheet | gemini-3.1-flash-image | 2 | 0.090 | sharkbear sheet regenerated as a knuckle-walking shark-gorilla; first of two kept
+2026-10-07 | pass 4 shark-gorilla figure | gemini-3.8-flash | 3 | 0.0164 | critic on sharkbear-medium after the figure rebuild: 0 high, 0 other
+
+Running total: $33.570

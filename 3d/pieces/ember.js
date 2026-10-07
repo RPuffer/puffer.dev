@@ -697,7 +697,8 @@ export function placeRunThings(level, h, o = {}) {
     const preR = reachWith([[x, z], ...p]), lost = missing(preR), pre = preR.reached;
     const h0 = h.cell(sx, sz).h, climbs = level.cells.some((row, zz) => row.some((c, xx) => c.h > h0 && flat(c) && !lost.has(key(xx, zz)) && !base.has(key(xx, zz))));
     const score = Math.abs(frac - 0.6) + 0.3 * Math.max(0, d - (R - 0.6)) + (gap(x, z) ? 0 : 0.2) + 0.25 * p.length + (pre < 14 ? 0.6 : 0) + (climbs ? 0 : 1);
-    if (score < best) { best = score; G = [x, z]; gi = i; plug = p; }
+    const want = o.gate && o.gate[0] === x && o.gate[1] === z ? -10 : 0;
+    if (score + want < best) { best = score + want; G = [x, z]; gi = i; plug = p; }
   });
   if (plug.length) {
     const P = level.palette?.props || {};
@@ -710,7 +711,12 @@ export function placeRunThings(level, h, o = {}) {
   const soft = (x, z) => h.decorAt(x, z).every((d) => (level.palette?.props?.[d.t]?.passable || CATALOG[d.t]?.passable) && !level.palette?.props?.[d.t]?.role?.match(/lead|threshold|light/) && d.gapX == null);
   const free = (x, z) => flat(h.cell(x, z)) && !h.isFig(x, z) && soft(x, z) && !base.has(key(x, z)) && !miss0.has(key(x, z)) && !(x === sx && z === sz) && !(G && x === G[0] && z === G[1]);
   const near = (x, z) => Math.min(...route.map(([a, b]) => Math.abs(a - x) + Math.abs(b - z)));
-  const keeps = (cells) => reachWith(cells).missing.length === open0.missing.length && (!th || !missing(reachWith([G, ...cells])).has(key(...th)));
+  const keeps = (cells, need = 1) => {
+    const r = reachWith(cells), m = missing(r), all = new Set(cells.map(([x, z]) => key(x, z)));
+    if (r.missing.length !== open0.missing.length || (th && missing(reachWith([G, ...cells])).has(key(...th)))) return false;
+    const [x, z] = cells[0];
+    return [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => { const k = key(x + a, z + b); return flat(h.cell(x + a, z + b)) && !base.has(k) && !all.has(k) && !m.has(k) && !h.isFig(x + a, z + b); }).length >= need;
+  };
   const th = gi > 0 ? route[gi - 1] : null;
   const cand = [];
   level.cells.forEach((row, z) => row.forEach((c, x) => { if (free(x, z) && !onR.has(key(x, z)) && !(th && x === th[0] && z === th[1])) cand.push([x, z]); }));
@@ -728,12 +734,12 @@ export function placeRunThings(level, h, o = {}) {
   const radW = th ? Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6 : R;
   const outside = (c) => Math.hypot(c[0] + 0.5 - fc[0], c[1] + 0.5 - fc[1]) > radW + 1.5;
   for (const c of cand.filter((c) => outside(c) && near(...c) >= 1 && near(...c) <= 2 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => (cut.has(key(...a)) - cut.has(key(...b))) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
-    if (!keeps(bon ? [c, bon] : [c])) continue;
+    if (!keeps(bon ? [c, bon] : [c], 2)) continue;
     chest = c;
     break;
   }
-  if (!chest) for (const c of cand.filter((c) => outside(c) && near(...c) >= 1 && near(...c) <= 3 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => near(...a) - near(...b))) {
-    if (!keeps(bon ? [c, bon] : [c])) continue;
+  for (const m of [0.8, 0, -99]) if (!chest) for (const c of cand.filter((c) => Math.hypot(c[0] + 0.5 - fc[0], c[1] + 0.5 - fc[1]) > radW + m && near(...c) >= 1 && near(...c) <= 3 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => near(...a) - near(...b))) {
+    if (!keeps(bon ? [c, bon] : [c], 2)) continue;
     chest = c;
     break;
   }
@@ -755,7 +761,7 @@ export function placeRunThings(level, h, o = {}) {
   const dist = new Map([[key(sx, sz), 0]]);
   { const q = [[sx, sz]]; const L1 = { ...level, blocked: base }; for (let i = 0; i < q.length; i++) { const [x, z] = q[i]; for (const dd of Object.keys(DIRS)) { if (!canStep(L1, x, z, dd)) continue; const [a, b] = DIRS[dd], k = key(x + a, z + b); if (!dist.has(k)) { dist.set(k, dist.get(key(x, z)) + 1); q.push([x + a, z + b]); } } } }
   const ringD = Math.min(...ring.map(([x, z]) => dist.get(key(x, z)) ?? Infinity));
-  const rim = cand.filter(([x, z]) => !used(x, z) && rimSide(x, z) >= 0);
+  const rim = cand.filter(([x, z]) => !used(x, z) && rimSide(x, z) >= 0 && !out.some((t) => (t.kind === "bonfire" || t.kind === "chest") && Math.max(Math.abs(t.x - x), Math.abs(t.z - z)) <= 1));
   const back = (s) => (s === 2 || s === 3 ? 0 : 0.5);
   const entry = rim.filter((c) => md(c, [sx, sz]) <= 4 && !cut.has(key(...c))).sort((a, b) => (md(a, [sx, sz]) + back(rimSide(...a)) + (rampBy(...a) ? 2 : 0)) - (md(b, [sx, sz]) + back(rimSide(...b)) + (rampBy(...b) ? 2 : 0)))[0];
   const exitScore = ([x, z]) => (cut.has(key(x, z)) ? 0 : 4) + ((dist.get(key(x, z)) ?? 0) >= ringD ? 0 : 3) + Math.abs(figD(x, z) - 2.5) + back(rimSide(x, z)) + (h.cell(x, z).s === h.surf.path ? 1 : 0) + (rampBy(x, z) ? 2 : 0);
