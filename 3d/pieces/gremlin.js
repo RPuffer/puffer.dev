@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
+import { lockedKit } from "../prims.js";
 
 const SKINS = {
   artisan: {
@@ -74,84 +75,55 @@ function plinth(B, r, h, lo, hi) {
   B.prism(circle(0, 0, r * 0.86, r * 0.86, 8, Math.PI / 8), h * 0.55, h, pal(hi));
 }
 
-function foot(B, K, x, y, z, yaw) {
-  B.at(x, y, z, yaw, () => {
-    B.prism([[-0.26, 0.4], [-0.09, 0.46], [0.09, 0.46], [0.26, 0.4], [0.13, -0.08], [-0.13, -0.08]], 0, 0.08, pal(K.ink));
-    for (const t of [-0.19, 0, 0.19]) B.box(0.08, 0.07, 0.14, pal(K.shade), t, 0.08, 0.38);
-    B.box(0.24, 0.14, 0.24, pal(K.shade), 0, 0.06, 0.04);
-  });
-}
-
-function hand(B, K, x, y, z) {
-  B.box(0.22, 0.1, 0.22, pal(K.ink), x, y, z);
-  for (const t of [-0.07, 0, 0.07]) B.box(0.06, 0.06, 0.12, pal(K.ink), x + t, y, z + 0.14);
-}
-
-function tail(B, K) {
-  const cy = 1.42, cz = -0.46, r = 0.86, n = 12;
-  const pt = (a) => [0, cy + r * Math.sin(a), cz + r * Math.cos(a)];
-  const a0 = -Math.PI * 0.62, a1 = -Math.PI * 1.66;
-  let prev = [0, 0.72, -0.4];
-  for (let i = 1; i <= n; i++) {
-    const t = i / n, p = pt(a0 + (a1 - a0) * t), w = 0.26 - t * 0.12;
-    seg(B, prev, p, w, w, i % 2 ? K.body : K.shade);
-    if (i % 3 === 0) B.at(p[0], p[1] - 0.05, p[2], 0, () => B.box(w + 0.08, 0.1, w + 0.08, pal(K.band)));
-    if (i === 5 || i === 7 || i === 9) B.at(p[0], p[1], p[2], 0, () => B.cone(0.09, 0, 0.26, pal(K.fin), 0, w * 0.45, 0, 4));
-    prev = p;
-  }
-  const e = prev, j = [0.3, e[1] - 0.02, e[2] + 0.36], lens = [0.46, e[1] - 0.32, e[2] + 0.56];
-  seg(B, e, j, 0.14, 0.14, K.ink);
-  seg(B, j, lens, 0.12, 0.12, K.shade);
-  B.box(0.2, 0.1, 0.2, pal(K.band), j[0], j[1] - 0.05, j[2]);
-  B.cone(0.16, 0.07, 0.2, pal(K.ink), lens[0], lens[1] - 0.18, lens[2], 6);
-  B.box(0.1, 0.05, 0.1, pal(K.orb), lens[0], lens[1] - 0.23, lens[2]);
-}
-
 const YAW = { medium: 0.2, subject: 0.5, composition: -0.5 };
-function gremlin(B, K, H, look, v, lens) {
-  const s = H / 2.3;
+const GREM_H = 2.7;
+function limb(K, a, b, w, d, base) {
+  const A = V(...a), dir = V(...b).sub(A), len = dir.length();
+  K.B.pushMatrix(new THREE.Matrix4().compose(A, new THREE.Quaternion().setFromUnitVectors(UP, dir.normalize()), V(1, 1, 1)));
+  K.rbox(w, len, d, base, 0, 0, 0);
+  K.B.pop();
+}
+function lean(K, x, y, z, rx, fn) {
+  K.B.pushMatrix(new THREE.Matrix4().compose(V(x, y, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(rx, 0, 0)), V(1, 1, 1)));
+  fn();
+  K.B.pop();
+}
+function gremlin(B, K, H, look, v, lens, ctx = {}) {
+  const s = H / GREM_H, c = (k) => k[0];
   B.push(0, 0, 0, YAW[lens] ?? 0.2, s);
-  plinth(B, 0.9, 0.2, look.plinthLo, look.plinthHi);
+  const P = lockedKit(B, ctx.style, ctx.rot || 0);
+  const part = (id, fn, meta = {}) => P.part(id, meta, fn);
+  part("plinth", () => { P.cyl(0.9, 0.11, c(look.plinthLo), 0, 0, 0, 8); P.cyl(0.78, 0.09, c(look.plinthHi), 0, 0.11, 0, 8); }, { base: true });
   const y0 = 0.2;
-  foot(B, K, -0.4, y0, 0.02, -0.25);
-  foot(B, K, 0.4, y0, 0.06, 0.3);
+  B.push(0, y0, 0, 0, 1);
   for (const sx of [-1, 1]) {
-    const hip = [sx * 0.26, y0 + 0.42, -0.2], knee = [sx * 0.44, y0 + 0.74, 0.24], ank = [sx * 0.4, y0 + 0.14, 0.08];
-    seg(B, hip, knee, 0.28, 0.3, K.body);
-    seg(B, knee, ank, 0.22, 0.22, K.shade);
-    B.box(0.28, 0.12, 0.28, pal(K.ink), knee[0], knee[1] - 0.08, knee[2]);
+    const hip = [sx * 0.2, 0.98, -0.2], knee = [sx * 0.62, 1.02, 0.3], ank = [sx * 0.5, 0.06, -0.02];
+    part(sx < 0 ? "thighL" : "thighR", () => limb(P, hip, knee, 0.15, 0.15, c(K.body)));
+    part(sx < 0 ? "shinL" : "shinR", () => { limb(P, knee, ank, 0.12, 0.12, c(K.shade)); P.rbox(0.18, 0.12, 0.18, c(K.ink), knee[0], knee[1] - 0.07, knee[2]); });
+    part(sx < 0 ? "footL" : "footR", () => B.at(ank[0], 0, ank[2], sx * 0.35, () => {
+      P.rbox(0.3, 0.07, 0.26, c(K.ink), 0, 0, 0.06);
+      for (const t of [-0.11, 0, 0.11]) P.box(0.06, 0.05, 0.22, c(K.ink), t, 0, 0.28);
+    }), {});
   }
-  B.rbox(0.66, 0.36, 0.54, 0.1, pal(K.shade), 0, y0 + 0.3, -0.24);
-  for (const z of [-0.42, -0.28, -0.14]) B.box(0.68, 0.07, 0.07, pal(K.ink), 0, y0 + 0.58, z);
-  tilt(B, 0, y0 + 0.6, -0.2, 0.42, 0, 0, () => {
-    B.rbox(0.52, 0.6, 0.4, 0.1, pal(K.body), 0, 0, 0);
-    wedge(B, 0.44, 0.34, 0.16, K.shade, 0, 0.1, 0.26);
-    B.rbox(0.64, 0.18, 0.44, 0.08, pal(K.body), 0, 0.58, 0);
-    B.box(0.2, 0.2, 0.18, pal(K.ink), 0, 0.72, 0.06);
+  part("pelvis", () => P.rbox(0.48, 0.22, 0.32, c(K.shade), 0, 0.9, -0.2));
+  part("waist", () => limb(P, [0, 1.08, -0.18], [0, 1.36, -0.06], 0.2, 0.16, c(K.ink)));
+  part("chest", () => lean(P, 0, 1.32, -0.04, 0.45, () => { P.rbox(0.56, 0.5, 0.3, c(K.body), 0, 0, 0); P.rbox(0.36, 0.14, 0.22, c(K.shade), 0, -0.1, 0.06); }));
+  part("neck", () => limb(P, [0, 1.7, 0.2], [0, 2.02, 0.32], 0.11, 0.11, c(K.shade)));
+  part("head", () => lean(P, 0, 1.96, 0.34, 0.12 + (v % 2) * 0.06, () => P.rbox(0.38, 0.46, 0.36, c(K.body), 0, 0, 0)), { role: "head" });
+  const rs = [0.3, 1.68, 0.14], re = [0.66, 1.3, 0.22], rh = [0.72, 1.84, 0.42];
+  part("armR", () => { limb(P, rs, re, 0.11, 0.11, c(K.body)); limb(P, re, rh, 0.1, 0.1, c(K.shade)); });
+  part("orb", () => {
+    P.rbox(0.16, 0.08, 0.16, c(K.ink), rh[0], rh[1], rh[2]);
+    P.cyl(0.15, 0.3, c(K.orb), rh[0], rh[1] + 0.06, rh[2], 8);
+    P.box(0.07, 0.07, 0.03, c(K.ink), rh[0] + 0.05, rh[1] + 0.22, rh[2] + 0.14);
   });
-  B.box(0.2, 0.24, 0.2, pal(K.ink), 0, y0 + 1.1, 0.12);
-  tilt(B, 0, y0 + 1.26, 0.2, 0.42, 0.42 + (v % 2) * 0.08, 0, () => {
-    B.rbox(0.58, 0.56, 0.66, 0.16, pal(K.body), 0, 0.02, 0.04);
-    B.rbox(0.5, 0.18, 0.58, 0.14, pal(K.body), 0, 0.58, 0.02);
-    B.rbox(0.32, 0.1, 0.38, 0.1, pal(K.body), 0, 0.76, 0.0);
-    B.box(0.12, 0.34, 0.06, pal(K.ink), 0, 0.02, 0.37);
-    B.box(0.5, 0.07, 0.05, pal(K.shade), 0, 0.46, 0.36);
-    for (const x of [-0.3, 0.3]) B.box(0.05, 0.3, 0.36, pal(K.shade), x, 0.1, 0.06);
-  });
-  const rs = [0.32, y0 + 0.98, 0.04], re = [0.56, y0 + 0.6, 0.3], rh = [0.5, y0 + 0.82, 0.62];
-  seg(B, rs, re, 0.17, 0.17, K.body);
-  seg(B, re, rh, 0.15, 0.15, K.shade);
-  const orb = [0.52, y0 + 1.04, 0.68];
-  B.box(0.24, 0.08, 0.24, pal(K.ink), orb[0], orb[1] - 0.25, orb[2]);
-  for (const [dx, dz] of [[-0.12, 0], [0.12, 0], [0, 0.12]]) B.box(0.06, 0.2, 0.06, pal(K.ink), orb[0] + dx, orb[1] - 0.2, orb[2] + dz);
-  B.ball(0.2, pal(K.orb), orb[0], orb[1], orb[2], 1, 1);
-  for (const [dx, dy, dz] of [[0.3, 0.04, 0], [-0.28, 0.08, 0.04], [0.02, 0.3, 0.04], [0.06, -0.02, 0.28]]) B.box(0.06, 0.06, 0.06, pal(K.orb), orb[0] + dx, orb[1] + dy, orb[2] + dz);
-  const ls = [-0.3, y0 + 0.98, 0.0], le = [-0.46, y0 + 0.5, 0.24], lh = [-0.3, y0 + 0.08, 0.5];
-  seg(B, ls, le, 0.17, 0.17, K.body);
-  seg(B, le, lh, 0.15, 0.15, K.shade);
-  hand(B, K, lh[0], y0, lh[2]);
-  tail(B, K);
+  const ls = [-0.3, 1.68, 0.14], le = [-0.42, 0.96, 0.52], lh = [-0.16, 0.02, 0.72];
+  part("armL", () => { limb(P, ls, le, 0.11, 0.11, c(K.body)); limb(P, le, lh, 0.1, 0.1, c(K.shade)); });
+  part("handL", () => { P.rbox(0.18, 0.08, 0.16, c(K.ink), lh[0], 0, lh[2]); for (const t of [-0.06, 0.06]) P.box(0.05, 0.05, 0.1, c(K.ink), lh[0] + t, 0, lh[2] + 0.12); });
+  for (const [dx, dy, dz] of [[0.26, 0.24, 0], [-0.22, 0.3, 0.04], [0.04, 0.5, 0.06]]) part("spark", () => P.box(0.05, 0.05, 0.05, c(K.orb), rh[0] + dx, rh[1] + dy, rh[2] + dz), { face: true });
   B.pop();
+  B.pop();
+  return P;
 }
 
 function post(B, t, H, c0, c1, c2, d, K) {
@@ -429,7 +401,7 @@ export function register(style) {
     const c0 = pick(tn, 0, K.body), c1 = pick(tn, 1, K.shade), c2 = pick(tn, 2, K.band);
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
-      if (lead) gremlin(B, K, H, look, v, lens);
+      if (lead) { const k = gremlin(B, K, H, look, v, lens, { style, rot }); const m = mesh(B); m.userData.parts = k.parts; return m; }
       else if (LENS_PROPS(B, t, role, H, v, d, K, c0, c1, c2, lens)) {}
       else if (/trough|cistern/i.test(t)) trough(B, H, c0, K);
       else if (/bench|station|basin/i.test(t)) bench(B, H, c1, K, v);
