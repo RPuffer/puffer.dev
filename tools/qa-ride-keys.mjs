@@ -137,8 +137,10 @@ async function bonfire(keys, s) {
   const b = s.things.find((t) => t.kind === "bonfire");
   if (!b) return { ok: true, skip: true };
   const others = s.things.filter((t) => t.kind === "chest" && t.state === "closed");
-  const clear = around(b).filter(([x, z]) => !others.some((t) => Math.max(Math.abs(t.x - x), Math.abs(t.z - z)) <= 1));
-  const w = await walkKeys(keys, clear.length ? clear : around(b), `bonfire ${b.x},${b.z}`);
+  const lifts = s.things.filter((t) => t.kind === "elevator");
+  const beside = around(b).filter(([x, z]) => !lifts.some((t) => t.x === x && t.z === z));
+  const clear = beside.filter(([x, z]) => !others.some((t) => Math.max(Math.abs(t.x - x), Math.abs(t.z - z)) <= 1));
+  const w = await walkKeys(keys, clear.length ? clear : beside, `bonfire ${b.x},${b.z}`);
   if (!w.ok) return w;
   await page.waitForFunction(() => !!document.querySelector(".iw-prompt:not([hidden])"), { timeout: 2000, polling: 30 }).catch(() => {});
   await pressE();
