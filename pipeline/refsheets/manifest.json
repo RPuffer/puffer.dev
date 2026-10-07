@@ -123,23 +123,23 @@
     ],
     "verdict": "current figure is a black sphere with a green zigzag collar; the sheet is a tan ringed eyeball with a dark iris on a stepped plinth, so ring, iris and palette all differ"
   },
-  "shark-gorilla": {
+  "sharkbear": {
     "file": "pipeline/refsheets/sharkbear.png",
     "model": "gemini-3.1-flash-image",
     "tries": 2,
-    "kept": "second",
-    "hero_px": 148,
-    "figure_px": 458,
-    "height_ratio": 3.09,
+    "kept": "first",
+    "hero_px": 159,
+    "figure_px": 490,
+    "height_ratio": 3.08,
     "target_ratio": 2.5,
-    "figure_tiles": 2.87,
+    "figure_tiles": 2.86,
     "proportions": [
-      "shark head 0.35 of height, low and forward, dorsal fin a 0.4 tile wedge",
-      "legs 0.3 tile thick gorilla pillars",
-      "widest at the tail blade sweeping forward, 2.34 tiles",
-      "accent #3c3c3c on eye and mouth slit only"
+      "knuckle-walk: forearms 0.32 tile thick planted ahead of the head, arms about 1.5 times the short rear legs",
+      "back hunched highest over the shoulders, dorsal fin a 0.35 tile wedge on that peak",
+      "shark head 0.9 tile long, forward and low with the jaw below the shoulder line, white belly, chest and jaw",
+      "accent #3c3c3c on eye, teeth and three gill lines only; the tail chain sweeps forward to a 2.35 tile spread"
     ],
-    "verdict": "current figure reads as a small grey lump; the sheet is a 2.9-tile hunched gorilla with a fin and a long tail blade, so it is too small and the tail is missing"
+    "verdict": "current pass-3 figure is a bear on four equal pillars; the sheet knuckle-walks on long forearms ahead of short rear legs, hunched at the shoulders, head forward and low, so arms, back line and head height must change"
   },
   "gremlin": {
     "file": "pipeline/refsheets/gremlin.png",

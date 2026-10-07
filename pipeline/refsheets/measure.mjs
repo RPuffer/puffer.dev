@@ -1,6 +1,6 @@
 import sharp from "sharp";
 
-export async function measure(file) {
+export async function measure(file, cols = null) {
   const { data, info } = await sharp(file).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width: W, height: H } = info;
   const px = (x, y) => { const i = (y * W + x) * 3; return [data[i], data[i + 1], data[i + 2]]; };
@@ -10,7 +10,7 @@ export async function measure(file) {
   const on = new Uint8Array(W * H);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     const p = px(x, y);
-    on[y * W + x] = Math.max(...p.map((v, c) => Math.abs(v - bg[c]))) > 20 ? 1 : 0;
+    on[y * W + x] = (!cols || (x >= cols[0] && x <= cols[1])) && Math.max(...p.map((v, c) => Math.abs(v - bg[c]))) > 20 ? 1 : 0;
   }
   const col = new Array(W).fill(0);
   for (let x = 0; x < W; x++) for (let y = 0; y < H; y++) col[x] += on[y * W + x];

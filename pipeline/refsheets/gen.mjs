@@ -15,7 +15,7 @@ export const FIGURES = {
   wizard: { label: "wizard", ratio: "2.5", form: "a standing hot-dog wizard with pointed hat and staff" },
   swallow: { label: "swallow", ratio: "1.5", form: "a swallow perched upright on a small block perch, wings folded, forked tail" },
   cosmos: { label: "cosmos eye monument", ratio: "3", form: "a monument: a giant eyeball ringed like a planet, standing on a stepped stone plinth", fix: "plinth included, no taller than three hero heights" },
-  sharkbear: { label: "sharkbear", ratio: "2.5", form: "a hunched quadruped bear with a shark head, dorsal fin and tail fin" },
+  sharkbear: { label: "shark-gorilla", ratio: "2.5", form: "a shark-gorilla: a gorilla's body knuckle-walking on long arms planted forward, arms longer than the short rear legs, a hunched back rising highest at the shoulders, a broad chest, no fur mass; a shark's head carried forward and low with an open toothed mouth and gill lines behind the eye, a dorsal fin on the hunched back, a shark tail fin behind; the hero stands beside it for scale", colours: "a dark grey-blue hide, a pale off-white belly, chest and lower jaw, plus one accent #3c3c3c on the eye, mouth and gill lines only. No other hues." },
   gremlin: { label: "gremlin", ratio: "2.5", form: "a crouching lanky faceless creature with long limbs" },
   mindbloom: { label: "mindbloom bust", ratio: "2.5", form: "a monument bust: a big human head with spiky blooming hair, standing on a candle-jar plinth" },
   eagle: { label: "eagle", ratio: "1.5", form: "an eagle bust: head and shoulders of a bald eagle on a short block plinth, hooked beak", fix: "the whole bust, plinth included, is only one and a half hero heights tall" },
@@ -36,7 +36,7 @@ Draw a character reference sheet of the focal figure of image 1 (${s.what}) rema
 
 Layout: a flat solid #404040 background filling the whole frame, no ground, no floor tiles, no cast shadows, no text, no labels, no numbers. One row, left to right: the pack's hero exactly as drawn in image 3, then the figure three times, all at the same scale and standing on one shared baseline: front three-quarter view, side view, back three-quarter view. Same isometric camera as the pack, looking down about 30 degrees. Scale: the figure is ${f.ratio} times as tall as the hero${f.fix ? `; ${f.fix}` : ""}. Leave clear empty gaps between the hero and every pose.
 
-Colours: the artwork's own colours ${a.palette.dominant.map(hex).join(", ")}, plus one accent ${hex(acc)} (${role(acc) || "as in the artwork"}) used on one small part only. No other hues.`;
+Colours: ${f.colours || `the artwork's own colours ${a.palette.dominant.map(hex).join(", ")}, plus one accent ${hex(acc)} (${role(acc) || "as in the artwork"}) used on one small part only. No other hues.`}`;
 }
 
 async function art(file) {
