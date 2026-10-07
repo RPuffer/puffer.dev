@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
 import { placeGeneric } from "./multitile-place.js";
+import { BIBLE, audit, figure, lockedKit } from "../prims.js";
 
 const INK = {
   bone: ["#ebe8dc", "#d6d2c4", "#beb9a8"],
@@ -102,6 +103,73 @@ function chimera(B, H, K, v, pose = {}) {
     }
   });
   B.pop();
+}
+
+export function chimeraSpec(c, o = {}) {
+  const jaw = o.jaw ?? 0.08, white = BIBLE.white, hd = { group: "head" };
+  return {
+    name: "chimera",
+    groups: { head: { pivot: [0, 0.62], ry: o.turn ?? 0 } },
+    parts: [
+      { id: "hind", prim: "chain", at: [0, 0, -0.36], base: c.dark, links: [
+        { dims: [0.4, 0.5, 0.56], at: [-0.42, 0, 0], base: c.dark },
+        { dims: [0.4, 0.5, 0.56], at: [0.42, 0, 0], base: c.dark },
+      ] },
+      { id: "body", prim: "rbox", dims: [1.0, 0.36, 1.0], at: [0, 0.3, -0.06], base: c.bone },
+      { id: "gap", prim: "rbox", dims: [0.94, 0.08, 0.94], at: [0, 0.66, -0.06], base: c.deep },
+      { id: "shell", prim: "rbox", dims: [0.96, 0.32, 0.96], at: [0, 0.74, -0.06], base: c.bone2 },
+      { id: "ridge", prim: "rbox", dims: [0.66, 0.18, 0.72], at: [0, 1.06, -0.1], base: c.bone },
+      { id: "foreL", prim: "chain", at: [-0.6, 0, 0.36], base: c.dark, links: [
+        { dims: [0.38, 0.14, 0.44], at: [-0.06, 0, 0.08], base: c.dark },
+        { dims: [0.26, 0.5, 0.3], at: [0, 0.12, 0], base: c.bone2 },
+        { prim: "spike", dims: [0.2, 0.34, 0.16, -0.1], at: [-0.04, 0.6, 0], base: c.bone },
+      ] },
+      { id: "foreR", prim: "chain", at: [0.6, 0, 0.36], base: c.dark, links: [
+        { dims: [0.38, 0.14, 0.44], at: [0.06, 0, 0.08], base: c.dark },
+        { dims: [0.26, 0.5, 0.3], at: [0, 0.12, 0], base: c.bone2 },
+        { prim: "spike", dims: [0.2, 0.34, 0.16, 0.1], at: [0.04, 0.6, 0], base: c.bone },
+      ] },
+      { id: "tail", prim: "chain", at: [0, 0, 0], base: c.bone, links: [
+        { dims: [0.3, 0.24, 0.3], at: [0.12, 0.36, -0.66], base: c.bone },
+        { dims: [0.27, 0.22, 0.28], at: [0.24, 0.56, -0.82], base: c.bone2 },
+        { dims: [0.24, 0.22, 0.26], at: [0.3, 0.78, -0.86], base: c.bone },
+        { dims: [0.21, 0.2, 0.24], at: [0.32, 0.98, -0.78], base: c.bone2 },
+        { dims: [0.18, 0.18, 0.22], at: [0.3, 1.16, -0.64], base: c.bone },
+        { prim: "spike", dims: [0.16, 0.3, 0.14, -0.06], at: [0.28, 1.32, -0.5], base: c.bone2 },
+      ] },
+      { id: "neck", prim: "chain", at: [0, 1.16, 0], base: c.bone, links: [
+        { dims: [0.42, 0.28, 0.38], at: [0, 0, -0.3], base: c.dark },
+        { dims: [0.4, 0.26, 0.36], at: [0, 0.26, -0.2], base: c.bone },
+        { dims: [0.38, 0.26, 0.36], at: [0, 0.5, -0.04], base: c.dark },
+        { dims: [0.36, 0.24, 0.34], at: [0, 0.66, 0.16], base: c.bone },
+        { dims: [0.34, 0.24, 0.32], at: [0, 0.66, 0.38], base: c.dark },
+        { dims: [0.32, 0.22, 0.3], at: [0, 0.52, 0.58], base: c.bone },
+      ] },
+      { id: "head", ...hd, prim: "rbox", dims: [0.56, 0.38, 0.62], at: [0, 1.46, 0.92], base: c.bone },
+      { id: "crest", ...hd, prim: "spike", dims: [0.56, 0.3, 0.4, 0], at: [0, 1.84, 0.84], base: c.dark },
+      { id: "jaw", ...hd, prim: "rbox", dims: [0.46, 0.12, 0.5], at: [0, 1.34 - jaw, 0.98], base: c.bone2 },
+      { id: "mouth", ...hd, face: true, prim: "box", dims: [0.4, 0.06, 0.4], at: [0, 1.4 - jaw, 0.98], base: c.deep },
+      { id: "eyeL", ...hd, face: true, prim: "box", dims: [0.12, 0.07, 0.04], at: [-0.15, 1.68, 1.23], base: c.deep },
+      { id: "eyeR", ...hd, face: true, prim: "box", dims: [0.12, 0.07, 0.04], at: [0.15, 1.68, 1.23], base: c.deep },
+      { id: "teethU", ...hd, face: true, prim: "box", dims: [0.34, 0.06, 0.04], at: [0, 1.42, 1.23], base: white },
+      { id: "teethL", ...hd, face: true, prim: "box", dims: [0.3, 0.06, 0.04], at: [0, 1.46 - jaw, 1.23], base: white },
+      { id: "clawL", face: true, prim: "box", dims: [0.3, 0.06, 0.06], at: [-0.66, 0, 0.66], base: c.bone },
+      { id: "clawR", face: true, prim: "box", dims: [0.3, 0.06, 0.06], at: [0.66, 0, 0.66], base: c.bone },
+    ],
+  };
+}
+
+function chimeraFull(B, H, K, v, pose, ctx) {
+  const spec = chimeraSpec({ bone: K.bone[0], bone2: K.bone2[0], dark: K.dark[0], deep: K.deep[0] }, { turn: (pose.turn ?? 0) * 0.25 + (v % 2) * 0.1, jaw: pose.jaw ?? 0.06 });
+  const a = audit(spec), base = 0.22;
+  B.push(0, 0, 0, 0, H / (base + a.height));
+  plinth(B, 0.95, base, K.plinthLo, K.plinthHi);
+  B.push(0, base, 0, -0.1 + (v % 2) * 0.06, 1);
+  const k = lockedKit(B, ctx.style, ctx.rot || 0);
+  figure(k, spec);
+  B.pop();
+  B.pop();
+  return k;
 }
 
 function bonePost(B, H, c0, c1, c2, K, v, d = {}) {
@@ -293,11 +361,13 @@ export function register(style) {
   for (const t of types) {
     const p = props[t], role = roleOf(P, t);
     const lens = P.props[t]?.summary ? lensKind(t, role) : null;
-    catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" || role === "threshold" ? false : !!p.passable, variants: 2, height: role === "lead" ? Math.min(3, Math.max(2.4, p.height || 2.5)) : role === "threshold" && lens ? Math.max(1.7, Math.min(2.4, p.height || 1)) : Math.min(2.6, Math.max(0.3, p.height || 1)) };
+    const full = /splayed low/i.test(p.pose || "");
+    catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" || role === "threshold" ? false : !!p.passable, variants: 2, height: role === "lead" ? (full ? 2.45 : Math.min(3, Math.max(2.4, p.height || 2.5))) : role === "threshold" && lens ? Math.max(1.7, Math.min(2.4, p.height || 1)) : Math.min(2.6, Math.max(0.3, p.height || 1)) };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, INK.bone), c1 = pick(tn, 1, INK.bone2), c2 = pick(tn, 2, INK.mid);
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
+      if ((role === "lead" || role === "creature") && full) { const k = chimeraFull(B, H, K, v, poseOf(p.pose), { style: st, rot }); const m = mesh(B); m.userData.parts = k.parts; return m; }
       if (role === "lead" || role === "creature") chimera(B, H, K, v, poseOf(p.pose));
       else if (lens && LENS_BUILD[lens]) LENS_BUILD[lens](B, H, v, { c0, c1, c2, d, K, gold: K.accent, glow: INK.ember });
       else if (role === "threshold") {
