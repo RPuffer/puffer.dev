@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
 import { placeGeneric } from "./multitile-place.js";
+import { BIBLE, audit, figure, lockedKit } from "../prims.js";
 
 const SKINS = {
   lounge: {
@@ -664,6 +665,79 @@ function lensLunge(B, K, v) {
   lensHead(B, K, 0.02, y0 + 0.4, 0.96, 0.46 + (v % 2) * 0.06, 0.1, 0.34, v);
 }
 
+export function wyvernSpec(c, o = {}) {
+  const ink = c.accent, white = BIBLE.white, jaw = o.jaw ?? 0.1;
+  return {
+    name: "wyvern",
+    groups: { head: { pivot: [0, 0.02], ry: o.head ?? 0 } },
+    parts: [
+      { id: "legL", prim: "chain", at: [-0.3, 0, 0.02], base: c.body, links: [
+        { dims: [0.3, 0.12, 0.44], at: [0, 0, 0.12], base: c.plate },
+        { dims: [0.22, 0.42, 0.24], at: [0, 0.12, 0], base: c.body },
+        { dims: [0.34, 0.46, 0.46], at: [0, 0.5, -0.06], base: c.body },
+      ] },
+      { id: "legR", prim: "chain", at: [0.3, 0, 0.02], base: c.body, links: [
+        { dims: [0.3, 0.12, 0.44], at: [0, 0, 0.12], base: c.plate },
+        { dims: [0.22, 0.42, 0.24], at: [0, 0.12, 0], base: c.body },
+        { dims: [0.34, 0.46, 0.46], at: [0, 0.5, -0.06], base: c.body },
+      ] },
+      { id: "tail", prim: "chain", at: [0, 0, 0], base: c.body, links: [
+        { dims: [0.4, 0.34, 0.4], at: [0.14, 0.02, -0.44], base: c.body },
+        { dims: [0.36, 0.3, 0.36], at: [0.46, 0.02, -0.66], ry: 0.7, base: c.plate },
+        { dims: [0.32, 0.27, 0.34], at: [0.8, 0.02, -0.6], ry: 1.5, base: c.body },
+        { dims: [0.28, 0.24, 0.32], at: [1.0, 0.02, -0.32], ry: 2.2, base: c.plate },
+        { dims: [0.25, 0.22, 0.3], at: [1.0, 0.02, 0.0], ry: 2.9, base: c.body },
+        { dims: [0.22, 0.2, 0.26], at: [0.86, 0.02, 0.26], ry: 3.6, base: c.plate },
+        { prim: "spike", dims: [0.2, 0.4, 0.16, -0.08], at: [0.66, 0.02, 0.4], base: c.plate },
+      ] },
+      { id: "torso", prim: "chain", at: [0, 0.9, 0], base: c.body, links: [
+        { dims: [0.7, 0.62, 0.56], at: [0, 0, -0.1], base: c.body },
+        { dims: [0.56, 0.46, 0.5], at: [0, 0.58, -0.02], base: c.body },
+      ] },
+      { id: "belly", prim: "rbox", dims: [0.4, 0.86, 0.14], at: [0, 0.98, 0.22], base: c.belly },
+      { id: "arms", prim: "chain", at: [0, 1.3, 0.28], base: c.body, links: [
+        { dims: [0.14, 0.3, 0.16], at: [-0.3, 0, 0.02], base: c.body },
+        { dims: [0.14, 0.3, 0.16], at: [0.3, 0, 0.02], base: c.body },
+      ] },
+      { id: "wingL", prim: "spike", dims: [1.1, 1.4, 0.09, -0.62], at: [-0.42, 1.24, -0.32], ry: -0.25, base: c.wing },
+      { id: "wingR", prim: "spike", dims: [1.1, 1.4, 0.09, 0.62], at: [0.42, 1.24, -0.32], ry: 0.25, base: c.wing },
+      { id: "neck", prim: "chain", at: [0, 1.88, 0], base: c.body, links: [
+        { dims: [0.4, 0.24, 0.38], at: [0, 0, -0.04], base: c.plate },
+        { dims: [0.36, 0.24, 0.36], at: [0, 0.2, 0.0], base: c.body },
+        { dims: [0.33, 0.22, 0.34], at: [0, 0.38, 0.1], base: c.plate },
+        { dims: [0.3, 0.2, 0.32], at: [0, 0.52, 0.24], base: c.body },
+      ] },
+      { id: "crest", group: "head", prim: "spike", dims: [0.96, 0.6, 0.08, 0], at: [0, 2.5, 0.16], base: c.wing },
+      { id: "head", group: "head", prim: "rbox", dims: [0.44, 0.32, 0.6], at: [0, 2.48, 0.48], base: c.body },
+      { id: "jaw", group: "head", prim: "rbox", dims: [0.34, 0.12, 0.48], at: [0, 2.36 - jaw, 0.52], base: c.belly },
+      { id: "hornL", face: true, group: "head", prim: "spike", dims: [0.08, 0.3, 0.08, -0.14], at: [-0.14, 2.8, 0.3], base: c.belly },
+      { id: "hornR", face: true, group: "head", prim: "spike", dims: [0.08, 0.3, 0.08, 0.14], at: [0.14, 2.8, 0.3], base: c.belly },
+      { id: "eyeL", face: true, group: "head", prim: "box", dims: [0.04, 0.07, 0.12], at: [-0.22, 2.62, 0.58], base: ink },
+      { id: "eyeR", face: true, group: "head", prim: "box", dims: [0.04, 0.07, 0.12], at: [0.22, 2.62, 0.58], base: ink },
+      { id: "gullet", face: true, group: "head", prim: "box", dims: [0.28, 0.06, 0.36], at: [0, 2.48 - jaw, 0.52], base: ink },
+      { id: "fangL", face: true, group: "head", prim: "box", dims: [0.05, 0.1, 0.05], at: [-0.12, 2.38, 0.78], base: white },
+      { id: "fangR", face: true, group: "head", prim: "box", dims: [0.05, 0.1, 0.05], at: [0.12, 2.38, 0.78], base: white },
+      { id: "clawL", face: true, prim: "box", dims: [0.07, 0.06, 0.07], at: [-0.3, 0, 0.38], base: white },
+      { id: "clawR", face: true, prim: "box", dims: [0.07, 0.06, 0.07], at: [0.3, 0, 0.38], base: white },
+    ],
+  };
+}
+
+const WYVERN = { body: "#e4e4e4", plate: "#7a7a7a", wing: "#a9a9a9", belly: "#f6f6f6", accent: "#303030" };
+
+function wyvern(B, H, K, lo, hi, v, ctx) {
+  const spec = wyvernSpec(WYVERN, { head: 0.1 + (v % 2) * 0.08, jaw: 0.1 });
+  const a = audit(spec), base = 0.22;
+  B.push(0, 0, 0, 0, H / (base + a.height));
+  lensBase(B, "coil", K, lo, hi, v);
+  B.push(0, base, 0, -0.2 + (v % 2) * 0.06, 1);
+  const k = lockedKit(B, ctx.style, ctx.rot || 0);
+  figure(k, spec);
+  B.pop();
+  B.pop();
+  return k;
+}
+
 const LENS_POSES = { coil: lensCoil, crouch: lensCrouch, lunge: lensLunge };
 const LENS_POSE_H = { coil: [2.6, 2.3], crouch: [2.4, 2.05], lunge: [2.2, 1.85] };
 const lensPose = (text) => (/crouch|seated|perch|squat/i.test(text) ? "crouch" : /lung|low|stalk|prowl/i.test(text) ? "lunge" : "coil");
@@ -810,13 +884,19 @@ function registerLens(P, props, types, leadT) {
   for (const t of types) {
     const p = props[t], role = p.role;
     const lead = role === "lead" || role === "creature";
-    catalog[t] = { footprint: lead ? [2, 2] : p.footprint || [1, 1], passable: lead ? false : !!p.passable, variants: 2, height: lead ? LENS_POSE_H[pose][0] : Math.min(2.6, Math.max(0.3, p.height || 1)) };
+    catalog[t] = { footprint: lead ? [2, 2] : p.footprint || [1, 1], passable: lead ? false : !!p.passable, variants: 2, height: lead ? (pose === "coil" ? 2.7 : LENS_POSE_H[pose][0]) : Math.min(2.6, Math.max(0.3, p.height || 1)) };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, K.side), c1 = pick(tn, 1, K.belly), c2 = pick(tn, 2, K.back);
     const kind = lensKind(t, role);
     const bone = /bone/i.test(t);
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
+      if (lead && pose === "coil") {
+        const k = wyvern(B, H, K, baseLo, baseHi, v, { style: { light: st?.light }, rot });
+        const m = mesh(B);
+        m.userData.parts = k.parts;
+        return m;
+      }
       if (lead) {
         B.push(0, 0, 0, 0, H / LENS_POSE_H[pose][1]);
         lensBase(B, pose, K, baseLo, baseHi, v);
