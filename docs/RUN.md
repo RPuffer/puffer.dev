@@ -627,3 +627,127 @@ Files in `out/loops/layout/` (gitignored): `wizard-before.png`, `wizard-after.pn
 | ember-subject | none | | 0.00 | 0.18 | 0 |
 
 Known: the decor loop stalls when rim density exceeds the figure court's; the generic placer lives in `3d/pieces/multitile-place-a.js` (with a `spawnGap` option) and inline in four B modules, to be unified. Sheet: `out/pass2/islands-sheet.jpg`. Card: `puffer-isoworld-pass-2-islands`.
+
+## Pass 3 tooling
+
+2026-10-06. One generic placer, the decor loop's rim stall broken, bounded terrain edits in the layout loop, loops stage 3 walks and overlays, and a figure-scale table. The island agents run the commands below; each one is safe to rerun.
+
+### Rebuild check
+
+```sh
+node tools/loops/rebuild.mjs
+node tools/loops/rebuild.mjs cat-medium,ember-subject
+node tools/loops/rebuild.mjs --ref=HEAD~1
+```
+
+`rebuild.mjs` reads each island's shaper seed from `pipeline/a-transcribe/shaped/<level>.json`, runs `build-level.mjs --art <slug> --brief pipeline/seed/concepts/<level>.json --level <level> --pieces <slug> --seed <n>` and then `decor-loop.mjs <level> --write`, and compares `levels/<level>.json` with git. It writes the levels in place, so stash or commit first. Each line reads `identical`, `placer-only` (only generic-prop decor, `pieces` entries for the multitile modules, or `palette.multitile` changed) or `differs [keys]`. `--no-decor` skips the decor loop.
+
+### Unified placer
+
+`3d/pieces/multitile-place.js` exports `placeGeneric(level, h, want, o)`, `register()` for the `-small` variants, `tint(level)`, `ROLES` and the `UNPADDED` profile. `want` takes a generic type, a role from `ROLES` (`lookout`, `trade`, `devotion`, `passage`, `labour`, `shade`, `wreck`, `water`) or an array; the placer tries every full-size type first, then each one shrunk one step (`shrink: false` turns that off). It scans flat footprints at one height off the route, ramps and their neighbours (`pad`), the figure, spawn, things, stamps, fixed decor and two cells from any multi-tile landmark, never in front of the figure, with `spawnGap`, `near`, `span`, `at` and `figGap` steering the score. A spot keeps only if reach and the approach length hold and, unless `sight: false`, the readability walk, x-ray run and taller-in-front count hold. `clear: true` removes movable blockers beside cells the prop cuts off. `look` tints the prop with hand tones; without it `tint()` takes the island's wood, dirt, stone and sand. `UNPADDED` reproduces the old B placer: no padding, 70% span, a four-diagonal cover test weighted 3, blocker clearing, no sight check.
+
+cat, chimera, dragon, swallow and wizard import it in place of `multitile-place-a.js` (deleted); gremlin, mindbloom, eagle and cosmos call it with `UNPADDED` instead of their inline `placeProp`. sharkbear, forest and ember have no generic prop and do not call it. Rebuild on the commit before the decor-loop change:
+
+| Level | Seed | Result |
+| --- | --- | --- |
+| cat-medium | 1 | identical |
+| dragon-medium | 6 | identical |
+| chimera-medium | 1 | identical |
+| wizard-medium | 1 | placer-only: `pieces` names `multitile-place.js` |
+| swallow-medium | 1 | placer-only: `pieces` names `multitile-place.js` |
+| sharkbear-medium | 8 | identical |
+| gremlin-subject | 1 | identical |
+| mindbloom-medium | 1 | identical |
+| eagle-composition | 6 | identical |
+| forest-volute | 7 | identical |
+| cosmos-frisket | 7 | identical |
+| ember-subject | 1 | identical |
+
+QA on wizard-medium, swallow-medium and gremlin-subject: 42 pass, 0 fail.
+
+### Decor loop rim stall
+
+```sh
+node tools/loops/decor-loop.mjs ember-subject
+node tools/loops/decor-loop.mjs ember-subject --write
+node tools/loops/decor-loop.mjs ember-subject --no-rim-first
+```
+
+When the greedy pass ends out of band with the rim at least as dense as the figure court and the island under its top density band, `tools/loops/rim-first.mjs` takes over. It drops rim props (singletons first, then the most crowded clusters, pairs last) until the rim sits under the court. It then adds low props (0.6 tall or less, from the island's own types plus `rock` on rock palettes) to the figure court and then the approach, one per step while the cost falls. The court ring beside the figure counts, but never the three diagonals in front of it. Then the greedy pass reruns. The whole sequence keeps only if the cost falls and reach, route length, prop fit and the x-ray run hold.
+
+Dry runs on the committed levels: chimera-medium cost 0.978 to 0.515, in band; forest-volute 0.631 to 0.500, in band; mindbloom-medium 1.210 to 0.915 (whole-island density 0.22 to 0.25, singletons 0.04 to 0.00); ember-subject 0.485 to 0.463 (rim 0.18 to 0.21, figure court 0.17 to 0.25, whole island still 0.22). cat-medium stays: every free court cell cuts reach, so the loop keeps the original. These four levels change on the next `--write` or `rebuild.mjs`; the rebuild check then reports `differs [decor]` for them.
+
+### Terrain edits in the layout loop
+
+```sh
+node tools/loops/layout-loop.mjs <level> --terrain=4
+node tools/loops/layout-loop.mjs <level> --terrain=4 --write
+```
+
+With `--terrain=N` the loop adds three moves: raise a cell by one (up to the island's top height), lower one by one (also under a single-cell prop that is not the figure), and cut a land cell beside the void to `none`. It never edits the figure court (Chebyshev 2 of the figure), a cell on the current or the starting route, a ramp end, a thing or spawn. Edited cells count against N across reruns; land area stays within 5% of the start. A terrain move must lower the cost by at least 0.02 and pass the same walk checks as every other move. In terrain mode the cost adds half the distance from the 3 to 5 district band plus each district's shortfall under 0.7 hull fill, and the loop keeps going after `done()` until those terms reach zero. Each edit lands in the level's `edits` array as `{ x, z, kind, from: { h, s }, to: { h, s } }` for the card, and the loop prints them.
+
+`levels/wizard-medium-layout.json` with `--terrain=4`, written: lower 8,6 h3 to h2 under the right gate post, spawn 1,6 to 2,6, lower 7,8 h3 to h2, cut 11,9 to void, lower 3,9 h2 to h1, ramp at 4,9 down west. Cost 3.757 to 1.258 under the terrain score.
+
+| Check | Before | After |
+| --- | --- | --- |
+| Figure seen from spawn, threshold, mid | y n n | y y y |
+| Route share seeing the figure | 64% | 77% |
+| Threshold isovist / reveal | 24% / 3% | 28% / 4% |
+| Districts, fill | 3 of 6, 0.86/0.52/0.51 | 4 of 7, 0.81/0.63/0.65/0.59 |
+| Spawn isovist | 42% | 40% |
+| Choice points | 1 | 1 |
+
+The threshold sightline passes: lowering 8,6 was the only single edit that opened it. Districts reach the 3 to 5 band, but three fills stay under 0.7, so the districts row still fails; reveal stays at 4%. QA `PP_PROFILE=.pp-profile-tooling3 node tools/qa-levels.mjs http://localhost:8765 wizard-medium-layout` 14 pass, 0 fail. Critic on `out/loops/layout/wizard-terrain.png`, 3 votes: 0 high, 0 other, $0.0186. Files in `out/loops/layout/`: `wizard-terrain.png`, `wizard-terrain.txt`, `wizard-medium-layout.before-terrain.json`, `qa-terrain.txt`, `critic-wizard-terrain.json`.
+
+### Stage 3 walks and the readability overlay
+
+```sh
+node tools/loops/walk.mjs cat-medium,wizard-medium
+PP_PROFILE=.pp-profile-<island> node tools/loops/walk.mjs <level> --live http://localhost:8765
+PP_PROFILE=.pp-profile-<island> node tools/loops/overlay.mjs <level>
+```
+
+`walk.mjs` steps the hero on `canStep` with decor, bonfire and chest blocking. The gate stays shut until the hero stands on its threshold inside the watcher's radius. Four policies: `shortest` (BFS through the threshold to the figure ring, then to the elevator), `greedy` (the neighbour nearest the figure, then the elevator, plus one per earlier visit; 150 steps), `random` (seeded, 300 steps) and `novelty` (fewest visits, then most unvisited cells within two; 300 steps). A walk ends at the elevator after the figure, or at the figure when the island has no elevator. Per level it writes `<level>-heatmap.png` (four plan panels, log visits, critical path, x-ray cells, figure), `<level>-walks.json` (critical path, trails, visits, per-policy numbers) and `<level>-walks.txt`. Time to figure comes three ways: the step the figure first enters the middle third of a 900x800 camera that follows the hero with the renderer's clamp, the step the hero first stands within three cells, and the step it reaches the ring. X-ray cells are critical-path cells with a blocking piece 1.5 or taller at the (+1,+1), (+1,0) or (0,+1) cell no lower than the hero's, the inverse of the offsets `qa-levels.mjs` probes. Dead ends are leaf region nodes off the critical path. `--seed` and `--budget` override; `--out` moves the folder. `--live` replays the shortest and greedy walks in Chrome by key, as `qa-levels.mjs` does, and counts landing cells that match.
+
+`overlay.mjs` shoots `out/loops/walks/<level>.png` at 900x800 with `hero=0` when it is missing (`--render` takes another file), then writes `<level>-overlay.png`: greedy plus novelty heat on the tiles, the critical path in blue, x-ray cells boxed red, green dots on cells seen from spawn, cluster hulls, dashed red rings on singletons, and magenta edit boxes from `edits`.
+
+| Level | Critical path | X-ray (run) | Policy | Steps | Figure third / within 3 / ring | Elevator | Backtracks | Dead-end steps |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cat-medium | 12 | 3 (3) at 5,9 4,9 4,8 | shortest | 12 | 9 / 10 / 12 | none | 0 | 0 |
+| | | | greedy | 12 | 9 / 10 / 12 | none | 0 | 0 |
+| | | | random | 218 | 25 / 26 / 218 | none | 181 | 0 |
+| | | | novelty | 170 | 11 / 12 / 170 | none | 109 | 35 |
+| wizard-medium | 20 | 6 (3) at 7,7 7,6 7,5 10,4 7,2 7,1 | shortest | 20 | never / 12 / 14 | 20 | 3 | 0 |
+| | | | greedy | 70 | never / 43 / 48 | 70 | 40 | 0 |
+| | | | random | 300 | never | never | 272 | 0 |
+| | | | novelty | 94 | never / 13 / 19 | 94 | 45 | 14 |
+
+Live replay: cat-medium shortest 12/12, greedy 12/12; wizard-medium shortest 20/20, greedy 70/70. The wizard never enters the middle third because the whole island fits the 900x800 frame, so the camera clamps to the level centre and the figure stays in the right third. The random walker on wizard-medium never opens the gate in 300 steps. Files in `out/loops/walks/` (gitignored): `cat-medium.png`, `wizard-medium.png`, and the heatmap, overlay, json and txt for each.
+
+### Figure scale
+
+```sh
+node tools/figure-scale.mjs
+node tools/figure-scale.mjs cat-medium --json
+```
+
+`figure-scale.mjs` loads each island's pieces through `hooks.loadPieces`, builds the lead alone through `buildDecor` on a flat h1 slab and the hero through `buildCharacter`, and divides bounding-box heights in world units (one tile). The box includes any plinth or dais the figure builds in. It prints the ratio beside the reference sheet's measured ratio (`height_ratio`) and target (`target_ratio`) from `pipeline/refsheets/manifest.json`, and the factor to apply to reach the target. It measures the builder only, not a render.
+
+| Island | Figure | Tiles | Catalog height | Ratio | Sheet | Target | Scale |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| cat-medium | fauvist-vocal-cat | 2.50 | 2.5 | 2.78 | 2.26 | 2.5 | x0.90 |
+| dragon-medium | graphite_wyvern_totem | 2.58 | 2.6 | 2.87 | 3.00 | 3.0 | x1.04 |
+| chimera-medium | chitin-chimera | 2.27 | 2.4 | 2.53 | 2.31 | 2.0 | x0.79 |
+| wizard-medium | Glizard the Frankfurter Mage | 3.18 | 2.45 | 3.53 | 2.35 | 2.5 | x0.71 |
+| swallow-medium | spiral-swallow | 2.73 | 2.6 | 3.03 | 1.49 | 1.5 | x0.50 |
+| sharkbear-medium | selachian-ursine-stalker | 2.66 | 2.9 | 2.96 | 3.09 | 2.5 | x0.84 |
+| gremlin-subject | synthetic-specimen-scout | 3.02 | 2.7 | 3.36 | 2.96 | 2.5 | x0.74 |
+| mindbloom-medium | dreamer-effigy | 3.03 | 2.9 | 3.37 | 2.94 | 2.5 | x0.74 |
+| eagle-composition | vigilant_raptor_totem | 4.29 | 2.6 | 4.77 | 1.79 | 1.5 | x0.31 |
+| forest-volute | volute_gilt_bird | 3.90 | 3.0 | 4.33 | 2.52 | 2.5 | x0.58 |
+| cosmos-frisket | stencil-eye | 3.10 | 3.3 | 3.45 | 3.10 | 3.0 | x0.87 |
+| ember-subject | dragon_skull_totem | 2.87 | 2.7 | 3.19 | 2.72 | 2.5 | x0.78 |
+
+Hero height 0.90 on every island. Eagle, forest and wizard build well past their catalog height (plinth, crag or hat), so their factors apply to the whole build, plinth included.
+
+Pass 3 tooling critic spend: $0.0186 over 3 calls.
