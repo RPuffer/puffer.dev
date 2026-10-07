@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
+import { placeRunThings } from "./ember.js";
 import { lockedKit } from "../prims.js";
 
 const SKINS = {
@@ -868,5 +869,6 @@ function finishLens(level, brief, h) {
   h.rampTone();
   if (L === "subject") placeLandmark(level, h, "gremlin-specimen-vat");
   if (L === "subject" && !placeGeneric(level, h, "watchtower", { ...UNPADDED, shrink: false, look: { post: "#5f7f86", postDark: "#4d6a70", plank: "#a9c3c5", shingle: "#38c9b2" } })) placeGeneric(level, h, "market-row", { ...UNPADDED, look: { stall: "#5f7f86", stallTop: "#6d8f96", awning: "#38c9b2", awningWhite: "#e4efec", crate: "#a9c3c5", pot: "#4d6a70", goods: "#e0bb53" } });
+  if (level.name === "gremlin-subject") placeRunThings(level, h, { clear: [[14, 7]], chestText: "A core token, still warm from the incubation pit." });
   h.log.push(`lens ${L}: approach ${h.approach().length}, walk ${h.walkN()}, missing ${JSON.stringify(h.reach().missing)}`);
 }
