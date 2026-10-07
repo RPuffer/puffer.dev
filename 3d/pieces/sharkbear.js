@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
+import { placeThings } from "./wizard.js";
 import { audit, figure, lockedKit } from "../prims.js";
 
 const HIDE = {
@@ -800,6 +801,7 @@ function finishLens(level, brief, h) {
   h.log.push(`lens ${lens}: walk ${h.walkN()}, posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")}`);
   if (level.name === "sharkbear-medium") placeLandmark(level, h, "sharkbear-shard-watchtower");
   if (level.name === "sharkbear-medium") pocketRamp(level, h, 13, 9, "e");
+  if (level.name === "sharkbear-medium") placeThings(level, h, { chestText: "A bristle quill, scoured off the graphite moraine." });
 }
 
 function pocketRamp(level, h, x, z, d) {

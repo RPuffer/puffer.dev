@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
+import { placeThings } from "./wizard.js";
 import { placeGeneric } from "./multitile-place.js";
 import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 
@@ -387,8 +388,9 @@ function finishLens(level, brief, h) {
   if (level.name === "swallow-medium") {
     const t = placeGeneric(level, h, "watchtower", { near: 1, span: 0.4, spawnGap: 6, at: [9, 9] });
     if (t) for (const [x, z] of h.footprint(level.decor.find((d) => d.t === t.t && d.x === t.x && d.z === t.z))) level.cells[z][x] = { h: h.cell(x, z).h, s: "stone" };
-    if (h.land(h.cell(2, 8)) && !h.blockedSet().has(h.key(2, 8))) level.spawn = [2, 8];
+    if (h.land(h.cell(3, 5)) && !h.blockedSet().has(h.key(3, 5))) level.spawn = [3, 5];
   }
+  if (level.name === "swallow-medium") placeThings(level, h, { chestText: "A parchment feather, swept loose from the windward crest." });
 }
 
 export function finish(level, brief, h) {
