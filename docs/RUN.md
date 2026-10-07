@@ -16,7 +16,8 @@ sh tools/serve.sh
 
 The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 
-- `http://localhost:8765/?level=home&seed=1` for both builds side by side
+- `http://localhost:8765/` for the start page of the run (see Start page)
+- `http://localhost:8765/compare.html?level=home&seed=1` for both builds side by side
 - `http://localhost:8765/3d/index.html?level=home&seed=1` for the 3d build alone
 - `http://localhost:8765/2d/index.html?level=home&seed=1` for the 2d build alone
 
@@ -38,7 +39,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `xray` | `0` switches off the see-through window around the hero (both builds) |
 | `t` | Freezes the wind clock at `t` seconds (3d); `hero=0` and `prefers-reduced-motion` freeze it at 0 |
 | `ui` | `0` hides the seed overlay |
-| `view` | Root page only: `both`, `3d`, or `2d` |
+| `view` | `compare.html` only: `both`, `3d`, or `2d` |
 
 ## Controls
 
@@ -831,3 +832,27 @@ Results on 2026-10-07 against the island agents' working tree: 14 pass, 0 fail, 
 | 12 | ember-subject | 12,8 | 11,7 | 11,9 | 8,4 (8,5) | 12,5 | 7,1 |
 
 Greedy walk steps to the figure (shortest in brackets): cat 14, dragon 15, chimera 11, wizard 20, swallow 20 (12), sharkbear 9, gremlin 7 (7), mindbloom 10 (10), eagle 22 (12), forest 12 (12), cosmos 20 (16), ember 12 (12). Weak: eagle's ring walk rose from 9 to 22 after its rebuild; gremlin lost nine walkable cells to its gate and chest placement; cosmos's exit walk is long (46 against 26).
+
+## Start page
+
+`index.html` at the repo root opens the run in `levels/run.json`. It shows the title, one line on the run, the controls, a Begin button, a Continue button when one is due, a tile per island in run order, and a footer link to `compare.html` (the old side-by-side page, unchanged).
+
+- **Begin** clears `isoworld:things:<island>` for every island in the run, then opens `3d/index.html?level=<first>&reset=1`.
+- **Continue** appears when localStorage holds `isoworld:things:<island>` for any island in the run. It opens `3d/index.html?level=<island>` for the last island in run order with a lit bonfire and a saved `respawn`, else the last island with any saved state. `createInteract` then spawns the hero at the respawn cell through `spawnCell()`; the start page passes no `spawn`.
+- **Tiles** link to `3d/index.html?level=<island>` with saved state kept. A tile with a lit bonfire carries an orange corner square.
+
+Thumbnails are 300x267 JPEGs in `assets/start/`, cut from the 900x800 pass-4 renders with sharp, since `out/` is git-ignored. Rebuild them after a re-render:
+
+```sh
+node -e 'const sharp=require("sharp"),fs=require("fs");for(const n of require("./levels/run.json").order){const s=["out/pass4/a","out/pass4/b","out/final"].map(d=>d+"/"+n+".png").find(f=>fs.existsSync(f));sharp(s).resize(300,267,{fit:"cover"}).jpeg({quality:82,mozjpeg:true}).toFile("assets/start/"+n+".jpg")}'
+```
+
+The page sets `window.__done` once the tiles decode:
+
+```sh
+PP_PROFILE=.pp-profile-start node tools/shot.mjs "http://localhost:8765/" out/pass5/start-1200.png 1200 800
+PP_PROFILE=.pp-profile-start node tools/shot.mjs "http://localhost:8765/" out/pass5/start-400.png 400 800
+```
+
+At 400 px wide the tiles wrap to three columns; at 900 px, four; above that, six.
+
