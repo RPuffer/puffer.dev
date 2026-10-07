@@ -27,7 +27,7 @@ export function build(I) {
   const lit = warm ? "#fff1e2" : "#ffffff", shade = warm ? "#f0a184" : "#9cc6f6", line = warm ? "#8a3f2c" : "#3f6fb0";
   const list = ballLayout(I);
   return [
-    buildBalls(I, list, { frag: FRAG, detail: 3, uniforms: { uLit: { value: color(lit) }, uShade: { value: color(shade) } }, name: "clouds-cel" }),
-    buildBalls(I, list, { frag: LINE, detail: 2, grow: 0.045, side: THREE.BackSide, uniforms: { uLine: { value: color(line) } }, name: "clouds-cel-line" }),
+    buildBalls(I, list, { frag: FRAG, detail: 2, uniforms: { uLit: { value: color(lit) }, uShade: { value: color(shade) } }, name: "clouds-cel" }),
+    buildBalls(I, list, { frag: LINE, detail: 1, grow: 0.045, side: THREE.BackSide, uniforms: { uLine: { value: color(line) } }, name: "clouds-cel-line" }),
   ];
 }

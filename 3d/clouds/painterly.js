@@ -32,7 +32,7 @@ export function build(I) {
   const t = tones(I);
   return [buildBalls(I, ballLayout(I), {
     frag: FRAG,
-    detail: 3,
+    detail: 2,
     uniforms: { uTone0: { value: color(t[0]) }, uTone1: { value: color(t[1]) }, uTone2: { value: color(t[2]) }, uTone3: { value: color(t[3]) }, uRim: { value: color(t[4]) } },
     name: "clouds-painterly",
   })];
