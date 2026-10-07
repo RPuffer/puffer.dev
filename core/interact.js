@@ -7,10 +7,33 @@ const VERB = { bonfire: ["Light the bonfire", "Rest"], chest: ["Open the chest"]
 const key = (x, z) => x + "," + z;
 const N8 = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
 
+const adjacent = (a, b) => Array.isArray(a) && Array.isArray(b) && Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) === 1;
+
+export function edgeKey(a, b) {
+  const [p, q] = a[0] < b[0] || (a[0] === b[0] && a[1] < b[1]) ? [a, b] : [b, a];
+  return p[0] + "," + p[1] + "|" + q[0] + "," + q[1];
+}
+
+export function gateEdge(t) {
+  const th = Array.isArray(t.threshold) ? t.threshold[0] : null;
+  if (Array.isArray(t.edge) && adjacent(t.edge[0], t.edge[1]) && (!th || (th[0] === t.edge[0][0] && th[1] === t.edge[0][1]) || (th[0] === t.edge[1][0] && th[1] === t.edge[1][1]))) {
+    return th && th[0] === t.edge[1][0] && th[1] === t.edge[1][1] ? [t.edge[1].slice(), t.edge[0].slice()] : [t.edge[0].slice(), t.edge[1].slice()];
+  }
+  if (!th || !Array.isArray(t.blocks)) return null;
+  const b = t.blocks.find((c) => adjacent(th, c));
+  return b ? [th.slice(), b.slice()] : null;
+}
+
+export function thingEdge(t) { return t.kind === "gate" ? t.edge || null : null; }
+
 export function normalizeThing(t) {
   const kind = t.kind || t.t;
   const out = { ...t, kind, rot: t.rot || 0, state: t.state || START[kind] };
-  if (kind === "gate") out.blocks = Array.isArray(t.blocks) && t.blocks.length ? t.blocks : [[t.x, t.z]];
+  if (kind === "gate") {
+    out.blocks = Array.isArray(t.blocks) && t.blocks.length ? t.blocks : [[t.x, t.z]];
+    const e = gateEdge(out);
+    if (e) { out.edge = e; out.threshold = [e[0]]; if (!Array.isArray(t.edge)) out.migrated = true; } else delete out.edge;
+  }
   else if (kind === "bonfire" || kind === "chest") out.blocks = [[t.x, t.z]];
   else out.blocks = [];
   if (kind === "watcher") { out.size = t.size || [1, 1]; out.radius = t.radius || 3.5; }
@@ -18,7 +41,7 @@ export function normalizeThing(t) {
 }
 
 export function thingBlocks(t) {
-  if (t.kind === "gate" && t.state === "open") return [];
+  if (t.kind === "gate" && (t.state === "open" || (t.edge && !t.hold))) return [];
   return t.blocks || [];
 }
 
@@ -39,7 +62,11 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     if (t.kind === "watcher") { t.look = 0; t.target = 0; t.met = false; }
     if (t.kind === "elevator") { t.ride = 0; t.rideDir = 0; }
   }
-  for (const t of things) if (t.kind === "gate" && t.state === "open") for (const [x, z] of t.blocks) level.blocked.delete(key(x, z));
+  const openGate = (g) => {
+    if (g.edge) level.edges?.delete(edgeKey(g.edge[0], g.edge[1]));
+    if (!g.edge || g.hold) for (const [x, z] of g.blocks) level.blocked.delete(key(x, z));
+  };
+  for (const t of things) if (t.kind === "gate" && t.state === "open") openGate(t);
 
   const listeners = new Set();
   const emit = (e) => { for (const f of listeners) f(e); };
@@ -48,7 +75,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
   let actor = null, pending = null, focus = null, toastText = "", toastT = 0, nav = null;
   const log = [];
 
-  const ui = dom && params.hero !== "0" ? mountThingsUI() : null;
+  const ui = dom && params.hero !== "0" ? mountThingsUI({ touch: params.touch === "1" }) : null;
   const toast = (text) => { toastText = text; toastT = 2.6; log.push({ toast: text }); ui?.toast(text); emit({ type: "toast", text }); };
 
   const center = (t) => t.kind === "watcher" ? [t.x + t.size[0] / 2, t.z + t.size[1] / 2] : [t.x + 0.5, t.z + 0.5];
@@ -100,9 +127,11 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     if (kind === "chest") return o.state === "open";
     if (kind === "bonfire") return o.state === "lit";
     if (kind === "watcher") {
-      if (o.look < 0.9) return false;
-      if (!Array.isArray(g.threshold) || !g.threshold.length) return true;
-      return g.threshold.some(([x, z]) => x === actor.cell[0] && z === actor.cell[1]);
+      const th = Array.isArray(g.threshold) && g.threshold.length ? g.threshold : null;
+      const on = !th || th.some(([x, z]) => x === actor.cell[0] && z === actor.cell[1]);
+      if (o.state !== "watching") g.primed = false;
+      else if (on) g.primed = true;
+      return o.look >= 0.9 && (on || !!g.primed);
     }
     return false;
   };
@@ -179,7 +208,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       for (const g of things) {
         if (g.kind !== "gate" || g.state === "open" || !gateReady(g)) continue;
         g.state = "open";
-        for (const [x, z] of g.blocks) level.blocked.delete(key(x, z));
+        openGate(g);
         save();
         emit({ type: "gate", thing: g });
       }
@@ -198,8 +227,15 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       }
       ui?.prompt(focus ? verb(focus) : "");
     },
-    dispose() { ui?.dispose(); },
+    settle() {
+      for (const t of things) if (t.kind === "elevator" && (t.rideDir || t.state !== "idle")) { t.ride = 0; t.rideDir = 0; t.state = "idle"; }
+      nav = null;
+      if (actor) { actor.locked = false; actor.path = []; actor.held = null; actor.tapDir = null; }
+    },
+    dispose() { ui?.dispose(); if (dom) removeEventListener("pageshow", onShow); },
   };
+  const onShow = (e) => { if (e.persisted) api.settle(); };
+  if (dom) addEventListener("pageshow", onShow);
   if (ui) ui.onAct(() => api.act());
   return api;
 }
@@ -217,11 +253,14 @@ function defaultNavigate(next, from, arrive) {
 const CSS = `
 .iw-prompt{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:15;display:flex;gap:8px;align-items:center;padding:7px 12px;border:0;border-radius:999px;background:rgba(24,22,30,.78);color:#f4efe4;font:13px/1.2 system-ui,sans-serif;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .iw-prompt kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;background:#f4efe4;color:#18161e;font:600 12px/16px system-ui,sans-serif;text-align:center}
-.iw-prompt[hidden],.iw-toast[hidden]{display:none}
+.iw-prompt[hidden],.iw-toast[hidden],.iw-use[hidden]{display:none}
+.iw-prompt.iw-touch{left:164px;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 112px);transform:none;max-width:calc(100vw - 180px)}
+.iw-use{position:fixed;left:164px;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 38px);z-index:15;width:60px;height:60px;border:0;border-radius:50%;background:rgba(24,22,30,.45);color:rgba(244,239,228,.75);font:700 20px/60px system-ui,sans-serif;padding:0;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.iw-use.on{background:#f5c243;color:#18161e;box-shadow:0 2px 0 rgba(24,22,30,.35)}
 .iw-toast{position:fixed;left:50%;top:max(18px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:15;padding:8px 14px;border-radius:8px;background:rgba(24,22,30,.82);color:#f4efe4;font:14px/1.3 system-ui,sans-serif;pointer-events:none;transition:opacity .25s}
 `;
 
-function mountThingsUI() {
+function mountThingsUI({ touch = false } = {}) {
   if (!document.getElementById("iw-things-css")) {
     const st = document.createElement("style");
     st.id = "iw-things-css";
@@ -236,7 +275,20 @@ function mountThingsUI() {
   toastEl.className = "iw-toast";
   toastEl.setAttribute("role", "status");
   toastEl.hidden = true;
-  document.body.append(prompt, toastEl);
+  const use = document.createElement("button");
+  use.type = "button";
+  use.className = "iw-use";
+  use.textContent = "E";
+  use.setAttribute("aria-label", "Use");
+  use.hidden = true;
+  document.body.append(prompt, toastEl, use);
+  const showTouch = () => { use.hidden = false; prompt.classList.add("iw-touch"); };
+  const coarse = matchMedia?.("(pointer: coarse)").matches || "ontouchstart" in window;
+  if (touch || coarse) showTouch();
+  const onTouch = () => showTouch();
+  addEventListener("touchstart", onTouch, { once: true, passive: true });
+  for (const ev of ["pointerdown", "pointerup", "touchstart", "touchend"]) use.addEventListener(ev, (e) => e.stopPropagation(), { passive: ev.startsWith("touch") });
+  use.addEventListener("click", (e) => { e.preventDefault(); actFn?.(); });
   let actFn = null, shown = "";
   const onKey = (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
@@ -251,15 +303,17 @@ function mountThingsUI() {
     prompt(text) {
       if (text === shown) return;
       shown = text;
+      use.classList.toggle("on", !!text);
       prompt.hidden = !text;
       prompt.innerHTML = "";
       if (!text) return;
       const k = document.createElement("kbd");
       k.textContent = "E";
-      prompt.append(k, document.createTextNode(text));
+      if (prompt.classList.contains("iw-touch")) prompt.append(document.createTextNode(text));
+      else prompt.append(k, document.createTextNode(text));
     },
     toast(text) { toastEl.hidden = !text; toastEl.textContent = text || ""; },
-    dispose() { removeEventListener("keydown", onKey); prompt.remove(); toastEl.remove(); },
+    dispose() { removeEventListener("keydown", onKey); removeEventListener("touchstart", onTouch); prompt.remove(); toastEl.remove(); use.remove(); },
   };
 }
 

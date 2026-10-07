@@ -1,5 +1,5 @@
 import { CATALOG, SURFACES, WALKABLE, blockedCells, maskCells } from "./catalog.js";
-import { THING_KINDS, normalizeThing, thingBlocks } from "./interact.js";
+import { THING_KINDS, normalizeThing, thingBlocks, thingEdge, edgeKey } from "./interact.js";
 
 export const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
 export const OPPOSITE = { n: "s", s: "n", e: "w", w: "e" };
@@ -85,7 +85,17 @@ export function prepareLevel(raw) {
     if (CATALOG[d.t].mask) for (const m of maskCells(d.t, d.x, d.z, d.rot || 0)) if (m.over != null) L.cover.set(m.x + "," + m.z, { t: d.t, over: m.over, h: m.h });
   }
   L.things = (Array.isArray(raw.things) ? raw.things : []).filter((t) => THING_KINDS.includes(t?.kind || t?.t) && t.x >= 0 && t.x < W && t.z >= 0 && t.z < D).map((t, i) => normalizeThing({ id: "t" + i, ...t }));
-  for (const t of L.things) for (const [x, z] of thingBlocks(t)) L.blocked.add(x + "," + z);
+  L.edges = new Set();
+  for (const t of L.things) {
+    for (const [x, z] of thingBlocks(t)) L.blocked.add(x + "," + z);
+    const e = thingEdge(t);
+    if (e && t.state !== "open") L.edges.add(edgeKey(e[0], e[1]));
+  }
+  for (const t of L.things) {
+    if (!t.edge || t.state === "open" || !bypassed(L, t.edge)) continue;
+    if (t.migrated) { t.hold = true; for (const [x, z] of t.blocks) L.blocked.add(x + "," + z); (L.notes ||= []).push(`gate ${t.id}: edge ${t.edge.join(" ")} has a way around, so its cell ${t.blocks.join(" ")} stays blocked while shut`); }
+    else warnings.push(`gate ${t.id}: edge ${t.edge.join(" ")} has a way around it`);
+  }
   if (!isWalkable(L, L.spawn[0], L.spawn[1])) {
     const alt = firstWalkable(L);
     warnings.push(`spawn ${L.spawn} not walkable, using ${alt}`);
@@ -102,6 +112,19 @@ export function isWalkable(L, x, z) {
   return !!c && c.h >= 1 && WALKABLE.has(c.s) && !L.blocked.has(x + "," + z);
 }
 
+function bypassed(L, [a, b]) {
+  const seen = new Set([a + ""]), q = [a];
+  while (q.length) {
+    const [x, z] = q.shift();
+    for (const [nx, nz] of neighbours(L, x, z)) {
+      if (nx === b[0] && nz === b[1]) return true;
+      const k = nx + "," + nz;
+      if (!seen.has(k)) { seen.add(k); q.push([nx, nz]); }
+    }
+  }
+  return false;
+}
+
 function firstWalkable(L) {
   for (let z = 0; z < L.size[1]; z++) for (let x = 0; x < L.size[0]; x++) if (isWalkable(L, x, z)) return [x, z];
   return null;
@@ -114,10 +137,15 @@ export function edgeHeight(c, dir) {
   return null;
 }
 
+export function edgeClosed(L, a, b) {
+  return !!L.edges?.size && L.edges.has(edgeKey(a, b));
+}
+
 export function canStep(L, x, z, dir) {
   if (!isWalkable(L, x, z)) return false;
   const [dx, dz] = DIRS[dir];
   if (!isWalkable(L, x + dx, z + dz)) return false;
+  if (edgeClosed(L, [x, z], [x + dx, z + dz])) return false;
   const a = edgeHeight(cellAt(L, x, z), dir), b = edgeHeight(cellAt(L, x + dx, z + dz), OPPOSITE[dir]);
   return a != null && b != null && a === b;
 }
