@@ -156,6 +156,8 @@ export function layoutPass(level, o = {}) {
     if (done(cur.R.m) && (!o.terrain || !shapeCost(cur.R.m))) { log.push(`stop: targets met after ${it} iterations`); break; }
     const R = cur.R, routeSet = new Set(R.route.map((c) => key(...c))), ends = rampEnds();
     const ringSet = new Set(R.ring.map((c) => key(...c)));
+    const exitT = (level.things || []).find((t) => t.kind === "elevator" && t.role === "exit");
+    const exitSet = new Set(exitT ? (bfs(prep(level), level.spawn, (x, z) => x === exitT.x && z === exitT.z).path || []).map((c) => key(...c)) : []);
     const order = (arr, salt) => arr.map((v, i) => [v, hash(seed, i, it, salt)]).sort((a, b) => a[1] - b[1]).map((e) => e[0]);
     const cands = [];
 
@@ -163,7 +165,7 @@ export function layoutPass(level, o = {}) {
       const c = cellOf(x, z);
       if (!land(c) || c.s === "ramp" || c.s === "bridge") return false;
       const k = key(x, z);
-      if (routeSet.has(k) || ringSet.has(k) || figSet.has(k) || ends.has(k) || thingAt(x, z) || decorAt(x, z).length) return false;
+      if (routeSet.has(k) || ringSet.has(k) || exitSet.has(k) || figSet.has(k) || ends.has(k) || thingAt(x, z) || decorAt(x, z).length) return false;
       if (x === level.spawn[0] && z === level.spawn[1]) return false;
       return true;
     };
@@ -183,10 +185,14 @@ export function layoutPass(level, o = {}) {
       for (const [x, z] of near.slice(0, 16)) cands.push({ kind: "relocate", desc: `${d.t} ${d.x},${d.z} -> ${x},${z}`, apply: () => { const ox = d.x, oz = d.z; d.x = x; d.z = z; return () => { d.x = ox; d.z = oz; }; } });
     }
 
+    const v = level.view || {}, pi = ((v.pitch ?? 35.264) * Math.PI) / 180, yi = ((v.yaw ?? 45) * Math.PI) / 180, tH = v.tileH ?? 1.5;
+    const camV = [Math.cos(pi) * Math.sin(yi), Math.sin(pi), Math.cos(pi) * Math.cos(yi)];
+    const facesCam = (d) => DIRS[d][0] * tH * camV[0] + camV[1] + DIRS[d][1] * tH * camV[2] > 0.05;
     level.cells.forEach((row, z) => row.forEach((c, x) => {
       if (!land(c) || c.s === "ramp" || c.s === "bridge" || c.h < 2 || figSet.has(key(x, z)) || thingAt(x, z) || decorAt(x, z).length || voidNear(x, z)) return;
       if (x === level.spawn[0] && z === level.spawn[1]) return;
       for (const [d, [dx, dz]] of Object.entries(DIRS)) {
+        if (!facesCam(d)) continue;
         const lo = cellOf(x + dx, z + dz), back = cellOf(x - dx, z - dz);
         if (!land(lo) || lo.s === "ramp" || lo.s === "bridge" || lo.h !== c.h - 1 || !land(back) || back.s === "ramp" || back.h !== c.h) continue;
         if (decorAt(x + dx, z + dz).some((e) => !CATALOG[e.t]?.passable) || decorAt(x - dx, z - dz).some((e) => !CATALOG[e.t]?.passable)) continue;

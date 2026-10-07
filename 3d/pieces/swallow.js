@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
 import { placeThings } from "./wizard.js";
+import { faceClimb, plugShadow } from "./sightline.js";
 import { placeGeneric } from "./multitile-place.js";
 import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 
@@ -390,8 +391,10 @@ function finishLens(level, brief, h) {
     if (t) for (const [x, z] of h.footprint(level.decor.find((d) => d.t === t.t && d.x === t.x && d.z === t.z))) level.cells[z][x] = { h: h.cell(x, z).h, s: "stone" };
     if (t && !h.decorAt(t.x + 1, t.z).length) h.put("lantern", t.x + 1, t.z);
     if (h.land(h.cell(3, 5)) && !h.blockedSet().has(h.key(3, 5))) level.spawn = [3, 5];
+    faceClimb(level, h, { budget: 3 });
   }
-  if (level.name === "swallow-medium") placeThings(level, h, { chest: [6, 9], chestText: "A parchment feather, swept loose from the windward crest." });
+  if (level.name === "swallow-medium") placeThings(level, h, { chestText: "A parchment feather, swept loose from the windward crest." });
+  if (level.name === "swallow-medium") plugShadow(level, h, [11, 2]);
 }
 
 export function finish(level, brief, h) {

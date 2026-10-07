@@ -118,6 +118,17 @@ export function clearFloor(level, h, cells, o = {}) {
   return dropped.length;
 }
 
+export function plugShadow(level, h, [x, z], o = {}) {
+  const c = h.cell(x, z), t = o.t || "rock";
+  if (!h.land(c) || c.s === "ramp" || c.s === "bridge" || h.isFig(x, z) || (level.things || []).some((q) => q.x === x && q.z === z) || h.decorAt(x, z).some((d) => d === h.lead || d.gapX != null)) { h.log.push(`plugShadow ${x},${z}: not free`); return false; }
+  const S0 = h.snapshot(), m0 = h.reach().missing.length, r0 = routeCells(level, h).length;
+  if (!h.put(t, x, z, { v: o.v ?? 1, axis: "z" })) { h.restore(S0); return false; }
+  const r1 = routeCells(level, h).length;
+  if (h.reach().missing.length > m0 || !r1 || (r0 && r1 > r0 + (o.detour ?? 4))) { h.restore(S0); h.log.push(`plugShadow ${t}@${x},${z} undone: route ${r0} -> ${r1}`); return false; }
+  h.log.push(`plugShadow ${t}@${x},${z}: the exit route now goes round the figure's shadow, route ${r0} -> ${r1}`);
+  return true;
+}
+
 export function moveElevator(level, h, role, [x, z]) {
   const e = (level.things || []).find((t) => t.kind === "elevator" && t.role === role);
   const c = h.cell(x, z);
