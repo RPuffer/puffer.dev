@@ -6,7 +6,12 @@ import { DIRS } from "../../core/level.js";
 import { analyse, hash, seedOf } from "../../pipeline/a-transcribe/finish-cluster.mjs";
 import { loadLevel, root } from "./lib.mjs";
 import { N4, key, prep, bfs, figureRing, leadOf, cellsOf, thingCells, roleOf } from "./graph.mjs";
-import { measure, cost, done, table } from "./layout-metrics.mjs";
+import { measure, cost as baseCost, done, table, BAND } from "./layout-metrics.mjs";
+
+export function shapeCost(m) {
+  const d = m.districts < BAND.districts[0] ? BAND.districts[0] - m.districts : m.districts > BAND.districts[1] ? m.districts - BAND.districts[1] : 0;
+  return 0.5 * d + m.fills.reduce((s, f) => s + Math.max(0, 0.7 - f), 0);
+}
 
 function xrayWindow(level) {
   const P = prep(level, { gateClosed: true }), seen = bfs(P, level.spawn).seen;
@@ -85,6 +90,7 @@ export function layoutPass(level, o = {}) {
   const anchorSpawn = (level.things || []).find((t) => (t.kind || t.t) === "bonfire") || { x: level.spawn[0], z: level.spawn[1] };
   const route0 = measure(level, { frame: false });
   const routeLim = [Math.min(9, route0.m.route), Math.max(16, route0.m.route)];
+  const cost = (m) => baseCost(m) + (o.terrain ? shapeCost(m) : 0);
   const ev = () => {
     const why = walkChecks(level, base);
     if (why) return { why };
@@ -102,6 +108,25 @@ export function layoutPass(level, o = {}) {
   const voidNear = (x, z) => N4.some(([dx, dz]) => { const q = cellOf(x + dx, z + dz); return !q || q.s === "none" || q.s === "water"; });
   const decorAt = (x, z) => level.decor.filter((d) => cellsOf(d).some(([a, b]) => a === x && b === z));
   const thingAt = (x, z) => (level.things || []).some((t) => thingCells(t).some(([a, b]) => a === x && b === z) || (t.blocks || []).some(([a, b]) => a === x && b === z) || (t.threshold || []).some(([a, b]) => a === x && b === z));
+  const budget = o.terrain || 0;
+  const landN = () => level.cells.reduce((n, row) => n + row.filter(land).length, 0);
+  const area0 = landN();
+  const route0Set = new Set(route0.route.map((c) => key(...c)));
+  const court = new Set();
+  for (const [fx, fz] of lead ? cellsOf(lead) : []) for (let a = -2; a <= 2; a++) for (let b = -2; b <= 2; b++) court.add(key(fx + a, fz + b));
+  const maxH = Math.max(...level.cells.flat().map((c) => c.h || 0));
+  const editsSet = () => new Set((level.edits || []).map((e) => key(e.x, e.z)));
+  const edit = (x, z, to, kind) => {
+    const old = level.cells[z][x], prev = level.edits;
+    const list = (prev || []).map((e) => ({ ...e }));
+    const i = list.findIndex((e) => e.x === x && e.z === z);
+    const from = i >= 0 ? list[i].from : { h: old.h, s: old.s };
+    if (i >= 0) list.splice(i, 1);
+    if (from.h !== to.h || from.s !== to.s) list.push({ x, z, kind, from, to: { h: to.h, s: to.s } });
+    level.cells[z][x] = to;
+    level.edits = list;
+    return () => { level.cells[z][x] = old; if (prev) level.edits = prev; else delete level.edits; };
+  };
   const rampEnds = () => {
     const s = new Set();
     level.cells.forEach((row, z) => row.forEach((c, x) => { if (c.s !== "ramp") return; const [dx, dz] = DIRS[c.d]; s.add(key(x + dx, z + dz)); s.add(key(x - dx, z - dz)); }));
@@ -109,7 +134,7 @@ export function layoutPass(level, o = {}) {
   };
 
   for (let it = 0; it < maxIter; it++) {
-    if (done(cur.R.m)) { log.push(`stop: targets met after ${it} iterations`); break; }
+    if (done(cur.R.m) && (!o.terrain || !shapeCost(cur.R.m))) { log.push(`stop: targets met after ${it} iterations`); break; }
     const R = cur.R, routeSet = new Set(R.route.map((c) => key(...c))), ends = rampEnds();
     const ringSet = new Set(R.ring.map((c) => key(...c)));
     const order = (arr, salt) => arr.map((v, i) => [v, hash(seed, i, it, salt)]).sort((a, b) => a[1] - b[1]).map((e) => e[0]);
@@ -154,7 +179,7 @@ export function layoutPass(level, o = {}) {
       cands.push({ kind: "ramp-", desc: `drop ramp ${x},${z}`, apply: () => { const old = level.cells[z][x]; level.cells[z][x] = { h: c.h, s: c.m || "stone" }; return () => { level.cells[z][x] = old; }; } });
     }));
     level.cells.forEach((row, z) => row.forEach((c, x) => {
-      if (c.s !== "none" && c.s !== "water") return;
+      if ((c.s !== "none" && c.s !== "water") || (level.edits || []).some((e) => e.x === x && e.z === z)) return;
       for (const [dx, dz] of [[1, 0], [0, 1]]) {
         const a = cellOf(x - dx, z - dz), b = cellOf(x + dx, z + dz);
         if (!land(a) || !land(b) || a.h !== b.h || a.s === "ramp" || b.s === "ramp" || a.s === "bridge" || b.s === "bridge") continue;
@@ -167,6 +192,22 @@ export function layoutPass(level, o = {}) {
       if (!land(c) || c.s === "ramp" || c.s === "bridge" || !voidNear(x, z) || decorAt(x, z).length || thingAt(x, z) || figSet.has(key(x, z))) continue;
       if (Math.abs(x - anchorSpawn.x) + Math.abs(z - anchorSpawn.z) > 4 || (x === level.spawn[0] && z === level.spawn[1])) continue;
       cands.push({ kind: "spawn", desc: `spawn ${level.spawn} -> ${x},${z}`, apply: () => { const old = level.spawn; level.spawn = [x, z]; return () => { level.spawn = old; }; } });
+    }
+
+    if (budget) {
+      const used = editsSet();
+      for (let z = 0; z < level.size[1]; z++) for (let x = 0; x < level.size[0]; x++) {
+        const c = cellOf(x, z), k = key(x, z);
+        if (!land(c) || c.s === "ramp" || c.s === "bridge" || court.has(k) || routeSet.has(k) || route0Set.has(k) || ends.has(k)) continue;
+        if (thingAt(x, z) || (x === level.spawn[0] && z === level.spawn[1])) continue;
+        if (!used.has(k) && used.size >= budget) continue;
+        const ds = decorAt(x, z);
+        if (ds.length && ds.every((d) => d !== lead && cellsOf(d).length === 1 && !CATALOG[d.t]?.mask) && c.h >= 2) cands.push({ kind: "lower", desc: `lower ${x},${z} h${c.h} -> h${c.h - 1} under ${ds.map((d) => d.t).join("+")}`, apply: () => edit(x, z, { ...c, h: c.h - 1 }, "lower") });
+        if (ds.length) continue;
+        if (c.h < maxH) cands.push({ kind: "raise", desc: `raise ${x},${z} h${c.h} -> h${c.h + 1}`, apply: () => edit(x, z, { ...c, h: c.h + 1 }, "raise") });
+        if (c.h >= 2) cands.push({ kind: "lower", desc: `lower ${x},${z} h${c.h} -> h${c.h - 1}`, apply: () => edit(x, z, { ...c, h: c.h - 1 }, "lower") });
+        if (voidNear(x, z) && Math.abs(area0 - (landN() - 1)) <= 0.05 * area0) cands.push({ kind: "cut", desc: `cut rim ${x},${z} to void`, apply: () => edit(x, z, { h: 0, s: "none" }, "cut") });
+      }
     }
 
     const g = (level.things || []).find((t) => (t.kind || t.t) === "gate");
@@ -198,14 +239,16 @@ export function layoutPass(level, o = {}) {
       const r = ev();
       undo();
       tried++;
-      if (r.R && r.c < cur.c - 1e-6 && (!best || r.c < best.r.c - 1e-9)) best = { cand, r };
+      const gain = ["raise", "lower", "cut"].includes(cand.kind) ? o.terrainGain ?? 0.02 : 1e-6;
+      if (r.R && r.c < cur.c - gain && (!best || r.c < best.r.c - 1e-9)) best = { cand, r };
     }
     if (!best) { log.push(`stop: no improving move among ${tried} candidates after ${it} iterations`); break; }
     best.cand.apply();
     cur = ev();
     moves.push(`${best.cand.kind}: ${best.cand.desc} (cost ${cur.c.toFixed(3)})`);
   }
-  return { before, after: cur.R.m, moves, seed, log, costBefore: cost(before), costAfter: cur.c };
+  if (budget) log.push(`terrain: ${(level.edits || []).length} of ${budget} cells edited, land ${area0} -> ${landN()}`);
+  return { before, after: cur.R.m, moves, seed, log, costBefore: cost(before), costAfter: cur.c, edits: level.edits || [] };
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
@@ -214,14 +257,17 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const flag = (k) => { const i = args.indexOf(k); if (i < 0) return false; args.splice(i, 1); return true; };
   const seedArg = opt("--seed", null), iterations = +opt("--iterations", 30), out = opt("--out", null);
   const write = flag("--write"), loops = flag("--loops");
+  const ti = args.findIndex((a) => a.startsWith("--terrain"));
+  const terrain = ti < 0 ? 0 : args[ti].includes("=") ? +args.splice(ti, 1)[0].split("=")[1] : +args.splice(ti, 2)[1];
   const name = args[0];
-  if (!name) { console.error("usage: node tools/loops/layout-loop.mjs <level> [--seed n] [--iterations 30] [--loops] [--write | --out file.json]"); process.exit(2); }
+  if (!name) { console.error("usage: node tools/loops/layout-loop.mjs <level> [--seed n] [--iterations 30] [--loops] [--terrain=4] [--write | --out file.json]"); process.exit(2); }
   const { file, level } = await loadLevel(name);
   const before = measure(level).m;
   const seed = seedArg != null ? +seedArg : seedOf(level.name || name);
-  const r = layoutPass(level, { seed, iterations, loops });
+  const r = layoutPass(level, { seed, iterations, loops, terrain });
   for (const m of r.moves) console.log("  " + m);
   console.log(r.log.join("\n"));
+  for (const e of r.edits || []) console.log(`  edit ${e.kind} ${e.x},${e.z}: h${e.from.h} ${e.from.s} -> h${e.to.h} ${e.to.s}`);
   console.log(`\nbefore  cost ${r.costBefore.toFixed(3)}\n${table(before)}\n\nafter  cost ${r.costAfter.toFixed(3)}\n${table(measure(level).m)}`);
   const dest = write ? file : out ? path.resolve(root, out) : null;
   if (dest) { fs.writeFileSync(dest, JSON.stringify(level)); console.log(`wrote ${path.relative(root, dest)} (seed ${seed})`); }
