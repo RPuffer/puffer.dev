@@ -31,6 +31,7 @@ W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch s
 | `hero` | `0` hides the hero and frames the level for reference shots |
 | `dpad` | `1` forces the d-pad |
 | `xray` | `0` turns off the see-through window around the hero |
+| `clouds` | `none` (or `0`) turns off the cloud bed every island floats on; reference shots use it |
 | `view` | Root page: `both`, `3d` or `2d` |
 
 `docs/RUN.md` lists the camera and scale parameters.

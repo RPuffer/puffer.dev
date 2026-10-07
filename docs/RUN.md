@@ -39,6 +39,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `xray` | `0` switches off the see-through window around the hero (both builds) |
 | `t` | Freezes the wind clock at `t` seconds (3d); `hero=0` and `prefers-reduced-motion` freeze it at 0 |
 | `ui` | `0` hides the seed overlay |
+| `clouds` | `none` or `0` turns off the billboard cloud bed (on by default since pass 6) |
 | `view` | `compare.html` only: `both`, `3d`, or `2d` |
 
 ## Controls
@@ -48,7 +49,7 @@ W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S do
 ## Render and compare
 
 ```sh
-node tools/shot.mjs "http://localhost:8765/3d/index.html?level=home" out/home-3d.png 351 390
+node tools/shot.mjs "http://localhost:8765/3d/index.html?level=home&clouds=none" out/home-3d.png 351 390
 node tools/compare.mjs ref/reference.png out/home-3d.png out/home-3d
 node tools/smoke.mjs "http://localhost:8765/3d/index.html?level=dev"
 ```
@@ -834,10 +835,10 @@ Greedy walk steps to the figure (shortest in brackets): cat 14, dragon 15, chime
 - **Continue** appears when localStorage holds `isoworld:things:<island>` for any island in the run. It opens `3d/index.html?level=<island>` for the last island in run order with a lit bonfire and a saved `respawn`, else the last island with any saved state. `createInteract` then spawns the hero at the respawn cell through `spawnCell()`; the start page passes no `spawn`.
 - **Tiles** link to `3d/index.html?level=<island>` with saved state kept. A tile with a lit bonfire carries an orange corner square.
 
-Thumbnails are 300x267 JPEGs in `assets/start/`, cut from the 900x800 pass-4 renders with sharp, since `out/` is git-ignored. Rebuild them after a re-render:
+Thumbnails are 300x267 JPEGs in `assets/start/`, cut from the 900x800 pass-6 cloud renders (`out/pass6/clouds-<island>.png`, hero shown) with sharp, since `out/` is git-ignored. Rebuild them after a re-render:
 
 ```sh
-node -e 'const sharp=require("sharp"),fs=require("fs");for(const n of require("./levels/run.json").order){const s=["out/pass4/a","out/pass4/b","out/final"].map(d=>d+"/"+n+".png").find(f=>fs.existsSync(f));sharp(s).resize(300,267,{fit:"cover"}).jpeg({quality:82,mozjpeg:true}).toFile("assets/start/"+n+".jpg")}'
+node -e 'const sharp=require("sharp");for(const n of require("./levels/run.json").order){sharp("out/pass6/clouds-"+n+".png").resize(300,267,{fit:"cover"}).jpeg({quality:82,mozjpeg:true}).toFile("assets/start/"+n+".jpg")}'
 ```
 
 The page sets `window.__done` once the tiles decode:
@@ -905,7 +906,7 @@ Results on the committed levels (migrated gates): `qa-ride-keys` 13 pass, 0 fail
 
 ## Clouds
 
-2026-10-07, pass 6. `?clouds=<name>` floats the island on one of six cloud techniques. Without the parameter, or with `none`, the page loads no cloud code and renders as before. `3d/main.js` awaits `loadClouds(params, style)` from `3d/clouds/index.js` before `start`, then mounts the meshes into the scene right after `start`, before the first frame. Each technique lives in `3d/clouds/<name>.js` and exports `build(island, assets, params)`; `needs` lists the assets the loader fetches first (`atlas`, `noise`), so `window.__done` waits for them.
+2026-10-07, pass 6. Six cloud techniques went on the `puffer-isoworld-clouds` card behind `?clouds=<name>`; the operator picked billboards, which are now the default on every island (see Default below). `3d/main.js` awaits `loadClouds(params, style)` from `3d/clouds/index.js` before `start`, then mounts the mesh into the scene right after `start`, before the first frame, so `window.__done` waits for the atlas. The bake-off table and measurements below stay as the record; the five losing modules are gone from the tree.
 
 | Name | Technique | Draw calls |
 | --- | --- | --- |
@@ -958,6 +959,31 @@ node out/clouds/sheet.mjs
 ```
 
 `shoot.sh` writes `out/clouds/<option>-<level>.png` at 900x800 with `hero=0` for home and ember-subject, plus `<option>-home-phone.png` at 400x800. `clips.sh` runs `tools/clip.mjs` once (about 75 s under swiftshader) for a 6 s drift clip per option and level (`<option>-<level>.mp4`). `sheet.mjs` lays the stills out as `out/clouds/options-sheet.jpg`, one row per option, with the relative frame cost in each label.
+
+### Default
+
+2026-10-07. Verdict: billboards (card `puffer-isoworld-clouds`, last line of `docs/DECISIONS.md`). Every island floats on the billboard bed with no query parameter; `?clouds=none` (or `clouds=0`) turns it off, which the reference shot under "Render and compare" and the home silhouette compare use (351x390, `MAD 23.7  NCC 0.795  silhouette 92.6%`, unchanged). `hero=0` and `t=` still freeze the drift.
+
+Deleted: `3d/clouds/volumetric.js`, `hybrid.js`, `puffs.js`, `painterly.js`, `cel.js` and the files only they used, `balls.js`, `noise.js`, `noise-bake.js`, `3d/assets/clouds/noise.mjs` and `noise64.bin`. The `wisps`, rim/under/bed and render-order switches that only hybrid used left `billboards.js`; the cloud line, `islandCell`, `hash12` and `uLight` that only the slab used left `common.js`. `tools/perf.mjs` measures `none` and `billboards` and passes `clouds=` explicitly; `out/clouds/shoot.sh`, `clips.sh` and `sheet.mjs` belong to the bake-off.
+
+Per-island tint, in `island()` of `3d/clouds/common.js`: the hue is `bg`'s chroma when `bg` carries colour (`tinted` smoothsteps sRGB saturation from 0.03 to 0.1), else a sky blue `#c7dbff` that cools toward `#9eb3ff` as `bg` darkens (`night` runs from 0 at sRGB luminance 0.28 to 1 at 0.10). The sunlit gain is `min(1, light.ambient + light.sun)` times `1 - 0.55 * night * (1 - tinted)`, so a dark neutral background dims the lit tops while a dark coloured one keeps them; the lit side still follows `light.dir`, the shade colour still mixes `bg` with the hue, and sprites still fade into `bg` with distance. Gains: cat, wizard, mindbloom, cosmos, eagle 1.00; home 0.91; ember 0.90 (warm chroma); gremlin 0.90 (teal); forest 0.90 (purple); sharkbear 0.62; swallow 0.61; dragon 0.58; chimera 0.48. Before this rule dragon, chimera, swallow and sharkbear carried white daylight cloud under a near-black sky.
+
+Visibility: `qa-visibility.mjs all --json` with clouds on against the same run with `--query clouds=none` gives the same twelve tallies (cat 15/17, wizard 26/26, swallow 23/25, forest 18/18, mindbloom 20/20, cosmos 22/23, gremlin 22/23, eagle 15/19, dragon 21/22, sharkbear 17/19, chimera 19/20, ember 17/18), no cell or landing flips, and one fraction moves: cosmos-frisket 4,10 hero 100% to 99%. The rim sprites sit at the island's bottom and the bed below it, so no route cell loses floor to a cloud and the bed was left as picked. `out/pass6/visibility-clouds.{txt,json}` and `visibility-none.{txt,json}` hold both runs.
+
+Perf, `PP_PROFILE=.pp-profile-cloudsdef-perf node tools/perf.mjs --out=out/pass6/clouds-perf.json` (swiftshader, 900x800, 300 frames):
+
+| Level | Option | ms 1x | rel 1x | ms 2x | rel 2x | Cloud calls | Cloud tris | Cloud tex MB |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| home | none | 8.6 | 1.00x | 21.4 | 1.00x | 0 | 0 | 0.0 |
+| home | billboards | 28.6 | 3.33x | 96.2 | 4.50x | 1 | 488 | 16.0 |
+| ember-subject | none | 8.5 | 1.00x | 21.5 | 1.00x | 0 | 0 | 0.0 |
+| ember-subject | billboards | 26.2 | 3.08x | 86.0 | 4.00x | 1 | 424 | 16.0 |
+
+One draw call (244 sprites on home, 212 on ember), no JavaScript per frame, no allocation. The relative cost is fill rate on the CPU rasteriser; the 60 fps and 30 fps floors need a device check, which swiftshader cannot give.
+
+QA: `PP_PROFILE=.pp-profile-cloudsdef node tools/qa.mjs http://localhost:8765` 132 pass, 0 fail (clouds on in every 3d page it opens; the home silhouette compare runs with `clouds=none`); `PP_PROFILE=.pp-profile-cloudsdef node tools/qa-ride-keys.mjs http://localhost:8765` 13 pass, 0 fail, so the elevator hops ride through the cloud bed unchanged.
+
+Stills: `out/pass6/clouds-<island>.png` (900x800, hero shown) for the twelve run islands, `clouds-cat-medium-phone.png` and `clouds-ember-subject-phone.png` at 400x800, and `node out/pass6/clouds-sheet.mjs` lays them out as `out/pass6/clouds-sheet.jpg`. The start page tiles in `assets/start/` are cut from these renders (see Start page).
 
 ## Route visibility
 
