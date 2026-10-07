@@ -25,7 +25,18 @@ export async function loadLevel(name, opts = {}) {
   let raw;
   try { raw = await res.json(); } catch (e) { throw new Error(`Level "${safe}": ${file} is not valid JSON (${e.message || e}).`); }
   if (opts.beforePrepare) await opts.beforePrepare(raw);
-  return prepareLevel(raw);
+  const L = prepareLevel(raw);
+  if (L.things.some((t) => t.kind === "elevator" && !t.run && !t.to)) L.runOrder = await loadRunOrder();
+  return L;
+}
+
+export async function loadRunOrder() {
+  try {
+    const res = await fetch(new URL("../levels/run.json", import.meta.url));
+    if (!res.ok) return null;
+    const r = await res.json();
+    return Array.isArray(r) ? r : Array.isArray(r?.order) ? r.order : null;
+  } catch { return null; }
 }
 
 export function validateLevel(L) {

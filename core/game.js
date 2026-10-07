@@ -34,7 +34,7 @@ export function start(level, renderer, { params = readParams() } = {}) {
   const proj = makeProjection(view);
   const sp = String(params.spawn || "").split(",").map(Number);
   const things = level.things?.length ? createInteract(level, { params }) : null;
-  const spawn = sp.length === 2 && isWalkable(level, sp[0], sp[1]) ? sp : things?.spawnCell() || level.spawn;
+  const spawn = sp.length === 2 && isWalkable(level, sp[0], sp[1]) ? sp : things?.arrivalCell() || things?.spawnCell() || level.spawn;
   const actor = createActor(level, spawn);
   things?.bind(actor);
   const state = { level, view, proj, actor, params, things, time: 0, frame: 0 };

@@ -76,8 +76,14 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       emit({ type: "open", thing: t });
       toast(t.text || "Found something");
     } else if (t.kind === "elevator") {
-      const run = t.run || [], i = run.indexOf(level.name);
-      t.next = t.to || (i >= 0 ? run[i + 1] : null) || null;
+      const run = t.run || level.runOrder || [], i = run.indexOf(level.name), back = t.role === "entry";
+      t.next = t.to || (i >= 0 ? run[back ? i - 1 : i + 1] : null) || null;
+      t.arrive = back ? "exit" : "entry";
+      if (!t.next && t.role) {
+        emit({ type: "stub", thing: t });
+        toast(t.stub || (back ? "The way back is sealed" : "The shaft goes no higher yet"));
+        return true;
+      }
       t.state = "rising";
       t.rideDir = 1;
       actor.path = []; actor.held = null; actor.locked = true;
@@ -108,6 +114,11 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     spawnCell() {
       if (respawn && things.some((t) => t.kind === "bonfire" && t.state === "lit") && isWalkable(level, respawn[0], respawn[1])) return respawn.slice();
       return null;
+    },
+    arrivalCell(role = params.arrive) {
+      if (role !== "entry" && role !== "exit") return null;
+      const e = things.find((t) => t.kind === "elevator" && t.role === role);
+      return e && isWalkable(level, e.x, e.z) ? [e.x, e.z] : null;
     },
     get focus() { return focus; },
     get toastText() { return toastT > 0 ? toastText : ""; },
@@ -155,7 +166,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
               t.rideDir = 0; t.state = "arrived";
               nav = t.next;
               emit({ type: "navigate", thing: t, next: t.next });
-              if (params.nav !== "0") (navigate || defaultNavigate)(t.next, level.name);
+              if (params.nav !== "0") (navigate || defaultNavigate)(t.next, level.name, t.arrive);
             } else {
               t.rideDir = -1; t.state = "returning";
               toast(t.stub || "The shaft goes no higher yet");
@@ -193,10 +204,11 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
   return api;
 }
 
-function defaultNavigate(next, from) {
+function defaultNavigate(next, from, arrive) {
   const q = new URLSearchParams(location.search);
   q.set("level", next);
   q.set("from", from);
+  if (arrive) q.set("arrive", arrive); else q.delete("arrive");
   q.delete("spawn");
   q.delete("reset");
   location.search = q.toString();
