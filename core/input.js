@@ -15,8 +15,8 @@ export function createInput(el, { dpad = "auto" } = {}) {
   const listeners = new Set();
   const emit = (intent) => { for (const f of listeners) f(intent); };
   const held = [];
-  const setHeld = () => emit({ kind: "hold", dir: held.length ? held[held.length - 1] : null });
-  const press = (d) => { if (!held.includes(d)) { held.push(d); setHeld(); } };
+  const setHeld = (press) => emit({ kind: "hold", dir: held.length ? held[held.length - 1] : null, ...(press ? { press } : {}) });
+  const press = (d) => { if (!held.includes(d)) { held.push(d); setHeld(d); } };
   const release = (d) => { const i = held.indexOf(d); if (i >= 0) { held.splice(i, 1); setHeld(); } };
 
   const onKeyDown = (e) => {
@@ -30,6 +30,7 @@ export function createInput(el, { dpad = "auto" } = {}) {
   addEventListener("keydown", onKeyDown);
   addEventListener("keyup", onKeyUp);
   addEventListener("blur", onBlur);
+  addEventListener("pagehide", onBlur);
 
   let down = null;
   const onPointerDown = (e) => { down = { x: e.clientX, y: e.clientY, t: performance.now() }; };
@@ -79,6 +80,7 @@ export function createInput(el, { dpad = "auto" } = {}) {
       removeEventListener("keydown", onKeyDown);
       removeEventListener("keyup", onKeyUp);
       removeEventListener("blur", onBlur);
+      removeEventListener("pagehide", onBlur);
       removeEventListener("touchstart", onTouch);
       el.removeEventListener("pointerdown", onPointerDown);
       el.removeEventListener("pointerup", onPointerUp);

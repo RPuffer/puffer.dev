@@ -40,9 +40,12 @@ export function start(level, renderer, { params = readParams() } = {}) {
   const state = { level, view, proj, actor, params, things, time: 0, frame: 0 };
   renderer.init?.(state);
 
-  const input = createInput(renderer.element || document.body, { dpad: params.dpad === "1" ? true : "auto" });
+  const input = createInput(renderer.element || document.body, { dpad: params.dpad === "1" || params.touch === "1" ? true : "auto" });
   input.on((it) => {
-    if (it.kind === "hold") actor.held = it.dir ? screenToWorldDir(proj, it.dir) : null;
+    if (it.kind === "hold") {
+      actor.held = it.dir ? screenToWorldDir(proj, it.dir) : null;
+      if (it.press && !actor.locked) actor.tapDir = screenToWorldDir(proj, it.press);
+    }
     if (it.kind === "tap") {
       const cell = renderer.pick?.(it.x, it.y, it.w, it.h);
       if (!cell) return;

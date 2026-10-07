@@ -11,6 +11,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
     moving: false,
     walkPhase: 0,
     held: null,
+    tapDir: null,
     locked: false,
   };
   a.y = surfaceHeight(L, a.pos.x, a.pos.z);
@@ -34,10 +35,17 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
     return true;
   };
 
+  const pull = () => {
+    if (a.path.length) return;
+    const d = a.held || a.tapDir;
+    a.tapDir = null;
+    if (d) a.stepDir(d);
+  };
+
   a.update = (dt) => {
-    if (a.locked) { a.path = []; a.moving = false; a.walkPhase = 0; return; }
+    if (a.locked) { a.path = []; a.tapDir = null; a.moving = false; a.walkPhase = 0; return; }
     let budget = a.speed * dt;
-    if (!a.path.length && a.held) a.stepDir(a.held);
+    pull();
     const wasMoving = a.path.length > 0;
     while (budget > 0 && a.path.length) {
       const [tx, tz] = a.path[0];
@@ -48,7 +56,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
         a.pos.x = gx; a.pos.z = gz; a.cell = [tx, tz];
         a.path.shift();
         budget -= d;
-        if (!a.path.length && a.held) a.stepDir(a.held);
+        pull();
       } else {
         a.pos.x += (dx / d) * budget; a.pos.z += (dz / d) * budget;
         budget = 0;
