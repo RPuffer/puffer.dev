@@ -859,7 +859,23 @@ function finishLens(level, brief, h) {
   rampTone(level, h);
   if (L === "composition") placeLandmark(level, h, "eagle-slate-eyrie");
   if (L === "composition") placeGeneric(level, h, "watchtower", { ...UNPADDED, look: { post: "#7e7a71", postDark: "#5d5a53", plank: "#b8b4aa", shingle: "#4d4b43" } });
-  if (level.name === "eagle-composition") placeRunThings(level, h, { edits: [{ x: 14, z: 2, h: 0 }, { x: 14, z: 3, h: 0 }, { x: 14, z: 4, h: 0 }], guardT: "rock-big", guards: [[14, 5], [14, 6]], chestText: "A bone-pale shale feather, scoured smooth by the west wind." });
+  if (level.name === "eagle-composition") placeRunThings(level, h, { edits: [{ x: 14, z: 2, h: 0 }, { x: 14, z: 3, h: 0 }, { x: 14, z: 4, h: 0 }], guardT: "rock-big", guards: [[14, 5], [14, 6]], gate: [10, 7], clear: [[13, 8], [12, 8], [11, 8]], chestText: "A bone-pale shale feather, scoured smooth by the west wind." });
+  if (level.name === "eagle-composition") for (const [x, z] of [[14, 6], [14, 5]]) {
+    if (!h.cell(x, z) || h.cell(x, z).h < 1 || (level.things || []).some((t) => t.x === x && t.z === z)) continue;
+    const S0 = h.snapshot(), m0 = h.reach().missing.length;
+    h.clear(x, z);
+    level.cells[z][x] = { h: 0, s: "none" };
+    if (h.reach().missing.length > m0) h.restore(S0);
+    else h.log.push(`run cut ${x},${z}`);
+  }
+  if (level.name === "eagle-composition") {
+    const w = level.things?.find((t) => t.kind === "watcher"), g = level.things?.find((t) => t.kind === "gate");
+    if (w && g?.threshold) {
+      const [tx, tz] = g.threshold[0], [sw, sd] = w.size || [1, 1];
+      w.radius = +(Math.hypot(tx + 0.5 - (w.x + sw / 2), tz + 0.5 - (w.z + sd / 2)) + 0.6).toFixed(2);
+    }
+  }
+  if (level.name === "eagle-composition") for (const [x, z] of [[13, 8], [12, 8], [11, 8]]) if (!h.decorAt(x, z).length && !(level.things || []).some((t) => t.x === x && t.z === z)) h.put("stepping-stones", x, z, { v: (x + z) % 2 });
   h.log.push(`lens ${L} posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")} approach ${h.approach().length} walk ${h.walkN()}`);
 }
 
