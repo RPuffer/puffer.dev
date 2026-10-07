@@ -2,6 +2,8 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { registerStamps, flameCrest } from "../stamps.js";
 import { placeLandmark } from "./multitile-themed-b.js";
+import { reachability } from "../../core/procgen.js";
+import { canStep, DIRS } from "../../core/level.js";
 
 const HOT = {
   coal: ["#2e1a10", "#24140b", "#170c06"],
@@ -534,6 +536,7 @@ function finishLens(level, brief, h) {
   h.rampTone();
   placeLandmark(level, h, "ember-brimstone-forge", { route: r });
   h.readability({ route: r });
+  if (level.name === "ember-subject") placeRunThings(level, h, { spawn: [11, 10], chestText: "Drake-scale ash, still glowing from the crevasse floor." });
 }
 
 export function finish(level, brief, h) {
@@ -572,4 +575,200 @@ export function finish(level, brief, h) {
   const drop = lit.sort((a, b) => dr(a) - dr(b)).slice(6);
   if (drop.length) h.removeDecor((d) => drop.includes(d));
   h.repair({ keep: [gateT] });
+}
+
+const RUN_SIDES = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+const RUN_FACE = [[0, 1], [-1, 0], [0, -1], [1, 0]];
+
+export function placeRunThings(level, h, o = {}) {
+  const key = h.key;
+  const flat = (c) => !!c && c.h >= 1 && !["none", "water", "ramp", "bridge"].includes(c.s);
+  const rampBy = (x, z) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => h.cell(x + a, z + b)?.s === "ramp");
+  if (o.spawn && h.land(h.cell(...o.spawn)) && h.cell(...o.spawn).s !== "ramp" && !h.decorAt(...o.spawn).length) { level.spawn = o.spawn.slice(); h.log.push(`run spawn ${o.spawn}`); }
+  for (const e of o.edits || []) {
+    const c = h.cell(e.x, e.z);
+    if (!c || h.isFig(e.x, e.z) || (level.edits || []).some((q) => q.x === e.x && q.z === e.z)) continue;
+    const from = { h: c.h, s: c.s }, to = { h: e.h ?? c.h, s: e.s ?? (e.h === 0 ? "none" : c.s) };
+    const m0 = h.reach().missing.length, S0 = h.snapshot();
+    if (to.s === "none") h.clear(e.x, e.z);
+    level.cells[e.z][e.x] = to.s === "none" ? { h: 0, s: "none" } : { ...c, ...to };
+    if (h.reach().missing.length > m0) { h.restore(S0); h.log.push(`run edit ${e.x},${e.z} undone`); continue; }
+    level.edits = [...(level.edits || []), { x: e.x, z: e.z, kind: to.s === "none" ? "cut" : to.h < from.h ? "lower" : "raise", from, to }];
+    h.log.push(`run edit ${e.x},${e.z} h${from.h} ${from.s} -> h${to.h} ${to.s}`);
+  }
+  const guards = o.guards || [];
+  const guardT = o.guardT;
+  if (guardT) for (const [x, z] of guards) {
+    const m0 = h.reach().missing.length, n0 = h.approach().length;
+    if (h.decorAt(x, z).length || h.isFig(x, z) || !flat(h.cell(x, z))) { h.log.push(`run guard ${x},${z} skipped`); continue; }
+    if (!h.put(guardT, x, z, { v: (x + z) % 2 })) continue;
+    if (h.reach().missing.length > m0 || h.approach().length > n0) { h.removeDecor((d) => d.t === guardT && d.x === x && d.z === z); h.log.push(`run guard ${x},${z} undone`); }
+    else h.log.push(`run guard ${guardT}@${x},${z}`);
+  }
+  for (const [x, z] of o.clear || []) { const n = h.removeDecor((d) => d.x === x && d.z === z && !h.isFig(x, z)); if (n) h.log.push(`run clear ${x},${z}`); }
+  h.repair();
+  const [sx, sz] = level.spawn;
+  const base = h.blockedSet();
+  const reachWith = (cells) => reachability({ ...level, blocked: new Set([...base, ...cells.filter(Boolean).map(([x, z]) => key(x, z))]) });
+  const missing = (r) => new Set(r.missing.map(([x, z]) => key(x, z)));
+  const open0 = reachWith([]), miss0 = missing(open0);
+  const fig = h.figure.cells;
+  const ring0 = new Set(h.figRing().map(([x, z]) => key(x, z)));
+  const walkRoute = () => {
+    const L1 = { ...level, blocked: base }, dist = new Map([[key(sx, sz), 0]]), prev = new Map(), open = [[0, sx, sz, 0, 0]];
+    while (open.length) {
+      open.sort((a, b) => a[0] - b[0]);
+      const [d, x, z, pdx, pdz] = open.shift();
+      if (d > (dist.get(key(x, z)) ?? Infinity)) continue;
+      if (ring0.has(key(x, z))) { const out = []; for (let k = key(x, z); k; k = prev.get(k)) out.unshift(k.split(",").map(Number)); return out; }
+      for (const dd of Object.keys(DIRS)) {
+        if (!canStep(L1, x, z, dd)) continue;
+        const [a, b] = DIRS[dd], X = x + a, Z = z + b;
+        const nd = d + 1 + ((pdx || pdz) && (pdx !== a || pdz !== b) ? 0.05 : 0) + (h.cell(X, Z).s === h.surf.path ? 0 : 0.01);
+        if (nd < (dist.get(key(X, Z)) ?? Infinity)) { dist.set(key(X, Z), nd); prev.set(key(X, Z), key(x, z)); open.push([nd, X, Z, a, b]); }
+      }
+    }
+    return [];
+  };
+  const route = walkRoute();
+  const onR = new Set(route.map(([x, z]) => key(x, z)));
+  const fx = fig.map((c) => c[0]), fz = fig.map((c) => c[1]);
+  const wx = Math.min(...fx), wz = Math.min(...fz), fw = Math.max(...fx) - wx + 1, fd = Math.max(...fz) - wz + 1;
+  const fc = [wx + fw / 2, wz + fd / 2];
+  const ring = h.figRing().filter(([x, z]) => !miss0.has(key(x, z)) && !base.has(key(x, z)));
+  const cutsFig = (m) => ring.length && ring.every(([x, z]) => m.has(key(x, z)));
+  const steps = (x, z) => Object.keys(DIRS).filter((d) => canStep({ ...level, blocked: base }, x, z, d));
+  const figD = (x, z) => Math.min(...fig.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
+  const md = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+  const R = o.radius || 6;
+  const gap = (x, z) => level.decor.some((q) => q.gapX === x && q.gapZ === z);
+  let G = null, gi = -1, best = Infinity, plug = [];
+  const plugOk = new Set();
+  level.cells.forEach((row, z) => row.forEach((c, x) => { if (flat(c) && !h.isFig(x, z) && !h.decorAt(x, z).length && !base.has(key(x, z)) && !onR.has(key(x, z)) && md([x, z], [sx, sz]) >= 2 && figD(x, z) >= 2 && !rampBy(x, z)) plugOk.add(key(x, z)); }));
+  const ringSet = new Set(ring.map(([x, z]) => key(x, z)));
+  const minCut = (gx, gz, cap) => {
+    const blocked = new Set([...base, key(gx, gz)]);
+    const L1 = { ...level, blocked };
+    const id = new Map(), cells = [];
+    level.cells.forEach((row, z) => row.forEach((c, x) => { if (!blocked.has(key(x, z)) && !miss0.has(key(x, z)) && c.h >= 1) { id.set(key(x, z), cells.length); cells.push([x, z]); } }));
+    const n = cells.length, S0 = 2 * n, T0 = 2 * n + 1;
+    const E = [], adj = Array.from({ length: 2 * n + 2 }, () => []);
+    const add = (u, v, c) => { adj[u].push(E.length); E.push([v, c]); adj[v].push(E.length); E.push([u, 0]); };
+    const BIG = 1e6;
+    cells.forEach(([x, z], i) => {
+      const k = key(x, z);
+      add(2 * i, 2 * i + 1, plugOk.has(k) ? 1 : BIG);
+      for (const dd of Object.keys(DIRS)) { if (!canStep(L1, x, z, dd)) continue; const [a, b] = DIRS[dd], j = id.get(key(x + a, z + b)); if (j != null) add(2 * i + 1, 2 * j, BIG); }
+      if (ringSet.has(k)) add(2 * i + 1, T0, BIG);
+    });
+    const si = id.get(key(sx, sz));
+    if (si == null) return null;
+    add(S0, 2 * si, BIG);
+    let flow = 0;
+    for (;;) {
+      const prev = new Array(2 * n + 2).fill(-1), q = [S0];
+      prev[S0] = -2;
+      for (let qi = 0; qi < q.length && prev[T0] === -1; qi++) for (const e of adj[q[qi]]) { const [v, c] = E[e]; if (c > 0 && prev[v] === -1) { prev[v] = e; q.push(v); } }
+      if (prev[T0] === -1) break;
+      let f = BIG;
+      for (let v = T0; v !== S0; v = E[prev[v] ^ 1][0]) f = Math.min(f, E[prev[v]][1]);
+      for (let v = T0; v !== S0; v = E[prev[v] ^ 1][0]) { E[prev[v]][1] -= f; E[prev[v] ^ 1][1] += f; }
+      flow += f;
+      if (flow > cap) return null;
+    }
+    const seen = new Array(2 * n + 2).fill(false), q = [S0];
+    seen[S0] = true;
+    for (let qi = 0; qi < q.length; qi++) for (const e of adj[q[qi]]) { const [v, c] = E[e]; if (c > 0 && !seen[v]) { seen[v] = true; q.push(v); } }
+    const out = [];
+    cells.forEach((c, i) => { if (seen[2 * i] && !seen[2 * i + 1]) out.push(c); });
+    return out;
+  };
+  route.forEach(([x, z], i) => {
+    const frac = i / (route.length - 1);
+    if (i < 2 || i > route.length - 2 || frac < 0.25 || frac > 0.9 || !flat(h.cell(x, z)) || figD(x, z) < 1) return;
+    const th = route[i - 1];
+    const d = Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]);
+    if (d > R + 1.5) return;
+    const p = minCut(x, z, o.maxPlugs ?? 4);
+    if (!p) return;
+    if (p.length && reachWith(p).missing.length !== open0.missing.length) return;
+    if (!cutsFig(missing(reachWith([[x, z], ...p])))) return;
+    const preR = reachWith([[x, z], ...p]), lost = missing(preR), pre = preR.reached;
+    const h0 = h.cell(sx, sz).h, climbs = level.cells.some((row, zz) => row.some((c, xx) => c.h > h0 && flat(c) && !lost.has(key(xx, zz)) && !base.has(key(xx, zz))));
+    const score = Math.abs(frac - 0.6) + 0.3 * Math.max(0, d - (R - 0.6)) + (gap(x, z) ? 0 : 0.2) + 0.25 * p.length + (pre < 14 ? 0.6 : 0) + (climbs ? 0 : 1);
+    if (score < best) { best = score; G = [x, z]; gi = i; plug = p; }
+  });
+  if (plug.length) {
+    const P = level.palette?.props || {};
+    const t = o.plug || ["rock-big", "rock"].find((q) => P[q]) || Object.keys(P).find((q) => /spire|crag|rock|boulder|stack/.test(q) && !P[q].passable) || "rock";
+    const span = G && route[gi - 1][0] !== G[0] ? "z" : "x";
+    for (const c of plug) if (h.put(t, c[0], c[1], { v: (c[0] + c[1]) % 2, axis: span })) { h.log.push(`run plug ${t}@${c}`); base.add(key(...c)); }
+  }
+  const closed0 = G ? reachWith([G]) : open0;
+  const cut = new Set([...missing(closed0)].filter((k) => !miss0.has(k)));
+  const soft = (x, z) => h.decorAt(x, z).every((d) => level.palette?.props?.[d.t]?.passable && !level.palette?.props?.[d.t]?.role?.match(/lead|threshold|light/));
+  const free = (x, z) => flat(h.cell(x, z)) && !h.isFig(x, z) && soft(x, z) && !base.has(key(x, z)) && !miss0.has(key(x, z)) && !(x === sx && z === sz) && !(G && x === G[0] && z === G[1]);
+  const near = (x, z) => Math.min(...route.map(([a, b]) => Math.abs(a - x) + Math.abs(b - z)));
+  const keeps = (cells) => reachWith(cells).missing.length === open0.missing.length && (!th || !missing(reachWith([G, ...cells])).has(key(...th)));
+  const th = gi > 0 ? route[gi - 1] : null;
+  const cand = [];
+  level.cells.forEach((row, z) => row.forEach((c, x) => { if (free(x, z) && !onR.has(key(x, z)) && !(th && x === th[0] && z === th[1])) cand.push([x, z]); }));
+  const out = [];
+  let bon = null;
+  for (const c of cand.filter((c) => md(c, [sx, sz]) <= 3 && !cut.has(key(...c)) && !rampBy(...c)).sort((a, b) => (Math.abs(md(a, [sx, sz]) - 2) - Math.abs(md(b, [sx, sz]) - 2)) || (near(...a) - near(...b)))) {
+    if (near(...c) < 1 || !keeps([c])) continue;
+    bon = c;
+    break;
+  }
+  if (bon) out.push({ id: "b1", kind: "bonfire", x: bon[0], z: bon[1], rot: 0 });
+  const idxOf = (x, z) => { let bi = 0, bd = Infinity; route.forEach(([a, b], i) => { const d = Math.abs(a - x) + Math.abs(b - z); if (d < bd) { bd = d; bi = i; } }); return bi; };
+  const want = gi > 0 ? Math.round(gi * 0.6) : Math.round(route.length / 2);
+  let chest = null;
+  for (const c of cand.filter((c) => near(...c) >= 1 && near(...c) <= 2 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => (cut.has(key(...a)) - cut.has(key(...b))) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
+    if (!keeps(bon ? [c, bon] : [c])) continue;
+    chest = c;
+    break;
+  }
+  if (chest) {
+    const r = route[idxOf(...chest)];
+    const dx = Math.sign(r[0] - chest[0]), dz = Math.sign(r[1] - chest[1]);
+    const rot = Math.max(0, RUN_FACE.findIndex(([a, b]) => a === (dz ? 0 : dx) && b === dz));
+    out.push({ id: "c1", kind: "chest", x: chest[0], z: chest[1], rot, text: o.chestText || "Something left for whoever climbs this far." });
+  }
+  const lead = level.decor.find((d) => d.x === h.figure.anchor[0] && d.z === h.figure.anchor[1] && !level.palette?.props?.[d.t]?.passable) || h.lead;
+  if (lead) {
+    const d = th ? Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) : R;
+    const radius = +Math.max(R, d + 0.6).toFixed(2);
+    lead.watch = "w1";
+    out.push({ id: "w1", kind: "watcher", x: wx, z: wz, size: [fw, fd], radius });
+    if (G) out.push({ id: "g1", kind: "gate", x: G[0], z: G[1], span: route[gi - 1][0] !== G[0] ? "z" : "x", blocks: [G], open: "watcher:w1", threshold: [th], ...(gap(G[0], G[1]) ? { frame: false, width: 1.5, height: 1.5 } : {}) });
+  }
+  const used = (x, z) => out.some((t) => t.x === x && t.z === z && t.kind !== "watcher");
+  const rimSide = (x, z) => RUN_SIDES.findIndex(([a, b]) => { const n = h.cell(x + a, z + b); return !n || n.s === "none"; });
+  const dist = new Map([[key(sx, sz), 0]]);
+  { const q = [[sx, sz]]; const L1 = { ...level, blocked: base }; for (let i = 0; i < q.length; i++) { const [x, z] = q[i]; for (const dd of Object.keys(DIRS)) { if (!canStep(L1, x, z, dd)) continue; const [a, b] = DIRS[dd], k = key(x + a, z + b); if (!dist.has(k)) { dist.set(k, dist.get(key(x, z)) + 1); q.push([x + a, z + b]); } } } }
+  const ringD = Math.min(...ring.map(([x, z]) => dist.get(key(x, z)) ?? Infinity));
+  const rim = cand.filter(([x, z]) => !used(x, z) && rimSide(x, z) >= 0);
+  const back = (s) => (s === 2 || s === 3 ? 0 : 0.5);
+  const entry = rim.filter((c) => md(c, [sx, sz]) <= 4 && !cut.has(key(...c))).sort((a, b) => (md(a, [sx, sz]) + back(rimSide(...a)) + (rampBy(...a) ? 2 : 0)) - (md(b, [sx, sz]) + back(rimSide(...b)) + (rampBy(...b) ? 2 : 0)))[0];
+  const exitScore = ([x, z]) => (cut.has(key(x, z)) ? 0 : 4) + ((dist.get(key(x, z)) ?? 0) >= ringD ? 0 : 3) + Math.abs(figD(x, z) - 2.5) + back(rimSide(x, z)) + (h.cell(x, z).s === h.surf.path ? 1 : 0) + (rampBy(x, z) ? 2 : 0);
+  const exit = rim.filter((c) => !entry || md(c, entry) > 3).filter((c) => figD(...c) >= 2).sort((a, b) => exitScore(a) - exitScore(b))[0];
+  if (exit) out.push({ id: "e2", kind: "elevator", x: exit[0], z: exit[1], rot: rimSide(...exit), role: "exit" });
+  if (entry) out.push({ id: "e1", kind: "elevator", x: entry[0], z: entry[1], rot: rimSide(...entry), role: "entry" });
+  for (const t of out) if (t.kind !== "watcher" && t.kind !== "gate") h.removeDecor((d) => d.x === t.x && d.z === t.z && d !== lead);
+  level.things = out;
+  const solid = out.filter((t) => t.kind === "bonfire" || t.kind === "chest").map((t) => [t.x, t.z]);
+  const rOpen = missing(reachWith(solid)), rClosed = missing(reachWith([G, ...solid]));
+  const ok = {
+    route: route.length,
+    gateAt: G ? +(gi / (route.length - 1)).toFixed(2) : null,
+    gateCuts: cut.size,
+    allOpen: rOpen.size === miss0.size,
+    bonfireToSpawn: bon ? md(bon, [sx, sz]) : null,
+    entryToSpawn: entry ? md(entry, [sx, sz]) : null,
+    exitGated: !!exit && rClosed.has(key(...exit)),
+    entryOpen: !!entry && !rClosed.has(key(...entry)),
+  };
+  h.log.push(`run things ${out.map((t) => `${t.kind}${t.role ? ":" + t.role : ""}@${t.x},${t.z}`).join(" ")} ${JSON.stringify(ok)}`);
+  return ok;
 }
