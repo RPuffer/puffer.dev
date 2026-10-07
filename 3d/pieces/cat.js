@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
-import { placeGeneric } from "./multitile-place-a.js";
+import { placeGeneric } from "./multitile-place.js";
 import { BIBLE, ramp, luma, hexRgb, figure, lockedKit } from "../prims.js";
 
 const FAUVE = {

@@ -5,8 +5,19 @@ import { PROPS, LOOK, register as registerFull } from "./multitile.js";
 import { stamp, registerCatalog, CATALOG } from "../../core/catalog.js";
 
 const SMALL = "-small";
-const MODULE = "pieces/multitile-place-a.js";
+const MODULE = "pieces/multitile-place.js";
 const FULL = "pieces/multitile.js";
+
+export const ROLES = {
+  lookout: ["watchtower"],
+  trade: ["market-row"],
+  devotion: ["shrine"],
+  passage: ["gatehouse"],
+  labour: ["windmill"],
+  shade: ["canopy-tree"],
+  wreck: ["shipwreck"],
+  water: ["waterfall-cliff"],
+};
 
 function small(type) {
   const p = PROPS[type], [w, d] = p.footprint, fw = Math.max(1, w - 1), fd = Math.max(1, d - 1), s = Math.min(fw / w, fd / d);
@@ -32,16 +43,18 @@ export function register(style = {}) {
   return { catalog, builders };
 }
 
-function held(level, h) {
-  const out = new Set(), add = (x, z, r) => { for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) out.add(h.key(x + a, z + b)); };
-  for (const [x, z] of h.figure.cells) add(x, z, 1);
-  add(...level.spawn, 1);
+function fixedDecor(level, h) {
   const roles = level.palette?.props || {};
-  for (const d of level.decor) {
+  return level.decor.filter((d) => d === h.lead || CATALOG[d.t]?.stamp || d.side || d.axis || ["lead", "threshold", "dais", "light"].includes(roles[d.t]?.role));
+}
+
+function held(level, h, fixed, pad) {
+  const out = new Set(), add = (x, z, r) => { for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) out.add(h.key(x + a, z + b)); };
+  for (const [x, z] of h.figure.cells) add(x, z, pad ? 1 : 0);
+  if (pad) add(...level.spawn, 1);
+  for (const d of fixed) {
     const spec = CATALOG[d.t];
-    const fixed = d === h.lead || spec?.stamp || d.side || d.axis || ["lead", "threshold", "dais", "light"].includes(roles[d.t]?.role);
-    if (!fixed) continue;
-    const r = spec?.multitile ? 2 : spec?.stamp ? 0 : 1;
+    const r = !pad ? 0 : spec?.multitile ? 2 : spec?.stamp ? 0 : 1;
     for (const [x, z] of h.footprint(d)) add(x, z, r);
   }
   for (const t of level.things || []) {
@@ -52,7 +65,7 @@ function held(level, h) {
   return out;
 }
 
-function tint(level) {
+export function tint(level) {
   const P = level.palette || {}, d = P.dirt, s = P.stone, n = P.sand, r = P.rock;
   if (!P.wood || !d || !s || !n) return;
   const sat = (c) => { const v = parseInt(String(c).slice(1), 16), q = [v >> 16 & 255, v >> 8 & 255, v & 255], hi = Math.max(...q); return hi ? (hi - Math.min(...q)) / hi : 0; };
@@ -80,13 +93,16 @@ function sight(h) {
   return r;
 }
 
-function spots(level, h, type, route, o) {
-  const spec = CATALOG[type], res = held(level, h), onR = new Set(route.map(([x, z]) => h.key(x, z)));
+const ring = (x, z, cs) => Math.min(...cs.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
+
+export function spots(level, h, type, route, o = {}) {
+  const spec = CATALOG[type], fixed = fixedDecor(level, h), pad = o.pad ?? true;
+  const res = held(level, h, fixed, pad), onR = new Set(route.map(([x, z]) => h.key(x, z)));
   const ramps = new Set();
-  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) if (h.cell(x, z)?.s === "ramp") for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) ramps.add(h.key(x + a, z + b));
+  if (pad) for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) if (h.cell(x, z)?.s === "ramp") for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) ramps.add(h.key(x + a, z + b));
+  const big = fixed.filter((d) => CATALOG[d.t]?.stamp && !CATALOG[d.t]?.passable).flatMap((d) => h.footprint(d));
   const span = route.slice(0, Math.max(1, Math.ceil(route.length * (o.span ?? 0.75))));
-  const ring = (x, z, cs) => Math.min(...cs.map(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z))));
-  const fc = h.figure.cells;
+  const fc = h.figure.cells, depth = o.hideDepth ?? 3;
   const out = [];
   for (const rot of spec.footprint[0] === spec.footprint[1] ? [0] : [0, 1]) {
     const [w, d] = rot ? [spec.footprint[1], spec.footprint[0]] : spec.footprint;
@@ -95,39 +111,48 @@ function spots(level, h, type, route, o) {
       for (let b = 0; b < d; b++) for (let a = 0; a < w; a++) cs.push([x + a, z + b]);
       const c0 = h.cell(x, z);
       if (!h.land(c0)) continue;
-      if (cs.some(([a, b]) => { const q = h.cell(a, b); return !h.land(q) || q.s === "ramp" || q.s === "bridge" || q.h !== c0.h || res.has(h.key(a, b)) || onR.has(h.key(a, b)) || ramps.has(h.key(a, b)); })) continue;
+      if (cs.some(([a, b]) => { const q = h.cell(a, b), k = h.key(a, b); return !h.land(q) || q.s === "ramp" || q.s === "bridge" || q.h !== c0.h || h.isFig(a, b) || res.has(k) || onR.has(k) || ramps.has(k); })) continue;
       if (Math.min(...cs.map(([a, b]) => ring(a, b, fc))) < (o.figGap ?? 2)) continue;
+      if (!pad && big.length && Math.min(...cs.map(([a, b]) => ring(a, b, big))) < 2) continue;
       if (o.spawnGap && cs.some(([a, b]) => Math.abs(a - level.spawn[0]) + Math.abs(b - level.spawn[1]) < o.spawnGap)) continue;
       if (cs.some(([a, b]) => fc.some(([u, v]) => a + b > u + v && Math.abs(a - b - (u - v)) <= 2))) continue;
-      const hide = route.filter(([a, b]) => cs.some(([u, v]) => u + v > a + b && u + v <= a + b + 3 && Math.abs(u - v - (a - b)) <= 1)).length;
-      const dr = Math.min(...cs.map(([a, b]) => ring(a, b, span)));
+      const hide = route.filter(([a, b]) => cs.some(([u, v]) => u + v > a + b && u + v <= a + b + depth && Math.abs(u - v - (a - b)) <= 1)).length;
+      const dr = route.length ? Math.min(...cs.map(([a, b]) => ring(a, b, span))) : 9;
       const at = o.at ? Math.min(...cs.map(([a, b]) => Math.max(Math.abs(a - o.at[0]), Math.abs(b - o.at[1])))) : 0;
       const busy = cs.reduce((s, [a, b]) => s + h.decorAt(a, b).length, 0);
-      out.push({ x, z, rot, score: hide * 2 + Math.abs(dr - (o.near ?? 2)) * 1.5 + at + busy * 0.3 });
+      out.push({ x, z, rot, score: hide * (o.hideWeight ?? 2) + Math.abs(dr - (o.near ?? 2)) * (o.nearWeight ?? 1.5) + at + busy * 0.3 });
     }
   }
   return out.sort((a, b) => a.score - b.score);
 }
 
-export function placeGeneric(level, h, type, o = {}) {
+export function placeGeneric(level, h, want, o = {}) {
   registerCatalog(registerFull().catalog);
   registerCatalog(register().catalog);
-  const route = h.approach();
-  const before = sight(h), m0 = h.reach().missing.length, len0 = route.length;
-  for (const t of [type, type + SMALL]) {
-    for (const c of spots(level, h, t, route, o)) {
+  const types = (Array.isArray(want) ? want : [want]).flatMap((t) => ROLES[t] || [t]);
+  const order = [...types, ...(o.shrink === false ? [] : types.map((t) => t + SMALL))];
+  const route = h.approach() || [];
+  const fixed = fixedDecor(level, h);
+  const before = o.sight === false ? null : sight(h), m0 = h.reach().missing.length, len0 = route.length;
+  for (const t of order) {
+    const cand = spots(level, h, t, route, o);
+    for (const c of cand) {
       const S = h.snapshot();
       if (!h.put(t, c.x, c.z, { rot: c.rot, v: 0 })) { h.restore(S); continue; }
-      const after = sight(h);
-      const ok = h.reach().missing.length <= m0 && h.approach().length === len0 && after.walks && after.xrayRun <= Math.max(3, before.xrayRun) && after.tallerInFront.length <= before.tallerInFront.length;
+      if (o.clear && h.reach().missing.length > m0) h.removeDecor((e) => e !== h.lead && !fixed.includes(e) && !CATALOG[e.t]?.stamp && !CATALOG[e.t]?.passable && h.reach().missing.some(([a, b]) => Math.abs(a - e.x) + Math.abs(b - e.z) === 1));
+      let ok = h.reach().missing.length <= m0 && (h.approach()?.length ?? 0) === len0;
+      if (ok && before) { const after = sight(h); ok = after.walks && after.xrayRun <= Math.max(3, before.xrayRun) && after.tallerInFront.length <= before.tallerInFront.length; }
       if (!ok) { h.restore(S); continue; }
-      const mod = t === type ? FULL : MODULE;
-      level.pieces = [...new Set([...(level.pieces || []), mod])];
-      tint(level);
-      h.log.push(`generic ${t} at ${c.x},${c.z} rot ${c.rot} h${h.cell(c.x, c.z).h}${t !== type ? " (footprint shrunk one step)" : ""}`);
+      const shrunk = t.endsWith(SMALL);
+      level.pieces = [...new Set([...(level.pieces || []), shrunk ? MODULE : FULL])];
+      if (o.look) level.palette.multitile = { ...level.palette.multitile, ...o.look };
+      else tint(level);
+      h.log.push(`generic ${t} at ${c.x},${c.z} rot ${c.rot} h${h.cell(c.x, c.z).h}, score ${c.score.toFixed(1)}, ${cand.length} spots${shrunk ? " (footprint shrunk one step)" : ""}`);
       return { t, ...c };
     }
   }
-  h.log.push(`generic ${type}: no flat clear footprint`);
+  h.log.push(`generic ${types.join("/")}: no flat clear footprint`);
   return null;
 }
+
+export const UNPADDED = { pad: false, span: 0.7, hideDepth: 4, hideWeight: 3, nearWeight: 1, sight: false, clear: true };

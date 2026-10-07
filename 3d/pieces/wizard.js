@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
-import { placeGeneric } from "./multitile-place-a.js";
+import { placeGeneric } from "./multitile-place.js";
 import { reachability } from "../../core/procgen.js";
 import { CATALOG } from "../../core/catalog.js";
 import { canStep, DIRS } from "../../core/level.js";
