@@ -173,45 +173,42 @@ const lensPose = (t, text = "") => /gripping|rim|coiled predator/i.test(text) ? 
 
 export function sharkbearSpec(c, o = {}) {
   const hd = { group: "head" }, open = o.open ?? 0.08;
+  const arm = (x) => [
+    { dims: [0.42, 0.18, 0.46], at: [x, 0, 0.04], base: c.dark },
+    { dims: [0.34, 0.66, 0.34], at: [x, 0.14, 0], base: c.hide },
+    { dims: [0.46, 0.56, 0.48], at: [x * 1.04, 0.78, -0.12], base: c.hide },
+  ];
+  const leg = (x) => [
+    { dims: [0.32, 0.12, 0.42], at: [x, 0, 0.06], base: c.dark },
+    { dims: [0.3, 0.32, 0.34], at: [x, 0.1, 0], base: c.hide },
+    { dims: [0.4, 0.34, 0.5], at: [x, 0.38, -0.04], base: c.hide },
+  ];
+  const teeth = [-0.3, 0.3].flatMap((x) => [0.06, 0.2, 0.34, 0.48].map((dz) => ({ prim: "spike", dims: [0.12, 0.12, 0.03], at: [x, 0, dz], ry: Math.PI / 2, base: c.white }))).concat([-0.18, -0.06, 0.06, 0.18].map((x) => ({ prim: "spike", dims: [0.1, 0.12, 0.03], at: [x, 0, 0.64], base: c.white })));
   return {
     name: "sharkbear",
-    groups: { head: { pivot: [0, 0.5], ry: o.turn ?? 0 } },
+    groups: { head: { pivot: [0, 0.6], ry: o.turn ?? 0 } },
     parts: [
-      { id: "arms", prim: "chain", at: [0, 0, 0.62], base: c.hide, links: [
-        { dims: [0.36, 0.16, 0.4], at: [-0.5, 0, 0.02], base: c.dark },
-        { dims: [0.3, 0.62, 0.3], at: [-0.5, 0.12, -0.04], base: c.hide },
-        { dims: [0.38, 0.6, 0.4], at: [-0.48, 0.7, -0.14], base: c.hide },
-        { dims: [0.36, 0.16, 0.4], at: [0.5, 0, 0.02], base: c.dark },
-        { dims: [0.3, 0.62, 0.3], at: [0.5, 0.12, -0.04], base: c.hide },
-        { dims: [0.38, 0.6, 0.4], at: [0.48, 0.7, -0.14], base: c.hide },
+      { id: "arms", prim: "chain", at: [0, 0, 0.6], base: c.hide, links: [...arm(-0.52), ...arm(0.52)] },
+      { id: "legs", prim: "chain", at: [0, 0, -0.68], base: c.hide, links: [...leg(-0.36), ...leg(0.36)] },
+      { id: "hips", prim: "rbox", dims: [0.8, 0.42, 0.62], at: [0, 0.56, -0.6], base: c.hide },
+      { id: "belly", prim: "rbox", dims: [0.7, 0.34, 0.92], at: [0, 0.6, 0.0], base: c.belly },
+      { id: "torso", prim: "rbox", dims: [0.9, 0.56, 1.0], at: [0, 0.86, -0.2], base: c.hide },
+      { id: "chest", prim: "rbox", dims: [0.78, 0.62, 0.26], at: [0, 0.74, 0.5], base: c.belly },
+      { id: "hump", prim: "rbox", dims: [1.18, 0.5, 0.78], at: [0, 1.3, 0.14], base: c.hide },
+      { id: "fin", prim: "spike", dims: [0.66, 0.62, 0.12, -0.22], at: [0, 1.8, 0.08], ry: Math.PI / 2, base: c.hide },
+      { id: "tail", prim: "chain", at: [0.3, 0, -0.62], base: c.hide, links: [3.6, 3.15, 2.7, 2.25, 1.8, 1.35].map((f, i) => ({ dims: [0.34 - i * 0.03, 0.3 - i * 0.03, 0.4], at: [0.56 * Math.sin(f), 0.74 - i * 0.14, 0.56 * Math.cos(f)], ry: Math.atan2(-Math.cos(f), Math.sin(f)), base: i % 2 ? c.dark : c.hide })).concat([[0.8, 0.62, 0.36], [0.42, 0.3, -0.12]].map(([w, h, l]) => ({ prim: "spike", dims: [w, h, 0.1, l], at: [0.56 * Math.sin(1.0), 0.02, 0.56 * Math.cos(1.0)], ry: Math.atan2(-Math.cos(1.0), Math.sin(1.0)) - Math.PI / 2, base: l > 0 ? c.hide : c.dark }))) },
+      { id: "head", ...hd, prim: "rbox", dims: [0.74, 0.5, 0.74], at: [0, 0.98, 1.0], base: c.hide },
+      { id: "snout", ...hd, prim: "wedge", dims: [0.56, 0.38, 0.62], at: [0, 1.06, 1.64], base: c.hide },
+      { id: "jaw", ...hd, prim: "rbox", dims: [0.56, 0.2, 0.98], at: [0, 0.82 - open, 1.3], base: c.belly },
+      { id: "mouth", ...hd, face: true, prim: "chain", at: [0, 1.0 - open, 1.06], base: c.accent, links: [
+        { prim: "box", dims: [0.58, 0.1, 0.8], at: [0, 0, 0.22], base: c.accent },
+        ...teeth,
       ] },
-      { id: "legs", prim: "chain", at: [0, 0, -0.62], base: c.hide, links: [
-        { dims: [0.3, 0.12, 0.38], at: [-0.34, 0, 0.06], base: c.dark },
-        { dims: [0.34, 0.44, 0.38], at: [-0.34, 0.1, 0], base: c.hide },
-        { dims: [0.3, 0.12, 0.38], at: [0.34, 0, 0.06], base: c.dark },
-        { dims: [0.34, 0.44, 0.38], at: [0.34, 0.1, 0], base: c.hide },
+      { id: "eyes", ...hd, face: true, prim: "chain", at: [0, 1.22, 1.24], base: c.accent, links: [
+        { prim: "box", dims: [0.04, 0.08, 0.14], at: [-0.38, 0, 0], base: c.accent },
+        { prim: "box", dims: [0.04, 0.08, 0.14], at: [0.38, 0, 0], base: c.accent },
       ] },
-      { id: "hips", prim: "rbox", dims: [0.74, 0.42, 0.56], at: [0, 0.5, -0.6], base: c.hide },
-      { id: "belly", prim: "rbox", dims: [0.66, 0.34, 0.86], at: [0, 0.66, 0.02], base: c.belly },
-      { id: "torso", prim: "rbox", dims: [0.86, 0.5, 1.0], at: [0, 0.88, -0.2], base: c.hide },
-      { id: "chest", prim: "rbox", dims: [0.8, 0.6, 0.24], at: [0, 0.66, 0.5], base: c.belly },
-      { id: "hump", prim: "rbox", dims: [1.12, 0.56, 0.72], at: [0, 1.3, 0.12], base: c.hide },
-      { id: "fin", prim: "spike", dims: [0.66, 0.62, 0.12, -0.22], at: [0, 1.86, 0.06], ry: Math.PI / 2, base: c.hide },
-      { id: "tail", prim: "chain", at: [0.36, 0, -0.56], base: c.hide, links: [3.6, 3.15, 2.7, 2.25, 1.8, 1.35].map((f, i) => ({ dims: [0.34 - i * 0.03, 0.3 - i * 0.03, 0.4], at: [0.5 * Math.sin(f), 0.74 - i * 0.14, 0.5 * Math.cos(f)], ry: Math.atan2(-Math.cos(f), Math.sin(f)), base: i % 2 ? c.dark : c.hide })).concat([{ prim: "spike", dims: [0.64, 0.5, 0.08, 0.28], at: [0.5 * Math.sin(1.0), 0.02, 0.5 * Math.cos(1.0)], ry: Math.atan2(-Math.cos(1.0), Math.sin(1.0)) - Math.PI / 2, base: c.hide }]) },
-      { id: "head", ...hd, prim: "rbox", dims: [0.7, 0.46, 0.8], at: [0, 0.72, 1.0], base: c.hide },
-      { id: "snout", ...hd, prim: "wedge", dims: [0.64, 0.4, 0.56], at: [0, 0.78, 1.5], base: c.hide },
-      { id: "jaw", ...hd, prim: "rbox", dims: [0.6, 0.16, 0.92], at: [0, 0.58 - open, 1.22], base: c.belly },
-      { id: "mouth", ...hd, face: true, prim: "chain", at: [0, 0.72 - open, 1.26], base: c.accent, links: [
-        { prim: "box", dims: [0.62, 0.06, 0.8], at: [0, 0, 0], base: c.accent },
-        { prim: "box", dims: [0.58, 0.05, 0.06], at: [0, 0.03, 0.38], base: c.white },
-        { prim: "box", dims: [0.04, 0.05, 0.62], at: [-0.31, 0.03, 0.06], base: c.white },
-        { prim: "box", dims: [0.04, 0.05, 0.62], at: [0.31, 0.03, 0.06], base: c.white },
-      ] },
-      { id: "eyes", ...hd, face: true, prim: "chain", at: [0, 0.98, 1.22], base: c.accent, links: [
-        { prim: "box", dims: [0.04, 0.1, 0.14], at: [-0.34, 0, 0], base: c.accent },
-        { prim: "box", dims: [0.04, 0.1, 0.14], at: [0.34, 0, 0], base: c.accent },
-      ] },
-      { id: "gills", ...hd, face: true, prim: "chain", at: [0, 0.78, 0.74], base: c.accent, links: [-0.36, 0.36].flatMap((x) => [0, 0.09, 0.18].map((dz) => ({ prim: "box", dims: [0.03, 0.26, 0.03], at: [x, 0, dz], base: c.accent }))) },
+      { id: "gills", ...hd, face: true, prim: "chain", at: [0, 1.04, 0.82], base: c.accent, links: [-0.38, 0.38].flatMap((x) => [0, 0.1, 0.2].map((dz) => ({ prim: "box", dims: [0.04, 0.3, 0.04], at: [x, 0, dz], base: c.accent }))) },
     ],
   };
 }
@@ -229,7 +226,7 @@ function sharkbearFull(B, H, look, v, ctx) {
   const body = live ? { ...spec, parts: spec.parts.filter((p) => p.group !== "head") } : spec;
   const k = into(B, (b) => {
     const kk = lockedKit(b, ctx.style, ctx.rot || 0), part = kk.part;
-    kk.part = (id, meta, fn) => id === "fin" ? b.sway("crown", { amp: 0.035, root: [0, 1.86, 0.06], span: 0.62 }, () => part(id, meta, fn)) : part(id, meta, fn);
+    kk.part = (id, meta, fn) => id === "fin" ? b.sway("crown", { amp: 0.035, root: [0, 1.8, 0.08], span: 0.62 }, () => part(id, meta, fn)) : part(id, meta, fn);
     figure(kk, body);
     return kk;
   });
