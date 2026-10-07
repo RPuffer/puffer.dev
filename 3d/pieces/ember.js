@@ -733,7 +733,8 @@ export function placeRunThings(level, h, o = {}) {
   let chest = null;
   const radW = th ? Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6 : R;
   const outside = (c) => Math.hypot(c[0] + 0.5 - fc[0], c[1] + 0.5 - fc[1]) > radW + 1.5;
-  for (const c of cand.filter((c) => outside(c) && near(...c) >= 1 && near(...c) <= 2 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => (cut.has(key(...a)) - cut.has(key(...b))) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
+  if (o.chest && free(...o.chest) && !cut.has(key(...o.chest)) && keeps(bon ? [o.chest, bon] : [o.chest])) chest = o.chest.slice();
+  if (!chest) for (const c of cand.filter((c) => outside(c) && near(...c) >= 1 && near(...c) <= 2 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => (cut.has(key(...a)) - cut.has(key(...b))) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
     if (!keeps(bon ? [c, bon] : [c], 2)) continue;
     chest = c;
     break;
