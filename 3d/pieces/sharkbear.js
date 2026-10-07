@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
+import { audit, figure, lockedKit } from "../prims.js";
 
 const HIDE = {
   back: ["#5b7091", "#4a5c79", "#3a4860"],
@@ -168,6 +169,64 @@ const LENS_POSE = {
   turn: { skin: "dusk", o: { hump: 0.95, headYaw: 0.85, tilt: 0.2, open: 0.26, curl: -1 } },
 };
 const lensPose = (t, text = "") => /gripping|rim|coiled predator/i.test(text) ? "grip" : /turned toward|toward (the )?approach|facing camera/i.test(text) ? "turn" : /stalking quadruped|angled|down left|three-quarters down/i.test(text) ? "prowl" : null;
+
+export function sharkbearSpec(c, o = {}) {
+  const hd = { group: "head" }, open = o.open ?? 0.08;
+  return {
+    name: "sharkbear",
+    groups: { head: { pivot: [0, 0.46], ry: o.turn ?? 0 } },
+    parts: [
+      { id: "fore", prim: "chain", at: [0, 0, 0.4], base: c.side, links: [
+        { dims: [0.36, 0.14, 0.4], at: [-0.36, 0, 0.04], base: c.dark },
+        { dims: [0.3, 0.66, 0.32], at: [-0.36, 0.1, 0], base: c.side },
+        { dims: [0.36, 0.14, 0.4], at: [0.36, 0, 0.04], base: c.dark },
+        { dims: [0.3, 0.66, 0.32], at: [0.36, 0.1, 0], base: c.side },
+      ] },
+      { id: "hind", prim: "chain", at: [0, 0, -0.42], base: c.side, links: [
+        { dims: [0.3, 0.3, 0.32], at: [-0.36, 0, 0], base: c.dark },
+        { dims: [0.38, 0.46, 0.5], at: [-0.38, 0.26, -0.04], base: c.side },
+        { dims: [0.3, 0.3, 0.32], at: [0.36, 0, 0], base: c.dark },
+        { dims: [0.38, 0.46, 0.5], at: [0.38, 0.26, -0.04], base: c.side },
+      ] },
+      { id: "belly", prim: "rbox", dims: [0.62, 0.14, 0.96], at: [0, 0.6, -0.04], base: c.belly },
+      { id: "body", prim: "rbox", dims: [0.94, 0.56, 1.12], at: [0, 0.68, -0.08], base: c.side },
+      { id: "hips", prim: "rbox", dims: [0.78, 0.26, 0.56], at: [0, 1.24, -0.42], base: c.back },
+      { id: "shoulders", prim: "rbox", dims: [1.0, 0.5, 0.62], at: [0, 1.16, 0.18], base: c.back },
+      { id: "fin", prim: "spike", dims: [0.56, 0.5, 0.1, -0.16], at: [0, 1.66, 0.06], ry: Math.PI / 2, base: c.fin },
+      { id: "tail", prim: "chain", at: [0, 0, 0], base: c.side, links: [
+        { dims: [0.34, 0.3, 0.34], at: [0.16, 0.74, -0.72], base: c.side },
+        { dims: [0.3, 0.26, 0.32], at: [0.38, 0.52, -0.86], ry: 0.6, base: c.back },
+        { dims: [0.27, 0.22, 0.3], at: [0.6, 0.32, -0.8], ry: 1.2, base: c.side },
+        { dims: [0.24, 0.18, 0.28], at: [0.76, 0.16, -0.56], ry: 1.9, base: c.back },
+        { dims: [0.22, 0.14, 0.28], at: [0.82, 0.06, -0.26], ry: 2.6, base: c.side },
+        { dims: [0.2, 0.12, 0.26], at: [0.8, 0.02, 0.04], ry: 3.0, base: c.back },
+        { prim: "spike", dims: [0.56, 0.46, 0.08, 0.24], at: [0.78, 0.02, 0.32], ry: 1.4, base: c.fin },
+      ] },
+      { id: "head", ...hd, prim: "rbox", dims: [0.58, 0.42, 0.6], at: [0, 0.82, 0.74], base: c.skull },
+      { id: "snout", ...hd, prim: "wedge", dims: [0.5, 0.3, 0.42], at: [0, 0.9, 1.22], base: c.skull },
+      { id: "jaw", ...hd, prim: "rbox", dims: [0.48, 0.12, 0.7], at: [0, 0.72 - open, 0.86], base: c.belly },
+      { id: "mouth", ...hd, face: true, prim: "box", dims: [0.44, 0.05, 0.6], at: [0, 0.84 - open, 0.9], base: c.accent },
+      { id: "eyeL", ...hd, face: true, prim: "box", dims: [0.04, 0.08, 0.08], at: [-0.3, 1.04, 0.92], base: c.accent },
+      { id: "eyeR", ...hd, face: true, prim: "box", dims: [0.04, 0.08, 0.08], at: [0.3, 1.04, 0.92], base: c.accent },
+      { id: "gillL", ...hd, face: true, prim: "box", dims: [0.04, 0.2, 0.04], at: [-0.3, 0.9, 0.58], base: c.dark },
+      { id: "gillR", ...hd, face: true, prim: "box", dims: [0.04, 0.2, 0.04], at: [0.3, 0.9, 0.58], base: c.dark },
+    ],
+  };
+}
+
+function sharkbearFull(B, H, look, v, ctx) {
+  const K = SKINS.graphite, c = { side: K.side[0], back: K.back[0], dark: K.dark[0], belly: K.belly[0], skull: K.skull[0], fin: K.fin[0], accent: "#3c3c3c" };
+  const spec = sharkbearSpec(c, { turn: 0.35 + (v % 2) * 0.1, open: 0.08 });
+  const a = audit(spec), base = 0.22;
+  B.push(0, 0, 0, 0, H / (base + a.height));
+  plinth(B, 1.0, base, look.plinthLo, look.plinthHi);
+  B.push(0, base, 0, -0.25 + (v % 2) * 0.06, 1);
+  const k = lockedKit(B, ctx.style, ctx.rot || 0);
+  figure(k, spec);
+  B.pop();
+  B.pop();
+  return k;
+}
 
 function stalker(B, H, look, v, lp) {
   const L = LENS_POSE[lp];
@@ -370,11 +429,12 @@ export function register(style) {
     const lead = role === "lead";
     const lp = lead ? lensPose(t, p.pose || "") : null;
     const lk = lead ? null : lensKind(t, role);
-    catalog[t] = { footprint: lead ? [2, 2] : p.footprint || [1, 1], passable: lead ? false : !!p.passable, variants: 2, height: lp ? 2.9 : lead ? LEAD_H[poseOf(t)] : Math.min(2.6, Math.max(0.3, p.height || 1)) };
+    catalog[t] = { footprint: lead ? [2, 2] : p.footprint || [1, 1], passable: lead ? false : !!p.passable, variants: 2, height: lp === "prowl" ? 2.7 : lp ? 2.9 : lead ? LEAD_H[poseOf(t)] : Math.min(2.6, Math.max(0.3, p.height || 1)) };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, HIDE.dark), c1 = pick(tn, 1, HIDE.belly), c2 = pick(tn, 2, HIDE.back);
     builders[t] = (v, rot, st, ctx) => {
       const B = new Baker(), H = ctx.height, d = ctx.decor || {};
+      if (lp === "prowl") { const k = sharkbearFull(B, H, look, v, { style: st, rot }); const m = mesh(B); m.userData.parts = k.parts; return m; }
       if (lp) stalker(B, H, look, v, lp);
       else if (lead) beast(B, t, H, look, v);
       else if (lk) LENS_BUILD[lk](B, H, v, { c0, c1, c2, d, t });
