@@ -5,7 +5,7 @@ import { placeLandmark } from "./multitile-themed-b.js";
 import { reachability } from "../../core/procgen.js";
 import { CATALOG } from "../../core/catalog.js";
 import { canStep, DIRS } from "../../core/level.js";
-import { sealGate } from "./wizard.js";
+import { sealGate, backEntry, entryWalk, floorClear } from "./wizard.js";
 
 const HOT = {
   coal: ["#2e1a10", "#24140b", "#170c06"],
@@ -540,6 +540,7 @@ function finishLens(level, brief, h) {
   h.readability({ route: r });
   if (level.name === "ember-subject" && h.cell(11, 2)?.s === "sand" && h.cell(11, 3)?.s === "ramp") { h.clear(11, 2); h.put("stepping-stones", 11, 2, { v: 0 }); }
   if (level.name === "ember-subject") placeRunThings(level, h, { spawn: [12, 8], chestText: "Drake-scale ash, still glowing from the crevasse floor." });
+  if (level.name === "ember-subject") { backEntry(level, h); floorClear(level, h, entryWalk(level, h)); }
 }
 
 export function finish(level, brief, h) {
