@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
+import { placeRunThings } from "./ember.js";
 
 const INK = {
   coat: ["#5b4a45", "#463833", "#322724"],
@@ -858,6 +859,7 @@ function finishLens(level, brief, h) {
   rampTone(level, h);
   if (L === "composition") placeLandmark(level, h, "eagle-slate-eyrie");
   if (L === "composition") placeGeneric(level, h, "watchtower", { ...UNPADDED, look: { post: "#7e7a71", postDark: "#5d5a53", plank: "#b8b4aa", shingle: "#4d4b43" } });
+  if (level.name === "eagle-composition") placeRunThings(level, h, { edits: [{ x: 14, z: 2, h: 0 }, { x: 14, z: 3, h: 0 }, { x: 14, z: 4, h: 0 }], chestText: "A bone-pale shale feather, scoured smooth by the west wind." });
   h.log.push(`lens ${L} posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")} approach ${h.approach().length} walk ${h.walkN()}`);
 }
 
