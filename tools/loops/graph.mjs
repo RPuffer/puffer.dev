@@ -1,5 +1,6 @@
 import { CATALOG, WALKABLE, blockedCells, maskCells } from "../../core/catalog.js";
 import { DIRS, canStep } from "../../core/level.js";
+import { edgeKey } from "../../core/interact.js";
 
 export const TILE = 1.5;
 export const N4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
@@ -34,14 +35,14 @@ export function prep(level, o = {}) {
   const [W, D] = level.size;
   const cell = (x, z) => (x >= 0 && z >= 0 && x < W && z < D ? level.cells[z][x] : null);
   const land = (c) => !!c && c.h >= 1 && c.s !== "none" && c.s !== "water";
-  const blocked = new Set();
+  const blocked = new Set(), edges = new Set();
   for (const d of level.decor) if (CATALOG[d.t] && d.t !== "waterfall") for (const [a, b] of blockedCells(d)) blocked.add(key(a, b));
   for (const t of level.things || []) {
     const kind = t.kind || t.t;
-    if (kind === "gate") { if (o.gateClosed) for (const [a, b] of t.blocks || [[t.x, t.z]]) blocked.add(key(a, b)); }
+    if (kind === "gate") { if (o.gateClosed) { if (Array.isArray(t.edge)) edges.add(edgeKey(t.edge[0], t.edge[1])); else for (const [a, b] of t.blocks || [[t.x, t.z]]) blocked.add(key(a, b)); } }
     else if (kind === "bonfire" || kind === "chest") blocked.add(key(t.x, t.z));
   }
-  const L = { ...level, blocked };
+  const L = { ...level, blocked, edges };
   const walkable = (x, z) => { const c = cell(x, z); return !!c && c.h >= 1 && WALKABLE.has(c.s) && !blocked.has(key(x, z)); };
   const step = (x, z, dx, dz) => canStep(L, x, z, DIR_OF(dx, dz));
   const walk = [];

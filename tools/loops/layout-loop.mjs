@@ -127,6 +127,25 @@ export function layoutPass(level, o = {}) {
     level.edits = list;
     return () => { level.cells[z][x] = old; if (prev) level.edits = prev; else delete level.edits; };
   };
+  const leaks = () => {
+    const ring = figureRing(level, prep(level), lead), seen = bfs(prep(level, { gateClosed: true }), level.spawn).seen;
+    return ring.some(([x, z]) => seen.has(key(x, z)));
+  };
+  const sealEdge = (g, flanks, from) => {
+    const added = [];
+    if (!leaks()) return added;
+    const old = level.decor.find((d) => d.gapX == null && cellsOf(d).length === 1 && CATALOG[d.t] && !CATALOG[d.t].passable && N4.some(([dx, dz]) => d.x === from[0] + dx && d.z === from[1] + dz));
+    const t = old?.t || "rock";
+    for (const [a, b] of flanks) {
+      const c = cellOf(a, b);
+      if (!land(c) || c.s === "ramp" || c.s === "bridge" || figSet.has(key(a, b)) || thingAt(a, b) || decorAt(a, b).length) continue;
+      const d = { t, x: a, z: b, v: 0, rot: 0 };
+      level.decor.push(d);
+      added.push(d);
+      if (!leaks()) break;
+    }
+    return added;
+  };
   const rampEnds = () => {
     const s = new Set();
     level.cells.forEach((row, z) => row.forEach((c, x) => { if (c.s !== "ramp") return; const [dx, dz] = DIRS[c.d]; s.add(key(x + dx, z + dz)); s.add(key(x - dx, z - dz)); }));
@@ -224,11 +243,14 @@ export function layoutPass(level, o = {}) {
         const flanks = axis === "z" ? [[x - 1, z, -1], [x + 1, z, 1]] : [[x, z - 1, -1], [x, z + 1, 1]];
         const okFlank = ([a, b]) => { const q = cellOf(a, b); return land(q) && q.s !== "ramp" && q.s !== "bridge" && q.h === c.h && !routeSet.has(key(a, b)) && !figSet.has(key(a, b)) && !thingAt(a, b) && decorAt(a, b).every((e) => posts.includes(e)); };
         if (posts.length && !flanks.every(okFlank)) return;
-        cands.push({ kind: "gate", desc: `gate ${gc} -> ${x},${z} span ${axis === "z" ? "x" : "z"}, threshold ${p}`, apply: () => {
-          const snap = { x: g.x, z: g.z, blocks: g.blocks, threshold: g.threshold, span: g.span }, ps = posts.map((d) => ({ d, x: d.x, z: d.z, side: d.side, axis: d.axis, gapX: d.gapX, gapZ: d.gapZ }));
+        const isEdge = Array.isArray(g.edge);
+        cands.push({ kind: "gate", desc: `gate ${isEdge ? g.edge.join(" | ") : gc} -> ${isEdge ? `${p} | ${x},${z}` : `${x},${z}`} span ${axis === "z" ? "x" : "z"}, threshold ${p}`, apply: () => {
+          const snap = { x: g.x, z: g.z, blocks: g.blocks, threshold: g.threshold, span: g.span, edge: g.edge }, ps = posts.map((d) => ({ d, x: d.x, z: d.z, side: d.side, axis: d.axis, gapX: d.gapX, gapZ: d.gapZ }));
           Object.assign(g, { x, z, blocks: [[x, z]], threshold: [p.slice()], span: axis === "z" ? "x" : "z" });
+          if (isEdge) g.edge = [p.slice(), [x, z]];
           posts.slice(0, 2).forEach((d, j) => Object.assign(d, { x: flanks[j][0], z: flanks[j][1], side: flanks[j][2], axis, gapX: x, gapZ: z }));
-          return () => { Object.assign(g, snap); for (const s of ps) Object.assign(s.d, { x: s.x, z: s.z, side: s.side, axis: s.axis, gapX: s.gapX, gapZ: s.gapZ }); };
+          const plugs = isEdge ? sealEdge(g, flanks, gc) : [];
+          return () => { for (const d of plugs) level.decor.splice(level.decor.indexOf(d), 1); if (snap.edge) g.edge = snap.edge; Object.assign(g, { x: snap.x, z: snap.z, blocks: snap.blocks, threshold: snap.threshold, span: snap.span }); for (const s of ps) Object.assign(s.d, { x: s.x, z: s.z, side: s.side, axis: s.axis, gapX: s.gapX, gapZ: s.gapZ }); };
         } });
       });
     }
