@@ -4,6 +4,7 @@ import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
 import { register as registerA } from "./forest-a.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
+import { placeRunThings } from "./ember.js";
 import { neighbours } from "../../core/level.js";
 
 const INK = {
@@ -552,6 +553,7 @@ export function finish(level, brief, h) {
     if (aspect === "volute") closeBypass(level, h);
     if (aspect === "volute") placeLandmark(level, h, "forest-gilt-gazebo");
     if (aspect === "volute") placeGeneric(level, h, "shade", { ...UNPADDED, look: { trunk: "#c98a6a", root: "#b0705a", leaf: "#8fc7a2", leafDeep: "#72ab86", leafTop: "#e8c25a" } });
+    if (level.name === "forest-volute") placeRunThings(level, h, { chestText: "A gilt volute snipped from the parterre hedge, still curling." });
     return;
   }
   if (brief.lens) return finishLens(level, brief, h);
