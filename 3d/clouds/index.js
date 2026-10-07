@@ -1,23 +1,17 @@
 import { island } from "./common.js";
+import { build, loadAtlas } from "./billboards.js";
 
-const KINDS = ["billboards", "volumetric", "puffs", "hybrid", "painterly", "cel"];
+export const cloudsOff = (params) => params.clouds === "none" || params.clouds === "0";
 
 export async function loadClouds(params, style) {
-  const kind = params.clouds;
-  if (!kind || kind === "none") return null;
-  if (!KINDS.includes(kind)) { console.error(`[clouds] unknown technique ${kind}; try ${KINDS.join(", ")}`); return null; }
-  const mod = await import(`./${kind}.js`);
-  const assets = {};
-  if (mod.needs?.includes("atlas")) assets.atlas = await (await import("./billboards.js")).loadAtlas();
-  if (mod.needs?.includes("noise")) assets.noise = await (await import("./noise.js")).loadNoise();
+  if (cloudsOff(params)) return null;
+  const atlas = await loadAtlas();
   return {
-    kind,
+    kind: "billboards",
     mount(renderer, state) {
-      const I = island(state, style);
-      const built = mod.build(I, assets, params);
-      const { objects, targets = [] } = Array.isArray(built) ? { objects: built } : built;
+      const objects = build(island(state, style), atlas);
       for (const o of objects) renderer.three.scene.add(o);
-      window.__clouds = { kind, objects, targets };
+      window.__clouds = { kind: "billboards", objects };
       return objects;
     },
   };

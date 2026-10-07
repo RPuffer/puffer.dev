@@ -8,7 +8,7 @@ const opt = (k, d) => { const i = args.findIndex((a) => a === k || a.startsWith(
 const BASE = opt("--base", "http://localhost:8765").replace(/\/$/, "");
 const W = +opt("--w", 900), H = +opt("--h", 800);
 const MIN_HERO = +opt("--min-hero", 0.3), MIN_FLOOR = +opt("--min-floor", 0.3), MAX_GAP = +opt("--max-gap", 1);
-const jsonOut = opt("--json", null);
+const jsonOut = opt("--json", null), QUERY = opt("--query", "");
 const names = (args[0] || "").split(",").filter(Boolean);
 if (!names.length || names[0] === "all") {
   const run = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8"));
@@ -28,7 +28,7 @@ async function probe(name) {
   await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
   const problems = [];
   page.on("pageerror", (e) => problems.push(e.message));
-  await page.goto(`${BASE}/3d/index.html?level=${name}&reset=1&ui=0&nav=0`);
+  await page.goto(`${BASE}/3d/index.html?level=${name}&reset=1&ui=0&nav=0${QUERY ? "&" + QUERY : ""}`);
   const ok = await page.waitForFunction(() => window.__done || window.__error, { timeout: 30000, polling: 100 }).then(() => page.evaluate(() => !window.__error)).catch(() => false);
   if (!ok) { await page.close(); return { name, error: problems[0] || "page did not load" }; }
   const res = await page.evaluate(async (MIN_HERO, MIN_FLOOR, MAX_GAP) => {

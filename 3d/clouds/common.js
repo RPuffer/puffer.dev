@@ -19,17 +19,11 @@ export function island(state, style) {
     else continue;
     x0 = Math.min(x0, x); x1 = Math.max(x1, x + 1); z0 = Math.min(z0, z); z1 = Math.max(z1, z + 1);
   }
-  const H = THREE.DataUtils.toHalfFloat, CTOP = BASE + 0.5 * T + 0.25;
-  const ctopOf = (x, z) => { const k = occ[z * W + x], c = L.cells[z][x]; if (k === 2) return c.h * T - 0.25; const b = c.h * T - DEPTH - Math.max(0, c.h - F) * T; return Math.min(b + 0.5 * T + 0.25, c.h * T - 0.2); };
-  let cmin = CTOP, cmax = CTOP;
+  const H = THREE.DataUtils.toHalfFloat;
   for (let z = -1; z <= D; z++) for (let x = -1; x <= W; x++) {
     const o = ((z + 1) * (W + 2) + x + 1) * 4, k = x >= 0 && z >= 0 && x < W && z < D ? occ[z * W + x] : 0, c = k ? L.cells[z][x] : null;
     const top = k === 1 ? c.h * T : k === 2 ? c.h * T - 0.1 : VOID, bot = k === 1 ? top - DEPTH - Math.max(0, c.h - F) * T : k === 2 ? top - 0.2 : VOID;
-    let ct = Infinity;
-    for (let dz = -2; dz <= 2; dz++) for (let dx = -2; dx <= 2; dx++) { const X = x + dx, Z = z + dz; if (X >= 0 && Z >= 0 && X < W && Z < D && occ[Z * W + X]) ct = Math.min(ct, ctopOf(X, Z)); }
-    if (!isFinite(ct)) ct = CTOP;
-    cmin = Math.min(cmin, ct); cmax = Math.max(cmax, ct);
-    data[o] = H(top); data[o + 1] = H(bot); data[o + 2] = H(k ? 1 : 0); data[o + 3] = H(ct);
+    data[o] = H(top); data[o + 1] = H(bot); data[o + 2] = H(k ? 1 : 0); data[o + 3] = H(0);
   }
   const tex = new THREE.DataTexture(data, W + 2, D + 2, THREE.RGBAFormat, THREE.HalfFloatType);
   tex.magFilter = tex.minFilter = THREE.LinearFilter;
@@ -46,14 +40,18 @@ export function island(state, style) {
   const l = style.light?.dir ? style.light.dir.clone() : new THREE.Vector3(...PACK_DIR).normalize();
   const bg = new THREE.Color(style.bg);
   const srgb = bg.clone().convertLinearToSRGB(), mx = Math.max(srgb.r, srgb.g, srgb.b, 1e-3);
-  const sat = mx - Math.min(srgb.r, srgb.g, srgb.b);
-  const hue = sat > 0.06 ? new THREE.Color(srgb.r / mx, srgb.g / mx, srgb.b / mx).convertSRGBToLinear() : new THREE.Color(0.78, 0.86, 1);
+  const sat = mx - Math.min(srgb.r, srgb.g, srgb.b), lum = 0.299 * srgb.r + 0.587 * srgb.g + 0.114 * srgb.b;
+  const night = THREE.MathUtils.clamp((0.28 - lum) / 0.18, 0, 1), tinted = THREE.MathUtils.smoothstep(sat, 0.03, 0.1);
+  const chroma = new THREE.Color(srgb.r / mx, srgb.g / mx, srgb.b / mx);
+  const hue = new THREE.Color(0.78, 0.86, 1).lerp(new THREE.Color(0.62, 0.7, 1), night).lerp(chroma, Math.max(tinted, 0.5 * night)).convertSRGBToLinear();
+  const exposure = style.light ? Math.min(1, style.light.ambient + style.light.sun) : 1;
+  const gain = exposure * (1 - 0.55 * night * (1 - tinted));
   const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2, radius = Math.hypot(x1 - x0, z1 - z0) / 2;
   const dir = new THREE.Vector3(...state.proj.dir);
   const right = new THREE.Vector3(...state.proj.right), up = new THREE.Vector3(...state.proj.up);
   return {
     L, T, W, D, occ, tex, rim, center: new THREE.Vector2(cx, cz), radius, box: { x0, x1, z0, z1 },
-    base: BASE, ctop: [cmin, cmax], light: l, styleLight: style.light || null, bg, hue, dark: (srgb.r + srgb.g + srgb.b) / 3 < 0.35, dir, right, up,
+    base: BASE, light: l, bg, hue, gain, night, dir, right, up,
     lightScreen: new THREE.Vector2(l.dot(right), l.dot(up)).normalize(),
     bottomAt(x, z) { const X = Math.floor(x), Z = Math.floor(z); return X >= 0 && Z >= 0 && X < W && Z < D && occ[Z * W + X] ? bottom(X, Z) : BASE; },
     occupied(x, z) { const X = Math.floor(x), Z = Math.floor(z); return X >= 0 && Z >= 0 && X < W && Z < D && occ[Z * W + X] > 0; },
@@ -70,7 +68,6 @@ export function uniformsFor(I) {
     uRadius: { value: I.radius },
     uBg: { value: I.bg },
     uHue: { value: I.hue },
-    uLight: { value: I.light },
     uLightScreen: { value: I.lightScreen },
     uBase: { value: I.base },
   };
@@ -84,14 +81,11 @@ uniform vec2 uCenter;
 uniform float uRadius;
 uniform vec3 uBg;
 uniform vec3 uHue;
-uniform vec3 uLight;
 uniform vec2 uLightScreen;
 uniform float uBase;
 vec4 islandAt(vec2 xz) { return texture2D(uIsland, (xz + 1.0) / (uGrid + 2.0)); }
-vec4 islandCell(vec2 xz) { ivec2 c = ivec2(floor(xz)) + 1; c = clamp(c, ivec2(0), ivec2(uGrid) + 1); return texelFetch(uIsland, c, 0); }
 float fogAt(vec2 xz) { return smoothstep(uRadius + 1.5, uRadius + 9.0, distance(xz, uCenter)); }
 float fadeAt(vec2 xz) { return 1.0 - smoothstep(uRadius + 6.0, uRadius + 11.0, distance(xz, uCenter)); }
-float hash12(vec2 p) { vec3 q = fract(vec3(p.xyx) * 0.1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
 `;
 
 export function scatter(I, rng, { count, inner, outer, yMin, yMax, minGap = 0, avoid = true }) {

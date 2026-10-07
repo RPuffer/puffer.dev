@@ -74,19 +74,16 @@ const pick = (meta, kinds, r) => {
   return ids[Math.min(ids.length - 1, Math.floor(r * ids.length))];
 };
 
-export function spriteLayout(I, meta, { rim = true, under = true, bed = true, wisps = false, density = 1 } = {}) {
+export function layout(I, meta) {
   const rng = I.rng("billboards"), out = [], B = I.base, T = I.T;
-  if (rim) for (const p of rimPoints(I, rng, { every: 1, outset: 0.75 })) out.push({ x: p.x, y: p.bot + 0.1 + rng() * 0.25 * T, z: p.z, s: 2.2 + rng() * 0.8, tile: pick(meta, wisps ? ["wisp", "flat"] : ["tuft", "flat"], rng()), alpha: wisps ? 0.75 : 0.95 });
-  if (under) for (const p of underPoints(I, rng, { step: 2.2, y0: B - 1.7, y1: B - 0.7 })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.2 + rng() * 1.2, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
-  if (bed) {
-    for (const p of scatter(I, rng, { count: Math.round(70 * density), inner: I.radius * 0.75, outer: I.radius + 5, yMin: B - 1.2, yMax: B + 0.1, minGap: 1.1 })) out.push({ x: p.x, y: p.y, z: p.z, s: 2.6 + rng() * 1.4, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
-    for (const p of scatter(I, rng, { count: Math.round(70 * density), inner: I.radius + 3, outer: I.radius + 11, yMin: B - 2.2, yMax: B - 0.6, minGap: 1.8 })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.6 + rng() * 2, tile: pick(meta, ["flat", "tuft"], rng()), alpha: 1 });
-  }
-  if (wisps) for (const p of rimPoints(I, rng, { every: 2, outset: 1.1, jitter: 0.6 })) out.push({ x: p.x, y: p.bot + 0.35 + rng() * 0.35 * T, z: p.z, s: 1.8 + rng() * 0.9, tile: pick(meta, ["wisp"], rng()), alpha: 0.6 });
+  for (const p of rimPoints(I, rng, { every: 1, outset: 0.75 })) out.push({ x: p.x, y: p.bot + 0.1 + rng() * 0.25 * T, z: p.z, s: 2.2 + rng() * 0.8, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 0.95 });
+  for (const p of underPoints(I, rng, { step: 2.2, y0: B - 1.7, y1: B - 0.7 })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.2 + rng() * 1.2, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
+  for (const p of scatter(I, rng, { count: 70, inner: I.radius * 0.75, outer: I.radius + 5, yMin: B - 1.2, yMax: B + 0.1, minGap: 1.1 })) out.push({ x: p.x, y: p.y, z: p.z, s: 2.6 + rng() * 1.4, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
+  for (const p of scatter(I, rng, { count: 70, inner: I.radius + 3, outer: I.radius + 11, yMin: B - 2.2, yMax: B - 0.6, minGap: 1.8 })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.6 + rng() * 2, tile: pick(meta, ["flat", "tuft"], rng()), alpha: 1 });
   return out;
 }
 
-export function buildSprites(I, atlas, list, { gain = 1, order = 2 } = {}) {
+export function buildSprites(I, atlas, list, gain) {
   list.sort((a, b) => depthOf(I, a) - depthOf(I, b));
   const geo = new THREE.PlaneGeometry(1, 1);
   const data = new Float32Array(list.length * 4);
@@ -106,13 +103,11 @@ export function buildSprites(I, atlas, list, { gain = 1, order = 2 } = {}) {
     depthWrite: false,
   });
   mesh.frustumCulled = false;
-  mesh.renderOrder = order;
+  mesh.renderOrder = 2;
   mesh.name = "clouds-billboards";
   return mesh;
 }
 
-export function build(I, assets) {
-  return [buildSprites(I, assets.atlas, spriteLayout(I, assets.atlas.meta), { gain: I.dark ? 0.92 : 1 })];
+export function build(I, atlas) {
+  return [buildSprites(I, atlas, layout(I, atlas.meta), I.gain)];
 }
-
-export const needs = ["atlas"];

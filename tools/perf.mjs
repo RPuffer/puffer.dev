@@ -6,7 +6,7 @@ const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const base = args.base || "http://localhost:8765";
 const levels = (args.levels || "home,ember-subject").split(",");
-const options = (args.options || "none,billboards,volumetric,puffs,hybrid,painterly,cel").split(",");
+const options = (args.options || "none,billboards").split(",");
 const frames = +(args.frames || 300);
 const [W, H] = (args.size || "900x800").split("x").map(Number);
 const dprs = (args.dpr || "1,2").split(",").map(Number);
@@ -48,7 +48,6 @@ const measure = (n) => {
       for (const u of Object.values(m.uniforms || {})) texBytes(u.value);
     }
   });
-  for (const rt of window.__clouds?.targets || []) bytes += rt.width * rt.height * (rt.texture.type === 1016 ? 8 : 4);
   return { mean: t.reduce((a, c) => a + c, 0) / n, median: sorted[n >> 1], p95: sorted[Math.floor(n * 0.95)], calls: info.calls, tris: info.triangles, texMB: bytes / 1048576, cloudObjects: window.__clouds?.objects.length || 0 };
 };
 
@@ -63,7 +62,7 @@ try {
       page.on("pageerror", (e) => errors.push(String(e)));
       page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
       await page.setViewport({ width: W, height: H, deviceScaleFactor: dpr });
-      await page.goto(`${base}/3d/index.html?level=${level}&hero=0&ui=0${opt === "none" ? "" : "&clouds=" + opt}${extra}`, { waitUntil: "load" });
+      await page.goto(`${base}/3d/index.html?level=${level}&hero=0&ui=0&clouds=${opt}${extra}`, { waitUntil: "load" });
       await page.waitForFunction(() => window.__done || window.__error, { timeout: 120000 });
       const r = await page.evaluate(measure, frames);
       if (errors.length) console.error(level, opt, errors.join("\n"));
