@@ -74,9 +74,10 @@ export function analyse(level, o = {}) {
   };
   const blocked = new Set();
   for (const d of level.decor) if (CATALOG[d.t] && d.t !== "waterfall") for (const [a, b] of blockedCells(d)) blocked.add(key(a, b));
+  const things = (level.things || []).filter((t) => t.x != null);
+  for (const t of things) if (t.kind === "bonfire" || t.kind === "chest") blocked.add(key(t.x, t.z));
   const L = { ...level, blocked };
   const reach = reachability(L);
-  const things = (level.things || []).filter((t) => t.x != null);
   const thingSet = new Set(things.flatMap(thingCells).map((c) => key(...c)));
 
   const walk = [];
