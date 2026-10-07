@@ -1593,14 +1593,40 @@ function finishR5(level, brief, h, lens) {
   h.log.push(`r5 ${lens}: approach ${h.approach({ walkOnly: true }).length}, walk ${h.walkN()}, gate ${g}`);
 }
 
+function moveExit(level, h, [x, z], rot, open) {
+  const e = (level.things || []).find((t) => t.kind === "elevator" && t.role === "exit");
+  const c = h.cell(x, z);
+  if (!e || !c || c.h < 1 || ["none", "water", "ramp", "bridge"].includes(c.s) || h.isFig(x, z) || (level.things || []).some((t) => t !== e && t.x === x && t.z === z)) return;
+  const S0 = h.snapshot(), m0 = h.reach().missing.length;
+  h.removeDecor((d) => d.x === x && d.z === z);
+  if (open && h.cell(...open)?.h === c.h + 1 && !h.isFig(...open)) {
+    h.clear(...open);
+    level.cells[open[1]][open[0]] = { ...h.cell(...open), h: c.h };
+  }
+  if (h.reach().missing.length > m0) { h.restore(S0); return; }
+  h.log.push(`run exit ${e.x},${e.z} -> ${x},${z}${open ? `, ${open} lowered to h${c.h}` : ""}`);
+  Object.assign(e, { x, z, rot });
+}
+
 function finishLens(level, brief, h) {
   const lens = brief.concept?.lens || (typeof brief.lens === "string" ? brief.lens : "");
   if (R5LOOK[lens]) {
     finishR5(level, brief, h, lens);
     if (lens === "frisket") placeLandmark(level, h, "cosmos-stencil-press", { near: 5 });
     if (lens === "frisket") revealLandmark(level, h, level.decor.find((d) => /^cosmos-stencil-press/.test(d.t))?.t);
-    if (lens === "frisket") placeGeneric(level, h, "market-row", { ...UNPADDED, look: { stall: "#8f78d6", stallTop: "#b8a4f2", awning: "#5fd6e6", awningWhite: "#fff0e2", crate: "#f6dfb2", pot: "#f58fa6", goods: "#ffc9a3" } });
+    if (lens === "frisket") placeGeneric(level, h, "market-row-small", { ...UNPADDED, at: [11, 6], look: { stall: "#8f78d6", stallTop: "#b8a4f2", awning: "#5fd6e6", awningWhite: "#fff0e2", crate: "#f6dfb2", pot: "#f58fa6", goods: "#ffc9a3" } });
     if (level.name === "cosmos-frisket") placeRunThings(level, h, { spawn: [7, 10], clear: [[5, 6]], chestText: "A lifted frisket plate, its masked edge dusted peach to cyan." });
+    if (level.name === "cosmos-frisket") moveExit(level, h, [1, 6], 3, [2, 6]);
+    const g = level.name === "cosmos-frisket" && (level.things || []).find((t) => t.kind === "gate" && t.edge);
+    if (g) for (const d of level.decor.filter((d) => d.gapX != null && /arch/.test(d.t) && g.edge.some(([a, b]) => Math.max(Math.abs(a - d.gapX), Math.abs(b - d.gapZ)) <= 1))) {
+      h.removeDecor((q) => q === d);
+      h.put("rock", d.x, d.z, { v: (d.x + d.z) % 3 });
+    }
+    if (level.name === "cosmos-frisket" && h.cell(4, 7)?.h === 2 && h.cell(5, 8)?.h === 3 && !h.decorAt(4, 7).length) {
+      const m0 = h.reach().missing.length;
+      h.put("rock", 4, 7, { v: 1 });
+      if (h.reach().missing.length > m0) h.removeDecor((d) => d.x === 4 && d.z === 7);
+    }
     return;
   }
   lensLook(level, lens);
