@@ -3,6 +3,7 @@ import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
 import { placeRunThings } from "./ember.js";
+import { moveElevator, clearFloor, routeCells } from "./sightline.js";
 
 const INK = {
   coat: ["#5b4a45", "#463833", "#322724"],
@@ -876,6 +877,7 @@ function finishLens(level, brief, h) {
     }
   }
   if (level.name === "eagle-composition") for (const [x, z] of [[13, 8], [12, 8], [11, 8]]) if (!h.decorAt(x, z).length && !(level.things || []).some((t) => t.x === x && t.z === z)) h.put("stepping-stones", x, z, { v: (x + z) % 2 });
+  if (level.name === "eagle-composition") { moveElevator(level, h, "exit", [9, 1]); clearFloor(level, h, routeCells(level, h)); }
   h.log.push(`lens ${L} posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")} approach ${h.approach().length} walk ${h.walkN()}`);
 }
 
