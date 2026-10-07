@@ -324,7 +324,8 @@ const LENS_BUILD = {
   finGate(B, H, v, { c1, d }) {
     B.box(0.5, 0.2, 0.5, pal(SLATE));
     B.box(0.4, 0.22, 0.4, pal(PAPER), 0, 0.2, 0);
-    B.at(0, 0, 0, d.axis === "x" ? Math.PI / 2 : 0, () => {
+    const flip = d.side && ((d.axis === "x") === (d.side < 0)) ? Math.PI : 0;
+    B.at(0, 0, 0, (d.axis === "x" ? Math.PI / 2 : 0) + flip, () => {
       const s = H - 0.35;
       blade(B, [[0, -0.26], [0, 0.26], [s * 0.45, 0.16], [s * 0.8, -0.06], [s, -0.36], [s * 0.86, -0.34], [s * 0.5, -0.3]], 0.12, BONE, 0, 0.42, 0);
       blade(B, [[0, -0.3], [0, -0.2], [s * 0.5, -0.24], [s * 0.86, -0.3], [s * 0.4, -0.34]], 0.14, SLATE, 0, 0.42, 0);
