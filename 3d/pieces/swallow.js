@@ -388,7 +388,10 @@ function finishLens(level, brief, h) {
   if (h.walkN() < 84) h.grow(84);
   h.rampTone();
   if (level.name === "swallow-medium") placeLandmark(level, h, "swallow-blade-arch");
-  if (level.name === "swallow-medium") placeGeneric(level, h, "watchtower", { near: 1, span: 0.4, spawnGap: 6, at: [9, 9] });
+  if (level.name === "swallow-medium") {
+    const t = placeGeneric(level, h, "watchtower", { near: 1, span: 0.4, spawnGap: 6, at: [9, 9] });
+    if (t) for (const [x, z] of h.footprint(level.decor.find((d) => d.t === t.t && d.x === t.x && d.z === t.z))) level.cells[z][x] = { h: h.cell(x, z).h, s: "stone" };
+  }
 }
 
 export function finish(level, brief, h) {
