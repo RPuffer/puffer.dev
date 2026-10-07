@@ -696,7 +696,7 @@ export function placeThings(level, h, o = {}) {
   if (lead) {
     const th = gi > 0 ? route[gi - 1] : route[Math.max(0, route.length - 3)];
     const far = Math.min(Infinity, ...[bon, chest].filter(Boolean).map(([x, z]) => Math.hypot(x + 0.5 - fc[0], z + 0.5 - fc[1]) - 1.6));
-    const radius = +Math.max(Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6, Math.min(o.radius ?? 6, far)).toFixed(2);
+    const radius = +Math.max(Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + (o.margin ?? 0.6), Math.min(o.radius ?? 6, far)).toFixed(2);
     lead.watch = "w1";
     out.push({ id: "w1", kind: "watcher", x: lead.x, z: lead.z, size: [fw, fd], radius });
     if (G) {
