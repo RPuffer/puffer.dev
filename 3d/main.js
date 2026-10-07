@@ -4,6 +4,7 @@ import { createRenderer } from "./renderer.js";
 import { loadPieces, loadGlbs } from "./hooks.js";
 import { makeStyle } from "./style.js";
 import { mountUI } from "../core/ui.js";
+import { loadClouds } from "./clouds/index.js";
 
 const msg = document.getElementById("msg");
 const params = readParams();
@@ -20,9 +21,11 @@ try {
   const level = await loadLevel(params.level, { beforePrepare: loadPieces });
   const style = makeStyle(level);
   await loadGlbs(level, style);
+  const clouds = await loadClouds(params, style);
   document.body.style.background = style.bg;
   const renderer = createRenderer(document.body);
-  start(level, renderer, { params });
+  const game = start(level, renderer, { params });
+  clouds?.mount(renderer, game.state);
   mountUI();
   if (params.debug) msg.textContent = `${level.name} ${level.size.join("x")} pitch ${params.pitch || "default"}`;
 } catch (e) {

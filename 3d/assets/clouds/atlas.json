@@ -1,0 +1,68 @@
+{
+ "grid": [
+  4,
+  3
+ ],
+ "tiles": [
+  {
+   "kind": "tuft",
+   "aspect": 1.4,
+   "src": "tuft-0.png"
+  },
+  {
+   "kind": "tuft",
+   "aspect": 1.381,
+   "src": "tuft-0.png"
+  },
+  {
+   "kind": "tuft",
+   "aspect": 1.277,
+   "src": "tuft-0.png"
+  },
+  {
+   "kind": "tuft",
+   "aspect": 1.658,
+   "src": "tuft-0.png"
+  },
+  {
+   "kind": "flat",
+   "aspect": 1.694,
+   "src": "tuft-1.png"
+  },
+  {
+   "kind": "flat",
+   "aspect": 1.879,
+   "src": "tuft-1.png"
+  },
+  {
+   "kind": "flat",
+   "aspect": 1.667,
+   "src": "tuft-1.png"
+  },
+  {
+   "kind": "flat",
+   "aspect": 2.1,
+   "src": "tuft-1.png"
+  },
+  {
+   "kind": "wisp",
+   "aspect": 1.462,
+   "src": "tuft-2.png"
+  },
+  {
+   "kind": "wisp",
+   "aspect": 2.565,
+   "src": "tuft-2.png"
+  },
+  {
+   "kind": "wisp",
+   "aspect": 1.593,
+   "src": "tuft-2.png"
+  },
+  {
+   "kind": "wisp",
+   "aspect": 1.885,
+   "src": "tuft-2.png"
+  }
+ ]
+}
