@@ -3,6 +3,7 @@ import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { registerStamps, flameCrest } from "../stamps.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { reachability } from "../../core/procgen.js";
+import { CATALOG } from "../../core/catalog.js";
 import { canStep, DIRS } from "../../core/level.js";
 
 const HOT = {
@@ -599,10 +600,10 @@ export function placeRunThings(level, h, o = {}) {
   const guards = o.guards || [];
   const guardT = o.guardT;
   if (guardT) for (const [x, z] of guards) {
-    const m0 = h.reach().missing.length, n0 = h.approach().length;
+    const m0 = h.reach().missing.length, n0 = h.approach({ walkOnly: true }).length;
     if (h.decorAt(x, z).length || h.isFig(x, z) || !flat(h.cell(x, z))) { h.log.push(`run guard ${x},${z} skipped`); continue; }
     if (!h.put(guardT, x, z, { v: (x + z) % 2 })) continue;
-    if (h.reach().missing.length > m0 || h.approach().length > n0) { h.removeDecor((d) => d.t === guardT && d.x === x && d.z === z); h.log.push(`run guard ${x},${z} undone`); }
+    if (h.reach().missing.length > m0 || h.approach({ walkOnly: true }).length > n0) { h.removeDecor((d) => d.t === guardT && d.x === x && d.z === z); h.log.push(`run guard ${x},${z} undone`); }
     else h.log.push(`run guard ${guardT}@${x},${z}`);
   }
   for (const [x, z] of o.clear || []) { const n = h.removeDecor((d) => d.x === x && d.z === z && !h.isFig(x, z)); if (n) h.log.push(`run clear ${x},${z}`); }
@@ -706,7 +707,7 @@ export function placeRunThings(level, h, o = {}) {
   }
   const closed0 = G ? reachWith([G]) : open0;
   const cut = new Set([...missing(closed0)].filter((k) => !miss0.has(k)));
-  const soft = (x, z) => h.decorAt(x, z).every((d) => level.palette?.props?.[d.t]?.passable && !level.palette?.props?.[d.t]?.role?.match(/lead|threshold|light/));
+  const soft = (x, z) => h.decorAt(x, z).every((d) => (level.palette?.props?.[d.t]?.passable || CATALOG[d.t]?.passable) && !level.palette?.props?.[d.t]?.role?.match(/lead|threshold|light/) && d.gapX == null);
   const free = (x, z) => flat(h.cell(x, z)) && !h.isFig(x, z) && soft(x, z) && !base.has(key(x, z)) && !miss0.has(key(x, z)) && !(x === sx && z === sz) && !(G && x === G[0] && z === G[1]);
   const near = (x, z) => Math.min(...route.map(([a, b]) => Math.abs(a - x) + Math.abs(b - z)));
   const keeps = (cells) => reachWith(cells).missing.length === open0.missing.length && (!th || !missing(reachWith([G, ...cells])).has(key(...th)));
