@@ -958,3 +958,52 @@ node out/clouds/sheet.mjs
 ```
 
 `shoot.sh` writes `out/clouds/<option>-<level>.png` at 900x800 with `hero=0` for home and ember-subject, plus `<option>-home-phone.png` at 400x800. `clips.sh` runs `tools/clip.mjs` once (about 75 s under swiftshader) for a 6 s drift clip per option and level (`<option>-<level>.mp4`). `sheet.mjs` lays the stills out as `out/clouds/options-sheet.jpg`, one row per option, with the relative frame cost in each label.
+
+## Route visibility
+
+2026-10-08. `tools/qa-visibility.mjs` checks that a hero on the critical route can see where to go.
+
+```sh
+PP_PROFILE=.pp-profile-vis node tools/qa-visibility.mjs <level>[,<level>...] [--json out/pass6/visibility.json]
+PP_PROFILE=.pp-profile-vis node tools/qa-visibility.mjs all
+```
+
+`all` reads `levels/run.json`. One Chrome page per island loads `?reset=1&nav=0`, stops the frame loop, opens every gate in `L.blocked` and `L.edges`, and moves the hero cell by cell. The critical route is spawn, the shortest path from spawn to the exit platform with gates open, the entry and exit platforms, the first step off each, the gate threshold and far cell, and the figure court cell (the nearest cell one ring from the figure). The twelve islands take about 70 s.
+
+Each cell gets two tests:
+
+- Hero. The tool swaps the hero's materials for flat magenta and renders three times: hero alone, the full scene with `xray=0`, and the full scene with the x-ray window. It counts magenta pixels inside the hero's projected box in the second and third renders that were also magenta in the first. A cell passes at 30% (`--min-hero`) directly or through the window.
+- Floor. A flat cyan quad follows the cell's surface 0.15 above it (0.25 on an elevator deck). With the hero on the previous route cell and the hero's meshes hidden but its x-ray window kept, the tool counts the cyan pixels that survive against the quad rendered alone. A floor reads at 30% (`--min-floor`). A ramp whose surface normal points away from the camera counts 0%: at `tileH` 1.5 a ramp is 56 degrees steep, so with the default yaw a ramp descending west or north shows only its cliff. Gate bars draw shut for views from before the threshold and open after it; the gate's far cell skips its floor test, since the gate marks that crossing.
+
+Two landing tests follow. From the entry platform (gates shut) and from the exit platform (gates open), the tool walks the shortest path toward the goal up to its first ramp or sixth cell, whichever comes first. The landing passes when a path of at most that length plus two reaches as far toward the goal through cells whose floor reads from the platform, with at most one hidden cell (`--max-gap`) and never a hidden ramp.
+
+Output is `PASS` or `FAIL` per cell with its roles, hero direct/x-ray share, each floor view, and on a fail the occluder: the tallest decor footprint or terrain cell above the line from the cell toward the camera, or "ramp faces away from the camera". Things and the figure's own blocking do not count as named occluders. The exit code is 1 when any cell or landing fails.
+
+### wizard-medium
+
+The committed level before this pass: entry landing FAIL, `3,5:100% 4,5:61% 4,6:58% 4,7:0%(market-row@4,9) 5,7:0%(ramp faces away from the camera)`, and route cell 5,7 FAIL for the same reason. The climb out of the landing pocket was the west-descending ramp at 5,7, which the camera sees from behind.
+
+`faceRamps(level, h, { budget })` in `3d/pieces/wizard.js` runs in `finishLens` for wizard-medium after the landmark, the market row and spawn. It finds the first approach ramp facing away from the camera, flattens it to its low side, and tries every flat cell at the upper height as a ramp descending toward the camera (east or south) whose high side matches it and whose low side sits one level down. Small single-cell decor on the three cells is cleared. A candidate must keep reach, rejoin the old route above the ramp and keep its later cells (so the gate stays put), and carry no away-facing ramp; any cell it strands gets lowered one level. The shortest route wins. With budget left it lowers flat cells in front of the route up to the new ramp (camera side, off the route, no large decor). Its edits go into `level.edits`, so the layout loop's terrain budget counts them. The market row is dropped when its footprint fronts the new route.
+
+Build log: `faceRamps lower 5,7, ramp 7,8, lower 5,6, lower 5,8`. The route now runs 4,7, 4,8, along row 9 to 7,9, and up the south-facing ramp at 7,8 to the threshold 7,7. The gate stays at edge 7,7 | 7,6. The chest moved to 3,9, the market row is gone, and the layout loop added a south-facing ramp at 5,5 that ends at the pocket (the gate still holds: the exit is unreachable from spawn with it shut).
+
+`node tools/loops/pass.mjs wizard-medium`: `walkable 77/77 singletons 0.12 density 0.24 figure-from-spawn y greedy 44 edits 4`, a second run `level unchanged PASS`. Greedy steps to the figure rose from 22 to 44 with the longer climb. Checks: `qa-visibility` 26/26 (entry landing `3,5:100% 4,5:74% 4,6:78% 4,7:85% 5,7:0% 5,8:67%`); `qa-levels` 14 pass, 0 fail; `qa-things wizard-medium` 40 pass, 0 fail; `qa-ride-keys --order cat-medium,wizard-medium,swallow-medium` 4 pass, 0 fail. Renders at 900x800: `out/pass6/wizard-arrival.png` (`?level=wizard-medium&arrive=entry`) and `out/pass6/wizard-arrival-before.png` (the committed level). No critic calls.
+
+### Twelve islands
+
+`out/pass6/visibility.txt` and `out/pass6/visibility.json`:
+
+| Island | Pass | Fails |
+| --- | --- | --- |
+| cat-medium | 15/17 | entry landing 10,9 (4,9 14%, chromatic-plinth@5,10); exit landing 1,5 (2,7 25%) |
+| wizard-medium | 26/26 | |
+| swallow-medium | 23/25 | 5,7 ramp faces away; entry landing 3,4 (4,7 0%, terrain 5,8 h3; 5,7 ramp faces away) |
+| forest-volute | 18/18 | |
+| mindbloom-medium | 20/20 | |
+| cosmos-frisket | 22/23 | court 3,4 floor from 4,4 24% (overspray-plume@4,5) |
+| gremlin-subject | 22/23 | entry landing 13,6 (11,7 8% and 10,6 6%, umbilical-rib-pylon@12,8) |
+| eagle-composition | 15/19 | 14,9 floor 22%; 10,4 floor 3%; exit step 9,2 25% (vigilant_raptor_totem@11,3); exit landing 8,2 |
+| dragon-medium | 21/22 | entry landing 2,9 (8,9 19%, spine_frill@9,10) |
+| sharkbear-medium | 17/19 | 10,7 ramp faces away; 7,5 floor from 7,6 20% |
+| chimera-medium | 19/20 | entry landing 12,10 (7,10 5%, ribbed-plates@8,11; 7,9 2%) |
+| ember-subject | 17/18 | entry landing 12,5 (9,4 2%, 8,3 25%) |
