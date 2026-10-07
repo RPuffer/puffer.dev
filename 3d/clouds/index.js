@@ -9,13 +9,15 @@ export async function loadClouds(params, style) {
   const mod = await import(`./${kind}.js`);
   const assets = {};
   if (mod.needs?.includes("atlas")) assets.atlas = await (await import("./billboards.js")).loadAtlas();
+  if (mod.needs?.includes("noise")) assets.noise = await (await import("./noise.js")).loadNoise();
   return {
     kind,
     mount(renderer, state) {
       const I = island(state, style);
-      const objects = mod.build(I, assets, params, renderer);
+      const built = mod.build(I, assets, params);
+      const { objects, targets = [] } = Array.isArray(built) ? { objects: built } : built;
       for (const o of objects) renderer.three.scene.add(o);
-      window.__clouds = { kind, objects };
+      window.__clouds = { kind, objects, targets };
       return objects;
     },
   };
