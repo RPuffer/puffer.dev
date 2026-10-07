@@ -772,3 +772,39 @@ Pass 3 tooling critic spend: $0.0186 over 3 calls.
 | ember-subject | 3.19 | density 0.22 to 0.25 | none | 15 |
 
 Sheets: `out/pass3/islands-sheet.jpg`, `out/pass3/figures-before-after.jpg`. Card: `puffer-isoworld-pass-3-islands`.
+
+## Pass 4 engine
+
+2026-10-07. Elevators ride the run order, arrival lands on a platform, and two commands cover one island and the whole run.
+
+### Arrival contract
+
+An elevator thing may carry `role: "entry"` or `role: "exit"`. When it has no `run` and no `to`, `loadLevel` reads `order` from `levels/run.json` into `level.runOrder`. An exit rides to the next island in that order and an entry rides back to the previous one. The first island's entry and the last island's exit toast a stub ("The way back is sealed", "The shaft goes no higher yet", or the thing's `stub`) and do not ride. `run` and `to` on the thing still win, so the old wizard elevator with `run: ["wizard-medium", "cat-medium"]` behaves as before.
+
+A ride navigates to `?level=<next>&from=<this>&arrive=entry` going forward and `arrive=exit` going back. On load the game puts the hero on the cell of the elevator whose `role` matches `arrive`. Precedence: `spawn=`, then `arrive`, then the lit-bonfire respawn, then the file spawn. A level without the param, or without a matching platform, loads as before. The stored bonfire respawn does not change on arrival.
+
+### One island
+
+```sh
+PP_PROFILE=.pp-profile-<island> node tools/loops/pass.mjs <level> [--terrain=4] [--no-walk] [--base http://localhost:8765]
+```
+
+`pass.mjs` runs `rebuild` (build-level only), `decor-loop.mjs --write`, `layout-loop.mjs --terrain=N --write` (N defaults to 4), `walk.mjs --live`, `overlay.mjs` on a fresh render and `qa-levels.mjs`, all on one profile, and logs each step to `out/loops/pass/<level>.log`. A level with no island module, such as the test bed, skips the rebuild and repeats the two loops until the file stops changing (eight rounds at most). It prints one line:
+
+```
+wizard-medium walkable 74/74 singletons 0.00 density 0.25 figure-from-spawn n greedy 44 edits 4 level unchanged PASS
+```
+
+`walkable` counts cells reachable from spawn with gates open; `singletons` and `density` come from `analyse`; `figure-from-spawn` from the layout metrics; `greedy` is the greedy walker's step count; `level` reads `unchanged` or the old and new file hashes. The command exits 1 when reach drops, a bonfire, chest or elevator becomes unreachable, a step fails or qa-levels fails. `--no-walk` skips the live walk. `walk.mjs` now ends its walks at the `role: "exit"` elevator when a level carries one.
+
+On a worktree at HEAD, two runs on wizard-medium printed the line above both times with the level unchanged: the rebuild and both loops reproduce the committed file. On the test bed `wizard-medium-layout` the first run took two loop rounds and the second run left the file unchanged (73/73, singletons 0.03, density 0.27, figure seen, greedy 52, edits 4).
+
+### The whole run
+
+```sh
+PP_PROFILE=.pp-profile-run node tools/qa-run.mjs [base-url] [--order a,b,...] [--no-ends]
+```
+
+`qa-run.mjs` clears every `isoworld:things:` key, then loads the first island with `reset=1`. It walks to the first entry and checks the stub. For each island it paths to the exit elevator with `findPath`. When the path fails it opens the closed gate: it walks onto the threshold and waits for the watcher, or walks beside the chest or bonfire and presses E. It then presses E on the exit and checks that the next island in the order loads with the hero on its entry platform. On the last island it checks the exit stub, walks back to the entry, rides it and checks that the previous island loads with the hero on its exit platform. An island with no exit elevator gets a `SKIP` line naming it, and the next island loads directly with `arrive=entry`. Lines read `PASS|FAIL|SKIP <hop> <detail>`, then `N pass, N fail, N skip`; it exits 1 on any fail. `--order` replaces the run order and `--no-ends` drops the two stub checks.
+
+Results on 2026-10-07 against the island agents' working tree: 14 pass, 0 fail, 0 skip (first entry stub, eleven hops each through gate g1 in 13 to 24 steps, last exit stub, ember-subject back to chimera-medium's exit at 4,1). Test bed, `--order wizard-medium-layout,wizard-medium-layout --no-ends`: 2 pass. On HEAD: `qa-things.mjs` 34 pass, `qa.mjs` 134 pass.
