@@ -725,7 +725,14 @@ export function placeRunThings(level, h, o = {}) {
   const idxOf = (x, z) => { let bi = 0, bd = Infinity; route.forEach(([a, b], i) => { const d = Math.abs(a - x) + Math.abs(b - z); if (d < bd) { bd = d; bi = i; } }); return bi; };
   const want = gi > 0 ? Math.round(gi * 0.6) : Math.round(route.length / 2);
   let chest = null;
-  for (const c of cand.filter((c) => near(...c) >= 1 && near(...c) <= 2 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => (cut.has(key(...a)) - cut.has(key(...b))) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
+  const radW = th ? Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6 : R;
+  const outside = (c) => Math.hypot(c[0] + 0.5 - fc[0], c[1] + 0.5 - fc[1]) > radW + 1.5;
+  for (const c of cand.filter((c) => outside(c) && near(...c) >= 1 && near(...c) <= 2 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => (cut.has(key(...a)) - cut.has(key(...b))) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
+    if (!keeps(bon ? [c, bon] : [c])) continue;
+    chest = c;
+    break;
+  }
+  if (!chest) for (const c of cand.filter((c) => outside(c) && near(...c) >= 1 && near(...c) <= 3 && !rampBy(...c) && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= 2)).sort((a, b) => near(...a) - near(...b))) {
     if (!keeps(bon ? [c, bon] : [c])) continue;
     chest = c;
     break;
@@ -738,8 +745,7 @@ export function placeRunThings(level, h, o = {}) {
   }
   const lead = level.decor.find((d) => d.x === h.figure.anchor[0] && d.z === h.figure.anchor[1] && !level.palette?.props?.[d.t]?.passable) || h.lead;
   if (lead) {
-    const d = th ? Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) : R;
-    const radius = +Math.max(R, d + 0.6).toFixed(2);
+    const radius = +radW.toFixed(2);
     lead.watch = "w1";
     out.push({ id: "w1", kind: "watcher", x: wx, z: wz, size: [fw, fd], radius });
     if (G) out.push({ id: "g1", kind: "gate", x: G[0], z: G[1], span: route[gi - 1][0] !== G[0] ? "z" : "x", blocks: [G], open: "watcher:w1", threshold: [th], ...(gap(G[0], G[1]) ? { frame: false, width: 1.5, height: 1.5 } : {}) });
