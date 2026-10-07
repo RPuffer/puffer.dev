@@ -216,4 +216,6 @@ Total: $2.835
 
 2026-10-07 | pass 4 islands B | gemini-3.8-flash | 33 | 0.2459 | critic on the six B renders plus the gremlin, eagle and ember re-fixes: 0 high at the end
 
-Running total: $33.837
+2026-10-07 | pass 4 islands A | gemini-3.8-flash | 30 | 0.2500 | critic once per island after things and the pass
+
+Running total: $34.087

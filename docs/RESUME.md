@@ -1,4 +1,4 @@
-# Resume point (written 2026-10-07 at sign-off)
+# Resume point (pass 4 finished 2026-10-07; kept as the template for the next sign-off)
 
 Pass 4 (the run) is mid-flight. Read this, then docs/PIPELINE-BRIEF.md (Pass 4 section) and docs/DECISIONS.md (last four lines).
 

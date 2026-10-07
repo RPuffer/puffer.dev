@@ -83,6 +83,10 @@ A fourth stage after brief, build, and critic, planned in `docs/REFINEMENT.md` w
 
 Twenty multi-tile props (eight generic, twelve themed) were standardised as generative sample images in `pipeline/multitile/` and then code-built on `3d/prims.js` in `3d/pieces/multitile*.js` with multi-cell masks; the generic set lives on `?level=showcase` and each themed prop stands on its island as the landmark. The level-design feedback loops are planned in `docs/LOOPS.md` (research under `docs/loops/`); stage 1, the decor rule loop, is `tools/loops/decor-loop.mjs` with `tools/loops/decor-metrics.mjs`, proven on `ember-subject`.
 
+## The run
+
+The twelve picked islands form one run in the order of `levels/run.json`: each island has a bonfire near spawn, a chest, a gate that opens when the focal creature turns to watch you at its threshold, and entry and exit elevators that ride to the previous and next island. Start at http://localhost:8765/3d/index.html?level=cat-medium, walk with WASD or arrows, press E at things, ride the exit. `node tools/qa-run.mjs` rides it headless; `node tools/loops/pass.mjs <level>` is the standing per-island pass (rebuild, decor loop, layout loop, walks, overlay).
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.

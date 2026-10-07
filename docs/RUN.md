@@ -810,3 +810,24 @@ PP_PROFILE=.pp-profile-run node tools/qa-run.mjs [base-url] [--order a,b,...] [-
 Results on 2026-10-07 against the island agents' working tree: 14 pass, 0 fail, 0 skip (first entry stub, eleven hops each through gate g1 in 13 to 24 steps, last exit stub, ember-subject back to chimera-medium's exit at 4,1). Test bed, `--order wizard-medium-layout,wizard-medium-layout --no-ends`: 2 pass. On HEAD: `qa-things.mjs` 34 pass, `qa.mjs` 134 pass.
 
 `qa-things.mjs [base-url] [level]` (or `qa-things.mjs <level>`) now takes any island. It reports each elevator's role, rides the exit and checks the `run.json` successor loads with the hero on its entry platform (`arrive=entry`). On the first island it checks the entry's stub toast, and on the last the exit's. It compares reset states by kind, keeps the chest approach off the bonfire's ring, skips the crest check on islands without a live head part, and replans the route after every key step. Island agents' working tree, 2026-10-07: wizard-medium 36 pass, cat-medium 36 pass.
+
+## Pass 4: the run
+
+2026-10-07. Every island carries the things layer (bonfire, chest, gate opened by the watcher at the threshold, entry and exit elevators with roles); the order is levels/run.json and the engine reads it when an elevator has no run of its own; arrival lands the hero on the destination platform (`?arrive=entry|exit`). `tools/loops/pass.mjs <level>` is the standing pass and is idempotent on all twelve; `tools/qa-run.mjs` rides the whole run; `tools/qa-things.mjs <level>` checks each island's things. The creature on sharkbear-medium is a shark-gorilla (operator correction), rebuilt from a regenerated sheet at 3.0 hero heights. Critic 0 high on every final render. Ride clip: out/pass4/ride.mp4 (29 s, cat to wizard to swallow). Sheet: out/pass4/run-sheet.jpg in run order.
+
+| # | Island | Spawn | Bonfire | Chest | Gate (threshold) | Entry | Exit |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | cat-medium | 8,9 | 8,8 | 6,8 | 2,8 (3,8) | 10,9 | 1,5 |
+| 2 | wizard-medium | 3,5 | 2,6 | 7,8 | 7,6 (7,7) | 3,4 | 12,1 |
+| 3 | swallow-medium | 3,5 | 3,8 | 6,9 | 7,6 (7,7) | 3,4 | 12,1 |
+| 4 | forest-volute | 12,9 | 11,8 | 13,8 | 9,5 (9,6) | 13,6 | 2,1 |
+| 5 | mindbloom-medium | 12,9 | 12,7 | 11,9 | 7,6 (7,7) | 9,10 | 5,1 |
+| 6 | cosmos-frisket | 4,10 | 5,10 | 9,6 | 6,5 (7,5) | 8,10 | 6,1 |
+| 7 | gremlin-subject | 14,9 | 13,9 | 12,3 | 11,7 (12,7) | 13,6 | 6,2 |
+| 8 | eagle-composition | 14,8 | 13,9 | 9,8 | 10,5 (10,6) | 14,7 | 8,2 |
+| 9 | dragon-medium | 3,10 | 4,8 | 7,8 | 9,9 (8,9) | 2,9 | 12,1 |
+| 10 | sharkbear-medium | 10,10 | 9,8 | 11,7 | 8,6 (9,6) | 11,10 | 4,1 |
+| 11 | chimera-medium | 10,10 | 10,9 | 7,8 | 6,7 (6,8) | 12,10 | 4,1 |
+| 12 | ember-subject | 12,8 | 11,7 | 11,9 | 8,4 (8,5) | 12,5 | 7,1 |
+
+Greedy walk steps to the figure (shortest in brackets): cat 14, dragon 15, chimera 11, wizard 20, swallow 20 (12), sharkbear 9, gremlin 7 (7), mindbloom 10 (10), eagle 22 (12), forest 12 (12), cosmos 20 (16), ember 12 (12). Weak: eagle's ring walk rose from 9 to 22 after its rebuild; gremlin lost nine walkable cells to its gate and chest placement; cosmos's exit walk is long (46 against 26).
