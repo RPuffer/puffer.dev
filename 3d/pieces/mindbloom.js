@@ -593,7 +593,7 @@ function finishLens(level, brief, h) {
   h.rampTone();
   if (L === "medium") for (const row of level.cells) for (const c of row) if (c && c.s === "ramp") c.m = "grass";
   if (L === "medium") placeLandmark(level, h, "mindbloom-doodle-fountain");
-  if (L === "medium") placeGeneric(level, h, "shrine", { ...UNPADDED, look: { shrine: "#ece8ff", shrineLight: "#f6f3ff", shrineDark: "#bdb4f0" } });
+  if (L === "medium") placeGeneric(level, h, "shrine-small", { ...UNPADDED, shrink: false, look: { shrine: "#ece8ff", shrineLight: "#f6f3ff", shrineDark: "#bdb4f0" } });
 }
 
 export function finish(level, brief, h) {
