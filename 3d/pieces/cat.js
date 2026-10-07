@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
-import { placeLandmark } from "./multitile-themed-a.js";
+import { placeLandmark, register as registerThemed } from "./multitile-themed-a.js";
+import { CATALOG, registerCatalog } from "../../core/catalog.js";
 import { placeGeneric } from "./multitile-place.js";
 import { BIBLE, ramp, luma, hexRgb, figure, lockedKit } from "../prims.js";
 
@@ -789,6 +790,43 @@ function finishLens(level, brief, h) {
   h.rampTone();
   if (L === "composition") for (const [x, z, c] of landCells(h)) if (c.s === "ramp") c.m = "dirt";
   h.log.push(`lens ${L}: approach ${h.approach().length}, walk ${h.walkN()}, gate ${g}, missing ${JSON.stringify(h.reach().missing)}`);
-  if (level.name === "cat-medium") placeLandmark(level, h, "cat-paint-tube-windmill");
+  if (level.name === "cat-medium" && !landmarkNear(level, h, "cat-paint-tube-windmill", 3)) placeLandmark(level, h, "cat-paint-tube-windmill");
   if (level.name === "cat-medium") placeGeneric(level, h, "market-row", { near: 1 });
+}
+
+function landmarkNear(level, h, type, max) {
+  registerCatalog(registerThemed().catalog);
+  const route = new Set(h.approach().map(([x, z]) => h.key(x, z)));
+  const fc = h.figure.cells, fd = fc.map(([u, v]) => u - v);
+  const lat = [Math.min(...fd), Math.max(...fd)], fMax = Math.max(...fc.map(([u, v]) => u + v));
+  const r0 = h.readability(); h.log.pop();
+  const m0 = h.reach().missing.length, len0 = h.approach().length;
+  const fixed = (d) => d === h.lead || CATALOG[d.t]?.stamp || d.side || d.axis || ["threshold", "light"].includes(h.role(d.t));
+  for (const t of [type, type + "-small"]) {
+    const [w, d] = CATALOG[t].footprint, out = [];
+    for (let z = 0; z + d <= h.D; z++) for (let x = 0; x + w <= h.W; x++) {
+      const cs = [];
+      for (let b = 0; b < d; b++) for (let a = 0; a < w; a++) cs.push([x + a, z + b]);
+      const c0 = h.cell(x, z);
+      if (!h.land(c0) || cs.some(([a, b]) => { const q = h.cell(a, b); return !h.land(q) || q.s === "ramp" || q.h !== c0.h || h.isFig(a, b) || route.has(h.key(a, b)) || [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([p, k]) => h.cell(a + p, b + k)?.s === "ramp") || h.decorAt(a, b).some(fixed); })) continue;
+      const gap = Math.min(...cs.flatMap(([a, b]) => fc.map(([u, v]) => Math.max(Math.abs(a - u), Math.abs(b - v)))));
+      if (gap < 2 || gap > max + 1) continue;
+      const side = Math.min(...cs.map(([a, b]) => Math.max(lat[0] - (a - b), (a - b) - lat[1], 0)));
+      if (cs.some(([a, b]) => a + b > fMax) && side < 1) continue;
+      out.push({ x, z, score: gap * 2 - side + cs.reduce((s, [a, b]) => s + h.decorAt(a, b).length, 0) * 0.3 });
+    }
+    out.sort((a, b) => a.score - b.score);
+    for (const c of out) {
+      const S = h.snapshot();
+      h.removeDecor((e) => !fixed(e) && h.footprint(e).some(([a, b]) => a >= c.x && a < c.x + w && b >= c.z && b < c.z + d));
+      if (!h.put(t, c.x, c.z, { rot: 0, v: 0 })) { h.restore(S); continue; }
+      const r1 = h.readability(); h.log.pop();
+      if (h.reach().missing.length > m0 || h.approach().length !== len0 || !r1.walks || r1.xrayRun > Math.max(3, r0.xrayRun) || r1.tallerInFront.length > r0.tallerInFront.length) { h.restore(S); continue; }
+      level.pieces = [...new Set([...(level.pieces || []), "pieces/multitile-themed-a.js"])];
+      h.log.push(`landmark ${t} at ${c.x},${c.z} within ${max} of the figure${t !== type ? " (footprint shrunk one step)" : ""}`);
+      return true;
+    }
+  }
+  h.log.push(`landmark ${type}: nothing within ${max} of the figure`);
+  return false;
 }
