@@ -19,11 +19,17 @@ export function island(state, style) {
     else continue;
     x0 = Math.min(x0, x); x1 = Math.max(x1, x + 1); z0 = Math.min(z0, z); z1 = Math.max(z1, z + 1);
   }
-  const H = THREE.DataUtils.toHalfFloat;
+  const H = THREE.DataUtils.toHalfFloat, CTOP = BASE + 0.5 * T + 0.25;
+  const ctopOf = (x, z) => { const k = occ[z * W + x], c = L.cells[z][x]; if (k === 2) return c.h * T - 0.25; const b = c.h * T - DEPTH - Math.max(0, c.h - F) * T; return Math.min(b + 0.5 * T + 0.25, c.h * T - 0.2); };
+  let cmin = CTOP, cmax = CTOP;
   for (let z = -1; z <= D; z++) for (let x = -1; x <= W; x++) {
     const o = ((z + 1) * (W + 2) + x + 1) * 4, k = x >= 0 && z >= 0 && x < W && z < D ? occ[z * W + x] : 0, c = k ? L.cells[z][x] : null;
     const top = k === 1 ? c.h * T : k === 2 ? c.h * T - 0.1 : VOID, bot = k === 1 ? top - DEPTH - Math.max(0, c.h - F) * T : k === 2 ? top - 0.2 : VOID;
-    data[o] = H(top); data[o + 1] = H(bot); data[o + 2] = H(k ? 1 : 0); data[o + 3] = H(1);
+    let ct = Infinity;
+    for (let dz = -2; dz <= 2; dz++) for (let dx = -2; dx <= 2; dx++) { const X = x + dx, Z = z + dz; if (X >= 0 && Z >= 0 && X < W && Z < D && occ[Z * W + X]) ct = Math.min(ct, ctopOf(X, Z)); }
+    if (!isFinite(ct)) ct = CTOP;
+    cmin = Math.min(cmin, ct); cmax = Math.max(cmax, ct);
+    data[o] = H(top); data[o + 1] = H(bot); data[o + 2] = H(k ? 1 : 0); data[o + 3] = H(ct);
   }
   const tex = new THREE.DataTexture(data, W + 2, D + 2, THREE.RGBAFormat, THREE.HalfFloatType);
   tex.magFilter = tex.minFilter = THREE.LinearFilter;
@@ -47,7 +53,7 @@ export function island(state, style) {
   const right = new THREE.Vector3(...state.proj.right), up = new THREE.Vector3(...state.proj.up);
   return {
     L, T, W, D, occ, tex, rim, center: new THREE.Vector2(cx, cz), radius, box: { x0, x1, z0, z1 },
-    base: BASE, light: l, bg, hue, dark: (srgb.r + srgb.g + srgb.b) / 3 < 0.35, dir, right, up,
+    base: BASE, ctop: [cmin, cmax], light: l, styleLight: style.light || null, bg, hue, dark: (srgb.r + srgb.g + srgb.b) / 3 < 0.35, dir, right, up,
     lightScreen: new THREE.Vector2(l.dot(right), l.dot(up)).normalize(),
     bottomAt(x, z) { const X = Math.floor(x), Z = Math.floor(z); return X >= 0 && Z >= 0 && X < W && Z < D && occ[Z * W + X] ? bottom(X, Z) : BASE; },
     occupied(x, z) { const X = Math.floor(x), Z = Math.floor(z); return X >= 0 && Z >= 0 && X < W && Z < D && occ[Z * W + X] > 0; },

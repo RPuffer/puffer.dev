@@ -21,10 +21,12 @@ uniform float uCover;
 uniform float uGain;
 uniform float uRimPad;
 uniform float uStop;
+uniform float uDepth;
 varying vec3 vWorld;
 
 float density(vec3 p) {
-  float h = (p.y - uBoxMin.y) / (uBoxMax.y - uBoxMin.y);
+  float ct = islandAt(p.xz).a;
+  float h = (p.y - (ct - uDepth)) / uDepth;
   float prof = smoothstep(0.0, 0.14, h) * (1.0 - smoothstep(0.3, 1.0, h));
   float d = distance(p.xz, uCenter);
   float cov = uCover * mix(1.0, 0.7, smoothstep(uRadius, uRadius + 6.0, d)) * (1.0 - smoothstep(uRadius + 6.0, uRadius + 12.0, d));
@@ -58,7 +60,7 @@ void main() {
     if (d > 0.003) {
       float dl = density(p + uLight * 0.45) + density(p + uLight * 1.1) * 0.5;
       float lt = exp(-dl * 3.2);
-      float h = (p.y - uBoxMin.y) / (uBoxMax.y - uBoxMin.y);
+      float h = clamp((p.y - islandAt(p.xz).a + uDepth) / uDepth, 0.0, 1.0);
       vec3 sc = mix(shade, sun, clamp(lt * (0.45 + 0.75 * h) + 0.05, 0.0, 1.0));
       sc = mix(sc, uBg, max(fogAt(p.xz), smoothstep(uBase - 0.4, uBase - 2.8, p.y) * 0.45) * 0.85);
       float a = 1.0 - exp(-d * dt * uSigma);
@@ -88,7 +90,7 @@ void main() {
 }`;
 
 export function buildVolume(I, noise, params = {}, { cover = 1, sigma = 8, rimPad = 0.3, order = 1, steps: defSteps = 28, res: defRes = 0.5 } = {}) {
-  const pad = 11, top = I.base + 0.5 * I.T + 0.25, bot = I.base - 2.8;
+  const pad = 11, depth = 3.05, top = I.ctop[1], bot = I.ctop[0] - depth;
   const min = new THREE.Vector3(I.box.x0 - pad, bot, I.box.z0 - pad), max = new THREE.Vector3(I.box.x1 + pad, top, I.box.z1 + pad);
   const geo = new THREE.BoxGeometry(max.x - min.x, max.y - min.y, max.z - min.z);
   geo.translate((min.x + max.x) / 2, (min.y + max.y) / 2, (min.z + max.z) / 2);
@@ -100,7 +102,7 @@ export function buildVolume(I, noise, params = {}, { cover = 1, sigma = 8, rimPa
       uNoise: { value: noise },
       uRay: { value: I.dir.clone().negate() },
       uBoxMin: { value: min }, uBoxMax: { value: max },
-      uSteps: { value: steps }, uSigma: { value: sigma }, uCover: { value: cover }, uGain: { value: I.dark ? 0.9 : 1 }, uRimPad: { value: rimPad }, uStop: { value: res >= 1 ? 0.45 : 0.6 },
+      uSteps: { value: steps }, uSigma: { value: sigma }, uCover: { value: cover }, uGain: { value: I.dark ? 0.9 : 1 }, uRimPad: { value: rimPad }, uStop: { value: res >= 1 ? 0.45 : 0.6 }, uDepth: { value: depth },
     },
     vertexShader: VERT,
     fragmentShader: GLSL_COMMON + FRAG,
