@@ -909,3 +909,59 @@ Results on the committed levels (migrated gates): `qa-ride-keys` 13 pass, 0 fail
 | 10 | sharkbear-medium | 9,6 to 8,6 | 113 |
 | 11 | chimera-medium | 6,8 to 6,7 | 109 |
 | 12 | ember-subject | 8,4 to 8,3 | 98 |
+
+## Clouds
+
+2026-10-07, pass 6. `?clouds=<name>` floats the island on one of six cloud techniques. Without the parameter, or with `none`, the page loads no cloud code and renders as before. `3d/main.js` awaits `loadClouds(params, style)` from `3d/clouds/index.js` before `start`, then mounts the meshes into the scene right after `start`, before the first frame. Each technique lives in `3d/clouds/<name>.js` and exports `build(island, assets, params)`; `needs` lists the assets the loader fetches first (`atlas`, `noise`), so `window.__done` waits for them.
+
+| Name | Technique | Draw calls |
+| --- | --- | --- |
+| `billboards` | One InstancedMesh of camera-facing quads from `3d/assets/clouds/atlas.webp` (12 Gemini cumulus, stratocumulus and wisp tufts keyed off magenta, 4x3 tiles of 512). Rim sprites sit 0.75 cell outside each open edge at the cell's own bottom; more fill the underside and two rings out to the island radius plus 11. The engine sorts them once by view depth; drift runs along the screen plane on `uTime` with a per-sprite phase, so the order holds. Light tints the side facing the island light in screen space; a sprite fades where it meets a column and into the background with distance. | 1 |
+| `volumetric` | A box shader marches a baked 64^3 Perlin-Worley texture (`noise64.bin`, rebuild with `node 3d/assets/clouds/noise.mjs`). The slab's top follows a per-cell cloud line half a tile up each rim wall (water cells sit above it); density thins inside the footprint, advects on `uTime`, and takes two taps toward the light plus the background as ambient. Rays stop where they enter a column, read from a half-float height texture, so the slab needs no depth pass. It renders into a half-resolution half-float target from the composite mesh's `onBeforeRender`. `?csteps=` (default 28) and `?cres=` (default 0.5, 1 draws straight into the scene) set quality. | 2 |
+| `hybrid` | The volumetric slab plus a second InstancedMesh of wisp and stratus sprites on the rim. | 3 |
+| `puffs` | Flat-shaded icosahedron clusters baked by `Baker` in pack tones (top, left, right faces), tagged `mist` so the stage-1 shader drifts them. The control for "not photo-real". | 1 |
+| `painterly` | Instanced smooth ellipsoids with a four-tone ramp whose band edges wobble with value noise, a warm rim on the shade side, and the same layout as `cel` and `puffs`. | 1 |
+| `cel` | The same balls with a hard two-tone step and an inverted-hull outline in a darker shade of the cloud colour. | 2 |
+
+Every technique reads `motion.uTime`, so `hero=0` and `t=` freeze it and `__setTime` drives clips. No technique runs JavaScript per frame except the half-resolution pass, which allocates nothing. Cloud colours come from the level: the light direction from `light.dir` (else the pack's), the shade and fade colour from `bg`, and a warm palette when `bg` leans red.
+
+Atlas: `node 3d/assets/clouds/gen.mjs` (three Gemini images into `out/clouds/raw/`), then `node 3d/assets/clouds/pack.mjs`. The packer solves each pixel as a neutral grey over the sampled key colour, so alpha and colour both come out unmixed, and finds tufts by connected components.
+
+Measure:
+
+```sh
+PP_PROFILE=.pp-profile-clouds node tools/perf.mjs --out=out/clouds/perf.json
+```
+
+`tools/perf.mjs` loads each level with each option headless at 900x800 (`--size=`), pauses the game, and times 300 renders at 1x and 2x device pixel ratio, each ended by a one-pixel `readPixels` so swiftshader finishes the frame. It reports the median, draw calls and triangles from `renderer.info` (reset by hand, because the half-resolution pass nests a render), and texture memory summed over scene materials and cloud render targets. Flags: `--levels=`, `--options=`, `--frames=`, `--dpr=`, `--query=`.
+
+Swiftshader runs these on the CPU, so the milliseconds are far above a GPU's. Read the relative column: frame time over `none` on the same level.
+
+| Level | Option | ms 1x | rel 1x | ms 2x | rel 2x | Cloud calls | Cloud tris | Cloud tex MB |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| home | none | 8.9 | 1.00x | 22.7 | 1.00x | 0 | 0 | 0.0 |
+| home | billboards | 29.6 | 3.33x | 100.1 | 4.41x | 1 | 488 | 16.0 |
+| home | volumetric | 32.8 | 3.69x | 117.4 | 5.17x | 2 | 24 | 11.0 |
+| home | puffs | 16.3 | 1.83x | 31.3 | 1.38x | 1 | 30879 | 0.0 |
+| home | hybrid | 44.4 | 4.99x | 160.1 | 7.05x | 3 | 288 | 27.0 |
+| home | painterly | 29.4 | 3.34x | 49.8 | 2.32x | 1 | 76140 | 0.0 |
+| home | cel | 39.2 | 4.45x | 71.4 | 3.32x | 2 | 109980 | 0.0 |
+| ember-subject | none | 8.7 | 1.00x | 21.6 | 1.00x | 0 | 0 | 0.0 |
+| ember-subject | billboards | 26.1 | 3.00x | 85.6 | 3.96x | 1 | 424 | 16.0 |
+| ember-subject | volumetric | 37.7 | 4.33x | 146.9 | 6.80x | 2 | 24 | 11.0 |
+| ember-subject | puffs | 20.8 | 2.39x | 39.5 | 1.83x | 1 | 26207 | 0.0 |
+| ember-subject | hybrid | 44.7 | 5.14x | 153.8 | 7.12x | 3 | 180 | 27.0 |
+| ember-subject | painterly | 37.2 | 3.26x | 64.1 | 2.37x | 1 | 64620 | 0.0 |
+| ember-subject | cel | 39.2 | 3.44x | 53.8 | 1.99x | 2 | 93340 | 0.0 |
+
+Texture memory is the 2x run: the atlas is 16 MB with mipmaps, the noise 0.5 MB, and the half-resolution target 5.5 MB at 2x on a 900x800 page. The painterly and cel rows come from a second run after their ball detail dropped from 3 to 2, measured against that run's own `none` (home 8.8 and 21.5 ms, ember 11.4 and 27.1 ms). The swiftshader cost of `painterly` and `cel` is vertex work on 65k to 110k instanced triangles, which a GPU absorbs; billboards and the slab spend fill rate, which grows with pixel ratio. The slab drew 9.8x at full resolution against 3.7x at half.
+
+Capture, with the server running:
+
+```sh
+sh out/clouds/shoot.sh billboards volumetric hybrid puffs painterly cel
+sh out/clouds/clips.sh billboards volumetric hybrid puffs painterly cel
+node out/clouds/sheet.mjs
+```
+
+`shoot.sh` writes `out/clouds/<option>-<level>.png` at 900x800 with `hero=0` for home and ember-subject, plus `<option>-home-phone.png` at 400x800. `clips.sh` runs `tools/clip.mjs` once (about 75 s under swiftshader) for a 6 s drift clip per option and level (`<option>-<level>.mp4`). `sheet.mjs` lays the stills out as `out/clouds/options-sheet.jpg`, one row per option, with the relative frame cost in each label.

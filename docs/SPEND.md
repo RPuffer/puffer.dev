@@ -221,4 +221,8 @@ Total: $2.835
 2026-10-07 | pass 5 islands A | gemini-3.8-flash | 18 | 0.0980 | critic once per island after edge gates and the snout
 2026-10-07 | pass 5 islands B | gemini-3.8-flash | 30 | 0.2500 | critic once per island after edge gates and the walk polish
 
-Running total: $34.435
+## Clouds
+
+2026-10-07 | gemini-3.1-flash-image | 3 | 0.135 | cloud atlas: cumulus, stratocumulus and wisp tufts on magenta, 12 tiles kept
+
+Running total: $34.570
