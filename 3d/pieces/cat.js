@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark, register as registerThemed } from "./multitile-themed-a.js";
 import { placeThings } from "./wizard.js";
+import { dropFront } from "./sightline.js";
 import { CATALOG, registerCatalog } from "../../core/catalog.js";
 import { placeGeneric } from "./multitile-place.js";
 import { BIBLE, ramp, luma, hexRgb, figure, lockedKit } from "../prims.js";
@@ -794,6 +795,7 @@ function finishLens(level, brief, h) {
   if (level.name === "cat-medium" && !landmarkNear(level, h, "cat-paint-tube-windmill", 3)) placeLandmark(level, h, "cat-paint-tube-windmill");
   if (level.name === "cat-medium") placeGeneric(level, h, "market-row", { near: 1 });
   if (level.name === "cat-medium") placeThings(level, h, { chestText: "Impasto scrapings off the studio floor, the paint still wet." });
+  if (level.name === "cat-medium") dropFront(level, h, [4, 9]);
 }
 
 function landmarkNear(level, h, type, max) {
