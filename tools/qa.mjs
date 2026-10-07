@@ -203,9 +203,38 @@ async function buildSuite(build, size) {
   await x.page.close();
 }
 
-async function rootSuite(size) {
-  const tag = `root@${size.width}${size.touch ? "t" : ""}`;
-  const { page, problems, done, ms } = await open(`${BASE}/?level=home&seed=1`, size);
+async function startSuite(size) {
+  const tag = `start@${size.width}${size.touch ? "t" : ""}`;
+  const { page, problems, done, ms } = await open(`${BASE}/`, size);
+  record(`${tag} __done within 10 s`, done, `${ms} ms`);
+  if (!done) { await page.close(); return; }
+  const order = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
+  const beginHref = await page.evaluate(() => document.getElementById("begin").href);
+  const beginOk = (() => {
+    try {
+      const u = new URL(beginHref);
+      return u.pathname.endsWith("/3d/index.html") && u.searchParams.get("level") === order[0] && u.searchParams.get("reset") === "1";
+    } catch { return false; }
+  })();
+  record(`${tag} begin link targets first island with reset`, beginOk, beginHref);
+  const tileHrefs = await page.evaluate(() => [...document.querySelectorAll("#islands a")].map((a) => a.href));
+  const tilesMatch = tileHrefs.length === 12 && order.every((n, i) => {
+    try { return new URL(tileHrefs[i]).searchParams.get("level") === n; } catch { return false; }
+  });
+  const statuses = tilesMatch
+    ? await page.evaluate(async (hrefs) => {
+        const out = [];
+        for (const h of hrefs) { try { out.push((await fetch(h, { method: "HEAD" })).status); } catch { out.push(0); } }
+        return out;
+      }, tileHrefs)
+    : [];
+  record(`${tag} all twelve island tile links resolve`, tilesMatch && statuses.every((s) => s >= 200 && s < 400), tilesMatch ? statuses.join(",") : `count ${tileHrefs.length}`);
+  await page.close();
+}
+
+async function compareSuite(size) {
+  const tag = `compare@${size.width}${size.touch ? "t" : ""}`;
+  const { page, problems, done, ms } = await open(`${BASE}/compare.html?level=home&seed=1`, size);
   record(`${tag} __done within 10 s`, done, `${ms} ms`);
   const vis = () => page.evaluate(() => ["p3d", "p2d"].map((id) => { const e = document.getElementById(id); return !e.hidden && e.getBoundingClientRect().height > 50; }));
   record(`${tag} both panes shown by default`, (await vis()).join() === "true,true");
@@ -238,7 +267,7 @@ async function rootSuite(size) {
 try {
   for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }]) {
     for (const build of ["3d", "2d"]) await buildSuite(build, size);
-    if (!size.touch) await rootSuite(size);
+    if (!size.touch) { await compareSuite(size); await startSuite(size); }
   }
 } finally {
   await browser.close();
