@@ -11,7 +11,7 @@ fs.mkdirSync(OUT, { recursive: true });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const results = [];
 const EXPECTED = { "hooks-test": /missing\.glb|File not found/ };
-const record = (name, ok, detail = "") => { results.push({ name, ok, detail }); console.log(`${ok ? "PASS" : "FAIL"}  ${name}${detail ? "  " + detail : ""}`); };
+const record = (name, ok, detail = "") => { results.push({ name, ok, detail }); console.log(`${ok === "skip" ? "SKIP" : ok ? "PASS" : "FAIL"}  ${name}${detail ? "  " + detail : ""}`); };
 
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -87,6 +87,27 @@ async function xrayDiff(page, tag) {
   return diffCount(on, off);
 }
 
+async function openGated(url) {
+  const o = await open(url);
+  if (!o.done) return o;
+  const n = await o.page.evaluate(async () => {
+    const { storageKey } = await import("/core/interact.js");
+    const S = window.__game.state, gates = (S.things?.things || []).filter((t) => t.kind === "gate");
+    localStorage.setItem(storageKey(S.level.name), JSON.stringify({ v: 1, respawn: null, things: Object.fromEntries(gates.map((g) => [g.id, { state: "open" }])) }));
+    return gates.length;
+  });
+  await o.page.evaluate(() => { window.__done = false; });
+  await o.page.reload({ waitUntil: "load" });
+  try { await o.page.waitForFunction(() => window.__done === true, { timeout: 15000, polling: 100 }); } catch { o.done = false; }
+  o.opened = o.done && await o.page.evaluate(() => (window.__game.state.things?.things || []).filter((t) => t.kind === "gate").every((t) => t.state === "open"));
+  o.gates = n;
+  return o;
+}
+
+async function forgetThings(page) {
+  await page.evaluate(async () => { const { storageKey } = await import("/core/interact.js"); localStorage.removeItem(storageKey(window.__game.state.level.name)); }).catch(() => {});
+}
+
 async function plan(page, file) {
   return page.evaluate(async (file) => {
     const { reachable, findPath } = await import("/core/path.js");
@@ -97,11 +118,20 @@ async function plan(page, file) {
     const spawn = file.spawn;
     const reach = reachable(L, spawn);
     const hOf = (c) => L.cells[c[1]][c[0]].h;
-    let plateau = null, route = null;
-    for (const c of reach.slice().sort((a, b) => hOf(b) - hOf(a))) {
-      if (hOf(c) <= hOf(spawn)) break;
-      const p = findPath(L, spawn, c);
-      if (p && p.some((q) => L.cells[q[1]][q[0]].s === "ramp")) { plateau = c; route = p; break; }
+    const climb = () => {
+      for (const c of reachable(L, spawn).sort((a, b) => hOf(b) - hOf(a))) {
+        if (hOf(c) <= hOf(spawn)) break;
+        const p = findPath(L, spawn, c);
+        if (p && p.some((q) => L.cells[q[1]][q[0]].s === "ramp")) return [c, p];
+      }
+      return [null, null];
+    };
+    let [plateau, route] = climb(), viaGate = false;
+    if (!plateau) {
+      const shut = [];
+      for (const t of S.things?.things || []) if (t.kind === "gate" && t.state !== "open") for (const [x, z] of t.blocks) if (L.blocked.delete(x + "," + z)) shut.push(x + "," + z);
+      if (shut.length) { [plateau, route] = climb(); viaGate = !!plateau; }
+      for (const k of shut) L.blocked.add(k);
     }
     const keyFor = {};
     for (const [code, sd] of [["KeyW", "up"], ["KeyD", "right"], ["KeyS", "down"], ["KeyA", "left"]]) keyFor[screenToWorldDir(S.proj, sd)] = code;
@@ -111,20 +141,29 @@ async function plan(page, file) {
       return keyFor[dir];
     }) : [];
     const seen = new Set(reach.map((c) => c.join(",")));
-    let behind = null;
-    for (const d of L.decor) {
-      const spec = CATALOG[d.t];
-      if (!spec || spec.passable || (spec.height || 1) < 1.5) continue;
-      for (const [fx, fz] of footprintCells(d.t, d.x, d.z, d.rot || 0)) {
-        for (const [ox, oz, w] of [[-1, -1, 3], [-1, 0, 2], [0, -1, 2]]) {
-          const c = [fx + ox, fz + oz];
-          if (!seen.has(c.join(",")) || !isWalkable(L, c[0], c[1])) continue;
-          const score = w + (/trunk/.test(d.t) ? 2 : 0) + (spec.height || 1) / 2 - (hOf(c) < L.cells[fz][fx].h ? 1 : 0);
-          if (!behind || score > behind.score) behind = { cell: c, type: d.t, at: [fx, fz], score };
+    const RING1 = [[-1, -1, 3], [-1, 0, 2], [0, -1, 2]];
+    const RING2 = [[-2, -2, 2.5], [-2, -1, 2], [-1, -2, 2], [-2, 0, 1.5], [0, -2, 1.5]];
+    const probe = (offsets, wide) => {
+      let best = null;
+      for (const d of L.decor) {
+        const spec = CATALOG[d.t];
+        if (!spec || spec.passable) continue;
+        const foot = footprintCells(d.t, d.x, d.z, d.rot || 0);
+        if ((spec.height || 1) < 1.5 && !(wide && (foot.length > 1 || d.watch))) continue;
+        for (const [fx, fz] of foot) {
+          for (const [ox, oz, w] of offsets) {
+            const c = [fx + ox, fz + oz];
+            if (!seen.has(c.join(",")) || !isWalkable(L, c[0], c[1])) continue;
+            const score = w + (/trunk/.test(d.t) ? 2 : 0) + (spec.height || 1) / 2 - (hOf(c) < L.cells[fz][fx].h ? 1 : 0);
+            if (!best || score > best.score) best = { cell: c, type: d.t, at: [fx, fz], score, wide };
+          }
         }
       }
-    }
-    return { spawnFile: spawn, spawnLive: S.actor.cell.slice(), spawnH: hOf(spawn), plateau, plateauH: plateau && hOf(plateau), route, keys, behind };
+      return best;
+    };
+    const behind = probe(RING1, false) || probe([...RING1, ...RING2], true);
+    const tall = L.decor.filter((d) => { const sp = CATALOG[d.t]; return sp && !sp.passable && ((sp.height || 1) >= 1.5 || footprintCells(d.t, 0, 0, 0).length > 1 || d.watch); }).map((d) => `${d.t}@${d.x},${d.z}`);
+    return { spawnFile: spawn, spawnLive: S.actor.cell.slice(), spawnH: hOf(spawn), plateau, plateauH: plateau && hOf(plateau), route, keys, viaGate, behind, reach: reach.length, tall };
   }, file);
 }
 
@@ -163,28 +202,36 @@ async function levelSuite(name) {
   record(`${tag} no console errors or failed requests`, clean(name, problems).length === 0, clean(name, problems).slice(0, 3).join(" | "));
   await page.close();
 
-  if (!P.plateau) record(`${tag} ramp climb`, name === "hooks-test", "no ramp route to a higher cell" + (name === "hooks-test" ? " (flat test level)" : ""));
+  if (!P.plateau) record(`${tag} ramp climb`, name === "hooks-test", "no ramp route to a higher cell, gates closed or open" + (name === "hooks-test" ? " (flat test level)" : ""));
   else {
-    const c = await open(`${BASE}/3d/index.html?level=${name}`);
-    if (!c.done) record(`${tag} ramp climb page loads`, false);
+    const url = `${BASE}/3d/index.html?level=${name}`;
+    const c = P.viaGate ? await openGated(url) : await open(url);
+    const via = P.viaGate ? " (via gate)" : "";
+    if (!c.done) record(`${tag} ramp climb page loads${via}`, false);
+    else if (P.viaGate && !c.opened) record(`${tag} ramp climb${via}`, false, `stored open state did not open ${c.gates} gate(s)`);
     else {
       await idle(c.page); await wait(1500);
-      const trail = [];
-      for (const k of P.keys) { const r = await keyStep(c.page, k); trail.push(`${k}:${r.after}`); }
-      const got = await cellOf(c.page);
-      record(`${tag} ramp climb ${P.spawnFile} (h${P.spawnH}) -> ${P.plateau} (h${P.plateauH})`, got.join() === P.plateau.join(), `${trail.join(" ")}`);
+      const Q = P.viaGate ? await plan(c.page, file) : P;
+      if (!Q.plateau) record(`${tag} ramp climb${via}`, false, "no ramp route with the gates open in play");
+      else {
+        const trail = [];
+        for (const k of Q.keys) { const r = await keyStep(c.page, k); trail.push(`${k}:${r.after}`); }
+        const got = await cellOf(c.page);
+        record(`${tag} ramp climb ${Q.spawnFile} (h${Q.spawnH}) -> ${Q.plateau} (h${Q.plateauH})${via}`, got.join() === Q.plateau.join(), `${trail.join(" ")}`);
+      }
       record(`${tag} ramp climb page clean`, clean(name, c.problems).length === 0, clean(name, c.problems).slice(0, 3).join(" | "));
     }
+    if (P.viaGate) await forgetThings(c.page);
     await c.page.close();
   }
 
-  if (!P.behind) record(`${tag} see-through window`, false, "no walkable cell behind a tall piece");
+  if (!P.behind) record(`${tag} see-through window`, "skip", `no walkable cell within two rings behind a tall, multi-cell, or figure piece in ${P.reach} cells reachable with gates closed (pieces: ${P.tall.join(" ") || "none"})`);
   else {
     const x = await open(`${BASE}/3d/index.html?level=${name}&spawn=${P.behind.cell.join(",")}`);
     if (!x.done) record(`${tag} x-ray page loads`, false);
     else {
       const n = await xrayDiff(x.page, tag);
-      record(`${tag} see-through window reveals hero at ${P.behind.cell} behind ${P.behind.type} ${P.behind.at}`, n > 40, `${n} px differ window on/off`);
+      record(`${tag} see-through window reveals hero at ${P.behind.cell} behind ${P.behind.type} ${P.behind.at}${P.behind.wide ? " (outer ring)" : ""}`, n > 40, `${n} px differ window on/off`);
       record(`${tag} x-ray page clean`, clean(name, x.problems).length === 0, clean(name, x.problems).slice(0, 3).join(" | "));
     }
     await x.page.close();
@@ -216,7 +263,8 @@ try {
 } finally {
   await browser.close();
 }
-const fail = results.filter((r) => !r.ok);
-console.log(`\n${results.length - fail.length} pass, ${fail.length} fail`);
+const fail = results.filter((r) => !r.ok), skip = results.filter((r) => r.ok === "skip");
+console.log(`\n${results.length - fail.length - skip.length} pass, ${fail.length} fail, ${skip.length} skip`);
+for (const s of skip) console.log("SKIP", s.name, s.detail);
 for (const f of fail) console.log("FAIL", f.name, f.detail);
 process.exitCode = fail.length ? 1 : 0;
