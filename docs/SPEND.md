@@ -205,4 +205,9 @@ Total: $2.835
 2026-10-05 | loops stage 2 layout | gemini-3.8-flash | 6 | 0.0440 | critic on the wizard-medium copy after the layout loop
 2026-10-05 | pass 2 tap fix | gemini-3.8-flash | 12 | 0.0800 | critic on wizard-medium and swallow-medium after moving the occluders
 
-Running total: $32.974
+2026-10-06 | pass 3 tooling | gemini-3.8-flash | 3 | 0.0186 | critic on the wizard copy after terrain edits
+2026-10-06 | pass 3 islands A | gemini-3.8-flash | 24 | 0.1800 | critic once per island after figures, fixes, loops
+2026-10-06 | pass 3 islands B | gemini-3.8-flash | 30 | 0.2300 | critic once per island plus the forest and cosmos re-fix
+2026-10-06 | pass 3 fixer | gemini-3.8-flash | 6 | 0.0610 | critic on sharkbear and swallow after the gate and spawn moves
+
+Running total: $33.464

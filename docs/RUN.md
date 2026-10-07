@@ -751,3 +751,24 @@ node tools/figure-scale.mjs cat-medium --json
 Hero height 0.90 on every island. Eagle, forest and wizard build well past their catalog height (plinth, crag or hat), so their factors apply to the whole build, plinth included.
 
 Pass 3 tooling critic spend: $0.0186 over 3 calls.
+
+## Pass 3: figures, fixes, loops live
+
+2026-10-06. Five figures rebuilt from their reference sheets (dragon, chimera, sharkbear, gremlin, cosmos); every figure held in the 2.5 to 3.5 hero-height band; the card weak spots fixed; the decor loop (rim-first fix) and the layout loop (`--terrain=4`, bounded edits logged in each level's `edits`) run live on all twelve; stage-3 walks and readability overlays per island in out/pass3/. Critic 0 high on every final render; walk QA 14 of 14 per island.
+
+| Island | Figure (hero ratio) | Fixes | Terrain edits | Greedy steps |
+| --- | --- | --- | --- | --- |
+| cat-medium | cat 2.78 | windmill 2x2 within three cells of the cat | raise 8,4 | 14 |
+| dragon-medium | full white wyvern rebuilt, 3.0 |  | lower 13,7 | 15 |
+| chimera-medium | crested head and neck arc rebuilt, 2.72 | boulder in front of the face removed; edge gap filled | none | 11 |
+| wizard-medium | 3.53 to 3.31 |  | lower 8,6; cut 8,10; lower 3,9; lower 9,7 | 20 |
+| swallow-medium | 3.03 | tower footed on stone; lintel removed; spawn moved to 2,8 | lower 8,6; lower 7,9; lower 2,6; lower 7,8 | 20 (was 74) |
+| sharkbear-medium | hunched bear with shark head and blade tail rebuilt, 3.0 | gate moved to 8,6 for a visible tap target; ramp added near spawn | lower 13,8; lower 13,7; cut 14,3; lower 13,6 | 9 |
+| gremlin-subject | thin-limbed crouch, orb raised, rebuilt, 2.93 |  | lower 3,2 | 8 |
+| mindbloom-medium | 3.37 | shrine 2x2 at 4,9 off the sightline | lower 9,7; lower 9,6 | 8 |
+| eagle-composition | 4.77 to 3.49 |  | lower 13,7; cut 1,1 | 26 |
+| forest-volute | 4.33 to 3.50 | canopy tree 2x2 at 6,8; bypass ramps flattened so the route passes the gilt arch; spawn 9,10 | lower 10,5 | 10 |
+| cosmos-frisket | tilted ring and iris disc rebuilt, 3.16 | press moved to 8,4 so its bed shows; spawn 8,10 for a sightline | lower 6,6; lower 8,9; lower 6,8 | 50 |
+| ember-subject | 3.19 | density 0.22 to 0.25 | none | 15 |
+
+Sheets: `out/pass3/islands-sheet.jpg`, `out/pass3/figures-before-after.jpg`. Card: `puffer-isoworld-pass-3-islands`.
