@@ -220,10 +220,6 @@ const LENS_BUILD = {
     B.at(0, 0.2 + H * 0.6, 0, d.axis === "x" ? Math.PI / 2 : 0, () => {
       for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + i * 0.75, r = 0.3 - i * 0.025; B.box(0.14, 0.14, 0.2, pal(i % 2 ? c2 : c0), Math.cos(a) * r * (d.side || 1) * -1, 0.3 + Math.sin(a) * r, 0); }
     });
-    if (d.side) {
-      const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.18, th, reach + 0.2, pal(c), 0, y, -d.side * (reach / 2)) : B.box(reach + 0.2, th, 0.18, pal(c), -d.side * (reach / 2), y, 0);
-      beam(H * 0.62, 0.14, c2);
-    }
   },
   forkArch(B, H, v, { c0, c1, c2, d }) {
     B.box(0.46, 0.2, 0.46, pal(c1));
