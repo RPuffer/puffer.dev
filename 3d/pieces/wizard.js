@@ -597,9 +597,9 @@ function finishLens(level, brief, h) {
   if (lost.length) h.log.push(`gate posts lost ${lost.length}`);
   if (level.name === "wizard-medium") for (const [x, z] of [[1, 8], [1, 7]]) if (!(level.things || []).some((t) => t.x === x && t.z === z)) h.put("stepping-stones", x, z, { v: z % 2 });
   if (level.name === "wizard-medium") placeLandmark(level, h, "wizard-scroll-tower");
-  if (level.name === "wizard-medium") placeGeneric(level, h, "market-row", { near: 2 });
+  if (level.name === "wizard-medium") placeGeneric(level, h, "market-row", { near: 2, at: [4, 9], hideWeight: 0 });
   if (level.name === "wizard-medium" && h.land(h.cell(3, 5)) && !h.blockedSet().has(h.key(3, 5))) level.spawn = [3, 5];
-  if (L === "medium") placeThings(level, h, { look: THINGS_LOOK, chestText: "A curl of dried ink, peeled off the Ribbonway." });
+  if (L === "medium") placeThings(level, h, { look: THINGS_LOOK, bonfire: level.name === "wizard-medium" ? [2, 6] : null, chestText: "A curl of dried ink, peeled off the Ribbonway." });
 }
 
 const FACE = [[0, 1], [-1, 0], [0, -1], [1, 0]];
@@ -669,7 +669,7 @@ export function placeThings(level, h, o = {}) {
     return [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => free(c[0] + a, c[1] + b)).reduce((n, [a, b]) => n + (reachWith([c, ...extra, [c[0] + a, c[1] + b]]).missing.length > m0 + 1 ? 1 : 0), 0);
   };
   const sides4 = (c) => [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => { const n = h.cell(c[0] + a, c[1] + b); return walkable(n) && n.h === h.cell(...c).h && !base.has(key(c[0] + a, c[1] + b)) && !h.isFig(c[0] + a, c[1] + b); }).length;
-  let bon = null;
+  let bon = o.bonfire && free(...o.bonfire) && !onR.has(key(...o.bonfire)) && md(o.bonfire, [sx, sz]) <= 3 && sides4(o.bonfire) >= 1 && keeps([o.bonfire]) ? o.bonfire : null;
   for (const k4 of [2, 1]) for (const c of cand.filter((c) => md(c, [sx, sz]) <= 3 && !cut.has(key(...c)) && sides4(c) >= k4).sort((a, b) => (frail(a) - frail(b)) || (sides4(b) - sides4(a)) || (near(...a) - near(...b)) || (Math.abs(md(a, [sx, sz]) - 2) - Math.abs(md(b, [sx, sz]) - 2)))) {
     if (bon || !keeps([c])) continue;
     bon = c;
@@ -678,7 +678,7 @@ export function placeThings(level, h, o = {}) {
   if (bon) out.push({ id: "b1", kind: "bonfire", x: bon[0], z: bon[1], rot: 0 });
   const idxOf = (x, z) => { let bi = 0, bd = Infinity; route.forEach(([a, b], i) => { const d = Math.abs(a - x) + Math.abs(b - z); if (d < bd) { bd = d; bi = i; } }); return bi; };
   const want = gi > 0 ? Math.round(gi * 0.6) : Math.round(route.length / 2);
-  let chest = null;
+  let chest = o.chest && free(...o.chest) && !onR.has(key(...o.chest)) && !cut.has(key(...o.chest)) && sides4(o.chest) >= 1 && keeps(bon ? [o.chest, bon] : [o.chest]) ? o.chest : null;
   for (const [far, gap, k4] of [[2, 3, 2], [3, 2, 2], [4, 2, 2], [2, 3, 1], [4, 2, 1]]) {
     if (chest) break;
     for (const c of cand.filter((c) => near(...c) >= 1 && near(...c) <= far && !cut.has(key(...c)) && Math.max(Math.abs(c[0] - sx), Math.abs(c[1] - sz)) >= 2 && sides4(c) >= k4 && (!bon || Math.max(Math.abs(c[0] - bon[0]), Math.abs(c[1] - bon[1])) >= gap)).sort((a, b) => (frail(a, bon ? [bon] : []) - frail(b, bon ? [bon] : [])) || (near(...a) - near(...b)) || (Math.abs(idxOf(...a) - want) - Math.abs(idxOf(...b) - want)))) {
@@ -695,7 +695,8 @@ export function placeThings(level, h, o = {}) {
   }
   if (lead) {
     const th = gi > 0 ? route[gi - 1] : route[Math.max(0, route.length - 3)];
-    const radius = +Math.max(o.radius ?? 6, Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6).toFixed(2);
+    const far = Math.min(Infinity, ...[bon, chest].filter(Boolean).map(([x, z]) => Math.hypot(x + 0.5 - fc[0], z + 0.5 - fc[1]) - 1.6));
+    const radius = +Math.max(Math.hypot(th[0] + 0.5 - fc[0], th[1] + 0.5 - fc[1]) + 0.6, Math.min(o.radius ?? 6, far)).toFixed(2);
     lead.watch = "w1";
     out.push({ id: "w1", kind: "watcher", x: lead.x, z: lead.z, size: [fw, fd], radius });
     if (G) {
