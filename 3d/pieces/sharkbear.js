@@ -283,13 +283,6 @@ function detail(B, t, H, v, c0, c1, c2) {
 }
 
 
-function gateBeam(B, H, d, y, th, c) {
-  if (!d.side) return;
-  const reach = 1.0;
-  if (d.axis === "x") B.box(0.2, th, reach + 0.3, pal(c), 0, y, -d.side * (reach / 2 - 0.05));
-  else B.box(reach + 0.3, th, 0.2, pal(c), -d.side * (reach / 2 - 0.05), y, 0);
-}
-
 function rib(B, H, d, off, k, w, c, tip) {
   const n = 7, reach = d.side ? 0.92 : 0.3;
   const inX = d.side ? (d.axis === "x" ? 0 : -d.side) : 1, inZ = d.side ? (d.axis === "x" ? -d.side : 0) : 0;
@@ -330,8 +323,6 @@ const LENS_BUILD = {
       blade(B, [[0, -0.26], [0, 0.26], [s * 0.45, 0.16], [s * 0.8, -0.06], [s, -0.36], [s * 0.86, -0.34], [s * 0.5, -0.3]], 0.12, BONE, 0, 0.42, 0);
       blade(B, [[0, -0.3], [0, -0.2], [s * 0.5, -0.24], [s * 0.86, -0.3], [s * 0.4, -0.34]], 0.14, SLATE, 0, 0.42, 0);
     });
-    gateBeam(B, H, d, H * 0.72, 0.14, SLATE);
-    gateBeam(B, H, d, H * 0.72 + 0.14, 0.08, PAPER);
   },
   ribGate(B, H, v, { c0, c1, d, t }) {
     B.box(0.48, 0.18, 0.48, pal(/whale/i.test(t) ? ["#8a95a3", "#6f7a88", "#56616e"] : ["#b98a5e", "#9a6e46", "#7a5434"]));
@@ -808,6 +799,16 @@ function finishLens(level, brief, h) {
   h.rampTone();
   h.log.push(`lens ${lens}: walk ${h.walkN()}, posts ${level.decor.filter((d) => d.t === gateT).map((d) => d.x + "," + d.z).join(" ")}`);
   if (level.name === "sharkbear-medium") placeLandmark(level, h, "sharkbear-shard-watchtower");
+  if (level.name === "sharkbear-medium") pocketRamp(level, h, 13, 9, "e");
+}
+
+function pocketRamp(level, h, x, z, d) {
+  const [dx, dz] = h.DIRS[d], c = h.cell(x, z), lo = h.cell(x + dx, z + dz), hi = h.cell(x - dx, z - dz);
+  if (!h.land(c) || c.s === "ramp" || h.decorAt(x, z).length || !h.land(lo) || lo.s === "ramp" || lo.h !== c.h - 1 || !h.land(hi) || hi.h !== c.h) return;
+  const S = h.snapshot(), m0 = h.reach().missing.length, before = h.approach().length;
+  level.cells[z][x] = { h: c.h, s: "ramp", d, m: c.s === "stone" ? "stone" : "sand" };
+  if (h.reach().missing.length > m0 || h.approach().length > before) { h.restore(S); h.log.push(`pocketRamp ${x},${z}: rejected`); return; }
+  h.log.push(`pocketRamp ${x},${z} down ${d}`);
 }
 
 export function finish(level, brief, h) {
