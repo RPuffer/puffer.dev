@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
+import { placeRunThings } from "./ember.js";
 import { lockedKit } from "../prims.js";
 import { CATALOG } from "../../core/catalog.js";
 
@@ -1599,6 +1600,7 @@ function finishLens(level, brief, h) {
     if (lens === "frisket") placeLandmark(level, h, "cosmos-stencil-press", { near: 5 });
     if (lens === "frisket") revealLandmark(level, h, level.decor.find((d) => /^cosmos-stencil-press/.test(d.t))?.t);
     if (lens === "frisket") placeGeneric(level, h, "market-row", { ...UNPADDED, look: { stall: "#8f78d6", stallTop: "#b8a4f2", awning: "#5fd6e6", awningWhite: "#fff0e2", crate: "#f6dfb2", pot: "#f58fa6", goods: "#ffc9a3" } });
+    if (level.name === "cosmos-frisket") placeRunThings(level, h, { spawn: [7, 10], clear: [[5, 6]], chestText: "A lifted frisket plate, its masked edge dusted peach to cyan." });
     return;
   }
   lensLook(level, lens);
