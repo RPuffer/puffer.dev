@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-a.js";
 import { placeGeneric } from "./multitile-place.js";
+import { CATALOG } from "../../core/catalog.js";
 import { BIBLE, audit, figure, lockedKit } from "../prims.js";
 
 const INK = {
@@ -701,9 +702,41 @@ function finishLens(level, brief, h) {
   h.rampTone();
   if (level.name === "chimera-medium") placeLandmark(level, h, "chimera-ink-monolith");
   if (level.name === "chimera-medium") placeGeneric(level, h, "watchtower", { near: 2, span: 0.6 });
+  if (level.name === "chimera-medium") fillNotches(level, h);
+  if (level.name === "chimera-medium") clearFace(level, h);
 }
 
 const CATALOG_PASS = (level, t) => !!level.palette?.props?.[t]?.passable && !/perch|oculus|ribbed/i.test(t);
+
+function fillNotches(level, h) {
+  const out = [];
+  for (let z = 1; z < h.D - 1; z++) for (let x = 1; x < h.W - 1; x++) {
+    if (h.land(h.cell(x, z))) continue;
+    for (const [a, b] of [[1, 0], [0, 1]]) {
+      const p = h.cell(x - a, z - b), q = h.cell(x + a, z + b);
+      if (!h.land(p) || !h.land(q) || p.s === "ramp" || q.s === "ramp" || p.h !== q.h) continue;
+      if (h.land(h.cell(x + b, z + a)) || h.land(h.cell(x - b, z - a))) continue;
+      out.push([x, z, p.h]);
+      break;
+    }
+  }
+  for (const [x, z, hh] of out) level.cells[z][x] = { h: hh, s: h.surf.ground };
+  h.log.push(`fillNotches: ${out.map(([x, z]) => x + "," + z).join(" ") || "none"}`);
+}
+
+function clearFace(level, h) {
+  const fc = h.figure.cells, top = Math.max(...fc.map(([u, v]) => u + v));
+  const route = new Set(h.approach().map(([x, z]) => h.key(x, z)));
+  const face = (x, z) => x + z > top && x + z <= top + 3 && fc.some(([u, v]) => Math.abs(x - z - (u - v)) <= 2);
+  const n = h.removeDecor((d) => d !== h.lead && !d.side && !d.axis && !CATALOG[d.t]?.passable && !CATALOG[d.t]?.stamp && face(d.x, d.z));
+  let k = 0;
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!face(x, z) || !h.land(c) || c.s === "ramp" || route.has(h.key(x, z)) || h.decorAt(x, z).length) continue;
+    if (h.put("ink-hatch", x, z, { v: (x + z) % 2 })) k++;
+  }
+  h.log.push(`clearFace: ${n} blockers off the figure's face, ${k} ink-hatch`);
+}
 
 export function finish(level, brief, h) {
   if (brief.lens) return finishLens(level, brief, h);
