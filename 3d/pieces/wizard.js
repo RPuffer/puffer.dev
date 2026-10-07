@@ -316,7 +316,7 @@ export function register(style) {
   const builders = {};
   for (const t of types) {
     const p = props[t], role = kindOf(P, t);
-    const h = role === "lead" ? 2.45 : role === "threshold" ? 2.6 : role === "slab" ? 0.25 : Math.min(2.6, Math.max(0.3, p.height || 1));
+    const h = role === "lead" ? 2.3 : role === "threshold" ? 2.6 : role === "slab" ? 0.25 : Math.min(2.6, Math.max(0.3, p.height || 1));
     catalog[t] = { footprint: role === "lead" ? [2, 2] : role === "threshold" || role === "dais" ? [1, 1] : p.footprint || [1, 1], passable: role === "lead" || role === "threshold" ? false : role === "slab" ? true : !!p.passable, variants: 2, height: h };
     const tn = tonesOf(P, t);
     const c0 = pick(tn, 0, ART.stone), c1 = pick(tn, 1, ART.wood), c2 = pick(tn, 2, ART.gold);
