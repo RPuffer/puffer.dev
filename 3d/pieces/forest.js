@@ -885,7 +885,7 @@ function registerAspect(style, aspect) {
     builders[t] = (v, rot, st, ctx) => {
       const H = ctx.height, d = ctx.decor || {};
       if (kind === "lead") {
-        const bh = aspect === "lift" ? 3.5 : aspect === "volute" ? 3.2 : 3.1, k = (bh - 0.22) / 2.4;
+        const bh = aspect === "lift" ? 3.5 : aspect === "volute" ? 2.5 : 3.1, k = (bh - 0.22) / 2.4;
         const g = new THREE.Group();
         const B = new Baker();
         const top = K.perch(B, C, k);
