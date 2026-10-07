@@ -444,6 +444,28 @@ function scatter(level, h, r, t, n) {
   h.log.push(`scatter ${t} x${k}`);
 }
 
+function lowerFrontRim(level, h) {
+  const voidAt = (x, z) => { const c = h.cell(x, z); return !c || c.s === "none"; };
+  const hits = [];
+  for (let z = 0; z < h.D; z++) for (let x = 0; x < h.W; x++) {
+    const c = h.cell(x, z);
+    if (!c || !(h.land(c) || c.s === "ramp")) continue;
+    for (const [dx, dz] of [[1, 0], [0, 1]]) {
+      const inn = h.cell(x - dx, z - dz);
+      if (voidAt(x + dx, z + dz) && inn && h.land(inn) && inn.h === c.h - 1) { hits.push([x, z, dx, inn]); break; }
+    }
+  }
+  const run = (x, z, dx) => hits.filter(([a, b, d]) => d === dx && (dx ? a === x && Math.abs(b - z) <= 2 : b === z && Math.abs(a - x) <= 2)).length;
+  let n = 0;
+  for (const [x, z, dx, inn] of hits) {
+    if (run(x, z, dx) < 3) continue;
+    h.set(x, z, { h: inn.h, s: inn.s });
+    h.removeDecor((d) => d.x === x && d.z === z);
+    n++;
+  }
+  if (n) h.log.push(`lowerFrontRim: ${n} front rim cells down to the floor behind them`);
+}
+
 function finishLens(level, brief, h) {
   const L = brief.lens?.name || brief.lens_name || (/ember-(\w+)/.exec(level.name || "") || [])[1] || "";
   const props = level.palette?.props || {};
@@ -452,6 +474,7 @@ function finishLens(level, brief, h) {
     h.log.push("grass repainted as scorched crust");
   }
   h.dryRim();
+  lowerFrontRim(level, h);
   dropPuddles(level, h);
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));
