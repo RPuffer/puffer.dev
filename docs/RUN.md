@@ -84,18 +84,11 @@ home.json cells may carry two optional fields both builds read: `lift` offsets a
 
 Sprite pipeline: `node 2d/gen/generate.mjs <ids>` (Gemini, logs to 2d/gen/ledger.jsonl and costs $0.045 each), `node 2d/gen/process.mjs` (key, scale, manifest), then `node 2d/gen/ramp.mjs` and `node 2d/gen/marker.mjs`, which rebuild the composite sprites that process.mjs overwrites.
 
-## Procedural islands
+## Procgen helpers
 
-`?level=gen&seed=N` generates an island from seed N in both builds; `?seed=N` with no `level` does the same. `?level=home` (or no seed) loads `levels/home.json`. The same seed always gives the same island. `core/procgen.js` exports `generateLevel(seed)`, `checkLevel(level)`, and `levelStats(level)`; `loadLevel("gen", { seed })` returns a prepared level.
+`core/procgen.js` exports `reachability(level)`, `checkLevel(level)`, `levelStats(level)`, `frameView(level)`, `VIEW` and `FRAME`. The seed-driven generator (`generateLevel`, `?level=gen&seed=N`, `tools/procgen-check.mjs`) was removed on 2026-10-08: it predated the artwork islands and the overlay's "new island" button dropped players into one of its generic islands. `?level=home` (or no `level`) still loads `levels/home.json`, the MVP reference match. The pipeline-A shapers in `pipeline/a-transcribe/build-level.mjs --seed N` are the route for seeded variation of the artwork islands.
 
-```sh
-node tools/procgen-check.mjs 200
-node tools/shot.mjs "http://localhost:8765/3d/index.html?level=gen&seed=7&hero=0" out/gen-7.png 351 390
-```
-
-`procgen-check.mjs [count] [first-seed]` generates each seed twice and checks schema, determinism, reachability from spawn, spawn free of decor, one decor per cell, ramps one tier down, bridges spanning 1 to 3 cells with level land at both ends, waterfalls on h0 water below a cliff, grass share between 0.25 and 0.45, and one plateau. It also feeds the checker five broken levels and fails if the checker misses one. It prints size and decor-count distributions and exits 1 on any problem.
-
-`core/ui.js` exports `mountUI({ container, navigate })`: a seed field, a "new island" button (random seed), and a "home" link. Both build pages mount it. Without a container it mounts a fixed overlay in the bottom-right corner (top-right below 560 px wide, clear of the d-pad) and skips itself inside an iframe or when the query has `hero=0` or `ui=0`, so reference shots stay clean.
+`core/ui.js` exports `mountUI({ container })`: one "islands" link back to the root start page. Both build pages mount it. Without a container it mounts a fixed overlay in the bottom-right corner (top-right below 560 px wide, clear of the d-pad) and skips itself inside an iframe or when the query has `hero=0` or `ui=0`, so reference shots stay clean.
 
 ## Level hooks (3d)
 

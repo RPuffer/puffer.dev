@@ -131,24 +131,14 @@ async function xrayCheck(page, tag) {
 }
 
 async function uiChecks(page, tag) {
-  const has = await page.$(".iw-ui input");
+  const has = await page.$(".iw-ui a");
   record(`${tag} ui overlay mounted`, !!has);
   if (!has) return;
-  await page.$eval(".iw-ui input", (e) => { e.value = ""; e.focus(); });
-  await page.type(".iw-ui input", "42");
-  await Promise.all([page.waitForNavigation({ waitUntil: "load" }), page.keyboard.press("Enter")]);
-  await page.waitForFunction(() => window.__done === true, { timeout: 10000 });
-  let q = new URL(page.url()).searchParams;
-  let name = await page.evaluate(() => window.__game.state.level.name);
-  record(`${tag} seed field loads seed 42`, q.get("level") === "gen" && q.get("seed") === "42", `${q} level=${name}`);
-  await Promise.all([page.waitForNavigation({ waitUntil: "load" }), page.click(".iw-ui button")]);
-  await page.waitForFunction(() => window.__done === true, { timeout: 10000 });
-  q = new URL(page.url()).searchParams;
-  record(`${tag} new island changes seed`, q.get("level") === "gen" && q.get("seed") && q.get("seed") !== "42", String(q));
+  const href = await page.$eval(".iw-ui a", (a) => a.href);
+  record(`${tag} overlay links to the start page`, /\/index\.html$/.test(href) && !/\/(3d|2d)\//.test(href), href);
   await Promise.all([page.waitForNavigation({ waitUntil: "load" }), page.click(".iw-ui a")]);
-  await page.waitForFunction(() => window.__done === true, { timeout: 10000 });
-  name = await page.evaluate(() => window.__game.state.level.name);
-  record(`${tag} home link loads home`, name === "home", name);
+  const begin = await page.$("#begin");
+  record(`${tag} islands link opens the start page`, !!begin, page.url());
 }
 
 async function buildSuite(build, size) {
@@ -246,15 +236,8 @@ async function compareSuite(size) {
   const frameDone = () => page.evaluate(() => [...document.querySelectorAll("iframe")].map((f) => { try { return f.contentWindow.__done === true; } catch { return false; } }));
   await page.waitForFunction(() => [...document.querySelectorAll("iframe")].every((f) => { try { return f.contentWindow.__done === true; } catch { return false; } }), { timeout: 10000 }).catch(() => {});
   record(`${tag} both iframes render`, (await frameDone()).every(Boolean));
-  await page.$eval("#ui input", (e) => { e.value = ""; e.focus(); });
-  await page.type("#ui input", "7");
-  await page.keyboard.press("Enter");
-  await wait(300);
   const srcs = await page.evaluate(() => [...document.querySelectorAll("iframe")].map((f) => f.src));
-  record(`${tag} seed field drives both iframes`, srcs.every((s) => /level=gen/.test(s) && /seed=7(&|$)/.test(s)), srcs.map((s) => s.split("?")[1]).join(" ; "));
-  await page.click("#ui button"); await wait(300);
-  const srcs2 = await page.evaluate(() => [...document.querySelectorAll("iframe")].map((f) => new URL(f.src).searchParams.get("seed")));
-  record(`${tag} new island button changes seed`, srcs2[0] === srcs2[1] && srcs2[0] !== "7", srcs2.join(","));
+  record(`${tag} level param drives both iframes`, srcs.every((s) => /level=home/.test(s)), srcs.map((s) => s.split("?")[1]).join(" ; "));
   await page.waitForFunction(() => [...document.querySelectorAll("iframe")].every((f) => { try { return f.contentWindow.__done === true; } catch { return false; } }), { timeout: 10000 }).catch(() => {});
   await wait(500);
   const inner = await page.evaluate(() => [...document.querySelectorAll("iframe")].map((f) => !!f.contentDocument.querySelector(".iw-ui")));

@@ -5,7 +5,7 @@ import sharp from "sharp";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const BASE = (process.argv[2] || "http://localhost:8765").replace(/\/$/, "");
-const LEVELS = (process.argv[3] || "forest-a,forest-b,forest-b-small,forest-c,hooks-test").split(",");
+const LEVELS = (process.argv[3] || JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order.join(",")).split(",");
 const OUT = path.join(root, "out/qa");
 fs.mkdirSync(OUT, { recursive: true });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));

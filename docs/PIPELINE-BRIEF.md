@@ -20,7 +20,9 @@ Seed: `pipeline/seed/forest.png`, a charcoal drawing of a dark forest: tall bare
 - B, concept repaint then transcribe (`pipeline/b-concept/`, `levels/forest-b.json`, `3d/pieces/forest-b.js`): an image model repaints the artwork as a cute-tile isometric island (reference crops as style images, several candidates, best one chosen by the agent), which is then transcribed into a level the way home.json was, with new props code-built to match the concept. Compare against the concept, then critic.
 - C, generated meshes (`pipeline/c-meshes/`, `levels/forest-c.json`, `3d/assets/forest-c/*.glb`, `3d/pieces/forest-c.js`): props from the brief are generated as cute-style sprites, turned into meshes with fal trellis, post-processed to flat-shaded, palette-snapped low-poly GLBs, and registered as catalog types; the layout comes from procgen driven by the brief's biome rules.
 
-Each variant runs the same loop: render at the home framing (`?level=forest-x&hero=0`, 351x390) and at 900x800, read the PNG, run the critic, fix, repeat until no high-severity item survives two consecutive passes or six rounds are done. Structural checks (connectivity from spawn, footprint overlaps) must pass too; reuse the logic in tools/procgen-check.mjs.
+Routes B and C lost the bake-off; their files moved to `archive/bakeoff/` on 2026-10-08.
+
+Each variant runs the same loop: render at the home framing (`?level=forest-x&hero=0`, 351x390) and at 900x800, read the PNG, run the critic, fix, repeat until no high-severity item survives two consecutive passes or six rounds are done. Structural checks (connectivity from spawn, footprint overlaps) must pass too; reuse `checkLevel` in core/procgen.js.
 
 ## Budget
 

@@ -37,9 +37,8 @@ iframe{width:100%;height:100%;border:0;display:block;background:var(--bg)}
   <section id="p2d"><iframe id="f2d" title="2d build" allow="fullscreen"></iframe><span>2d</span></section>
 </main>
 <script type="module">
-import { mountUI } from "./core/ui.js";
 let q = new URLSearchParams(location.search);
-if (!q.get("level")) q.set("level", q.get("seed") ? "gen" : "home");
+if (!q.get("level")) q.set("level", "home");
 if (!q.get("seed")) q.set("seed", "1");
 history.replaceState(null, "", "?" + q.toString() + location.hash);
 const load = () => {
@@ -59,10 +58,7 @@ const setView = (v) => {
   history.replaceState(null, "", "?" + q.toString());
 };
 for (const b of document.querySelectorAll("[data-view]")) b.addEventListener("click", () => setView(b.dataset.view));
-const ui = mountUI({
-  container: document.getElementById("ui"),
-  navigate: (s) => { q = new URLSearchParams(s); ui.setSeed(q.get("seed")); load(); },
-});
+document.getElementById("ui").textContent = q.get("level");
 setView(q.get("view") || "both");
 load();
 const started = performance.now();

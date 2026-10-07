@@ -1,5 +1,7 @@
 # Procedural islands
 
+Status 2026-10-08: the generator this document specifies was removed from `core/procgen.js` (it made the MVP's generic islands, unrelated to the artwork). The checks survived as helpers. The research below stays for a later generator that varies the artwork islands.
+
 ## State of the art
 
 **Model synthesis and WaveFunctionCollapse.** Merrell introduced model synthesis at i3D 2007 ("Example-Based Model Synthesis"): learn tile adjacencies from an example and fill a larger grid by arc consistency (TVCG 2010 generalises it) ([paulmerrell.org/model-synthesis](https://paulmerrell.org/model-synthesis/)). Gumin's WaveFunctionCollapse (2016, [github.com/mxgmn/WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse)) reimplements it with N x N overlapping patterns, a minimum-entropy observation order, and AC-4 propagation. The simple tiled model is plain adjacency propagation over a tile list; on contradiction Gumin's code gives up. Karth and Smith frame it as constraint solving (FDG 2017); Boris the Brave adds backtracking ([boristhebrave.com](https://www.boristhebrave.com/2020/04/13/wave-function-collapse-explained/)).

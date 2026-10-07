@@ -4,17 +4,7 @@ import { THING_KINDS, normalizeThing, thingBlocks, thingEdge, edgeKey } from "./
 export const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
 export const OPPOSITE = { n: "s", s: "n", e: "w", w: "e" };
 
-export const isGenName = (name) => /^gen(-\d+)?$/i.test(String(name || ""));
-
 export async function loadLevel(name, opts = {}) {
-  if (isGenName(name)) {
-    const q = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
-    const seed = opts.seed ?? (String(name).match(/^gen-(\d+)$/i)?.[1]) ?? q.get("seed") ?? "1";
-    const { generateLevel } = await import("./procgen.js");
-    const raw = generateLevel(seed);
-    if (opts.beforePrepare) await opts.beforePrepare(raw);
-    return prepareLevel(raw);
-  }
   const safe = String(name || "home").replace(/[^a-z0-9_-]/gi, "");
   if (!safe) throw new Error(`Level name "${name}" has no usable characters; use letters, digits, - or _.`);
   const file = `levels/${safe}.json`;

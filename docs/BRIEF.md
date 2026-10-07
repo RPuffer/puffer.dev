@@ -42,7 +42,7 @@ Nothing goes to the operator until the site works and the home island is near-id
 
 ## Budget and keys
 
-Generative spend cap for the whole project: $30.00. Log every batch in `docs/SPEND.md` as `date | model | count | $ | purpose` and keep a running total on the last line. Gemini `gemini-3.1-flash-image` is $0.045 per image; list models at runtime because ids retire. Keys live in macOS Keychain, service `dev.blacksmith.generator`, accounts `gemini` and `fal`; read them with `security find-generic-password -s dev.blacksmith.generator -a gemini -w` inside scripts and never print them. Working call patterns: `~/dev/loom/island/plate.mjs` (Gemini image in, image out) and `~/dev/loom/island/mesh.mjs` (fal). Stop at $30 and report; the orchestrator escalates.
+Generative spend cap for the whole project: $30.00. Log every batch in `docs/SPEND.md` as `date | model | count | $ | purpose` and keep a running total on the last line. Gemini `gemini-3.1-flash-image` is $0.045 per image; list models at runtime because ids retire. Keys live in macOS Keychain, service `dev.blacksmith.generator`, accounts `gemini` and `fal`; read them with `security find-generic-password -s dev.blacksmith.generator -a gemini -w` inside scripts and never print them. Working call patterns: `pipeline/multitile/gen.mjs` (Gemini image) and `archive/bakeoff/c-meshes/meshes.mjs` (fal). Stop at $30 and report; the orchestrator escalates.
 
 ## House rules
 
@@ -51,4 +51,4 @@ Generative spend cap for the whole project: $30.00. Log every batch in `docs/SPE
 - Own only your directories. Shared files (`core/`, `levels/`, `docs/`) are owned by the agent the orchestrator named; others append via a new file rather than editing.
 - Prefer the exact approach the reference implies. Consult primary sources when unsure and write what you learned to `docs/NOTES.md` as a one-line trap or finding.
 - Reports back to the orchestrator: under 150 words, verdict first, paths and numbers, then what is unfinished.
-- Headless Chrome: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome` with `--allow-file-access-from-files --use-angle=swiftshader --enable-unsafe-swiftshader --ignore-gpu-blocklist --no-first-run --disable-background-networking --hide-scrollbars`, own `.pp-profile` dir; see `~/dev/loom/island/shot.mjs`.
+- Headless Chrome: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome` with `--allow-file-access-from-files --use-angle=swiftshader --enable-unsafe-swiftshader --ignore-gpu-blocklist --no-first-run --disable-background-networking --hide-scrollbars`, own `.pp-profile` dir; see `tools/shot.mjs`.

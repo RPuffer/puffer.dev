@@ -15,18 +15,18 @@ sh tools/serve.sh
 
 Then open:
 
-- `http://localhost:8765/` for both builds
-- `http://localhost:8765/3d/index.html` for the 3d build
-- `http://localhost:8765/2d/index.html` for the 2d build
+- `http://localhost:8765/` for the run's start page (Begin, Continue, the twelve islands)
+- `http://localhost:8765/3d/index.html?level=cat-medium` for one island in the 3d build
+- `http://localhost:8765/compare.html` for the old 3d and 2d side by side
 
-W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch screens get a d-pad. The overlay takes a seed, rolls a new island, or goes home. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
+W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch screens get a d-pad. The overlay holds one link, "islands", back to the start page. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
 
 ## Query contract
 
 | Param | Effect |
 | --- | --- |
-| `level` | `home` loads `levels/home.json`; `gen` builds an island from `seed` |
-| `seed` | Island seed for `gen`, colour jitter elsewhere; `?seed=N` alone implies `gen` |
+| `level` | Loads `levels/<name>.json`; `home` (the default) is the reference-match island |
+| `seed` | Colour jitter |
 | `spawn` | `x,z` start cell |
 | `hero` | `0` hides the hero and frames the level for reference shots |
 | `dpad` | `1` forces the d-pad |
@@ -39,33 +39,21 @@ W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch s
 
 Interactive tiles fill one grid cell each and carry the walk: grass, sand, dirt, stone, water, ramp, bridge. A cell is walkable at `h >= 1` on a land, ramp or bridge surface, and the hero moves between neighbours of equal height or along a ramp. Decorative pieces (trees, rocks, well, fences, coins, waterfalls and the rest in `core/catalog.js`) sit on top of that grid. A solid piece blocks its cells; coins, gems, flowers and stepping stones let the hero pass. When the hero walks behind a piece, both builds cut a window through it.
 
-## Procgen
+## Procgen helpers
 
-1. `core/procgen.js` ranks cells by value noise blended with a falloff bump and keeps the top quantile as land, so each seed yields a similar land share.
-2. Elevation quantiles set water, sand and a grass plateau; a cellular-automaton pass smooths the tiers and drops small fragments.
-3. A flood fill from spawn finds unreached land and repairs it with a bridge of 1 to 3 cells, a ramp one tier down, or erasure.
-4. Rules add a dirt plaza, paths, waterfalls under cliffs, a well or campfire in the widest clearing, Poisson-disc trees, and scatter decor, and reject any piece that would cut the walkable area.
-5. `checkLevel` validates the result and the generator retries on failure; `node tools/procgen-check.mjs 200` tests 200 seeds.
+`core/procgen.js` keeps the checks every island goes through: `reachability` (flood fill from spawn), `checkLevel` (schema, decor overlap, ramp and bridge rules, reachability), `levelStats`, and `frameView` (fits the camera to the silhouette). Pipeline A and the pieces modules import them. The seed-driven island generator that produced the MVP's generic islands was removed on 2026-10-08 (commit history has it); variation of the artwork islands runs through pipeline A's shapers (`build-level.mjs --seed N`), and `docs/PROCGEN.md` keeps the research for a later per-island generator.
 
 ## Pipeline
 
-Three pipeline variants turn one artwork (`pipeline/seed/forest.png`) into a 3d level. All three start from the world brief `pipeline/analyze.mjs` writes (`pipeline/seed/brief.json`) and loop against `pipeline/critic.mjs`.
-
-- A, transcription: `pipeline/a-transcribe/` measures the drawing as a map and builds the level and its props in code, at $0.82.
-- B, concept repaint: `pipeline/b-concept/` has an image model repaint the drawing as a tile island, then transcribes the chosen concept by hand measurement, at $1.20.
-- C, generated meshes: `pipeline/c-meshes/` turns brief props into sprites, trellis meshes and palette-snapped low-poly GLBs, and lays the island out with procgen, at $2.39.
+Pipeline A turns one artwork into a 3d level: `pipeline/analyze.mjs` writes the world brief, `pipeline/a-transcribe/` measures the drawing as a map and builds the level and its props in code, and `pipeline/critic.mjs` scores the render. The bake-off's two losing routes, B (concept repaint, `pipeline/b-concept/`) and C (generated meshes and procgen layout, `pipeline/c-meshes/`), moved to `archive/bakeoff/` on 2026-10-08 with their levels, pieces and GLBs; they are inert there.
 
 ```sh
 node pipeline/analyze.mjs pipeline/seed/forest.png pipeline/seed/brief.json
 node pipeline/a-transcribe/regions.mjs && node pipeline/a-transcribe/build-level.mjs
-node pipeline/b-concept/concept.mjs pipeline/seed/forest.png pipeline/seed/brief.json pipeline/b-concept/candidates 4 -r2
-node pipeline/b-concept/transcribe.mjs pipeline/b-concept/measure.json
-node pipeline/c-meshes/sprites.mjs --n=2 && node pipeline/c-meshes/meshes.mjs && node pipeline/c-meshes/lowpoly.mjs
-node pipeline/c-meshes/layout.mjs --seed=10 --write
 node pipeline/critic.mjs out/final/forest-a.png --out out/final/forest-a.json
 ```
 
-The levels load at `http://localhost:8765/3d/index.html?level=forest-a`, `forest-b`, `forest-b-small` and `forest-c`, from `levels/<name>.json` with props in `3d/pieces/<name>.js`. Each variant's README under `pipeline/` has its full loop, and `docs/RUN.md` holds the results table and `out/final/bakeoff.png`.
+The level loads at `http://localhost:8765/3d/index.html?level=forest-a` from `levels/forest-a.json` with props in `3d/pieces/forest-a.js`. `pipeline/a-transcribe/README.md` has the full loop, and `docs/RUN.md` holds the bake-off results table and `out/final/bakeoff.png`.
 
 Round 2 kept pipeline A and varied only the analyzer's concept prompt (`node pipeline/analyze.mjs --concept <name>`, briefs in `pipeline/seed/concepts/`): `forest-a-pack-first`, `forest-a-scene`, `forest-a-biome`, `forest-a-motif-remap`, and `forest-a-composition-only` load the same way, each with its own pieces module. The six islands side by side are in `out/final/round2-concepts.jpg`, and the results table is under Round 2 results in `docs/RUN.md`.
 
