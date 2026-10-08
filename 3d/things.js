@@ -5,11 +5,16 @@ import { applyMotion } from "./motion.js";
 import { surfaceY, liftLevel } from "./terrain.js";
 import { createTweens, ease } from "./tween.js";
 import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
+import { rideUniforms } from "../core/sequence.js";
 
 export const RISE = 2.4;
 export const SHAFT = 32;
 export const RUNG = 1.5;
 const CAGE = 2.6;
+const RUNG_LO = CAGE + 0.26 + RUNG;
+let RUNGS = 0;
+for (let y = RUNG_LO; y < SHAFT - 0.3; y += RUNG) RUNGS++;
+export const RIDE = { speed: 10, extend: 12, stretch: 2.5 };
 const t3 =(c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
 const SIDE = [[0, 1], [1, 0], [0, -1], [-1, 0]];
 
@@ -113,7 +118,35 @@ function elevatorShaft(B, k, out) {
   const [ox, oz] = out;
   const perp = [oz, ox];
   for (const s of [-1, 1]) B.rbox(0.16, SHAFT - CAGE, 0.16, 0.03, t3(k.post), ox * 0.44 + perp[0] * s * 0.44, CAGE, oz * 0.44 + perp[1] * s * 0.44);
-  for (let y = CAGE + 0.26 + RUNG; y < SHAFT - 0.3; y += RUNG) B.box(Math.abs(perp[0]) * 0.92 + 0.08, 0.08, Math.abs(perp[1]) * 0.92 + 0.08, t3(k.trim), ox * 0.44, y, oz * 0.44);
+  const n0 = B.pos.length / 3;
+  for (let y = RUNG_LO; y < SHAFT - 0.3; y += RUNG) B.box(Math.abs(perp[0]) * 0.92 + 0.08, 0.08, Math.abs(perp[1]) * 0.92 + 0.08, t3(k.trim), ox * 0.44, y, oz * 0.44);
+  return n0;
+}
+
+const RIDE_HEAD = `uniform float uRide; uniform float uRideTime; uniform float uRideDir; uniform float uOn; uniform vec4 uRung;
+attribute float aRung;
+void main() {`;
+const RIDE_MOVE = `#include <begin_vertex>
+float rOn = uOn * step(0.001, uRide);
+if (aRung > 0.0) {
+  float rLo = uRung.x - uRung.w * rOn, rSpan = uRung.y + uRung.w * rOn;
+  float rRel = aRung - rLo;
+  float rC = rLo + mod(rRel - uRideTime * uRung.z * uRideDir * uOn, rSpan);
+  transformed.y = rC + (transformed.y - aRung) * (1.0 + ${RIDE.stretch.toFixed(1)} * uRide * uOn);
+} else if (transformed.y < ${(CAGE + 0.02).toFixed(2)}) {
+  transformed.y -= uRung.w * rOn;
+}`;
+
+function shaftMat() {
+  const m = underlayMat();
+  const on = { value: 0 };
+  m.userData.on = on;
+  m.onBeforeCompile = (shader) => {
+    Object.assign(shader.uniforms, rideUniforms, { uOn: on, uRung: { value: m.userData.rung } });
+    shader.vertexShader = shader.vertexShader.replace("void main() {", RIDE_HEAD).replace("#include <begin_vertex>", RIDE_MOVE);
+  };
+  m.customProgramCacheKey = () => "shaft-ride1";
+  return m;
 }
 
 function elevatorDeck(B, k) {
@@ -213,8 +246,14 @@ export function buildThings(L, view, style, decorGroup) {
       parts[t.id] = m;
       const out = SIDE[((t.rot || 0) % 4 + 4) % 4];
       const sb = new Baker(light);
-      elevatorShaft(sb, k, out);
-      const s = new THREE.Mesh(sb.geometry(), underlayMat());
+      const n0 = elevatorShaft(sb, k, out);
+      const sg = sb.geometry(), sp = sg.attributes.position;
+      const rung = new Float32Array(sp.count);
+      for (let i = n0; i < sp.count; i++) rung[i] = RUNG_LO + RUNG * Math.round((sp.getY(i) - RUNG_LO) / RUNG) + 0.04;
+      sg.setAttribute("aRung", new THREE.BufferAttribute(rung, 1));
+      const sm = shaftMat();
+      sm.userData.rung = new THREE.Vector4(RUNG_LO, RUNGS * RUNG, RIDE.speed, RIDE.extend);
+      const s = new THREE.Mesh(sg, sm);
       s.position.set(x, y, z);
       s.renderOrder = 3;
       s.userData.noMerge = true;
@@ -288,6 +327,7 @@ export function buildThings(L, view, style, decorGroup) {
       return 0;
     },
     keep(id) { kept = id; },
+    get kept() { return kept; },
     update(state, dt) {
       tweens.step(dt);
       for (const t of state.things?.things || []) {
@@ -299,7 +339,7 @@ export function buildThings(L, view, style, decorGroup) {
         else if (t.kind === "elevator") {
           const pin = t.id === kept ? -group.position.y : 0;
           m.position.y = m.userData.y0 + (t.lift ?? ease.inOut(t.ride || 0) * RISE) + pin;
-          if (shafts[t.id]) shafts[t.id].position.y = m.userData.y0 + pin;
+          if (shafts[t.id]) { shafts[t.id].position.y = m.userData.y0 + pin; shafts[t.id].material.userData.on.value = t.id === kept ? 1 : 0; }
         }
         else if (t.kind === "watcher") applyWatcher(t, m);
       }
