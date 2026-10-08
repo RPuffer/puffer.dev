@@ -100,7 +100,11 @@ function gateBars(B, k, span, width = 0.78, height = 1.62) {
 function elevatorFrame(B, k, out) {
   const [ox, oz] = out;
   const perp = [oz, ox];
-  for (const s of [-1, 1]) B.box(0.2, 0.12, 0.2, t3(k.trim), ox * 0.44 + perp[0] * s * 0.44, CAGE, oz * 0.44 + perp[1] * s * 0.44);
+  for (const s of [-1, 1]) {
+    const x = ox * 0.44 + perp[0] * s * 0.44, z = oz * 0.44 + perp[1] * s * 0.44;
+    B.rbox(0.16, CAGE + 0.3, 0.16, 0.03, t3(k.post), x, -0.3, z);
+    B.box(0.2, 0.12, 0.2, t3(k.trim), x, CAGE, z);
+  }
   B.box(Math.abs(perp[0]) * 0.92 + 0.16, 0.14, Math.abs(perp[1]) * 0.92 + 0.16, t3(k.post), ox * 0.44, CAGE + 0.12, oz * 0.44);
   B.box(0.12, 0.16, 0.12, t3(k.lamp), ox * 0.44, CAGE - 0.04, oz * 0.44);
 }
@@ -108,7 +112,7 @@ function elevatorFrame(B, k, out) {
 function elevatorShaft(B, k, out) {
   const [ox, oz] = out;
   const perp = [oz, ox];
-  for (const s of [-1, 1]) B.rbox(0.16, SHAFT + 0.3, 0.16, 0.03, t3(k.post), ox * 0.44 + perp[0] * s * 0.44, -0.3, oz * 0.44 + perp[1] * s * 0.44);
+  for (const s of [-1, 1]) B.rbox(0.16, SHAFT - CAGE, 0.16, 0.03, t3(k.post), ox * 0.44 + perp[0] * s * 0.44, CAGE, oz * 0.44 + perp[1] * s * 0.44);
   for (let y = CAGE + 0.26 + RUNG; y < SHAFT - 0.3; y += RUNG) B.box(Math.abs(perp[0]) * 0.92 + 0.08, 0.08, Math.abs(perp[1]) * 0.92 + 0.08, t3(k.trim), ox * 0.44, y, oz * 0.44);
 }
 
@@ -132,6 +136,17 @@ export function gatePlace(LL, view, t) {
 }
 
 const xrayMat = () => applyMotion(applyXray(bakedMaterial()));
+
+export const ISLAND = 1;
+
+function underlayMat() {
+  const m = bakedMaterial();
+  m.stencilWrite = true;
+  m.stencilRef = ISLAND;
+  m.stencilFunc = THREE.NotEqualStencilFunc;
+  m.stencilFail = m.stencilZFail = m.stencilZPass = THREE.KeepStencilOp;
+  return m;
+}
 
 function partMesh(build, light, k, at, rotY) {
   const B = new Baker(light);
@@ -196,7 +211,12 @@ export function buildThings(L, view, style, decorGroup) {
       group.add(m);
       parts[t.id] = m;
       const out = SIDE[((t.rot || 0) % 4 + 4) % 4];
-      const s = partMesh((B) => elevatorShaft(B, k, out), light, k, new THREE.Vector3(x, y, z), 0);
+      const sb = new Baker(light);
+      elevatorShaft(sb, k, out);
+      const s = new THREE.Mesh(sb.geometry(), underlayMat());
+      s.position.set(x, y, z);
+      s.renderOrder = 3;
+      s.userData.noMerge = true;
       s.userData.thing = t.id;
       s.userData.shaft = true;
       s.frustumCulled = false;
