@@ -987,3 +987,29 @@ function occluders(level, h, props, keep) {
 function CATALOG_PASS(d, props) {
   return !!props[d.t]?.passable;
 }
+
+export function flattenBump(level, h, route = exitRoute(level, h)) {
+  const v = level.view || {}, pi = ((v.pitch ?? 35.264) * Math.PI) / 180, yi = ((v.yaw ?? 45) * Math.PI) / 180, tH = v.tileH ?? 1;
+  const cam = [Math.cos(pi) * Math.sin(yi), Math.sin(pi), Math.cos(pi) * Math.cos(yi)];
+  const faces = (d) => DIRS[d][0] * tH * cam[0] + cam[1] + DIRS[d][1] * tH * cam[2] > 0.05;
+  const key = (c) => c.join(",");
+  for (let i = 2; i < route.length - 1; i++) {
+    const [down, top, up] = [route[i], route[i - 1], route[i - 2]].map((c) => h.cell(...c));
+    if (down?.s !== "ramp" || faces(down.d) || up?.s !== "ramp" || !faces(up.d)) continue;
+    if (!h.land(top) || top.s === "ramp" || top.h !== down.h || up.h !== down.h) continue;
+    const cells = [route[i - 2], route[i - 1], route[i]];
+    if (cells.some((c) => h.decorAt(...c).length || (level.things || []).some((t) => t.x === c[0] && t.z === c[1]))) continue;
+    const S = h.snapshot(), m0 = reachability({ ...level, blocked: h.blockedSet() }).missing.length, edits = [];
+    for (const c of cells) {
+      const was = h.cell(...c), to = { h: down.h - 1, s: was.s === "ramp" ? was.m || top.s : was.s };
+      edits.push({ x: c[0], z: c[1], kind: "lower", from: { h: was.h, s: was.s }, to: { h: to.h, s: to.s } });
+      h.set(c[0], c[1], to);
+    }
+    const r = exitRoute(level, h);
+    if (!r.length || reachability({ ...level, blocked: h.blockedSet() }).missing.length > m0 || !cells.every((c) => r.some((q) => key(q) === key(c)))) { h.restore(S); h.log.push(`flattenBump: ${cells.map(key).join(" ")} kept, flattening cuts the route`); return []; }
+    level.edits = [...(level.edits || []), ...edits];
+    h.log.push(`flattenBump lower ${cells.map(key).join(", ")}`);
+    return edits;
+  }
+  return [];
+}
