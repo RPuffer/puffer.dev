@@ -29,14 +29,25 @@ export function createRenderer(container = document.body) {
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
-  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, things = null, ride = 0, mounted = [];
-  const focus = new THREE.Vector3();
+  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
+  let seqK = 0, drop = 0, jitter = 0, bgT = 1;
+  const focus = new THREE.Vector3(), aim = new THREE.Vector3(), bgFrom = new THREE.Color(), bgTo = new THREE.Color();
+  const HERO_H = 0.93;
+  let heroFrac = 0.3;
 
   const resize = () => {
     const w = container.clientWidth || innerWidth, h = container.clientHeight || innerHeight;
     gl.setSize(w, h, false);
     if (!S) return;
-    zoom = S.view.zoom > 0 ? S.view.zoom * (Number(S.params.zoom) > 0 ? 1 : Math.min(w / FRAME[0], h / FRAME[1])) : fitZoom(w, h);
+    base = S.view.zoom > 0 ? S.view.zoom * (Number(S.params.zoom) > 0 ? 1 : Math.min(w / FRAME[0], h / FRAME[1])) : fitZoom(w, h);
+    frame();
+  };
+
+  const closeZoom = () => heroFrac * (container.clientHeight || innerHeight) / HERO_H;
+
+  const frame = () => {
+    const w = container.clientWidth || innerWidth, h = container.clientHeight || innerHeight;
+    zoom = seqK > 0 ? base * Math.pow(closeZoom() / base, seqK) : base;
     camera.left = -w / 2 / zoom; camera.right = w / 2 / zoom;
     camera.top = h / 2 / zoom; camera.bottom = -h / 2 / zoom;
     camera.updateProjectionMatrix();
@@ -50,7 +61,8 @@ export function createRenderer(container = document.body) {
     const P = S.proj, s = P.project(target.x, target.y, target.z);
     const hw = (camera.right - camera.left) / 2, hh = (camera.top - camera.bottom) / 2;
     const clampAxis = (v, lo, hi, half) => (hi - lo <= 2 * half ? (lo + hi) / 2 : Math.min(hi - half, Math.max(lo + half, v)));
-    const sx = clampAxis(s.sx, bounds.minX, bounds.maxX, hw), sy = clampAxis(s.sy, bounds.minY, bounds.maxY, hh);
+    let sx = clampAxis(s.sx, bounds.minX, bounds.maxX, hw), sy = clampAxis(s.sy, bounds.minY, bounds.maxY, hh);
+    if (seqK > 0) { sx += (s.sx - sx) * seqK; sy += (s.sy - sy) * seqK; }
     const [r, u, d] = [P.right, P.up, P.dir];
     const px = r[0] * sx - u[0] * sy, py = r[1] * sx - u[1] * sy, pz = r[2] * sx - u[2] * sy;
     camera.position.set(px + d[0] * 200, py + d[1] * 200, pz + d[2] * 200);
@@ -61,7 +73,12 @@ export function createRenderer(container = document.body) {
   const heroTarget = (a) => {
     const c = S.params.hero === "0" && (String(S.params.center || "").split(",").map(Number).filter((n) => !isNaN(n)).length === 3 ? S.params.center.split(",").map(Number) : S.level.view?.center);
     if (S.params.hero === "0" && Array.isArray(c) && c.length === 3) return new THREE.Vector3(c[0], c[1], c[2]);
-    return new THREE.Vector3(a.pos.x, (a.y + lift) * S.view.tileH + ride + 0.4, a.pos.z);
+    return aim.set(a.pos.x, (a.y + lift) * S.view.tileH + ride + 0.4 + 0.1 * seqK, a.pos.z);
+  };
+
+  const island = () => [...mounted, ...adopted];
+  const applyDrop = () => {
+    for (const o of island()) o.position.y = drop;
   };
 
   return {
@@ -95,34 +112,75 @@ export function createRenderer(container = document.body) {
         for (const m of [].concat(o.material)) { m.stencilWrite = true; m.stencilRef = ISLAND; m.stencilFunc = THREE.AlwaysStencilFunc; m.stencilZPass = THREE.ReplaceStencilOp; }
       });
       bounds = levelScreenBounds(L, state.proj);
+      adopted = [];
+      applyDrop();
       resize();
       lift = liftAt(L, state.actor.pos.x, state.actor.pos.z);
       focus.copy(heroTarget(state.actor));
     },
     unmount() {
-      const keep = new Set();
-      for (const g of Object.values(GLBS)) for (const e of g.extras || []) if (e.geometry) keep.add(e.geometry);
-      for (const group of mounted) {
-        scene.remove(group);
-        disposeTree(group, keep);
-      }
-      if (hero) {
-        scene.remove(hero);
-        hero.traverse((o) => { if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose(); });
-      }
+      this.dispose(this.detach());
+    },
+    detach() {
+      const old = { groups: mounted, hero };
+      if (scene.background) bgFrom.copy(scene.background);
+      for (const g of mounted) g.visible = false;
+      if (hero) scene.remove(hero);
       mounted = [];
+      adopted = [];
       pickables = [];
       things = null;
       hero = null;
+      return old;
     },
+    dispose(old) {
+      if (!old) return;
+      const keep = new Set();
+      for (const g of Object.values(GLBS)) for (const e of g.extras || []) if (e.geometry) keep.add(e.geometry);
+      for (const group of old.groups) {
+        scene.remove(group);
+        disposeTree(group, keep);
+      }
+      old.hero?.traverse((o) => { if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose(); });
+    },
+    adopt(objects) {
+      for (const o of objects || []) adopted.push(o);
+      applyDrop();
+    },
+    get hero() { return hero; },
+    get things() { return things; },
+    get zoomScale() { return zoom / base; },
+    get drop() { return drop; },
+    seq({ k = seqK, y = drop, keep, shake = jitter, frac } = {}) {
+      if (frac > 0) heroFrac = frac;
+      const kc = Math.max(0, Math.min(1, k));
+      if (kc !== seqK) { seqK = kc; frame(); }
+      if (y !== drop) { drop = y; applyDrop(); }
+      if (keep !== undefined) things?.keep(keep);
+      jitter = shake;
+    },
+    dropSpan() {
+      const P = S.proj, hh = (container.clientHeight || innerHeight) / closeZoom();
+      return ((bounds.maxY - bounds.minY) + 2 * hh + 4) / Math.max(0.3, P.up[1]);
+    },
+    fadeBg() { bgTo.copy(scene.background); scene.background.copy(bgFrom); bgT = 0; },
+    snap() {
+      const a = S.actor;
+      lift = liftAt(S.level, a.pos.x, a.pos.z);
+      if (things) { things.update(S, 0); ride = things.rideOffset(S); }
+      focus.copy(heroTarget(a));
+    },
+    compile() { gl.compile(scene, camera); },
     update(state, dt) {
       const a = state.actor;
       lift += (liftAt(state.level, a.pos.x, a.pos.z) - lift) * Math.min(1, dt * 12);
       if (things) { things.update(state, dt); ride = things.rideOffset(state); }
       hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH + ride, a.pos.z);
+      if (jitter > 0) hero.position.x += (Math.random() - 0.5) * 2 * jitter, hero.position.z += (Math.random() - 0.5) * 2 * jitter;
       hero.userData.animate(a, dt);
       stepMotion(dt);
-      const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * 4) : 1;
+      if (bgT < 1) { bgT = Math.min(1, bgT + dt / 0.6); scene.background.copy(bgFrom).lerp(bgTo, bgT); }
+      const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * (4 + 26 * seqK)) : 1;
       focus.lerp(t, k);
     },
     render() {
