@@ -284,7 +284,7 @@ function mountThingsUI({ touch = false } = {}) {
   const use = document.createElement("button");
   use.type = "button";
   use.className = "iw-use";
-  use.textContent = "E";
+  use.textContent = "F";
   use.setAttribute("aria-label", "Use");
   use.hidden = true;
   document.body.append(prompt, toastEl, use);
@@ -298,7 +298,7 @@ function mountThingsUI({ touch = false } = {}) {
   let actFn = null, shown = "";
   const onKey = (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
-    if (e.code === "KeyE" || e.code === "Enter" || e.code === "NumpadEnter") { if (actFn?.()) e.preventDefault(); }
+    if (e.code === "KeyF" || e.code === "Enter" || e.code === "NumpadEnter") { if (actFn?.()) e.preventDefault(); }
   };
   addEventListener("keydown", onKey);
   prompt.addEventListener("pointerdown", (e) => e.stopPropagation());
@@ -314,7 +314,7 @@ function mountThingsUI({ touch = false } = {}) {
       prompt.innerHTML = "";
       if (!text) return;
       const k = document.createElement("kbd");
-      k.textContent = "E";
+      k.textContent = "F";
       if (prompt.classList.contains("iw-touch")) prompt.append(document.createTextNode(text));
       else prompt.append(k, document.createTextNode(text));
     },

@@ -44,7 +44,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 
 ## Controls
 
-W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S down-left, A up-left. Click or tap a cell to path there. Touch devices get a d-pad. Q and E turn the island 90 degrees left and right (3d only); E acts instead when an interact prompt shows. The overlay's two arrow buttons turn it on touch.
+W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S down-left, A up-left. Click or tap a cell to path there. Touch devices get a d-pad. Q and E turn the island 90 degrees left and right (3d only); F (or Enter) interacts. The overlay's two arrow buttons turn it on touch.
 
 ## Render and compare
 

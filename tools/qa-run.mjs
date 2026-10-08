@@ -100,7 +100,7 @@ async function reachExit(s, exit) {
       const m = await walk(around(o));
       if (m == null) return { ok: false, steps, via, why: `no path to ${kind} ${id}` };
       steps += m;
-      await page.keyboard.press("KeyE");
+      await page.keyboard.press("KeyF");
     } else return { ok: false, steps, via, why: `gate ${gate.id} condition ${gate.open} not drivable` };
     if (!(await gateOpen(gate.id))) return { ok: false, steps, via, why: `gate ${gate.id} stayed shut (${gate.open})` };
   }
@@ -109,7 +109,7 @@ async function reachExit(s, exit) {
 
 async function ride(next) {
   const count = await page.evaluate(() => window.__swapCount || 0);
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   const ok = await page.waitForFunction((n) => { const S = window.__game.state; return S.level.name === n && !S.actor.locked; }, { timeout: 20000, polling: 50 }, next).then(() => true, () => false);
   if (!ok) return false;
   const s = await page.evaluate(() => ({ count: window.__swapCount, err: window.__swapError }));
@@ -121,7 +121,7 @@ async function stubCheck(s, t, label) {
   if (!(await walk([[t.x, t.z]])) && !at(await snap(), t)) return record("FAIL", label, `no path to ${t.role} ${t.x},${t.z}`);
   await page.waitForFunction(() => !!document.querySelector(".iw-prompt:not([hidden])"), { timeout: 3000, polling: 50 }).catch(() => {});
   const url = page.url();
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   await wait(1200);
   const r = await page.evaluate(() => ({ toast: window.__game.state.things.toastText, locked: window.__game.state.actor.locked, nav: window.__game.state.things.navigated }));
   const ok = page.url() === url && r.toast && !r.locked && !r.nav;

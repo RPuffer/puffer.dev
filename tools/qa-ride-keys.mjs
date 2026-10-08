@@ -135,7 +135,7 @@ const setYaw = (Y) => page.evaluate(async (Y) => {
   for (let n = 0; g.yaw !== Y && n < 4; n++) { g.rotate(1); await new Promise((r) => { const f = () => (g.state.turn ? requestAnimationFrame(f) : r()); f(); }); }
   return g.yaw;
 }, Y);
-const pressE = async () => { await page.keyboard.down("KeyE"); await wait(60); await page.keyboard.up("KeyE"); };
+const pressE = async () => { await page.keyboard.down("KeyF"); await wait(60); await page.keyboard.up("KeyF"); };
 const around = (t) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]].map(([a, b]) => [t.x + a, t.z + b]);
 const thingState = (id) => page.evaluate((id) => window.__game.state.things.byId[id].state, id);
 

@@ -44,7 +44,7 @@ async function rideExit(name, next) {
   const focused = await page.waitForFunction(() => window.__game.state.things.focus?.role === "exit", { timeout: 5000, polling: 30 }).then(() => true, () => false);
   if (!focused) return `exit elevator never took focus on ${name}`;
   const count = await page.evaluate(() => window.__swapCount);
-  await page.keyboard.down("KeyE"); await wait(60); await page.keyboard.up("KeyE");
+  await page.keyboard.down("KeyF"); await wait(60); await page.keyboard.up("KeyF");
   if (!(await arrived(next))) return `never arrived on ${next}`;
   const s = await page.evaluate(() => ({ count: window.__swapCount, err: window.__swapError, url: location.search, cell: window.__game.state.actor.cell.slice(), entry: window.__game.state.things?.things.find((t) => t.kind === "elevator" && t.role === "entry") }));
   if (s.err) return `__swapError ${s.err}`;

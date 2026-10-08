@@ -142,3 +142,9 @@ Earlier note this builds on: a transparent beam of light with a sci-fi forcefiel
 Operator: "the islands look pretty boring from the back, I'd also like to see a bit more plateaus, docks, pathways and such eminating from the islands to mix up the layouts - we'll also probably want to adjust the 'can't see the path' QA pass. Since we're pivoting to more booby-trap/puzzle style over boss focused, having a sneaky route isn't a deal breaker anymore. Maybe also a good time to re-visit the procedural generation bits, although we are nearing weekly limits so prioritize low-token efforts first, save the biggies for next week."
 
 Order: the visibility rule relaxes first (cheap); outgrowths (docks, side plateaus, walkways, back-side detail) as one reusable additive edge-piece module applied to every island; the procedural generator revisit waits for next week's budget and builds on the same edge-piece module.
+
+## Planned: point-and-click movement (2026-10-08, revisit, not started)
+
+Operator: "I'm debating shifting to point-and-click movement controls - that would actually eliminate the entire path visibility QA - and then the booby traps can be focused on interrupting auto-paths - the basic function would be: user clicks a tile, math out the optimal path there, draw a fun sci-fi looking line along the path, then have the character walk to the endpoint."
+
+Starting point: tap-to-walk already exists (`core/path.js` pathToward, `renderer.pick`); the new parts are an optimal-path solver aware of traps, a stylised sci-fi path line drawn along the route before the walk, and trap design built around interrupting auto-paths. If adopted, tools/qa-visibility.mjs retires.

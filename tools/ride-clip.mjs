@@ -70,7 +70,7 @@ async function walk(goals) {
 }
 
 async function use(id, want, label) {
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   await step();
   const st = await page.evaluate((id) => window.__game.state.things.byId[id].state, id);
   if (st !== want) throw new Error(`${label}: ${id} is ${st}`);
@@ -95,7 +95,7 @@ async function rideExit(s, next) {
   const exit = s.things.find((t) => t.kind === "elevator" && t.role === "exit");
   if (!(await walk([[exit.x, exit.z]]))) throw new Error(`no path to ${s.name} exit`);
   await tick(0.3);
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   mark(`${s.name} ride`);
   const nav = await until(() => window.__game.state.things.navigated, null, 4);
   if (!nav) throw new Error(`${s.name} exit did not ride`);

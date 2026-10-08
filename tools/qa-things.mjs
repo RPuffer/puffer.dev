@@ -136,7 +136,7 @@ async function suite() {
   if (entry && !prev) {
     await walkTo(page, [entry.x, entry.z]);
     const before = page.url();
-    await page.keyboard.press("KeyE");
+    await page.keyboard.press("KeyF");
     await wait(1200);
     const s = await page.evaluate((id) => ({ state: window.__game.state.things.byId[id].state, locked: window.__game.state.actor.locked, toast: window.__game.state.things.toastText }), entry.id);
     record("entry on the first island toasts the stub", s.state === "idle" && !s.locked && !!s.toast && page.url() === before, `"${s.toast}" at ${await cellOf(page)}`);
@@ -145,7 +145,7 @@ async function suite() {
   await walkTo(page, around(by.bonfire).filter((c) => c.join() !== info.file.join()));
   let u = await ui(page);
   record("prompt beside the bonfire", /bonfire/i.test(u.prompt), `"${u.prompt}" at ${await cellOf(page)}`);
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   await wait(250);
   u = await ui(page);
   const b = await thing(page, by.bonfire.id);
@@ -168,7 +168,7 @@ async function suite() {
   record("Enter opens the chest", c.state === "open", c.state);
   record("chest toast", u.toast.length > 0 && !/lit/i.test(u.toast), `"${u.toast}"`);
   record("chest lid swung back", lid !== null && lid < -1.5, `${lid}`);
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   await wait(200);
   record("chest stays open", (await thing(page, by.chest.id)).state === "open");
 
@@ -206,12 +206,12 @@ async function suite() {
   record("page clean before the ride", problems.length === 0, problems.slice(0, 3).join(" | "));
   if (!next) {
     const before = page.url();
-    await page.keyboard.press("KeyE");
+    await page.keyboard.press("KeyF");
     await wait(1200);
     const s = await page.evaluate((id) => ({ state: window.__game.state.things.byId[id].state, toast: window.__game.state.things.toastText }), by.elevator.id);
     record("last exit toasts the stub", s.state === "idle" && !!s.toast && page.url() === before, `"${s.toast}"`);
   } else {
-    await page.keyboard.press("KeyE");
+    await page.keyboard.press("KeyF");
     await wait(300);
     const e = await thing(page, by.elevator.id);
     record("E starts the ride", e.state === "rising", e.state);
@@ -293,15 +293,15 @@ async function clip(out) {
   const T = await page.evaluate(() => { const L = window.__game.state.things.things; const o = Object.fromEntries(L.map((t) => [t.kind, t])); o.elevator = L.find((t) => t.kind === "elevator" && t.role === "exit") || L.find((t) => t.kind === "elevator" && !t.role) || o.elevator; return o; });
   await tick(0.4);
   await go(around(T.bonfire));
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   await tick(0.6);
   await go(around(T.chest));
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   await tick(0.6);
   await go(T.gate.threshold[0]);
   await tick(1.3);
   await go([T.elevator.x, T.elevator.z]);
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   await tick(1.9);
   await page.close();
   for (const p of problems) console.error("page:", p);

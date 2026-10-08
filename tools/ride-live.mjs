@@ -73,7 +73,7 @@ async function island(s) {
   const fire = s.things.find((t) => t.kind === "bonfire");
   if (fire && fire.state !== "lit") {
     if (!(await walk(around(fire)))) throw new Error(`${s.name}: no path to bonfire`);
-    await page.keyboard.press("KeyE");
+    await page.keyboard.press("KeyF");
     await wait(500);
   }
   const gate = (await snap()).things.find((t) => t.kind === "gate" && t.state !== "open");
@@ -87,7 +87,7 @@ async function island(s) {
 
 async function ride(next) {
   const hops = await page.evaluate(() => window.__sequence.hops.length);
-  await page.keyboard.press("KeyE");
+  await page.keyboard.press("KeyF");
   const ok = await until((n) => window.__sequence.hops.length > n && !window.__sequence.active, hops, 30);
   if (!ok) throw new Error(`ride to ${next} did not finish`);
   const hop = await page.evaluate(() => window.__sequence.hops.at(-1));
