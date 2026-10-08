@@ -216,13 +216,17 @@ async function island(i) {
   return { ok: true, note: notes.join("; ") };
 }
 
-async function ride() {
-  const nav = page.waitForNavigation({ timeout: 15000 }).then(() => true, () => false);
+const landed = (name) => page.waitForFunction((n) => { const S = window.__game?.state; return !!S && S.level.name === n && !S.actor.locked; }, { timeout: 20000, polling: 50 }, name).then(() => true, () => false);
+
+async function ride(next) {
+  const count = await page.evaluate(() => window.__swapCount || 0);
   await pressE();
-  if (!(await nav)) return false;
-  const ok = await loaded();
+  if (!(await landed(next))) return { ok: false, why: `E on exit did not swap to ${next}` };
+  const s = await page.evaluate(() => ({ count: window.__swapCount, err: window.__swapError }));
   await wait(400);
-  return ok;
+  if (s.err) return { ok: false, why: `__swapError ${s.err}` };
+  if (s.count !== count + 1) return { ok: false, why: `swapCount ${count} -> ${s.count}` };
+  return { ok: true };
 }
 
 async function touchCheck(name) {
@@ -256,9 +260,12 @@ async function touchCheck(name) {
 }
 
 async function backAndForth(name, next, exit) {
-  await page.goBack({ waitUntil: "load" }).catch(() => {});
-  await page.waitForFunction(() => !!window.__game, { timeout: 15000, polling: 100 }).catch(() => {});
+  const count = await page.evaluate(() => window.__swapCount || 0);
+  await page.goBack({ waitUntil: "load", timeout: 5000 }).catch(() => {});
+  await landed(name);
   await wait(400);
+  const back = await page.evaluate(() => window.__swapCount || 0);
+  if (back !== count + 1) return `Back swapped ${back - count} times, reloaded or did not swap`;
   const s = await snap();
   if (s.name !== name) return `Back loaded ${s.name}`;
   if (s.locked) return `Back restored ${name} with the hero locked on ${s.cell}`;
@@ -266,9 +273,11 @@ async function backAndForth(name, next, exit) {
   const nb = await page.evaluate(async (p) => { const { neighbours } = await import("/core/level.js"); return neighbours(window.__game.state.level, p[0], p[1]).map((n) => n[2]); }, s.cell);
   const k = nb.length ? await keyStep(keys, nb[0]) : { ok: false, why: "no neighbour" };
   if (!k.ok) return `after Back: ${k.why}`;
-  await page.goForward({ waitUntil: "load" }).catch(() => {});
-  await page.waitForFunction(() => !!window.__game, { timeout: 15000, polling: 100 }).catch(() => {});
+  await page.goForward({ waitUntil: "load", timeout: 5000 }).catch(() => {});
+  await landed(next);
   await wait(400);
+  const fwd = await page.evaluate(() => window.__swapCount || 0);
+  if (fwd !== back + 1) return `Forward swapped ${fwd - back} times, reloaded or did not swap`;
   const f = await snap();
   if (f.name !== next) return `Forward loaded ${f.name}`;
   if (f.locked) return `Forward restored ${next} with the hero locked`;
@@ -287,7 +296,8 @@ try {
     const r = await island(i);
     if (!r.ok) { record("FAIL", hop, r.why); continue; }
     if (!next) { record(problems.length ? "FAIL" : "PASS", hop, r.note + (problems.length ? "; " + problems[0] : "")); continue; }
-    if (!(await ride())) { record("FAIL", hop, `${r.note}; E on exit did not load a page`); continue; }
+    const rd = await ride(next);
+    if (!rd.ok) { record("FAIL", hop, `${r.note}; ${rd.why}`); continue; }
     const s = await snap();
     if (s.name !== next) { record("FAIL", hop, `loaded ${s.name}`); continue; }
     rode = true;

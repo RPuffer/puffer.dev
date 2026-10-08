@@ -211,16 +211,15 @@ async function suite() {
     const s = await page.evaluate((id) => ({ state: window.__game.state.things.byId[id].state, toast: window.__game.state.things.toastText }), by.elevator.id);
     record("last exit toasts the stub", s.state === "idle" && !!s.toast && page.url() === before, `"${s.toast}"`);
   } else {
-    const nav = page.waitForNavigation({ timeout: 15000 }).then(() => true, () => false);
     await page.keyboard.press("KeyE");
     await wait(300);
     const e = await thing(page, by.elevator.id);
     record("E starts the ride", e.state === "rising", e.state);
-    const navd = await nav;
+    const navd = await page.waitForFunction((n) => { const S = window.__game.state; return S.level.name === n && !S.actor.locked; }, { timeout: 20000, polling: 50 }, next).then(() => true, () => false);
     const url = page.url();
     const q = new URL(url).searchParams;
     record(`${by.elevator.role || "elevator"} rides forward to ${next}`, navd && q.get("level") === next && q.get("from") === LEVEL && (!by.elevator.role || q.get("arrive") === "entry"), url.replace(BASE, ""));
-    const landed = await page.waitForFunction(() => window.__done === true, { timeout: 30000 }).then(() => true, () => false);
+    const landed = navd && !(await page.evaluate(() => window.__swapError));
     const there = landed ? await page.evaluate(() => { const S = window.__game.state, e = S.things?.things.find((t) => t.kind === "elevator" && t.role === "entry"); return { name: S.level.name, cell: S.actor.cell.slice(), entry: e ? [e.x, e.z] : null }; }) : null;
     record("next island loads", there?.name === next, there?.name);
     if (by.elevator.role) record("hero lands on the next island's entry platform", !!there?.entry && there.cell.join() === there.entry.join(), there ? `${there.cell} vs entry ${there.entry}` : "");
