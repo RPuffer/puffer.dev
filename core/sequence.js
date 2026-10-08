@@ -16,9 +16,12 @@ export const SEQ = {
   rideIn: 0.5,
   rideOut: 0.6,
   short: 0.6,
+  flash: 0.15,
 };
 
-export const rideUniforms = { uRide: { value: 0 }, uRideTime: { value: 0 } };
+export const rideUniforms = { uRide: { value: 0 }, uRideTime: { value: 0 }, uRideDir: { value: 1 } };
+
+export const islandLabel = (name) => { const n = String(name || "").split("-")[0]; return n.charAt(0).toUpperCase() + n.slice(1); };
 
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 const inOut = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
@@ -65,6 +68,9 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
   function begin(e) {
     const st = game.state;
     s = { t: 0, thingId: e.thing.id, from: st.level.name, next: e.next, arrive: e.thing.arrive, beats: {}, short: short(), prepared: null, failed: null, navigated: false };
+    s.dir = s.arrive === "exit" ? -1 : 1;
+    rideUniforms.uRideDir.value = s.dir;
+    rideUniforms.uRideTime.value = 0;
     if (s.short) { mark("rise"); return; }
     s.dance = pool.length ? pool[count++ % pool.length] : null;
     view.seq({ frac: SEQ.heroFrac });
@@ -81,6 +87,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
   }
 
   function finish() {
+    view.release?.();
     const total = +s.t.toFixed(3);
     hops.push({ from: s.from, next: s.next, dance: s.dance || null, beats: s.beats, total, failed: !!s.failAt });
     s = null;
@@ -91,6 +98,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
   function abort() {
     if (!s) return;
     shade(0);
+    view.release?.();
     view.seq({ k: 0, y: 0, keep: null, shake: 0 });
     s = null;
     api.state = "idle";
@@ -115,7 +123,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
       if (u < 1) return;
       s.swapping = true;
       const from = game.state.things;
-      run.swap(s.next, { from: s.from, arrive: s.arrive }).then(() => { if (s) { s.swapped = s.t; mark("swap"); shade(1, game.state.level.bg || null); } }, (err) => {
+      run.swap(s.next, { from: s.from, arrive: s.arrive }).then(() => { if (s) { s.swapped = s.t; mark("swap"); shade(1, game.state.level.bg || null); game.state.things?.say?.(islandLabel(s.next)); } }, (err) => {
         window.__swapError = String(err?.message || err);
         if (game.state.things === from) from?.stall();
         if (s) { s.swapped = s.t; s.failAt = s.t; mark("fail"); }
@@ -144,8 +152,8 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     s.landId = e?.id || null;
     if (e) { e.state = "landing"; e.ride = 1; e.lift = rise; }
     s.D2 = view.dropSpan();
-    view.fadeBg();
-    view.seq({ y: -s.D2, keep: s.landId, frac: SEQ.heroFrac });
+    view.holdBg?.();
+    view.seq({ y: -s.dir * s.D2, keep: s.landId, frac: SEQ.heroFrac });
     view.hero?.userData.play?.("brace", { fade: 0, at: 10 });
     view.snap();
   }
@@ -181,10 +189,11 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
       const th = lift();
       if (th) th.state = "shaft";
       view.seq({ keep: s.thingId });
+      view.flash?.(SEQ.flash);
       mark("drop");
     }
     if (s.dropAt == null) return;
-    if (s.holdAt == null) view.seq({ y: -s.D * easeIn(clamp01((t - s.dropAt) / SEQ.drop)) });
+    if (s.holdAt == null) view.seq({ y: -s.dir * s.D * easeIn(clamp01((t - s.dropAt) / SEQ.drop)) });
     if (!s.braced && t >= SEQ.braceAt) {
       s.braced = true;
       view.hero?.userData.play?.("brace");
@@ -213,6 +222,9 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
       }
       if (t - s.holdAt < SEQ.holdMin) return;
       run.commit(s.next, s.from, s.arrive);
+      view.release?.();
+      view.fadeBg?.();
+      game.state.things?.say?.(islandLabel(s.next));
       s.arriveAt = t;
       view.seq({ shake: 0 });
       mark("arrive");
@@ -220,7 +232,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     if (s.arriveAt == null) return;
     const u = clamp01((t - s.arriveAt) / SEQ.arrive);
     s.k = 1 - inOut(u);
-    view.seq({ k: s.k, y: -s.D2 * (1 - easeOut(u)) });
+    view.seq({ k: s.k, y: -s.dir * s.D2 * (1 - easeOut(u)) });
     rideUniforms.uRide.value = 1 - clamp01((t - s.arriveAt) / SEQ.rideOut);
     const e = s.landId ? game.state.things?.byId[s.landId] : null;
     if (e) {

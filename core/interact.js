@@ -153,6 +153,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     get toastText() { return toastT > 0 ? toastText : ""; },
     get navigated() { return nav; },
     act() { return act(focus); },
+    say(text) { if (text) toast(text); },
     tap(cell) {
       if (!actor || !cell) return false;
       const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator") && q.x === cell[0] && q.z === cell[1]);
