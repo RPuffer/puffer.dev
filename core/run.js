@@ -37,7 +37,9 @@ export function createRun(game, { prepare, unmount, mount } = {}) {
     mount?.(state, prepared);
     watch(state);
     const bakeMs = performance.now() - t0;
-    bakes.push({ name: prepared.level.name, loadMs: Math.round(prepared.loadMs || 0), bakeMs: Math.round(bakeMs) });
+    const entry = { name: prepared.level.name, loadMs: Math.round(prepared.loadMs || 0), bakeMs: Math.round(bakeMs), frameMs: null };
+    bakes.push(entry);
+    requestAnimationFrame(() => requestAnimationFrame(() => { entry.frameMs = Math.round(performance.now() - t0); }));
     return state;
   };
 
