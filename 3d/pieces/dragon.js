@@ -529,7 +529,11 @@ function dress(level, brief, h, lens) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "dragon-medium") h.edgeLifts();
+    return;
+  }
   seal(h);
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));

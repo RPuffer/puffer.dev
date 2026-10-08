@@ -12,7 +12,7 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
   const log = [];
   const key = (x, z) => `${x},${z}`;
   const cell = (x, z) => (x >= 0 && z >= 0 && x < W && z < D ? level.cells[z][x] : null);
-  const land = (c) => !!c && c.h >= 1 && c.s !== "none" && c.s !== "water";
+  const land = (c) => !!c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "lift";
   const figCells = figure.cells.map(([x, z]) => [x, z]);
   const isFig = (x, z) => figCells.some(([a, b]) => a === x && b === z);
   const lead = level.decor.find((d) => d.x === figure.anchor[0] && d.z === figure.anchor[1]);
@@ -608,7 +608,22 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     return { ...out, ok };
   };
 
+  const LIFT_SIDE = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+  const edgeLift = (role, at) => {
+    const t = (level.things || []).find((q) => q.kind === "elevator" && q.role === role);
+    if (!t) { log.push(`edge lift ${role}: no elevator`); return false; }
+    const [x, z] = at || [t.x + LIFT_SIDE[t.rot || 0][0], t.z + LIFT_SIDE[t.rot || 0][1]];
+    const c = cell(x, z);
+    const nb = LIFT_SIDE.map(([dx, dz], r) => ({ r, c: cell(x - dx, z - dz) })).filter((n) => land(n.c) && n.c.s !== "lift");
+    if (!c || c.s !== "none" || nb.length !== 1) { log.push(`edge lift ${role}: ${x},${z} rejected (${c ? c.s : "off grid"}, ${nb.length} island neighbours)`); return false; }
+    level.cells[z][x] = { h: nb[0].c.h, s: "lift" };
+    log.push(`edge lift ${role} ${t.x},${t.z} -> ${x},${z} rot ${nb[0].r}`);
+    Object.assign(t, { x, z, rot: nb[0].r });
+    return true;
+  };
+  const edgeLifts = (o = {}) => ["exit", "entry"].map((r) => edgeLift(r, o[r]));
+
   const role = (t) => level.palette?.props?.[t]?.role || (CATALOG[t] ? t : null);
   const ofRole = (r) => Object.entries(level.palette?.props || {}).filter(([, p]) => p.role === r).map(([t]) => t);
-  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, bridge, canopy, fence, road, readability, snapshot, restore, log, cluster: (o = {}) => decorPass(level, { brief, log, ...o }) };
+  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, bridge, canopy, fence, road, readability, snapshot, restore, log, edgeLifts, cluster: (o = {}) => decorPass(level, { brief, log, ...o }) };
 }

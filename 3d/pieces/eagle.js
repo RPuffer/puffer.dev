@@ -882,7 +882,11 @@ function finishLens(level, brief, h) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.concept?.lens) return finishLens(level, brief, h);
+  if (brief.concept?.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "eagle-composition") h.edgeLifts();
+    return;
+  }
   dropRimWater(h);
   const types = Object.keys(level.palette?.props || {});
   const daisTypes = h.ofRole("dais").concat(types.filter((t) => roleOf(level.palette, t) === "dais"));

@@ -139,7 +139,7 @@ export async function build({ root, flag, has, regions, brief }) {
       raised++;
     }
   }
-  const walk = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water";
+  const walk = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "lift";
   const ramps = [];
   const tryRampAt = (x, z, need, relaxed = false) => {
     const c = cells[z][x];

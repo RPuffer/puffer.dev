@@ -599,7 +599,11 @@ function finishLens(level, brief, h) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "mindbloom-medium") h.edgeLifts();
+    return;
+  }
   const props = level.palette?.props || {};
   const names = Object.keys(props);
   const P = { props };

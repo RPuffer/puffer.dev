@@ -1750,7 +1750,11 @@ function revealLandmark(level, h, type, near = 6) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "cosmos-frisket") h.edgeLifts();
+    return;
+  }
   nebula(level);
   resurface(level, h);
   flattenSpikes(level, h);

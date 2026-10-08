@@ -743,7 +743,11 @@ function clearFace(level, h) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "chimera-medium") h.edgeLifts();
+    return;
+  }
   const daisTypes = h.ofRole("dais").filter((t) => !level.palette?.props?.[t]?.passable || (level.palette.props[t].footprint || [1, 1])[0] > 1);
   h.removeDecor((d) => daisTypes.includes(d.t));
   const gateT = h.ofRole("threshold")[0];

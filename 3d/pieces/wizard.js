@@ -483,7 +483,11 @@ function rimRamps(level, h, r) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "wizard-medium") { h.edgeLifts({ entry: [4, 11] }); }
+    return;
+  }
   const P = level.palette || {};
   const types = Object.keys(P.props || {});
   const of = (k) => types.filter((t) => kindOf(P, t) === k);

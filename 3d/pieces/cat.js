@@ -394,7 +394,11 @@ export function register(style) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "cat-medium") h.edgeLifts();
+    return;
+  }
   if (level.name === "cat-1") return home(level, brief, h);
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));

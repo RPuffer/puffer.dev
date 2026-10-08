@@ -544,7 +544,11 @@ function finishLens(level, brief, h) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "ember-subject") h.edgeLifts();
+    return;
+  }
   resurface(level, h);
   dropPuddles(level, h);
   const daisTypes = h.ofRole("dais");

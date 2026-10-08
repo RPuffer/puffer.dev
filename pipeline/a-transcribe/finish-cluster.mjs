@@ -55,7 +55,7 @@ export function analyse(level, o = {}) {
   const [W, D] = level.size;
   const props0 = level.palette?.props || {};
   const cell = (x, z) => (x >= 0 && z >= 0 && x < W && z < D ? level.cells[z][x] : null);
-  const land = (c) => !!c && c.s !== "none" && c.s !== "water" && c.h >= 1;
+  const land = (c) => !!c && c.s !== "none" && c.s !== "water" && c.s !== "lift" && c.h >= 1;
   const roleOf = (t) => props0[t]?.role || null;
   const lead = o.lead !== undefined ? o.lead : level.decor.filter((d) => ["lead", "creature"].includes(roleOf(d.t))).sort((a, b) => cellsOf(b).length - cellsOf(a).length)[0] || null;
   const figCells = lead ? cellsOf(lead) : [];

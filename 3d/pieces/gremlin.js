@@ -565,7 +565,11 @@ function moreLights(level, h, t, route, want) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "gremlin-subject") h.edgeLifts({ exit: [5, 0], entry: [15, 7] });
+    return;
+  }
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));
   const gateT = h.ofRole("threshold").find((t) => !/trough|cistern/i.test(t)) || h.ofRole("mass").find((t) => /rib|pylon|gate/i.test(t));

@@ -34,7 +34,7 @@ export function thingCells(t) {
 export function prep(level, o = {}) {
   const [W, D] = level.size;
   const cell = (x, z) => (x >= 0 && z >= 0 && x < W && z < D ? level.cells[z][x] : null);
-  const land = (c) => !!c && c.h >= 1 && c.s !== "none" && c.s !== "water";
+  const land = (c) => !!c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "lift";
   const blocked = new Set(), edges = new Set();
   for (const d of level.decor) if (CATALOG[d.t] && d.t !== "waterfall") for (const [a, b] of blockedCells(d)) blocked.add(key(a, b));
   for (const t of level.things || []) {

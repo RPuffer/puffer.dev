@@ -838,7 +838,11 @@ function pocketRamp(level, h, x, z, d) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "sharkbear-medium") h.edgeLifts();
+    return;
+  }
   seal(h);
   const types = Object.keys(level.palette?.props || {});
   const daisTypes = types.filter((t) => roleOf(level.palette, t) === "dais");

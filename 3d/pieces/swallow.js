@@ -398,7 +398,11 @@ function finishLens(level, brief, h) {
 }
 
 export function finish(level, brief, h) {
-  if (brief.lens) return finishLens(level, brief, h);
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "swallow-medium") { h.edgeLifts({ entry: [4, 11] }); }
+    return;
+  }
   const daisTypes = h.ofRole("dais");
   h.removeDecor((d) => daisTypes.includes(d.t));
   const gateT = h.ofRole("threshold")[0] || Object.keys(level.palette?.props || {}).find((t) => GATE_RE.test(t)) || (brief.motifs || []).map((m) => m.type).find((t) => GATE_RE.test(t || ""));

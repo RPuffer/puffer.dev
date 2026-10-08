@@ -104,8 +104,8 @@ export function layoutPass(level, o = {}) {
   const before = cur.R.m;
   const moves = [];
   const cellOf = (x, z) => level.cells[z]?.[x] || null;
-  const land = (c) => !!c && c.h >= 1 && c.s !== "none" && c.s !== "water";
-  const voidNear = (x, z) => N4.some(([dx, dz]) => { const q = cellOf(x + dx, z + dz); return !q || q.s === "none" || q.s === "water"; });
+  const land = (c) => !!c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "lift";
+  const voidNear = (x, z) => N4.some(([dx, dz]) => { const q = cellOf(x + dx, z + dz); return !q || q.s === "none" || q.s === "water" || q.s === "lift"; });
   const decorAt = (x, z) => level.decor.filter((d) => cellsOf(d).some(([a, b]) => a === x && b === z));
   const thingAt = (x, z) => (level.things || []).some((t) => thingCells(t).some(([a, b]) => a === x && b === z) || (t.blocks || []).some(([a, b]) => a === x && b === z) || (t.threshold || []).some(([a, b]) => a === x && b === z));
   const budget = o.terrain || 0;

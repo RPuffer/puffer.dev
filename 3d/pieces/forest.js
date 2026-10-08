@@ -579,6 +579,7 @@ export function finish(level, brief, h) {
     if (level.name === "forest-volute") exitLanding(level, h);
     if (level.name === "forest-volute") placeRunThings(level, h, { chestText: "A gilt volute snipped from the parterre hedge, still curling." });
     if (level.name === "forest-volute") moveExit(level, h, [7, 1], 2);
+    if (level.name === "forest-volute") h.edgeLifts();
     return;
   }
   if (brief.lens) return finishLens(level, brief, h);
