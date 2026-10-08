@@ -3,3 +3,4 @@ node_modules/
 out/
 *.log
 2d/gen/node_modules
+.claude/
