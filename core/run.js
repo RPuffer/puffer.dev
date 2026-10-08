@@ -81,7 +81,10 @@ export function createRun(game, { prepare, unmount, mount, detach } = {}) {
     try { prepared = await preload(name); } finally { if (pre?.name === name) pre = null; }
     if (token !== seq) return false;
     if (push) leave();
-    load(prepared, { from, arrive, at, reset: undefined, spawn: undefined });
+    const state = load(prepared, { from, arrive, at, reset: undefined, spawn: undefined }, true);
+    game.renderer.compile?.();
+    state.retire?.();
+    delete state.retire;
     if (push) history.pushState(null, "", nextSearch(name, from, arrive));
     window.__swapCount++;
     window.__swapError = null;
