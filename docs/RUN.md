@@ -1088,4 +1088,5 @@ PP_PROFILE=.pp-profile-rot node tools/qa-visibility.mjs all --yaw=all [--json ou
 PP_PROFILE=.pp-profile-rot node tools/qa-ride-keys.mjs --yaw 135
 ```
 
-`--yaw=all` probes each yaw and marks each route cell `PASS` (default yaw), `TURN` (passes only after a turn) or `FAIL`, with the best yaw, then totals default and reachable-with-rotation counts. `qa-ride-keys --yaw N` turns the first island to N, checks rotation is refused mid-ride and that every landing keeps N. `qa.mjs` adds a rotation suite. Notes: `docs/pass9/rotation.md`.
+`--yaw=all` is the default (`--yaw=none` probes the saved yaw only) and marks each route cell `PASS` (default yaw), `TURN` (passes only after a turn), `WARN` (hidden at every yaw: a sneaky route) or `FAIL`, with the best yaw.
+Only a ramp the route must take, with no path around it, fails when hidden at every yaw; the run exits 1 on a fail or a load error, never on warns. `qa-ride-keys --yaw N` turns the first island to N, checks rotation is refused mid-ride and that every landing keeps N. `qa.mjs` adds a rotation suite. Notes: `docs/pass9/rotation.md`.

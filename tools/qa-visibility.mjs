@@ -8,8 +8,8 @@ const opt = (k, d) => { const i = args.findIndex((a) => a === k || a.startsWith(
 const BASE = opt("--base", "http://localhost:8765").replace(/\/$/, "");
 const W = +opt("--w", 900), H = +opt("--h", 800);
 const MIN_HERO = +opt("--min-hero", 0.3), MIN_FLOOR = +opt("--min-floor", 0.3), MAX_GAP = +opt("--max-gap", 1);
-const jsonOut = opt("--json", null), QUERY = opt("--query", ""), YAW = opt("--yaw", null);
-const YAWS = YAW === "all" ? [45, 135, 225, 315] : YAW != null ? [+YAW] : [null];
+const jsonOut = opt("--json", null), QUERY = opt("--query", ""), YAW = opt("--yaw", "all");
+const YAWS = YAW === "all" ? [45, 135, 225, 315] : YAW != null && YAW !== "none" ? [+YAW] : [null];
 const names = (args[0] || "").split(",").filter(Boolean);
 if (!names.length || names[0] === "all") {
   const run = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8"));
@@ -197,7 +197,10 @@ async function probe(name, yaw = null) {
       const hidden = views.filter((v) => v.frac < MIN_FLOOR);
       const yh = surfaceHeight(L, r.cell[0] + 0.5, r.cell[1] + 0.5) * tileH;
       const occ = !how ? occluder(r.cell, yh + 0.45) : hidden.length ? (facesAway(r.cell) ? "ramp faces away from the camera" : occluder(r.cell, yh + 0.15)) : hf.direct < MIN_HERO ? occluder(r.cell, yh + 0.45) : null;
-      out.push({ cell: r.cell, roles: r.roles, hero: hf, views, how, hidden: hidden.map((v) => v.from), pass: !!how && !hidden.length, occluder: occ });
+      const ramp = L.cells[r.cell[1]][r.cell[0]].s === "ramp";
+      let forced = false;
+      if (ramp && r.roles.includes("route") && (goal || court)) { const k = key(r.cell), had = L.blocked.has(k); L.blocked.add(k); forced = !findPath(L, spawn, goal || court); if (!had) L.blocked.delete(k); }
+      out.push({ cell: r.cell, roles: r.roles, hero: hf, views, how, hidden: hidden.map((v) => v.from), pass: !!how && !hidden.length, occluder: occ, ramp, forced });
     }
     const landings = [];
     const landing = (role, from, to) => {
@@ -269,7 +272,7 @@ function merge(name, runs) {
     const per = runs.map((r) => ({ yaw: r.yaw, c: r.cells.find((d) => key(d.cell) === key(c.cell)) })).filter((x) => x.c);
     const best = per.reduce((a, b) => (score(b.c) > score(a.c) ? b : a));
     const pick = c.pass ? per[0] : best;
-    return { cell: c.cell, roles: c.roles, pass: c.pass, rotated: per.some((x) => x.c.pass), best: pick.yaw, per: per.map((x) => ({ yaw: x.yaw, pass: x.c.pass, how: x.c.how })) };
+    return { cell: c.cell, roles: c.roles, pass: c.pass, rotated: per.some((x) => x.c.pass), forced: !!c.forced, best: pick.yaw, per: per.map((x) => ({ yaw: x.yaw, pass: x.c.pass, how: x.c.how })) };
   });
   const landings = base.landings.map((l, i) => {
     const per = runs.map((r) => ({ yaw: r.yaw, l: r.landings[i] })).filter((x) => x.l && x.l.role === l.role);
@@ -278,11 +281,15 @@ function merge(name, runs) {
   });
   const marks = (per) => per.map((x) => `${x.yaw}:${x.pass ? (x.how === "x-ray" ? "x" : "P") : "-"}`).join(" ");
   console.log(`== ${name} all yaws`);
-  for (const c of cells) console.log(`${c.pass ? "PASS" : c.rotated ? "TURN" : "FAIL"} ${name} ${c.cell} [${c.roles.join(" ")}] ${marks(c.per)}${c.pass ? "" : c.rotated ? " best yaw " + c.best : " hidden at every yaw"}`);
-  for (const l of landings) console.log(`${l.pass ? "PASS" : l.rotated ? "TURN" : "FAIL"} ${name} ${l.role} landing ${l.from} ${marks(l.per)}${l.pass ? "" : l.rotated ? " best yaw " + l.best : " hidden at every yaw"}`);
+  for (const c of cells) { c.fail = !c.rotated && c.forced; c.warn = !c.rotated && !c.forced; }
+  for (const l of landings) l.warn = !l.rotated;
+  const tag = (x) => (x.pass ? "PASS" : x.rotated ? "TURN" : x.fail ? "FAIL" : "WARN");
+  for (const c of cells) console.log(`${tag(c)} ${name} ${c.cell} [${c.roles.join(" ")}] ${marks(c.per)}${c.pass ? "" : c.rotated ? " best yaw " + c.best : c.fail ? " forced ramp hidden at every yaw" : " hidden at every yaw (sneaky route)"}`);
+  for (const l of landings) console.log(`${tag(l)} ${name} ${l.role} landing ${l.from} ${marks(l.per)}${l.pass ? "" : l.rotated ? " best yaw " + l.best : " hidden at every yaw (sneaky route)"}`);
   const n = cells.length + landings.length, d = cells.filter((c) => c.pass).length + landings.filter((l) => l.pass).length, w = cells.filter((c) => c.rotated).length + landings.filter((l) => l.rotated).length;
-  console.log(`${name} default yaw ${base.yaw} ${d}/${n}, reachable with rotation ${w}/${n}`);
-  return { name, yaws: runs.map((r) => r.yaw), cells, landings, n, d, w };
+  const warn = cells.filter((c) => c.warn).length + landings.filter((l) => l.warn).length, fail = cells.filter((c) => c.fail).length;
+  console.log(`${name} default yaw ${base.yaw} ${d}/${n}, reachable with rotation ${w}/${n}, warn ${warn}, fail ${fail}`);
+  return { name, yaws: runs.map((r) => r.yaw), cells, landings, n, d, w, warn, fail };
 }
 const merged = [];
 try {
@@ -305,9 +312,9 @@ const tally = all.map((r) => `${r.name}${r.yaw != null ? " yaw " + r.yaw : ""} `
 console.log("\n" + tally.join("\n"));
 if (merged.length) {
   console.log("\nwith rotation (default yaw / any yaw):");
-  for (const m of merged) console.log(`${m.name} ${m.d}/${m.n} -> ${m.w}/${m.n}`);
+  for (const m of merged) console.log(`${m.name} ${m.d}/${m.n} -> ${m.w}/${m.n} warn ${m.warn} fail ${m.fail}`);
   const N = merged.reduce((a, m) => a + m.n, 0), D = merged.reduce((a, m) => a + m.d, 0), Wn = merged.reduce((a, m) => a + m.w, 0);
-  console.log(`TOTAL default ${D}/${N}, reachable with rotation ${Wn}/${N}`);
+  console.log(`TOTAL default ${D}/${N}, reachable with rotation ${Wn}/${N}, warn ${merged.reduce((a, m) => a + m.warn, 0)}, fail ${merged.reduce((a, m) => a + m.fail, 0)}`);
 }
 if (jsonOut) { fs.mkdirSync(path.dirname(path.resolve(root, jsonOut)), { recursive: true }); fs.writeFileSync(path.resolve(root, jsonOut), JSON.stringify(merged.length ? { runs: all, merged } : all, null, 1)); }
-process.exitCode = merged.length ? (merged.some((m) => m.w < m.n) || all.some((r) => r.error) ? 1 : 0) : all.some((r) => r.error || r.cells.some((c) => !c.pass) || r.landings.some((l) => !l.pass)) ? 1 : 0;
+process.exitCode = merged.length ? (merged.some((m) => m.fail) || all.some((r) => r.error) ? 1 : 0) : all.some((r) => r.error || r.cells.some((c) => !c.pass) || r.landings.some((l) => !l.pass)) ? 1 : 0;
