@@ -70,7 +70,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
 
   const listeners = new Set();
   const emit = (e) => { for (const f of listeners) f(e); };
-  const save = () => write({ v: 1, respawn, things: Object.fromEntries(things.map((t) => [t.id, { state: t.state }])) });
+  const save = () => write({ ...(read() || {}), v: 1, respawn, things: Object.fromEntries(things.map((t) => [t.id, { state: t.state }])) });
 
   let actor = null, pending = null, focus = null, toastText = "", toastT = 0, nav = null, stalled = false;
   const log = [];
