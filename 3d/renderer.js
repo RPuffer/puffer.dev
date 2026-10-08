@@ -34,16 +34,23 @@ export function createRenderer(container = document.body) {
   const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, style: null };
   const flashBase = new THREE.Color(), WHITE = new THREE.Color(1, 1, 1);
   let warmed = false;
+  const reveal = (f) => {
+    const objs = fx.flatMap((x) => x.objects), vis = objs.map((o) => o.visible);
+    for (const o of objs) o.visible = true;
+    const r = f();
+    objs.forEach((o, i) => { o.visible = vis[i]; });
+    return r;
+  };
   const warm = () => {
     warmed = true;
-    const objs = fx.flatMap((f) => f.objects), vis = objs.map((o) => o.visible);
-    for (const o of objs) o.visible = true;
-    const rt = new THREE.WebGLRenderTarget(1, 1);
-    gl.setRenderTarget(rt);
-    gl.render(scene, camera);
-    gl.setRenderTarget(null);
-    rt.dispose();
-    objs.forEach((o, i) => { o.visible = vis[i]; });
+    const upload = () => reveal(() => {
+      const rt = new THREE.WebGLRenderTarget(1, 1);
+      gl.setRenderTarget(rt);
+      gl.render(scene, camera);
+      gl.setRenderTarget(null);
+      rt.dispose();
+    });
+    reveal(() => gl.compileAsync(scene, camera)).then(upload, upload);
   };
   const focus = new THREE.Vector3(), aim = new THREE.Vector3(), bgFrom = new THREE.Color(), bgTo = new THREE.Color();
   const HERO_H = 0.93;
