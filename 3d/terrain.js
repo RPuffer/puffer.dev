@@ -5,6 +5,7 @@ import { cellAt, isWalkable } from "../core/level.js";
 import { mulberry32, hashSeed } from "../core/rng.js";
 import { applyXray } from "./xray.js";
 import { applyMotion } from "./motion.js";
+import { liftTile } from "./lift.js";
 
 export const BASE_Y = -0.4;
 export const WATER_Y = 0;
@@ -13,7 +14,7 @@ export const DEPTH = 1.26;
 export const WATER_DROP = 0.1;
 const GAP = 0.018, R = 0.11;
 
-const isLand = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "bridge";
+const isLand = (c) => c && c.h >= 1 && c.s !== "none" && c.s !== "water" && c.s !== "bridge" && c.s !== "lift";
 
 export function liftLevel(L) {
   if (L.lifted) return L;
@@ -301,6 +302,7 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
       continue;
     }
     if (c.s === "ramp") { rampCell(B, L, x, z, c, T, F, rnd); continue; }
+    if (c.s === "lift") { liftTile(B, L, x, z, c, T, bottomOf(c.h * T, c.h, F, T)); continue; }
     landCell(B, L, x, z, c, T, F, rnd);
   }
   const group = new THREE.Group();

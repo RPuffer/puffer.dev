@@ -1,6 +1,6 @@
-export const SURFACES = ["grass", "sand", "dirt", "stone", "water", "none", "ramp", "bridge"];
+export const SURFACES = ["grass", "sand", "dirt", "stone", "water", "none", "ramp", "bridge", "lift"];
 
-export const WALKABLE = new Set(["grass", "sand", "dirt", "stone", "ramp", "bridge"]);
+export const WALKABLE = new Set(["grass", "sand", "dirt", "stone", "ramp", "bridge", "lift"]);
 
 const decor = (footprint, passable, variants, height, extra = {}) => ({ cat: "decor", footprint, passable, variants, height, ...extra });
 

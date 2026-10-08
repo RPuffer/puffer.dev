@@ -86,6 +86,16 @@ export function prepareLevel(raw) {
     if (t.migrated) { t.hold = true; for (const [x, z] of t.blocks) L.blocked.add(x + "," + z); (L.notes ||= []).push(`gate ${t.id}: edge ${t.edge.join(" ")} has a way around, so its cell ${t.blocks.join(" ")} stays blocked while shut`); }
     else warnings.push(`gate ${t.id}: edge ${t.edge.join(" ")} has a way around it`);
   }
+  for (const t of L.things) {
+    if (t.kind !== "elevator" || cellAt(L, t.x, t.z)?.s !== "lift") continue;
+    const c = cellAt(L, t.x, t.z);
+    const sides = Object.keys(DIRS).filter((d) => { const n = cellAt(L, t.x + DIRS[d][0], t.z + DIRS[d][1]); return n && n.s !== "none" && n.s !== "lift" && n.s !== "water" && n.h === c.h; });
+    if (sides.length !== 1) { warnings.push(`elevator ${t.id}: lift tile ${t.x},${t.z} needs exactly one island neighbour at h${c.h}, found ${sides.length}`); continue; }
+    t.attach = sides[0];
+    const rot = { n: 0, w: 1, s: 2, e: 3 }[sides[0]];
+    if (t.rot == null) t.rot = rot;
+    else if (((t.rot % 4) + 4) % 4 !== rot) warnings.push(`elevator ${t.id}: rot ${t.rot} faces the island; lift tile attaches on ${sides[0]}, so rot should be ${rot}`);
+  }
   if (!isWalkable(L, L.spawn[0], L.spawn[1])) {
     const alt = firstWalkable(L);
     warnings.push(`spawn ${L.spawn} not walkable, using ${alt}`);

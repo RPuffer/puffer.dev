@@ -6,6 +6,7 @@ import { surfaceY, liftLevel } from "./terrain.js";
 import { createTweens, ease } from "./tween.js";
 import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
 import { rideUniforms } from "../core/sequence.js";
+import { liftOpts, liftDeck, beamGeometry, beamMaterial, outOf } from "./lift.js";
 
 export const RISE = 2.4;
 export const SHAFT = 32;
@@ -197,7 +198,7 @@ export function bakeThingBases(S, L, view, style, P = S) {
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
-    else if (t.kind === "elevator") S.at(x, y, z, 0, () => elevatorFrame(S, k, SIDE[((t.rot || 0) % 4 + 4) % 4]));
+    else if (t.kind === "elevator" && cellAt(LL, t.x, t.z)?.s !== "lift") S.at(x, y, z, 0, () => elevatorFrame(S, k, SIDE[((t.rot || 0) % 4 + 4) % 4]));
     else if (t.kind === "gate") { const g = gatePlace(LL, view, t); if (g.frame) P.at(g.x, g.y, g.z, 0, () => gateFrame(P, k, g.span, g.half)); }
   }
 }
@@ -238,6 +239,23 @@ export function buildThings(L, view, style, decorGroup) {
       m.userData.y0 = g.y + top;
       group.add(m);
       parts[t.id] = m;
+    } else if (t.kind === "elevator" && cellAt(LL, t.x, t.z)?.s === "lift") {
+      const m = partMesh(liftDeck, light, k, new THREE.Vector3(x, y, z), 0);
+      m.userData.thing = t.id;
+      m.userData.y0 = y;
+      group.add(m);
+      parts[t.id] = m;
+      const arrival = t.role === "entry";
+      const s = new THREE.Mesh(beamGeometry(liftOpts.shaft, outOf(t), arrival), beamMaterial(liftOpts.shaft, arrival));
+      s.position.set(x, y, z);
+      s.renderOrder = 3;
+      s.userData.noMerge = true;
+      s.userData.thing = t.id;
+      s.userData.shaft = true;
+      s.userData.beam = arrival ? "arrival" : "departure";
+      s.frustumCulled = false;
+      group.add(s);
+      shafts[t.id] = s;
     } else if (t.kind === "elevator") {
       const m = partMesh(elevatorDeck, light, k, new THREE.Vector3(x, y, z), 0);
       m.userData.thing = t.id;
@@ -339,7 +357,7 @@ export function buildThings(L, view, style, decorGroup) {
         else if (t.kind === "elevator") {
           const pin = t.id === kept ? -group.position.y : 0;
           m.position.y = m.userData.y0 + (t.lift ?? ease.inOut(t.ride || 0) * RISE) + pin;
-          if (shafts[t.id]) { shafts[t.id].position.y = m.userData.y0 + pin; shafts[t.id].material.userData.on.value = t.id === kept ? 1 : 0; }
+          if (shafts[t.id]) { const sh = shafts[t.id]; sh.position.y = m.userData.y0 + pin; sh.material.userData.on.value = t.id === kept ? 1 : 0; if (sh.material.userData.top) { const up = m.position.y - sh.position.y; sh.material.userData.top.value = up + Math.min(Math.max(up, 0), 1) * 0.18 - 0.06; } }
         }
         else if (t.kind === "watcher") applyWatcher(t, m);
       }
