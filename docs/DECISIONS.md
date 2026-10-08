@@ -50,3 +50,4 @@
 - 2026-10-08 Pass 7 speed lines: operator picked density a (44 overlay lines, 140 streaks); `?lines=b` removed. Overlay and streaks clear a feathered circle around the hero sized like the see-through window, per his note that lines over the hero looked off.
 - 2026-10-08 Pass 8 picks: tile-wide beam shaft, lift tile b (cantilever). Operator note: the arrival shaft coming up from below should sit behind the clouds more.
 - 2026-10-08 Operator play notes on the ride: the arrival reads reversed (going up ends with coming down into the new island; it must rise up into the new island from below, as the tower climb idea says), and the hero does not dance during the ride.
+- 2026-10-08 Reviews move live: the operator plays the dev server; routine passes report what changed and where to look instead of filing fortress cards.
