@@ -107,11 +107,14 @@ async function reachExit(s, exit) {
   return { ok: false, steps, via, why: "too many gates" };
 }
 
-async function ride() {
-  const nav = page.waitForNavigation({ timeout: 15000 }).then(() => true, () => false);
+async function ride(next) {
+  const count = await page.evaluate(() => window.__swapCount || 0);
   await page.keyboard.press("KeyE");
-  if (!(await nav)) return false;
-  return loaded();
+  const ok = await page.waitForFunction((n) => { const S = window.__game.state; return S.level.name === n && !S.actor.locked; }, { timeout: 20000, polling: 50 }, next).then(() => true, () => false);
+  if (!ok) return false;
+  const s = await page.evaluate(() => ({ count: window.__swapCount, err: window.__swapError }));
+  if (s.err) problems.push("__swapError " + s.err);
+  return s.count === count + 1;
 }
 
 async function stubCheck(s, t, label) {
@@ -159,7 +162,7 @@ try {
     const r = await reachExit(s, exit);
     if (!r.ok) { record("FAIL", hop, `${r.why || "did not reach the exit"} (${r.steps} steps${r.via.length ? ", gates " + r.via.join(",") : ""})`); last = { i, name }; continue; }
     if (!next) { await stubCheck(await snap(), exit, hop); last = { i, name }; break; }
-    if (!(await ride())) { record("FAIL", hop, `ride from ${exit.x},${exit.z} did not load a page`); last = { i, name }; continue; }
+    if (!(await ride(next))) { record("FAIL", hop, `ride from ${exit.x},${exit.z} did not swap to ${next}`); last = { i, name }; continue; }
     const a = await arrival(next, "entry");
     const dirty = problems.slice(0, 2).join(" | ");
     if (a.fail) { record("FAIL", hop, a.fail); rode = a.s.name === next; last = { i: i + 1, name: next }; continue; }
@@ -178,7 +181,7 @@ try {
     else {
       const n = at(s, en) ? 0 : await walk([[en.x, en.z]]);
       if (n == null || !at(await snap(), en)) record("FAIL", backLabel, `no path to the entry at ${en.x},${en.z}`);
-      else if (!(await ride())) record("FAIL", backLabel, `ride from ${en.x},${en.z} did not load a page`);
+      else if (!(await ride(ORDER[last.i - 1]))) record("FAIL", backLabel, `ride from ${en.x},${en.z} did not swap to ${ORDER[last.i - 1]}`);
       else {
         const a = await arrival(ORDER[last.i - 1], "exit");
         record(a.fail ? "FAIL" : "PASS", backLabel, a.fail || `landed on ${a.where}`);

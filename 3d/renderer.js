@@ -8,8 +8,19 @@ import { liftAt } from "./terrain.js";
 import { makeStyle } from "./style.js";
 import { initMotion, stepMotion } from "./motion.js";
 import { buildThings, bakeThingBases, ISLAND } from "./things.js";
+import { GLBS } from "./hooks.js";
 
 const FRAME = [351, 390];
+
+export function disposeTree(root, keep = new Set()) {
+  root.traverse((o) => {
+    if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose();
+    for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+      for (const u of Object.values(m.uniforms || {})) if (u?.value?.isDataTexture) u.value.dispose();
+      m.dispose();
+    }
+  });
+}
 
 export function createRenderer(container = document.body) {
   const gl = new THREE.WebGLRenderer({ antialias: true, stencil: true });
@@ -18,7 +29,7 @@ export function createRenderer(container = document.body) {
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
-  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, things = null, ride = 0;
+  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, things = null, ride = 0, mounted = [];
   const focus = new THREE.Vector3();
 
   const resize = () => {
@@ -30,6 +41,8 @@ export function createRenderer(container = document.body) {
     camera.top = h / 2 / zoom; camera.bottom = -h / 2 / zoom;
     camera.updateProjectionMatrix();
   };
+
+  addEventListener("resize", resize);
 
   const fitZoom = (w, h) => Math.min(w / (bounds.maxX - bounds.minX), h / (bounds.maxY - bounds.minY));
 
@@ -54,11 +67,10 @@ export function createRenderer(container = document.body) {
   return {
     element: gl.domElement,
     three: { gl, scene, camera },
-    init(state) {
+    mount(state, style = makeStyle(state.level)) {
       S = state;
       initMotion(state.params);
       const L = state.level, seed = state.params.seed;
-      const style = makeStyle(L);
       scene.background = new THREE.Color(style.bg);
       const terrain = buildTerrain(L, state.view, seed, style);
       scene.add(terrain.group);
@@ -66,9 +78,13 @@ export function createRenderer(container = document.body) {
       const hasThings = !!L.things?.length;
       const decor = buildDecor(L, state.view, style, hasThings ? { bakeExtra: (B, _, P) => bakeThingBases(B, L, state.view, style, P) } : {});
       scene.add(decor.group);
+      mounted = [terrain.group, decor.group];
+      things = null;
+      ride = 0;
       if (hasThings) {
         things = buildThings(L, state.view, style, decor.group);
         scene.add(things.group);
+        mounted.push(things.group);
         state.things?.on(things.onEvent);
       }
       hero = buildCharacter(1, style);
@@ -80,9 +96,24 @@ export function createRenderer(container = document.body) {
       });
       bounds = levelScreenBounds(L, state.proj);
       resize();
-      addEventListener("resize", resize);
       lift = liftAt(L, state.actor.pos.x, state.actor.pos.z);
       focus.copy(heroTarget(state.actor));
+    },
+    unmount() {
+      const keep = new Set();
+      for (const g of Object.values(GLBS)) for (const e of g.extras || []) if (e.geometry) keep.add(e.geometry);
+      for (const group of mounted) {
+        scene.remove(group);
+        disposeTree(group, keep);
+      }
+      if (hero) {
+        scene.remove(hero);
+        hero.traverse((o) => { if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose(); });
+      }
+      mounted = [];
+      pickables = [];
+      things = null;
+      hero = null;
     },
     update(state, dt) {
       const a = state.actor;
