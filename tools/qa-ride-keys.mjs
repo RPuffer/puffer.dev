@@ -216,17 +216,24 @@ async function island(i) {
   return { ok: true, note: notes.join("; ") };
 }
 
+const BEATS = ["close", "dance", "drop", "brace", "hold", "arrive", "land"];
 const landed = (name) => page.waitForFunction((n) => { const S = window.__game?.state; return !!S && S.level.name === n && !S.actor.locked; }, { timeout: 20000, polling: 50 }, name).then(() => true, () => false);
 
 async function ride(next) {
   const count = await page.evaluate(() => window.__swapCount || 0);
   await pressE();
   if (!(await landed(next))) return { ok: false, why: `E on exit did not swap to ${next}` };
-  const s = await page.evaluate(() => ({ count: window.__swapCount, err: window.__swapError }));
+  const s = await page.evaluate(() => ({ count: window.__swapCount, err: window.__swapError, zoom: window.__game.renderer.zoomScale, hop: window.__sequence?.hops.at(-1) || null }));
   await wait(400);
   if (s.err) return { ok: false, why: `__swapError ${s.err}` };
   if (s.count !== count + 1) return { ok: false, why: `swapCount ${count} -> ${s.count}` };
-  return { ok: true };
+  if (Math.abs(s.zoom - 1) > 0.05) return { ok: false, why: `zoomScale ${s.zoom.toFixed(3)} after landing` };
+  const hop = s.hop;
+  if (!hop || hop.next !== next || hop.failed) return { ok: false, why: `no sequence hop to ${next}: ${JSON.stringify(hop)}` };
+  const times = BEATS.map((b) => hop.beats[b]);
+  const bad = BEATS.find((b, i) => times[i] == null || (i > 0 && !(times[i] > times[i - 1])));
+  if (bad) return { ok: false, why: `beat order ${JSON.stringify(hop.beats)} breaks at ${bad}` };
+  return { ok: true, note: `${BEATS.map((b) => b + " " + hop.beats[b].toFixed(2)).join(", ")}, ${hop.dance}, zoom ${s.zoom.toFixed(3)}` };
 }
 
 async function touchCheck(name) {
@@ -303,7 +310,7 @@ try {
     rode = true;
     const bf = await backAndForth(name, next);
     if (bf) { record("FAIL", hop, `${r.note}; ${bf}`); rode = false; continue; }
-    record(problems.length ? "FAIL" : "PASS", hop, r.note + "; back and forward unlocked" + (problems.length ? "; " + problems.slice(0, 2).join(" | ") : ""));
+    record(problems.length ? "FAIL" : "PASS", hop, r.note + "; " + rd.note + "; back and forward unlocked" + (problems.length ? "; " + problems.slice(0, 2).join(" | ") : ""));
   }
   await touchCheck(ORDER[0]);
   await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.startsWith("isoworld:things:")) localStorage.removeItem(k); });
