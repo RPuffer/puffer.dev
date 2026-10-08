@@ -164,7 +164,6 @@ void main() {
   hot = clamp(0.7 * ring + 0.25 * edge, 0.0, 1.0);
   float front = step(0.02, vS);
   a = (a + 0.55 * foot * (1.0 - 0.7 * on)) * env * mix(1.0, mix(0.8, 0.18, on), front);
-  a *= mix(1.0, smoothstep(uClear.z * ${CLEAR.inner.toFixed(3)}, uClear.z * ${CLEAR.outer.toFixed(3)}, distance(gl_FragCoord.xy, uClear.xy)), on);
   gl_FragColor = vec4(mix(uCol, uHot, hot), clamp(a, 0.0, 1.0));
 }`;
 
