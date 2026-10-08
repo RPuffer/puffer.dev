@@ -125,26 +125,26 @@ export function gatePlace(LL, view, t) {
   return { x: (ax + bx) / 2 + 0.5, y, z: (az + bz) / 2 + 0.5, span: ax !== bx ? "z" : "x", width: 0.84, height: Math.min(t.height || 1.62, 1.62), frame: true, half: 0.48 };
 }
 
-const xrayMat = () => applyMotion(applyXray(bakedMaterial()));
+const xrayMat = (reach = false) => applyMotion(applyXray(bakedMaterial(), reach));
 
-function partMesh(build, light, k, at, rotY) {
+function partMesh(build, light, k, at, rotY, reach = false) {
   const B = new Baker(light);
   build(B, k);
-  const m = new THREE.Mesh(B.geometry(), xrayMat());
+  const m = new THREE.Mesh(B.geometry(), xrayMat(reach));
   m.position.copy(at);
   m.rotation.y = rotY;
   m.userData.noMerge = true;
   return m;
 }
 
-export function bakeThingBases(S, L, view, style) {
+export function bakeThingBases(S, L, view, style, P = S) {
   const LL = liftLevel(L), k = lookOf(style);
   for (const t of L.things || []) {
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
     else if (t.kind === "elevator") S.at(x, y, z, 0, () => elevatorFrame(S, k, SIDE[((t.rot || 0) % 4 + 4) % 4]));
-    else if (t.kind === "gate") { const g = gatePlace(LL, view, t); if (g.frame) S.at(g.x, g.y, g.z, 0, () => gateFrame(S, k, g.span, g.half)); }
+    else if (t.kind === "gate") { const g = gatePlace(LL, view, t); if (g.frame) P.at(g.x, g.y, g.z, 0, () => gateFrame(P, k, g.span, g.half)); }
   }
 }
 
@@ -176,7 +176,7 @@ export function buildThings(L, view, style, decorGroup) {
     } else if (t.kind === "gate") {
       const g = gatePlace(LL, view, t);
       const top = (g.height || 1.62) + 0.18;
-      const m = partMesh((B) => { B.push(0, -top, 0); gateBars(B, k, g.span, g.width, g.height); B.pop(); }, light, k, new THREE.Vector3(g.x, g.y + top, g.z), 0);
+      const m = partMesh((B) => { B.push(0, -top, 0); gateBars(B, k, g.span, g.width, g.height); B.pop(); }, light, k, new THREE.Vector3(g.x, g.y + top, g.z), 0, true);
       m.userData.thing = t.id;
       m.userData.lift = t.state === "open" ? 1 : 0;
       m.userData.y0 = g.y + top;

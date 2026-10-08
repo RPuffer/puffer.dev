@@ -64,7 +64,7 @@ export function createRenderer(container = document.body) {
       scene.add(terrain.group);
       pickables = terrain.pickables;
       const hasThings = !!L.things?.length;
-      const decor = buildDecor(L, state.view, style, hasThings ? { bakeExtra: (B) => bakeThingBases(B, L, state.view, style) } : {});
+      const decor = buildDecor(L, state.view, style, hasThings ? { bakeExtra: (B, _, P) => bakeThingBases(B, L, state.view, style, P) } : {});
       scene.add(decor.group);
       if (hasThings) {
         things = buildThings(L, state.view, style, decor.group);
@@ -98,6 +98,7 @@ export function createRenderer(container = document.body) {
       xray.uHero.value = [(v.x * 0.5 + 0.5) * w, (v.y * 0.5 + 0.5) * h];
       xray.uDepth.value = v.z * 0.5 + 0.5 - 0.35 / (camera.far - camera.near);
       xray.uDepthSoft.value = 0.3 / (camera.far - camera.near);
+      xray.uSlack.value = 0.35 / (camera.far - camera.near);
       xray.uFeet.value = feet;
       xray.uRadius.value = hero.visible && S.params.xray !== "0" ? 1.2 * zoom * px : 0;
       gl.render(scene, camera);

@@ -209,7 +209,7 @@ async function probe(name) {
       while (gq.length) { const c = gq.shift(); for (const k of Object.keys(DIRS)) { const n = [c[0] + DIRS[k][0], c[1] + DIRS[k][1]]; if (toGoal.has(key(n)) || !canStep(L, n[0], n[1], OPP[k])) continue; toGoal.set(key(n), toGoal.get(key(c)) + 1); gq.push(n); } }
       const need = toGoal.get(key(from)) - ti;
       const done = (c) => key(c) === key(target) || (toGoal.get(key(c)) ?? 1e9) <= need;
-      const seen = new Map(), frac = (c) => { const k = key(c); if (!seen.has(k)) seen.set(k, floorFrac(c, from, role === "entry").frac); return seen.get(k); };
+      const seen = new Map(), frac = (c, p = from) => { const k = key(c) + "<" + key(p); if (!seen.has(k)) seen.set(k, floorFrac(c, p, role === "entry").frac); return seen.get(k); };
       const sk = (c, g) => key(c) + "|" + g;
       const prevOf = new Map([[sk(from, 0), null]]), dist = new Map([[sk(from, 0), 0]]), q = [[from, 0]];
       let hit = null;
@@ -219,7 +219,7 @@ async function probe(name) {
         for (const k of Object.keys(DIRS)) {
           if (!canStep(L, c[0], c[1], k)) continue;
           const n = [c[0] + DIRS[k][0], c[1] + DIRS[k][1]];
-          const hidden = frac(n) < MIN_FLOOR, ng = gaps + (hidden ? 1 : 0);
+          const hidden = Math.max(frac(n), frac(n, c)) < MIN_FLOOR, ng = gaps + (hidden ? 1 : 0);
           if (hidden && (ng > MAX_GAP || L.cells[n[1]][n[0]].s === "ramp" || done(n))) continue;
           if (prevOf.has(sk(n, ng))) continue;
           prevOf.set(sk(n, ng), [c, gaps]); dist.set(sk(n, ng), d + 1); q.push([n, ng]);
@@ -228,7 +228,7 @@ async function probe(name) {
       }
       if (hit) {
         const path = []; for (let st = hit; st; st = prevOf.get(sk(st[0], st[1]))) path.unshift(st[0]);
-        landings.push({ role, from, target: hit[0], pass: true, path: path.slice(1).map((c) => ({ cell: c, frac: frac(c) })) });
+        landings.push({ role, from, target: hit[0], pass: true, path: path.slice(1).map((c, i) => ({ cell: c, frac: frac(c), step: frac(c, path[i]) })) });
       } else {
         const cells = p.slice(1, ti + 1).map((c) => ({ cell: c, frac: frac(c) }));
         const yh = (c) => surfaceHeight(L, c[0] + 0.5, c[1] + 0.5) * tileH + 0.15;
@@ -258,7 +258,7 @@ try {
       console.log(`${c.pass ? "PASS" : "FAIL"} ${name} ${c.cell} [${c.roles.join(" ")}] ${h}${f}${why}${c.occluder ? " occluder " + c.occluder : ""}`);
     }
     for (const l of r.landings) {
-      const cells = l.path.map((c) => `${c.cell}:${Math.round(c.frac * 100)}%${c.occluder ? "(" + c.occluder + ")" : ""}`).join(" ");
+      const cells = l.path.map((c) => `${c.cell}:${Math.round(c.frac * 100)}%${c.step != null && c.frac < MIN_FLOOR ? "/" + Math.round(c.step * 100) + "%" : ""}${c.occluder ? "(" + c.occluder + ")" : ""}`).join(" ");
       console.log(`${l.pass ? "PASS" : "FAIL"} ${name} ${l.role} landing ${l.from} way off to ${l.target}: ${l.pass ? "visible path" : "hidden on shortest path"} ${cells}`);
     }
     const n = r.cells.length + r.landings.length, p = r.cells.filter((c) => c.pass).length + r.landings.filter((l) => l.pass).length, x = r.cells.filter((c) => c.pass && c.how === "x-ray").length;

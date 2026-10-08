@@ -43,33 +43,35 @@ function contextFor(L, view, d, spec, base) {
   return ctx;
 }
 
-function makerFor(d, spec, H, rot, style, pieces, extrasFor) {
+function makerFor(d, spec, H, rot, style, pieces, extrasFor, copy) {
   const glb = GLBS[d.t];
-  if (glb) return (B) => { B.pushMatrix(glb.fit); bakeInto(B, glb, extrasFor(B), xrayCopy); B.pop(); };
+  if (glb) return (B) => { B.pushMatrix(glb.fit); bakeInto(B, glb, extrasFor(B), copy); B.pop(); };
   const build = BUILDERS[d.t];
   if (build) return (B, H, v, ctx) => {
     const obj = build(v, rot, style, { ...ctx, height: H, decor: d });
-    if (obj) bakeInto(B, extractTris(obj, { shade: spec.shade ?? null }), extrasFor(B), xrayCopy);
+    if (obj) bakeInto(B, extractTris(obj, { shade: spec.shade ?? null }), extrasFor(B), copy);
   };
   return pieces[d.t] || fallback;
 }
 
 const xrayCopy = (m) => applyMotion(applyXray(m.clone()));
+const reachCopy = (m) => applyMotion(applyXray(m.clone(), true));
 
 export function buildDecor(L, view, style = makeStyle(L), { bakeExtra } = {}) {
   L = liftLevel(L);
   const pieces = makePieces(style);
   const group = new THREE.Group(), spinners = [];
   const mat = applyMotion(applyXray(bakedMaterial()));
-  const S = new Baker(style.light);
+  const S = new Baker(style.light), P = new Baker(style.light);
   let spinMesh = null;
-  const extrasFor = (B) => (B === S ? group : spinMesh);
+  const extrasFor = (B) => (B === S || B === P ? group : spinMesh);
   for (const d of L.decor || []) {
     const spec = CATALOG[d.t];
     if (!spec) continue;
     const H = spec.height || 0.5;
     const rot = d.rot || 0;
-    const make = makerFor(d, spec, H, rot, style, pieces, extrasFor);
+    const post = d.gapX != null;
+    const make = makerFor(d, spec, H, rot, style, pieces, extrasFor, post ? reachCopy : xrayCopy);
     const [fw, fd] = rot % 2 ? [spec.footprint[1], spec.footprint[0]] : spec.footprint;
     const base = baseOf(L, view, d, spec);
     const x = d.x + fw / 2 + (d.ox || 0), z = d.z + fd / 2 + (d.oz || 0);
@@ -88,12 +90,18 @@ export function buildDecor(L, view, style = makeStyle(L), { bakeExtra } = {}) {
       group.add(m);
       continue;
     }
-    S.at(x, base, z, -rot * (Math.PI / 2), () => make(S, H, d.v || 0, ctx));
+    const T = post ? P : S;
+    T.at(x, base, z, -rot * (Math.PI / 2), () => make(T, H, d.v || 0, ctx));
   }
-  if (bakeExtra) bakeExtra(S, L);
+  if (bakeExtra) bakeExtra(S, L, P);
   if (!S.empty) {
     const m = new THREE.Mesh(S.geometry(), mat);
     m.name = "decor";
+    group.add(m);
+  }
+  if (!P.empty) {
+    const m = new THREE.Mesh(P.geometry(), applyMotion(applyXray(bakedMaterial(), true)));
+    m.name = "posts";
     group.add(m);
   }
   return { group, spinners };

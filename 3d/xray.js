@@ -4,13 +4,17 @@ export const xray = {
   uDepth: { value: 0 },
   uDepthSoft: { value: 0.0003 },
   uFeet: { value: 0 },
+  uSlack: { value: 0 },
 };
+
+export const REACH = { radius: 1.6, below: 1.0 };
 
 const HEAD = `uniform vec2 uHero;
 uniform float uRadius;
 uniform float uDepth;
 uniform float uDepthSoft;
 uniform float uFeet;
+uniform float uSlack;
 varying float vXrayY;
 float xrayBayer(vec2 p) {
   vec2 q = mod(floor(p), 4.0);
@@ -20,23 +24,24 @@ float xrayBayer(vec2 p) {
 }
 void main() {`;
 
-const CUT = `#include <clipping_planes_fragment>
+const cut = (reach) => `#include <clipping_planes_fragment>
   if (uRadius > 0.0) {
     float dd = distance(gl_FragCoord.xy, uHero);
-    float radial = 1.0 - smoothstep(uRadius * 0.55, uRadius, dd);
-    float nearer = smoothstep(0.0, uDepthSoft, uDepth - gl_FragCoord.z);
-    float above = smoothstep(uFeet + 0.05, uFeet + 0.35, vXrayY);
+    float rr = uRadius * ${reach ? REACH.radius.toFixed(3) : "1.0"};
+    float radial = 1.0 - smoothstep(rr * 0.55, rr, dd);
+    float nearer = smoothstep(0.0, uDepthSoft, uDepth ${reach ? "+ uSlack " : ""}- gl_FragCoord.z);
+    float above = smoothstep(uFeet ${reach ? "- " + REACH.below.toFixed(3) + " " : ""}+ 0.05, uFeet ${reach ? "- " + REACH.below.toFixed(3) + " " : ""}+ 0.35, vXrayY);
     if (radial * nearer * above > xrayBayer(gl_FragCoord.xy)) discard;
   }`;
 
-export function applyXray(material) {
+export function applyXray(material, reach = false) {
   material.onBeforeCompile = (shader) => {
-    Object.assign(shader.uniforms, { uHero: xray.uHero, uRadius: xray.uRadius, uDepth: xray.uDepth, uDepthSoft: xray.uDepthSoft, uFeet: xray.uFeet });
+    Object.assign(shader.uniforms, { uHero: xray.uHero, uRadius: xray.uRadius, uDepth: xray.uDepth, uDepthSoft: xray.uDepthSoft, uFeet: xray.uFeet, uSlack: xray.uSlack });
     shader.vertexShader = shader.vertexShader
       .replace("void main() {", "varying float vXrayY;\nvoid main() {")
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vXrayY = (modelMatrix * vec4(transformed, 1.0)).y;");
-    shader.fragmentShader = shader.fragmentShader.replace("void main() {", HEAD).replace("#include <clipping_planes_fragment>", CUT);
+    shader.fragmentShader = shader.fragmentShader.replace("void main() {", HEAD).replace("#include <clipping_planes_fragment>", cut(reach));
   };
-  material.customProgramCacheKey = () => "xray2";
+  material.customProgramCacheKey = () => (reach ? "xray2-reach" : "xray2");
   return material;
 }
