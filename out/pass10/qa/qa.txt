@@ -1,0 +1,188 @@
+PASS  3d@1200 __done within 10 s  2001 ms
+PASS  3d@1200 key KeyW  6,7 -> 6,6 expect 6,6
+PASS  3d@1200 key KeyD  6,6 -> 7,6 expect 7,6
+PASS  3d@1200 key KeyS  7,6 -> 7,7 expect 7,7
+PASS  3d@1200 key KeyA  7,7 -> 6,7 expect 6,7
+PASS  3d@1200 key ArrowUp  6,7 -> 6,6 expect 6,6
+PASS  3d@1200 key ArrowRight  6,6 -> 7,6 expect 7,6
+PASS  3d@1200 key ArrowDown  7,6 -> 7,7 expect 7,7
+PASS  3d@1200 key ArrowLeft  7,7 -> 6,7 expect 6,7
+PASS  3d@1200 tap walkable cell  target 5,5 got 5,5
+PASS  3d@1200 tap blocked cell stops adjacent  target 5,3 got 4,3
+PASS  3d@1200 ui overlay mounted
+PASS  3d@1200 overlay links to the start page  http://localhost:8765/index.html
+PASS  3d@1200 islands link opens the start page  http://localhost:8765/index.html
+PASS  3d@1200 no console errors or failed requests
+PASS  3d@1200 see-through window reveals hero at spawn 0,1  5093 px differ window on/off
+PASS  3d@1200 x-ray page clean
+PASS  2d@1200 __done within 10 s  226 ms
+PASS  2d@1200 key KeyW  6,7 -> 6,6 expect 6,6
+PASS  2d@1200 key KeyD  6,6 -> 7,6 expect 7,6
+PASS  2d@1200 key KeyS  7,6 -> 7,7 expect 7,7
+PASS  2d@1200 key KeyA  7,7 -> 6,7 expect 6,7
+PASS  2d@1200 key ArrowUp  6,7 -> 6,6 expect 6,6
+PASS  2d@1200 key ArrowRight  6,6 -> 7,6 expect 7,6
+PASS  2d@1200 key ArrowDown  7,6 -> 7,7 expect 7,7
+PASS  2d@1200 key ArrowLeft  7,7 -> 6,7 expect 6,7
+PASS  2d@1200 tap walkable cell  target 5,5 got 5,5
+PASS  2d@1200 tap blocked cell stops adjacent  target 5,3 got 4,3
+PASS  2d@1200 ui overlay mounted
+PASS  2d@1200 overlay links to the start page  http://localhost:8765/index.html
+PASS  2d@1200 islands link opens the start page  http://localhost:8765/index.html
+PASS  2d@1200 no console errors or failed requests
+PASS  2d@1200 see-through window reveals hero at spawn 0,1  2338 px differ window on/off
+PASS  2d@1200 x-ray page clean
+PASS  rotate@1200 page loads
+PASS  rotate@1200 starts at the level yaw 45  45
+PASS  rotate@1200 KeyE turns to 135  135
+PASS  rotate@1200 yaw 135 W moves up on screen  6,7 -> 5,7 screen d(0.71,-0.41)
+PASS  rotate@1200 yaw 135 S moves down on screen  5,7 -> 6,7 screen d(-0.71,0.41)
+PASS  rotate@1200 KeyE turns to 225  225
+PASS  rotate@1200 yaw 225 S moves down on screen  6,7 -> 6,6 screen d(-0.71,0.41)
+PASS  rotate@1200 yaw 225 W moves up on screen  6,6 -> 6,7 screen d(0.71,-0.41)
+PASS  rotate@1200 KeyE turns to 315  315
+PASS  rotate@1200 yaw 315 W moves up on screen  6,7 -> 7,7 screen d(0.71,-0.41)
+PASS  rotate@1200 yaw 315 S moves down on screen  7,7 -> 6,7 screen d(-0.71,0.41)
+PASS  rotate@1200 KeyE turns to 45  45
+PASS  rotate@1200 KeyQ turns to 315  315
+PASS  rotate@1200 yaw 315 W moves up on screen  6,7 -> 7,7 screen d(0.71,-0.41)
+PASS  rotate@1200 yaw 315 S moves down on screen  7,7 -> 6,7 screen d(-0.71,0.41)
+PASS  rotate@1200 turn eases over about 0.35 s  345 ms
+PASS  rotate@1200 rotate buttons in the overlay
+PASS  rotate@1200 rotate button turns right  45 -> 135
+PASS  rotate@1200 tap-to-walk at yaw 135  target 5,5 got 5,5
+PASS  rotate@1200 reload restores the saved yaw 135  135
+PASS  rotate@1200 ?hero=0 yaw 45  45
+PASS  rotate@1200 ?seq=0 yaw 45  45
+PASS  rotate@1200 ?yaw=225 yaw 225  225
+PASS  rotate@1200 reset=1 clears the saved yaw  45
+PASS  rotate@1200 2d build ignores rotate keys  45
+PASS  rotate@1200 no console errors
+PASS  compare@1200 __done within 10 s  634 ms
+PASS  compare@1200 both panes shown by default
+PASS  compare@1200 toggle 3d  true,false
+PASS  compare@1200 toggle 2d  false,true
+PASS  compare@1200 toggle both  true,true
+PASS  compare@1200 both iframes render
+PASS  compare@1200 level param drives both iframes  level=home&seed=1 ; level=home&seed=1
+PASS  compare@1200 no nested overlay inside iframes
+PASS  compare@1200 no console errors or failed requests
+PASS  start@1200 __done within 10 s  118 ms
+PASS  start@1200 begin link targets first island with reset  http://localhost:8765/3d/index.html?level=cat-medium&reset=1
+PASS  start@1200 all twelve island tile links resolve  200,200,200,200,200,200,200,200,200,200,200,200
+PASS  3d@400 __done within 10 s  608 ms
+PASS  3d@400 key KeyW  6,7 -> 6,6 expect 6,6
+PASS  3d@400 key KeyD  6,6 -> 7,6 expect 7,6
+PASS  3d@400 key KeyS  7,6 -> 7,7 expect 7,7
+PASS  3d@400 key KeyA  7,7 -> 6,7 expect 6,7
+PASS  3d@400 key ArrowUp  6,7 -> 6,6 expect 6,6
+PASS  3d@400 key ArrowRight  6,6 -> 7,6 expect 7,6
+PASS  3d@400 key ArrowDown  7,6 -> 7,7 expect 7,7
+PASS  3d@400 key ArrowLeft  7,7 -> 6,7 expect 6,7
+PASS  3d@400 tap walkable cell  target 5,5 got 5,5
+PASS  3d@400 tap blocked cell stops adjacent  target 5,3 got 4,3
+PASS  3d@400 ui overlay mounted
+PASS  3d@400 overlay links to the start page  http://localhost:8765/index.html
+PASS  3d@400 islands link opens the start page  http://localhost:8765/index.html
+PASS  3d@400 no console errors or failed requests
+PASS  3d@400 see-through window reveals hero at spawn 0,1  1594 px differ window on/off
+PASS  3d@400 x-ray page clean
+PASS  2d@400 __done within 10 s  132 ms
+PASS  2d@400 key KeyW  6,7 -> 6,6 expect 6,6
+PASS  2d@400 key KeyD  6,6 -> 7,6 expect 7,6
+PASS  2d@400 key KeyS  7,6 -> 7,7 expect 7,7
+PASS  2d@400 key KeyA  7,7 -> 6,7 expect 6,7
+PASS  2d@400 key ArrowUp  6,7 -> 6,6 expect 6,6
+PASS  2d@400 key ArrowRight  6,6 -> 7,6 expect 7,6
+PASS  2d@400 key ArrowDown  7,6 -> 7,7 expect 7,7
+PASS  2d@400 key ArrowLeft  7,7 -> 6,7 expect 6,7
+PASS  2d@400 tap walkable cell  target 5,5 got 5,5
+PASS  2d@400 tap blocked cell stops adjacent  target 5,3 got 4,3
+PASS  2d@400 ui overlay mounted
+PASS  2d@400 overlay links to the start page  http://localhost:8765/index.html
+PASS  2d@400 islands link opens the start page  http://localhost:8765/index.html
+PASS  2d@400 no console errors or failed requests
+PASS  2d@400 see-through window reveals hero at spawn 0,1  736 px differ window on/off
+PASS  2d@400 x-ray page clean
+PASS  compare@400 __done within 10 s  580 ms
+PASS  compare@400 both panes shown by default
+PASS  compare@400 toggle 3d  true,false
+PASS  compare@400 toggle 2d  false,true
+PASS  compare@400 toggle both  true,true
+PASS  compare@400 both iframes render
+PASS  compare@400 level param drives both iframes  level=home&seed=1 ; level=home&seed=1
+PASS  compare@400 no nested overlay inside iframes
+PASS  compare@400 no console errors or failed requests
+PASS  start@400 __done within 10 s  119 ms
+PASS  start@400 begin link targets first island with reset  http://localhost:8765/3d/index.html?level=cat-medium&reset=1
+PASS  start@400 all twelve island tile links resolve  200,200,200,200,200,200,200,200,200,200,200,200
+PASS  3d@400t __done within 10 s  545 ms
+PASS  3d@400t key KeyW  6,7 -> 6,6 expect 6,6
+PASS  3d@400t key KeyD  6,6 -> 7,6 expect 7,6
+PASS  3d@400t key KeyS  7,6 -> 7,7 expect 7,7
+PASS  3d@400t key KeyA  7,7 -> 6,7 expect 6,7
+PASS  3d@400t key ArrowUp  6,7 -> 6,6 expect 6,6
+PASS  3d@400t key ArrowRight  6,6 -> 7,6 expect 7,6
+PASS  3d@400t key ArrowDown  7,6 -> 7,7 expect 7,7
+PASS  3d@400t key ArrowLeft  7,7 -> 6,7 expect 6,7
+PASS  3d@400t tap walkable cell  target 5,5 got 5,5
+PASS  3d@400t tap blocked cell stops adjacent  target 5,3 got 4,3
+PASS  3d@400t d-pad shown under touch
+PASS  3d@400t d-pad press moves hero  4,3 -> 3,3
+PASS  3d@400t d-pad clear of ui overlay
+PASS  3d@400t ui overlay mounted
+PASS  3d@400t overlay links to the start page  http://localhost:8765/index.html
+PASS  3d@400t islands link opens the start page  http://localhost:8765/index.html
+PASS  3d@400t no console errors or failed requests
+PASS  3d@400t see-through window reveals hero at spawn 0,1  1593 px differ window on/off
+PASS  3d@400t x-ray page clean
+PASS  2d@400t __done within 10 s  127 ms
+PASS  2d@400t key KeyW  6,7 -> 6,6 expect 6,6
+PASS  2d@400t key KeyD  6,6 -> 7,6 expect 7,6
+PASS  2d@400t key KeyS  7,6 -> 7,7 expect 7,7
+PASS  2d@400t key KeyA  7,7 -> 6,7 expect 6,7
+PASS  2d@400t key ArrowUp  6,7 -> 6,6 expect 6,6
+PASS  2d@400t key ArrowRight  6,6 -> 7,6 expect 7,6
+PASS  2d@400t key ArrowDown  7,6 -> 7,7 expect 7,7
+PASS  2d@400t key ArrowLeft  7,7 -> 6,7 expect 6,7
+PASS  2d@400t tap walkable cell  target 5,5 got 5,5
+PASS  2d@400t tap blocked cell stops adjacent  target 5,3 got 4,3
+PASS  2d@400t d-pad shown under touch
+PASS  2d@400t d-pad press moves hero  4,3 -> 3,3
+PASS  2d@400t d-pad clear of ui overlay
+PASS  2d@400t ui overlay mounted
+PASS  2d@400t overlay links to the start page  http://localhost:8765/index.html
+PASS  2d@400t islands link opens the start page  http://localhost:8765/index.html
+PASS  2d@400t no console errors or failed requests
+PASS  2d@400t see-through window reveals hero at spawn 0,1  736 px differ window on/off
+PASS  2d@400t x-ray page clean
+PASS  rotate@400t page loads
+PASS  rotate@400t starts at the level yaw 45  45
+PASS  rotate@400t KeyE turns to 135  135
+PASS  rotate@400t yaw 135 W moves up on screen  6,7 -> 5,7 screen d(0.71,-0.41)
+PASS  rotate@400t yaw 135 S moves down on screen  5,7 -> 6,7 screen d(-0.71,0.41)
+PASS  rotate@400t KeyE turns to 225  225
+PASS  rotate@400t yaw 225 S moves down on screen  6,7 -> 6,6 screen d(-0.71,0.41)
+PASS  rotate@400t yaw 225 W moves up on screen  6,6 -> 6,7 screen d(0.71,-0.41)
+PASS  rotate@400t KeyE turns to 315  315
+PASS  rotate@400t yaw 315 W moves up on screen  6,7 -> 7,7 screen d(0.71,-0.41)
+PASS  rotate@400t yaw 315 S moves down on screen  7,7 -> 6,7 screen d(-0.71,0.41)
+PASS  rotate@400t KeyE turns to 45  45
+PASS  rotate@400t KeyQ turns to 315  315
+PASS  rotate@400t yaw 315 W moves up on screen  6,7 -> 7,7 screen d(0.71,-0.41)
+PASS  rotate@400t yaw 315 S moves down on screen  7,7 -> 6,7 screen d(-0.71,0.41)
+PASS  rotate@400t turn eases over about 0.35 s  348 ms
+PASS  rotate@400t rotate buttons in the overlay
+PASS  rotate@400t rotate button turns right  45 -> 135
+PASS  rotate@400t tap-to-walk at yaw 135  target 5,5 got 5,5
+PASS  rotate@400t d-pad shown
+PASS  rotate@400t d-pad up moves up on screen at yaw 135  5,5 -> 5,5 screen d(0,0)
+PASS  rotate@400t reload restores the saved yaw 135  135
+PASS  rotate@400t ?hero=0 yaw 45  45
+PASS  rotate@400t ?seq=0 yaw 45  45
+PASS  rotate@400t ?yaw=225 yaw 225  225
+PASS  rotate@400t reset=1 clears the saved yaw  45
+PASS  rotate@400t 2d build ignores rotate keys  45
+PASS  rotate@400t no console errors
+
+186 pass, 0 fail

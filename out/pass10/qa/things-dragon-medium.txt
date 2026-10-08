@@ -1,0 +1,44 @@
+PASS loads with reset
+PASS five kinds present bonfire@7,12 chest@10,12 watcher@14,7 gate@12,13 elevator@15,4 elevator@4,14
+PASS fresh state spawns at the file spawn 6,14
+PASS fresh state: things closed unlit,closed,idle,closed,idle,idle
+PASS elevators report their role e1 exit@15,4 e0 entry@4,14
+PASS gate is an edge gate 11,13 | 12,13
+PASS closed gate blocks crossing 11,13 -> 12,13
+PASS closed edge leaves both cells walkable 11,13 12,13
+PASS closed gate cannot be bypassed 12,13 unreachable from spawn
+PASS gate bars drawn on the edge 12,13.5 vs 12,13.5
+draw calls at 900x800: 30
+entry e0 at 4,14 rides back to eagle-composition
+PASS prompt beside the bonfire "FLight the bonfire" at 6,13
+PASS E lights the bonfire lit
+PASS bonfire toast "Bonfire lit"
+PASS bonfire flame part shows
+PASS prompt beside the chest "FOpen the chest" at 9,13
+PASS Enter opens the chest open
+PASS chest toast "A lead shard pried from the anthracite quarry, edges still sharp."
+PASS chest lid swung back -1.95
+PASS chest stays open
+PASS watcher idle before the threshold look 0.00
+PASS hero on the threshold 11,13
+PASS watcher turns to face the hero look 1.00, head moved no live head part
+no live head part: crest check skipped
+PASS gate opens at the threshold open
+PASS open gate lets the hero cross
+PASS gate bars lifted 1
+PASS walks through the gate to the elevator 15,4
+PASS prompt on the elevator "FRide the lift"
+PASS page clean before the ride
+PASS E starts the ride rising
+PASS exit rides forward to sharkbear-medium /3d/index.html?level=sharkbear-medium&from=dragon-medium&arrive=entry
+PASS next island loads sharkbear-medium
+PASS hero lands on the next island's entry platform 15,15 vs entry 15,15
+PASS reload keeps state {"b1":"lit","c1":"open","w1":"idle","g1":"open","e1":"idle","e0":"idle"}
+PASS reload respawns at the bonfire 6,13 vs 6,13
+PASS open gate stays passable after reload
+PASS ?reset=1 clears state bonfire:unlit,chest:closed,gate:closed,elevator:idle,elevator:idle
+PASS tap on the bonfire walks over and lights it from 11,13 to 8,13
+PASS watcher returns to its pose when the hero leaves look 0.99 at the threshold, 0.00 at the bonfire
+PASS page clean after reset
+
+39 pass, 0 fail

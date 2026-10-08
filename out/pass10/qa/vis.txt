@@ -1,0 +1,1564 @@
+== cat-medium yaw 45 (route 13 cells)
+PASS cat-medium 9,13 [spawn route] hero 99%/99%
+PASS cat-medium 8,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS cat-medium 7,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS cat-medium 6,13 [route] hero 100%/100% floor-from 7,13 100%
+PASS cat-medium 5,13 [route] hero 99%/99% floor-from 6,13 100%
+PASS cat-medium 5,12 [route] hero 100%/100% floor-from 5,13 100%
+PASS cat-medium 4,12 [route threshold] hero 99%/99% floor-from 5,12 100%
+PASS cat-medium 3,12 [route gate-far] hero 26%/99% via x-ray
+PASS cat-medium 3,11 [route] hero 21%/96% floor-from 3,12 68% via x-ray
+PASS cat-medium 3,10 [route] hero 98%/98% floor-from 3,11 100%
+PASS cat-medium 2,10 [route] hero 93%/93% floor-from 3,10 96%
+PASS cat-medium 2,9 [route exit-step] hero 99%/99% floor-from 2,10 95%
+PASS cat-medium 1,9 [route exit] hero 60%/60% floor-from 2,9 92%
+PASS cat-medium 11,14 [entry] hero 93%/93%
+PASS cat-medium 11,13 [entry-step] hero 99%/99% floor-from 11,14 95%
+PASS cat-medium 3,8 [court] hero 7%/100% via x-ray occluder pot@4,9
+PASS cat-medium entry landing 11,14 way off to 6,13: visible path 11,13:95% 10,13:100% 9,13:100% 8,13:100% 7,13:100% 6,13:100%
+PASS cat-medium exit landing 1,9 way off to 3,11: visible path 2,9:95% 2,10:96% 3,10:100% 3,11:22%/49%
+cat-medium yaw 45 18/18 pass (3 via x-ray), 0 fail
+== cat-medium yaw 135 (route 13 cells)
+PASS cat-medium 9,13 [spawn route] hero 35%/99%
+PASS cat-medium 8,13 [route] hero 98%/99% floor-from 9,13 86%
+PASS cat-medium 7,13 [route] hero 6%/98% floor-from 8,13 76% via x-ray occluder chromatic-plinth@9,11
+PASS cat-medium 6,13 [route] hero 98%/100% floor-from 7,13 91%
+PASS cat-medium 5,13 [route] hero 45%/100% floor-from 6,13 83%
+PASS cat-medium 5,12 [route] hero 1%/100% floor-from 5,13 42% via x-ray occluder terrain 6,11 h2
+PASS cat-medium 4,12 [route threshold] hero 1%/100% floor-from 5,12 61% via x-ray occluder knife-stroke@5,11
+PASS cat-medium 3,12 [route gate-far] hero 2%/100% via x-ray occluder cat-paint-tube-windmill-small@6,7
+FAIL cat-medium 3,11 [route] hero 47%/96% floor-from 3,12 0% floor hidden from 3,12 occluder ramp faces away from the camera
+PASS cat-medium 3,10 [route] hero 100%/100% floor-from 3,11 98%
+PASS cat-medium 2,10 [route] hero 93%/93% floor-from 3,10 98%
+PASS cat-medium 2,9 [route exit-step] hero 98%/98% floor-from 2,10 96%
+PASS cat-medium 1,9 [route exit] hero 59%/59% floor-from 2,9 87%
+PASS cat-medium 11,14 [entry] hero 88%/95%
+PASS cat-medium 11,13 [entry-step] hero 2%/98% floor-from 11,14 40% via x-ray occluder terrain 12,12 h2
+PASS cat-medium 3,8 [court] hero 99%/99%
+PASS cat-medium entry landing 11,14 way off to 6,13: visible path 11,13:40% 10,13:0%/83% 9,13:0%/82% 8,13:76% 7,13:3%/78% 6,13:75%
+FAIL cat-medium exit landing 1,9 way off to 3,11: hidden on shortest path 2,9:96% 2,10:98% 3,10:100% 3,11:0%(ramp faces away from the camera)
+cat-medium yaw 135 16/18 pass (5 via x-ray), 2 fail
+== cat-medium yaw 225 (route 13 cells)
+PASS cat-medium 9,13 [spawn route] hero 85%/99%
+PASS cat-medium 8,13 [route] hero 96%/99% floor-from 9,13 84%
+PASS cat-medium 7,13 [route] hero 49%/100% floor-from 8,13 51%
+PASS cat-medium 6,13 [route] hero 79%/82% floor-from 7,13 83%
+PASS cat-medium 5,13 [route] hero 24%/51% floor-from 6,13 46% via x-ray
+FAIL cat-medium 5,12 [route] hero 1%/65% floor-from 5,13 22% floor hidden from 5,13 occluder terrain 4,11 h2
+FAIL cat-medium 4,12 [route threshold] hero 0%/18% floor-from 5,12 67% hero hidden occluder terrain 3,11 h2
+PASS cat-medium 3,12 [route gate-far] hero 79%/79%
+FAIL cat-medium 3,11 [route] hero 12%/20% floor-from 3,12 0% hero hidden
+PASS cat-medium 3,10 [route] hero 65%/65% floor-from 3,11 94%
+FAIL cat-medium 2,10 [route] hero 29%/29% floor-from 3,10 78% hero hidden
+PASS cat-medium 2,9 [route exit-step] hero 66%/66% floor-from 2,10 89%
+PASS cat-medium 1,9 [route exit] hero 58%/58% floor-from 2,9 90%
+PASS cat-medium 11,14 [entry] hero 96%/96%
+PASS cat-medium 11,13 [entry-step] hero 10%/98% floor-from 11,14 43% via x-ray occluder cat-paint-tube-windmill-small@6,7
+PASS cat-medium 3,8 [court] hero 87%/98%
+PASS cat-medium entry landing 11,14 way off to 6,13: visible path 11,13:43% 10,13:83% 9,13:46% 8,13:70% 7,13:9%/51% 6,13:67%
+FAIL cat-medium exit landing 1,9 way off to 3,11: hidden on shortest path 2,9:81% 2,10:66% 3,10:78% 3,11:0%(ramp faces away from the camera)
+cat-medium yaw 225 13/18 pass (2 via x-ray), 5 fail
+== cat-medium yaw 315 (route 13 cells)
+PASS cat-medium 9,13 [spawn route] hero 100%/100%
+PASS cat-medium 8,13 [route] hero 99%/99% floor-from 9,13 100%
+PASS cat-medium 7,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS cat-medium 6,13 [route] hero 100%/100% floor-from 7,13 100%
+PASS cat-medium 5,13 [route] hero 100%/100% floor-from 6,13 100%
+PASS cat-medium 5,12 [route] hero 100%/100% floor-from 5,13 100%
+PASS cat-medium 4,12 [route threshold] hero 34%/100% floor-from 5,12 99%
+PASS cat-medium 3,12 [route gate-far] hero 99%/99%
+PASS cat-medium 3,11 [route] hero 95%/95% floor-from 3,12 100%
+PASS cat-medium 3,10 [route] hero 100%/100% floor-from 3,11 100%
+PASS cat-medium 2,10 [route] hero 94%/94% floor-from 3,10 97%
+PASS cat-medium 2,9 [route exit-step] hero 67%/67% floor-from 2,10 87%
+PASS cat-medium 1,9 [route exit] hero 57%/57% floor-from 2,9 86%
+PASS cat-medium 11,14 [entry] hero 93%/93%
+PASS cat-medium 11,13 [entry-step] hero 98%/98% floor-from 11,14 96%
+PASS cat-medium 3,8 [court] hero 2%/60% via x-ray occluder terrain 2,9 h2
+PASS cat-medium entry landing 11,14 way off to 6,13: visible path 11,13:96% 10,13:100% 9,13:100% 8,13:100% 7,13:100% 6,13:100%
+PASS cat-medium exit landing 1,9 way off to 3,11: visible path 2,9:72% 2,10:97% 3,10:100% 3,11:99%
+cat-medium yaw 315 18/18 pass (1 via x-ray), 0 fail
+== cat-medium all yaws
+PASS cat-medium 9,13 [spawn route] 45:P 135:P 225:P 315:P
+PASS cat-medium 8,13 [route] 45:P 135:P 225:P 315:P
+PASS cat-medium 7,13 [route] 45:P 135:x 225:P 315:P
+PASS cat-medium 6,13 [route] 45:P 135:P 225:P 315:P
+PASS cat-medium 5,13 [route] 45:P 135:P 225:x 315:P
+PASS cat-medium 5,12 [route] 45:P 135:x 225:- 315:P
+PASS cat-medium 4,12 [route threshold] 45:P 135:x 225:- 315:P
+PASS cat-medium 3,12 [route gate-far] 45:x 135:x 225:P 315:P
+PASS cat-medium 3,11 [route] 45:x 135:- 225:- 315:P
+PASS cat-medium 3,10 [route] 45:P 135:P 225:P 315:P
+PASS cat-medium 2,10 [route] 45:P 135:P 225:- 315:P
+PASS cat-medium 2,9 [route exit-step] 45:P 135:P 225:P 315:P
+PASS cat-medium 1,9 [route exit] 45:P 135:P 225:P 315:P
+PASS cat-medium 11,14 [entry] 45:P 135:P 225:P 315:P
+PASS cat-medium 11,13 [entry-step] 45:P 135:x 225:x 315:P
+PASS cat-medium 3,8 [court] 45:x 135:P 225:P 315:x
+PASS cat-medium entry landing 11,14 45:P 135:P 225:P 315:P
+PASS cat-medium exit landing 1,9 45:P 135:- 225:- 315:P
+cat-medium default yaw 45 18/18, reachable with rotation 18/18, warn 0, fail 0
+== wizard-medium yaw 45 (route 23 cells)
+PASS wizard-medium 3,9 [spawn route] hero 98%/98%
+PASS wizard-medium 4,9 [route] hero 97%/99% floor-from 3,9 78%
+PASS wizard-medium 4,10 [route] hero 95%/96% floor-from 4,9 88%
+PASS wizard-medium 5,10 [route] hero 9%/99% floor-from 4,10 42% via x-ray occluder terrain 6,11 h3
+PASS wizard-medium 5,11 [route] hero 6%/100% floor-from 5,10 41% via x-ray occluder star@6,12
+PASS wizard-medium 5,12 [route] hero 63%/100% floor-from 5,11 89%
+PASS wizard-medium 5,13 [route] hero 100%/100% floor-from 5,12 100%
+PASS wizard-medium 6,13 [route] hero 100%/100% floor-from 5,13 100%
+PASS wizard-medium 7,13 [route] hero 100%/100% floor-from 6,13 100%
+PASS wizard-medium 7,12 [route] hero 88%/99% floor-from 7,13 82%
+PASS wizard-medium 7,11 [route threshold] hero 99%/99% floor-from 7,12 100%
+PASS wizard-medium 7,10 [route gate-far] hero 26%/100% via x-ray
+PASS wizard-medium 7,9 [route] hero 3%/100% floor-from 7,10 100% via x-ray occluder star-doodle-totem@8,10
+PASS wizard-medium 7,8 [route] hero 100%/100% floor-from 7,9 100%
+PASS wizard-medium 8,8 [route] hero 89%/95% floor-from 7,8 79%
+PASS wizard-medium 9,8 [route] hero 99%/99% floor-from 8,8 100%
+PASS wizard-medium 9,7 [route] hero 98%/98% floor-from 9,8 100%
+PASS wizard-medium 10,7 [route] hero 79%/100% floor-from 9,7 68%
+PASS wizard-medium 10,6 [route] hero 1%/100% floor-from 10,7 85% via x-ray occluder Glizard the Frankfurter Mage@11,7
+PASS wizard-medium 10,5 [route] hero 100%/100% floor-from 10,6 100%
+PASS wizard-medium 11,5 [route] hero 98%/98% floor-from 10,5 100%
+PASS wizard-medium 12,5 [route exit-step] hero 99%/99% floor-from 11,5 98%
+PASS wizard-medium 12,4 [route exit] hero 57%/57% floor-from 12,5 85%
+PASS wizard-medium 4,15 [entry] hero 86%/86%
+PASS wizard-medium 4,14 [entry-step] hero 94%/94% floor-from 4,15 90%
+PASS wizard-medium 10,8 [court] hero 100%/100%
+PASS wizard-medium entry landing 4,15 way off to 2,11: visible path 4,14:90% 3,14:100% 2,14:100% 2,13:28%/27% 2,12:0%/62% 2,11:0%/84%
+PASS wizard-medium exit landing 12,4 way off to 10,8: visible path 12,5:98% 12,6:100% 11,6:99% 10,6:11%/90% 10,7:62% 10,8:100%
+wizard-medium yaw 45 28/28 pass (5 via x-ray), 0 fail
+== wizard-medium yaw 135 (route 23 cells)
+PASS wizard-medium 3,9 [spawn route] hero 1%/99% via x-ray occluder wizard-scroll-tower@7,5
+PASS wizard-medium 4,9 [route] hero 0%/96% floor-from 3,9 39% via x-ray occluder wizard-scroll-tower@7,5
+PASS wizard-medium 4,10 [route] hero 13%/96% floor-from 4,9 84% via x-ray occluder wizard-scroll-tower@7,5
+PASS wizard-medium 5,10 [route] hero 8%/92% floor-from 4,10 39% via x-ray occluder terrain 6,9 h3
+PASS wizard-medium 5,11 [route] hero 1%/89% floor-from 5,10 61% via x-ray occluder star-doodle-totem@6,10
+PASS wizard-medium 5,12 [route] hero 4%/96% floor-from 5,11 66% via x-ray occluder terrain 6,11 h3
+PASS wizard-medium 5,13 [route] hero 0%/100% floor-from 5,12 83% via x-ray occluder star-doodle-totem@8,10
+PASS wizard-medium 6,13 [route] hero 62%/100% floor-from 5,13 70%
+PASS wizard-medium 7,13 [route] hero 13%/100% floor-from 6,13 42% via x-ray occluder gnarled-staff-perch@9,11
+FAIL wizard-medium 7,12 [route] hero 74%/94% floor-from 7,13 0% floor hidden from 7,13 occluder ramp faces away from the camera
+PASS wizard-medium 7,11 [route threshold] hero 2%/100% floor-from 7,12 98% via x-ray occluder star-doodle-totem@8,10
+PASS wizard-medium 7,10 [route gate-far] hero 95%/95%
+PASS wizard-medium 7,9 [route] hero 89%/89% floor-from 7,10 96%
+PASS wizard-medium 7,8 [route] hero 53%/91% floor-from 7,9 72%
+PASS wizard-medium 8,8 [route] hero 70%/73% floor-from 7,8 73%
+PASS wizard-medium 9,8 [route] hero 89%/89% floor-from 8,8 99%
+PASS wizard-medium 9,7 [route] hero 70%/70% floor-from 9,8 91%
+PASS wizard-medium 10,7 [route] hero 88%/88% floor-from 9,7 93%
+PASS wizard-medium 10,6 [route] hero 63%/63% floor-from 10,7 92%
+PASS wizard-medium 10,5 [route] hero 81%/81% floor-from 10,6 93%
+PASS wizard-medium 11,5 [route] hero 52%/52% floor-from 10,5 85%
+PASS wizard-medium 12,5 [route exit-step] hero 75%/75% floor-from 11,5 89%
+PASS wizard-medium 12,4 [route exit] hero 56%/56% floor-from 12,5 90%
+PASS wizard-medium 4,15 [entry] hero 82%/95%
+PASS wizard-medium 4,14 [entry-step] hero 0%/100% floor-from 4,15 42% via x-ray occluder star-doodle-totem@8,10
+PASS wizard-medium 10,8 [court] hero 98%/99%
+PASS wizard-medium entry landing 4,15 way off to 2,11: visible path 4,14:42% 3,14:0%/61% 2,14:0%/85% 2,13:0%/38% 2,12:0%/43% 2,11:0%/42%
+PASS wizard-medium exit landing 12,4 way off to 10,8: visible path 12,5:91% 12,6:100% 11,6:93% 10,6:92% 10,7:93% 10,8:88%
+wizard-medium yaw 135 27/28 pass (10 via x-ray), 1 fail
+== wizard-medium yaw 225 (route 23 cells)
+PASS wizard-medium 3,9 [spawn route] hero 96%/100%
+FAIL wizard-medium 4,9 [route] hero 52%/79% floor-from 3,9 28% floor hidden from 3,9
+PASS wizard-medium 4,10 [route] hero 97%/97% floor-from 4,9 100%
+PASS wizard-medium 5,10 [route] hero 97%/97% floor-from 4,10 91%
+PASS wizard-medium 5,11 [route] hero 98%/98% floor-from 5,10 100%
+PASS wizard-medium 5,12 [route] hero 99%/99% floor-from 5,11 100%
+PASS wizard-medium 5,13 [route] hero 99%/99% floor-from 5,12 100%
+PASS wizard-medium 6,13 [route] hero 66%/99% floor-from 5,13 63%
+PASS wizard-medium 7,13 [route] hero 4%/100% floor-from 6,13 83% via x-ray occluder star@6,12
+FAIL wizard-medium 7,12 [route] hero 75%/96% floor-from 7,13 0% floor hidden from 7,13 occluder ramp faces away from the camera
+PASS wizard-medium 7,11 [route threshold] hero 3%/99% floor-from 7,12 98% via x-ray occluder star-doodle-totem@6,10
+PASS wizard-medium 7,10 [route gate-far] hero 99%/99%
+PASS wizard-medium 7,9 [route] hero 75%/99% floor-from 7,10 52%
+PASS wizard-medium 7,8 [route] hero 74%/99% floor-from 7,9 73%
+FAIL wizard-medium 8,8 [route] hero 61%/90% floor-from 7,8 0% floor hidden from 7,8 occluder ramp faces away from the camera
+PASS wizard-medium 9,8 [route] hero 0%/100% floor-from 8,8 66% via x-ray occluder wizard-scroll-tower@7,5
+PASS wizard-medium 9,7 [route] hero 0%/97% floor-from 9,8 43% via x-ray occluder wizard-scroll-tower@7,5
+PASS wizard-medium 10,7 [route] hero 0%/100% floor-from 9,7 82% via x-ray occluder wizard-scroll-tower@7,5
+PASS wizard-medium 10,6 [route] hero 54%/100% floor-from 10,7 47%
+PASS wizard-medium 10,5 [route] hero 100%/100% floor-from 10,6 100%
+PASS wizard-medium 11,5 [route] hero 98%/100% floor-from 10,5 91%
+PASS wizard-medium 12,5 [route exit-step] hero 69%/70% floor-from 11,5 88%
+PASS wizard-medium 12,4 [route exit] hero 40%/59% floor-from 12,5 45%
+PASS wizard-medium 4,15 [entry] hero 96%/96%
+PASS wizard-medium 4,14 [entry-step] hero 0%/100% floor-from 4,15 41% via x-ray occluder market-row@1,11
+PASS wizard-medium 10,8 [court] hero 0%/100% via x-ray occluder wizard-scroll-tower@7,5
+PASS wizard-medium entry landing 4,15 way off to 2,11: visible path 4,14:41% 3,14:20%/41% 2,14:0%/40% 2,13:0%/28% 2,12:6%/46% 2,11:0%/43%
+PASS wizard-medium exit landing 12,4 way off to 10,8: visible path 12,5:85% 12,6:100% 11,6:99% 10,6:16%/51% 10,7:0%/83% 10,8:0%/84%
+wizard-medium yaw 225 25/28 pass (7 via x-ray), 3 fail
+== wizard-medium yaw 315 (route 23 cells)
+PASS wizard-medium 3,9 [spawn route] hero 100%/100%
+PASS wizard-medium 4,9 [route] hero 97%/97% floor-from 3,9 89%
+PASS wizard-medium 4,10 [route] hero 97%/97% floor-from 4,9 100%
+PASS wizard-medium 5,10 [route] hero 98%/98% floor-from 4,10 100%
+PASS wizard-medium 5,11 [route] hero 99%/99% floor-from 5,10 100%
+PASS wizard-medium 5,12 [route] hero 83%/98% floor-from 5,11 82%
+PASS wizard-medium 5,13 [route] hero 100%/100% floor-from 5,12 100%
+PASS wizard-medium 6,13 [route] hero 100%/100% floor-from 5,13 100%
+PASS wizard-medium 7,13 [route] hero 100%/100% floor-from 6,13 100%
+PASS wizard-medium 7,12 [route] hero 89%/98% floor-from 7,13 84%
+PASS wizard-medium 7,11 [route threshold] hero 99%/99% floor-from 7,12 100%
+PASS wizard-medium 7,10 [route gate-far] hero 26%/100% via x-ray
+PASS wizard-medium 7,9 [route] hero 3%/100% floor-from 7,10 100% via x-ray occluder star-doodle-totem@6,10
+PASS wizard-medium 7,8 [route] hero 97%/100% floor-from 7,9 78%
+FAIL wizard-medium 8,8 [route] hero 1%/95% floor-from 7,8 0% floor hidden from 7,8 occluder ramp faces away from the camera
+PASS wizard-medium 9,8 [route] hero 0%/100% floor-from 8,8 67% via x-ray occluder terrain 8,9 h3
+PASS wizard-medium 9,7 [route] hero 1%/99% floor-from 9,8 68% via x-ray occluder star-doodle-totem@6,10
+PASS wizard-medium 10,7 [route] hero 64%/100% floor-from 9,7 100%
+PASS wizard-medium 10,6 [route] hero 91%/100% floor-from 10,7 93%
+PASS wizard-medium 10,5 [route] hero 84%/100% floor-from 10,6 91%
+PASS wizard-medium 11,5 [route] hero 99%/99% floor-from 10,5 100%
+PASS wizard-medium 12,5 [route exit-step] hero 100%/100% floor-from 11,5 100%
+PASS wizard-medium 12,4 [route exit] hero 58%/58% floor-from 12,5 92%
+PASS wizard-medium 4,15 [entry] hero 93%/93%
+PASS wizard-medium 4,14 [entry-step] hero 97%/97% floor-from 4,15 100%
+PASS wizard-medium 10,8 [court] hero 0%/99% via x-ray occluder star-doodle-totem@8,10
+PASS wizard-medium entry landing 4,15 way off to 2,11: visible path 4,14:100% 3,14:100% 2,14:100% 2,13:46% 2,12:16%/52% 2,11:0%/51%
+PASS wizard-medium exit landing 12,4 way off to 10,8: visible path 12,5:100% 12,6:71% 11,6:92% 10,6:67% 10,7:3%/96% 10,8:10%/76%
+wizard-medium yaw 315 27/28 pass (5 via x-ray), 1 fail
+== wizard-medium all yaws
+PASS wizard-medium 3,9 [spawn route] 45:P 135:x 225:P 315:P
+PASS wizard-medium 4,9 [route] 45:P 135:x 225:- 315:P
+PASS wizard-medium 4,10 [route] 45:P 135:x 225:P 315:P
+PASS wizard-medium 5,10 [route] 45:x 135:x 225:P 315:P
+PASS wizard-medium 5,11 [route] 45:x 135:x 225:P 315:P
+PASS wizard-medium 5,12 [route] 45:P 135:x 225:P 315:P
+PASS wizard-medium 5,13 [route] 45:P 135:x 225:P 315:P
+PASS wizard-medium 6,13 [route] 45:P 135:P 225:P 315:P
+PASS wizard-medium 7,13 [route] 45:P 135:x 225:x 315:P
+PASS wizard-medium 7,12 [route] 45:P 135:- 225:- 315:P
+PASS wizard-medium 7,11 [route threshold] 45:P 135:x 225:x 315:P
+PASS wizard-medium 7,10 [route gate-far] 45:x 135:P 225:P 315:x
+PASS wizard-medium 7,9 [route] 45:x 135:P 225:P 315:x
+PASS wizard-medium 7,8 [route] 45:P 135:P 225:P 315:P
+PASS wizard-medium 8,8 [route] 45:P 135:P 225:- 315:-
+PASS wizard-medium 9,8 [route] 45:P 135:P 225:x 315:x
+PASS wizard-medium 9,7 [route] 45:P 135:P 225:x 315:x
+PASS wizard-medium 10,7 [route] 45:P 135:P 225:x 315:P
+PASS wizard-medium 10,6 [route] 45:x 135:P 225:P 315:P
+PASS wizard-medium 10,5 [route] 45:P 135:P 225:P 315:P
+PASS wizard-medium 11,5 [route] 45:P 135:P 225:P 315:P
+PASS wizard-medium 12,5 [route exit-step] 45:P 135:P 225:P 315:P
+PASS wizard-medium 12,4 [route exit] 45:P 135:P 225:P 315:P
+PASS wizard-medium 4,15 [entry] 45:P 135:P 225:P 315:P
+PASS wizard-medium 4,14 [entry-step] 45:P 135:x 225:x 315:P
+PASS wizard-medium 10,8 [court] 45:P 135:P 225:x 315:x
+PASS wizard-medium entry landing 4,15 45:P 135:P 225:P 315:P
+PASS wizard-medium exit landing 12,4 45:P 135:P 225:P 315:P
+wizard-medium default yaw 45 28/28, reachable with rotation 28/28, warn 0, fail 0
+== swallow-medium yaw 45 (route 27 cells)
+PASS swallow-medium 5,7 [spawn route] hero 99%/100%
+PASS swallow-medium 6,7 [route] hero 9%/100% floor-from 5,7 42% via x-ray occluder arc-ribbon-pylon@9,10
+PASS swallow-medium 6,8 [route] hero 62%/100% floor-from 6,7 84%
+PASS swallow-medium 6,9 [route] hero 100%/100% floor-from 6,8 100%
+PASS swallow-medium 6,10 [route] hero 95%/95% floor-from 6,9 100%
+PASS swallow-medium 6,11 [route] hero 100%/100% floor-from 6,10 100%
+PASS swallow-medium 7,11 [route] hero 100%/100% floor-from 6,11 100%
+PASS swallow-medium 8,11 [route] hero 66%/100% floor-from 7,11 77%
+PASS swallow-medium 8,10 [route] hero 55%/100% floor-from 8,11 52%
+PASS swallow-medium 8,9 [route] hero 35%/100% floor-from 8,10 33%
+PASS swallow-medium 9,9 [route threshold] hero 100%/100% floor-from 8,9 100%
+PASS swallow-medium 9,8 [route gate-far] hero 32%/100%
+PASS swallow-medium 9,7 [route] hero 100%/100% floor-from 9,8 100%
+PASS swallow-medium 9,6 [route] hero 100%/100% floor-from 9,7 100%
+PASS swallow-medium 10,6 [route] hero 94%/97% floor-from 9,6 83%
+PASS swallow-medium 11,6 [route] hero 97%/100% floor-from 10,6 82%
+PASS swallow-medium 12,6 [route court] hero 70%/100% floor-from 11,6 100%
+PASS swallow-medium 12,7 [route] hero 100%/100% floor-from 12,6 100%
+PASS swallow-medium 13,7 [route] hero 100%/100% floor-from 12,7 100%
+PASS swallow-medium 14,7 [route] hero 100%/100% floor-from 13,7 100%
+PASS swallow-medium 15,7 [route] hero 100%/100% floor-from 14,7 100%
+PASS swallow-medium 15,6 [route] hero 100%/100% floor-from 15,7 100%
+PASS swallow-medium 15,5 [route] hero 100%/100% floor-from 15,6 100%
+PASS swallow-medium 15,4 [route] hero 100%/100% floor-from 15,5 100%
+PASS swallow-medium 14,4 [route] hero 100%/100% floor-from 15,4 100%
+PASS swallow-medium 14,3 [route exit-step] hero 100%/100% floor-from 14,4 100%
+PASS swallow-medium 14,2 [route exit] hero 51%/51% floor-from 14,3 62%
+PASS swallow-medium 6,13 [entry] hero 94%/94%
+PASS swallow-medium 6,12 [entry-step] hero 100%/100% floor-from 6,13 100%
+PASS swallow-medium entry landing 6,13 way off to 4,9: visible path 6,12:100% 5,12:100% 4,12:99% 4,11:92% 4,10:2%/60% 4,9:0%/83%
+PASS swallow-medium exit landing 14,2 way off to 15,7: visible path 14,3:100% 14,4:100% 15,4:100% 15,5:100% 15,6:100% 15,7:100%
+swallow-medium yaw 45 31/31 pass (1 via x-ray), 0 fail
+== swallow-medium yaw 135 (route 27 cells)
+PASS swallow-medium 5,7 [spawn route] hero 9%/100% via x-ray occluder rock@6,6
+PASS swallow-medium 6,7 [route] hero 5%/100% floor-from 5,7 40% via x-ray occluder perch-dais@8,5
+PASS swallow-medium 6,8 [route] hero 6%/100% floor-from 6,7 65% via x-ray occluder arc-ribbon-pylon@9,5
+PASS swallow-medium 6,9 [route] hero 12%/94% floor-from 6,8 83% via x-ray occluder terrain 7,8 h3
+PASS swallow-medium 6,10 [route] hero 12%/87% floor-from 6,9 92% via x-ray occluder calligraphy-curl-arch@8,8
+PASS swallow-medium 6,11 [route] hero 16%/96% floor-from 6,10 99% via x-ray
+PASS swallow-medium 7,11 [route] hero 13%/100% floor-from 6,11 72% via x-ray occluder terrain 8,10 h3
+PASS swallow-medium 8,11 [route] hero 0%/100% floor-from 7,11 41% via x-ray occluder arc-ribbon-pylon@9,10
+FAIL swallow-medium 8,10 [route] hero 11%/97% floor-from 8,11 0% floor hidden from 8,11 occluder ramp faces away from the camera
+PASS swallow-medium 8,9 [route] hero 22%/99% floor-from 8,10 100% via x-ray
+PASS swallow-medium 9,9 [route threshold] hero 28%/100% floor-from 8,9 100% via x-ray occluder calligraphy-curl-arch@10,8
+PASS swallow-medium 9,8 [route gate-far] hero 94%/94%
+PASS swallow-medium 9,7 [route] hero 87%/87% floor-from 9,8 100%
+PASS swallow-medium 9,6 [route] hero 94%/94% floor-from 9,7 100%
+PASS swallow-medium 10,6 [route] hero 66%/72% floor-from 9,6 65%
+PASS swallow-medium 11,6 [route] hero 80%/88% floor-from 10,6 92%
+PASS swallow-medium 12,6 [route court] hero 45%/99% floor-from 11,6 98%
+PASS swallow-medium 12,7 [route] hero 58%/99% floor-from 12,6 84%
+PASS swallow-medium 13,7 [route] hero 48%/100% floor-from 12,7 64%
+PASS swallow-medium 14,7 [route] hero 100%/100% floor-from 13,7 100%
+PASS swallow-medium 15,7 [route] hero 100%/100% floor-from 14,7 100%
+PASS swallow-medium 15,6 [route] hero 100%/100% floor-from 15,7 100%
+PASS swallow-medium 15,5 [route] hero 100%/100% floor-from 15,6 100%
+PASS swallow-medium 15,4 [route] hero 100%/100% floor-from 15,5 100%
+PASS swallow-medium 14,4 [route] hero 100%/100% floor-from 15,4 100%
+PASS swallow-medium 14,3 [route exit-step] hero 77%/77% floor-from 14,4 89%
+PASS swallow-medium 14,2 [route exit] hero 55%/55% floor-from 14,3 66%
+PASS swallow-medium 6,13 [entry] hero 5%/96% via x-ray occluder arc-ribbon-pylon@9,10
+PASS swallow-medium 6,12 [entry-step] hero 0%/100% floor-from 6,13 42% via x-ray occluder calligraphy-curl-arch@10,8
+PASS swallow-medium entry landing 6,13 way off to 4,9: visible path 6,12:42% 5,12:0%/82% 4,12:3%/92% 4,11:0%/40% 4,10:0%/41% 4,9:0%/41%
+PASS swallow-medium exit landing 14,2 way off to 15,7: visible path 14,3:91% 14,4:100% 15,4:100% 15,5:100% 15,6:100% 15,7:100%
+swallow-medium yaw 135 30/31 pass (12 via x-ray), 1 fail
+== swallow-medium yaw 225 (route 27 cells)
+PASS swallow-medium 5,7 [spawn route] hero 100%/100%
+PASS swallow-medium 6,7 [route] hero 72%/100% floor-from 5,7 66%
+PASS swallow-medium 6,8 [route] hero 100%/100% floor-from 6,7 100%
+PASS swallow-medium 6,9 [route] hero 100%/100% floor-from 6,8 100%
+PASS swallow-medium 6,10 [route] hero 94%/94% floor-from 6,9 100%
+PASS swallow-medium 6,11 [route] hero 100%/100% floor-from 6,10 100%
+PASS swallow-medium 7,11 [route] hero 100%/100% floor-from 6,11 100%
+PASS swallow-medium 8,11 [route] hero 100%/100% floor-from 7,11 100%
+FAIL swallow-medium 8,10 [route] hero 81%/97% floor-from 8,11 0% floor hidden from 8,11 occluder ramp faces away from the camera
+PASS swallow-medium 8,9 [route] hero 100%/100% floor-from 8,10 100%
+PASS swallow-medium 9,9 [route threshold] hero 6%/100% floor-from 8,9 46% via x-ray occluder calligraphy-curl-arch@8,8
+PASS swallow-medium 9,8 [route gate-far] hero 100%/100%
+PASS swallow-medium 9,7 [route] hero 100%/100% floor-from 9,8 100%
+PASS swallow-medium 9,6 [route] hero 100%/100% floor-from 9,7 100%
+FAIL swallow-medium 10,6 [route] hero 17%/95% floor-from 9,6 0% floor hidden from 9,6 occluder ramp faces away from the camera
+PASS swallow-medium 11,6 [route] hero 4%/100% floor-from 10,6 68% via x-ray occluder arc-ribbon-pylon@8,3
+PASS swallow-medium 12,6 [route court] hero 68%/98% floor-from 11,6 93%
+PASS swallow-medium 12,7 [route] hero 88%/93% floor-from 12,6 100%
+PASS swallow-medium 13,7 [route] hero 73%/100% floor-from 12,7 80%
+PASS swallow-medium 14,7 [route] hero 63%/100% floor-from 13,7 84%
+PASS swallow-medium 15,7 [route] hero 43%/100% floor-from 14,7 87%
+PASS swallow-medium 15,6 [route] hero 34%/100% floor-from 15,7 55%
+PASS swallow-medium 15,5 [route] hero 70%/100% floor-from 15,6 80%
+PASS swallow-medium 15,4 [route] hero 87%/87% floor-from 15,5 95%
+PASS swallow-medium 14,4 [route] hero 11%/100% floor-from 15,4 41% via x-ray occluder swallow-blade-arch@11,3
+PASS swallow-medium 14,3 [route exit-step] hero 70%/70% floor-from 14,4 89%
+PASS swallow-medium 14,2 [route exit] hero 59%/59% floor-from 14,3 87%
+PASS swallow-medium 6,13 [entry] hero 95%/95%
+PASS swallow-medium 6,12 [entry-step] hero 66%/100% floor-from 6,13 64%
+PASS swallow-medium entry landing 6,13 way off to 4,9: visible path 6,12:64% 5,12:100% 4,12:69% 4,11:100% 4,10:86% 4,9:0%/41%
+PASS swallow-medium exit landing 14,2 way off to 15,7: visible path 14,3:86% 14,4:0%/85% 15,4:95% 15,5:52% 15,6:23%/79% 15,7:10%/84%
+swallow-medium yaw 225 29/31 pass (3 via x-ray), 2 fail
+== swallow-medium yaw 315 (route 27 cells)
+PASS swallow-medium 5,7 [spawn route] hero 100%/100%
+PASS swallow-medium 6,7 [route] hero 100%/100% floor-from 5,7 100%
+PASS swallow-medium 6,8 [route] hero 100%/100% floor-from 6,7 100%
+PASS swallow-medium 6,9 [route] hero 100%/100% floor-from 6,8 100%
+PASS swallow-medium 6,10 [route] hero 93%/93% floor-from 6,9 100%
+PASS swallow-medium 6,11 [route] hero 100%/100% floor-from 6,10 100%
+PASS swallow-medium 7,11 [route] hero 100%/100% floor-from 6,11 100%
+PASS swallow-medium 8,11 [route] hero 100%/100% floor-from 7,11 100%
+PASS swallow-medium 8,10 [route] hero 100%/100% floor-from 8,11 100%
+PASS swallow-medium 8,9 [route] hero 100%/100% floor-from 8,10 100%
+PASS swallow-medium 9,9 [route threshold] hero 100%/100% floor-from 8,9 100%
+PASS swallow-medium 9,8 [route gate-far] hero 32%/100%
+PASS swallow-medium 9,7 [route] hero 10%/100% floor-from 9,8 100% via x-ray occluder calligraphy-curl-arch@8,8
+PASS swallow-medium 9,6 [route] hero 100%/100% floor-from 9,7 100%
+FAIL swallow-medium 10,6 [route] hero 30%/95% floor-from 9,6 0% floor hidden from 9,6 occluder ramp faces away from the camera
+PASS swallow-medium 11,6 [route] hero 2%/100% floor-from 10,6 68% via x-ray occluder terrain 10,7 h3
+PASS swallow-medium 12,6 [route court] hero 16%/100% floor-from 11,6 100% via x-ray occluder calligraphy-curl-arch@10,8
+PASS swallow-medium 12,7 [route] hero 78%/100% floor-from 12,6 48%
+PASS swallow-medium 13,7 [route] hero 100%/100% floor-from 12,7 100%
+PASS swallow-medium 14,7 [route] hero 100%/100% floor-from 13,7 100%
+PASS swallow-medium 15,7 [route] hero 100%/100% floor-from 14,7 100%
+PASS swallow-medium 15,6 [route] hero 100%/100% floor-from 15,7 100%
+PASS swallow-medium 15,5 [route] hero 29%/100% floor-from 15,6 76% via x-ray occluder spiral-swallow@13,5
+PASS swallow-medium 15,4 [route] hero 41%/100% floor-from 15,5 86%
+PASS swallow-medium 14,4 [route] hero 72%/100% floor-from 15,4 100%
+PASS swallow-medium 14,3 [route exit-step] hero 99%/100% floor-from 14,4 93%
+PASS swallow-medium 14,2 [route exit] hero 2%/52% floor-from 14,3 56% via x-ray occluder swallow-blade-arch@11,3
+PASS swallow-medium 6,13 [entry] hero 74%/74%
+PASS swallow-medium 6,12 [entry-step] hero 99%/99% floor-from 6,13 97%
+PASS swallow-medium entry landing 6,13 way off to 4,9: visible path 6,12:97% 5,12:99% 4,12:100% 4,11:99% 4,10:100% 4,9:100%
+PASS swallow-medium exit landing 14,2 way off to 15,7: visible path 14,3:99% 14,4:98% 15,4:6%/85% 15,5:56% 15,6:100% 15,7:100%
+swallow-medium yaw 315 30/31 pass (5 via x-ray), 1 fail
+== swallow-medium all yaws
+PASS swallow-medium 5,7 [spawn route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 6,7 [route] 45:x 135:x 225:P 315:P
+PASS swallow-medium 6,8 [route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 6,9 [route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 6,10 [route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 6,11 [route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 7,11 [route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 8,11 [route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 8,10 [route] 45:P 135:- 225:- 315:P
+PASS swallow-medium 8,9 [route] 45:P 135:x 225:P 315:P
+PASS swallow-medium 9,9 [route threshold] 45:P 135:x 225:x 315:P
+PASS swallow-medium 9,8 [route gate-far] 45:P 135:P 225:P 315:P
+PASS swallow-medium 9,7 [route] 45:P 135:P 225:P 315:x
+PASS swallow-medium 9,6 [route] 45:P 135:P 225:P 315:P
+PASS swallow-medium 10,6 [route] 45:P 135:P 225:- 315:-
+PASS swallow-medium 11,6 [route] 45:P 135:P 225:x 315:x
+PASS swallow-medium 12,6 [route court] 45:P 135:P 225:P 315:x
+PASS swallow-medium 12,7 [route] 45:P 135:P 225:P 315:P
+PASS swallow-medium 13,7 [route] 45:P 135:P 225:P 315:P
+PASS swallow-medium 14,7 [route] 45:P 135:P 225:P 315:P
+PASS swallow-medium 15,7 [route] 45:P 135:P 225:P 315:P
+PASS swallow-medium 15,6 [route] 45:P 135:P 225:P 315:P
+PASS swallow-medium 15,5 [route] 45:P 135:P 225:P 315:x
+PASS swallow-medium 15,4 [route] 45:P 135:P 225:P 315:P
+PASS swallow-medium 14,4 [route] 45:P 135:P 225:x 315:P
+PASS swallow-medium 14,3 [route exit-step] 45:P 135:P 225:P 315:P
+PASS swallow-medium 14,2 [route exit] 45:P 135:P 225:P 315:x
+PASS swallow-medium 6,13 [entry] 45:P 135:x 225:P 315:P
+PASS swallow-medium 6,12 [entry-step] 45:P 135:x 225:P 315:P
+PASS swallow-medium entry landing 6,13 45:P 135:P 225:P 315:P
+PASS swallow-medium exit landing 14,2 45:P 135:P 225:P 315:P
+swallow-medium default yaw 45 31/31, reachable with rotation 31/31, warn 0, fail 0
+== forest-volute yaw 45 (route 15 cells)
+PASS forest-volute 15,12 [spawn route] hero 100%/100%
+PASS forest-volute 14,12 [route] hero 100%/100% floor-from 15,12 100%
+PASS forest-volute 13,12 [route] hero 100%/100% floor-from 14,12 100%
+PASS forest-volute 12,12 [route] hero 92%/100% floor-from 13,12 100%
+PASS forest-volute 12,11 [route] hero 100%/100% floor-from 12,12 100%
+PASS forest-volute 12,10 [route] hero 93%/100% floor-from 12,11 100%
+PASS forest-volute 12,9 [route threshold] hero 85%/100% floor-from 12,10 100%
+PASS forest-volute 12,8 [route gate-far] hero 30%/100% via x-ray
+PASS forest-volute 12,7 [route] hero 100%/100% floor-from 12,8 100%
+PASS forest-volute 12,6 [route] hero 100%/100% floor-from 12,7 100%
+PASS forest-volute 12,5 [route] hero 97%/100% floor-from 12,6 100%
+PASS forest-volute 11,5 [route] hero 93%/96% floor-from 12,5 83%
+PASS forest-volute 10,5 [route court] hero 100%/100% floor-from 11,5 100%
+PASS forest-volute 10,4 [route exit-step] hero 100%/100% floor-from 10,5 99%
+PASS forest-volute 10,3 [route exit] hero 56%/56% floor-from 10,4 87%
+PASS forest-volute 17,9 [entry] hero 93%/93%
+PASS forest-volute 16,9 [entry-step] hero 100%/100% floor-from 17,9 100%
+PASS forest-volute entry landing 17,9 way off to 14,12: visible path 16,9:100% 16,10:100% 15,10:100% 15,11:100% 15,12:100% 14,12:100%
+PASS forest-volute exit landing 10,3 way off to 11,5: visible path 10,4:99% 10,5:100% 11,5:83%
+forest-volute yaw 45 19/19 pass (1 via x-ray), 0 fail
+== forest-volute yaw 135 (route 15 cells)
+PASS forest-volute 15,12 [spawn route] hero 100%/100%
+PASS forest-volute 14,12 [route] hero 100%/100% floor-from 15,12 100%
+PASS forest-volute 13,12 [route] hero 100%/100% floor-from 14,12 100%
+PASS forest-volute 12,12 [route] hero 91%/100% floor-from 13,12 100%
+PASS forest-volute 12,11 [route] hero 24%/100% floor-from 12,12 100% via x-ray occluder volute_gate@13,10
+PASS forest-volute 12,10 [route] hero 100%/100% floor-from 12,11 100%
+FAIL forest-volute 12,9 [route threshold] hero 31%/97% floor-from 12,10 0% floor hidden from 12,10 occluder ramp faces away from the camera
+PASS forest-volute 12,8 [route gate-far] hero 100%/100%
+PASS forest-volute 12,7 [route] hero 98%/100% floor-from 12,8 92%
+PASS forest-volute 12,6 [route] hero 100%/100% floor-from 12,7 100%
+PASS forest-volute 12,5 [route] hero 100%/100% floor-from 12,6 100%
+PASS forest-volute 11,5 [route] hero 97%/97% floor-from 12,5 100%
+PASS forest-volute 10,5 [route court] hero 100%/100% floor-from 11,5 100%
+PASS forest-volute 10,4 [route exit-step] hero 71%/71% floor-from 10,5 91%
+PASS forest-volute 10,3 [route exit] hero 56%/57% floor-from 10,4 67%
+PASS forest-volute 17,9 [entry] hero 96%/96%
+PASS forest-volute 16,9 [entry-step] hero 100%/100% floor-from 17,9 100%
+PASS forest-volute entry landing 17,9 way off to 14,12: visible path 16,9:100% 16,10:100% 15,10:100% 15,11:100% 15,12:100% 14,12:100%
+PASS forest-volute exit landing 10,3 way off to 11,5: visible path 10,4:91% 10,5:100% 11,5:100%
+forest-volute yaw 135 18/19 pass (1 via x-ray), 1 fail
+== forest-volute yaw 225 (route 15 cells)
+PASS forest-volute 15,12 [spawn route] hero 80%/100%
+PASS forest-volute 14,12 [route] hero 88%/100% floor-from 15,12 100%
+PASS forest-volute 13,12 [route] hero 99%/100% floor-from 14,12 100%
+PASS forest-volute 12,12 [route] hero 72%/100% floor-from 13,12 86%
+PASS forest-volute 12,11 [route] hero 11%/100% floor-from 12,12 42% via x-ray occluder volute_curl_hedge@9,8
+PASS forest-volute 12,10 [route] hero 0%/100% floor-from 12,11 41% via x-ray occluder volute_gilt_bird@8,5
+FAIL forest-volute 12,9 [route threshold] hero 0%/96% floor-from 12,10 0% floor hidden from 12,10 occluder ramp faces away from the camera
+PASS forest-volute 12,8 [route gate-far] hero 0%/100% via x-ray occluder volute_gilt_bird@8,5
+PASS forest-volute 12,7 [route] hero 8%/100% floor-from 12,8 40% via x-ray occluder rock@11,6
+PASS forest-volute 12,6 [route] hero 44%/80% floor-from 12,7 73%
+FAIL forest-volute 12,5 [route] hero 18%/20% floor-from 12,6 75% hero hidden
+FAIL forest-volute 11,5 [route] hero 61%/75% floor-from 12,5 0% floor hidden from 12,5 occluder ramp faces away from the camera
+PASS forest-volute 10,5 [route court] hero 100%/100% floor-from 11,5 100%
+PASS forest-volute 10,4 [route exit-step] hero 75%/75% floor-from 10,5 87%
+PASS forest-volute 10,3 [route exit] hero 58%/58% floor-from 10,4 88%
+PASS forest-volute 17,9 [entry] hero 82%/82%
+PASS forest-volute 16,9 [entry-step] hero 73%/73% floor-from 17,9 87%
+PASS forest-volute entry landing 17,9 way off to 14,12: visible path 16,9:87% 16,10:94% 15,10:75% 15,11:10%/85% 15,12:33% 14,12:46%
+FAIL forest-volute exit landing 10,3 way off to 11,5: hidden on shortest path 10,4:87% 10,5:100% 11,5:0%(ramp faces away from the camera)
+forest-volute yaw 225 15/19 pass (4 via x-ray), 4 fail
+== forest-volute yaw 315 (route 15 cells)
+PASS forest-volute 15,12 [spawn route] hero 100%/100%
+PASS forest-volute 14,12 [route] hero 94%/100% floor-from 15,12 100%
+PASS forest-volute 13,12 [route] hero 100%/100% floor-from 14,12 100%
+PASS forest-volute 12,12 [route] hero 100%/100% floor-from 13,12 100%
+PASS forest-volute 12,11 [route] hero 83%/100% floor-from 12,12 92%
+PASS forest-volute 12,10 [route] hero 0%/100% floor-from 12,11 85% via x-ray occluder canopy-tree-small@9,11
+PASS forest-volute 12,9 [route threshold] hero 67%/100% floor-from 12,10 61%
+PASS forest-volute 12,8 [route gate-far] hero 9%/100% via x-ray occluder canopy-tree-small@9,11
+PASS forest-volute 12,7 [route] hero 4%/100% floor-from 12,8 63% via x-ray occluder terrain 11,8 h3
+PASS forest-volute 12,6 [route] hero 3%/100% floor-from 12,7 65% via x-ray occluder volute_curl_hedge@11,7
+PASS forest-volute 12,5 [route] hero 14%/100% floor-from 12,6 83% via x-ray occluder rock@11,6
+FAIL forest-volute 11,5 [route] hero 75%/95% floor-from 12,5 0% floor hidden from 12,5 occluder ramp faces away from the camera
+PASS forest-volute 10,5 [route court] hero 92%/100% floor-from 11,5 90%
+PASS forest-volute 10,4 [route exit-step] hero 1%/100% floor-from 10,5 87% via x-ray occluder volute_gilt_bird@8,5
+PASS forest-volute 10,3 [route exit] hero 55%/55% floor-from 10,4 87%
+PASS forest-volute 17,9 [entry] hero 94%/94%
+PASS forest-volute 16,9 [entry-step] hero 100%/100% floor-from 17,9 98%
+PASS forest-volute entry landing 17,9 way off to 14,12: visible path 16,9:98% 16,10:100% 15,10:78% 15,11:100% 15,12:100% 14,12:85%
+FAIL forest-volute exit landing 10,3 way off to 11,5: hidden on shortest path 10,4:53% 10,5:67% 11,5:0%(ramp faces away from the camera)
+forest-volute yaw 315 17/19 pass (6 via x-ray), 2 fail
+== forest-volute all yaws
+PASS forest-volute 15,12 [spawn route] 45:P 135:P 225:P 315:P
+PASS forest-volute 14,12 [route] 45:P 135:P 225:P 315:P
+PASS forest-volute 13,12 [route] 45:P 135:P 225:P 315:P
+PASS forest-volute 12,12 [route] 45:P 135:P 225:P 315:P
+PASS forest-volute 12,11 [route] 45:P 135:x 225:x 315:P
+PASS forest-volute 12,10 [route] 45:P 135:P 225:x 315:x
+PASS forest-volute 12,9 [route threshold] 45:P 135:- 225:- 315:P
+PASS forest-volute 12,8 [route gate-far] 45:x 135:P 225:x 315:x
+PASS forest-volute 12,7 [route] 45:P 135:P 225:x 315:x
+PASS forest-volute 12,6 [route] 45:P 135:P 225:P 315:x
+PASS forest-volute 12,5 [route] 45:P 135:P 225:- 315:x
+PASS forest-volute 11,5 [route] 45:P 135:P 225:- 315:-
+PASS forest-volute 10,5 [route court] 45:P 135:P 225:P 315:P
+PASS forest-volute 10,4 [route exit-step] 45:P 135:P 225:P 315:x
+PASS forest-volute 10,3 [route exit] 45:P 135:P 225:P 315:P
+PASS forest-volute 17,9 [entry] 45:P 135:P 225:P 315:P
+PASS forest-volute 16,9 [entry-step] 45:P 135:P 225:P 315:P
+PASS forest-volute entry landing 17,9 45:P 135:P 225:P 315:P
+PASS forest-volute exit landing 10,3 45:P 135:P 225:- 315:-
+forest-volute default yaw 45 19/19, reachable with rotation 19/19, warn 0, fail 0
+== mindbloom-medium yaw 45 (route 17 cells)
+PASS mindbloom-medium 13,13 [spawn route] hero 100%/100%
+PASS mindbloom-medium 13,12 [route] hero 97%/99% floor-from 13,13 88%
+PASS mindbloom-medium 12,12 [route] hero 99%/99% floor-from 13,12 100%
+PASS mindbloom-medium 11,12 [route] hero 99%/99% floor-from 12,12 100%
+PASS mindbloom-medium 10,12 [route] hero 95%/95% floor-from 11,12 100%
+PASS mindbloom-medium 9,12 [route] hero 86%/95% floor-from 10,12 100%
+PASS mindbloom-medium 8,12 [route] hero 89%/98% floor-from 9,12 100%
+PASS mindbloom-medium 8,11 [route threshold] hero 92%/99% floor-from 8,12 84%
+PASS mindbloom-medium 8,10 [route gate-far] hero 32%/99%
+PASS mindbloom-medium 8,9 [route] hero 91%/99% floor-from 8,10 83%
+PASS mindbloom-medium 8,8 [route court] hero 99%/99% floor-from 8,9 100%
+PASS mindbloom-medium 7,8 [route] hero 92%/92% floor-from 8,8 100%
+PASS mindbloom-medium 7,7 [route] hero 100%/100% floor-from 7,8 100%
+PASS mindbloom-medium 7,6 [route] hero 70%/98% floor-from 7,7 91%
+PASS mindbloom-medium 7,5 [route] hero 0%/100% floor-from 7,6 84% via x-ray occluder dreamer-effigy@8,6
+PASS mindbloom-medium 6,5 [route exit-step] hero 49%/100% floor-from 7,5 98%
+PASS mindbloom-medium 6,4 [route exit] hero 24%/54% floor-from 6,5 71% via x-ray occluder dreamer-effigy@8,6
+PASS mindbloom-medium 10,15 [entry] hero 93%/93%
+PASS mindbloom-medium 10,14 [entry-step] hero 100%/100% floor-from 10,15 100%
+PASS mindbloom-medium entry landing 10,15 way off to 8,11: visible path 10,14:100% 9,14:100% 9,13:100% 9,12:52% 8,12:60% 8,11:83%
+PASS mindbloom-medium exit landing 6,4 way off to 8,8: visible path 6,5:77% 7,5:17%/42% 7,6:83% 7,7:100% 7,8:100% 8,8:100%
+mindbloom-medium yaw 45 21/21 pass (2 via x-ray), 0 fail
+== mindbloom-medium yaw 135 (route 17 cells)
+PASS mindbloom-medium 13,13 [spawn route] hero 16%/99% via x-ray occluder helix-tree@14,12
+PASS mindbloom-medium 13,12 [route] hero 99%/99% floor-from 13,13 86%
+PASS mindbloom-medium 12,12 [route] hero 37%/100% floor-from 13,12 64%
+PASS mindbloom-medium 11,12 [route] hero 0%/100% floor-from 12,12 64% via x-ray occluder helix-tree@13,10
+PASS mindbloom-medium 10,12 [route] hero 6%/97% floor-from 11,12 61% via x-ray occluder rock@11,11
+PASS mindbloom-medium 9,12 [route] hero 2%/97% floor-from 10,12 63% via x-ray occluder orb-cluster-crest@10,11
+PASS mindbloom-medium 8,12 [route] hero 0%/100% floor-from 9,12 85% via x-ray occluder helix-tree@10,10
+FAIL mindbloom-medium 8,11 [route threshold] hero 8%/97% floor-from 8,12 0% floor hidden from 8,12 occluder ramp faces away from the camera
+PASS mindbloom-medium 8,10 [route gate-far] hero 10%/100% via x-ray occluder terrain 9,9 h3
+FAIL mindbloom-medium 8,9 [route] hero 73%/95% floor-from 8,10 0% floor hidden from 8,10 occluder ramp faces away from the camera
+PASS mindbloom-medium 8,8 [route court] hero 93%/98% floor-from 8,9 94%
+PASS mindbloom-medium 7,8 [route] hero 0%/94% floor-from 8,8 83% via x-ray occluder dreamer-effigy@8,6
+PASS mindbloom-medium 7,7 [route] hero 42%/100% floor-from 7,8 92%
+PASS mindbloom-medium 7,6 [route] hero 99%/99% floor-from 7,7 100%
+PASS mindbloom-medium 7,5 [route] hero 100%/100% floor-from 7,6 100%
+PASS mindbloom-medium 6,5 [route exit-step] hero 74%/74% floor-from 7,5 90%
+PASS mindbloom-medium 6,4 [route exit] hero 55%/55% floor-from 6,5 86%
+PASS mindbloom-medium 10,15 [entry] hero 95%/95%
+PASS mindbloom-medium 10,14 [entry-step] hero 100%/100% floor-from 10,15 100%
+FAIL mindbloom-medium entry landing 10,15 way off to 8,11: hidden on shortest path 10,14:100% 9,14:72% 9,13:84% 9,12:0%(orb-cluster-crest@10,11) 8,12:0%(helix-tree@10,10) 8,11:0%(ramp faces away from the camera)
+PASS mindbloom-medium exit landing 6,4 way off to 8,8: visible path 6,5:91% 7,5:100% 7,6:100% 7,7:69% 7,8:0%/83% 8,8:87%
+mindbloom-medium yaw 135 18/21 pass (7 via x-ray), 3 fail
+== mindbloom-medium yaw 225 (route 17 cells)
+PASS mindbloom-medium 13,13 [spawn route] hero 44%/100%
+PASS mindbloom-medium 13,12 [route] hero 12%/93% floor-from 13,13 42% via x-ray occluder dreamer-effigy@8,6
+PASS mindbloom-medium 12,12 [route] hero 0%/100% floor-from 13,12 41% via x-ray occluder helix-tree@10,10
+PASS mindbloom-medium 11,12 [route] hero 2%/99% floor-from 12,12 41% via x-ray occluder orb-cluster-crest@10,11
+PASS mindbloom-medium 10,12 [route] hero 0%/97% floor-from 11,12 41% via x-ray occluder smoke-ribbon-pillar@7,9
+PASS mindbloom-medium 9,12 [route] hero 13%/97% floor-from 10,12 42% via x-ray occluder terrain 6,9 h3
+PASS mindbloom-medium 8,12 [route] hero 4%/100% floor-from 9,12 41% via x-ray occluder smoke-ribbon-pillar@7,11
+FAIL mindbloom-medium 8,11 [route threshold] hero 10%/95% floor-from 8,12 0% floor hidden from 8,12 occluder ramp faces away from the camera
+PASS mindbloom-medium 8,10 [route gate-far] hero 3%/100% via x-ray occluder smoke-ribbon-pillar@7,9
+FAIL mindbloom-medium 8,9 [route] hero 72%/96% floor-from 8,10 0% floor hidden from 8,10 occluder ramp faces away from the camera
+PASS mindbloom-medium 8,8 [route court] hero 98%/98% floor-from 8,9 99%
+PASS mindbloom-medium 7,8 [route] hero 93%/93% floor-from 8,8 100%
+PASS mindbloom-medium 7,7 [route] hero 100%/100% floor-from 7,8 100%
+PASS mindbloom-medium 7,6 [route] hero 68%/68% floor-from 7,7 94%
+FAIL mindbloom-medium 7,5 [route] hero 27%/27% floor-from 7,6 85% hero hidden
+PASS mindbloom-medium 6,5 [route exit-step] hero 75%/75% floor-from 7,5 89%
+PASS mindbloom-medium 6,4 [route exit] hero 57%/57% floor-from 6,5 88%
+PASS mindbloom-medium 10,15 [entry] hero 95%/95%
+PASS mindbloom-medium 10,14 [entry-step] hero 94%/100% floor-from 10,15 98%
+FAIL mindbloom-medium entry landing 10,15 way off to 8,11: hidden on shortest path 10,14:98% 9,14:89% 9,13:42% 9,12:0%(terrain 6,9 h3) 8,12:0%(smoke-ribbon-pillar@7,11) 8,11:0%(ramp faces away from the camera)
+PASS mindbloom-medium exit landing 6,4 way off to 8,8: visible path 6,5:89% 7,5:87% 7,6:94% 7,7:100% 7,8:100% 8,8:100%
+mindbloom-medium yaw 225 17/21 pass (7 via x-ray), 4 fail
+== mindbloom-medium yaw 315 (route 17 cells)
+PASS mindbloom-medium 13,13 [spawn route] hero 99%/99%
+PASS mindbloom-medium 13,12 [route] hero 100%/100% floor-from 13,13 100%
+PASS mindbloom-medium 12,12 [route] hero 99%/99% floor-from 13,12 100%
+PASS mindbloom-medium 11,12 [route] hero 85%/97% floor-from 12,12 100%
+PASS mindbloom-medium 10,12 [route] hero 89%/94% floor-from 11,12 100%
+PASS mindbloom-medium 9,12 [route] hero 85%/95% floor-from 10,12 100%
+PASS mindbloom-medium 8,12 [route] hero 10%/99% floor-from 9,12 51% via x-ray occluder helix-tree@7,13
+PASS mindbloom-medium 8,11 [route threshold] hero 89%/99% floor-from 8,12 83%
+PASS mindbloom-medium 8,10 [route gate-far] hero 33%/99%
+PASS mindbloom-medium 8,9 [route] hero 91%/100% floor-from 8,10 83%
+PASS mindbloom-medium 8,8 [route court] hero 81%/98% floor-from 8,9 67%
+PASS mindbloom-medium 7,8 [route] hero 91%/91% floor-from 8,8 100%
+PASS mindbloom-medium 7,7 [route] hero 99%/99% floor-from 7,8 100%
+PASS mindbloom-medium 7,6 [route] hero 98%/98% floor-from 7,7 100%
+PASS mindbloom-medium 7,5 [route] hero 100%/100% floor-from 7,6 100%
+PASS mindbloom-medium 6,5 [route exit-step] hero 100%/100% floor-from 7,5 100%
+PASS mindbloom-medium 6,4 [route exit] hero 55%/55% floor-from 6,5 87%
+PASS mindbloom-medium 10,15 [entry] hero 94%/94%
+PASS mindbloom-medium 10,14 [entry-step] hero 100%/100% floor-from 10,15 100%
+PASS mindbloom-medium entry landing 10,15 way off to 8,11: visible path 10,14:100% 9,14:100% 9,13:80% 9,12:51% 8,12:11%/51% 8,11:82%
+PASS mindbloom-medium exit landing 6,4 way off to 8,8: visible path 6,5:100% 7,5:100% 7,6:100% 7,7:100% 7,8:100% 8,8:62%
+mindbloom-medium yaw 315 21/21 pass (1 via x-ray), 0 fail
+== mindbloom-medium all yaws
+PASS mindbloom-medium 13,13 [spawn route] 45:P 135:x 225:P 315:P
+PASS mindbloom-medium 13,12 [route] 45:P 135:P 225:x 315:P
+PASS mindbloom-medium 12,12 [route] 45:P 135:P 225:x 315:P
+PASS mindbloom-medium 11,12 [route] 45:P 135:x 225:x 315:P
+PASS mindbloom-medium 10,12 [route] 45:P 135:x 225:x 315:P
+PASS mindbloom-medium 9,12 [route] 45:P 135:x 225:x 315:P
+PASS mindbloom-medium 8,12 [route] 45:P 135:x 225:x 315:x
+PASS mindbloom-medium 8,11 [route threshold] 45:P 135:- 225:- 315:P
+PASS mindbloom-medium 8,10 [route gate-far] 45:P 135:x 225:x 315:P
+PASS mindbloom-medium 8,9 [route] 45:P 135:- 225:- 315:P
+PASS mindbloom-medium 8,8 [route court] 45:P 135:P 225:P 315:P
+PASS mindbloom-medium 7,8 [route] 45:P 135:x 225:P 315:P
+PASS mindbloom-medium 7,7 [route] 45:P 135:P 225:P 315:P
+PASS mindbloom-medium 7,6 [route] 45:P 135:P 225:P 315:P
+PASS mindbloom-medium 7,5 [route] 45:x 135:P 225:- 315:P
+PASS mindbloom-medium 6,5 [route exit-step] 45:P 135:P 225:P 315:P
+PASS mindbloom-medium 6,4 [route exit] 45:x 135:P 225:P 315:P
+PASS mindbloom-medium 10,15 [entry] 45:P 135:P 225:P 315:P
+PASS mindbloom-medium 10,14 [entry-step] 45:P 135:P 225:P 315:P
+PASS mindbloom-medium entry landing 10,15 45:P 135:- 225:- 315:P
+PASS mindbloom-medium exit landing 6,4 45:P 135:P 225:P 315:P
+mindbloom-medium default yaw 45 21/21, reachable with rotation 21/21, warn 0, fail 0
+== cosmos-frisket yaw 45 (route 21 cells)
+PASS cosmos-frisket 8,14 [spawn route] hero 100%/100%
+PASS cosmos-frisket 8,13 [route] hero 98%/100% floor-from 8,14 99%
+PASS cosmos-frisket 9,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS cosmos-frisket 10,13 [route] hero 100%/100% floor-from 9,13 96%
+PASS cosmos-frisket 10,14 [route] hero 100%/100% floor-from 10,13 100%
+PASS cosmos-frisket 11,14 [route] hero 96%/96% floor-from 10,14 100%
+PASS cosmos-frisket 11,13 [route] hero 86%/100% floor-from 11,14 76%
+PASS cosmos-frisket 11,12 [route] hero 97%/97% floor-from 11,13 100%
+PASS cosmos-frisket 11,11 [route] hero 45%/96% floor-from 11,12 93%
+PASS cosmos-frisket 11,10 [route] hero 96%/96% floor-from 11,11 100%
+PASS cosmos-frisket 11,9 [route threshold] hero 96%/96% floor-from 11,10 100%
+PASS cosmos-frisket 10,9 [route gate-far] hero 28%/96% via x-ray occluder frisket-arch@13,12
+PASS cosmos-frisket 9,9 [route] hero 96%/96% floor-from 10,9 100%
+PASS cosmos-frisket 9,8 [route] hero 31%/97% floor-from 9,9 100%
+PASS cosmos-frisket 8,8 [route] hero 94%/100% floor-from 9,8 82%
+PASS cosmos-frisket 7,8 [route court] hero 96%/96% floor-from 8,8 95%
+PASS cosmos-frisket 6,8 [route] hero 74%/97% floor-from 7,8 77%
+PASS cosmos-frisket 5,8 [route] hero 100%/100% floor-from 6,8 100%
+PASS cosmos-frisket 5,9 [route] hero 90%/100% floor-from 5,8 82%
+PASS cosmos-frisket 5,10 [route exit-step] hero 100%/100% floor-from 5,9 100%
+PASS cosmos-frisket 4,10 [route exit] hero 58%/58% floor-from 5,10 88%
+PASS cosmos-frisket 12,15 [entry] hero 94%/94%
+PASS cosmos-frisket 12,14 [entry-step] hero 97%/97% floor-from 12,15 100%
+PASS cosmos-frisket entry landing 12,15 way off to 11,13: visible path 12,14:100% 11,14:100% 11,13:75%
+PASS cosmos-frisket exit landing 4,10 way off to 5,9: visible path 5,10:100% 5,9:82%
+cosmos-frisket yaw 45 25/25 pass (1 via x-ray), 0 fail
+== cosmos-frisket yaw 135 (route 21 cells)
+PASS cosmos-frisket 8,14 [spawn route] hero 0%/100% via x-ray occluder tape-roll@10,12
+PASS cosmos-frisket 8,13 [route] hero 0%/100% floor-from 8,14 41% via x-ray occluder cosmos-stencil-press-s@12,8
+PASS cosmos-frisket 9,13 [route] hero 0%/100% floor-from 8,13 41% via x-ray occluder cosmos-stencil-press-s@12,8
+PASS cosmos-frisket 10,13 [route] hero 6%/100% floor-from 9,13 41% via x-ray occluder cosmos-stencil-press-s@12,8
+PASS cosmos-frisket 10,14 [route] hero 39%/100% floor-from 10,13 90%
+PASS cosmos-frisket 11,14 [route] hero 0%/97% floor-from 10,14 42% via x-ray occluder frisket-arch@13,12
+FAIL cosmos-frisket 11,13 [route] hero 34%/100% floor-from 11,14 0% floor hidden from 11,14 occluder ramp faces away from the camera
+PASS cosmos-frisket 11,12 [route] hero 96%/96% floor-from 11,13 100%
+PASS cosmos-frisket 11,11 [route] hero 97%/97% floor-from 11,12 100%
+PASS cosmos-frisket 11,10 [route] hero 95%/97% floor-from 11,11 86%
+PASS cosmos-frisket 11,9 [route threshold] hero 96%/96% floor-from 11,10 95%
+PASS cosmos-frisket 10,9 [route gate-far] hero 28%/97% via x-ray
+PASS cosmos-frisket 9,9 [route] hero 97%/97% floor-from 10,9 100%
+PASS cosmos-frisket 9,8 [route] hero 96%/96% floor-from 9,9 100%
+PASS cosmos-frisket 8,8 [route] hero 100%/100% floor-from 9,8 99%
+PASS cosmos-frisket 7,8 [route court] hero 96%/96% floor-from 8,8 100%
+PASS cosmos-frisket 6,8 [route] hero 88%/97% floor-from 7,8 100%
+PASS cosmos-frisket 5,8 [route] hero 99%/100% floor-from 6,8 99%
+FAIL cosmos-frisket 5,9 [route] hero 65%/97% floor-from 5,8 0% floor hidden from 5,8 occluder ramp faces away from the camera
+PASS cosmos-frisket 5,10 [route exit-step] hero 2%/100% floor-from 5,9 66% via x-ray occluder tape-roll@6,9
+PASS cosmos-frisket 4,10 [route exit] hero 49%/55% floor-from 5,10 80%
+PASS cosmos-frisket 12,15 [entry] hero 91%/95%
+PASS cosmos-frisket 12,14 [entry-step] hero 0%/97% floor-from 12,15 42% via x-ray occluder overspray-plume@13,13
+FAIL cosmos-frisket entry landing 12,15 way off to 11,13: hidden on shortest path 12,14:42% 11,14:1%(frisket-arch@13,12) 11,13:0%(ramp faces away from the camera)
+FAIL cosmos-frisket exit landing 4,10 way off to 5,9: hidden on shortest path 5,10:40% 5,9:0%(ramp faces away from the camera)
+cosmos-frisket yaw 135 21/25 pass (8 via x-ray), 4 fail
+== cosmos-frisket yaw 225 (route 21 cells)
+PASS cosmos-frisket 8,14 [spawn route] hero 51%/51%
+FAIL cosmos-frisket 8,13 [route] hero 1%/71% floor-from 8,14 21% floor hidden from 8,14 occluder terrain 7,12 h2
+PASS cosmos-frisket 9,13 [route] hero 0%/100% floor-from 8,13 64% via x-ray occluder terrain 8,12 h3
+PASS cosmos-frisket 10,13 [route] hero 0%/100% floor-from 9,13 63% via x-ray occluder airbrush-lamp@7,10
+PASS cosmos-frisket 10,14 [route] hero 0%/100% floor-from 10,13 82% via x-ray occluder terrain 8,12 h3
+PASS cosmos-frisket 11,14 [route] hero 0%/97% floor-from 10,14 82% via x-ray occluder airbrush-lamp@7,10
+FAIL cosmos-frisket 11,13 [route] hero 0%/100% floor-from 11,14 0% floor hidden from 11,14 occluder ramp faces away from the camera
+PASS cosmos-frisket 11,12 [route] hero 66%/96% floor-from 11,13 98%
+PASS cosmos-frisket 11,11 [route] hero 97%/97% floor-from 11,12 100%
+PASS cosmos-frisket 11,10 [route] hero 18%/97% floor-from 11,11 99% via x-ray
+PASS cosmos-frisket 11,9 [route threshold] hero 29%/97% floor-from 11,10 100% via x-ray
+PASS cosmos-frisket 10,9 [route gate-far] hero 96%/96%
+PASS cosmos-frisket 9,9 [route] hero 29%/97% floor-from 10,9 52% via x-ray occluder stencil-eye@5,6
+PASS cosmos-frisket 9,8 [route] hero 95%/97% floor-from 9,9 93%
+FAIL cosmos-frisket 8,8 [route] hero 34%/100% floor-from 9,8 0% floor hidden from 9,8 occluder ramp faces away from the camera
+PASS cosmos-frisket 7,8 [route court] hero 42%/97% floor-from 8,8 98%
+PASS cosmos-frisket 6,8 [route] hero 60%/97% floor-from 7,8 73%
+PASS cosmos-frisket 5,8 [route] hero 98%/100% floor-from 6,8 100%
+FAIL cosmos-frisket 5,9 [route] hero 82%/97% floor-from 5,8 0% floor hidden from 5,8 occluder ramp faces away from the camera
+PASS cosmos-frisket 5,10 [route exit-step] hero 66%/66% floor-from 5,9 87%
+PASS cosmos-frisket 4,10 [route exit] hero 57%/57% floor-from 5,10 87%
+PASS cosmos-frisket 12,15 [entry] hero 58%/95%
+PASS cosmos-frisket 12,14 [entry-step] hero 0%/97% floor-from 12,15 41% via x-ray occluder stencil-eye@5,6
+FAIL cosmos-frisket entry landing 12,15 way off to 11,13: hidden on shortest path 12,14:41% 11,14:19%(airbrush-lamp@7,10) 11,13:0%(ramp faces away from the camera)
+FAIL cosmos-frisket exit landing 4,10 way off to 5,9: hidden on shortest path 5,10:76% 5,9:0%(ramp faces away from the camera)
+cosmos-frisket yaw 225 19/25 pass (8 via x-ray), 6 fail
+== cosmos-frisket yaw 315 (route 21 cells)
+PASS cosmos-frisket 8,14 [spawn route] hero 100%/100%
+PASS cosmos-frisket 8,13 [route] hero 100%/100% floor-from 8,14 100%
+PASS cosmos-frisket 9,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS cosmos-frisket 10,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS cosmos-frisket 10,14 [route] hero 100%/100% floor-from 10,13 100%
+PASS cosmos-frisket 11,14 [route] hero 96%/96% floor-from 10,14 100%
+PASS cosmos-frisket 11,13 [route] hero 100%/100% floor-from 11,14 100%
+PASS cosmos-frisket 11,12 [route] hero 61%/97% floor-from 11,13 67%
+PASS cosmos-frisket 11,11 [route] hero 0%/96% floor-from 11,12 83% via x-ray occluder tape-roll@10,12
+PASS cosmos-frisket 11,10 [route] hero 96%/96% floor-from 11,11 100%
+PASS cosmos-frisket 11,9 [route threshold] hero 28%/96% floor-from 11,10 49% via x-ray
+PASS cosmos-frisket 10,9 [route gate-far] hero 97%/97%
+PASS cosmos-frisket 9,9 [route] hero 60%/96% floor-from 10,9 69%
+PASS cosmos-frisket 9,8 [route] hero 2%/97% floor-from 9,9 81% via x-ray occluder airbrush-lamp@7,10
+FAIL cosmos-frisket 8,8 [route] hero 14%/100% floor-from 9,8 0% floor hidden from 9,8 occluder ramp faces away from the camera
+PASS cosmos-frisket 7,8 [route court] hero 84%/84% floor-from 8,8 94%
+PASS cosmos-frisket 6,8 [route] hero 72%/72% floor-from 7,8 83%
+PASS cosmos-frisket 5,8 [route] hero 89%/89% floor-from 6,8 100%
+PASS cosmos-frisket 5,9 [route] hero 66%/66% floor-from 5,8 88%
+PASS cosmos-frisket 5,10 [route exit-step] hero 71%/71% floor-from 5,9 92%
+PASS cosmos-frisket 4,10 [route exit] hero 57%/57% floor-from 5,10 91%
+PASS cosmos-frisket 12,15 [entry] hero 94%/94%
+PASS cosmos-frisket 12,14 [entry-step] hero 97%/97% floor-from 12,15 100%
+PASS cosmos-frisket entry landing 12,15 way off to 11,13: visible path 12,14:100% 11,14:100% 11,13:100%
+PASS cosmos-frisket exit landing 4,10 way off to 5,9: visible path 5,10:90% 5,9:78%
+cosmos-frisket yaw 315 24/25 pass (3 via x-ray), 1 fail
+== cosmos-frisket all yaws
+PASS cosmos-frisket 8,14 [spawn route] 45:P 135:x 225:P 315:P
+PASS cosmos-frisket 8,13 [route] 45:P 135:x 225:- 315:P
+PASS cosmos-frisket 9,13 [route] 45:P 135:x 225:x 315:P
+PASS cosmos-frisket 10,13 [route] 45:P 135:x 225:x 315:P
+PASS cosmos-frisket 10,14 [route] 45:P 135:P 225:x 315:P
+PASS cosmos-frisket 11,14 [route] 45:P 135:x 225:x 315:P
+PASS cosmos-frisket 11,13 [route] 45:P 135:- 225:- 315:P
+PASS cosmos-frisket 11,12 [route] 45:P 135:P 225:P 315:P
+PASS cosmos-frisket 11,11 [route] 45:P 135:P 225:P 315:x
+PASS cosmos-frisket 11,10 [route] 45:P 135:P 225:x 315:P
+PASS cosmos-frisket 11,9 [route threshold] 45:P 135:P 225:x 315:x
+PASS cosmos-frisket 10,9 [route gate-far] 45:x 135:x 225:P 315:P
+PASS cosmos-frisket 9,9 [route] 45:P 135:P 225:x 315:P
+PASS cosmos-frisket 9,8 [route] 45:P 135:P 225:P 315:x
+PASS cosmos-frisket 8,8 [route] 45:P 135:P 225:- 315:-
+PASS cosmos-frisket 7,8 [route court] 45:P 135:P 225:P 315:P
+PASS cosmos-frisket 6,8 [route] 45:P 135:P 225:P 315:P
+PASS cosmos-frisket 5,8 [route] 45:P 135:P 225:P 315:P
+PASS cosmos-frisket 5,9 [route] 45:P 135:- 225:- 315:P
+PASS cosmos-frisket 5,10 [route exit-step] 45:P 135:x 225:P 315:P
+PASS cosmos-frisket 4,10 [route exit] 45:P 135:P 225:P 315:P
+PASS cosmos-frisket 12,15 [entry] 45:P 135:P 225:P 315:P
+PASS cosmos-frisket 12,14 [entry-step] 45:P 135:x 225:x 315:P
+PASS cosmos-frisket entry landing 12,15 45:P 135:- 225:- 315:P
+PASS cosmos-frisket exit landing 4,10 45:P 135:- 225:- 315:P
+cosmos-frisket default yaw 45 25/25, reachable with rotation 25/25, warn 0, fail 0
+== gremlin-subject yaw 45 (route 21 cells)
+PASS gremlin-subject 15,11 [spawn route] hero 100%/100%
+PASS gremlin-subject 15,10 [route] hero 100%/100% floor-from 15,11 100%
+PASS gremlin-subject 15,9 [route entry-step] hero 100%/100% floor-from 15,10 100% floor-from 16,9 100%
+PASS gremlin-subject 14,9 [route] hero 96%/96% floor-from 15,9 100%
+PASS gremlin-subject 13,9 [route threshold] hero 100%/100% floor-from 14,9 100%
+PASS gremlin-subject 12,9 [route gate-far] hero 3%/100% via x-ray occluder umbilical-rib-pylon@13,10
+PASS gremlin-subject 12,8 [route] hero 31%/100% floor-from 12,9 86%
+PASS gremlin-subject 11,8 [route] hero 32%/100% floor-from 12,8 100%
+PASS gremlin-subject 11,7 [route] hero 47%/100% floor-from 11,8 100%
+PASS gremlin-subject 11,6 [route] hero 55%/100% floor-from 11,7 100%
+PASS gremlin-subject 10,6 [route] hero 100%/100% floor-from 11,6 100%
+PASS gremlin-subject 10,5 [route] hero 100%/100% floor-from 10,6 100%
+PASS gremlin-subject 9,5 [route] hero 100%/100% floor-from 10,5 100%
+PASS gremlin-subject 8,5 [route] hero 97%/100% floor-from 9,5 97%
+PASS gremlin-subject 7,5 [route] hero 99%/100% floor-from 8,5 100%
+PASS gremlin-subject 6,5 [route] hero 97%/97% floor-from 7,5 100%
+PASS gremlin-subject 5,5 [route] hero 100%/100% floor-from 6,5 100%
+PASS gremlin-subject 5,4 [route] hero 100%/100% floor-from 5,5 100%
+PASS gremlin-subject 6,4 [route] hero 100%/100% floor-from 5,4 100%
+PASS gremlin-subject 6,3 [route exit-step] hero 66%/100% floor-from 6,4 84%
+PASS gremlin-subject 6,2 [route exit] hero 59%/60% floor-from 6,3 83%
+PASS gremlin-subject 16,9 [entry] hero 94%/94%
+PASS gremlin-subject 11,9 [court] hero 100%/100%
+PASS gremlin-subject entry landing 16,9 way off to 11,8: visible path 15,9:100% 14,9:100% 13,9:100% 12,9:10%/50% 12,8:28%/86% 11,8:7%/100%
+PASS gremlin-subject exit landing 6,2 way off to 6,5: visible path 6,3:57% 6,4:100% 5,4:100% 5,5:100% 6,5:100%
+gremlin-subject yaw 45 25/25 pass (1 via x-ray), 0 fail
+== gremlin-subject yaw 135 (route 21 cells)
+PASS gremlin-subject 15,11 [spawn route] hero 100%/100%
+PASS gremlin-subject 15,10 [route] hero 100%/100% floor-from 15,11 100%
+PASS gremlin-subject 15,9 [route entry-step] hero 100%/100% floor-from 15,10 100% floor-from 16,9 100%
+PASS gremlin-subject 14,9 [route] hero 97%/97% floor-from 15,9 100%
+PASS gremlin-subject 13,9 [route threshold] hero 100%/100% floor-from 14,9 100%
+PASS gremlin-subject 12,9 [route gate-far] hero 3%/100% via x-ray occluder umbilical-rib-pylon@13,8
+PASS gremlin-subject 12,8 [route] hero 77%/100% floor-from 12,9 48%
+PASS gremlin-subject 11,8 [route] hero 100%/100% floor-from 12,8 100%
+PASS gremlin-subject 11,7 [route] hero 100%/100% floor-from 11,8 100%
+PASS gremlin-subject 11,6 [route] hero 100%/100% floor-from 11,7 100%
+PASS gremlin-subject 10,6 [route] hero 100%/100% floor-from 11,6 100%
+PASS gremlin-subject 10,5 [route] hero 40%/100% floor-from 10,6 43%
+PASS gremlin-subject 9,5 [route] hero 64%/100% floor-from 10,5 64%
+PASS gremlin-subject 8,5 [route] hero 0%/100% floor-from 9,5 63% via x-ray occluder bio-conduit-spool@9,4
+PASS gremlin-subject 7,5 [route] hero 0%/100% floor-from 8,5 65% via x-ray occluder auxiliary-proboscis-turret@8,4
+PASS gremlin-subject 6,5 [route] hero 12%/98% floor-from 7,5 35% via x-ray occluder bio-conduit-spool@7,4
+PASS gremlin-subject 5,5 [route] hero 100%/100% floor-from 6,5 100%
+PASS gremlin-subject 5,4 [route] hero 88%/88% floor-from 5,5 95%
+PASS gremlin-subject 6,4 [route] hero 97%/100% floor-from 5,4 82%
+PASS gremlin-subject 6,3 [route exit-step] hero 77%/77% floor-from 6,4 90%
+PASS gremlin-subject 6,2 [route exit] hero 63%/63% floor-from 6,3 88%
+PASS gremlin-subject 16,9 [entry] hero 96%/96%
+PASS gremlin-subject 11,9 [court] hero 100%/100%
+PASS gremlin-subject entry landing 16,9 way off to 11,8: visible path 15,9:100% 14,9:100% 13,9:100% 12,9:9%/47% 12,8:20%/48% 11,8:100%
+FAIL gremlin-subject exit landing 6,2 way off to 6,5: hidden on shortest path 6,3:92% 6,4:82% 5,4:95% 5,5:100% 6,5:0%(bio-conduit-spool@7,4)
+gremlin-subject yaw 135 24/25 pass (4 via x-ray), 1 fail
+== gremlin-subject yaw 225 (route 21 cells)
+PASS gremlin-subject 15,11 [spawn route] hero 82%/82%
+PASS gremlin-subject 15,10 [route] hero 74%/94% floor-from 15,11 99%
+PASS gremlin-subject 15,9 [route entry-step] hero 100%/100% floor-from 15,10 100% floor-from 16,9 100%
+PASS gremlin-subject 14,9 [route] hero 3%/91% floor-from 15,9 100% via x-ray occluder umbilical-rib-pylon@13,8
+PASS gremlin-subject 13,9 [route threshold] hero 32%/83% floor-from 14,9 94%
+PASS gremlin-subject 12,9 [route gate-far] hero 51%/89%
+PASS gremlin-subject 12,8 [route] hero 81%/81% floor-from 12,9 94%
+PASS gremlin-subject 11,8 [route] hero 64%/88% floor-from 12,8 67%
+PASS gremlin-subject 11,7 [route] hero 12%/76% floor-from 11,8 51% via x-ray occluder auxiliary-proboscis-turret@8,4
+PASS gremlin-subject 11,6 [route] hero 25%/87% floor-from 11,7 38% via x-ray occluder bio-conduit-spool@9,4
+FAIL gremlin-subject 10,6 [route] hero 1%/55% floor-from 11,6 28% floor hidden from 11,6 occluder auxiliary-proboscis-turret@8,4
+FAIL gremlin-subject 10,5 [route] hero 0%/69% floor-from 10,6 27% floor hidden from 10,6 occluder bio-conduit-spool@9,4
+FAIL gremlin-subject 9,5 [route] hero 0%/28% floor-from 10,5 32% hero hidden occluder auxiliary-proboscis-turret@8,4
+PASS gremlin-subject 8,5 [route] hero 1%/82% floor-from 9,5 37% via x-ray occluder bio-conduit-spool@7,4
+PASS gremlin-subject 7,5 [route] hero 8%/100% floor-from 8,5 42% via x-ray occluder rock@5,3
+FAIL gremlin-subject 6,5 [route] hero 76%/95% floor-from 7,5 0% floor hidden from 7,5 occluder ramp faces away from the camera
+PASS gremlin-subject 5,5 [route] hero 100%/100% floor-from 6,5 100%
+PASS gremlin-subject 5,4 [route] hero 100%/100% floor-from 5,5 100%
+PASS gremlin-subject 6,4 [route] hero 100%/100% floor-from 5,4 100%
+PASS gremlin-subject 6,3 [route exit-step] hero 70%/70% floor-from 6,4 89%
+PASS gremlin-subject 6,2 [route exit] hero 62%/62% floor-from 6,3 85%
+PASS gremlin-subject 16,9 [entry] hero 96%/96%
+PASS gremlin-subject 11,9 [court] hero 19%/100% via x-ray occluder synthetic-specimen-scout@9,7
+PASS gremlin-subject entry landing 16,9 way off to 11,8: visible path 15,9:100% 14,9:25%/100% 13,9:25%/92% 12,9:73% 12,8:93% 11,8:42%
+FAIL gremlin-subject exit landing 6,2 way off to 6,5: hidden on shortest path 6,3:88% 6,4:100% 5,4:100% 5,5:100% 6,5:0%(ramp faces away from the camera)
+gremlin-subject yaw 225 20/25 pass (6 via x-ray), 5 fail
+== gremlin-subject yaw 315 (route 21 cells)
+PASS gremlin-subject 15,11 [spawn route] hero 100%/100%
+PASS gremlin-subject 15,10 [route] hero 100%/100% floor-from 15,11 100%
+PASS gremlin-subject 15,9 [route entry-step] hero 100%/100% floor-from 15,10 99% floor-from 16,9 99%
+PASS gremlin-subject 14,9 [route] hero 2%/96% floor-from 15,9 100% via x-ray occluder umbilical-rib-pylon@13,10
+PASS gremlin-subject 13,9 [route threshold] hero 27%/100% floor-from 14,9 100% via x-ray
+PASS gremlin-subject 12,9 [route gate-far] hero 100%/100%
+PASS gremlin-subject 12,8 [route] hero 100%/100% floor-from 12,9 100%
+PASS gremlin-subject 11,8 [route] hero 100%/100% floor-from 12,8 100%
+PASS gremlin-subject 11,7 [route] hero 96%/100% floor-from 11,8 98%
+PASS gremlin-subject 11,6 [route] hero 55%/100% floor-from 11,7 88%
+PASS gremlin-subject 10,6 [route] hero 8%/100% floor-from 11,6 41% via x-ray occluder gremlin-specimen-vat@7,8
+PASS gremlin-subject 10,5 [route] hero 95%/100% floor-from 10,6 100%
+PASS gremlin-subject 9,5 [route] hero 100%/100% floor-from 10,5 100%
+PASS gremlin-subject 8,5 [route] hero 100%/100% floor-from 9,5 94%
+PASS gremlin-subject 7,5 [route] hero 0%/100% floor-from 8,5 42% via x-ray occluder auxiliary-proboscis-turret@6,6
+FAIL gremlin-subject 6,5 [route] hero 79%/96% floor-from 7,5 0% floor hidden from 7,5 occluder ramp faces away from the camera
+PASS gremlin-subject 5,5 [route] hero 86%/100% floor-from 6,5 96%
+PASS gremlin-subject 5,4 [route] hero 94%/100% floor-from 5,5 90%
+PASS gremlin-subject 6,4 [route] hero 100%/100% floor-from 5,4 100%
+PASS gremlin-subject 6,3 [route exit-step] hero 100%/100% floor-from 6,4 100%
+PASS gremlin-subject 6,2 [route exit] hero 61%/61% floor-from 6,3 87%
+PASS gremlin-subject 16,9 [entry] hero 94%/94%
+PASS gremlin-subject 11,9 [court] hero 54%/100%
+PASS gremlin-subject entry landing 16,9 way off to 11,8: visible path 15,9:99% 14,9:25%/100% 13,9:23%/100% 12,9:100% 12,8:100% 11,8:100%
+FAIL gremlin-subject exit landing 6,2 way off to 6,5: hidden on shortest path 6,3:100% 6,4:100% 5,4:70% 5,5:50% 6,5:0%(ramp faces away from the camera)
+gremlin-subject yaw 315 23/25 pass (4 via x-ray), 2 fail
+== gremlin-subject all yaws
+PASS gremlin-subject 15,11 [spawn route] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 15,10 [route] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 15,9 [route entry-step] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 14,9 [route] 45:P 135:P 225:x 315:x
+PASS gremlin-subject 13,9 [route threshold] 45:P 135:P 225:P 315:x
+PASS gremlin-subject 12,9 [route gate-far] 45:x 135:x 225:P 315:P
+PASS gremlin-subject 12,8 [route] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 11,8 [route] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 11,7 [route] 45:P 135:P 225:x 315:P
+PASS gremlin-subject 11,6 [route] 45:P 135:P 225:x 315:P
+PASS gremlin-subject 10,6 [route] 45:P 135:P 225:- 315:x
+PASS gremlin-subject 10,5 [route] 45:P 135:P 225:- 315:P
+PASS gremlin-subject 9,5 [route] 45:P 135:P 225:- 315:P
+PASS gremlin-subject 8,5 [route] 45:P 135:x 225:x 315:P
+PASS gremlin-subject 7,5 [route] 45:P 135:x 225:x 315:x
+PASS gremlin-subject 6,5 [route] 45:P 135:x 225:- 315:-
+PASS gremlin-subject 5,5 [route] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 5,4 [route] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 6,4 [route] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 6,3 [route exit-step] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 6,2 [route exit] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 16,9 [entry] 45:P 135:P 225:P 315:P
+PASS gremlin-subject 11,9 [court] 45:P 135:P 225:x 315:P
+PASS gremlin-subject entry landing 16,9 45:P 135:P 225:P 315:P
+PASS gremlin-subject exit landing 6,2 45:P 135:- 225:- 315:-
+gremlin-subject default yaw 45 25/25, reachable with rotation 25/25, warn 0, fail 0
+== eagle-composition yaw 45 (route 19 cells)
+PASS eagle-composition 15,11 [spawn route] hero 100%/100%
+PASS eagle-composition 15,10 [route] hero 100%/100% floor-from 15,11 100%
+PASS eagle-composition 14,10 [route] hero 97%/97% floor-from 15,10 100%
+PASS eagle-composition 13,10 [route] hero 97%/99% floor-from 14,10 100%
+PASS eagle-composition 12,10 [route] hero 97%/97% floor-from 13,10 100%
+PASS eagle-composition 11,10 [route] hero 23%/100% floor-from 12,10 100% via x-ray occluder quill_spire_marker@12,11
+PASS eagle-composition 11,9 [route threshold] hero 100%/100% floor-from 11,10 100%
+PASS eagle-composition 11,8 [route gate-far] hero 23%/100% via x-ray
+PASS eagle-composition 11,7 [route court] hero 100%/100% floor-from 11,8 100%
+PASS eagle-composition 11,6 [route] hero 77%/92% floor-from 11,7 71%
+PASS eagle-composition 11,5 [route] hero 7%/99% floor-from 11,6 49% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 11,4 [route] hero 0%/100% floor-from 11,5 83% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 12,4 [route] hero 4%/96% floor-from 11,4 43% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 13,4 [route] hero 100%/100% floor-from 12,4 100%
+PASS eagle-composition 13,3 [route] hero 100%/100% floor-from 13,4 100%
+PASS eagle-composition 12,3 [route] hero 90%/96% floor-from 13,3 85%
+PASS eagle-composition 11,3 [route] hero 100%/100% floor-from 12,3 100%
+PASS eagle-composition 10,3 [route exit-step] hero 96%/96% floor-from 11,3 100%
+PASS eagle-composition 10,2 [route exit] hero 54%/54% floor-from 10,3 85%
+PASS eagle-composition 16,9 [entry] hero 93%/93%
+PASS eagle-composition 15,9 [entry-step] hero 98%/98% floor-from 16,9 100%
+PASS eagle-composition entry landing 16,9 way off to 11,10: visible path 15,9:100% 15,10:100% 14,10:100% 13,10:97% 12,10:100% 11,10:10%/100%
+PASS eagle-composition exit landing 10,2 way off to 12,3: visible path 10,3:100% 11,3:100% 12,3:85%
+eagle-composition yaw 45 23/23 pass (5 via x-ray), 0 fail
+== eagle-composition yaw 135 (route 19 cells)
+PASS eagle-composition 15,11 [spawn route] hero 100%/100%
+PASS eagle-composition 15,10 [route] hero 100%/100% floor-from 15,11 100%
+PASS eagle-composition 14,10 [route] hero 99%/99% floor-from 15,10 100%
+PASS eagle-composition 13,10 [route] hero 97%/98% floor-from 14,10 90%
+PASS eagle-composition 12,10 [route] hero 96%/99% floor-from 13,10 99%
+PASS eagle-composition 11,10 [route] hero 100%/100% floor-from 12,10 100%
+PASS eagle-composition 11,9 [route threshold] hero 29%/100% floor-from 11,10 83% via x-ray
+PASS eagle-composition 11,8 [route gate-far] hero 25%/95% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 11,7 [route court] hero 0%/97% floor-from 11,8 87% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 11,6 [route] hero 6%/94% floor-from 11,7 44% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 11,5 [route] hero 100%/100% floor-from 11,6 100%
+PASS eagle-composition 11,4 [route] hero 15%/100% floor-from 11,5 42% via x-ray occluder terrain 12,3 h3
+PASS eagle-composition 12,4 [route] hero 100%/100% floor-from 11,4 98%
+PASS eagle-composition 13,4 [route] hero 100%/100% floor-from 12,4 100%
+PASS eagle-composition 13,3 [route] hero 100%/100% floor-from 13,4 100%
+PASS eagle-composition 12,3 [route] hero 97%/97% floor-from 13,3 100%
+PASS eagle-composition 11,3 [route] hero 97%/97% floor-from 12,3 100%
+PASS eagle-composition 10,3 [route exit-step] hero 68%/68% floor-from 11,3 88%
+PASS eagle-composition 10,2 [route exit] hero 58%/58% floor-from 10,3 90%
+PASS eagle-composition 16,9 [entry] hero 95%/95%
+PASS eagle-composition 15,9 [entry-step] hero 100%/100% floor-from 16,9 100%
+PASS eagle-composition entry landing 16,9 way off to 11,10: visible path 15,9:100% 15,10:100% 14,10:100% 13,10:74% 12,10:89% 11,10:100%
+PASS eagle-composition exit landing 10,2 way off to 12,3: visible path 10,3:89% 11,3:100% 12,3:100%
+eagle-composition yaw 135 23/23 pass (5 via x-ray), 0 fail
+== eagle-composition yaw 225 (route 19 cells)
+PASS eagle-composition 15,11 [spawn route] hero 100%/100%
+PASS eagle-composition 15,10 [route] hero 41%/100% floor-from 15,11 76%
+PASS eagle-composition 14,10 [route] hero 98%/98% floor-from 15,10 100%
+PASS eagle-composition 13,10 [route] hero 45%/98% floor-from 14,10 99%
+PASS eagle-composition 12,10 [route] hero 33%/98% floor-from 13,10 89%
+PASS eagle-composition 11,10 [route] hero 99%/99% floor-from 12,10 100%
+PASS eagle-composition 11,9 [route threshold] hero 13%/100% floor-from 11,10 41% via x-ray occluder eagle-slate-eyrie-s@9,7
+PASS eagle-composition 11,8 [route gate-far] hero 83%/97%
+PASS eagle-composition 11,7 [route court] hero 100%/100% floor-from 11,8 100%
+PASS eagle-composition 11,6 [route] hero 100%/100% floor-from 11,7 99%
+PASS eagle-composition 11,5 [route] hero 100%/100% floor-from 11,6 87%
+PASS eagle-composition 11,4 [route] hero 4%/64% floor-from 11,5 40% via x-ray occluder terrain 10,3 h3
+FAIL eagle-composition 12,4 [route] hero 2%/18% floor-from 11,4 40% hero hidden occluder terrain 11,3 h3
+PASS eagle-composition 13,4 [route] hero 76%/78% floor-from 12,4 90%
+PASS eagle-composition 13,3 [route] hero 100%/100% floor-from 13,4 100%
+FAIL eagle-composition 12,3 [route] hero 62%/70% floor-from 13,3 0% floor hidden from 13,3 occluder ramp faces away from the camera
+PASS eagle-composition 11,3 [route] hero 51%/51% floor-from 12,3 81%
+PASS eagle-composition 10,3 [route exit-step] hero 72%/72% floor-from 11,3 91%
+PASS eagle-composition 10,2 [route exit] hero 56%/56% floor-from 10,3 88%
+PASS eagle-composition 16,9 [entry] hero 0%/85% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 15,9 [entry-step] hero 0%/100% floor-from 16,9 41% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition entry landing 16,9 way off to 11,10: visible path 15,9:41% 15,10:74% 14,10:100% 13,10:22%/99% 12,10:23%/89% 11,10:100%
+FAIL eagle-composition exit landing 10,2 way off to 12,3: hidden on shortest path 10,3:90% 11,3:80% 12,3:0%(ramp faces away from the camera)
+eagle-composition yaw 225 20/23 pass (4 via x-ray), 3 fail
+== eagle-composition yaw 315 (route 19 cells)
+PASS eagle-composition 15,11 [spawn route] hero 89%/100%
+PASS eagle-composition 15,10 [route] hero 100%/100% floor-from 15,11 100%
+PASS eagle-composition 14,10 [route] hero 98%/98% floor-from 15,10 100%
+PASS eagle-composition 13,10 [route] hero 25%/99% floor-from 14,10 99% via x-ray occluder quill_spire_marker@12,11
+PASS eagle-composition 12,10 [route] hero 12%/99% floor-from 13,10 63% via x-ray
+PASS eagle-composition 11,10 [route] hero 1%/100% floor-from 12,10 41% via x-ray occluder watchtower@8,11
+PASS eagle-composition 11,9 [route threshold] hero 0%/100% floor-from 11,10 85% via x-ray occluder watchtower@8,11
+PASS eagle-composition 11,8 [route gate-far] hero 24%/100% via x-ray occluder watchtower@8,11
+PASS eagle-composition 11,7 [route court] hero 100%/100% floor-from 11,8 100%
+PASS eagle-composition 11,6 [route] hero 100%/100% floor-from 11,7 99%
+PASS eagle-composition 11,5 [route] hero 100%/100% floor-from 11,6 100%
+PASS eagle-composition 11,4 [route] hero 100%/100% floor-from 11,5 100%
+PASS eagle-composition 12,4 [route] hero 95%/95% floor-from 11,4 72%
+PASS eagle-composition 13,4 [route] hero 2%/100% floor-from 12,4 31% via x-ray occluder vigilant_raptor_totem@12,5
+PASS eagle-composition 13,3 [route] hero 100%/100% floor-from 13,4 100%
+FAIL eagle-composition 12,3 [route] hero 76%/95% floor-from 13,3 0% floor hidden from 13,3 occluder ramp faces away from the camera
+PASS eagle-composition 11,3 [route] hero 100%/100% floor-from 12,3 100%
+PASS eagle-composition 10,3 [route exit-step] hero 96%/96% floor-from 11,3 100%
+PASS eagle-composition 10,2 [route exit] hero 57%/57% floor-from 10,3 92%
+PASS eagle-composition 16,9 [entry] hero 94%/94%
+PASS eagle-composition 15,9 [entry-step] hero 100%/100% floor-from 16,9 100%
+PASS eagle-composition entry landing 16,9 way off to 11,10: visible path 15,9:100% 15,10:99% 14,10:100% 13,10:7%/99% 12,10:17%/63% 11,10:0%/41%
+FAIL eagle-composition exit landing 10,2 way off to 12,3: hidden on shortest path 10,3:100% 11,3:100% 12,3:0%(ramp faces away from the camera)
+eagle-composition yaw 315 21/23 pass (6 via x-ray), 2 fail
+== eagle-composition all yaws
+PASS eagle-composition 15,11 [spawn route] 45:P 135:P 225:P 315:P
+PASS eagle-composition 15,10 [route] 45:P 135:P 225:P 315:P
+PASS eagle-composition 14,10 [route] 45:P 135:P 225:P 315:P
+PASS eagle-composition 13,10 [route] 45:P 135:P 225:P 315:x
+PASS eagle-composition 12,10 [route] 45:P 135:P 225:P 315:x
+PASS eagle-composition 11,10 [route] 45:x 135:P 225:P 315:x
+PASS eagle-composition 11,9 [route threshold] 45:P 135:x 225:x 315:x
+PASS eagle-composition 11,8 [route gate-far] 45:x 135:x 225:P 315:x
+PASS eagle-composition 11,7 [route court] 45:P 135:x 225:P 315:P
+PASS eagle-composition 11,6 [route] 45:P 135:x 225:P 315:P
+PASS eagle-composition 11,5 [route] 45:x 135:P 225:P 315:P
+PASS eagle-composition 11,4 [route] 45:x 135:x 225:x 315:P
+PASS eagle-composition 12,4 [route] 45:x 135:P 225:- 315:P
+PASS eagle-composition 13,4 [route] 45:P 135:P 225:P 315:x
+PASS eagle-composition 13,3 [route] 45:P 135:P 225:P 315:P
+PASS eagle-composition 12,3 [route] 45:P 135:P 225:- 315:-
+PASS eagle-composition 11,3 [route] 45:P 135:P 225:P 315:P
+PASS eagle-composition 10,3 [route exit-step] 45:P 135:P 225:P 315:P
+PASS eagle-composition 10,2 [route exit] 45:P 135:P 225:P 315:P
+PASS eagle-composition 16,9 [entry] 45:P 135:P 225:x 315:P
+PASS eagle-composition 15,9 [entry-step] 45:P 135:P 225:x 315:P
+PASS eagle-composition entry landing 16,9 45:P 135:P 225:P 315:P
+PASS eagle-composition exit landing 10,2 45:P 135:P 225:- 315:-
+eagle-composition default yaw 45 23/23, reachable with rotation 23/23, warn 0, fail 0
+== dragon-medium yaw 45 (route 20 cells)
+PASS dragon-medium 6,14 [spawn route] hero 100%/100%
+PASS dragon-medium 6,13 [route] hero 100%/100% floor-from 6,14 100%
+PASS dragon-medium 7,13 [route] hero 87%/87% floor-from 6,13 85%
+PASS dragon-medium 8,13 [route] hero 100%/100% floor-from 7,13 100%
+PASS dragon-medium 9,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS dragon-medium 10,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS dragon-medium 11,13 [route threshold] hero 26%/100% floor-from 10,13 100% via x-ray occluder spine_frill@12,14
+PASS dragon-medium 12,13 [route gate-far] hero 78%/100%
+PASS dragon-medium 13,13 [route] hero 100%/100% floor-from 12,13 100%
+PASS dragon-medium 13,12 [route] hero 20%/98% floor-from 13,13 77% via x-ray occluder dragon-graphite-crane@14,12
+PASS dragon-medium 13,11 [route] hero 7%/100% floor-from 13,12 83% via x-ray occluder dragon-graphite-crane@14,12
+PASS dragon-medium 13,10 [route] hero 71%/100% floor-from 13,11 73%
+PASS dragon-medium 13,9 [route court] hero 100%/100% floor-from 13,10 100%
+PASS dragon-medium 13,8 [route] hero 100%/100% floor-from 13,9 100%
+PASS dragon-medium 13,7 [route] hero 95%/100% floor-from 13,8 100%
+PASS dragon-medium 13,6 [route] hero 20%/100% floor-from 13,7 86% via x-ray occluder graphite_wyvern_totem@14,7
+PASS dragon-medium 14,6 [route] hero 41%/100% floor-from 13,6 77%
+PASS dragon-medium 15,6 [route] hero 100%/100% floor-from 14,6 100%
+PASS dragon-medium 15,5 [route exit-step] hero 100%/100% floor-from 15,6 100%
+PASS dragon-medium 15,4 [route exit] hero 57%/57% floor-from 15,5 86%
+PASS dragon-medium 4,14 [entry] hero 94%/94%
+PASS dragon-medium 4,13 [entry-step] hero 98%/98% floor-from 4,14 100%
+PASS dragon-medium entry landing 4,14 way off to 9,13: visible path 4,13:100% 5,13:100% 6,13:100% 7,13:79% 8,13:100% 9,13:100%
+PASS dragon-medium exit landing 15,4 way off to 13,8: visible path 15,5:100% 15,6:100% 14,6:42% 13,6:4%/85% 13,7:100% 13,8:100%
+dragon-medium yaw 45 24/24 pass (4 via x-ray), 0 fail
+== dragon-medium yaw 135 (route 20 cells)
+PASS dragon-medium 6,14 [spawn route] hero 97%/97%
+PASS dragon-medium 6,13 [route] hero 84%/85% floor-from 6,14 93%
+PASS dragon-medium 7,13 [route] hero 90%/90% floor-from 6,13 94%
+PASS dragon-medium 8,13 [route] hero 100%/100% floor-from 7,13 100%
+PASS dragon-medium 9,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS dragon-medium 10,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS dragon-medium 11,13 [route threshold] hero 30%/100% floor-from 10,13 99% via x-ray occluder spine_frill@12,12
+PASS dragon-medium 12,13 [route gate-far] hero 74%/100%
+PASS dragon-medium 13,13 [route] hero 25%/100% floor-from 12,13 55% via x-ray occluder dragon-graphite-crane@14,12
+PASS dragon-medium 13,12 [route] hero 96%/96% floor-from 13,13 95%
+PASS dragon-medium 13,11 [route] hero 100%/100% floor-from 13,12 82%
+FAIL dragon-medium 13,10 [route] hero 83%/98% floor-from 13,11 0% floor hidden from 13,11 occluder ramp faces away from the camera
+PASS dragon-medium 13,9 [route court] hero 13%/100% floor-from 13,10 88% via x-ray occluder graphite_wyvern_totem@14,7
+PASS dragon-medium 13,8 [route] hero 30%/100% floor-from 13,9 95%
+PASS dragon-medium 13,7 [route] hero 86%/86% floor-from 13,8 94%
+PASS dragon-medium 13,6 [route] hero 12%/63% floor-from 13,7 36% via x-ray occluder terrain 14,5 h3
+PASS dragon-medium 14,6 [route] hero 86%/86% floor-from 13,6 92%
+PASS dragon-medium 15,6 [route] hero 100%/100% floor-from 14,6 100%
+PASS dragon-medium 15,5 [route exit-step] hero 69%/69% floor-from 15,6 87%
+PASS dragon-medium 15,4 [route exit] hero 59%/59% floor-from 15,5 92%
+PASS dragon-medium 4,14 [entry] hero 0%/96% via x-ray occluder watchtower@5,11
+PASS dragon-medium 4,13 [entry-step] hero 0%/98% floor-from 4,14 42% via x-ray occluder watchtower@5,11
+PASS dragon-medium entry landing 4,14 way off to 9,13: visible path 4,13:42% 5,13:20%/41% 6,13:95% 7,13:93% 8,13:100% 9,13:100%
+PASS dragon-medium exit landing 15,4 way off to 13,8: visible path 15,5:88% 15,6:100% 14,6:85% 13,6:2%/48% 13,7:86% 13,8:81%
+dragon-medium yaw 135 23/24 pass (6 via x-ray), 1 fail
+== dragon-medium yaw 225 (route 20 cells)
+PASS dragon-medium 6,14 [spawn route] hero 72%/100%
+PASS dragon-medium 6,13 [route] hero 6%/100% floor-from 6,14 59% via x-ray occluder watchtower@5,11
+PASS dragon-medium 7,13 [route] hero 0%/89% floor-from 6,13 62% via x-ray occluder watchtower@5,11
+PASS dragon-medium 8,13 [route] hero 2%/100% floor-from 7,13 85% via x-ray occluder watchtower@5,11
+PASS dragon-medium 9,13 [route] hero 39%/100% floor-from 8,13 100%
+PASS dragon-medium 10,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS dragon-medium 11,13 [route threshold] hero 100%/100% floor-from 10,13 100%
+PASS dragon-medium 12,13 [route gate-far] hero 16%/100% via x-ray
+PASS dragon-medium 13,13 [route] hero 72%/100% floor-from 12,13 100%
+PASS dragon-medium 13,12 [route] hero 100%/100% floor-from 13,13 100%
+PASS dragon-medium 13,11 [route] hero 100%/100% floor-from 13,12 100%
+FAIL dragon-medium 13,10 [route] hero 84%/97% floor-from 13,11 0% floor hidden from 13,11 occluder ramp faces away from the camera
+PASS dragon-medium 13,9 [route court] hero 100%/100% floor-from 13,10 100%
+PASS dragon-medium 13,8 [route] hero 100%/100% floor-from 13,9 100%
+PASS dragon-medium 13,7 [route] hero 100%/100% floor-from 13,8 86%
+PASS dragon-medium 13,6 [route] hero 7%/100% floor-from 13,7 43% via x-ray occluder terrain 12,5 h3
+PASS dragon-medium 14,6 [route] hero 10%/100% floor-from 13,6 49% via x-ray occluder terrain 13,5 h3
+PASS dragon-medium 15,6 [route] hero 96%/100% floor-from 14,6 100%
+PASS dragon-medium 15,5 [route exit-step] hero 70%/73% floor-from 15,6 82%
+PASS dragon-medium 15,4 [route exit] hero 58%/58% floor-from 15,5 88%
+PASS dragon-medium 4,14 [entry] hero 96%/96%
+PASS dragon-medium 4,13 [entry-step] hero 97%/97% floor-from 4,14 100%
+PASS dragon-medium entry landing 4,14 way off to 9,13: visible path 4,13:100% 5,13:91% 6,13:20%/66% 7,13:0%/62% 8,13:0%/85% 9,13:52%
+PASS dragon-medium exit landing 15,4 way off to 13,8: visible path 15,5:83% 15,6:77% 14,6:0%/41% 13,6:3%/44% 13,7:85% 13,8:100%
+dragon-medium yaw 225 23/24 pass (6 via x-ray), 1 fail
+== dragon-medium yaw 315 (route 20 cells)
+PASS dragon-medium 6,14 [spawn route] hero 100%/100%
+PASS dragon-medium 6,13 [route] hero 100%/100% floor-from 6,14 100%
+PASS dragon-medium 7,13 [route] hero 97%/97% floor-from 6,13 91%
+PASS dragon-medium 8,13 [route] hero 100%/100% floor-from 7,13 100%
+PASS dragon-medium 9,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS dragon-medium 10,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS dragon-medium 11,13 [route threshold] hero 100%/100% floor-from 10,13 100%
+PASS dragon-medium 12,13 [route gate-far] hero 19%/100% via x-ray
+PASS dragon-medium 13,13 [route] hero 79%/100% floor-from 12,13 100%
+PASS dragon-medium 13,12 [route] hero 32%/100% floor-from 13,13 100%
+PASS dragon-medium 13,11 [route] hero 46%/100% floor-from 13,12 100%
+PASS dragon-medium 13,10 [route] hero 100%/100% floor-from 13,11 100%
+PASS dragon-medium 13,9 [route court] hero 100%/100% floor-from 13,10 100%
+PASS dragon-medium 13,8 [route] hero 100%/100% floor-from 13,9 100%
+PASS dragon-medium 13,7 [route] hero 100%/100% floor-from 13,8 100%
+PASS dragon-medium 13,6 [route] hero 100%/100% floor-from 13,7 100%
+PASS dragon-medium 14,6 [route] hero 100%/100% floor-from 13,6 100%
+PASS dragon-medium 15,6 [route] hero 26%/100% floor-from 14,6 96% via x-ray occluder graphite_wyvern_totem@14,7
+PASS dragon-medium 15,5 [route exit-step] hero 100%/100% floor-from 15,6 100%
+PASS dragon-medium 15,4 [route exit] hero 58%/58% floor-from 15,5 88%
+PASS dragon-medium 4,14 [entry] hero 94%/94%
+PASS dragon-medium 4,13 [entry-step] hero 97%/97% floor-from 4,14 100%
+PASS dragon-medium entry landing 4,14 way off to 9,13: visible path 4,13:100% 5,13:100% 6,13:100% 7,13:91% 8,13:100% 9,13:100%
+PASS dragon-medium exit landing 15,4 way off to 13,8: visible path 15,5:100% 15,6:70% 14,6:100% 13,6:100% 13,7:100% 13,8:100%
+dragon-medium yaw 315 24/24 pass (2 via x-ray), 0 fail
+== dragon-medium all yaws
+PASS dragon-medium 6,14 [spawn route] 45:P 135:P 225:P 315:P
+PASS dragon-medium 6,13 [route] 45:P 135:P 225:x 315:P
+PASS dragon-medium 7,13 [route] 45:P 135:P 225:x 315:P
+PASS dragon-medium 8,13 [route] 45:P 135:P 225:x 315:P
+PASS dragon-medium 9,13 [route] 45:P 135:P 225:P 315:P
+PASS dragon-medium 10,13 [route] 45:P 135:P 225:P 315:P
+PASS dragon-medium 11,13 [route threshold] 45:x 135:x 225:P 315:P
+PASS dragon-medium 12,13 [route gate-far] 45:P 135:P 225:x 315:x
+PASS dragon-medium 13,13 [route] 45:P 135:x 225:P 315:P
+PASS dragon-medium 13,12 [route] 45:x 135:P 225:P 315:P
+PASS dragon-medium 13,11 [route] 45:x 135:P 225:P 315:P
+PASS dragon-medium 13,10 [route] 45:P 135:- 225:- 315:P
+PASS dragon-medium 13,9 [route court] 45:P 135:x 225:P 315:P
+PASS dragon-medium 13,8 [route] 45:P 135:P 225:P 315:P
+PASS dragon-medium 13,7 [route] 45:P 135:P 225:P 315:P
+PASS dragon-medium 13,6 [route] 45:x 135:x 225:x 315:P
+PASS dragon-medium 14,6 [route] 45:P 135:P 225:x 315:P
+PASS dragon-medium 15,6 [route] 45:P 135:P 225:P 315:x
+PASS dragon-medium 15,5 [route exit-step] 45:P 135:P 225:P 315:P
+PASS dragon-medium 15,4 [route exit] 45:P 135:P 225:P 315:P
+PASS dragon-medium 4,14 [entry] 45:P 135:x 225:P 315:P
+PASS dragon-medium 4,13 [entry-step] 45:P 135:x 225:P 315:P
+PASS dragon-medium entry landing 4,14 45:P 135:P 225:P 315:P
+PASS dragon-medium exit landing 15,4 45:P 135:P 225:P 315:P
+dragon-medium default yaw 45 24/24, reachable with rotation 24/24, warn 0, fail 0
+== sharkbear-medium yaw 45 (route 18 cells)
+PASS sharkbear-medium 15,14 [spawn route entry-step] hero 100%/100% floor-from 15,15 100%
+PASS sharkbear-medium 14,14 [route] hero 100%/100% floor-from 15,14 100%
+PASS sharkbear-medium 14,13 [route] hero 64%/100% floor-from 14,14 69%
+PASS sharkbear-medium 14,12 [route] hero 7%/100% floor-from 14,13 67% via x-ray occluder terrain 15,13 h2
+PASS sharkbear-medium 14,11 [route] hero 0%/100% floor-from 14,12 66% via x-ray occluder bristle-clump@15,12
+PASS sharkbear-medium 14,10 [route] hero 0%/100% floor-from 14,11 83% via x-ray occluder terrain 15,11 h3
+PASS sharkbear-medium 13,10 [route threshold] hero 0%/100% floor-from 14,10 85% via x-ray occluder bristle-clump@15,12
+PASS sharkbear-medium 12,10 [route gate-far] hero 25%/100% via x-ray
+PASS sharkbear-medium 11,10 [route court] hero 58%/100% floor-from 12,10 100%
+PASS sharkbear-medium 11,9 [route] hero 34%/100% floor-from 11,10 98%
+PASS sharkbear-medium 11,8 [route] hero 44%/100% floor-from 11,9 100%
+PASS sharkbear-medium 11,7 [route] hero 67%/100% floor-from 11,8 69%
+PASS sharkbear-medium 10,7 [route] hero 56%/98% floor-from 11,7 50%
+PASS sharkbear-medium 9,7 [route] hero 21%/100% floor-from 10,7 44% via x-ray occluder selachian-ursine-stalker@9,8
+PASS sharkbear-medium 8,7 [route] hero 19%/100% floor-from 9,7 83% via x-ray occluder selachian-ursine-stalker@9,8
+PASS sharkbear-medium 8,6 [route] hero 92%/100% floor-from 8,7 84%
+PASS sharkbear-medium 8,5 [route exit-step] hero 96%/96% floor-from 8,6 100%
+PASS sharkbear-medium 8,4 [route exit] hero 53%/53% floor-from 8,5 86%
+PASS sharkbear-medium 15,15 [entry] hero 94%/94%
+PASS sharkbear-medium entry landing 15,15 way off to 14,10: visible path 15,14:100% 14,14:100% 14,13:68% 14,12:0%/67% 14,11:0%/66% 14,10:0%/83%
+PASS sharkbear-medium exit landing 8,4 way off to 8,6: visible path 8,5:100% 8,6:82%
+sharkbear-medium yaw 45 21/21 pass (7 via x-ray), 0 fail
+== sharkbear-medium yaw 135 (route 18 cells)
+PASS sharkbear-medium 15,14 [spawn route entry-step] hero 6%/100% floor-from 15,15 41% via x-ray occluder rock@17,12
+PASS sharkbear-medium 14,14 [route] hero 6%/100% floor-from 15,14 85% via x-ray occluder terrain 16,12 h3
+PASS sharkbear-medium 14,13 [route] hero 0%/100% floor-from 14,14 41% via x-ray occluder bristle-clump@15,12
+PASS sharkbear-medium 14,12 [route] hero 0%/100% floor-from 14,13 42% via x-ray occluder terrain 15,11 h3
+PASS sharkbear-medium 14,11 [route] hero 67%/100% floor-from 14,12 90%
+PASS sharkbear-medium 14,10 [route] hero 100%/100% floor-from 14,11 100%
+PASS sharkbear-medium 13,10 [route threshold] hero 100%/100% floor-from 14,10 100%
+PASS sharkbear-medium 12,10 [route gate-far] hero 33%/100%
+PASS sharkbear-medium 11,10 [route court] hero 83%/100% floor-from 12,10 100%
+PASS sharkbear-medium 11,9 [route] hero 100%/100% floor-from 11,10 86%
+PASS sharkbear-medium 11,8 [route] hero 13%/100% floor-from 11,9 42% via x-ray occluder terrain 12,7 h2
+PASS sharkbear-medium 11,7 [route] hero 3%/100% floor-from 11,8 41% via x-ray occluder terrain 12,6 h2
+PASS sharkbear-medium 10,7 [route] hero 5%/100% floor-from 11,7 67% via x-ray occluder terrain 11,6 h2
+PASS sharkbear-medium 9,7 [route] hero 1%/100% floor-from 10,7 67% via x-ray occluder terrain 12,4 h3
+PASS sharkbear-medium 8,7 [route] hero 13%/100% floor-from 9,7 83% via x-ray occluder terrain 9,6 h2
+FAIL sharkbear-medium 8,6 [route] hero 75%/96% floor-from 8,7 0% floor hidden from 8,7 occluder ramp faces away from the camera
+PASS sharkbear-medium 8,5 [route exit-step] hero 66%/66% floor-from 8,6 90%
+PASS sharkbear-medium 8,4 [route exit] hero 48%/56% floor-from 8,5 52%
+PASS sharkbear-medium 15,15 [entry] hero 95%/95%
+PASS sharkbear-medium entry landing 15,15 way off to 14,10: visible path 15,14:41% 14,14:0%/85% 14,13:0%/41% 14,12:0%/42% 14,11:66% 14,10:100%
+FAIL sharkbear-medium exit landing 8,4 way off to 8,6: hidden on shortest path 8,5:93% 8,6:0%(ramp faces away from the camera)
+sharkbear-medium yaw 135 19/21 pass (9 via x-ray), 2 fail
+== sharkbear-medium yaw 225 (route 18 cells)
+PASS sharkbear-medium 15,14 [spawn route entry-step] hero 67%/100% floor-from 15,15 70%
+PASS sharkbear-medium 14,14 [route] hero 100%/100% floor-from 15,14 100%
+PASS sharkbear-medium 14,13 [route] hero 100%/100% floor-from 14,14 100%
+PASS sharkbear-medium 14,12 [route] hero 49%/100% floor-from 14,13 99%
+PASS sharkbear-medium 14,11 [route] hero 32%/94% floor-from 14,12 100%
+PASS sharkbear-medium 14,10 [route] hero 73%/73% floor-from 14,11 91%
+PASS sharkbear-medium 13,10 [route threshold] hero 23%/88% floor-from 14,10 94% via x-ray occluder cranial-fin-marker@12,9
+PASS sharkbear-medium 12,10 [route gate-far] hero 99%/100%
+PASS sharkbear-medium 11,10 [route court] hero 1%/100% floor-from 12,10 41% via x-ray occluder sharkbear-shard-watchtower@5,5
+PASS sharkbear-medium 11,9 [route] hero 43%/100% floor-from 11,10 56%
+PASS sharkbear-medium 11,8 [route] hero 46%/67% floor-from 11,9 44%
+FAIL sharkbear-medium 11,7 [route] hero 0%/22% floor-from 11,8 27% hero hidden occluder terrain 10,6 h2
+PASS sharkbear-medium 10,7 [route] hero 7%/85% floor-from 11,7 40% via x-ray occluder terrain 9,6 h2
+PASS sharkbear-medium 9,7 [route] hero 66%/100% floor-from 10,7 68%
+PASS sharkbear-medium 8,7 [route] hero 0%/100% floor-from 9,7 42% via x-ray occluder sharkbear-shard-watchtower@5,5
+FAIL sharkbear-medium 8,6 [route] hero 74%/97% floor-from 8,7 0% floor hidden from 8,7 occluder ramp faces away from the camera
+PASS sharkbear-medium 8,5 [route exit-step] hero 70%/70% floor-from 8,6 90%
+PASS sharkbear-medium 8,4 [route exit] hero 56%/56% floor-from 8,5 85%
+PASS sharkbear-medium 15,15 [entry] hero 95%/95%
+PASS sharkbear-medium entry landing 15,15 way off to 14,10: visible path 15,14:70% 14,14:100% 14,13:100% 14,12:20%/99% 14,11:21%/100% 14,10:87%
+FAIL sharkbear-medium exit landing 8,4 way off to 8,6: hidden on shortest path 8,5:84% 8,6:0%(ramp faces away from the camera)
+sharkbear-medium yaw 225 18/21 pass (4 via x-ray), 3 fail
+== sharkbear-medium yaw 315 (route 18 cells)
+PASS sharkbear-medium 15,14 [spawn route entry-step] hero 100%/100% floor-from 15,15 100%
+PASS sharkbear-medium 14,14 [route] hero 100%/100% floor-from 15,14 100%
+PASS sharkbear-medium 14,13 [route] hero 100%/100% floor-from 14,14 100%
+PASS sharkbear-medium 14,12 [route] hero 100%/100% floor-from 14,13 100%
+PASS sharkbear-medium 14,11 [route] hero 100%/100% floor-from 14,12 100%
+PASS sharkbear-medium 14,10 [route] hero 100%/100% floor-from 14,11 100%
+PASS sharkbear-medium 13,10 [route threshold] hero 24%/100% floor-from 14,10 99% via x-ray occluder cranial-fin-marker@12,11
+PASS sharkbear-medium 12,10 [route gate-far] hero 100%/100%
+PASS sharkbear-medium 11,10 [route court] hero 100%/100% floor-from 12,10 100%
+PASS sharkbear-medium 11,9 [route] hero 89%/100% floor-from 11,10 86%
+PASS sharkbear-medium 11,8 [route] hero 15%/96% floor-from 11,9 73% via x-ray occluder selachian-ursine-stalker@9,8
+FAIL sharkbear-medium 11,7 [route] hero 19%/100% floor-from 11,8 16% floor hidden from 11,8 occluder selachian-ursine-stalker@9,8
+PASS sharkbear-medium 10,7 [route] hero 23%/98% floor-from 11,7 47% via x-ray occluder selachian-ursine-stalker@9,8
+PASS sharkbear-medium 9,7 [route] hero 98%/100% floor-from 10,7 84%
+PASS sharkbear-medium 8,7 [route] hero 6%/100% floor-from 9,7 42% via x-ray occluder graphite-shard-slab@7,8
+PASS sharkbear-medium 8,6 [route] hero 80%/100% floor-from 8,7 74%
+PASS sharkbear-medium 8,5 [route exit-step] hero 96%/96% floor-from 8,6 100%
+PASS sharkbear-medium 8,4 [route exit] hero 8%/55% floor-from 8,5 74% via x-ray occluder sharkbear-shard-watchtower@5,5
+PASS sharkbear-medium 15,15 [entry] hero 93%/93%
+PASS sharkbear-medium entry landing 15,15 way off to 14,10: visible path 15,14:100% 14,14:100% 14,13:100% 14,12:100% 14,11:99% 14,10:100%
+PASS sharkbear-medium exit landing 8,4 way off to 8,6: visible path 8,5:100% 8,6:41%
+sharkbear-medium yaw 315 20/21 pass (5 via x-ray), 1 fail
+== sharkbear-medium all yaws
+PASS sharkbear-medium 15,14 [spawn route entry-step] 45:P 135:x 225:P 315:P
+PASS sharkbear-medium 14,14 [route] 45:P 135:x 225:P 315:P
+PASS sharkbear-medium 14,13 [route] 45:P 135:x 225:P 315:P
+PASS sharkbear-medium 14,12 [route] 45:x 135:x 225:P 315:P
+PASS sharkbear-medium 14,11 [route] 45:x 135:P 225:P 315:P
+PASS sharkbear-medium 14,10 [route] 45:x 135:P 225:P 315:P
+PASS sharkbear-medium 13,10 [route threshold] 45:x 135:P 225:x 315:x
+PASS sharkbear-medium 12,10 [route gate-far] 45:x 135:P 225:P 315:P
+PASS sharkbear-medium 11,10 [route court] 45:P 135:P 225:x 315:P
+PASS sharkbear-medium 11,9 [route] 45:P 135:P 225:P 315:P
+PASS sharkbear-medium 11,8 [route] 45:P 135:x 225:P 315:x
+PASS sharkbear-medium 11,7 [route] 45:P 135:x 225:- 315:-
+PASS sharkbear-medium 10,7 [route] 45:P 135:x 225:x 315:x
+PASS sharkbear-medium 9,7 [route] 45:x 135:x 225:P 315:P
+PASS sharkbear-medium 8,7 [route] 45:x 135:x 225:x 315:x
+PASS sharkbear-medium 8,6 [route] 45:P 135:- 225:- 315:P
+PASS sharkbear-medium 8,5 [route exit-step] 45:P 135:P 225:P 315:P
+PASS sharkbear-medium 8,4 [route exit] 45:P 135:P 225:P 315:x
+PASS sharkbear-medium 15,15 [entry] 45:P 135:P 225:P 315:P
+PASS sharkbear-medium entry landing 15,15 45:P 135:P 225:P 315:P
+PASS sharkbear-medium exit landing 8,4 45:P 135:- 225:- 315:P
+sharkbear-medium default yaw 45 21/21, reachable with rotation 21/21, warn 0, fail 0
+== chimera-medium yaw 45 (route 17 cells)
+PASS chimera-medium 11,14 [spawn route] hero 100%/100%
+PASS chimera-medium 10,14 [route] hero 100%/100% floor-from 11,14 100%
+PASS chimera-medium 10,13 [route] hero 99%/99% floor-from 10,14 100%
+PASS chimera-medium 9,13 [route] hero 97%/97% floor-from 10,13 100%
+PASS chimera-medium 8,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS chimera-medium 7,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS chimera-medium 7,12 [route threshold] hero 100%/100% floor-from 7,13 100%
+PASS chimera-medium 7,11 [route gate-far] hero 27%/100% via x-ray
+PASS chimera-medium 7,10 [route court] hero 100%/100% floor-from 7,11 100%
+PASS chimera-medium 7,9 [route] hero 100%/100% floor-from 7,10 100%
+PASS chimera-medium 7,8 [route] hero 97%/97% floor-from 7,9 100%
+PASS chimera-medium 7,7 [route] hero 100%/100% floor-from 7,8 100%
+PASS chimera-medium 6,7 [route] hero 100%/100% floor-from 7,7 100%
+PASS chimera-medium 5,7 [route] hero 26%/100% floor-from 6,7 74% via x-ray occluder chitin-chimera@5,8
+PASS chimera-medium 5,6 [route] hero 100%/100% floor-from 5,7 100%
+PASS chimera-medium 5,5 [route exit-step] hero 100%/100% floor-from 5,6 100%
+PASS chimera-medium 5,4 [route exit] hero 55%/55% floor-from 5,5 86%
+PASS chimera-medium 13,15 [entry] hero 94%/94%
+PASS chimera-medium 13,14 [entry-step] hero 100%/100% floor-from 13,15 100%
+PASS chimera-medium entry landing 13,15 way off to 9,13: visible path 13,14:100% 12,14:100% 11,14:100% 10,14:100% 10,13:100% 9,13:100%
+PASS chimera-medium exit landing 5,4 way off to 5,6: visible path 5,5:100% 5,6:100%
+chimera-medium yaw 45 21/21 pass (2 via x-ray), 0 fail
+== chimera-medium yaw 135 (route 17 cells)
+PASS chimera-medium 11,14 [spawn route] hero 31%/100%
+PASS chimera-medium 10,14 [route] hero 100%/100% floor-from 11,14 100%
+PASS chimera-medium 10,13 [route] hero 99%/99% floor-from 10,14 88%
+PASS chimera-medium 9,13 [route] hero 81%/98% floor-from 10,13 74%
+PASS chimera-medium 8,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS chimera-medium 7,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS chimera-medium 7,12 [route threshold] hero 28%/100% floor-from 7,13 100% via x-ray occluder watchtower@13,6
+PASS chimera-medium 7,11 [route gate-far] hero 100%/100%
+PASS chimera-medium 7,10 [route court] hero 100%/100% floor-from 7,11 100%
+PASS chimera-medium 7,9 [route] hero 99%/99% floor-from 7,10 97%
+PASS chimera-medium 7,8 [route] hero 94%/97% floor-from 7,9 88%
+PASS chimera-medium 7,7 [route] hero 92%/100% floor-from 7,8 82%
+PASS chimera-medium 6,7 [route] hero 100%/100% floor-from 7,7 100%
+PASS chimera-medium 5,7 [route] hero 98%/100% floor-from 6,7 100%
+FAIL chimera-medium 5,6 [route] hero 83%/97% floor-from 5,7 0% floor hidden from 5,7 occluder ramp faces away from the camera
+PASS chimera-medium 5,5 [route exit-step] hero 73%/73% floor-from 5,6 88%
+PASS chimera-medium 5,4 [route exit] hero 55%/55% floor-from 5,5 88%
+PASS chimera-medium 13,15 [entry] hero 96%/96%
+PASS chimera-medium 13,14 [entry-step] hero 100%/100% floor-from 13,15 100%
+PASS chimera-medium entry landing 13,15 way off to 9,13: visible path 13,14:100% 12,14:93% 11,14:18%/81% 10,14:100% 10,13:83% 9,13:30%/74%
+FAIL chimera-medium exit landing 5,4 way off to 5,6: hidden on shortest path 5,5:90% 5,6:0%(ramp faces away from the camera)
+chimera-medium yaw 135 19/21 pass (1 via x-ray), 2 fail
+== chimera-medium yaw 225 (route 17 cells)
+PASS chimera-medium 11,14 [spawn route] hero 100%/100%
+PASS chimera-medium 10,14 [route] hero 100%/100% floor-from 11,14 100%
+PASS chimera-medium 10,13 [route] hero 100%/100% floor-from 10,14 94%
+PASS chimera-medium 9,13 [route] hero 45%/98% floor-from 10,13 99%
+PASS chimera-medium 8,13 [route] hero 32%/100% floor-from 9,13 100%
+PASS chimera-medium 7,13 [route] hero 73%/100% floor-from 8,13 46%
+PASS chimera-medium 7,12 [route threshold] hero 20%/100% floor-from 7,13 72% via x-ray occluder chimera-ink-monolith@2,8
+PASS chimera-medium 7,11 [route gate-far] hero 22%/100% via x-ray occluder chitin-chimera@5,8
+PASS chimera-medium 7,10 [route court] hero 16%/100% floor-from 7,11 44% via x-ray occluder chitin-chimera@5,8
+PASS chimera-medium 7,9 [route] hero 47%/100% floor-from 7,10 46%
+PASS chimera-medium 7,8 [route] hero 98%/98% floor-from 7,9 100%
+PASS chimera-medium 7,7 [route] hero 79%/83% floor-from 7,8 79%
+PASS chimera-medium 6,7 [route] hero 99%/100% floor-from 7,7 87%
+PASS chimera-medium 5,7 [route] hero 100%/100% floor-from 6,7 100%
+FAIL chimera-medium 5,6 [route] hero 83%/97% floor-from 5,7 0% floor hidden from 5,7 occluder ramp faces away from the camera
+PASS chimera-medium 5,5 [route exit-step] hero 74%/74% floor-from 5,6 88%
+PASS chimera-medium 5,4 [route exit] hero 59%/59% floor-from 5,5 86%
+PASS chimera-medium 13,15 [entry] hero 96%/96%
+PASS chimera-medium 13,14 [entry-step] hero 34%/100% floor-from 13,15 51%
+PASS chimera-medium entry landing 13,15 way off to 9,13: visible path 13,14:51% 12,14:100% 11,14:100% 10,14:100% 10,13:94% 9,13:21%/99%
+FAIL chimera-medium exit landing 5,4 way off to 5,6: hidden on shortest path 5,5:88% 5,6:0%(ramp faces away from the camera)
+chimera-medium yaw 225 19/21 pass (3 via x-ray), 2 fail
+== chimera-medium yaw 315 (route 17 cells)
+PASS chimera-medium 11,14 [spawn route] hero 100%/100%
+PASS chimera-medium 10,14 [route] hero 100%/100% floor-from 11,14 100%
+PASS chimera-medium 10,13 [route] hero 100%/100% floor-from 10,14 100%
+PASS chimera-medium 9,13 [route] hero 97%/97% floor-from 10,13 100%
+PASS chimera-medium 8,13 [route] hero 100%/100% floor-from 9,13 100%
+PASS chimera-medium 7,13 [route] hero 100%/100% floor-from 8,13 100%
+PASS chimera-medium 7,12 [route threshold] hero 100%/100% floor-from 7,13 100%
+PASS chimera-medium 7,11 [route gate-far] hero 27%/100% via x-ray
+PASS chimera-medium 7,10 [route court] hero 100%/100% floor-from 7,11 100%
+PASS chimera-medium 7,9 [route] hero 100%/100% floor-from 7,10 100%
+PASS chimera-medium 7,8 [route] hero 20%/96% floor-from 7,9 85% via x-ray occluder chitin-chimera@5,8
+PASS chimera-medium 7,7 [route] hero 17%/100% floor-from 7,8 83% via x-ray occluder chitin-chimera@5,8
+PASS chimera-medium 6,7 [route] hero 82%/100% floor-from 7,7 82%
+PASS chimera-medium 5,7 [route] hero 55%/100% floor-from 6,7 43%
+PASS chimera-medium 5,6 [route] hero 0%/100% floor-from 5,7 36% via x-ray occluder chimera-ink-monolith@2,8
+PASS chimera-medium 5,5 [route exit-step] hero 95%/100% floor-from 5,6 89%
+PASS chimera-medium 5,4 [route exit] hero 55%/55% floor-from 5,5 87%
+PASS chimera-medium 13,15 [entry] hero 94%/94%
+PASS chimera-medium 13,14 [entry-step] hero 100%/100% floor-from 13,15 100%
+PASS chimera-medium entry landing 13,15 way off to 9,13: visible path 13,14:100% 12,14:100% 11,14:100% 10,14:100% 10,13:100% 9,13:100%
+FAIL chimera-medium exit landing 5,4 way off to 5,6: hidden on shortest path 5,5:79% 5,6:0%(chimera-ink-monolith@2,8)
+chimera-medium yaw 315 20/21 pass (4 via x-ray), 1 fail
+== chimera-medium all yaws
+PASS chimera-medium 11,14 [spawn route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 10,14 [route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 10,13 [route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 9,13 [route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 8,13 [route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 7,13 [route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 7,12 [route threshold] 45:P 135:x 225:x 315:P
+PASS chimera-medium 7,11 [route gate-far] 45:x 135:P 225:x 315:x
+PASS chimera-medium 7,10 [route court] 45:P 135:P 225:x 315:P
+PASS chimera-medium 7,9 [route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 7,8 [route] 45:P 135:P 225:P 315:x
+PASS chimera-medium 7,7 [route] 45:P 135:P 225:P 315:x
+PASS chimera-medium 6,7 [route] 45:P 135:P 225:P 315:P
+PASS chimera-medium 5,7 [route] 45:x 135:P 225:P 315:P
+PASS chimera-medium 5,6 [route] 45:P 135:- 225:- 315:x
+PASS chimera-medium 5,5 [route exit-step] 45:P 135:P 225:P 315:P
+PASS chimera-medium 5,4 [route exit] 45:P 135:P 225:P 315:P
+PASS chimera-medium 13,15 [entry] 45:P 135:P 225:P 315:P
+PASS chimera-medium 13,14 [entry-step] 45:P 135:P 225:P 315:P
+PASS chimera-medium entry landing 13,15 45:P 135:P 225:P 315:P
+PASS chimera-medium exit landing 5,4 45:P 135:- 225:- 315:-
+chimera-medium default yaw 45 21/21, reachable with rotation 21/21, warn 0, fail 0
+== ember-subject yaw 45 (route 15 cells)
+PASS ember-subject 15,12 [spawn route] hero 100%/100%
+PASS ember-subject 15,11 [route] hero 100%/100% floor-from 15,12 100%
+PASS ember-subject 14,11 [route] hero 100%/100% floor-from 15,11 100%
+PASS ember-subject 13,11 [route] hero 100%/100% floor-from 14,11 100%
+PASS ember-subject 12,11 [route] hero 100%/100% floor-from 13,11 100%
+PASS ember-subject 11,11 [route] hero 87%/99% floor-from 12,11 58%
+PASS ember-subject 11,10 [route] hero 100%/100% floor-from 11,11 100%
+PASS ember-subject 11,9 [route] hero 0%/100% floor-from 11,10 100% via x-ray occluder arch@10,10
+PASS ember-subject 11,8 [route] hero 100%/100% floor-from 11,9 100%
+PASS ember-subject 11,7 [route threshold] hero 100%/100% floor-from 11,8 100%
+PASS ember-subject 11,6 [route gate-far] hero 23%/100% via x-ray
+PASS ember-subject 11,5 [route] hero 99%/100% floor-from 11,6 87%
+PASS ember-subject 11,4 [route] hero 6%/100% floor-from 11,5 86% via x-ray occluder feathered_flame_flick@13,6
+PASS ember-subject 10,4 [route exit-step] hero 100%/100% floor-from 11,4 91%
+PASS ember-subject 10,3 [route exit] hero 57%/57% floor-from 10,4 89%
+PASS ember-subject 16,9 [entry] hero 95%/95%
+PASS ember-subject 15,9 [entry-step] hero 100%/100% floor-from 16,9 100%
+PASS ember-subject 9,5 [court] hero 100%/100%
+PASS ember-subject entry landing 16,9 way off to 12,7: visible path 15,9:100% 15,8:100% 15,7:100% 14,7:100% 13,7:100% 12,7:100%
+PASS ember-subject exit landing 10,3 way off to 11,6: visible path 10,4:92% 11,4:29%/44% 11,5:86% 11,6:37%
+ember-subject yaw 45 20/20 pass (3 via x-ray), 0 fail
+== ember-subject yaw 135 (route 15 cells)
+PASS ember-subject 15,12 [spawn route] hero 100%/100%
+PASS ember-subject 15,11 [route] hero 100%/100% floor-from 15,12 100%
+PASS ember-subject 14,11 [route] hero 100%/100% floor-from 15,11 100%
+PASS ember-subject 13,11 [route] hero 100%/100% floor-from 14,11 100%
+PASS ember-subject 12,11 [route] hero 100%/100% floor-from 13,11 100%
+PASS ember-subject 11,11 [route] hero 0%/100% floor-from 12,11 100% via x-ray occluder arch@10,10
+PASS ember-subject 11,10 [route] hero 100%/100% floor-from 11,11 100%
+PASS ember-subject 11,9 [route] hero 86%/100% floor-from 11,10 69%
+PASS ember-subject 11,8 [route] hero 0%/100% floor-from 11,9 42% via x-ray occluder feathered_flame_flick@13,6
+PASS ember-subject 11,7 [route threshold] hero 0%/100% floor-from 11,8 41% via x-ray occluder terrain 13,5 h3
+PASS ember-subject 11,6 [route gate-far] hero 34%/97%
+PASS ember-subject 11,5 [route] hero 100%/100% floor-from 11,6 100%
+PASS ember-subject 11,4 [route] hero 100%/100% floor-from 11,5 100%
+PASS ember-subject 10,4 [route exit-step] hero 70%/70% floor-from 11,4 93%
+PASS ember-subject 10,3 [route exit] hero 56%/56% floor-from 10,4 90%
+PASS ember-subject 16,9 [entry] hero 96%/96%
+PASS ember-subject 15,9 [entry-step] hero 100%/100% floor-from 16,9 100%
+PASS ember-subject 9,5 [court] hero 83%/83%
+PASS ember-subject entry landing 16,9 way off to 12,7: visible path 15,9:100% 15,8:100% 15,7:100% 14,7:100% 13,7:59% 12,7:0%/83%
+FAIL ember-subject exit landing 10,3 way off to 11,6: hidden on shortest path 10,4:92% 11,4:100% 11,5:100% 11,6:0%(ramp faces away from the camera)
+ember-subject yaw 135 19/20 pass (3 via x-ray), 1 fail
+== ember-subject yaw 225 (route 15 cells)
+PASS ember-subject 15,12 [spawn route] hero 100%/100%
+PASS ember-subject 15,11 [route] hero 100%/100% floor-from 15,12 100%
+PASS ember-subject 14,11 [route] hero 100%/100% floor-from 15,11 100%
+PASS ember-subject 13,11 [route] hero 0%/100% floor-from 14,11 52% via x-ray occluder dragon_skull_totem@7,5
+PASS ember-subject 12,11 [route] hero 19%/100% floor-from 13,11 94% via x-ray occluder dragon_skull_totem@7,5
+PASS ember-subject 11,11 [route] hero 0%/100% floor-from 12,11 92% via x-ray occluder arch@10,10
+PASS ember-subject 11,10 [route] hero 94%/100% floor-from 11,11 65%
+PASS ember-subject 11,9 [route] hero 0%/100% floor-from 11,10 42% via x-ray occluder dragon_skull_totem@7,5
+PASS ember-subject 11,8 [route] hero 0%/100% floor-from 11,9 42% via x-ray occluder dragon_skull_totem@7,5
+PASS ember-subject 11,7 [route threshold] hero 0%/100% floor-from 11,8 42% via x-ray occluder dorsal_crest_fin@10,6
+PASS ember-subject 11,6 [route gate-far] hero 33%/97%
+PASS ember-subject 11,5 [route] hero 64%/64% floor-from 11,6 89%
+FAIL ember-subject 11,4 [route] hero 22%/22% floor-from 11,5 84% hero hidden
+PASS ember-subject 10,4 [route exit-step] hero 74%/75% floor-from 11,4 72%
+PASS ember-subject 10,3 [route exit] hero 59%/59% floor-from 10,4 87%
+PASS ember-subject 16,9 [entry] hero 4%/77% via x-ray occluder feathered_flame_flick@13,6
+PASS ember-subject 15,9 [entry-step] hero 77%/87% floor-from 16,9 83%
+PASS ember-subject 9,5 [court] hero 100%/100%
+PASS ember-subject entry landing 16,9 way off to 12,7: visible path 15,9:83% 15,8:18%/37% 15,7:0%/38% 14,7:0%/35% 13,7:53% 12,7:3%/42%
+FAIL ember-subject exit landing 10,3 way off to 11,6: hidden on shortest path 10,4:80% 11,4:81% 11,5:89% 11,6:0%(ramp faces away from the camera)
+ember-subject yaw 225 18/20 pass (7 via x-ray), 2 fail
+== ember-subject yaw 315 (route 15 cells)
+PASS ember-subject 15,12 [spawn route] hero 83%/100%
+PASS ember-subject 15,11 [route] hero 100%/100% floor-from 15,12 100%
+PASS ember-subject 14,11 [route] hero 100%/100% floor-from 15,11 100%
+PASS ember-subject 13,11 [route] hero 100%/100% floor-from 14,11 100%
+PASS ember-subject 12,11 [route] hero 86%/100% floor-from 13,11 74%
+PASS ember-subject 11,11 [route] hero 87%/100% floor-from 12,11 79%
+PASS ember-subject 11,10 [route] hero 100%/100% floor-from 11,11 100%
+PASS ember-subject 11,9 [route] hero 0%/100% floor-from 11,10 100% via x-ray occluder arch@10,10
+PASS ember-subject 11,8 [route] hero 61%/100% floor-from 11,9 67%
+PASS ember-subject 11,7 [route threshold] hero 0%/100% floor-from 11,8 66% via x-ray occluder ember-brimstone-forge-s@8,10
+PASS ember-subject 11,6 [route gate-far] hero 11%/100% via x-ray occluder fence-run-2@10,7
+PASS ember-subject 11,5 [route] hero 92%/100% floor-from 11,6 72%
+PASS ember-subject 11,4 [route] hero 95%/100% floor-from 11,5 93%
+PASS ember-subject 10,4 [route exit-step] hero 8%/100% floor-from 11,4 42% via x-ray occluder dragon_skull_totem@7,5
+PASS ember-subject 10,3 [route exit] hero 2%/56% floor-from 10,4 71% via x-ray occluder dragon_skull_totem@7,5
+PASS ember-subject 16,9 [entry] hero 95%/95%
+PASS ember-subject 15,9 [entry-step] hero 100%/100% floor-from 16,9 99%
+PASS ember-subject 9,5 [court] hero 63%/100%
+PASS ember-subject entry landing 16,9 way off to 12,7: visible path 15,9:99% 15,8:100% 15,7:100% 14,7:100% 13,7:100% 12,7:62%
+FAIL ember-subject exit landing 10,3 way off to 11,6: hidden on shortest path 10,4:42% 11,4:77% 11,5:69% 11,6:8%(fence-run-2@10,7)
+ember-subject yaw 315 19/20 pass (5 via x-ray), 1 fail
+== ember-subject all yaws
+PASS ember-subject 15,12 [spawn route] 45:P 135:P 225:P 315:P
+PASS ember-subject 15,11 [route] 45:P 135:P 225:P 315:P
+PASS ember-subject 14,11 [route] 45:P 135:P 225:P 315:P
+PASS ember-subject 13,11 [route] 45:P 135:P 225:x 315:P
+PASS ember-subject 12,11 [route] 45:P 135:P 225:x 315:P
+PASS ember-subject 11,11 [route] 45:P 135:x 225:x 315:P
+PASS ember-subject 11,10 [route] 45:P 135:P 225:P 315:P
+PASS ember-subject 11,9 [route] 45:x 135:P 225:x 315:x
+PASS ember-subject 11,8 [route] 45:P 135:x 225:x 315:P
+PASS ember-subject 11,7 [route threshold] 45:P 135:x 225:x 315:x
+PASS ember-subject 11,6 [route gate-far] 45:x 135:P 225:P 315:x
+PASS ember-subject 11,5 [route] 45:P 135:P 225:P 315:P
+PASS ember-subject 11,4 [route] 45:x 135:P 225:- 315:P
+PASS ember-subject 10,4 [route exit-step] 45:P 135:P 225:P 315:x
+PASS ember-subject 10,3 [route exit] 45:P 135:P 225:P 315:x
+PASS ember-subject 16,9 [entry] 45:P 135:P 225:x 315:P
+PASS ember-subject 15,9 [entry-step] 45:P 135:P 225:P 315:P
+PASS ember-subject 9,5 [court] 45:P 135:P 225:P 315:P
+PASS ember-subject entry landing 16,9 45:P 135:P 225:P 315:P
+PASS ember-subject exit landing 10,3 45:P 135:- 225:- 315:-
+ember-subject default yaw 45 20/20, reachable with rotation 20/20, warn 0, fail 0
+
+cat-medium yaw 45 18/18
+cat-medium yaw 135 16/18
+cat-medium yaw 225 13/18
+cat-medium yaw 315 18/18
+wizard-medium yaw 45 28/28
+wizard-medium yaw 135 27/28
+wizard-medium yaw 225 25/28
+wizard-medium yaw 315 27/28
+swallow-medium yaw 45 31/31
+swallow-medium yaw 135 30/31
+swallow-medium yaw 225 29/31
+swallow-medium yaw 315 30/31
+forest-volute yaw 45 19/19
+forest-volute yaw 135 18/19
+forest-volute yaw 225 15/19
+forest-volute yaw 315 17/19
+mindbloom-medium yaw 45 21/21
+mindbloom-medium yaw 135 18/21
+mindbloom-medium yaw 225 17/21
+mindbloom-medium yaw 315 21/21
+cosmos-frisket yaw 45 25/25
+cosmos-frisket yaw 135 21/25
+cosmos-frisket yaw 225 19/25
+cosmos-frisket yaw 315 24/25
+gremlin-subject yaw 45 25/25
+gremlin-subject yaw 135 24/25
+gremlin-subject yaw 225 20/25
+gremlin-subject yaw 315 23/25
+eagle-composition yaw 45 23/23
+eagle-composition yaw 135 23/23
+eagle-composition yaw 225 20/23
+eagle-composition yaw 315 21/23
+dragon-medium yaw 45 24/24
+dragon-medium yaw 135 23/24
+dragon-medium yaw 225 23/24
+dragon-medium yaw 315 24/24
+sharkbear-medium yaw 45 21/21
+sharkbear-medium yaw 135 19/21
+sharkbear-medium yaw 225 18/21
+sharkbear-medium yaw 315 20/21
+chimera-medium yaw 45 21/21
+chimera-medium yaw 135 19/21
+chimera-medium yaw 225 19/21
+chimera-medium yaw 315 20/21
+ember-subject yaw 45 20/20
+ember-subject yaw 135 19/20
+ember-subject yaw 225 18/20
+ember-subject yaw 315 19/20
+
+with rotation (default yaw / any yaw):
+cat-medium 18/18 -> 18/18 warn 0 fail 0
+wizard-medium 28/28 -> 28/28 warn 0 fail 0
+swallow-medium 31/31 -> 31/31 warn 0 fail 0
+forest-volute 19/19 -> 19/19 warn 0 fail 0
+mindbloom-medium 21/21 -> 21/21 warn 0 fail 0
+cosmos-frisket 25/25 -> 25/25 warn 0 fail 0
+gremlin-subject 25/25 -> 25/25 warn 0 fail 0
+eagle-composition 23/23 -> 23/23 warn 0 fail 0
+dragon-medium 24/24 -> 24/24 warn 0 fail 0
+sharkbear-medium 21/21 -> 21/21 warn 0 fail 0
+chimera-medium 21/21 -> 21/21 warn 0 fail 0
+ember-subject 20/20 -> 20/20 warn 0 fail 0
+TOTAL default 276/276, reachable with rotation 276/276, warn 0, fail 0

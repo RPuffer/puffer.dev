@@ -1,0 +1,16 @@
+PASS first entry stub cat-medium  "The way back is sealed" at 11,14
+PASS hop cat-medium -> wizard-medium  15 steps through gate g1, landed on entry 4,15
+PASS hop wizard-medium -> swallow-medium  27 steps through gate g1, landed on entry 6,13
+PASS hop swallow-medium -> forest-volute  31 steps through gate g1, landed on entry 17,9
+PASS hop forest-volute -> mindbloom-medium  19 steps through gate g1, landed on entry 10,15
+PASS hop mindbloom-medium -> cosmos-frisket  15 steps through gate g1, landed on entry 12,15
+PASS hop cosmos-frisket -> gremlin-subject  17 steps through gate g1, landed on entry 16,9
+PASS hop gremlin-subject -> eagle-composition  19 steps through gate g1, landed on entry 16,9
+PASS hop eagle-composition -> dragon-medium  19 steps through gate g1, landed on entry 4,14
+PASS hop dragon-medium -> sharkbear-medium  21 steps through gate g1, landed on entry 15,15
+PASS hop sharkbear-medium -> chimera-medium  18 steps through gate g1, landed on entry 13,15
+PASS hop chimera-medium -> ember-subject  19 steps through gate g1, landed on entry 16,9
+PASS last exit stub ember-subject  "The shaft goes no higher yet" at 10,3
+PASS back ember-subject -> chimera-medium  landed on exit 5,4
+
+14 pass, 0 fail, 0 skip

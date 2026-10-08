@@ -1,0 +1,44 @@
+PASS loads with reset
+PASS five kinds present bonfire@5,10 chest@7,10 watcher@13,5 gate@9,8 elevator@14,2 elevator@6,13
+PASS fresh state spawns at the file spawn 5,7
+PASS fresh state: things closed unlit,closed,idle,closed,idle,idle
+PASS elevators report their role e1 exit@14,2 e0 entry@6,13
+PASS gate is an edge gate 9,9 | 9,8
+PASS closed gate blocks crossing 9,9 -> 9,8
+PASS closed edge leaves both cells walkable 9,9 9,8
+PASS closed gate cannot be bypassed 9,8 unreachable from spawn
+PASS gate bars drawn on the edge 9.5,9 vs 9.5,9
+draw calls at 900x800: 30
+entry e0 at 6,13 rides back to wizard-medium
+PASS prompt beside the bonfire "FLight the bonfire" at 6,9
+PASS E lights the bonfire lit
+PASS bonfire toast "Bonfire lit"
+PASS bonfire flame part shows
+PASS prompt beside the chest "FOpen the chest" at 7,9
+PASS Enter opens the chest open
+PASS chest toast "A parchment feather, swept loose from the windward crest."
+PASS chest lid swung back -1.95
+PASS chest stays open
+PASS watcher idle before the threshold look 0.00
+PASS hero on the threshold 9,9
+PASS watcher turns to face the hero look 1.00, head moved no live head part
+no live head part: crest check skipped
+PASS gate opens at the threshold open
+PASS open gate lets the hero cross
+PASS gate bars lifted 1
+PASS walks through the gate to the elevator 14,2
+PASS prompt on the elevator "FRide the lift"
+PASS page clean before the ride
+PASS E starts the ride rising
+PASS exit rides forward to forest-volute /3d/index.html?level=forest-volute&from=swallow-medium&arrive=entry
+PASS next island loads forest-volute
+PASS hero lands on the next island's entry platform 17,9 vs entry 17,9
+PASS reload keeps state {"b1":"lit","c1":"open","w1":"idle","g1":"open","e1":"idle","e0":"idle"}
+PASS reload respawns at the bonfire 6,9 vs 6,9
+PASS open gate stays passable after reload
+PASS ?reset=1 clears state bonfire:unlit,chest:closed,gate:closed,elevator:idle,elevator:idle
+PASS tap on the bonfire walks over and lights it from 9,9 to 6,11
+PASS watcher returns to its pose when the hero leaves look 0.99 at the threshold, 0.00 at the bonfire
+PASS page clean after reset
+
+39 pass, 0 fail

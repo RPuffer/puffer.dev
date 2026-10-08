@@ -1,0 +1,15 @@
+PASS cat-medium -> wizard-medium  entry key n, tap 11,13; bonfire lit; through g1; exit key e, tap 2,9; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, wiggle (hold wiggle), zoom 1.000; back and forward unlocked
+PASS wizard-medium -> swallow-medium  entry key n, tap 4,14; bonfire lit; through g1; exit key s, tap 12,5; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, spin (hold spin), zoom 1.000; back and forward unlocked
+PASS swallow-medium -> forest-volute  entry key n, tap 6,12; bonfire lit; through g1; exit key s, tap 14,3; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, pump (hold pump), zoom 1.000; back and forward unlocked
+PASS forest-volute -> mindbloom-medium  entry key w, tap 16,9; bonfire lit; through g1; exit key s, tap 10,4; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, wiggle (hold wiggle), zoom 1.000; back and forward unlocked
+PASS mindbloom-medium -> cosmos-frisket  entry key n, tap 10,14; bonfire lit; exit key s, tap 6,5; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, spin (hold spin), zoom 1.000; back and forward unlocked
+PASS cosmos-frisket -> gremlin-subject  entry key n, tap 12,14; bonfire lit; through g1; exit key e, tap 5,10; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, pump (hold pump), zoom 1.000; back and forward unlocked
+PASS gremlin-subject -> eagle-composition  entry key w, tap 15,9; bonfire lit; through g1; exit key s, tap 6,3; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, wiggle (hold wiggle), zoom 1.000; back and forward unlocked
+PASS eagle-composition -> dragon-medium  entry key w, tap 15,9; bonfire lit; through g1; exit key s, tap 10,3; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, spin (hold spin), zoom 1.000; back and forward unlocked
+PASS dragon-medium -> sharkbear-medium  entry key n, tap 4,13; bonfire lit; through g1; exit key s, tap 15,5; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, pump (hold pump), zoom 1.000; back and forward unlocked
+PASS sharkbear-medium -> chimera-medium  entry key n, tap 15,14; bonfire lit; through g1; exit key s, tap 8,5; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, wiggle (hold wiggle), zoom 1.000; back and forward unlocked
+PASS chimera-medium -> ember-subject  entry key n, tap 13,14; bonfire lit; through g1; exit key s, tap 5,5; close 0.00, dance 0.30, drop 1.62, hold 2.83, brace 4.65, arrive 5.17, land 6.58, spin (hold spin), zoom 1.000; back and forward unlocked
+PASS ember-subject (last)  entry key w, tap 15,9; bonfire lit; through g1; exit key s, tap 10,4
+PASS touch cat-medium 400x800  prompt "Light the bonfire" above the button, tap on it left the bonfire lit
+
+13 pass, 0 fail

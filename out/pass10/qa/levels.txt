@@ -1,0 +1,242 @@
+PASS  lvl-cat-medium __done within 15 s  2225 ms
+PASS  lvl-cat-medium spawns at level file spawn  9,13 vs 9,13
+PASS  lvl-cat-medium KeyW steps as canStep predicts  9,13 -> 9,13 (expect 9,13)
+PASS  lvl-cat-medium KeyD steps as canStep predicts  9,13 -> 10,13 (expect 10,13)
+PASS  lvl-cat-medium KeyS steps as canStep predicts  10,13 -> 10,13 (expect 10,13)
+PASS  lvl-cat-medium KeyA steps as canStep predicts  10,13 -> 9,13 (expect 9,13)
+PASS  lvl-cat-medium tap walks to 7,14  7,14
+PASS  lvl-cat-medium no console errors or failed requests
+PASS  lvl-cat-medium ramp climb 9,13 (h1) -> 3,11 (h2) (via gate)  KeyA:8,13 KeyA:7,13 KeyA:6,13 KeyA:5,13 KeyW:5,12 KeyA:4,12 KeyA:3,12 KeyW:3,11
+PASS  lvl-cat-medium ramp climb page clean
+PASS  lvl-cat-medium see-through window reveals hero at 5,12 behind chromatic-plinth 6,12  833 px differ window on/off
+PASS  lvl-cat-medium x-ray page clean
+PASS  lvl-cat-medium touch tap at 400x800 walks to 10,13  10,13
+PASS  lvl-cat-medium touch page clean
+PASS  lvl-cat-medium shaft tops off frame at 900x800 arrive=entry  e1 ndc y 2.834 e0 (arrival, top 0 off its tile) ndc y -0.57
+PASS  lvl-cat-medium shaft tops off frame at 400x800 arrive=entry  e1 ndc y 1.574 e0 (arrival, top 0 off its tile) ndc y -0.317
+PASS  lvl-cat-medium shaft tops off frame at 1600x900 arrive=entry  e1 ndc y 2.834 e0 (arrival, top 0 off its tile) ndc y -0.57
+PASS  lvl-cat-medium shaft tops off frame at 900x800 arrive=exit  e1 ndc y 2.834 e0 (arrival, top 0 off its tile) ndc y -0.57
+PASS  lvl-cat-medium shaft tops off frame at 400x800 arrive=exit  e1 ndc y 1.574 e0 (arrival, top 0 off its tile) ndc y -0.317
+PASS  lvl-cat-medium shaft tops off frame at 1600x900 arrive=exit  e1 ndc y 2.834 e0 (arrival, top 0 off its tile) ndc y -0.57
+PASS  lvl-wizard-medium __done within 15 s  767 ms
+PASS  lvl-wizard-medium spawns at level file spawn  3,9 vs 3,9
+PASS  lvl-wizard-medium KeyW steps as canStep predicts  3,9 -> 3,8 (expect 3,8)
+PASS  lvl-wizard-medium KeyD steps as canStep predicts  3,8 -> 3,8 (expect 3,8)
+PASS  lvl-wizard-medium KeyS steps as canStep predicts  3,8 -> 3,9 (expect 3,9)
+PASS  lvl-wizard-medium KeyA steps as canStep predicts  3,9 -> 3,9 (expect 3,9)
+PASS  lvl-wizard-medium tap walks to 4,12  4,12
+PASS  lvl-wizard-medium no console errors or failed requests
+PASS  lvl-wizard-medium ramp climb 3,9 (h2) -> 5,9 (h3)  KeyD:4,9 KeyS:4,10 KeyD:5,10 KeyW:5,9
+PASS  lvl-wizard-medium ramp climb page clean
+PASS  lvl-wizard-medium see-through window reveals hero at 5,9 behind star-doodle-totem 6,10  3258 px differ window on/off
+PASS  lvl-wizard-medium x-ray page clean
+PASS  lvl-wizard-medium touch tap at 400x800 walks to 3,8  3,8
+PASS  lvl-wizard-medium touch page clean
+PASS  lvl-wizard-medium shaft tops off frame at 900x800 arrive=entry  e1 ndc y 1.967 e0 (arrival, top 0 off its tile) ndc y -0.356
+PASS  lvl-wizard-medium shaft tops off frame at 400x800 arrive=entry  e1 ndc y 1.093 e0 (arrival, top 0 off its tile) ndc y -0.198
+PASS  lvl-wizard-medium shaft tops off frame at 1600x900 arrive=entry  e1 ndc y 1.967 e0 (arrival, top 0 off its tile) ndc y -0.356
+PASS  lvl-wizard-medium shaft tops off frame at 900x800 arrive=exit  e1 ndc y 1.967 e0 (arrival, top 0 off its tile) ndc y -0.356
+PASS  lvl-wizard-medium shaft tops off frame at 400x800 arrive=exit  e1 ndc y 1.093 e0 (arrival, top 0 off its tile) ndc y -0.198
+PASS  lvl-wizard-medium shaft tops off frame at 1600x900 arrive=exit  e1 ndc y 1.967 e0 (arrival, top 0 off its tile) ndc y -0.356
+PASS  lvl-swallow-medium __done within 15 s  706 ms
+PASS  lvl-swallow-medium spawns at level file spawn  5,7 vs 5,7
+PASS  lvl-swallow-medium KeyW steps as canStep predicts  5,7 -> 5,6 (expect 5,6)
+PASS  lvl-swallow-medium KeyD steps as canStep predicts  5,6 -> 5,6 (expect 5,6)
+PASS  lvl-swallow-medium KeyS steps as canStep predicts  5,6 -> 5,7 (expect 5,7)
+PASS  lvl-swallow-medium KeyA steps as canStep predicts  5,7 -> 5,7 (expect 5,7)
+PASS  lvl-swallow-medium tap walks to 7,9  7,9
+PASS  lvl-swallow-medium no console errors or failed requests
+PASS  lvl-swallow-medium ramp climb 5,7 (h2) -> 8,10 (h3)  KeyD:6,7 KeyS:6,8 KeyS:6,9 KeyS:6,10 KeyS:6,11 KeyD:7,11 KeyD:8,11 KeyW:8,10
+PASS  lvl-swallow-medium ramp climb page clean
+PASS  lvl-swallow-medium see-through window reveals hero at 8,9 behind arc-ribbon-pylon 9,10  2705 px differ window on/off
+PASS  lvl-swallow-medium x-ray page clean
+PASS  lvl-swallow-medium touch tap at 400x800 walks to 5,6  5,6
+PASS  lvl-swallow-medium touch page clean
+PASS  lvl-swallow-medium shaft tops off frame at 900x800 arrive=entry  e1 ndc y 2.566 e0 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-swallow-medium shaft tops off frame at 400x800 arrive=entry  e1 ndc y 1.401 e0 (arrival, top 0 off its tile) ndc y -0.213
+PASS  lvl-swallow-medium shaft tops off frame at 1600x900 arrive=entry  e1 ndc y 2.566 e0 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-swallow-medium shaft tops off frame at 900x800 arrive=exit  e1 ndc y 2.566 e0 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-swallow-medium shaft tops off frame at 400x800 arrive=exit  e1 ndc y 1.401 e0 (arrival, top 0 off its tile) ndc y -0.213
+PASS  lvl-swallow-medium shaft tops off frame at 1600x900 arrive=exit  e1 ndc y 2.566 e0 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-forest-volute __done within 15 s  735 ms
+PASS  lvl-forest-volute spawns at level file spawn  15,12 vs 15,12
+PASS  lvl-forest-volute KeyW steps as canStep predicts  15,12 -> 15,11 (expect 15,11)
+PASS  lvl-forest-volute KeyD steps as canStep predicts  15,11 -> 15,11 (expect 15,11)
+PASS  lvl-forest-volute KeyS steps as canStep predicts  15,11 -> 15,12 (expect 15,12)
+PASS  lvl-forest-volute KeyA steps as canStep predicts  15,12 -> 14,12 (expect 14,12)
+PASS  lvl-forest-volute tap walks to 15,9  15,9
+PASS  lvl-forest-volute no console errors or failed requests
+PASS  lvl-forest-volute ramp climb 15,12 (h1) -> 12,9 (h2)  KeyA:14,12 KeyA:13,12 KeyA:12,12 KeyW:12,11 KeyW:12,10 KeyW:12,9
+PASS  lvl-forest-volute ramp climb page clean
+PASS  lvl-forest-volute see-through window reveals hero at 8,11 behind canopy-tree-small 9,12  2875 px differ window on/off
+PASS  lvl-forest-volute x-ray page clean
+PASS  lvl-forest-volute touch tap at 400x800 walks to 15,11  15,11
+PASS  lvl-forest-volute touch page clean
+PASS  lvl-forest-volute shaft tops off frame at 900x800 arrive=entry  e2 ndc y 2.741 e1 (arrival, top 0 off its tile) ndc y -0.566
+PASS  lvl-forest-volute shaft tops off frame at 400x800 arrive=entry  e2 ndc y 1.467 e1 (arrival, top 0 off its tile) ndc y -0.371
+PASS  lvl-forest-volute shaft tops off frame at 1600x900 arrive=entry  e2 ndc y 2.741 e1 (arrival, top 0 off its tile) ndc y -0.566
+PASS  lvl-forest-volute shaft tops off frame at 900x800 arrive=exit  e2 ndc y 2.539 e1 (arrival, top 0 off its tile) ndc y -0.769
+PASS  lvl-forest-volute shaft tops off frame at 400x800 arrive=exit  e2 ndc y 1.467 e1 (arrival, top 0 off its tile) ndc y -0.371
+PASS  lvl-forest-volute shaft tops off frame at 1600x900 arrive=exit  e2 ndc y 2.539 e1 (arrival, top 0 off its tile) ndc y -0.769
+PASS  lvl-mindbloom-medium __done within 15 s  805 ms
+PASS  lvl-mindbloom-medium spawns at level file spawn  13,13 vs 13,13
+PASS  lvl-mindbloom-medium KeyW steps as canStep predicts  13,13 -> 13,12 (expect 13,12)
+PASS  lvl-mindbloom-medium KeyD steps as canStep predicts  13,12 -> 13,12 (expect 13,12)
+PASS  lvl-mindbloom-medium KeyS steps as canStep predicts  13,12 -> 13,13 (expect 13,13)
+PASS  lvl-mindbloom-medium KeyA steps as canStep predicts  13,13 -> 13,13 (expect 13,13)
+PASS  lvl-mindbloom-medium tap walks to 12,14  12,14
+PASS  lvl-mindbloom-medium no console errors or failed requests
+PASS  lvl-mindbloom-medium ramp climb 13,13 (h1) -> 8,11 (h2)  KeyW:13,12 KeyA:12,12 KeyA:11,12 KeyA:10,12 KeyA:9,12 KeyA:8,12 KeyW:8,11
+PASS  lvl-mindbloom-medium ramp climb page clean
+PASS  lvl-mindbloom-medium see-through window reveals hero at 6,12 behind helix-tree 7,13  2718 px differ window on/off
+PASS  lvl-mindbloom-medium x-ray page clean
+PASS  lvl-mindbloom-medium touch tap at 400x800 walks to 13,12  13,12
+PASS  lvl-mindbloom-medium touch page clean
+PASS  lvl-mindbloom-medium shaft tops off frame at 900x800 arrive=entry  e2 ndc y 2.982 e1 (arrival, top 0 off its tile) ndc y -0.548
+PASS  lvl-mindbloom-medium shaft tops off frame at 400x800 arrive=entry  e2 ndc y 1.621 e1 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-mindbloom-medium shaft tops off frame at 1600x900 arrive=entry  e2 ndc y 2.982 e1 (arrival, top 0 off its tile) ndc y -0.548
+PASS  lvl-mindbloom-medium shaft tops off frame at 900x800 arrive=exit  e2 ndc y 2.853 e1 (arrival, top 0 off its tile) ndc y -0.676
+PASS  lvl-mindbloom-medium shaft tops off frame at 400x800 arrive=exit  e2 ndc y 1.621 e1 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-mindbloom-medium shaft tops off frame at 1600x900 arrive=exit  e2 ndc y 2.853 e1 (arrival, top 0 off its tile) ndc y -0.676
+PASS  lvl-cosmos-frisket __done within 15 s  760 ms
+PASS  lvl-cosmos-frisket spawns at level file spawn  8,14 vs 8,14
+PASS  lvl-cosmos-frisket KeyW steps as canStep predicts  8,14 -> 8,13 (expect 8,13)
+PASS  lvl-cosmos-frisket KeyD steps as canStep predicts  8,13 -> 9,13 (expect 9,13)
+PASS  lvl-cosmos-frisket KeyS steps as canStep predicts  9,13 -> 9,13 (expect 9,13)
+PASS  lvl-cosmos-frisket KeyA steps as canStep predicts  9,13 -> 8,13 (expect 8,13)
+PASS  lvl-cosmos-frisket tap walks to 11,14  11,14
+PASS  lvl-cosmos-frisket no console errors or failed requests
+PASS  lvl-cosmos-frisket ramp climb 8,14 (h1) -> 14,7 (h3)  KeyW:8,13 KeyD:9,13 KeyD:10,13 KeyS:10,14 KeyD:11,14 KeyW:11,13 KeyW:11,12 KeyW:11,11 KeyD:12,11 KeyD:13,11 KeyD:14,11 KeyW:14,10 KeyD:15,10 KeyW:15,9 KeyW:15,8 KeyW:15,7 KeyA:14,7
+PASS  lvl-cosmos-frisket ramp climb page clean
+PASS  lvl-cosmos-frisket see-through window reveals hero at 12,11 behind frisket-arch 13,12  2850 px differ window on/off
+PASS  lvl-cosmos-frisket x-ray page clean
+PASS  lvl-cosmos-frisket touch tap at 400x800 walks to 8,13  8,13
+PASS  lvl-cosmos-frisket touch page clean
+PASS  lvl-cosmos-frisket shaft tops off frame at 900x800 arrive=entry  e2 ndc y 3.116 e1 (arrival, top 0 off its tile) ndc y -0.507
+PASS  lvl-cosmos-frisket shaft tops off frame at 400x800 arrive=entry  e2 ndc y 1.616 e1 (arrival, top 0 off its tile) ndc y -0.396
+PASS  lvl-cosmos-frisket shaft tops off frame at 1600x900 arrive=entry  e2 ndc y 3.116 e1 (arrival, top 0 off its tile) ndc y -0.507
+PASS  lvl-cosmos-frisket shaft tops off frame at 900x800 arrive=exit  e2 ndc y 2.823 e1 (arrival, top 0 off its tile) ndc y -0.799
+PASS  lvl-cosmos-frisket shaft tops off frame at 400x800 arrive=exit  e2 ndc y 1.616 e1 (arrival, top 0 off its tile) ndc y -0.396
+PASS  lvl-cosmos-frisket shaft tops off frame at 1600x900 arrive=exit  e2 ndc y 2.823 e1 (arrival, top 0 off its tile) ndc y -0.799
+PASS  lvl-gremlin-subject __done within 15 s  747 ms
+PASS  lvl-gremlin-subject spawns at level file spawn  15,11 vs 15,11
+PASS  lvl-gremlin-subject KeyW steps as canStep predicts  15,11 -> 15,10 (expect 15,10)
+PASS  lvl-gremlin-subject KeyD steps as canStep predicts  15,10 -> 15,10 (expect 15,10)
+PASS  lvl-gremlin-subject KeyS steps as canStep predicts  15,10 -> 15,11 (expect 15,11)
+PASS  lvl-gremlin-subject KeyA steps as canStep predicts  15,11 -> 15,11 (expect 15,11)
+PASS  lvl-gremlin-subject tap walks to 14,9  14,9
+PASS  lvl-gremlin-subject no console errors or failed requests
+PASS  lvl-gremlin-subject ramp climb 15,11 (h1) -> 9,3 (h3) (via gate)  KeyW:15,10 KeyW:15,9 KeyA:14,9 KeyA:13,9 KeyA:12,9 KeyW:12,8 KeyA:11,8 KeyW:11,7 KeyW:11,6 KeyA:10,6 KeyW:10,5 KeyW:10,4 KeyW:10,3 KeyA:9,3
+PASS  lvl-gremlin-subject ramp climb page clean
+PASS  lvl-gremlin-subject see-through window reveals hero at 13,9 behind umbilical-rib-pylon 13,10  2332 px differ window on/off
+PASS  lvl-gremlin-subject x-ray page clean
+PASS  lvl-gremlin-subject touch tap at 400x800 walks to 15,10  15,10
+PASS  lvl-gremlin-subject touch page clean
+PASS  lvl-gremlin-subject shaft tops off frame at 900x800 arrive=entry  e2 ndc y 3.206 e1 (arrival, top 0 off its tile) ndc y -0.597
+PASS  lvl-gremlin-subject shaft tops off frame at 400x800 arrive=entry  e2 ndc y 1.717 e1 (arrival, top 0 off its tile) ndc y -0.396
+PASS  lvl-gremlin-subject shaft tops off frame at 1600x900 arrive=entry  e2 ndc y 3.206 e1 (arrival, top 0 off its tile) ndc y -0.597
+PASS  lvl-gremlin-subject shaft tops off frame at 900x800 arrive=exit  e2 ndc y 2.975 e1 (arrival, top 0 off its tile) ndc y -0.828
+PASS  lvl-gremlin-subject shaft tops off frame at 400x800 arrive=exit  e2 ndc y 1.717 e1 (arrival, top 0 off its tile) ndc y -0.396
+PASS  lvl-gremlin-subject shaft tops off frame at 1600x900 arrive=exit  e2 ndc y 2.975 e1 (arrival, top 0 off its tile) ndc y -0.828
+PASS  lvl-eagle-composition __done within 15 s  759 ms
+PASS  lvl-eagle-composition spawns at level file spawn  15,11 vs 15,11
+PASS  lvl-eagle-composition KeyW steps as canStep predicts  15,11 -> 15,10 (expect 15,10)
+PASS  lvl-eagle-composition KeyD steps as canStep predicts  15,10 -> 15,10 (expect 15,10)
+PASS  lvl-eagle-composition KeyS steps as canStep predicts  15,10 -> 15,11 (expect 15,11)
+PASS  lvl-eagle-composition KeyA steps as canStep predicts  15,11 -> 15,11 (expect 15,11)
+PASS  lvl-eagle-composition tap walks to 13,11  13,11
+PASS  lvl-eagle-composition no console errors or failed requests
+PASS  lvl-eagle-composition ramp climb 15,11 (h1) -> 12,3 (h3) (via gate)  KeyW:15,10 KeyA:14,10 KeyA:13,10 KeyA:12,10 KeyA:11,10 KeyW:11,9 KeyW:11,8 KeyW:11,7 KeyW:11,6 KeyW:11,5 KeyW:11,4 KeyD:12,4 KeyD:13,4 KeyW:13,3 KeyA:12,3
+PASS  lvl-eagle-composition ramp climb page clean
+PASS  lvl-eagle-composition see-through window reveals hero at 7,10 behind watchtower 8,11  4502 px differ window on/off
+PASS  lvl-eagle-composition x-ray page clean
+PASS  lvl-eagle-composition touch tap at 400x800 walks to 15,10  15,10
+PASS  lvl-eagle-composition touch page clean
+PASS  lvl-eagle-composition shaft tops off frame at 900x800 arrive=entry  e2 ndc y 3.116 e1 (arrival, top 0 off its tile) ndc y -0.643
+PASS  lvl-eagle-composition shaft tops off frame at 400x800 arrive=entry  e2 ndc y 1.679 e1 (arrival, top 0 off its tile) ndc y -0.409
+PASS  lvl-eagle-composition shaft tops off frame at 1600x900 arrive=entry  e2 ndc y 3.116 e1 (arrival, top 0 off its tile) ndc y -0.643
+PASS  lvl-eagle-composition shaft tops off frame at 900x800 arrive=exit  e2 ndc y 2.93 e1 (arrival, top 0 off its tile) ndc y -0.828
+PASS  lvl-eagle-composition shaft tops off frame at 400x800 arrive=exit  e2 ndc y 1.679 e1 (arrival, top 0 off its tile) ndc y -0.409
+PASS  lvl-eagle-composition shaft tops off frame at 1600x900 arrive=exit  e2 ndc y 2.93 e1 (arrival, top 0 off its tile) ndc y -0.828
+PASS  lvl-dragon-medium __done within 15 s  801 ms
+PASS  lvl-dragon-medium spawns at level file spawn  6,14 vs 6,14
+PASS  lvl-dragon-medium KeyW steps as canStep predicts  6,14 -> 6,13 (expect 6,13)
+PASS  lvl-dragon-medium KeyD steps as canStep predicts  6,13 -> 7,13 (expect 7,13)
+PASS  lvl-dragon-medium KeyS steps as canStep predicts  7,13 -> 7,14 (expect 7,14)
+PASS  lvl-dragon-medium KeyA steps as canStep predicts  7,14 -> 6,14 (expect 6,14)
+PASS  lvl-dragon-medium tap walks to 9,13  9,13
+PASS  lvl-dragon-medium no console errors or failed requests
+PASS  lvl-dragon-medium ramp climb 6,14 (h1) -> 14,5 (h3) (via gate)  KeyW:6,13 KeyD:7,13 KeyD:8,13 KeyD:9,13 KeyD:10,13 KeyD:11,13 KeyD:12,13 KeyD:13,13 KeyW:13,12 KeyW:13,11 KeyW:13,10 KeyW:13,9 KeyW:13,8 KeyW:13,7 KeyW:13,6 KeyD:14,6 KeyD:15,6 KeyW:15,5 KeyA:14,5
+PASS  lvl-dragon-medium ramp climb page clean
+PASS  lvl-dragon-medium see-through window reveals hero at 4,10 behind watchtower 5,11  3732 px differ window on/off
+PASS  lvl-dragon-medium x-ray page clean
+PASS  lvl-dragon-medium touch tap at 400x800 walks to 6,13  6,13
+PASS  lvl-dragon-medium touch page clean
+PASS  lvl-dragon-medium shaft tops off frame at 900x800 arrive=entry  e1 ndc y 2.291 e0 (arrival, top 0 off its tile) ndc y -0.237
+PASS  lvl-dragon-medium shaft tops off frame at 400x800 arrive=entry  e1 ndc y 1.261 e0 (arrival, top 0 off its tile) ndc y -0.143
+PASS  lvl-dragon-medium shaft tops off frame at 1600x900 arrive=entry  e1 ndc y 2.291 e0 (arrival, top 0 off its tile) ndc y -0.237
+PASS  lvl-dragon-medium shaft tops off frame at 900x800 arrive=exit  e1 ndc y 2.291 e0 (arrival, top 0 off its tile) ndc y -0.237
+PASS  lvl-dragon-medium shaft tops off frame at 400x800 arrive=exit  e1 ndc y 1.261 e0 (arrival, top 0 off its tile) ndc y -0.143
+PASS  lvl-dragon-medium shaft tops off frame at 1600x900 arrive=exit  e1 ndc y 2.291 e0 (arrival, top 0 off its tile) ndc y -0.237
+PASS  lvl-sharkbear-medium __done within 15 s  733 ms
+PASS  lvl-sharkbear-medium spawns at level file spawn  15,14 vs 15,14
+PASS  lvl-sharkbear-medium KeyW steps as canStep predicts  15,14 -> 15,14 (expect 15,14)
+PASS  lvl-sharkbear-medium KeyD steps as canStep predicts  15,14 -> 16,14 (expect 16,14)
+PASS  lvl-sharkbear-medium KeyS steps as canStep predicts  16,14 -> 16,14 (expect 16,14)
+PASS  lvl-sharkbear-medium KeyA steps as canStep predicts  16,14 -> 15,14 (expect 15,14)
+PASS  lvl-sharkbear-medium tap walks to 17,13  17,13
+PASS  lvl-sharkbear-medium no console errors or failed requests
+PASS  lvl-sharkbear-medium ramp climb 15,14 (h1) -> 16,12 (h3)  KeyD:16,14 KeyD:17,14 KeyD:18,14 KeyW:18,13 KeyA:17,13 KeyA:16,13 KeyW:16,12
+PASS  lvl-sharkbear-medium ramp climb page clean
+SKIP  lvl-sharkbear-medium see-through window  no walkable cell within two rings behind a tall, multi-cell, or figure piece in 26 cells reachable with gates closed (pieces: selachian-ursine-stalker@9,8 sharkbear-shard-watchtower@5,5)
+PASS  lvl-sharkbear-medium touch tap at 400x800 walks to 16,14  16,14
+PASS  lvl-sharkbear-medium touch page clean
+PASS  lvl-sharkbear-medium shaft tops off frame at 900x800 arrive=entry  e1 ndc y 2.898 e0 (arrival, top 0 off its tile) ndc y -0.631
+PASS  lvl-sharkbear-medium shaft tops off frame at 400x800 arrive=entry  e1 ndc y 1.505 e0 (arrival, top 0 off its tile) ndc y -0.456
+PASS  lvl-sharkbear-medium shaft tops off frame at 1600x900 arrive=entry  e1 ndc y 2.898 e0 (arrival, top 0 off its tile) ndc y -0.631
+PASS  lvl-sharkbear-medium shaft tops off frame at 900x800 arrive=exit  e1 ndc y 2.589 e0 (arrival, top 0 off its tile) ndc y -0.94
+PASS  lvl-sharkbear-medium shaft tops off frame at 400x800 arrive=exit  e1 ndc y 1.505 e0 (arrival, top 0 off its tile) ndc y -0.456
+PASS  lvl-sharkbear-medium shaft tops off frame at 1600x900 arrive=exit  e1 ndc y 2.589 e0 (arrival, top 0 off its tile) ndc y -0.94
+PASS  lvl-chimera-medium __done within 15 s  732 ms
+PASS  lvl-chimera-medium spawns at level file spawn  11,14 vs 11,14
+PASS  lvl-chimera-medium KeyW steps as canStep predicts  11,14 -> 11,14 (expect 11,14)
+PASS  lvl-chimera-medium KeyD steps as canStep predicts  11,14 -> 12,14 (expect 12,14)
+PASS  lvl-chimera-medium KeyS steps as canStep predicts  12,14 -> 12,14 (expect 12,14)
+PASS  lvl-chimera-medium KeyA steps as canStep predicts  12,14 -> 11,14 (expect 11,14)
+PASS  lvl-chimera-medium tap walks to 9,15  9,15
+PASS  lvl-chimera-medium no console errors or failed requests
+PASS  lvl-chimera-medium ramp climb 11,14 (h1) -> 9,2 (h3)  KeyD:12,14 KeyD:13,14 KeyD:14,14 KeyW:14,13 KeyW:14,12 KeyW:14,11 KeyW:14,10 KeyW:14,9 KeyW:14,8 KeyA:13,8 KeyA:12,8 KeyW:12,7 KeyW:12,6 KeyW:12,5 KeyA:11,5 KeyA:10,5 KeyA:9,5 KeyW:9,4 KeyW:9,3 KeyW:9,2
+PASS  lvl-chimera-medium ramp climb page clean
+PASS  lvl-chimera-medium see-through window reveals hero at 12,5 behind watchtower 13,6  3687 px differ window on/off
+PASS  lvl-chimera-medium x-ray page clean
+PASS  lvl-chimera-medium touch tap at 400x800 walks to 12,14  12,14
+PASS  lvl-chimera-medium touch page clean
+PASS  lvl-chimera-medium shaft tops off frame at 900x800 arrive=entry  e1 ndc y 2.616 e0 (arrival, top 0 off its tile) ndc y -0.68
+PASS  lvl-chimera-medium shaft tops off frame at 400x800 arrive=entry  e1 ndc y 1.453 e0 (arrival, top 0 off its tile) ndc y -0.378
+PASS  lvl-chimera-medium shaft tops off frame at 1600x900 arrive=entry  e1 ndc y 2.616 e0 (arrival, top 0 off its tile) ndc y -0.68
+PASS  lvl-chimera-medium shaft tops off frame at 900x800 arrive=exit  e1 ndc y 2.616 e0 (arrival, top 0 off its tile) ndc y -0.68
+PASS  lvl-chimera-medium shaft tops off frame at 400x800 arrive=exit  e1 ndc y 1.453 e0 (arrival, top 0 off its tile) ndc y -0.378
+PASS  lvl-chimera-medium shaft tops off frame at 1600x900 arrive=exit  e1 ndc y 2.616 e0 (arrival, top 0 off its tile) ndc y -0.68
+PASS  lvl-ember-subject __done within 15 s  796 ms
+PASS  lvl-ember-subject spawns at level file spawn  15,12 vs 15,12
+PASS  lvl-ember-subject KeyW steps as canStep predicts  15,12 -> 15,11 (expect 15,11)
+PASS  lvl-ember-subject KeyD steps as canStep predicts  15,11 -> 15,11 (expect 15,11)
+PASS  lvl-ember-subject KeyS steps as canStep predicts  15,11 -> 15,12 (expect 15,12)
+PASS  lvl-ember-subject KeyA steps as canStep predicts  15,12 -> 15,12 (expect 15,12)
+PASS  lvl-ember-subject tap walks to 12,13  12,13
+PASS  lvl-ember-subject no console errors or failed requests
+PASS  lvl-ember-subject ramp climb 15,12 (h1) -> 14,6 (h2)  KeyW:15,11 KeyA:14,11 KeyA:13,11 KeyA:12,11 KeyA:11,11 KeyW:11,10 KeyW:11,9 KeyW:11,8 KeyW:11,7 KeyD:12,7 KeyD:13,7 KeyD:14,7 KeyW:14,6
+PASS  lvl-ember-subject ramp climb page clean
+PASS  lvl-ember-subject see-through window reveals hero at 9,9 behind arch 10,10  3831 px differ window on/off
+PASS  lvl-ember-subject x-ray page clean
+PASS  lvl-ember-subject touch tap at 400x800 walks to 15,11  15,11
+PASS  lvl-ember-subject touch page clean
+PASS  lvl-ember-subject shaft tops off frame at 900x800 arrive=entry  e2 ndc y 2.732 e1 (arrival, top 0 off its tile) ndc y -0.548
+PASS  lvl-ember-subject shaft tops off frame at 400x800 arrive=entry  e2 ndc y 1.482 e1 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-ember-subject shaft tops off frame at 1600x900 arrive=entry  e2 ndc y 2.732 e1 (arrival, top 0 off its tile) ndc y -0.548
+PASS  lvl-ember-subject shaft tops off frame at 900x800 arrive=exit  e2 ndc y 2.603 e1 (arrival, top 0 off its tile) ndc y -0.676
+PASS  lvl-ember-subject shaft tops off frame at 400x800 arrive=exit  e2 ndc y 1.482 e1 (arrival, top 0 off its tile) ndc y -0.34
+PASS  lvl-ember-subject shaft tops off frame at 1600x900 arrive=exit  e2 ndc y 2.603 e1 (arrival, top 0 off its tile) ndc y -0.676
+
+238 pass, 0 fail, 1 skip
+SKIP lvl-sharkbear-medium see-through window no walkable cell within two rings behind a tall, multi-cell, or figure piece in 26 cells reachable with gates closed (pieces: selachian-ursine-stalker@9,8 sharkbear-shard-watchtower@5,5)

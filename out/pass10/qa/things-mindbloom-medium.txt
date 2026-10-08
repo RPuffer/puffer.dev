@@ -1,0 +1,44 @@
+PASS loads with reset
+PASS five kinds present bonfire@13,11 chest@12,13 watcher@8,6 gate@8,10 elevator@6,4 elevator@10,15
+PASS fresh state spawns at the file spawn 13,13
+PASS fresh state: things closed unlit,closed,idle,closed,idle,idle
+PASS elevators report their role e2 exit@6,4 e1 entry@10,15
+PASS gate is an edge gate 8,11 | 8,10
+PASS closed gate blocks crossing 8,11 -> 8,10
+PASS closed edge leaves both cells walkable 8,11 8,10
+PASS closed gate cannot be bypassed 8,10 unreachable from spawn
+PASS gate bars drawn on the edge 8.5,11 vs 8.5,11
+draw calls at 900x800: 30
+entry e1 at 10,15 rides back to forest-volute
+PASS prompt beside the bonfire "FLight the bonfire" at 13,12
+PASS E lights the bonfire lit
+PASS bonfire toast "Bonfire lit"
+PASS bonfire flame part shows
+PASS prompt beside the chest "FOpen the chest" at 13,13
+PASS Enter opens the chest open
+PASS chest toast "A crowned thought, folded small, humming periwinkle."
+PASS chest lid swung back -1.95
+PASS chest stays open
+PASS watcher idle before the threshold look 0.00
+PASS hero on the threshold 8,11
+PASS watcher turns to face the hero look 1.00, head moved no live head part
+no live head part: crest check skipped
+PASS gate opens at the threshold open
+PASS open gate lets the hero cross
+PASS gate bars lifted 1
+PASS walks through the gate to the elevator 6,4
+PASS prompt on the elevator "FRide the lift"
+PASS page clean before the ride
+PASS E starts the ride rising
+PASS exit rides forward to cosmos-frisket /3d/index.html?level=cosmos-frisket&from=mindbloom-medium&arrive=entry
+PASS next island loads cosmos-frisket
+PASS hero lands on the next island's entry platform 12,15 vs entry 12,15
+PASS reload keeps state {"b1":"lit","c1":"open","w1":"idle","g1":"open","e2":"idle","e1":"idle"}
+PASS reload respawns at the bonfire 13,12 vs 13,12
+PASS open gate stays passable after reload
+PASS ?reset=1 clears state bonfire:unlit,chest:closed,gate:closed,elevator:idle,elevator:idle
+PASS tap on the bonfire walks over and lights it from 8,11 to 12,12
+PASS watcher returns to its pose when the hero leaves look 0.99 at the threshold, 0.00 at the bonfire
+PASS page clean after reset
+
+39 pass, 0 fail

@@ -1,0 +1,45 @@
+PASS loads with reset
+PASS five kinds present bonfire@14,11 chest@15,6 watcher@9,7 gate@12,9 elevator@6,2 elevator@16,9
+PASS fresh state spawns at the file spawn 15,11
+PASS fresh state: things closed unlit,closed,idle,closed,idle,idle
+PASS elevators report their role e2 exit@6,2 e1 entry@16,9
+PASS gate is an edge gate 13,9 | 12,9
+PASS closed gate blocks crossing 13,9 -> 12,9
+PASS closed edge leaves both cells walkable 13,9 12,9
+PASS closed gate cannot be bypassed 12,9 unreachable from spawn
+PASS gate bars drawn on the edge 13,9.5 vs 13,9.5
+draw calls at 900x800: 30
+entry e1 at 16,9 rides back to cosmos-frisket
+PASS prompt beside the bonfire "FLight the bonfire" at 15,10
+PASS E lights the bonfire lit
+PASS bonfire toast "Bonfire lit"
+PASS bonfire flame part shows
+PASS prompt beside the chest "FOpen the chest" at 14,7
+PASS Enter opens the chest open
+PASS chest toast "A core token, still warm from the incubation pit."
+PASS chest lid swung back -1.95
+PASS chest stays open
+PASS watcher idle before the threshold look 0.00
+PASS hero on the threshold 13,9
+PASS watcher turns to face the hero look 1.00, head moved no live head part
+no live head part: crest check skipped
+PASS gate opens at the threshold open
+PASS open gate lets the hero cross
+PASS gate bars lifted 1
+PASS walks through the gate to the elevator 6,2
+PASS watcher returns to pose outside its radius look 0.00
+PASS prompt on the elevator "FRide the lift"
+PASS page clean before the ride
+PASS E starts the ride rising
+PASS exit rides forward to eagle-composition /3d/index.html?level=eagle-composition&from=gremlin-subject&arrive=entry
+PASS next island loads eagle-composition
+PASS hero lands on the next island's entry platform 16,9 vs entry 16,9
+PASS reload keeps state {"b1":"lit","c1":"open","w1":"idle","g1":"open","e2":"idle","e1":"idle"}
+PASS reload respawns at the bonfire 15,10 vs 15,10
+PASS open gate stays passable after reload
+PASS ?reset=1 clears state bonfire:unlit,chest:closed,gate:closed,elevator:idle,elevator:idle
+PASS tap on the bonfire walks over and lights it from 13,9 to 14,10
+PASS watcher returns to its pose when the hero leaves look 0.99 at the threshold, 0.00 at the bonfire
+PASS page clean after reset
+
+40 pass, 0 fail
