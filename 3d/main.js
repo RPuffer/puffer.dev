@@ -38,8 +38,8 @@ async function prepare(name) {
   return { level, style };
 }
 
-function holdAtExit(game, sequence) {
-  const S = game.state, e = S.things?.things.find((t) => t.kind === "elevator" && t.role === (params.ride === "entry" ? "entry" : "exit"));
+function holdAtExit(game, sequence, role = params.ride === "entry" ? "entry" : "exit") {
+  const S = game.state, e = S.things?.things.find((t) => t.kind === "elevator" && t.role === role);
   if (!e) return;
   S.actor.path = [];
   S.actor.cell = [e.x, e.z];
@@ -47,7 +47,10 @@ function holdAtExit(game, sequence) {
   S.actor.pos.z = e.z + 0.5;
   sequence.freeze("hold");
   let n = 0;
-  const go = () => { if (!S.things.act() && n++ < 60) requestAnimationFrame(go); };
+  const go = () => {
+    if (!S.things.act()) { if (n++ < 60) requestAnimationFrame(go); return; }
+    if (!sequence.active && role === "exit") requestAnimationFrame(() => holdAtExit(game, sequence, "entry"));
+  };
   requestAnimationFrame(go);
 }
 

@@ -2,7 +2,7 @@ import puppeteer from "puppeteer-core";
 import path from "node:path";
 import fs from "node:fs";
 
-const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/, "").split("=")).map(([k, v]) => [k, v ?? "1"]));
+const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/, "")).map((a) => { const i = a.indexOf("="); return i < 0 ? [a, "1"] : [a.slice(0, i), a.slice(i + 1)]; }));
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const base = args.base || "http://localhost:8765";
 const levels = (args.levels || "home,ember-subject").split(",");
@@ -11,6 +11,7 @@ const frames = +(args.frames || 300);
 const [W, H] = (args.size || "900x800").split("x").map(Number);
 const dprs = (args.dpr || "1,2").split(",").map(Number);
 const extra = args.query ? "&" + args.query : "";
+const hold = /(^|&)seq=hold(&|$)/.test(args.query || "");
 
 const b = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -62,8 +63,9 @@ try {
       page.on("pageerror", (e) => errors.push(String(e)));
       page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
       await page.setViewport({ width: W, height: H, deviceScaleFactor: dpr });
-      await page.goto(`${base}/3d/index.html?level=${level}&hero=0&ui=0&clouds=${opt}${extra}`, { waitUntil: "load" });
+      await page.goto(`${base}/3d/index.html?level=${level}${hold ? "&reset=1" : "&hero=0"}&ui=0&clouds=${opt}${extra}`, { waitUntil: "load" });
       await page.waitForFunction(() => window.__done || window.__error, { timeout: 120000 });
+      if (hold) await page.waitForFunction(() => window.__sequence?.state === "hold" || window.__error, { timeout: 120000 });
       const r = await page.evaluate(measure, frames);
       if (errors.length) console.error(level, opt, errors.join("\n"));
       row[`ms${dpr}`] = r.median; row[`mean${dpr}`] = r.mean; row[`p95_${dpr}`] = r.p95;
