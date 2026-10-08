@@ -111,3 +111,61 @@ export function buildSprites(I, atlas, list, gain) {
 export function build(I, atlas) {
   return [buildSprites(I, atlas, layout(I, atlas.meta), I.gain)];
 }
+
+export const COLUMN = { count: 24, span: 18, speed: 7, radius: [2.6, 6.5], size: [1.1, 2.2], alpha: 0.55 };
+
+const COLUMN_VERT = `
+uniform vec2 uAtlas; uniform float uRide; uniform float uRideTime; uniform float uRideDir; uniform vec3 uColumn;
+attribute vec4 aC; attribute vec2 aD;
+varying vec2 vUv; varying vec2 vQ;
+void main() {
+  vec3 c = vec3(cos(aC.x) * aC.y, mod(aC.z - uRideTime * uColumn.y * aD.y * uRideDir, uColumn.x) - uColumn.x * 0.5, sin(aC.x) * aC.y);
+  vec3 R = vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
+  vec3 U = vec3(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+  vec2 q = position.xy * vec2(aC.w, aC.w * (1.0 + 1.4 * uRide));
+  vec3 w = c + R * q.x + U * q.y;
+  vQ = position.xy * 2.0;
+  vec2 cell = vec2(mod(aD.x, uAtlas.x), floor(aD.x / uAtlas.x));
+  vUv = vec2((cell.x + uv.x) / uAtlas.x, 1.0 - (cell.y + 1.0 - uv.y) / uAtlas.y);
+  gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(w, 1.0);
+}`;
+
+const COLUMN_FRAG = `
+uniform sampler2D uAtlasTex; uniform vec3 uBg; uniform vec3 uHue; uniform float uGain; uniform float uRide; uniform vec3 uColumn;
+varying vec2 vUv; varying vec2 vQ;
+void main() {
+  vec4 t = texture2D(uAtlasTex, vUv);
+  float a = t.a * uRide * uColumn.z;
+  if (a < 0.004) discard;
+  float lit = clamp(t.r * 1.1, 0.0, 1.0);
+  vec3 shade = mix(uBg * 1.5 + 0.02, uHue * 0.32, 0.55);
+  vec3 sun = mix(vec3(1.0), uHue, 0.16) * uGain;
+  gl_FragColor = vec4(mix(shade, sun, lit * lit * (3.0 - 2.0 * lit)), a);
+  #include <colorspace_fragment>
+}`;
+
+export function buildColumn(atlas, rideUniforms, rng) {
+  const N = COLUMN.count, geo = new THREE.PlaneGeometry(1, 1);
+  const aC = new Float32Array(N * 4), aD = new Float32Array(N * 2);
+  const tiles = atlas.meta.tiles.map((t, i) => (t.kind !== "flat" ? i : -1)).filter((i) => i >= 0);
+  for (let i = 0; i < N; i++) {
+    const r = COLUMN.radius[0] + (COLUMN.radius[1] - COLUMN.radius[0]) * rng();
+    aC.set([rng() * Math.PI * 2, r, (i + rng() * 0.8) * COLUMN.span / N, COLUMN.size[0] + (COLUMN.size[1] - COLUMN.size[0]) * rng()], i * 4);
+    aD.set([tiles[Math.floor(rng() * tiles.length)], 0.75 + 0.5 * rng()], i * 2);
+  }
+  geo.setAttribute("aC", new THREE.InstancedBufferAttribute(aC, 4));
+  geo.setAttribute("aD", new THREE.InstancedBufferAttribute(aD, 2));
+  const tone = { uBg: { value: new THREE.Color() }, uHue: { value: new THREE.Color() }, uGain: { value: 1 } };
+  const mesh = new THREE.InstancedMesh(geo, new THREE.ShaderMaterial({
+    uniforms: { ...rideUniforms, ...tone, uAtlasTex: { value: atlas.tex }, uAtlas: { value: new THREE.Vector2(...atlas.meta.grid) }, uColumn: { value: new THREE.Vector3(COLUMN.span, COLUMN.speed, COLUMN.alpha) } },
+    vertexShader: COLUMN_VERT,
+    fragmentShader: COLUMN_FRAG,
+    transparent: true,
+    depthWrite: false,
+  }), N);
+  mesh.frustumCulled = false;
+  mesh.renderOrder = 4;
+  mesh.name = "clouds-column";
+  mesh.visible = false;
+  return { mesh, tone };
+}
