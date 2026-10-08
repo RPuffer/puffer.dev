@@ -42,7 +42,7 @@ Nothing goes to the operator until the site works and the home island is near-id
 
 ## Budget and keys
 
-Generative spend cap for the whole project: $30.00. Log every batch in `docs/SPEND.md` as `date | model | count | $ | purpose` and keep a running total on the last line. Gemini `gemini-3.1-flash-image` is $0.045 per image; list models at runtime because ids retire. Keys live in macOS Keychain, service `dev.blacksmith.generator`, accounts `gemini` and `fal`; read them with `security find-generic-password -s dev.blacksmith.generator -a gemini -w` inside scripts and never print them. Working call patterns: `pipeline/multitile/gen.mjs` (Gemini image) and `archive/bakeoff/c-meshes/meshes.mjs` (fal). Stop at $30 and report; the orchestrator escalates.
+Generative runway: the operator loaded $100 onto the Gemini account on 2026-10-01 (the $30 and $50 caps of the first rounds are history); stay frugal and flag him when the ledger passes $80. Log every batch in `docs/SPEND.md` as `date | model | count | $ | purpose` and keep a running total on the last line. Gemini `gemini-3.1-flash-image` is $0.045 per image; list models at runtime because ids retire. Keys live in macOS Keychain, service `dev.blacksmith.generator`, accounts `gemini` and `fal`; read them with `security find-generic-password -s dev.blacksmith.generator -a gemini -w` inside scripts and never print them. Working call patterns: `pipeline/multitile/gen.mjs` (Gemini image) and `archive/bakeoff/c-meshes/meshes.mjs` (fal). Stop at $30 and report; the orchestrator escalates.
 
 ## House rules
 
