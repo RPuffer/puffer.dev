@@ -382,6 +382,7 @@ export async function build({ root, flag, has, regions, brief }) {
     for (const line of H.log) report.push("finish: " + line);
   }
   level.view = frameView(level).view;
+  if (level.outgrowths) { const g = level.outgrowths; delete level.outgrowths; level.outgrowths = g; }
   const problems = checkLevel(level);
   const procgenOnly = problems.filter((p) => /grass share|plateau in/.test(p));
   const real = problems.filter((p) => !procgenOnly.includes(p));
