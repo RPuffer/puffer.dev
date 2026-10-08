@@ -32,4 +32,6 @@ export const HERO = {
   boot: ["#6b3a1a", "#6b3a1a", "#4f2a12"],
   belt: ["#6b3a1a", "#6b3a1a", "#4f2a12"],
   eye: "#2a2230",
+  hand: ["#ffd9b0", "#ffd9b0", "#e8b98e"],
+  mouth: "#2a1f33",
 };
