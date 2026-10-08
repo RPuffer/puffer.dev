@@ -62,7 +62,7 @@ try {
   const renderer = createRenderer(document.body);
   const game = createGame(renderer, params);
   renderer.addFx(clouds?.column());
-  renderer.addFx(createRideFx({ density: params.lines === "b" ? "b" : "a" }));
+  renderer.addFx(createRideFx());
   const run = createRun(game, {
     prepare,
     unmount: () => clouds?.unmount(renderer),

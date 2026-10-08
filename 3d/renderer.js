@@ -31,7 +31,7 @@ export function createRenderer(container = document.body) {
   const raycaster = new THREE.Raycaster();
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
   let seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
-  const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, style: null };
+  const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, zoom: 1, hero: false, style: null };
   const flashBase = new THREE.Color(), WHITE = new THREE.Color(1, 1, 1);
   let warmed = false;
   const reveal = (f) => {
@@ -258,7 +258,7 @@ export function createRenderer(container = document.body) {
       xray.uRadius.value = hero.visible && S.params.xray !== "0" ? 1.2 * zoom * px : 0;
       if (fx.length) {
         fxCtx.x = a.pos.x; fxCtx.y = feet; fxCtx.z = a.pos.z;
-        fxCtx.sx = xray.uHero.value[0]; fxCtx.sy = xray.uHero.value[1]; fxCtx.w = w; fxCtx.h = h;
+        fxCtx.sx = xray.uHero.value[0]; fxCtx.sy = xray.uHero.value[1]; fxCtx.w = w; fxCtx.h = h; fxCtx.zoom = zoom * px; fxCtx.hero = hero.visible;
         for (const f of fx) f.update(fxCtx);
         if (!warmed) warm();
       }

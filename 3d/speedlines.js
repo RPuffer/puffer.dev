@@ -2,11 +2,9 @@ import * as THREE from "three";
 import { rideUniforms } from "../core/sequence.js";
 import { mulberry32 } from "../core/rng.js";
 
-export const DENSITY = {
-  a: { lines: 44, width: 0.14, streaks: 140, inner: 0.3 },
-  b: { lines: 96, width: 0.1, streaks: 300, inner: 0.27 },
-};
-export const STREAK = { count: 300, span: 12, speed: 16, radius: [1.3, 5], length: [0.9, 3.2], width: [0.008, 0.034] };
+export const LINES = { lines: 44, width: 0.14, streaks: 140, inner: 0.3 };
+export const CLEAR = { radius: 1.2, inner: 0.9, outer: 1.15 };
+export const STREAK = { count: 140, span: 12, speed: 16, radius: [1.3, 5], length: [0.9, 3.2], width: [0.008, 0.034] };
 
 const lum = (c) => 0.299 * c.r + 0.587 * c.g + 0.114 * c.b;
 
@@ -33,7 +31,7 @@ export function rideTone(style, out = { ink: new THREE.Color(), soft: new THREE.
 const OVERLAY_VERT = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
 const OVERLAY_FRAG = `
 uniform vec2 uCenter; uniform vec2 uRes; uniform float uRide; uniform float uRideTime; uniform float uRideDir;
-uniform vec3 uInk; uniform vec3 uSoft; uniform vec3 uDensity;
+uniform vec3 uInk; uniform vec3 uSoft; uniform vec3 uDensity; uniform vec3 uClear;
 float h1(float n) { return fract(sin(n * 127.1) * 43758.5453); }
 void main() {
   vec2 p = gl_FragCoord.xy - uCenter;
@@ -55,7 +53,7 @@ void main() {
   float line = 1.0 - smoothstep(w * 0.5 - fw, w * 0.5 + fw, abs(f - c));
   float dash = fract(r * (0.6 + r3) - uRideTime * uRideDir * (1.6 + 2.2 * r1) + r2 * 9.0);
   float dashed = step(dash, 0.62 + 0.3 * r1);
-  float al = line * mask * on * dashed;
+  float al = line * mask * on * dashed * smoothstep(uClear.z * ${CLEAR.inner.toFixed(3)}, uClear.z * ${CLEAR.outer.toFixed(3)}, distance(gl_FragCoord.xy, uClear.xy));
   if (al < 0.01) discard;
   bool strong = r3 > 0.5;
   gl_FragColor = vec4(strong ? uInk : uSoft, al * (strong ? 0.92 : 0.7));
@@ -77,22 +75,24 @@ void main() {
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(w, 1.0);
 }`;
 const STREAK_FRAG = `
-uniform vec3 uColor; uniform float uAlpha;
+uniform vec3 uColor; uniform float uAlpha; uniform vec3 uClear;
 varying float vY; varying float vA;
 void main() {
   if (vA < 0.5) discard;
   float t = vY < 0.0 ? 1.0 + vY : vY;
-  gl_FragColor = vec4(uColor, uAlpha * (t > 0.55 ? 0.45 : 1.0));
+  float clear = smoothstep(uClear.z * ${CLEAR.inner.toFixed(3)}, uClear.z * ${CLEAR.outer.toFixed(3)}, distance(gl_FragCoord.xy, uClear.xy));
+  if (clear < 0.01) discard;
+  gl_FragColor = vec4(uColor, uAlpha * clear * (t > 0.55 ? 0.45 : 1.0));
   #include <colorspace_fragment>
 }`;
 
-export function createRideFx({ density = "a" } = {}) {
-  const D = DENSITY[density] || DENSITY.a;
+export function createRideFx() {
+  const D = LINES;
   const tone = { ink: new THREE.Color(), soft: new THREE.Color(), streak: new THREE.Color(), bg: new THREE.Color(), dark: false };
-  const res = new THREE.Vector2(1, 1), center = new THREE.Vector2();
+  const res = new THREE.Vector2(1, 1), center = new THREE.Vector2(), clear = new THREE.Vector3(-1e5, -1e5, 1);
 
   const overlay = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
-    uniforms: { ...rideUniforms, uCenter: { value: center }, uRes: { value: res }, uInk: { value: tone.ink }, uSoft: { value: tone.soft }, uDensity: { value: new THREE.Vector3(D.lines, D.width, D.inner) } },
+    uniforms: { ...rideUniforms, uCenter: { value: center }, uRes: { value: res }, uInk: { value: tone.ink }, uSoft: { value: tone.soft }, uDensity: { value: new THREE.Vector3(D.lines, D.width, D.inner) }, uClear: { value: clear } },
     vertexShader: OVERLAY_VERT,
     fragmentShader: OVERLAY_FRAG,
     transparent: true,
@@ -116,7 +116,7 @@ export function createRideFx({ density = "a" } = {}) {
   geo.setAttribute("aT", new THREE.InstancedBufferAttribute(aT, 4));
   const streakColor = new THREE.Color(), alpha = { value: 1 };
   const streaks = new THREE.InstancedMesh(geo, new THREE.ShaderMaterial({
-    uniforms: { ...rideUniforms, uStreak: { value: new THREE.Vector3(STREAK.span, STREAK.speed, 0) }, uColor: { value: streakColor }, uAlpha: alpha },
+    uniforms: { ...rideUniforms, uStreak: { value: new THREE.Vector3(STREAK.span, STREAK.speed, 0) }, uColor: { value: streakColor }, uAlpha: alpha, uClear: { value: clear } },
     vertexShader: STREAK_VERT,
     fragmentShader: STREAK_FRAG,
     transparent: true,
@@ -131,7 +131,6 @@ export function createRideFx({ density = "a" } = {}) {
   let toned = null;
   return {
     objects: [streaks, overlay],
-    density,
     tone,
     update(ctx) {
       const ride = rideUniforms.uRide.value;
@@ -149,6 +148,7 @@ export function createRideFx({ density = "a" } = {}) {
       overlay.visible = streaks.visible = true;
       res.set(ctx.w, ctx.h);
       center.set(ctx.sx, ctx.sy);
+      if (ctx.hero) clear.set(ctx.sx, ctx.sy, CLEAR.radius * ctx.zoom); else clear.set(-1e5, -1e5, 1);
       streaks.position.set(ctx.x, ctx.y + 0.5, ctx.z);
     },
     dispose() {
