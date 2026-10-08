@@ -11,6 +11,7 @@ import { createSequence } from "../core/sequence.js";
 import { CLIP_DATA, DANCES } from "./clips.js";
 import { RISE } from "./things.js";
 import { motion } from "./motion.js";
+import { createRideFx } from "./speedlines.js";
 
 const msg = document.getElementById("msg");
 const params = readParams();
@@ -37,6 +38,19 @@ async function prepare(name) {
   return { level, style };
 }
 
+function holdAtExit(game, sequence) {
+  const S = game.state, e = S.things?.things.find((t) => t.kind === "elevator" && t.role === (params.ride === "entry" ? "entry" : "exit"));
+  if (!e) return;
+  S.actor.path = [];
+  S.actor.cell = [e.x, e.z];
+  S.actor.pos.x = e.x + 0.5;
+  S.actor.pos.z = e.z + 0.5;
+  sequence.freeze("hold");
+  let n = 0;
+  const go = () => { if (!S.things.act() && n++ < 60) requestAnimationFrame(go); };
+  requestAnimationFrame(go);
+}
+
 try {
   const t0 = performance.now();
   const first = await prepare(params.level);
@@ -44,6 +58,8 @@ try {
   const clouds = await loadClouds(params, first.style);
   const renderer = createRenderer(document.body);
   const game = createGame(renderer, params);
+  renderer.addFx(clouds?.column());
+  renderer.addFx(createRideFx({ density: params.lines === "b" ? "b" : "a" }));
   const run = createRun(game, {
     prepare,
     unmount: () => clouds?.unmount(renderer),
@@ -69,6 +85,7 @@ try {
   run.use(sequence);
   run.boot(first);
   mountUI();
+  if (params.seq === "hold") holdAtExit(game, sequence);
   if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;
 } catch (e) {
   console.error(e);
