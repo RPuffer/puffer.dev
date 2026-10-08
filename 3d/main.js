@@ -86,8 +86,10 @@ try {
     dances: DANCES.map((name) => ({ name, duration: CLIP_DATA[name].duration })),
   });
   run.use(sequence);
+  game.canRotate = () => !sequence.active && !game.state.actor?.locked;
+  renderer.onOrient((state) => clouds?.orient(state));
   run.boot(first);
-  mountUI();
+  mountUI({ rotate: (step) => game.rotate(step) });
   if (params.seq === "hold") holdAtExit(game, sequence);
   if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;
 } catch (e) {

@@ -84,17 +84,32 @@ export function layout(I, meta) {
 }
 
 export function buildSprites(I, atlas, list, gain) {
-  list.sort((a, b) => depthOf(I, a) - depthOf(I, b));
   const geo = new THREE.PlaneGeometry(1, 1);
   const data = new Float32Array(list.length * 4);
   const mesh = new THREE.InstancedMesh(geo, null, list.length);
   const m = new THREE.Matrix4(), rng = I.rng("sprite-phase");
-  list.forEach((p, i) => {
-    m.makeScale(p.s, p.s, p.s).setPosition(p.x, p.y, p.z);
-    mesh.setMatrixAt(i, m);
-    data.set([p.tile, rng() * 6.2832, (rng() - 0.5) * 0.25, p.alpha], i * 4);
-  });
-  geo.setAttribute("aData", new THREE.InstancedBufferAttribute(data, 4));
+  list.sort((a, b) => depthOf(I, a) - depthOf(I, b));
+  for (const p of list) { p.ph = rng() * 6.2832; p.rot = (rng() - 0.5) * 0.25; }
+  const aData = new THREE.InstancedBufferAttribute(data, 4);
+  geo.setAttribute("aData", aData);
+  const lay = (dir) => {
+    list.sort((a, b) => (a.x * dir.x + a.y * dir.y + a.z * dir.z) - (b.x * dir.x + b.y * dir.y + b.z * dir.z));
+    list.forEach((p, i) => {
+      m.makeScale(p.s, p.s, p.s).setPosition(p.x, p.y, p.z);
+      mesh.setMatrixAt(i, m);
+      data.set([p.tile, p.ph, p.rot, p.alpha], i * 4);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    aData.needsUpdate = true;
+  };
+  lay(I.dir);
+  mesh.userData.orient = (proj) => {
+    const dir = new THREE.Vector3(...proj.dir), right = new THREE.Vector3(...proj.right), up = new THREE.Vector3(...proj.up);
+    lay(dir);
+    const u = mesh.material.uniforms;
+    u.uLightScreen.value = new THREE.Vector2(I.light.dot(right), I.light.dot(up)).normalize();
+    u.uFlip.value = u.uLightScreen.value.x > 0.15 ? 1 : 0;
+  };
   mesh.material = new THREE.ShaderMaterial({
     uniforms: { ...uniformsFor(I), uAtlasTex: { value: atlas.tex }, uAtlas: { value: new THREE.Vector2(...atlas.meta.grid) }, uFlip: { value: I.lightScreen.x > 0.15 ? 1 : 0 }, uGain: { value: gain } },
     vertexShader: GLSL_COMMON + VERT,

@@ -38,6 +38,9 @@ export async function loadClouds(params, style) {
       window.__clouds = { kind: "billboards", objects };
       return objects;
     },
+    orient(state) {
+      for (const o of objects) o.userData.orient?.(state.proj);
+    },
     unmount(renderer) {
       this.dispose(renderer, this.detach());
     },

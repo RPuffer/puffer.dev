@@ -2,6 +2,7 @@ const KEYS = {
   KeyW: "up", ArrowUp: "up", KeyS: "down", ArrowDown: "down",
   KeyA: "left", ArrowLeft: "left", KeyD: "right", ArrowRight: "right",
 };
+const TURNS = { KeyQ: -1, KeyE: 1 };
 
 const PAD_CSS = `
 .iso-dpad{position:fixed;left:18px;bottom:18px;width:132px;height:132px;z-index:10;touch-action:none;user-select:none;-webkit-user-select:none}
@@ -20,6 +21,8 @@ export function createInput(el, { dpad = "auto" } = {}) {
   const release = (d) => { const i = held.indexOf(d); if (i >= 0) { held.splice(i, 1); setHeld(); } };
 
   const onKeyDown = (e) => {
+    const r = TURNS[e.code];
+    if (r && !e.metaKey && !e.ctrlKey && !e.altKey) { if (!e.repeat) setTimeout(() => { if (!e.defaultPrevented) emit({ kind: "rotate", step: r }); }, 0); return; }
     const d = KEYS[e.code];
     if (!d || e.metaKey || e.ctrlKey || e.altKey) return;
     e.preventDefault();

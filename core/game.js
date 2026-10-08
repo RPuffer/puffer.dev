@@ -3,7 +3,7 @@ import { createActor } from "./actor.js";
 import { pathToward } from "./path.js";
 import { DIRS, isWalkable } from "./level.js";
 import { makeProjection, viewFrom } from "./iso.js";
-import { createInteract } from "./interact.js";
+import { createInteract, storageKey } from "./interact.js";
 
 export const STEP = 1 / 60;
 
@@ -29,14 +29,34 @@ export function screenToWorldDir(proj, screenDir) {
   return best;
 }
 
+export const TURN = 0.35;
+const wrapYaw = (y) => ((y % 360) + 360) % 360;
+const easeTurn = (u) => (u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2);
+const hasParam = (p, k) => p[k] != null && p[k] !== "" && !isNaN(+p[k]);
+
+export function savedYaw(name, storage = globalThis.localStorage) {
+  try { const v = JSON.parse(storage?.getItem(storageKey(name)) || "null")?.yaw; return Number.isFinite(v) ? v : null; } catch { return null; }
+}
+
+export function saveYaw(name, yaw, storage = globalThis.localStorage) {
+  try {
+    const k = storageKey(name), v = JSON.parse(storage?.getItem(k) || "null") || {};
+    v.yaw = wrapYaw(yaw);
+    storage?.setItem(k, JSON.stringify(v));
+  } catch {}
+}
+
 export function createGame(renderer, params = readParams()) {
-  const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0 };
+  const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null };
+  let screenHeld = null;
 
   const input = createInput(renderer.element || document.body, { dpad: params.dpad === "1" || params.touch === "1" ? true : "auto" });
   input.on((it) => {
     const { actor, proj, things, level } = state;
     if (!actor) return;
+    if (it.kind === "rotate") { game.rotate(it.step); return; }
     if (it.kind === "hold") {
+      screenHeld = it.dir || null;
       actor.held = it.dir ? screenToWorldDir(proj, it.dir) : null;
       if (it.press && !actor.locked) actor.tapDir = screenToWorldDir(proj, it.press);
     }
@@ -51,7 +71,21 @@ export function createGame(renderer, params = readParams()) {
   });
 
   const tickers = new Set();
+  const orient = () => {
+    state.proj = makeProjection(state.view);
+    if (screenHeld && state.actor?.held) state.actor.held = screenToWorldDir(state.proj, screenHeld);
+  };
+  const stepTurn = (dt) => {
+    const T = state.turn;
+    if (!T) return;
+    T.t = Math.min(TURN, T.t + dt);
+    const u = easeTurn(T.t / TURN);
+    state.view.yaw = T.from + (T.to - T.from) * u;
+    if (T.t >= TURN) { state.view.yaw = wrapYaw(T.to); state.turn = null; }
+    orient();
+  };
   const tick = () => {
+    stepTurn(STEP);
     state.actor.update(STEP);
     state.things?.update(STEP);
     for (const f of tickers) f(STEP);
@@ -75,12 +109,30 @@ export function createGame(renderer, params = readParams()) {
     state,
     renderer,
     onTick(f) { tickers.add(f); return () => tickers.delete(f); },
+    canRotate: () => true,
+    rotate(step = 1) {
+      if (!renderer.onOrient || !state.view || !state.actor || !step || !game.canRotate()) return false;
+      const base = state.turn ? state.turn.to : state.view.yaw;
+      const to = base + Math.sign(step) * 90;
+      state.turn = { from: state.view.yaw, to, t: 0 };
+      if (state.params.hero !== "0") saveYaw(state.level.name, to);
+      return true;
+    },
+    get yaw() { return wrapYaw(state.turn ? state.turn.to : state.view?.yaw ?? 45); },
     load(level, { arrive = params.arrive, spawn = params.spawn, reset = params.reset, from = params.from, at = null, navigate, keep = false } = {}) {
       state.things?.dispose();
       if (state.level && !keep) renderer.unmount?.(state);
       const p = { ...params, level: level.name, arrive, spawn, reset, from };
       for (const k of ["arrive", "spawn", "reset", "from"]) if (p[k] == null) delete p[k];
       const view = viewFrom(level, p);
+      const carry = keep && state.view ? wrapYaw(state.turn ? state.turn.to : state.view.yaw) : null;
+      const reference = p.hero === "0" || p.seq === "0";
+      if (p.reset === "1" && carry == null) { try { globalThis.localStorage?.removeItem(storageKey(level.name)); } catch {} }
+      if (!hasParam(p, "yaw")) {
+        if (carry != null) view.yaw = carry;
+        else if (!reference && renderer.onOrient && p.reset !== "1") { const y = savedYaw(level.name); if (y != null) view.yaw = y; }
+      }
+      state.turn = null;
       const proj = makeProjection(view);
       const sp = String(spawn || "").split(",").map(Number);
       const things = level.things?.length ? createInteract(level, { params: p, navigate }) : null;

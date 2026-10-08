@@ -35,7 +35,8 @@ export function createRenderer(container = document.body) {
   let seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
   const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, zoom: 1, hero: false, style: null };
   const flashBase = new THREE.Color(), WHITE = new THREE.Color(1, 1, 1);
-  let warmed = false;
+  let warmed = false, oriented = null;
+  const orients = [];
   const reveal = (f) => {
     const objs = fx.flatMap((x) => x.objects), vis = objs.map((o) => o.visible);
     for (const o of objs) o.visible = true;
@@ -132,6 +133,7 @@ export function createRenderer(container = document.body) {
       hero.visible = state.params.hero !== "0";
       scene.add(hero);
       bounds = levelScreenBounds(L, state.proj);
+      oriented = state.proj;
       fxCtx.style = style;
       adopted = [];
       applyDrop();
@@ -219,8 +221,15 @@ export function createRenderer(container = document.body) {
       focus.copy(heroTarget(a));
     },
     compile() { gl.compile(scene, camera); },
+    onOrient(f) { orients.push(f); },
     update(state, dt) {
       const a = state.actor;
+      if (state.proj !== oriented) {
+        oriented = state.proj;
+        bounds = levelScreenBounds(state.level, state.proj);
+        resize();
+        for (const f of orients) f(state);
+      }
       lift += (liftAt(state.level, a.pos.x, a.pos.z) - lift) * Math.min(1, dt * 12);
       if (things) { things.update(state, dt); ride = things.rideOffset(state); }
       if (held && things?.kept) {
