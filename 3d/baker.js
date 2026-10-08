@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { lightFactor, packShade } from "./style.js";
+import { lightFactor, packShade, sideBand, BACK } from "./style.js";
 import { SWAY } from "./motion.js";
 
 const HALF = Math.PI / 2;
@@ -14,17 +14,15 @@ export const col = (hex) => {
 export const tone = (top, left, right, mid) => ({ top, left, right, mid });
 export const solid = (hex) => ({ top: hex, left: hex, right: hex, mid: hex });
 
-const tmp = new THREE.Color(), tmp2 = new THREE.Color(), tmpA = new THREE.Color(), tmpN = new THREE.Vector3(), tmpV = new THREE.Vector3();
+const tmpB = new THREE.Color(), tmp = new THREE.Color(), tmp2 = new THREE.Color(), tmpA = new THREE.Color(), tmpN = new THREE.Vector3(), tmpV = new THREE.Vector3();
 
 export function shadeFor(pal, nx, ny, nz, out = new THREE.Color()) {
   if (typeof pal === "string" || pal instanceof THREE.Color) return out.copy(col(pal));
   if (ny > 0.8) return out.copy(col(pal.top));
-  let t = Math.atan2(nx, nz);
-  if (t < 0) t = 0;
-  if (t > HALF) t = HALF;
-  const u = t / HALF;
-  if (pal.mid && u > 0.3 && u < 0.7) tmp.copy(col(pal.mid));
-  else tmp.copy(col(pal.left)).lerp(col(pal.right), u < 0.3 ? 0 : u > 0.7 ? 1 : u);
+  const [a, b, u] = sideBand(nx, nz);
+  const side = (k) => (k === "back" ? tmpB.copy(col(pal.right)).multiplyScalar(BACK) : tmpB.copy(col(pal[k])));
+  if (pal.mid && a === "left" && u > 0.3 && u < 0.7) tmp.copy(col(pal.mid));
+  else { side(a); tmp.copy(tmpB); side(b); tmp.lerp(tmpB, u < 0.3 ? 0 : u > 0.7 ? 1 : u); }
   if (ny > 0.35) return out.copy(tmp).lerp(col(pal.top), Math.min(1, (ny - 0.35) / 0.45));
   if (ny < -0.3) return out.copy(tmp).multiplyScalar(0.85);
   return out.copy(tmp);
@@ -113,7 +111,7 @@ export class Baker {
     const l = Math.hypot(nx, ny, nz);
     if (l < 1e-12) return;
     nx /= l; ny /= l; nz /= l;
-    if (cull && !this.noCull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
+    if (cull && this.cull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
     const c0 = shadeFor(pal, nx, ny, nz, tmp2);
     if (this.light) c0.multiplyScalar(lightFactor(this.light, nx, ny, nz));
     tmpN.set(nx, ny, nz);
@@ -131,7 +129,7 @@ export class Baker {
     const l = Math.hypot(nx, ny, nz);
     if (l < 1e-12) return;
     nx /= l; ny /= l; nz /= l;
-    if (cull && !this.noCull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
+    if (cull && this.cull && nx < -0.2 && nz < -0.2 && ny < 0.2) return;
     const nm = norms ? this.nm.getNormalMatrix(this.m) : null;
     const P = [A, B, C], n = new THREE.Vector3();
     for (let i = 0; i < 3; i++) {

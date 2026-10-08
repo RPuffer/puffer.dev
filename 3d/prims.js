@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { lightFactor } from "./style.js";
+import { lightFactor, sideBand, BACK } from "./style.js";
 
 export const BIBLE = {
   face: { left: 0.88, right: 0.66, tol: 0.08 },
@@ -97,8 +97,8 @@ export function kit(B, { light = null, rot = 0 } = {}) {
     else if (ny < -0.3) hex = r[0];
     else if (two) hex = r[1];
     else {
-      const u = clamp(Math.atan2(wx, wz), 0, Math.PI / 2) / (Math.PI / 2);
-      hex = u < 0.3 ? r[1] : u > 0.7 ? r[0] : mixHex(r[1], r[0]);
+      const [a, b, u] = sideBand(wx, wz), pick = (k) => (k === "left" ? r[1] : k === "right" ? r[0] : mixHex(r[0], "#000000", 1 - Math.pow(BACK, 1 / 2.2)));
+      hex = u < 0.3 ? pick(a) : u > 0.7 ? pick(b) : mixHex(pick(a), pick(b));
     }
     const L = light ? lightFactor(light, wx, ny, wz) : 1;
     const c = lin(hexRgb(hex)).map((v) => v / L);

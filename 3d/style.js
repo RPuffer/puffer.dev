@@ -38,7 +38,16 @@ export const lightFactor = (light, nx, ny, nz) => light.ambient + light.sun * Ma
 
 const PACK = { dir: new THREE.Vector3(0.3, 1, 0.6).normalize(), ambient: 0.55, sun: 0.5 };
 const PACK_TOP = lightFactor(PACK, 0, 1, 0);
-export const packShade = (nx, ny, nz) => lightFactor(PACK, nx, ny, nz) / PACK_TOP;
+export const BACK = 0.8;
+export const packShade = (nx, ny, nz) => lightFactor(PACK, nx, ny, nz) / PACK_TOP * (1 - (1 - BACK) * Math.max(0, -nz) * (1 - Math.abs(ny)));
+
+export function sideBand(nx, nz) {
+  const H = Math.PI / 2, t = Math.atan2(nx, nz);
+  if (t >= 0 && t <= H) return ["left", "right", t / H];
+  if (t > H) return ["right", "back", (t - H) / H];
+  if (t >= -H) return ["left", "right", -t / H];
+  return ["right", "back", (-t - H) / H];
+}
 
 const toSrgb = (hex) => { const c = new THREE.Color(hex); c.convertLinearToSRGB(); return [c.r, c.g, c.b]; };
 
