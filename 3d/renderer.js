@@ -33,6 +33,18 @@ export function createRenderer(container = document.body) {
   let seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
   const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, style: null };
   const flashBase = new THREE.Color(), WHITE = new THREE.Color(1, 1, 1);
+  let warmed = false;
+  const warm = () => {
+    warmed = true;
+    const objs = fx.flatMap((f) => f.objects), vis = objs.map((o) => o.visible);
+    for (const o of objs) o.visible = true;
+    const rt = new THREE.WebGLRenderTarget(1, 1);
+    gl.setRenderTarget(rt);
+    gl.render(scene, camera);
+    gl.setRenderTarget(null);
+    rt.dispose();
+    objs.forEach((o, i) => { o.visible = vis[i]; });
+  };
   const focus = new THREE.Vector3(), aim = new THREE.Vector3(), bgFrom = new THREE.Color(), bgTo = new THREE.Color();
   const HERO_H = 0.93;
   let heroFrac = 0.3;
@@ -241,6 +253,7 @@ export function createRenderer(container = document.body) {
         fxCtx.x = a.pos.x; fxCtx.y = feet; fxCtx.z = a.pos.z;
         fxCtx.sx = xray.uHero.value[0]; fxCtx.sy = xray.uHero.value[1]; fxCtx.w = w; fxCtx.h = h;
         for (const f of fx) f.update(fxCtx);
+        if (!warmed) warm();
       }
       gl.render(scene, camera);
     },
