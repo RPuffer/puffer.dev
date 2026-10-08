@@ -7,6 +7,10 @@ import { loadPieces, loadGlbs, BUILDERS } from "./hooks.js";
 import { makeStyle } from "./style.js";
 import { mountUI } from "../core/ui.js";
 import { loadClouds } from "./clouds/index.js";
+import { createSequence } from "../core/sequence.js";
+import { CLIP_DATA, DANCES } from "./clips.js";
+import { RISE } from "./things.js";
+import { motion } from "./motion.js";
 
 const msg = document.getElementById("msg");
 const params = readParams();
@@ -43,12 +47,26 @@ try {
   const run = createRun(game, {
     prepare,
     unmount: () => clouds?.unmount(renderer),
+    detach: () => {
+      const r = renderer.detach(), c = clouds?.detach();
+      return () => { renderer.dispose(r); if (c) clouds.dispose(renderer, c); };
+    },
     mount: (state, { style }) => {
       document.body.style.background = style.bg;
-      clouds?.mount(renderer, state, style);
+      renderer.adopt(clouds?.mount(renderer, state, style));
     },
   });
   window.__run = run;
+  const reduced = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const sequence = createSequence({
+    game,
+    run,
+    view: renderer,
+    rise: RISE,
+    short: () => params.seq === "0" || params.hero === "0" || reduced() || !motion.auto,
+    dances: DANCES.map((name) => ({ name, duration: CLIP_DATA[name].duration })),
+  });
+  run.use(sequence);
   run.boot(first);
   mountUI();
   if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;

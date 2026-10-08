@@ -10,8 +10,9 @@ export function nextSearch(next, from, arrive, search = location.search) {
   return "?" + q.toString();
 }
 
-export function createRun(game, { prepare, unmount, mount } = {}) {
-  let seq = 0, pre = null;
+export function createRun(game, { prepare, unmount, mount, detach } = {}) {
+  let seq = 0, pre = null, sequence = null;
+  const loaders = new Set();
   const bakes = [];
   window.__swapCount = 0;
   window.__swapError = null;
@@ -30,26 +31,56 @@ export function createRun(game, { prepare, unmount, mount } = {}) {
     state.things?.on((e) => { if (e.type === "ride" && e.next && state.params.nav !== "0") preload(e.next); });
   };
 
-  const load = (prepared, opts) => {
+  const load = (prepared, opts, keep = false) => {
     const t0 = performance.now();
-    if (game.state.level) unmount?.(game.state);
-    const state = game.load(prepared.level, { ...opts, navigate });
+    let retire = null;
+    if (game.state.level) { if (keep && detach) retire = detach(game.state); else unmount?.(game.state); }
+    const state = game.load(prepared.level, { ...opts, navigate, keep: !!retire });
     mount?.(state, prepared);
     watch(state);
+    for (const f of loaders) f(state);
     const bakeMs = performance.now() - t0;
     const entry = { name: prepared.level.name, loadMs: Math.round(prepared.loadMs || 0), bakeMs: Math.round(bakeMs), frameMs: null };
     bakes.push(entry);
     requestAnimationFrame(() => requestAnimationFrame(() => { entry.frameMs = Math.round(performance.now() - t0); }));
+    state.retire = retire;
     return state;
   };
+
+  const leave = () => {
+    const leaving = game.state.actor?.cell?.slice();
+    if (leaving) history.replaceState({ ...(history.state || {}), at: leaving }, "");
+  };
+
+  function stager(prepared, { from, arrive }) {
+    const token = ++seq;
+    let retire = null;
+    return [
+      () => {
+        if (token !== seq) return;
+        if (pre?.name === prepared.level.name) pre = null;
+        leave();
+        const state = load(prepared, { from, arrive, reset: undefined, spawn: undefined }, true);
+        retire = state.retire;
+        delete state.retire;
+      },
+      () => game.renderer.compile?.(),
+      () => { retire?.(); retire = null; },
+    ];
+  }
+
+  function commit(name, from, arrive) {
+    history.pushState(null, "", nextSearch(name, from, arrive));
+    window.__swapCount++;
+    window.__swapError = null;
+  }
 
   async function swap(name, { from, arrive, at = null, push = true } = {}) {
     const token = ++seq;
     let prepared;
     try { prepared = await preload(name); } finally { if (pre?.name === name) pre = null; }
     if (token !== seq) return false;
-    const leaving = game.state.actor?.cell?.slice();
-    if (push && leaving) history.replaceState({ ...(history.state || {}), at: leaving }, "");
+    if (push) leave();
     load(prepared, { from, arrive, at, reset: undefined, spawn: undefined });
     if (push) history.pushState(null, "", nextSearch(name, from, arrive));
     window.__swapCount++;
@@ -58,6 +89,7 @@ export function createRun(game, { prepare, unmount, mount } = {}) {
   }
 
   function navigate(next, from, arrive) {
+    if (sequence?.navigate(next, from, arrive)) return;
     const things = game.state.things;
     swap(next, { from, arrive }).catch((e) => {
       window.__swapError = String(e?.message || e);
@@ -69,19 +101,24 @@ export function createRun(game, { prepare, unmount, mount } = {}) {
   addEventListener("popstate", (e) => {
     const q = readParams();
     if (!q.level) return;
+    sequence?.abort();
     swap(q.level, { from: q.from, arrive: q.arrive, at: e.state?.at || null, push: false }).catch((err) => {
       window.__swapError = String(err?.message || err);
       location.reload();
     });
   });
 
-  addEventListener("pageshow", (e) => { if (e.persisted) { seq++; pre = null; } });
+  addEventListener("pageshow", (e) => { if (e.persisted) { seq++; pre = null; sequence?.abort(); } });
 
   return {
     preload,
     swap,
     navigate,
     bakes,
+    stager,
+    commit,
+    onLoad(f) { loaders.add(f); if (game.state.level) f(game.state); return () => loaders.delete(f); },
+    use(s) { sequence = s; },
     boot(prepared) {
       return load(prepared, {});
     },
