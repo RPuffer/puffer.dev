@@ -1048,3 +1048,25 @@ QA on the close (port 8765, outputs in `out/pass6/close/`):
 - `qa.mjs http://localhost:8765`: 132 pass, 0 fail.
 
 Arrival stills from each entry platform (`?level=<level>&arrive=entry`, hero shown, clouds on, 900x800): `out/pass6/<level>-arrival.png`; `node out/pass6/arrival-sheet.mjs` lays them out four across with each island's tally as `out/pass6/arrival-sheet.jpg`.
+
+## Pass 7: the elevator ride
+
+An exit elevator lifts you off the top of the frame. The camera closes in on the hero, who dances a clip from `DANCES` (wiggle, spin, pump). Ink speed lines and cloud streaks then run past for the climb, and the hero braces as the next island loads in the same page. The deck drops onto that island's entry platform with a flash and an overshoot dip, and a toast names the island. Riding back down plays the same sequence reversed (`uRideDir` -1).
+
+Timings (`SEQ` in `core/sequence.js`): close 1.2 s, dance from 0.3 s for up to 2.3 s, drop 1.2 s, brace at 2.6 s, hold 1.8 to 8 s (it waits for the next island's bake), arrive 1.0 s, settle 0.6 s, rise 2.4 s (`RISE` in `3d/things.js`). A cat-to-wizard ride runs 6.3 s on swiftshader.
+
+Speed lines: one density, 44 overlay lines and 140 streaks (`LINES` in `3d/speedlines.js`). The overlay and the streaks clear a circle around the hero's screen position at 1.2 x zoom x pixel ratio, the same radius as the see-through window, and fade from 0.9 to 1.15 radii.
+
+Query flags:
+
+- `?seq=0` swaps islands with the 0.6 s fade and skips the ride, for reference shots.
+- `?seq=hold` freezes a ride at the hold; `&ride=entry` freezes a back ride.
+- `?clip=<name>` loops one hero clip.
+
+Perf (swiftshader, 900x800, 300 frames, billboards on): the hold costs 12.5 ms at 1x and 38.3 ms at 2x on cat-medium, against 28.6 and 93.0 ms in normal play. On ember-subject the hold costs 10.0 and 28.1 ms, against 26.9 and 88.2 ms.
+
+QA at the close (port 8765, `PP_PROFILE=.pp-profile-p7-7`): `qa-ride-keys` 13 pass; `qa-run` 14 pass; `qa-swap` 24 pass, memory geo 33/33 and tex 2/2 on both laps, worst bake 29 ms on dragon-medium; `qa.mjs` 132 pass; `qa-hero` 29 pass; `qa-levels` 238 pass, 1 skip (sharkbear see-through); `qa-visibility all` 259/259 cells on twelve islands.
+
+Files: `core/sequence.js` (beats, timings, ride uniforms), `core/run.js` (in-page swap), `3d/speedlines.js` (overlay and streaks), `3d/clips.js` (hero clip library), `3d/character.js` (hero), `3d/things.js` (shafts and decks), `3d/clouds/billboards.js` (ride cloud column), `3d/renderer.js` (fx hook, flash, hero clear circle). Tools: `ride-clip.mjs`, `seq-clip.mjs`, `hold-shot.mjs`, `qa-ride-keys.mjs`, `qa-swap.mjs`. Media in `out/pass7/`: `ride-final.mp4`, `ride-final-phone.mp4`, `hold-clear-sheet.jpg`.
+
+Still open: the 30 s on-device phone recording over a LAN URL.
