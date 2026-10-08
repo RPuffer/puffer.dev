@@ -30,7 +30,9 @@ export function createRenderer(container = document.body) {
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
-  let seqK = 0, drop = 0, jitter = 0, bgT = 1;
+  let seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
+  const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, style: null };
+  const flashBase = new THREE.Color(), WHITE = new THREE.Color(1, 1, 1);
   const focus = new THREE.Vector3(), aim = new THREE.Vector3(), bgFrom = new THREE.Color(), bgTo = new THREE.Color();
   const HERO_H = 0.93;
   let heroFrac = 0.3;
@@ -84,7 +86,8 @@ export function createRenderer(container = document.body) {
   return {
     element: gl.domElement,
     three: { gl, scene, camera },
-    mount(state, style = makeStyle(state.level)) {
+    mount(state, st = makeStyle(state.level)) {
+      const style = st;
       S = state;
       initMotion(state.params);
       const L = state.level, seed = state.params.seed;
@@ -112,6 +115,7 @@ export function createRenderer(container = document.body) {
         for (const m of [].concat(o.material)) { m.stencilWrite = true; m.stencilRef = ISLAND; m.stencilFunc = THREE.AlwaysStencilFunc; m.stencilZPass = THREE.ReplaceStencilOp; }
       });
       bounds = levelScreenBounds(L, state.proj);
+      fxCtx.style = style;
       adopted = [];
       applyDrop();
       resize();
@@ -122,6 +126,14 @@ export function createRenderer(container = document.body) {
       this.dispose(this.detach());
     },
     detach() {
+      this.release();
+      if (things?.kept) {
+        const d = things.parts[things.kept], sh = things.shafts[things.kept], gy = things.group.position.y;
+        if (d && sh) {
+          for (const o of [d, sh]) { things.group.remove(o); o.position.y += gy; scene.add(o); }
+          held = { deck: d, shaft: sh, dy: d.position.y - sh.position.y };
+        }
+      }
       const old = { groups: mounted, hero };
       if (scene.background) bgFrom.copy(scene.background);
       for (const g of mounted) g.visible = false;
@@ -143,6 +155,25 @@ export function createRenderer(container = document.body) {
       }
       old.hero?.traverse((o) => { if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose(); });
     },
+    release() {
+      if (!held) return;
+      for (const o of [held.deck, held.shaft]) { scene.remove(o); o.geometry.dispose(); o.material.dispose(); }
+      held = null;
+      if (things?.kept) for (const o of [things.parts[things.kept], things.shafts[things.kept]]) if (o) o.visible = true;
+    },
+    addFx(f) {
+      if (!f) return;
+      fx.push(f);
+      for (const o of f.objects) scene.add(o);
+    },
+    flash(amount = 0.15) {
+      if (!scene.background) return;
+      if (flashT >= 1) flashBase.copy(scene.background);
+      flashT = 0;
+      this.flashAmount = amount;
+    },
+    flashAmount: 0.15,
+    holdBg() { bgTo.copy(scene.background); scene.background.copy(bgFrom); bgT = 1; },
     adopt(objects) {
       for (const o of objects || []) adopted.push(o);
       applyDrop();
@@ -163,7 +194,7 @@ export function createRenderer(container = document.body) {
       const P = S.proj, hh = (container.clientHeight || innerHeight) / closeZoom();
       return ((bounds.maxY - bounds.minY) + 2 * hh + 4) / Math.max(0.3, P.up[1]);
     },
-    fadeBg() { bgTo.copy(scene.background); scene.background.copy(bgFrom); bgT = 0; },
+    fadeBg() { bgT = 0; },
     snap() {
       const a = S.actor;
       lift = liftAt(S.level, a.pos.x, a.pos.z);
@@ -175,11 +206,23 @@ export function createRenderer(container = document.body) {
       const a = state.actor;
       lift += (liftAt(state.level, a.pos.x, a.pos.z) - lift) * Math.min(1, dt * 12);
       if (things) { things.update(state, dt); ride = things.rideOffset(state); }
+      if (held && things?.kept) {
+        const d = things.parts[things.kept], sh = things.shafts[things.kept], gy = things.group.position.y;
+        if (d && sh) {
+          d.visible = sh.visible = false;
+          held.deck.position.set(d.position.x, d.position.y + gy, d.position.z);
+          held.shaft.position.set(sh.position.x, d.position.y + gy - held.dy, sh.position.z);
+        }
+      }
       hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH + ride, a.pos.z);
       if (jitter > 0) hero.position.x += (Math.random() - 0.5) * 2 * jitter, hero.position.z += (Math.random() - 0.5) * 2 * jitter;
       hero.userData.animate(a, dt);
       stepMotion(dt);
       if (bgT < 1) { bgT = Math.min(1, bgT + dt / 0.6); scene.background.copy(bgFrom).lerp(bgTo, bgT); }
+      if (flashT < 1) {
+        flashT = Math.min(1, flashT + dt / 0.12);
+        scene.background.copy(flashBase).lerp(WHITE, flashT < 1 ? this.flashAmount : 0);
+      }
       const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * (4 + 26 * seqK)) : 1;
       focus.lerp(t, k);
     },
@@ -194,6 +237,11 @@ export function createRenderer(container = document.body) {
       xray.uSlack.value = 0.35 / (camera.far - camera.near);
       xray.uFeet.value = feet;
       xray.uRadius.value = hero.visible && S.params.xray !== "0" ? 1.2 * zoom * px : 0;
+      if (fx.length) {
+        fxCtx.x = a.pos.x; fxCtx.y = feet; fxCtx.z = a.pos.z;
+        fxCtx.sx = xray.uHero.value[0]; fxCtx.sy = xray.uHero.value[1]; fxCtx.w = w; fxCtx.h = h;
+        for (const f of fx) f.update(fxCtx);
+      }
       gl.render(scene, camera);
     },
     pick(x, y, w, h) {
