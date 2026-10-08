@@ -127,10 +127,11 @@ export function buildCharacter(scale = 1, style = null) {
   root.userData.joints = joints;
   root.userData.audit = report;
   root.userData.clip = () => cur?.getClip().name || null;
-  root.userData.play = (name) => {
+  root.userData.play = (name, { fade, at } = {}) => {
     if (!actions[name] || forced) return false;
     oneShot = name;
-    go(name, motion.auto ? FADE : 0);
+    go(name, fade ?? (motion.auto ? FADE : 0));
+    if (at != null) { actions[name].time = Math.min(at, actions[name].getClip().duration); mixer.update(0); }
     return true;
   };
   root.userData.pose = (name, t) => {
