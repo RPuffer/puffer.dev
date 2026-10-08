@@ -286,11 +286,11 @@ async function shaftSuite(name) {
         const b = m.geometry.boundingBox;
         let y = Infinity;
         for (const x of [b.min.x, b.max.x]) for (const z of [b.min.z, b.max.z]) y = Math.min(y, new THREE.Vector3(x, b.max.y, z).applyMatrix4(m.matrixWorld).project(cam).y);
-        out.push({ id: m.userData.thing, ndcY: +y.toFixed(3) });
+        out.push({ id: m.userData.thing, ndcY: +y.toFixed(3), beam: m.userData.beam || null });
       });
       return out;
     });
-    record(label, tops.length === lifts.length && tops.every((t) => t.ndcY > 1), tops.map((t) => `${t.id} ndc y ${t.ndcY}`).join(" ") || "no shaft meshes");
+    record(label, tops.length === lifts.length && tops.every((t) => (t.beam === "arrival" ? t.ndcY < 1 : t.ndcY > 1)), tops.map((t) => `${t.id}${t.beam === "arrival" ? " (arrival, stops at tile)" : ""} ndc y ${t.ndcY}`).join(" ") || "no shaft meshes");
     await o.page.close();
   }
 }
