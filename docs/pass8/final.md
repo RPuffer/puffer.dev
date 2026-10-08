@@ -60,3 +60,30 @@ Port 8765, `PP_PROFILE=.pp-profile-p8b`; outputs in `out/pass8/qa/`.
 - Decor churn on cat, forest, ember, swallow and wizard (11 to 22 items each). Figures, landmark buildings and island-named props stayed put, except one eagle-cairn (9,3 to 11,10), part of eagle's older drift; the loops re-placed rocks and props. No one has judged the changed islands by eye yet.
 - Levels outside the run (cat-subject, forest-lift and the other lens variants) still place elevators on ordinary cells and now get a beam that starts inside the island. Nobody rides them.
 - No fortress Review Queue card yet.
+
+## Cleanup: approved layouts restored
+
+The lift regenerate re-ran the decor and layout loops on five approved islands. Each of their pieces modules now carries a `PIN`: the decor, things, spawn, edits and cell overrides from the last commit before the rollout. `finish` applies it with `h.pin()` after `h.edgeLifts()`. `decor-loop` and `layout-loop` skip a level whose pieces module pins it, and `concept-level` skips its post-finish repair, so `tools/loops/rebuild.mjs` and `tools/loops/pass.mjs` both reproduce the committed file byte for byte on all five. No pre-rollout decor sat on a new lift tile, its approach cell or a beam, so none needed a drop or shift for the lifts.
+
+| Island | Reference commit | Decor restored | Decor changed | Also restored |
+| --- | --- | --- | --- | --- |
+| cat-medium | e383532 | 11 back, 8 strays gone | 0 | heights at 11,4 and 12,4 (layout-loop raises) |
+| forest-volute | 55ab94f | 11 back, 11 strays gone | 0 | ramp 3,8, bridge 4,10, land at 2,9 |
+| ember-subject | e4fe1fa | 9 back, 8 strays gone | 0 | spawn 12,9 |
+| swallow-medium | 065b9e4 | 6 back, 6 strays gone | 0 | none needed |
+| wizard-medium | bcad0a5 | 5 back, 5 strays gone | 1 | ramp 5,5 |
+
+- wizard-medium drops `brush-flick-spire` 3,8. It walls the chest cell 3,9, and `build-level` fails reach (76/77) with it in place. The approved file had the same gap; the old decor loop re-placed the spire after the build's repair removed it.
+- ember-subject 9,4: the vent there came from the regenerate. With the pinned decor 9,4 carries no vent, and ember-subject passes visibility 20/20.
+- `qa-levels` tap check: on wizard-medium it picked the ramp 3,7, whose picked pixels form an L, so their centroid picked 4,7. `screenOf` now falls back to the hit pixel nearest the centroid when the centroid picks another cell.
+
+QA, port 8765, `PP_PROFILE=.pp-profile-p8c`, outputs `out/pass8/qa/p8c-*.txt`:
+
+- `qa-visibility all`: 276/276, 0 fail. The count is 276, not 253, because the restored layouts change the routes.
+- `qa-levels` on the five: 99 pass, 1 fail (the wizard tap above); after the `screenOf` fix wizard-medium passes 20, 0 fail.
+- `qa-things`: cat 40, forest 39, ember 36, swallow 39, wizard 40; 0 fail.
+- `qa-ride-keys`: 13 pass, 0 fail. `qa-run`: 14 pass, 0 fail, 0 skip.
+
+Media: `out/pass8/arrive-01`, `-02`, `-03`, `-04` and `-12` recaptured; `out/pass8/final-sheet.jpg` rebuilt.
+
+Still unfinished: the lens variants outside the run, and the fortress Review Queue card.

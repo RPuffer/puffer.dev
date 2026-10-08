@@ -44,11 +44,16 @@ async function screenOf(page, [cx, cz]) {
     const r = window.__game.renderer, el = r.element || document.body;
     const w = el.clientWidth || innerWidth, h = el.clientHeight || innerHeight;
     let sx = 0, sy = 0, n = 0;
+    const hits = [];
     for (let y = 2; y < h; y += 4) for (let x = 2; x < w; x += 4) {
       const c = r.pick(x, y, w, h);
-      if (c && c[0] === cx && c[1] === cz) { sx += x; sy += y; n++; }
+      if (c && c[0] === cx && c[1] === cz) { sx += x; sy += y; n++; hits.push([x, y]); }
     }
-    return n ? [sx / n, sy / n, n] : null;
+    if (!n) return null;
+    const mx = sx / n, my = sy / n, c = r.pick(mx, my, w, h);
+    if (c && c[0] === cx && c[1] === cz) return [mx, my, n];
+    const [bx, by] = hits.reduce((b, q) => (Math.hypot(q[0] - mx, q[1] - my) < Math.hypot(b[0] - mx, b[1] - my) ? q : b));
+    return [bx, by, n];
   }, [cx, cz]);
 }
 
