@@ -12,7 +12,8 @@ const write = flag("--write"), quiet = flag("--quiet"), noRim = flag("--no-rim-f
 const name = args[0];
 if (!name) { console.error("usage: node tools/loops/decor-loop.mjs <level> [--seed n] [--iterations 40] [--brief path] [--write | --out file.json] [--quiet] [--no-rim-first]"); process.exit(2); }
 
-const { file, level, brief: b } = await loadLevel(name, { brief });
+const { file, level, brief: b, pinned } = await loadLevel(name, { brief });
+if (pinned) { console.log(`${name}: decor pinned by its pieces module, loop skipped`); process.exit(0); }
 const seed = seedArg != null ? +seedArg : seedOf(level.name || name);
 const log = [];
 const r = decorPass(level, { brief: b, seed, iterations, log });

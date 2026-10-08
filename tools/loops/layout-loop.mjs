@@ -289,7 +289,8 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const terrain = ti < 0 ? 0 : args[ti].includes("=") ? +args.splice(ti, 1)[0].split("=")[1] : +args.splice(ti, 2)[1];
   const name = args[0];
   if (!name) { console.error("usage: node tools/loops/layout-loop.mjs <level> [--seed n] [--iterations 30] [--loops] [--terrain=4] [--write | --out file.json]"); process.exit(2); }
-  const { file, level } = await loadLevel(name);
+  const { file, level, pinned } = await loadLevel(name);
+  if (pinned) { console.log(`${name}: layout pinned by its pieces module, loop skipped`); process.exit(0); }
   const before = measure(level).m;
   const seed = seedArg != null ? +seedArg : seedOf(level.name || name);
   const r = layoutPass(level, { seed, iterations, loops, terrain });

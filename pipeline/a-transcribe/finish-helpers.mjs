@@ -622,8 +622,23 @@ export function makeHelpers(level, { regions, brief, figure, surf, terrain = () 
     return true;
   };
   const edgeLifts = (o = {}) => ["exit", "entry"].map((r) => edgeLift(r, o[r]));
+  let pinned = false;
+  const pin = (p) => {
+    if (!p) return false;
+    pinned = true;
+    for (const [x, z, c] of p.cells || []) level.cells[z][x] = { ...c };
+    level.decor.splice(0, level.decor.length, ...p.decor.map((d) => ({ ...d })));
+    if (p.spawn) level.spawn = p.spawn.slice();
+    if (p.edits) level.edits = p.edits.map((e) => ({ ...e })); else delete level.edits;
+    if (p.things) {
+      const lifts = (level.things || []).filter((t) => t.kind === "elevator");
+      level.things = p.things.map((t) => t.kind === "elevator" ? lifts.find((q) => q.role === t.role) : JSON.parse(JSON.stringify(t)));
+    }
+    log.push(`pinned layout: ${p.decor.length} decor, ${(p.cells || []).length} cells`);
+    return true;
+  };
 
   const role = (t) => level.palette?.props?.[t]?.role || (CATALOG[t] ? t : null);
   const ofRole = (r) => Object.entries(level.palette?.props || {}).filter(([, p]) => p.role === r).map(([t]) => t);
-  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, bridge, canopy, fence, road, readability, snapshot, restore, log, edgeLifts, cluster: (o = {}) => decorPass(level, { brief, log, ...o }) };
+  return { W, D, walkN, dryRim, pruneRamps, openRamps, rampTone, grow, thin, spawnAt, along, passes, ledges, role, ofRole, footprint, cell, set, land, key, isFig, figure: { anchor: figure.anchor, cells: figCells }, lead, regions, brief, surf, DIRS, OPPOSITE, decorAt, removeDecor, clear, put, plateau, dais, stairs, path, route, approach, figRing, flank, gate, lights, reach, repair, blockedSet, bridge, canopy, fence, road, readability, snapshot, restore, log, edgeLifts, pin, isPinned: () => pinned, cluster: (o = {}) => decorPass(level, { brief, log, ...o }) };
 }

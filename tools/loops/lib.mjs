@@ -8,13 +8,15 @@ export const root = path.resolve(path.dirname(new URL(import.meta.url).pathname)
 export async function loadLevel(name, o = {}) {
   const file = path.join(root, "levels", `${name}.json`);
   const level = JSON.parse(fs.readFileSync(file, "utf8"));
+  let pinned = false;
   for (const p of level.pieces || []) {
     const mod = await import(path.join(root, "3d", p));
     if (mod.register) registerCatalog(mod.register({ palette: level.palette || {} }).catalog);
+    if (mod.PIN?.[level.name || name]) pinned = true;
   }
   const briefPath = o.brief || path.join(root, "pipeline/seed/concepts", `${name}.json`);
   const brief = fs.existsSync(briefPath) ? JSON.parse(fs.readFileSync(briefPath, "utf8")) : null;
-  return { file, level, brief };
+  return { file, level, brief, pinned };
 }
 
 const f2 = (v) => (v == null ? "n/a" : v.toFixed(2));

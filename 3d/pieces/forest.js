@@ -569,6 +569,8 @@ function moveExit(level, h, [x, z], rot) {
   Object.assign(e, { x, z, rot });
 }
 
+export const PIN = { "forest-volute": {"spawn":[12,9],"cells":[[10,5,{"h":1,"s":"sand"}],[3,8,{"h":2,"s":"ramp","d":"e","m":"sand"}],[4,10,{"h":1,"s":"bridge","m":"planks"}]],"decor":[{"t":"volute_gilt_bird","x":5,"z":2,"v":0,"rot":0,"ox":0,"oz":0,"watch":"w1"},{"t":"volute_scroll","x":1,"z":7,"v":1,"rot":0,"ox":-0.03,"oz":0},{"t":"volute_scroll","x":5,"z":7,"v":1,"rot":0,"ox":0.01,"oz":-0.06},{"t":"volute_gate","x":8,"z":7,"v":0,"rot":0,"ox":0,"oz":0,"side":-1,"axis":"z","gapX":9,"gapZ":7},{"t":"volute_gate","x":10,"z":7,"v":0,"rot":0,"ox":0,"oz":0,"side":1,"axis":"z","gapX":9,"gapZ":7},{"t":"volute_tear","x":10,"z":3,"v":1,"rot":0,"ox":0,"oz":0},{"t":"volute_curl_hedge","x":8,"z":4,"v":0,"rot":0,"ox":0,"oz":0},{"t":"volute_urn","x":10,"z":8,"v":0,"rot":0,"ox":0,"oz":0,"axis":"x","gapX":10,"gapZ":9},{"t":"volute_urn","x":10,"z":10,"v":0,"rot":0,"ox":0,"oz":0,"axis":"x","gapX":10,"gapZ":9},{"t":"volute_urn","x":10,"z":5,"v":0,"rot":0,"ox":0,"oz":0,"axis":"z","gapX":9,"gapZ":5},{"t":"volute_scroll","x":3,"z":1,"v":0,"rot":0,"ox":0,"oz":0},{"t":"volute_scroll","x":11,"z":4,"v":0,"rot":0,"ox":0,"oz":0},{"t":"volute_scroll","x":1,"z":6,"v":1,"rot":0,"ox":0,"oz":0},{"t":"forest-gilt-gazebo-s","x":2,"z":3,"v":0,"rot":0,"ox":0,"oz":0},{"t":"canopy-tree-small","x":6,"z":8,"v":0,"rot":0,"ox":0,"oz":0},{"t":"rock","x":5,"z":5,"v":1,"rot":0,"ox":-0.05,"oz":-0.05},{"t":"volute_curl_hedge","x":6,"z":5,"v":0,"rot":0,"ox":-0.09,"oz":-0.03},{"t":"rock-big","x":1,"z":5,"v":1,"rot":0,"ox":-0.1,"oz":0},{"t":"volute_tear","x":3,"z":10,"v":1,"rot":0,"ox":-0.03,"oz":0.04},{"t":"volute_gate","x":2,"z":10,"v":1,"rot":0,"ox":0.03,"oz":0.05},{"t":"volute_urn","x":2,"z":1,"v":1,"rot":0,"ox":0.04,"oz":0.01},{"t":"rock","x":8,"z":8,"v":1,"rot":0,"ox":0.07,"oz":-0.02},{"t":"rock-big","x":11,"z":2,"v":0,"rot":0,"ox":-0.01,"oz":-0.05},{"t":"volute_curl_hedge","x":10,"z":2,"v":0,"rot":0,"ox":0.02,"oz":-0.09},{"t":"rock","x":8,"z":3,"v":2,"rot":0,"ox":-0.01,"oz":-0.07},{"t":"rock-big","x":3,"z":9,"v":1,"rot":0,"ox":0.11,"oz":-0.02},{"t":"rock","x":10,"z":4,"v":1,"rot":0,"ox":0.08,"oz":-0.04},{"t":"rock-big","x":11,"z":7,"v":0,"rot":0,"ox":0.09,"oz":-0.04}],"things":[{"id":"b1","kind":"bonfire","x":11,"z":8,"rot":0},{"id":"c1","kind":"chest","x":13,"z":8,"rot":0,"text":"A gilt volute snipped from the parterre hedge, still curling."},{"id":"w1","kind":"watcher","x":5,"z":2,"size":[2,2],"radius":5.55},{"id":"g1","kind":"gate","x":9,"z":5,"span":"x","blocks":[[9,5]],"open":"watcher:w1","threshold":[[9,6]],"edge":[[9,6],[9,5]]},{"id":"e2","kind":"elevator","x":7,"z":1,"rot":2,"role":"exit"},{"id":"e1","kind":"elevator","x":13,"z":6,"rot":1,"role":"entry"}],"edits":[{"x":10,"z":5,"kind":"lower","from":{"h":2,"s":"sand"},"to":{"h":1,"s":"sand"}}]} };
+
 export function finish(level, brief, h) {
   const aspect = aspectOf(level.palette, Object.keys(level.palette?.props || {}));
   if (aspect) {
@@ -579,7 +581,7 @@ export function finish(level, brief, h) {
     if (level.name === "forest-volute") exitLanding(level, h);
     if (level.name === "forest-volute") placeRunThings(level, h, { chestText: "A gilt volute snipped from the parterre hedge, still curling." });
     if (level.name === "forest-volute") moveExit(level, h, [7, 1], 2);
-    if (level.name === "forest-volute") h.edgeLifts();
+    if (level.name === "forest-volute") { h.edgeLifts(); h.pin(PIN[level.name]); }
     return;
   }
   if (brief.lens) return finishLens(level, brief, h);

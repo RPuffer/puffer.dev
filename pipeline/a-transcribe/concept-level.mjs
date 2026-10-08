@@ -370,7 +370,7 @@ export async function build({ root, flag, has, regions, brief }) {
     };
     H = makeHelpers(level, { regions, brief, figure: fig, surf, terrain });
     await mod.finish(level, brief, H);
-    H.repair();
+    if (!H.isPinned()) H.repair();
     blocked.clear();
     for (const k2 of H.blockedSet()) blocked.add(k2);
     if (!walk(at(...level.spawn)) || at(...level.spawn).s === "ramp") level.spawn = spawnPick();
