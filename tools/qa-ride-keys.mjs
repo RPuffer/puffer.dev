@@ -236,7 +236,7 @@ async function touchCheck(name) {
   const b = s.things.find((t) => t.kind === "bonfire");
   const others = s.things.filter((t) => t.kind === "chest");
   const goals = around(b).filter(([x, z]) => !others.some((t) => Math.max(Math.abs(t.x - x), Math.abs(t.z - z)) <= 1));
-  const p = await planTo(goals.length ? goals : around(b));
+  const p = (goals.length && (await planTo(goals))) || (await planTo(around(b)));
   if (!p) return record("FAIL", label, `no path to bonfire ${b.x},${b.z}`);
   for (const c of p.slice(1)) {
     const at = await screenOf(c);
