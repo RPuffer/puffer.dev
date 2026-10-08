@@ -1,13 +1,16 @@
 import { loadLevel } from "../core/level.js";
-import { start, readParams } from "../core/game.js";
+import { createGame, readParams } from "../core/game.js";
+import { createRun } from "../core/run.js";
+import { CATALOG } from "../core/catalog.js";
 import { createRenderer } from "./renderer.js";
-import { loadPieces, loadGlbs } from "./hooks.js";
+import { loadPieces, loadGlbs, BUILDERS } from "./hooks.js";
 import { makeStyle } from "./style.js";
 import { mountUI } from "../core/ui.js";
 import { loadClouds } from "./clouds/index.js";
 
 const msg = document.getElementById("msg");
 const params = readParams();
+const BASE_CATALOG = { ...CATALOG };
 
 async function knownLevels() {
   try {
@@ -17,17 +20,38 @@ async function knownLevels() {
   } catch { return []; }
 }
 
-try {
-  const level = await loadLevel(params.level, { beforePrepare: loadPieces });
+const resetRegistry = () => {
+  for (const k of Object.keys(CATALOG)) if (!(k in BASE_CATALOG)) delete CATALOG[k];
+  Object.assign(CATALOG, BASE_CATALOG);
+  for (const k of Object.keys(BUILDERS)) delete BUILDERS[k];
+};
+
+async function prepare(name) {
+  const level = await loadLevel(name, { beforePrepare: async (raw) => { resetRegistry(); await loadPieces(raw); } });
   const style = makeStyle(level);
   await loadGlbs(level, style);
-  const clouds = await loadClouds(params, style);
-  document.body.style.background = style.bg;
+  return { level, style };
+}
+
+try {
+  const t0 = performance.now();
+  const first = await prepare(params.level);
+  first.loadMs = performance.now() - t0;
+  const clouds = await loadClouds(params, first.style);
   const renderer = createRenderer(document.body);
-  const game = start(level, renderer, { params });
-  clouds?.mount(renderer, game.state);
+  const game = createGame(renderer, params);
+  const run = createRun(game, {
+    prepare,
+    unmount: () => clouds?.unmount(renderer),
+    mount: (state, { style }) => {
+      document.body.style.background = style.bg;
+      clouds?.mount(renderer, state, style);
+    },
+  });
+  window.__run = run;
+  run.boot(first);
   mountUI();
-  if (params.debug) msg.textContent = `${level.name} ${level.size.join("x")} pitch ${params.pitch || "default"}`;
+  if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;
 } catch (e) {
   console.error(e);
   const names = await knownLevels();

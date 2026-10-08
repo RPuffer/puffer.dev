@@ -72,7 +72,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
   const emit = (e) => { for (const f of listeners) f(e); };
   const save = () => write({ v: 1, respawn, things: Object.fromEntries(things.map((t) => [t.id, { state: t.state }])) });
 
-  let actor = null, pending = null, focus = null, toastText = "", toastT = 0, nav = null;
+  let actor = null, pending = null, focus = null, toastText = "", toastT = 0, nav = null, stalled = false;
   const log = [];
 
   const ui = dom && params.hero !== "0" ? mountThingsUI({ touch: params.touch === "1" }) : null;
@@ -195,7 +195,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
               t.rideDir = 0; t.state = "arrived";
               nav = t.next;
               emit({ type: "navigate", thing: t, next: t.next });
-              if (params.nav !== "0") (navigate || defaultNavigate)(t.next, level.name, t.arrive);
+              if (params.nav !== "0") (navigate && !stalled ? navigate : defaultNavigate)(t.next, level.name, t.arrive);
             } else {
               t.rideDir = -1; t.state = "returning";
               toast(t.stub || "The shaft goes no higher yet");
@@ -231,6 +231,11 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       for (const t of things) if (t.kind === "elevator" && (t.rideDir || t.state !== "idle")) { t.ride = 0; t.rideDir = 0; t.state = "idle"; }
       nav = null;
       if (actor) { actor.locked = false; actor.path = []; actor.held = null; actor.tapDir = null; }
+    },
+    stall(text) {
+      stalled = true;
+      nav = null;
+      for (const t of things) if (t.kind === "elevator" && t.state === "arrived") { t.rideDir = -1; t.state = "returning"; if (text !== "") toast(text ?? t.stub ?? "The lift stalls"); }
     },
     dispose() { ui?.dispose(); if (dom) removeEventListener("pageshow", onShow); },
   };
