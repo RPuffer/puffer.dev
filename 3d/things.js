@@ -177,6 +177,7 @@ export function buildThings(L, view, style, decorGroup) {
   const parts = {};
   const shafts = {};
   const heads = {};
+  let kept = null;
   decorGroup?.traverse((o) => { if (o.userData?.live?.thing) heads[o.userData.live.thing] = o; });
   for (const t of L.things || []) {
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
@@ -282,9 +283,11 @@ export function buildThings(L, view, style, decorGroup) {
     shafts,
     onEvent,
     rideOffset(state) {
+      for (const t of state.things?.things || []) if (t.kind === "elevator" && t.lift != null) return t.lift;
       for (const t of state.things?.things || []) if (t.kind === "elevator" && t.ride > 0) return ease.inOut(t.ride) * RISE;
       return 0;
     },
+    keep(id) { kept = id; },
     update(state, dt) {
       tweens.step(dt);
       for (const t of state.things?.things || []) {
@@ -293,7 +296,11 @@ export function buildThings(L, view, style, decorGroup) {
         if (t.kind === "bonfire") m.scale.setScalar(Math.max(0.001, m.userData.scale));
         else if (t.kind === "chest") m.rotation.x = -1.95 * m.userData.open;
         else if (t.kind === "gate") { m.scale.y = Math.max(0.06, 1 - 0.86 * m.userData.lift); m.position.y = m.userData.y0 + 0.12 * m.userData.lift; }
-        else if (t.kind === "elevator") m.position.y = m.userData.y0 + ease.inOut(t.ride || 0) * RISE;
+        else if (t.kind === "elevator") {
+          const pin = t.id === kept ? -group.position.y : 0;
+          m.position.y = m.userData.y0 + (t.lift ?? ease.inOut(t.ride || 0) * RISE) + pin;
+          if (shafts[t.id]) shafts[t.id].position.y = m.userData.y0 + pin;
+        }
         else if (t.kind === "watcher") applyWatcher(t, m);
       }
     },
