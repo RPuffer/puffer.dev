@@ -50,9 +50,11 @@ export function createGame(renderer, params = readParams()) {
     }
   });
 
+  const tickers = new Set();
   const tick = () => {
     state.actor.update(STEP);
     state.things?.update(STEP);
+    for (const f of tickers) f(STEP);
     renderer.update?.(state, STEP);
     state.time += STEP;
   };
@@ -72,9 +74,10 @@ export function createGame(renderer, params = readParams()) {
   const game = {
     state,
     renderer,
-    load(level, { arrive = params.arrive, spawn = params.spawn, reset = params.reset, from = params.from, at = null, navigate } = {}) {
+    onTick(f) { tickers.add(f); return () => tickers.delete(f); },
+    load(level, { arrive = params.arrive, spawn = params.spawn, reset = params.reset, from = params.from, at = null, navigate, keep = false } = {}) {
       state.things?.dispose();
-      if (state.level) renderer.unmount?.(state);
+      if (state.level && !keep) renderer.unmount?.(state);
       const p = { ...params, level: level.name, arrive, spawn, reset, from };
       for (const k of ["arrive", "spawn", "reset", "from"]) if (p[k] == null) delete p[k];
       const view = viewFrom(level, p);

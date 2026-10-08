@@ -228,14 +228,14 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       ui?.prompt(focus ? verb(focus) : "");
     },
     settle() {
-      for (const t of things) if (t.kind === "elevator" && (t.rideDir || t.state !== "idle")) { t.ride = 0; t.rideDir = 0; t.state = "idle"; }
+      for (const t of things) if (t.kind === "elevator" && (t.rideDir || t.state !== "idle")) { t.lift = null; t.ride = 0; t.rideDir = 0; t.state = "idle"; }
       nav = null;
       if (actor) { actor.locked = false; actor.path = []; actor.held = null; actor.tapDir = null; }
     },
     stall(text) {
       stalled = true;
       nav = null;
-      for (const t of things) if (t.kind === "elevator" && t.state === "arrived") { t.rideDir = -1; t.state = "returning"; if (text !== "") toast(text ?? t.stub ?? "The lift stalls"); }
+      for (const t of things) if (t.kind === "elevator" && (t.state === "arrived" || t.state === "shaft")) { t.lift = null; t.rideDir = -1; t.state = "returning"; if (text !== "") toast(text ?? t.stub ?? "The lift stalls"); }
     },
     dispose() { ui?.dispose(); if (dom) removeEventListener("pageshow", onShow); },
   };
