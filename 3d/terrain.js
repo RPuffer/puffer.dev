@@ -248,6 +248,7 @@ function bridgeCell(B, L, x, z, c, T, rnd) {
     }
     Bx(0.1, 0.22, 0.02, 0.98, y - 0.27, y - 0.17, tone(P.wood.dark, P.wood.shadow, P.wood.shadow));
     Bx(0.78, 0.9, 0.02, 0.98, y - 0.27, y - 0.17, tone(P.wood.dark, P.wood.shadow, P.wood.shadow));
+    if (c.post) for (const v of [0.06, 0.94]) { const [px, pz] = alongX ? [x + 0.84, z + v] : [x + v, z + 0.84]; B.cyl(0.07, 1.2 * T + 0.32, tone(P.wood.mid, P.wood.dark, P.wood.shadow), px, y - 1.2 * T - 0.27, pz, 8, { topPal: P.wood.end }); }
     return;
   }
   const r = 0.16, n = 2;

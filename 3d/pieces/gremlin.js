@@ -4,6 +4,7 @@ import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
 import { placeRunThings } from "./ember.js";
 import { lockedKit } from "../prims.js";
+import { outgrow as growOut } from "./outgrowth.js";
 
 const SKINS = {
   artisan: {
@@ -877,3 +878,6 @@ function finishLens(level, brief, h) {
   if (level.name === "gremlin-subject" && level.things?.some((t) => t.kind === "chest" && t.x === 14 && t.z === 4) && !h.decorAt(13, 4).length) h.put("stepping-stones", 13, 4, { v: 0 });
   h.log.push(`lens ${L}: approach ${h.approach().length}, walk ${h.walkN()}, missing ${JSON.stringify(h.reach().missing)}`);
 }
+
+export const GROW = { "gremlin-subject": [{"kind":"plateau","side":"n","at":[7,1],"size":[2,2],"tier":-1,"decor":[{"t":"bio-conduit-spool","u":3,"v":1}]},{"kind":"dock","side":"w","at":[2,6],"len":3,"decor":[{"t":"specimen-pod-rack","u":3}]},{"kind":"walkway","side":"w","at":[3,9],"len":1,"islet":[2,2],"causeway":true,"decor":[{"t":"specimen-pod-rack","u":3,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
+export const outgrow = (level) => growOut(level, GROW[level.name]);

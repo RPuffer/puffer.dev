@@ -5,6 +5,7 @@ import { placeGeneric } from "./multitile-place.js";
 import { reachability } from "../../core/procgen.js";
 import { CATALOG } from "../../core/catalog.js";
 import { canStep, DIRS } from "../../core/level.js";
+import { outgrow as growOut } from "./outgrowth.js";
 
 const ART = {
   robe: ["#2a4fb8", "#1f3d96", "#162c70"],
@@ -1019,3 +1020,6 @@ export function flattenBump(level, h, route = exitRoute(level, h)) {
   }
   return [];
 }
+
+export const GROW = { "wizard-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":-2,"decor":[{"t":"rock","u":4,"v":1},{"t":"rock","u":3,"v":-1}]},{"kind":"dock","side":"w","at":[1,8],"len":2,"decor":[{"t":"brush-flick-spire","u":2}]},{"kind":"walkway","side":"n","at":[14,1],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"brush-flick-spire","u":5,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
+export const outgrow = (level) => growOut(level, GROW[level.name]);

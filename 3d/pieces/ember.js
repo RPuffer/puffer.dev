@@ -6,6 +6,7 @@ import { reachability } from "../../core/procgen.js";
 import { CATALOG } from "../../core/catalog.js";
 import { canStep, DIRS } from "../../core/level.js";
 import { sealGate, backEntry, entryWalk, floorClear } from "./wizard.js";
+import { outgrow as growOut } from "./outgrowth.js";
 
 const HOT = {
   coal: ["#2e1a10", "#24140b", "#170c06"],
@@ -802,3 +803,6 @@ export function placeRunThings(level, h, o = {}) {
   h.log.push(`run things ${out.map((t) => `${t.kind}${t.role ? ":" + t.role : ""}@${t.x},${t.z}`).join(" ")} ${JSON.stringify(ok)}`);
   return ok;
 }
+
+export const GROW = { "ember-subject": [{"kind":"plateau","side":"n","at":[10,2],"size":[3,2],"tier":-1,"decor":[{"t":"calcined_bone_pile","u":4,"v":1}]},{"kind":"dock","side":"w","at":[1,6],"len":4,"decor":[{"t":"glowing_ember_vent","u":4}]},{"kind":"walkway","side":"n","at":[5,1],"len":2,"islet":[2,2],"causeway":true,"decor":[{"t":"glowing_ember_vent","u":4,"v":1}]},{"kind":"dock","side":"e","at":[12,4],"len":2,"decor":[]}] };
+export const outgrow = (level) => growOut(level, GROW[level.name]);

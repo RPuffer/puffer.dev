@@ -3,6 +3,7 @@ import { Baker, tone, circle, bakedMaterial } from "../baker.js";
 import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
 import { placeRunThings } from "./ember.js";
+import { outgrow as growOut } from "./outgrowth.js";
 
 const BLOOM = {
   skin: ["#d6cfff", "#bdb4f0", "#9d93d6"],
@@ -647,3 +648,6 @@ export function finish(level, brief, h) {
   thin(level, h, [gateT, lightT, bigCandle]);
   rampTone(level, h);
 }
+
+export const GROW = { "mindbloom-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":-2,"decor":[{"t":"doodle-disc","u":4,"v":1},{"t":"rock","u":3,"v":-1}]},{"kind":"dock","side":"w","at":[1,6],"len":2,"decor":[{"t":"spotted-neon-cap","u":2}]},{"kind":"walkway","side":"w","at":[4,10],"len":2,"islet":[2,2],"decor":[{"t":"spotted-neon-cap","u":4,"v":1}]},{"kind":"dock","side":"s","at":[5,10],"len":2,"decor":[]}] };
+export const outgrow = (level) => growOut(level, GROW[level.name]);

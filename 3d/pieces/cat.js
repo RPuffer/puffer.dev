@@ -6,6 +6,7 @@ import { dropFront } from "./sightline.js";
 import { CATALOG, registerCatalog } from "../../core/catalog.js";
 import { placeGeneric } from "./multitile-place.js";
 import { BIBLE, ramp, luma, hexRgb, figure, lockedKit } from "../prims.js";
+import { outgrow as growOut } from "./outgrowth.js";
 
 const FAUVE = {
   magenta: ["#ee4f8e", "#cf3a78", "#a82a62"],
@@ -840,3 +841,6 @@ function landmarkNear(level, h, type, max) {
   h.log.push(`landmark ${type}: nothing within ${max} of the figure`);
   return false;
 }
+
+export const GROW = { "cat-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[3,2],"tier":1,"decor":[{"t":"knife-stroke","u":4,"v":1}]},{"kind":"dock","side":"w","at":[1,3],"len":2,"decor":[{"t":"palette-knife-slab","u":2}]},{"kind":"walkway","side":"w","at":[1,1],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"palette-knife-slab","u":5,"v":1}]},{"kind":"dock","side":"s","at":[8,9],"len":2,"decor":[]}] };
+export const outgrow = (level) => growOut(level, GROW[level.name]);

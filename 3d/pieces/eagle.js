@@ -4,6 +4,7 @@ import { placeLandmark } from "./multitile-themed-b.js";
 import { placeGeneric, UNPADDED } from "./multitile-place.js";
 import { placeRunThings } from "./ember.js";
 import { moveElevator, clearFloor, routeCells } from "./sightline.js";
+import { outgrow as growOut } from "./outgrowth.js";
 
 const INK = {
   coat: ["#5b4a45", "#463833", "#322724"],
@@ -933,3 +934,6 @@ export function finish(level, brief, h) {
   rampTone(level, h);
   h.log.push(`posts ${posts().map((d) => d.x + "," + d.z).join(" ")} approach ${h.approach().length} reach ${h.reach().reached}/${h.reach().total}`);
 }
+
+export const GROW = { "eagle-composition": [{"kind":"plateau","side":"n","at":[7,1],"size":[2,2],"tier":1,"decor":[{"t":"quill_spire_marker","u":3,"v":1}]},{"kind":"dock","side":"w","at":[1,6],"len":2,"decor":[{"t":"eagle-lichen","u":2}]},{"kind":"walkway","side":"n","at":[4,1],"len":1,"islet":[2,2],"decor":[{"t":"eagle-lichen","u":3,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
+export const outgrow = (level) => growOut(level, GROW[level.name]);

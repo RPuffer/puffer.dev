@@ -5,6 +5,7 @@ import { placeThings } from "./wizard.js";
 import { faceClimb, plugShadow } from "./sightline.js";
 import { placeGeneric } from "./multitile-place.js";
 import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
+import { outgrow as growOut } from "./outgrowth.js";
 
 const INK = {
   espresso: ["#6e3527", "#57281c", "#401c14"],
@@ -434,3 +435,6 @@ export function finish(level, brief, h) {
   h.repair({ keep: [gateT] });
   rampTone(level, h);
 }
+
+export const GROW = { "swallow-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":-1,"decor":[{"t":"perch-dais","u":3,"v":1},{"t":"rock","u":2,"v":-1}]},{"kind":"dock","side":"w","at":[1,7],"len":2,"decor":[{"t":"marker","u":2}]},{"kind":"walkway","side":"w","at":[3,4],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"marker","u":5,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
+export const outgrow = (level) => growOut(level, GROW[level.name]);
