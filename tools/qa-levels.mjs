@@ -261,8 +261,42 @@ async function levelSuite(name) {
   await t.page.close();
 }
 
+const SHAFT_SIZES = [[900, 800], [400, 800], [1600, 900]];
+
+async function shaftSuite(name) {
+  const tag = `lvl-${name}`;
+  const file = JSON.parse(fs.readFileSync(path.join(root, "levels", name + ".json"), "utf8"));
+  const lifts = (file.things || []).filter((t) => t.kind === "elevator");
+  if (!lifts.length) { record(`${tag} shaft tops off frame`, "skip", "no elevators"); return; }
+  for (const arrive of ["entry", "exit"]) for (const [width, height] of SHAFT_SIZES) {
+    const label = `${tag} shaft tops off frame at ${width}x${height} arrive=${arrive}`;
+    const o = await open(`${BASE}/3d/index.html?level=${name}&arrive=${arrive}`, { width, height });
+    if (!o.done) { record(label, false, "page did not load"); await o.page.close(); continue; }
+    await idle(o.page); await wait(300);
+    const tops = await o.page.evaluate(async () => {
+      const THREE = await import("three");
+      const g = window.__game;
+      g.stop();
+      const S = g.state, cam = g.renderer.three.camera;
+      g.renderer.update(S, 0); g.renderer.render(S, 0);
+      const out = [];
+      g.renderer.three.scene.getObjectByName("things")?.traverse((m) => {
+        if (!m.userData?.shaft) return;
+        m.geometry.computeBoundingBox();
+        const b = m.geometry.boundingBox;
+        let y = Infinity;
+        for (const x of [b.min.x, b.max.x]) for (const z of [b.min.z, b.max.z]) y = Math.min(y, new THREE.Vector3(x, b.max.y, z).applyMatrix4(m.matrixWorld).project(cam).y);
+        out.push({ id: m.userData.thing, ndcY: +y.toFixed(3) });
+      });
+      return out;
+    });
+    record(label, tops.length === lifts.length && tops.every((t) => t.ndcY > 1), tops.map((t) => `${t.id} ndc y ${t.ndcY}`).join(" ") || "no shaft meshes");
+    await o.page.close();
+  }
+}
+
 try {
-  for (const name of LEVELS) await levelSuite(name);
+  for (const name of LEVELS) { await levelSuite(name); await shaftSuite(name); }
 } finally {
   await browser.close();
 }

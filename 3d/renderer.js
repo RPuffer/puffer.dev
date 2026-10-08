@@ -7,12 +7,12 @@ import { xray } from "./xray.js";
 import { liftAt } from "./terrain.js";
 import { makeStyle } from "./style.js";
 import { initMotion, stepMotion } from "./motion.js";
-import { buildThings, bakeThingBases } from "./things.js";
+import { buildThings, bakeThingBases, ISLAND } from "./things.js";
 
 const FRAME = [351, 390];
 
 export function createRenderer(container = document.body) {
-  const gl = new THREE.WebGLRenderer({ antialias: true });
+  const gl = new THREE.WebGLRenderer({ antialias: true, stencil: true });
   gl.setPixelRatio(Math.min(2, devicePixelRatio || 1));
   container.appendChild(gl.domElement);
   const scene = new THREE.Scene();
@@ -74,6 +74,10 @@ export function createRenderer(container = document.body) {
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       scene.add(hero);
+      for (const g of [terrain.group, decor.group, things?.group, hero]) g?.traverse((o) => {
+        if (!o.material || o.userData.shaft) return;
+        for (const m of [].concat(o.material)) { m.stencilWrite = true; m.stencilRef = ISLAND; m.stencilFunc = THREE.AlwaysStencilFunc; m.stencilZPass = THREE.ReplaceStencilOp; }
+      });
       bounds = levelScreenBounds(L, state.proj);
       resize();
       addEventListener("resize", resize);

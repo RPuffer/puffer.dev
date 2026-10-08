@@ -7,7 +7,10 @@ import { createTweens, ease } from "./tween.js";
 import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
 
 export const RISE = 2.4;
-const t3 = (c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
+export const SHAFT = 32;
+export const RUNG = 1.5;
+const CAGE = 2.6;
+const t3 =(c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
 const SIDE = [[0, 1], [1, 0], [0, -1], [-1, 0]];
 
 function lookOf(style) {
@@ -99,11 +102,18 @@ function elevatorFrame(B, k, out) {
   const perp = [oz, ox];
   for (const s of [-1, 1]) {
     const x = ox * 0.44 + perp[0] * s * 0.44, z = oz * 0.44 + perp[1] * s * 0.44;
-    B.rbox(0.16, 2.9, 0.16, 0.03, t3(k.post), x, -0.3, z);
-    B.box(0.2, 0.12, 0.2, t3(k.trim), x, 2.6, z);
+    B.rbox(0.16, CAGE + 0.3, 0.16, 0.03, t3(k.post), x, -0.3, z);
+    B.box(0.2, 0.12, 0.2, t3(k.trim), x, CAGE, z);
   }
-  B.box(Math.abs(perp[0]) * 0.92 + 0.16, 0.14, Math.abs(perp[1]) * 0.92 + 0.16, t3(k.post), ox * 0.44, 2.72, oz * 0.44);
-  B.box(0.12, 0.16, 0.12, t3(k.lamp), ox * 0.44, 2.56, oz * 0.44);
+  B.box(Math.abs(perp[0]) * 0.92 + 0.16, 0.14, Math.abs(perp[1]) * 0.92 + 0.16, t3(k.post), ox * 0.44, CAGE + 0.12, oz * 0.44);
+  B.box(0.12, 0.16, 0.12, t3(k.lamp), ox * 0.44, CAGE - 0.04, oz * 0.44);
+}
+
+function elevatorShaft(B, k, out) {
+  const [ox, oz] = out;
+  const perp = [oz, ox];
+  for (const s of [-1, 1]) B.rbox(0.16, SHAFT - CAGE, 0.16, 0.03, t3(k.post), ox * 0.44 + perp[0] * s * 0.44, CAGE, oz * 0.44 + perp[1] * s * 0.44);
+  for (let y = CAGE + 0.26 + RUNG; y < SHAFT - 0.3; y += RUNG) B.box(Math.abs(perp[0]) * 0.92 + 0.08, 0.08, Math.abs(perp[1]) * 0.92 + 0.08, t3(k.trim), ox * 0.44, y, oz * 0.44);
 }
 
 function elevatorDeck(B, k) {
@@ -126,6 +136,17 @@ export function gatePlace(LL, view, t) {
 }
 
 const xrayMat = (reach = false) => applyMotion(applyXray(bakedMaterial(), reach));
+
+export const ISLAND = 1;
+
+function underlayMat() {
+  const m = bakedMaterial();
+  m.stencilWrite = true;
+  m.stencilRef = ISLAND;
+  m.stencilFunc = THREE.NotEqualStencilFunc;
+  m.stencilFail = m.stencilZFail = m.stencilZPass = THREE.KeepStencilOp;
+  return m;
+}
 
 function partMesh(build, light, k, at, rotY, reach = false) {
   const B = new Baker(light);
@@ -154,6 +175,7 @@ export function buildThings(L, view, style, decorGroup) {
   const LL = liftLevel(L), k = lookOf(style), light = style.light;
   const tweens = createTweens();
   const parts = {};
+  const shafts = {};
   const heads = {};
   decorGroup?.traverse((o) => { if (o.userData?.live?.thing) heads[o.userData.live.thing] = o; });
   for (const t of L.things || []) {
@@ -188,6 +210,18 @@ export function buildThings(L, view, style, decorGroup) {
       m.userData.y0 = y;
       group.add(m);
       parts[t.id] = m;
+      const out = SIDE[((t.rot || 0) % 4 + 4) % 4];
+      const sb = new Baker(light);
+      elevatorShaft(sb, k, out);
+      const s = new THREE.Mesh(sb.geometry(), underlayMat());
+      s.position.set(x, y, z);
+      s.renderOrder = 3;
+      s.userData.noMerge = true;
+      s.userData.thing = t.id;
+      s.userData.shaft = true;
+      s.frustumCulled = false;
+      group.add(s);
+      shafts[t.id] = s;
     } else if (t.kind === "watcher" && heads[t.id]) {
       const h = heads[t.id];
       h.userData.base = h.matrix.clone();
@@ -245,6 +279,7 @@ export function buildThings(L, view, style, decorGroup) {
   return {
     group,
     parts,
+    shafts,
     onEvent,
     rideOffset(state) {
       for (const t of state.things?.things || []) if (t.kind === "elevator" && t.ride > 0) return ease.inOut(t.ride) * RISE;
