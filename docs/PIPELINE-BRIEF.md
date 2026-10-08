@@ -121,3 +121,11 @@ Operator's spec, 2026-10-07, in his words: "I want all elevators to look like th
 Read as six features: (1) every elevator's shaft or cable leaves the top of the frame; (2) on activation the camera closes in on the hero; (3) the hero plays one of several silly dances, which calls for a richer hero model with a small library of clips; (4) an anime speed-line, streak, motion-blur sequence that reads as thousands of storeys; (5) the next island loads during that sequence, in page, with no reload; (6) camera, animation and hero settle to normal on the new island's entry platform.
 
 Standing constraints: the pass-6 performance floor (60 fps on M-series laptops, 30 fps or better on a mid phone, no per-frame allocation); the pack style and `docs/STYLE.md`; `hero=0` reference shots and `?clouds=none` unchanged; `tools/qa-ride-keys.mjs` and `tools/qa-run.mjs` keep passing, extended to cover the sequence; the transition works with keyboard, tap and touch. Working rule from the operator: plan the phases, then build them in order without review gates; flag him only when a spend or time limit is close, or a decision is a one-way door that touches a large part of the project.
+
+## Ideas queued (operator, 2026-10-07, not started)
+
+Captured in his words, to build after pass 7 lands:
+
+- "elevators should be a single shaft per island and we should come up into the next island so it feels like climbing a tower essentially." One elevator per island instead of an entry and an exit; the ride goes up and arrives from below into the next island, so the run reads as one tower climb.
+- "instead of enemies, we will booby trap the entire island so the gameplay is figuring out the safe route." The challenge is traps across the whole island; the player reads the island to find the safe path. No enemies.
+- "on the elevators, the shafts look weird, I think a consistent look would really tie them together, i'm thinking like a beam of light essentially, so it's transparent, with a very sci-fi forcefield type of idle animation (maybe with some randomized rings moving sporadically along it in a waveform-like pattern)." One shared shaft look on every island: a transparent light beam with a forcefield idle, rings moving along it at random in a waveform pattern. Replaces the per-island rail-and-rung shaft from pass 7 phase 1.
