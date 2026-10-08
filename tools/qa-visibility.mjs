@@ -90,8 +90,6 @@ async function probe(name) {
     const magenta = new THREE.MeshBasicMaterial({ color: 0xff00ff });
     const cyan = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
     const heroMeshes = []; hero.traverse((o) => { if (o.isMesh) heroMeshes.push([o, o.material]); });
-    const hm = heroMeshes[0]?.[1];
-    if (hm) for (const k of ["stencilWrite", "stencilRef", "stencilFunc", "stencilZPass"]) magenta[k] = hm[k];
     const marker = new THREE.Mesh(new THREE.PlaneGeometry(0.56, 0.56, 4, 4).rotateX(-Math.PI / 2), cyan);
     marker.renderOrder = 3; marker.visible = false; scene.add(marker);
     const others = scene.children.filter((o) => o !== hero && o !== marker);

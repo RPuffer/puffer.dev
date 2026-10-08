@@ -7,7 +7,9 @@ import { xray } from "./xray.js";
 import { liftAt } from "./terrain.js";
 import { makeStyle } from "./style.js";
 import { initMotion, stepMotion } from "./motion.js";
-import { buildThings, bakeThingBases, ISLAND } from "./things.js";
+import { buildThings, bakeThingBases } from "./things.js";
+import { beamClear } from "./lift.js";
+import { CLEAR } from "./speedlines.js";
 import { GLBS } from "./hooks.js";
 
 const FRAME = [351, 390];
@@ -23,7 +25,7 @@ export function disposeTree(root, keep = new Set()) {
 }
 
 export function createRenderer(container = document.body) {
-  const gl = new THREE.WebGLRenderer({ antialias: true, stencil: true });
+  const gl = new THREE.WebGLRenderer({ antialias: true });
   gl.setPixelRatio(Math.min(2, devicePixelRatio || 1));
   container.appendChild(gl.domElement);
   const scene = new THREE.Scene();
@@ -129,10 +131,6 @@ export function createRenderer(container = document.body) {
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       scene.add(hero);
-      for (const g of [terrain.group, decor.group, things?.group, hero]) g?.traverse((o) => {
-        if (!o.material || o.userData.shaft) return;
-        for (const m of [].concat(o.material)) { m.stencilWrite = true; m.stencilRef = ISLAND; m.stencilFunc = THREE.AlwaysStencilFunc; m.stencilZPass = THREE.ReplaceStencilOp; }
-      });
       bounds = levelScreenBounds(L, state.proj);
       fxCtx.style = style;
       adopted = [];
@@ -256,6 +254,7 @@ export function createRenderer(container = document.body) {
       xray.uSlack.value = 0.35 / (camera.far - camera.near);
       xray.uFeet.value = feet;
       xray.uRadius.value = hero.visible && S.params.xray !== "0" ? 1.2 * zoom * px : 0;
+      if (hero.visible) beamClear.value.set(xray.uHero.value[0], xray.uHero.value[1], CLEAR.radius * zoom * px); else beamClear.value.set(-1e5, -1e5, 1);
       if (fx.length) {
         fxCtx.x = a.pos.x; fxCtx.y = feet; fxCtx.z = a.pos.z;
         fxCtx.sx = xray.uHero.value[0]; fxCtx.sy = xray.uHero.value[1]; fxCtx.w = w; fxCtx.h = h; fxCtx.zoom = zoom * px; fxCtx.hero = hero.visible;

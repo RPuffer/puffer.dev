@@ -279,18 +279,19 @@ async function shaftSuite(name) {
       g.stop();
       const S = g.state, cam = g.renderer.three.camera;
       g.renderer.update(S, 0); g.renderer.render(S, 0);
-      const out = [];
+      const out = [], decks = {};
+      g.renderer.three.scene.getObjectByName("things")?.traverse((m) => { if (m.userData?.thing && !m.userData.shaft) decks[m.userData.thing] = m.position.y; });
       g.renderer.three.scene.getObjectByName("things")?.traverse((m) => {
         if (!m.userData?.shaft) return;
         m.geometry.computeBoundingBox();
         const b = m.geometry.boundingBox;
         let y = Infinity;
         for (const x of [b.min.x, b.max.x]) for (const z of [b.min.z, b.max.z]) y = Math.min(y, new THREE.Vector3(x, b.max.y, z).applyMatrix4(m.matrixWorld).project(cam).y);
-        out.push({ id: m.userData.thing, ndcY: +y.toFixed(3), beam: m.userData.beam || null });
+        out.push({ id: m.userData.thing, ndcY: +y.toFixed(3), beam: m.userData.beam || null, gap: +Math.abs(b.max.y + m.position.y - decks[m.userData.thing]).toFixed(3) });
       });
       return out;
     });
-    record(label, tops.length === lifts.length && tops.every((t) => (t.beam === "arrival" ? t.ndcY < 1 : t.ndcY > 1)), tops.map((t) => `${t.id}${t.beam === "arrival" ? " (arrival, stops at tile)" : ""} ndc y ${t.ndcY}`).join(" ") || "no shaft meshes");
+    record(label, tops.length === lifts.length && tops.every((t) => (t.beam === "arrival" ? t.ndcY < 1 && t.gap < 0.01 : t.ndcY > 1)), tops.map((t) => `${t.id}${t.beam === "arrival" ? ` (arrival, top ${t.gap} off its tile)` : ""} ndc y ${t.ndcY}`).join(" ") || "no shaft meshes");
     await o.page.close();
   }
 }

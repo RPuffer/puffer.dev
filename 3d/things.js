@@ -5,19 +5,10 @@ import { applyMotion } from "./motion.js";
 import { surfaceY, liftLevel } from "./terrain.js";
 import { createTweens, ease } from "./tween.js";
 import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
-import { rideUniforms } from "../core/sequence.js";
-import { liftOpts, liftDeck, beamGeometry, beamMaterial, outOf } from "./lift.js";
+import { liftDeck, beamGeometry, beamMaterial } from "./lift.js";
 
 export const RISE = 2.4;
-export const SHAFT = 32;
-export const RUNG = 1.5;
-const CAGE = 2.6;
-const RUNG_LO = CAGE + 0.26 + RUNG;
-let RUNGS = 0;
-for (let y = RUNG_LO; y < SHAFT - 0.3; y += RUNG) RUNGS++;
-export const RIDE = { speed: 10, extend: 12, stretch: 2.5 };
 const t3 =(c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
-const SIDE = [[0, 1], [1, 0], [0, -1], [-1, 0]];
 
 function lookOf(style) {
   const P = style.palette, T = P.things || {};
@@ -31,9 +22,6 @@ function lookOf(style) {
     blade: T.blade || ["#e8eef4", "#c4ccd6", "#9aa4b0"],
     flame: T.flame || P.flame || ["#ffe082", "#ffb31d", "#ff831d"],
     core: T.core || ["#fffbe8", "#fff0bf", "#ffe08a"],
-    lamp: T.lamp || T.flame || P.flame || ["#ffe082", "#ffb31d", "#ff831d"],
-    deck: T.deck || [rock[0], rock[1], rock[2]],
-    trim: T.trim || P.gold || ["#f0c438", "#cc9f1f", "#a07a14"],
     post: T.post || [rock[1], rock[2], rock[3] || rock[2]],
     cap: T.cap || T.trim || P.gold || ["#f0c438", "#cc9f1f", "#a07a14"],
   };
@@ -103,62 +91,6 @@ function gateBars(B, k, span, width = 0.78, height = 1.62) {
   return height + 0.18;
 }
 
-function elevatorFrame(B, k, out) {
-  const [ox, oz] = out;
-  const perp = [oz, ox];
-  for (const s of [-1, 1]) {
-    const x = ox * 0.44 + perp[0] * s * 0.44, z = oz * 0.44 + perp[1] * s * 0.44;
-    B.rbox(0.16, CAGE + 0.3, 0.16, 0.03, t3(k.post), x, -0.3, z);
-    B.box(0.2, 0.12, 0.2, t3(k.trim), x, CAGE, z);
-  }
-  B.box(Math.abs(perp[0]) * 0.92 + 0.16, 0.14, Math.abs(perp[1]) * 0.92 + 0.16, t3(k.post), ox * 0.44, CAGE + 0.12, oz * 0.44);
-  B.box(0.12, 0.16, 0.12, t3(k.lamp), ox * 0.44, CAGE - 0.04, oz * 0.44);
-}
-
-function elevatorShaft(B, k, out) {
-  const [ox, oz] = out;
-  const perp = [oz, ox];
-  for (const s of [-1, 1]) B.rbox(0.16, SHAFT - CAGE, 0.16, 0.03, t3(k.post), ox * 0.44 + perp[0] * s * 0.44, CAGE, oz * 0.44 + perp[1] * s * 0.44);
-  const n0 = B.pos.length / 3;
-  for (let y = RUNG_LO; y < SHAFT - 0.3; y += RUNG) B.box(Math.abs(perp[0]) * 0.92 + 0.08, 0.08, Math.abs(perp[1]) * 0.92 + 0.08, t3(k.trim), ox * 0.44, y, oz * 0.44);
-  return n0;
-}
-
-const RIDE_HEAD = `uniform float uRide; uniform float uRideTime; uniform float uRideDir; uniform float uOn; uniform vec4 uRung;
-attribute float aRung;
-void main() {`;
-const RIDE_MOVE = `#include <begin_vertex>
-float rOn = uOn * step(0.001, uRide);
-if (aRung > 0.0) {
-  float rLo = uRung.x - uRung.w * rOn, rSpan = uRung.y + uRung.w * rOn;
-  float rRel = aRung - rLo;
-  float rC = rLo + mod(rRel - uRideTime * uRung.z * uRideDir * uOn, rSpan);
-  transformed.y = rC + (transformed.y - aRung) * (1.0 + ${RIDE.stretch.toFixed(1)} * uRide * uOn);
-} else if (transformed.y < ${(CAGE + 0.02).toFixed(2)}) {
-  transformed.y -= uRung.w * rOn;
-}`;
-
-function shaftMat() {
-  const m = underlayMat();
-  const on = { value: 0 };
-  m.userData.on = on;
-  m.onBeforeCompile = (shader) => {
-    Object.assign(shader.uniforms, rideUniforms, { uOn: on, uRung: { value: m.userData.rung } });
-    shader.vertexShader = shader.vertexShader.replace("void main() {", RIDE_HEAD).replace("#include <begin_vertex>", RIDE_MOVE);
-  };
-  m.customProgramCacheKey = () => "shaft-ride1";
-  return m;
-}
-
-function elevatorDeck(B, k) {
-  B.rbox(0.86, 0.1, 0.86, 0.03, t3(k.deck), 0, 0.01, 0);
-  for (const s of [-1, 1]) {
-    B.box(0.86, 0.04, 0.08, t3(k.trim), 0, 0.11, s * 0.39);
-    B.box(0.08, 0.04, 0.86, t3(k.trim), s * 0.39, 0.11, 0);
-  }
-  B.box(0.22, 0.03, 0.22, t3(k.lamp), 0, 0.11, 0);
-}
-
 export function gatePlace(LL, view, t) {
   if (!t.edge) return { x: t.x + 0.5, y: surfaceY(LL, view, t.x, t.z), z: t.z + 0.5, span: t.span || "x", width: t.width, height: t.height, frame: t.frame !== false, half: 0.44 };
   const [[ax, az], [bx, bz]] = t.edge;
@@ -170,17 +102,6 @@ export function gatePlace(LL, view, t) {
 }
 
 const xrayMat = (reach = false) => applyMotion(applyXray(bakedMaterial(), reach));
-
-export const ISLAND = 1;
-
-function underlayMat() {
-  const m = bakedMaterial();
-  m.stencilWrite = true;
-  m.stencilRef = ISLAND;
-  m.stencilFunc = THREE.NotEqualStencilFunc;
-  m.stencilFail = m.stencilZFail = m.stencilZPass = THREE.KeepStencilOp;
-  return m;
-}
 
 function partMesh(build, light, k, at, rotY, reach = false) {
   const B = new Baker(light);
@@ -198,7 +119,6 @@ export function bakeThingBases(S, L, view, style, P = S) {
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
-    else if (t.kind === "elevator" && cellAt(LL, t.x, t.z)?.s !== "lift") S.at(x, y, z, 0, () => elevatorFrame(S, k, SIDE[((t.rot || 0) % 4 + 4) % 4]));
     else if (t.kind === "gate") { const g = gatePlace(LL, view, t); if (g.frame) P.at(g.x, g.y, g.z, 0, () => gateFrame(P, k, g.span, g.half)); }
   }
 }
@@ -239,44 +159,20 @@ export function buildThings(L, view, style, decorGroup) {
       m.userData.y0 = g.y + top;
       group.add(m);
       parts[t.id] = m;
-    } else if (t.kind === "elevator" && cellAt(LL, t.x, t.z)?.s === "lift") {
+    } else if (t.kind === "elevator") {
       const m = partMesh(liftDeck, light, k, new THREE.Vector3(x, y, z), 0);
       m.userData.thing = t.id;
       m.userData.y0 = y;
       group.add(m);
       parts[t.id] = m;
       const arrival = t.role === "entry";
-      const s = new THREE.Mesh(beamGeometry(liftOpts.shaft, outOf(t), arrival), beamMaterial(liftOpts.shaft, arrival));
+      const s = new THREE.Mesh(beamGeometry(arrival), beamMaterial(arrival));
       s.position.set(x, y, z);
-      s.renderOrder = 3;
+      s.renderOrder = arrival ? 1 : 3;
       s.userData.noMerge = true;
       s.userData.thing = t.id;
       s.userData.shaft = true;
       s.userData.beam = arrival ? "arrival" : "departure";
-      s.frustumCulled = false;
-      group.add(s);
-      shafts[t.id] = s;
-    } else if (t.kind === "elevator") {
-      const m = partMesh(elevatorDeck, light, k, new THREE.Vector3(x, y, z), 0);
-      m.userData.thing = t.id;
-      m.userData.y0 = y;
-      group.add(m);
-      parts[t.id] = m;
-      const out = SIDE[((t.rot || 0) % 4 + 4) % 4];
-      const sb = new Baker(light);
-      const n0 = elevatorShaft(sb, k, out);
-      const sg = sb.geometry(), sp = sg.attributes.position;
-      const rung = new Float32Array(sp.count);
-      for (let i = n0; i < sp.count; i++) rung[i] = RUNG_LO + RUNG * Math.round((sp.getY(i) - RUNG_LO) / RUNG) + 0.04;
-      sg.setAttribute("aRung", new THREE.BufferAttribute(rung, 1));
-      const sm = shaftMat();
-      sm.userData.rung = new THREE.Vector4(RUNG_LO, RUNGS * RUNG, RIDE.speed, RIDE.extend);
-      const s = new THREE.Mesh(sg, sm);
-      s.position.set(x, y, z);
-      s.renderOrder = 3;
-      s.userData.noMerge = true;
-      s.userData.thing = t.id;
-      s.userData.shaft = true;
       s.frustumCulled = false;
       group.add(s);
       shafts[t.id] = s;
