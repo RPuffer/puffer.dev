@@ -44,7 +44,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 
 ## Controls
 
-W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S down-left, A up-left. Click or tap a cell to path there. Touch devices get a d-pad.
+W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S down-left, A up-left. Click or tap a cell to path there. Touch devices get a d-pad. Q and E turn the island 90 degrees left and right (3d only); E acts instead when an interact prompt shows. The overlay's two arrow buttons turn it on touch.
 
 ## Render and compare
 
@@ -1078,3 +1078,14 @@ Every island's two elevators stand on lift tiles off the island's edge: the depa
 `h.edgeLifts({ exit, entry })` in `pipeline/a-transcribe/finish-helpers.mjs` places the lift cells; each island module calls it at the end of its finish, so a rebuild reproduces the moves. The lift cell contract is in `docs/pass8/options.md`. The loop tools and the decor pass treat lift cells as off the island.
 
 QA at the close (port 8765, `PP_PROFILE=.pp-profile-p8b`): `qa-levels` 237 pass, 1 fail fixed in the tool and rerun, 1 skip (sharkbear see-through); `qa-visibility all` 252/253 cells, ember-subject 9,4 open; `qa-ride-keys` 13; `qa-run` 14; `qa-swap` 24, memory flat; `qa.mjs` 132; `qa-hero` 29. Per-island moves, `qa-things` counts, perf and the open items are in `docs/pass8/final.md`. Media: `out/pass8/final-sheet.jpg`, `out/pass8/arrive-*.png`, `out/pass8/ride.mp4`.
+
+## Pass 9: rotation
+
+2026-10-08. Q and E, or the overlay buttons, turn the 3d view to yaw 45, 135, 225 or 315 over 0.35 s. Keys, the d-pad, tap-to-walk, the x-ray window, clouds and the follow camera track the live yaw. Rides lock rotation and carry the yaw into the next island. Each island saves its yaw in `isoworld:things:<level>`; `?yaw=` overrides it, and `hero=0`, `seq=0` and `reset=1` load the level default.
+
+```sh
+PP_PROFILE=.pp-profile-rot node tools/qa-visibility.mjs all --yaw=all [--json out/rot/vis-yaw.json]
+PP_PROFILE=.pp-profile-rot node tools/qa-ride-keys.mjs --yaw 135
+```
+
+`--yaw=all` probes each yaw and marks each route cell `PASS` (default yaw), `TURN` (passes only after a turn) or `FAIL`, with the best yaw, then totals default and reachable-with-rotation counts. `qa-ride-keys --yaw N` turns the first island to N, checks rotation is refused mid-ride and that every landing keeps N. `qa.mjs` adds a rotation suite. Notes: `docs/pass9/rotation.md`.

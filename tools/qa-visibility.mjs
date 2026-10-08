@@ -8,7 +8,8 @@ const opt = (k, d) => { const i = args.findIndex((a) => a === k || a.startsWith(
 const BASE = opt("--base", "http://localhost:8765").replace(/\/$/, "");
 const W = +opt("--w", 900), H = +opt("--h", 800);
 const MIN_HERO = +opt("--min-hero", 0.3), MIN_FLOOR = +opt("--min-floor", 0.3), MAX_GAP = +opt("--max-gap", 1);
-const jsonOut = opt("--json", null), QUERY = opt("--query", "");
+const jsonOut = opt("--json", null), QUERY = opt("--query", ""), YAW = opt("--yaw", null);
+const YAWS = YAW === "all" ? [45, 135, 225, 315] : YAW != null ? [+YAW] : [null];
 const names = (args[0] || "").split(",").filter(Boolean);
 if (!names.length || names[0] === "all") {
   const run = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8"));
@@ -22,13 +23,13 @@ const browser = await puppeteer.launch({
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars", "--disable-cache"],
 });
 
-async function probe(name) {
+async function probe(name, yaw = null) {
   const page = await browser.newPage();
   await page.setCacheEnabled(false);
   await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
   const problems = [];
   page.on("pageerror", (e) => problems.push(e.message));
-  await page.goto(`${BASE}/3d/index.html?level=${name}&reset=1&ui=0&nav=0${QUERY ? "&" + QUERY : ""}`);
+  await page.goto(`${BASE}/3d/index.html?level=${name}&reset=1&ui=0&nav=0${yaw != null ? "&yaw=" + yaw : ""}${QUERY ? "&" + QUERY : ""}`);
   const ok = await page.waitForFunction(() => window.__done || window.__error, { timeout: 30000, polling: 100 }).then(() => page.evaluate(() => !window.__error)).catch(() => false);
   if (!ok) { await page.close(); return { name, error: problems[0] || "page did not load" }; }
   const res = await page.evaluate(async (MIN_HERO, MIN_FLOOR, MAX_GAP) => {
@@ -180,7 +181,7 @@ async function probe(name) {
       for (let t = 0.3; t < 30; t += 0.1) {
         const px = c[0] + 0.5 + dir[0] * t, py = y0 + dir[1] * t, pz = c[1] + 0.5 + dir[2] * t;
         const x = Math.floor(px), z = Math.floor(pz);
-        if (x < 0 || z < 0 || x >= L.size[0] || z >= L.size[1]) { if (px > L.size[0] + 1 || pz > L.size[1] + 1) break; continue; }
+        if (x < 0 || z < 0 || x >= L.size[0] || z >= L.size[1]) { if (px > L.size[0] + 1 || pz > L.size[1] + 1 || px < -1 || pz < -1) break; continue; }
         if (x === c[0] && z === c[1]) continue;
         const ter = topAt(x, z), dec = decorTop.get(x + "," + z);
         if (dec && dec.top > py && (!best || dec.top > best.top)) best = { top: dec.top, name: dec.name };
@@ -244,30 +245,69 @@ async function probe(name) {
 }
 
 const all = [];
+const score = (c) => (c.pass ? 2 : 0) + (c.how === "direct" ? 1 : 0) + (c.hero?.direct || 0) + Math.min(...(c.views || []).map((v) => v.frac), 1);
+function report(name, r) {
+  console.log(`== ${name}${r.yaw != null ? " yaw " + r.yaw : ""} (route ${r.route} cells)`);
+  if (!r.route) r.landings.push({ role: "route", from: "spawn", target: "exit", pass: false, path: [] });
+  for (const c of r.cells) {
+    const h = `hero ${Math.round(c.hero.direct * 100)}%/${Math.round(c.hero.xray * 100)}%`;
+    const f = c.views.map((v) => ` floor-from ${v.from} ${Math.round(v.frac * 100)}%`).join("");
+    const why = c.pass ? (c.how === "x-ray" ? " via x-ray" : "") : !c.how ? (c.hero.offscreen ? " hero off screen" : " hero hidden") : ` floor hidden from ${c.hidden.join(" ")}`;
+    console.log(`${c.pass ? "PASS" : "FAIL"} ${name} ${c.cell} [${c.roles.join(" ")}] ${h}${f}${why}${c.occluder ? " occluder " + c.occluder : ""}`);
+  }
+  for (const l of r.landings) {
+    const cells = l.path.map((c) => `${c.cell}:${Math.round(c.frac * 100)}%${c.step != null && c.frac < MIN_FLOOR ? "/" + Math.round(c.step * 100) + "%" : ""}${c.occluder ? "(" + c.occluder + ")" : ""}`).join(" ");
+    console.log(`${l.pass ? "PASS" : "FAIL"} ${name} ${l.role} landing ${l.from} way off to ${l.target}: ${l.pass ? "visible path" : "hidden on shortest path"} ${cells}`);
+  }
+  const n = r.cells.length + r.landings.length, p = r.cells.filter((c) => c.pass).length + r.landings.filter((l) => l.pass).length, x = r.cells.filter((c) => c.pass && c.how === "x-ray").length;
+  console.log(`${name}${r.yaw != null ? " yaw " + r.yaw : ""} ${p}/${n} pass (${x} via x-ray), ${n - p} fail`);
+  return { n, p };
+}
+function merge(name, runs) {
+  const base = runs[0], key = (c) => String(c);
+  const cells = base.cells.map((c) => {
+    const per = runs.map((r) => ({ yaw: r.yaw, c: r.cells.find((d) => key(d.cell) === key(c.cell)) })).filter((x) => x.c);
+    const best = per.reduce((a, b) => (score(b.c) > score(a.c) ? b : a));
+    const pick = c.pass ? per[0] : best;
+    return { cell: c.cell, roles: c.roles, pass: c.pass, rotated: per.some((x) => x.c.pass), best: pick.yaw, per: per.map((x) => ({ yaw: x.yaw, pass: x.c.pass, how: x.c.how })) };
+  });
+  const landings = base.landings.map((l, i) => {
+    const per = runs.map((r) => ({ yaw: r.yaw, l: r.landings[i] })).filter((x) => x.l && x.l.role === l.role);
+    const ok = per.find((x) => x.l.pass);
+    return { role: l.role, from: l.from, pass: l.pass, rotated: !!ok, best: l.pass ? per[0].yaw : ok?.yaw ?? null, per: per.map((x) => ({ yaw: x.yaw, pass: x.l.pass })) };
+  });
+  const marks = (per) => per.map((x) => `${x.yaw}:${x.pass ? (x.how === "x-ray" ? "x" : "P") : "-"}`).join(" ");
+  console.log(`== ${name} all yaws`);
+  for (const c of cells) console.log(`${c.pass ? "PASS" : c.rotated ? "TURN" : "FAIL"} ${name} ${c.cell} [${c.roles.join(" ")}] ${marks(c.per)}${c.pass ? "" : c.rotated ? " best yaw " + c.best : " hidden at every yaw"}`);
+  for (const l of landings) console.log(`${l.pass ? "PASS" : l.rotated ? "TURN" : "FAIL"} ${name} ${l.role} landing ${l.from} ${marks(l.per)}${l.pass ? "" : l.rotated ? " best yaw " + l.best : " hidden at every yaw"}`);
+  const n = cells.length + landings.length, d = cells.filter((c) => c.pass).length + landings.filter((l) => l.pass).length, w = cells.filter((c) => c.rotated).length + landings.filter((l) => l.rotated).length;
+  console.log(`${name} default yaw ${base.yaw} ${d}/${n}, reachable with rotation ${w}/${n}`);
+  return { name, yaws: runs.map((r) => r.yaw), cells, landings, n, d, w };
+}
+const merged = [];
 try {
   for (const name of names) {
-    const r = await probe(name);
-    all.push(r);
-    if (r.error) { console.log(`FAIL ${name} ${r.error}`); continue; }
-    console.log(`== ${name} (route ${r.route} cells)`);
-    if (!r.route) r.landings.push({ role: "route", from: "spawn", target: "exit", pass: false, path: [] });
-    for (const c of r.cells) {
-      const h = `hero ${Math.round(c.hero.direct * 100)}%/${Math.round(c.hero.xray * 100)}%`;
-      const f = c.views.map((v) => ` floor-from ${v.from} ${Math.round(v.frac * 100)}%`).join("");
-      const why = c.pass ? (c.how === "x-ray" ? " via x-ray" : "") : !c.how ? (c.hero.offscreen ? " hero off screen" : " hero hidden") : ` floor hidden from ${c.hidden.join(" ")}`;
-      console.log(`${c.pass ? "PASS" : "FAIL"} ${name} ${c.cell} [${c.roles.join(" ")}] ${h}${f}${why}${c.occluder ? " occluder " + c.occluder : ""}`);
+    const runs = [];
+    for (const yaw of YAWS) {
+      const r = await probe(name, yaw);
+      r.yaw = yaw;
+      all.push(r);
+      if (r.error) { console.log(`FAIL ${name}${yaw != null ? " yaw " + yaw : ""} ${r.error}`); continue; }
+      report(name, r);
+      runs.push(r);
     }
-    for (const l of r.landings) {
-      const cells = l.path.map((c) => `${c.cell}:${Math.round(c.frac * 100)}%${c.step != null && c.frac < MIN_FLOOR ? "/" + Math.round(c.step * 100) + "%" : ""}${c.occluder ? "(" + c.occluder + ")" : ""}`).join(" ");
-      console.log(`${l.pass ? "PASS" : "FAIL"} ${name} ${l.role} landing ${l.from} way off to ${l.target}: ${l.pass ? "visible path" : "hidden on shortest path"} ${cells}`);
-    }
-    const n = r.cells.length + r.landings.length, p = r.cells.filter((c) => c.pass).length + r.landings.filter((l) => l.pass).length, x = r.cells.filter((c) => c.pass && c.how === "x-ray").length;
-    console.log(`${name} ${p}/${n} pass (${x} via x-ray), ${n - p} fail`);
+    if (YAWS.length > 1 && runs.length === YAWS.length) merged.push(merge(name, runs));
   }
 } finally {
   await browser.close();
 }
-const tally = all.map((r) => r.error ? `${r.name} error` : `${r.name} ${r.cells.filter((c) => c.pass).length + r.landings.filter((l) => l.pass).length}/${r.cells.length + r.landings.length}`);
+const tally = all.map((r) => `${r.name}${r.yaw != null ? " yaw " + r.yaw : ""} ` + (r.error ? "error" : `${r.cells.filter((c) => c.pass).length + r.landings.filter((l) => l.pass).length}/${r.cells.length + r.landings.length}`));
 console.log("\n" + tally.join("\n"));
-if (jsonOut) { fs.mkdirSync(path.dirname(path.resolve(root, jsonOut)), { recursive: true }); fs.writeFileSync(path.resolve(root, jsonOut), JSON.stringify(all, null, 1)); }
-process.exitCode = all.some((r) => r.error || r.cells.some((c) => !c.pass) || r.landings.some((l) => !l.pass)) ? 1 : 0;
+if (merged.length) {
+  console.log("\nwith rotation (default yaw / any yaw):");
+  for (const m of merged) console.log(`${m.name} ${m.d}/${m.n} -> ${m.w}/${m.n}`);
+  const N = merged.reduce((a, m) => a + m.n, 0), D = merged.reduce((a, m) => a + m.d, 0), Wn = merged.reduce((a, m) => a + m.w, 0);
+  console.log(`TOTAL default ${D}/${N}, reachable with rotation ${Wn}/${N}`);
+}
+if (jsonOut) { fs.mkdirSync(path.dirname(path.resolve(root, jsonOut)), { recursive: true }); fs.writeFileSync(path.resolve(root, jsonOut), JSON.stringify(merged.length ? { runs: all, merged } : all, null, 1)); }
+process.exitCode = merged.length ? (merged.some((m) => m.w < m.n) || all.some((r) => r.error) ? 1 : 0) : all.some((r) => r.error || r.cells.some((c) => !c.pass) || r.landings.some((l) => !l.pass)) ? 1 : 0;

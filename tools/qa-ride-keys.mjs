@@ -7,6 +7,7 @@ const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf(k); if (i < 0) return d; const v = args[i + 1]; args.splice(i, 2); return v; };
 const orderArg = opt("--order", null);
 const W = +opt("--w", 900), H = +opt("--h", 800);
+const yawArg = opt("--yaw", null), YAW = yawArg == null ? null : +yawArg;
 const BASE = (args[0] || "http://localhost:8765").replace(/\/$/, "");
 const run = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8"));
 const ORDER = orderArg ? orderArg.split(",") : Array.isArray(run) ? run : run.order;
@@ -129,6 +130,11 @@ async function leave(keys, t, label) {
   return { ok: true, note: `${label} key ${nb[0]}, tap ${tp.cell}` };
 }
 
+const setYaw = (Y) => page.evaluate(async (Y) => {
+  const g = window.__game;
+  for (let n = 0; g.yaw !== Y && n < 4; n++) { g.rotate(1); await new Promise((r) => { const f = () => (g.state.turn ? requestAnimationFrame(f) : r()); f(); }); }
+  return g.yaw;
+}, Y);
 const pressE = async () => { await page.keyboard.down("KeyE"); await wait(60); await page.keyboard.up("KeyE"); };
 const around = (t) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]].map(([a, b]) => [t.x + a, t.z + b]);
 const thingState = (id) => page.evaluate((id) => window.__game.state.things.byId[id].state, id);
@@ -222,7 +228,14 @@ const landed = (name) => page.waitForFunction((n) => { const S = window.__game?.
 async function ride(next) {
   const count = await page.evaluate(() => window.__swapCount || 0);
   await pressE();
+  let locked = null;
+  if (YAW != null) {
+    await page.waitForFunction(() => !!window.__sequence?.active, { timeout: 2000, polling: 20 }).catch(() => {});
+    locked = await page.evaluate(() => ({ active: !!window.__sequence?.active, turned: window.__game.rotate(1), yaw: window.__game.yaw }));
+  }
   if (!(await landed(next))) return { ok: false, why: `E on exit did not swap to ${next}` };
+  if (locked && (!locked.active || locked.turned)) return { ok: false, why: `rotation not locked during the ride ${JSON.stringify(locked)}` };
+  if (YAW != null) { const y = await page.evaluate(() => window.__game.yaw); if (y !== YAW) return { ok: false, why: `${next} landed at yaw ${y}, carried yaw ${YAW} lost` }; }
   const s = await page.evaluate(() => ({ count: window.__swapCount, err: window.__swapError, zoom: window.__game.renderer.zoomScale, hop: window.__sequence?.hops.at(-1) || null }));
   await wait(400);
   if (s.err) return { ok: false, why: `__swapError ${s.err}` };
@@ -303,6 +316,7 @@ try {
   for (let i = 0; i < ORDER.length; i++) {
     const name = ORDER[i], next = ORDER[i + 1] || null, hop = next ? `${name} -> ${next}` : `${name} (last)`;
     if (!rode && !(await go(`level=${name}&reset=1&arrive=entry`))) { record("FAIL", hop, "did not load"); continue; }
+    if (YAW != null) { const y = await setYaw(YAW); if (y !== YAW) { record("FAIL", hop, `could not rotate to ${YAW}, at ${y}`); continue; } }
     rode = false;
     problems = [];
     const r = await island(i);
@@ -315,7 +329,7 @@ try {
     rode = true;
     const bf = await backAndForth(name, next);
     if (bf) { record("FAIL", hop, `${r.note}; ${bf}`); rode = false; continue; }
-    record(problems.length ? "FAIL" : "PASS", hop, r.note + "; " + rd.note + "; back and forward unlocked" + (problems.length ? "; " + problems.slice(0, 2).join(" | ") : ""));
+    record(problems.length ? "FAIL" : "PASS", hop, (YAW != null ? `yaw ${YAW} carried; ` : "") + r.note + "; " + rd.note + "; back and forward unlocked" + (problems.length ? "; " + problems.slice(0, 2).join(" | ") : ""));
   }
   await touchCheck(ORDER[0]);
   await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.startsWith("isoworld:things:")) localStorage.removeItem(k); });

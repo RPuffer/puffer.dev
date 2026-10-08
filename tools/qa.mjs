@@ -143,7 +143,7 @@ async function uiChecks(page, tag) {
 
 async function buildSuite(build, size) {
   const tag = `${build}@${size.width}${size.touch ? "t" : ""}`;
-  const { page, problems, done, ms } = await open(`${BASE}/${build}/index.html?level=home`, size);
+  const { page, problems, done, ms } = await open(`${BASE}/${build}/index.html?level=home&reset=1`, size);
   record(`${tag} __done within 10 s`, done, `${ms} ms`);
   if (!done) { await page.close(); return; }
   await settle(page, 800);
@@ -185,12 +185,100 @@ async function buildSuite(build, size) {
   record(`${tag} no console errors or failed requests`, problems.length === 0, problems.slice(0, 3).join(" | "));
   await page.close();
 
-  const x = await open(`${BASE}/${build}/index.html?level=home&spawn=0,1`, size);
+  const x = await open(`${BASE}/${build}/index.html?level=home&spawn=0,1&reset=1`, size);
   if (!x.done) { record(`${tag} x-ray page loads`, false); await x.page.close(); return; }
   const n = await xrayCheck(x.page, tag);
   record(`${tag} see-through window reveals hero at spawn 0,1`, n > 40, `${n} px differ window on/off`);
   record(`${tag} x-ray page clean`, x.problems.length === 0, x.problems.slice(0, 3).join(" | "));
   await x.page.close();
+}
+
+const yawOf = (page) => page.evaluate(() => window.__game.yaw);
+const turning = (page) => page.waitForFunction(() => !window.__game.state.turn, { timeout: 4000, polling: 50 });
+const heroScreen = (page) => page.evaluate(() => { const S = window.__game.state, a = S.actor; const s = S.proj.project(a.pos.x, a.y * S.view.tileH, a.pos.z); return [s.sx, s.sy]; });
+
+async function screenUp(page, press) {
+  const before = await cellOf(page), s0 = await heroScreen(page);
+  await press();
+  await wait(200); await idle(page);
+  const after = await cellOf(page), s1 = await heroScreen(page);
+  const dx = s1[0] - s0[0], dy = s1[1] - s0[1];
+  return { before, after, moved: before.join() !== after.join(), up: dy < -0.2 && Math.abs(dx) < -dy * 2.5, dx: +dx.toFixed(2), dy: +dy.toFixed(2) };
+}
+
+async function rotationSuite(size) {
+  const tag = `rotate@${size.width}${size.touch ? "t" : ""}`;
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1`, size);
+  record(`${tag} page loads`, done);
+  if (!done) { await page.close(); return; }
+  await settle(page, 600);
+  record(`${tag} starts at the level yaw 45`, (await yawOf(page)) === 45, String(await yawOf(page)));
+  const seen = [];
+  for (const [code, want] of [["KeyE", 135], ["KeyE", 225], ["KeyE", 315], ["KeyE", 45], ["KeyQ", 315]]) {
+    await page.keyboard.press(code);
+    await wait(60); await turning(page);
+    const y = await yawOf(page);
+    seen.push(y);
+    record(`${tag} ${code} turns to ${want}`, y === want, String(y));
+    if (want === 45 && code === "KeyE") continue;
+    await settle(page, 300);
+    const hit = (code) => async () => { await page.keyboard.down(code); await wait(90); await page.keyboard.up(code); };
+    const w = await screenUp(page, hit("KeyW"));
+    if (w.moved) record(`${tag} yaw ${y} W moves up on screen`, w.up, `${w.before} -> ${w.after} screen d(${w.dx},${w.dy})`);
+    const sd = await screenUp(page, hit("KeyS"));
+    record(`${tag} yaw ${y} S moves down on screen`, sd.moved && sd.dy > 0.2 && Math.abs(sd.dx) < sd.dy * 2.5, `${sd.before} -> ${sd.after} screen d(${sd.dx},${sd.dy})`);
+    if (!w.moved) { const w2 = await screenUp(page, hit("KeyW")); record(`${tag} yaw ${y} W moves up on screen`, w2.moved && w2.up, `${w2.before} -> ${w2.after} screen d(${w2.dx},${w2.dy})`); }
+  }
+  const elapsed = await page.evaluate(async () => {
+    const g = window.__game, t0 = performance.now();
+    g.rotate(1);
+    await new Promise((res) => { const f = () => (g.state.turn ? requestAnimationFrame(f) : res()); f(); });
+    return performance.now() - t0;
+  });
+  record(`${tag} turn eases over about 0.35 s`, elapsed > 250 && elapsed < 900, `${Math.round(elapsed)} ms`);
+  const yNow = await yawOf(page);
+  const btn = await page.$('.iw-ui [data-rotate="1"]');
+  record(`${tag} rotate buttons in the overlay`, !!btn && !!(await page.$('.iw-ui [data-rotate="-1"]')));
+  if (btn) {
+    if (size.touch) { const b = await btn.boundingBox(); await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); } else await btn.click();
+    await wait(60); await turning(page);
+    const y = await yawOf(page);
+    record(`${tag} rotate button turns right`, y === (yNow + 90) % 360, `${yNow} -> ${y}`);
+  }
+  await settle(page, 600);
+  const wt = await walkableTarget(page);
+  const got = wt && await tap(page, wt);
+  record(`${tag} tap-to-walk at yaw ${await yawOf(page)}`, !!got && got.join() === wt.join(), `target ${wt} got ${got}`);
+  if (size.touch) {
+    await settle(page, 400);
+    const pad = await page.$('.iso-dpad [data-d="up"]');
+    record(`${tag} d-pad shown`, !!pad);
+    if (pad) {
+      const b = await pad.boundingBox();
+      let r = await screenUp(page, async () => { await page.touchscreen.touchStart(b.x + b.width / 2, b.y + b.height / 2); await wait(120); await page.touchscreen.touchEnd(); });
+      record(`${tag} d-pad up moves up on screen at yaw ${await yawOf(page)}`, r.moved ? r.up : true, `${r.before} -> ${r.after} screen d(${r.dx},${r.dy})`);
+    }
+  }
+  const kept = await yawOf(page);
+  await page.goto(`${BASE}/3d/index.html?level=home`, { waitUntil: "load" });
+  await page.waitForFunction(() => window.__done === true, { timeout: 10000 }).catch(() => {});
+  record(`${tag} reload restores the saved yaw ${kept}`, (await yawOf(page)) === kept, String(await yawOf(page)));
+  for (const [q, want] of [["hero=0", 45], ["seq=0", 45], ["yaw=225", 225]]) {
+    await page.goto(`${BASE}/3d/index.html?level=home&${q}`, { waitUntil: "load" });
+    await page.waitForFunction(() => window.__done === true, { timeout: 10000 }).catch(() => {});
+    record(`${tag} ?${q} yaw ${want}`, (await yawOf(page)) === want, String(await yawOf(page)));
+  }
+  await page.goto(`${BASE}/3d/index.html?level=home&reset=1`, { waitUntil: "load" });
+  await page.waitForFunction(() => window.__done === true, { timeout: 10000 }).catch(() => {});
+  record(`${tag} reset=1 clears the saved yaw`, (await yawOf(page)) === 45, String(await yawOf(page)));
+  const two = await open(`${BASE}/2d/index.html?level=home`, size);
+  if (two.done) {
+    await two.page.keyboard.press("KeyE"); await wait(500);
+    record(`${tag} 2d build ignores rotate keys`, (await yawOf(two.page)) === 45, String(await yawOf(two.page)));
+  }
+  await two.page.close();
+  record(`${tag} no console errors`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.close();
 }
 
 async function startSuite(size) {
@@ -250,6 +338,7 @@ async function compareSuite(size) {
 try {
   for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }]) {
     for (const build of ["3d", "2d"]) await buildSuite(build, size);
+    if (size.width === 1200 || size.touch) await rotationSuite(size);
     if (!size.touch) { await compareSuite(size); await startSuite(size); }
   }
 } finally {
