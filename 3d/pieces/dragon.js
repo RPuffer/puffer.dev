@@ -929,4 +929,4 @@ function registerLens(P, props, types, leadT) {
 }
 
 export const GROW = { "dragon-medium": [{"kind":"plateau","side":"n","at":[7,1],"size":[2,3],"tier":1,"decor":[{"t":"wire_loop","u":3,"v":1},{"t":"rock","u":2,"v":-1}]},{"kind":"dock","side":"w","at":[1,6],"len":4,"decor":[{"t":"woven_crest","u":4}]},{"kind":"walkway","side":"n","at":[10,1],"len":3,"islet":[2,2],"decor":[{"t":"woven_crest","u":5,"v":1}]},{"kind":"dock","side":"e","at":[14,7],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

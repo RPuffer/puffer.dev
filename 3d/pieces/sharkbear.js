@@ -890,5 +890,5 @@ export function finish(level, brief, h) {
   h.log.push(`posts ${posts().map((d) => d.x + "," + d.z).join(" ")} reach ${h.reach().reached}/${h.reach().total}`);
 }
 
-export const GROW = { "sharkbear-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":2,"decor":[{"t":"bristle-clump","u":4,"v":1},{"t":"rock","u":3,"v":-1}]},{"kind":"dock","side":"w","at":[1,6],"len":2,"decor":[{"t":"cranial-fin-marker","u":2}]},{"kind":"walkway","side":"w","at":[1,4],"len":3,"islet":[2,2],"decor":[{"t":"cranial-fin-marker","u":5,"v":1}]},{"kind":"dock","side":"e","at":[14,6],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const GROW = { "sharkbear-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":2,"decor":[{"t":"bristle-clump","u":5,"v":1},{"t":"rock","u":4,"v":-1}]},{"kind":"dock","side":"w","at":[1,6],"len":2,"decor":[{"t":"cranial-fin-marker","u":2}]},{"kind":"walkway","side":"w","at":[1,4],"len":3,"islet":[2,2],"decor":[{"t":"cranial-fin-marker","u":5,"v":1}]},{"kind":"dock","side":"e","at":[14,6],"len":2,"decor":[]}] };
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

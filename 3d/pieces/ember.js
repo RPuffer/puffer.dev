@@ -805,4 +805,4 @@ export function placeRunThings(level, h, o = {}) {
 }
 
 export const GROW = { "ember-subject": [{"kind":"plateau","side":"n","at":[10,2],"size":[3,2],"tier":-1,"decor":[{"t":"calcined_bone_pile","u":4,"v":1}]},{"kind":"dock","side":"w","at":[1,6],"len":4,"decor":[{"t":"glowing_ember_vent","u":4}]},{"kind":"walkway","side":"n","at":[5,1],"len":2,"islet":[2,2],"causeway":true,"decor":[{"t":"glowing_ember_vent","u":4,"v":1}]},{"kind":"dock","side":"e","at":[12,4],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

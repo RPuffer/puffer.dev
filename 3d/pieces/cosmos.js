@@ -1800,5 +1800,5 @@ export function finish(level, brief, h) {
   rampTone(level, h);
 }
 
-export const GROW = { "cosmos-frisket": [{"kind":"plateau","side":"n","at":[5,1],"size":[2,3],"tier":2,"decor":[{"t":"tape-roll","u":4,"v":1},{"t":"rock","u":3,"v":-1}]},{"kind":"dock","side":"w","at":[1,8],"len":3,"decor":[{"t":"airbrush-lamp","u":3}]},{"kind":"walkway","side":"w","at":[1,4],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"airbrush-lamp","u":5,"v":1}]},{"kind":"dock","side":"e","at":[13,5],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const GROW = { "cosmos-frisket": [{"kind":"plateau","side":"n","at":[5,1],"size":[2,3],"tier":2,"decor":[{"t":"tape-roll","u":5,"v":1},{"t":"rock","u":4,"v":-1}]},{"kind":"dock","side":"w","at":[1,8],"len":3,"decor":[{"t":"airbrush-lamp","u":3}]},{"kind":"walkway","side":"w","at":[1,4],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"airbrush-lamp","u":5,"v":1}]},{"kind":"dock","side":"e","at":[13,5],"len":2,"decor":[]}] };
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

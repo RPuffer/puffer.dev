@@ -880,4 +880,4 @@ function finishLens(level, brief, h) {
 }
 
 export const GROW = { "gremlin-subject": [{"kind":"plateau","side":"n","at":[7,1],"size":[2,2],"tier":-1,"decor":[{"t":"bio-conduit-spool","u":3,"v":1}]},{"kind":"dock","side":"w","at":[2,6],"len":3,"decor":[{"t":"specimen-pod-rack","u":3}]},{"kind":"walkway","side":"w","at":[3,9],"len":1,"islet":[2,2],"causeway":true,"decor":[{"t":"specimen-pod-rack","u":3,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

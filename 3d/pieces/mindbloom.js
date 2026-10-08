@@ -649,5 +649,5 @@ export function finish(level, brief, h) {
   rampTone(level, h);
 }
 
-export const GROW = { "mindbloom-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":-2,"decor":[{"t":"doodle-disc","u":4,"v":1},{"t":"rock","u":3,"v":-1}]},{"kind":"dock","side":"w","at":[1,6],"len":2,"decor":[{"t":"spotted-neon-cap","u":2}]},{"kind":"walkway","side":"w","at":[4,10],"len":2,"islet":[2,2],"decor":[{"t":"spotted-neon-cap","u":4,"v":1}]},{"kind":"dock","side":"s","at":[5,10],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const GROW = { "mindbloom-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":-2,"decor":[{"t":"doodle-disc","u":5,"v":1},{"t":"rock","u":4,"v":-1}]},{"kind":"dock","side":"w","at":[1,6],"len":2,"decor":[{"t":"spotted-neon-cap","u":2}]},{"kind":"dock","side":"s","at":[11,10],"len":2,"decor":[]},{"kind":"walkway","side":"n","at":[13,3],"len":2,"islet":[2,2],"decor":[{"t":"spotted-neon-cap","u":4,"v":1}]}] };
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

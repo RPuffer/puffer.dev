@@ -375,7 +375,7 @@ export async function build({ root, flag, has, regions, brief }) {
     for (const k2 of H.blockedSet()) blocked.add(k2);
     if (!walk(at(...level.spawn)) || at(...level.spawn).s === "ramp") level.spawn = spawnPick();
     if (typeof mod.outgrow === "function") {
-      for (const line of mod.outgrow(level)) report.push("outgrowth: " + line);
+      for (const line of mod.outgrow(level, { busy: H.blockedSet() })) report.push("outgrowth: " + line);
       blocked.clear();
       for (const k2 of H.blockedSet()) blocked.add(k2);
     }

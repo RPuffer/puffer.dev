@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { CATALOG, blockedCells } from "../core/catalog.js";
+import { CATALOG, blockedCells, registerCatalog } from "../core/catalog.js";
 import { frameView } from "../core/procgen.js";
 import { outgrow, thingCells, plan } from "../3d/pieces/outgrowth.js";
 import { ISLANDS } from "./loops/rebuild.mjs";
@@ -15,8 +15,8 @@ for (const [name, art] of ISLANDS.filter(([l]) => !only || only.split(",").inclu
   const file = path.join(root, "levels", name + ".json");
   const L = JSON.parse(fs.readFileSync(file, "utf8"));
   const mod = await import(path.join(root, "3d/pieces", art + ".js"));
-  mod.register?.(L);
-  const blocked = blockedOf(L), busy = thingCells(L);
+  for (const m of [mod, ...(await Promise.all((L.pieces || []).filter((p) => !p.endsWith(art + ".js")).map((p) => import(path.join(root, "3d", p)))))]) { try { const reg = m.register?.({ palette: L.palette }); if (reg?.catalog) registerCatalog(reg.catalog); } catch {} }
+  const blocked = blockedOf(L), busy = new Set([...thingCells(L), ...blocked]);
   if (mode === "map") {
     console.log(`== ${name} ${L.size} spawn ${L.spawn} catalog ${Object.keys(CATALOG).length}`);
     console.log("   " + [...Array(L.size[0]).keys()].map((x) => x % 10).join(""));
@@ -26,17 +26,17 @@ for (const [name, art] of ISLANDS.filter(([l]) => !only || only.split(",").inclu
     console.log("decor", Object.entries(types).map(([t, n]) => t + ":" + n).join(" "));
     continue;
   }
-  if (args.includes("--pick")) { console.log(`  "${name}": ${JSON.stringify(pick(L))},`); continue; }
+  if (args.includes("--pick")) { console.log(`  "${name}": ${JSON.stringify(pick(L, busy))},`); continue; }
   const specs = mod.GROW?.[name];
   if (!specs) { console.log(`${name}: no GROW`); continue; }
-  const log = outgrow(L, specs);
+  const log = outgrow(L, specs, { busy });
   L.view = frameView(L).view;
   console.log(`${name}: ${log.join("; ")}`);
   if (mode === "write") fs.writeFileSync(file, JSON.stringify(L));
 }
 
-function pick(L) {
-  const busy = thingCells(L), [W, D] = L.size;
+function pick(L, busy) {
+  const [W, D] = L.size;
   const counts = {};
   for (const d of L.decor) if (!d.watch && !/-s$|small|watchtower|market|arch|gazebo|tower|fountain|forge|press|monolith|crane|vat|eyrie|shrine|canopy|bridge|road|fence|stepping|rock-big|tree/.test(d.t)) counts[d.t] = (counts[d.t] || 0) + 1;
   const props = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([t]) => t);
@@ -51,7 +51,7 @@ function pick(L) {
   };
   const seed = [...L.name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7), r = (n, i) => (seed >>> (i * 3)) % n;
   const psize = [[2, 3], [3, 3], [2, 2], [3, 2]][r(4, 0)], tier2 = r(3, 1) === 0, dlen = 2 + r(3, 2), wlen = 1 + r(3, 3), wfirst = r(2, 4) ? "n" : "w";
-  const plateau = (side, size, a) => { const n = tier2 ? 2 : 1, tier = a.h >= 3 || (tier2 && a.h >= 2 && a.h - 2 >= 1 && r(2, 5)) ? -n : n, v0 = -Math.floor((size[1] - 1) / 2); const d = [{ t: prop, u: n + size[0], v: v0 + size[1] - 1 }]; if (size[1] > 2) d.push({ t: "rock", u: n + 1, v: v0 }); return { kind: "plateau", side, at: a.at, size, tier, decor: d }; };
+  const plateau = (side, size, a) => { const n = tier2 ? 2 : 1, tier = a.h >= 3 || (tier2 && a.h >= 2 && a.h - 2 >= 1 && r(2, 5)) ? -n : n, v0 = -Math.floor((size[1] - 1) / 2); const st = 2 * n - 1, d = [{ t: prop, u: st + size[0], v: v0 + size[1] - 1 }]; if (size[1] > 2) d.push({ t: "rock", u: st + 1, v: v0 }); return { kind: "plateau", side, at: a.at, size, tier, decor: d }; };
   const walk = (side, a) => ({ kind: "walkway", side, at: a.at, len: wlen, islet: [2, 2], ...(r(2, 6) ? { causeway: true } : {}), decor: [{ t: prop2, u: wlen + 2, v: 1 }] });
   const want = [
     (a) => plateau("n", psize, a),
@@ -70,7 +70,7 @@ function pick(L) {
     if ((side === "e" || side === "s") && chosen.some((c) => c.side === "e" || c.side === "s")) continue;
     let cs = cands(side);
     if (mk({ at: [0, 0], h: 1 }).kind === "dock") cs = cs.sort((a, b) => a.h - b.h || a.mid - b.mid);
-    for (const a of cs) { const sp = mk(a); if (!plan(L, [...chosen, sp]).problems.length) { chosen.push(sp); break; } }
+    for (const a of cs) { const sp = mk(a); if (!plan(L, [...chosen, sp], { busy }).problems.length) { chosen.push(sp); break; } }
   }
   return chosen;
 }

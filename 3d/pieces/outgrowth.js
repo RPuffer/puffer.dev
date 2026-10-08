@@ -24,9 +24,11 @@ export const BUILDERS = {
     const cells = [];
     for (let k = 1; k <= n; k++) {
       const c = tier > 0 ? { h: A.h + k, s: "ramp", d: OPPOSITE[p.side], m } : { h: A.h - k + 1, s: "ramp", d: p.side, m };
-      cells.push([...g(k, 0), c]);
+      cells.push([...g(2 * k - 1, 0), c]);
+      if (k < n) cells.push([...g(2 * k, 0), { h: A.h + Math.sign(tier) * k, s }]);
     }
-    for (let u = n + 1; u <= n + depth; u++) for (let v = v0; v < v0 + width; v++) cells.push([...g(u, v), { h: A.h + tier, s }]);
+    const st = 2 * n - 1;
+    for (let u = st + 1; u <= st + depth; u++) for (let v = v0; v < v0 + width; v++) cells.push([...g(u, v), { h: A.h + tier, s }]);
     return cells;
   },
   walkway(L, p) {
@@ -45,7 +47,8 @@ const k = (x, z) => x + "," + z;
 export function thingCells(L) {
   const s = new Set((L.decor || []).map((d) => k(d.x, d.z)));
   for (const t of L.things || []) {
-    s.add(k(t.x, t.z));
+    const [w, d] = t.size || [1, 1];
+    for (let dz = 0; dz < d; dz++) for (let dx = 0; dx < w; dx++) s.add(k(t.x + dx, t.z + dz));
     for (const [x, z] of [...(t.blocks || []), ...(t.threshold || []), ...(t.edge || [])]) s.add(k(x, z));
   }
   return s;
@@ -53,7 +56,7 @@ export function thingCells(L) {
 
 export function plan(L, specs, o = {}) {
   const taken = new Map(), out = [], problems = [];
-  const busy = o.busy || thingCells(L);
+  const busy = new Set([...thingCells(L), ...(o.busy || [])]);
   for (const p of specs) {
     const A = cellOf(L, p.at), why = [];
     if (!A || A.h < 1 || !LAND.has(A.s)) why.push(`anchor ${p.at} is ${A ? A.s : "off grid"}`);
@@ -121,7 +124,7 @@ export function outgrow(L, specs, o = {}) {
 
 export function suggest(L, o = {}) {
   const kinds = o.kinds || ["dock", "plateau", "walkway"], sides = o.sides || ["n", "w"], want = o.count ?? 3;
-  const rnd = o.rnd || Math.random, busy = thingCells(L);
+  const rnd = o.rnd || Math.random, busy = new Set([...thingCells(L), ...(o.busy || [])]);
   const edge = [];
   for (let z = 0; z < L.size[1]; z++) for (let x = 0; x < L.size[0]; x++) {
     const c = L.cells[z][x];

@@ -104,6 +104,7 @@ export function checkLevel(raw) {
   const problems = [];
   const { errors } = validateLevel(raw);
   if (errors.length) return errors;
+  const grown = new Set((raw.outgrowths || []).flatMap((g) => g.cells.map(([x, z]) => x + "," + z)));
   const L = { ...raw, blocked: new Set() };
   const occ = new Map();
   for (const d of L.decor) {
@@ -119,7 +120,7 @@ export function checkLevel(raw) {
         const hi = cellAt(L, x + DIRS[dir][0], z + DIRS[dir][1]);
         if (c.s !== "water" || c.h !== 0) problems.push(`waterfall at ${k} not on h0 water`);
         if (!hi || !(hi.h > c.h && hi.s !== "none")) problems.push(`waterfall at ${k} faces no cliff`);
-      } else if (m.span ? !(c.s === "bridge" || c.s === "water" || c.s === "none") : !isLand(c)) problems.push(`decor ${d.t} at ${k} on ${c.s}`);
+      } else if (m.span ? !(c.s === "bridge" || c.s === "water" || c.s === "none") : !isLand(c) && !(c.s === "bridge" && grown.has(k))) problems.push(`decor ${d.t} at ${k} on ${c.s}`);
       if (!m.pass && d.t !== "waterfall") L.blocked.add(k);
     }
   }
@@ -142,7 +143,7 @@ export function checkLevel(raw) {
       if (run.length <= 3 && isLand(a) && isLand(b) && a.h === h && b.h === h) run.forEach((k) => inRun.add(k));
     }
   }
-  for (const [x, z] of cellsWhere(L, (c) => c.s === "bridge")) if (!inRun.has(key(x, z))) problems.push(`bridge ${x},${z}: no 1-3 span with land at both ends`);
+  for (const [x, z] of cellsWhere(L, (c) => c.s === "bridge")) if (!inRun.has(key(x, z)) && !grown.has(key(x, z))) problems.push(`bridge ${x},${z}: no 1-3 span with land at both ends`);
   const s = levelStats(L);
   if (s.grassShare < 0.25 || s.grassShare > 0.45) problems.push(`grass share ${s.grassShare.toFixed(2)} outside 0.25-0.45`);
   if (s.plateauComps !== 1) problems.push(`plateau in ${s.plateauComps} pieces`);

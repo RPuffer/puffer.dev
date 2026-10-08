@@ -1158,5 +1158,5 @@ function bridgeEnds(level, h) {
   h.log.push(`bridgeEnds ${n}`);
 }
 
-export const GROW = { "forest-volute": [{"kind":"plateau","side":"n","at":[9,2],"size":[2,3],"tier":2,"decor":[{"t":"volute_scroll","u":4,"v":1},{"t":"rock","u":3,"v":-1}]},{"kind":"dock","side":"w","at":[1,8],"len":3,"decor":[{"t":"volute_urn","u":3}]},{"kind":"walkway","side":"w","at":[2,2],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"volute_urn","u":5,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const GROW = { "forest-volute": [{"kind":"plateau","side":"n","at":[9,2],"size":[2,3],"tier":2,"decor":[{"t":"volute_scroll","u":5,"v":1},{"t":"rock","u":4,"v":-1}]},{"kind":"dock","side":"w","at":[1,8],"len":3,"decor":[{"t":"volute_urn","u":3}]},{"kind":"walkway","side":"w","at":[2,2],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"volute_urn","u":5,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

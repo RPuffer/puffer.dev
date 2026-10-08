@@ -842,5 +842,5 @@ function landmarkNear(level, h, type, max) {
   return false;
 }
 
-export const GROW = { "cat-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[3,2],"tier":1,"decor":[{"t":"knife-stroke","u":4,"v":1}]},{"kind":"dock","side":"w","at":[1,3],"len":2,"decor":[{"t":"palette-knife-slab","u":2}]},{"kind":"walkway","side":"w","at":[1,1],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"palette-knife-slab","u":5,"v":1}]},{"kind":"dock","side":"s","at":[8,9],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const GROW = { "cat-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[3,2],"tier":1,"decor":[{"t":"knife-stroke","u":4,"v":1}]},{"kind":"dock","side":"w","at":[1,1],"len":2,"decor":[{"t":"palette-knife-slab","u":2}]},{"kind":"dock","side":"s","at":[8,9],"len":2,"decor":[]},{"kind":"walkway","side":"n","at":[11,1],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"palette-knife-slab","u":5,"v":1}]}] };
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);

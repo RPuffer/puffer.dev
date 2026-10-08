@@ -768,5 +768,5 @@ export function finish(level, brief, h) {
   h.repair({ keep: [gateT] });
 }
 
-export const GROW = { "chimera-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,2],"tier":2,"decor":[{"t":"ink-hatch","u":4,"v":1}]},{"kind":"dock","side":"w","at":[1,10],"len":2,"decor":[{"t":"quill-spires","u":2}]},{"kind":"walkway","side":"n","at":[11,1],"len":1,"islet":[2,2],"decor":[{"t":"quill-spires","u":3,"v":1}]},{"kind":"dock","side":"e","at":[14,6],"len":2,"decor":[]}] };
-export const outgrow = (level) => growOut(level, GROW[level.name]);
+export const GROW = { "chimera-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,2],"tier":2,"decor":[{"t":"ink-hatch","u":5,"v":1}]},{"kind":"dock","side":"w","at":[1,10],"len":2,"decor":[{"t":"quill-spires","u":2}]},{"kind":"walkway","side":"n","at":[10,1],"len":1,"islet":[2,2],"decor":[{"t":"quill-spires","u":3,"v":1}]},{"kind":"dock","side":"e","at":[14,6],"len":2,"decor":[]}] };
+export const outgrow = (level, o) => growOut(level, GROW[level.name], o);
