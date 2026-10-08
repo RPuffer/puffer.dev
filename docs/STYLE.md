@@ -54,6 +54,15 @@ V (max of R, G, B) at the 90th percentile of non-background pixels reaches 0.80 
 - Parts under 0.08 tile appear only as face details (eyes, nose, mouth, fangs, inner ears), flagged `face: true`.
 - `figure()` throws when a spec breaks the budget, so a bad creature never bakes.
 
+## The hero
+
+The hero (`3d/character.js`, `heroSpec()`) runs through `audit()` like any creature, with two readings of the rules above, added in pass 7 phase 5 when the figure grew to 19 parts for the clip library:
+
+- Limbs split into upper, lower and hand or foot segments. Each segment stays under 0.15 tile on every side, so it bakes two-tone and leaves the 12-part budget alone; only hips, torso, head and hair count, 4 of 12. A segment never drops under 0.08 tile, so none needs the face flag.
+- The hero keeps five body ramps (skin, shirt, pants, hair, boot) where a creature gets three. The player has to read at 1x against any island, and the pack's own hero carries as many.
+
+Each part bakes into its own mesh under a named joint group, so `THREE.AnimationMixer` can pose it from the clips in `3d/clips/`.
+
 ## Scale bands
 
 | Class | Height in tiles |
