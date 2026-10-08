@@ -17,12 +17,20 @@ export async function loadClouds(params, style) {
       return objects;
     },
     unmount(renderer) {
-      for (const o of objects) {
+      this.dispose(renderer, this.detach());
+    },
+    detach() {
+      const old = objects;
+      for (const o of old) o.visible = false;
+      objects = [];
+      window.__clouds = { kind: "billboards", objects };
+      return old;
+    },
+    dispose(renderer, old) {
+      for (const o of old) {
         renderer.three.scene.remove(o);
         disposeTree(o);
       }
-      objects = [];
-      window.__clouds = { kind: "billboards", objects };
     },
   };
 }

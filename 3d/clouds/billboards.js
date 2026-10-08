@@ -29,7 +29,7 @@ void main() {
   vec2 t = uv;
   if (uFlip > 0.5) t.x = 1.0 - t.x;
   vUv = vec2((cell.x + t.x) / uAtlas.x, 1.0 - (cell.y + 1.0 - t.y) / uAtlas.y);
-  gl_Position = projectionMatrix * viewMatrix * vec4(w, 1.0);
+  gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(w, 1.0);
 }`;
 
 const FRAG = `
