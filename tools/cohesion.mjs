@@ -4,6 +4,7 @@ import sharp from "sharp";
 import { CATALOG, registerCatalog } from "../core/catalog.js";
 import { makeStyle, lightFactor, packShade } from "../3d/style.js";
 import { BIBLE, ramp, hexRgb, rgbHex, luma, lin, enc, audit } from "../3d/prims.js";
+import { buildCharacter, heroSpec } from "../3d/character.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const args = process.argv.slice(2);
@@ -160,6 +161,39 @@ for (const { path: p, mod, out } of pieceMods) {
       const mean = r.reduce((s, q) => s + q[2], 0) / r.length;
       row(`face ${kind} ${t}`, `mean ${mean.toFixed(3)}, worst ${dev[2].toFixed(3)} (${dev[1]})`, Math.abs(dev[2] - want) <= BIBLE.face.tol, `${r.length} blocks from the bake under level light, target ${want.toFixed(2)}; ${hits}/${faceHex.size} face tones found in the render`);
     }
+  }
+}
+
+{
+  const ha = audit(heroSpec(style));
+  const hero = buildCharacter(1, style);
+  const res = [];
+  hero.traverse((m) => {
+    if (!m.isMesh || ["eyes", "brow", "mouth"].includes(m.parent.name)) return;
+    const P = m.geometry.attributes.position, C = m.geometry.attributes.color, cls = { top: [], left: [], right: [] };
+    for (let i = 0; i < P.count; i += 3) {
+      const ax = P.getX(i), ay = P.getY(i), az = P.getZ(i);
+      const ux = P.getX(i + 1) - ax, uy = P.getY(i + 1) - ay, uz = P.getZ(i + 1) - az, vx = P.getX(i + 2) - ax, vy = P.getY(i + 2) - ay, vz = P.getZ(i + 2) - az;
+      let nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
+      const ln = Math.hypot(nx, ny, nz); if (ln < 1e-12) continue;
+      nx /= ln; ny /= ln; nz /= ln;
+      const shown = luma(enc([C.getX(i), C.getY(i), C.getZ(i)]));
+      if (ny > 0.8) cls.top.push(shown);
+      else if (Math.abs(ny) < 0.3) { const u = Math.max(0, Math.min(Math.PI / 2, Math.atan2(nx, nz))) / (Math.PI / 2); if (u < 0.3) cls.left.push(shown); else if (u > 0.7) cls.right.push(shown); }
+    }
+    const med = (a) => (a.length ? a.sort((x, y) => x - y)[a.length >> 1] : null);
+    const [tp, lf, rt] = [med(cls.top), med(cls.left), med(cls.right)];
+    if (tp && lf) res.push(["left/top", m.parent.name, lf / tp]);
+    if (lf && rt && Math.abs(rt - lf) > 1e-3) res.push(["right/left", m.parent.name, rt / lf]);
+  });
+  const total = heroSpec(style).parts.length;
+  row("hero parts", `${total} parts, ${ha.parts} over 0.15, head ${ha.headRatio?.toFixed(2)}`, ha.ok && total >= 16 && total <= 20, ha.ok ? `${ha.height} tile figure, ${ha.parts} of ${BIBLE.parts.max} budget` : ha.errors.join("; "));
+  for (const [kind, want] of [["left/top", BIBLE.face.left], ["right/left", BIBLE.face.right / BIBLE.face.left]]) {
+    const r = res.filter((q) => q[0] === kind);
+    if (!r.length) continue;
+    const dev = r.reduce((m2, q) => (Math.abs(q[2] - want) > Math.abs(m2[2] - want) ? q : m2));
+    const mean = r.reduce((s, q) => s + q[2], 0) / r.length;
+    row(`hero face ${kind}`, `mean ${mean.toFixed(3)}, worst ${dev[2].toFixed(3)} (${dev[1]})`, Math.abs(dev[2] - want) <= BIBLE.face.tol, `${r.length} parts, target ${want.toFixed(2)}`);
   }
 }
 
