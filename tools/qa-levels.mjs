@@ -185,15 +185,17 @@ async function levelSuite(name) {
     const r = await keyStep(page, code);
     record(`${tag} ${code} steps as canStep predicts`, r.after.join() === r.expect.join(), `${r.before} -> ${r.after} (expect ${r.expect})`);
   }
-  const target = await page.evaluate(async () => {
+  const cands = await page.evaluate(async () => {
     const { reachable } = await import("/core/path.js");
     const a = window.__game.state.actor;
     const r = reachable(window.__game.state.level, a.cell).filter((c) => { const d = Math.abs(c[0] - a.cell[0]) + Math.abs(c[1] - a.cell[1]); return d >= 2 && d <= 4; });
-    return r[Math.floor(r.length / 2)] || null;
+    const m = Math.floor(r.length / 2);
+    return [...r.slice(m), ...r.slice(0, m)];
   });
+  let target = cands[0] || null, p = null;
+  for (const c of cands) { p = await screenOf(page, c); if (p) { target = c; break; } }
   if (!target) record(`${tag} tap target found`, false);
   else {
-    const p = await screenOf(page, target);
     if (!p) record(`${tag} tap walks to ${target}`, false, "cell not on screen");
     else {
       await page.mouse.click(p[0], p[1]); await wait(300); await idle(page);
