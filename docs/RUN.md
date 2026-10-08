@@ -1070,3 +1070,11 @@ QA at the close (port 8765, `PP_PROFILE=.pp-profile-p7-7`): `qa-ride-keys` 13 pa
 Files: `core/sequence.js` (beats, timings, ride uniforms), `core/run.js` (in-page swap), `3d/speedlines.js` (overlay and streaks), `3d/clips.js` (hero clip library), `3d/character.js` (hero), `3d/things.js` (shafts and decks), `3d/clouds/billboards.js` (ride cloud column), `3d/renderer.js` (fx hook, flash, hero clear circle). Tools: `ride-clip.mjs`, `seq-clip.mjs`, `hold-shot.mjs`, `qa-ride-keys.mjs`, `qa-swap.mjs`. Media in `out/pass7/`: `ride-final.mp4`, `ride-final-phone.mp4`, `hold-clear-sheet.jpg`.
 
 Still open: the 30 s on-device phone recording over a LAN URL.
+
+## Pass 8: edge lifts and the tile beam
+
+Every island's two elevators stand on lift tiles off the island's edge: the departure lift on a back edge (north or west), the arrival lift on a front edge (south or east). Each lift tile is the cantilever dock (`tileB` in `3d/lift.js`), and each elevator gets one tile-wide beam. The departure beam rises 32 units and fades out well inside the frame. The arrival beam draws before the cloud bed, so the clouds cover it, and fades in over the 6 units below its tile, so it comes up out of the cloud sea. While a beam carries the hero, it clears the speed lines' circle around the hero.
+
+`h.edgeLifts({ exit, entry })` in `pipeline/a-transcribe/finish-helpers.mjs` places the lift cells; each island module calls it at the end of its finish, so a rebuild reproduces the moves. The lift cell contract is in `docs/pass8/options.md`. The loop tools and the decor pass treat lift cells as off the island.
+
+QA at the close (port 8765, `PP_PROFILE=.pp-profile-p8b`): `qa-levels` 237 pass, 1 fail fixed in the tool and rerun, 1 skip (sharkbear see-through); `qa-visibility all` 252/253 cells, ember-subject 9,4 open; `qa-ride-keys` 13; `qa-run` 14; `qa-swap` 24, memory flat; `qa.mjs` 132; `qa-hero` 29. Per-island moves, `qa-things` counts, perf and the open items are in `docs/pass8/final.md`. Media: `out/pass8/final-sheet.jpg`, `out/pass8/arrive-*.png`, `out/pass8/ride.mp4`.
