@@ -216,7 +216,7 @@ async function island(i) {
   return { ok: true, note: notes.join("; ") };
 }
 
-const BEATS = ["close", "dance", "drop", "brace", "hold", "arrive", "land"];
+const BEATS = ["close", "dance", "drop", "hold", "brace", "arrive", "land"];
 const landed = (name) => page.waitForFunction((n) => { const S = window.__game?.state; return !!S && S.level.name === n && !S.actor.locked; }, { timeout: 20000, polling: 50 }, name).then(() => true, () => false);
 
 async function ride(next) {
@@ -233,7 +233,12 @@ async function ride(next) {
   const times = BEATS.map((b) => hop.beats[b]);
   const bad = BEATS.find((b, i) => times[i] == null || (i > 0 && !(times[i] > times[i - 1])));
   if (bad) return { ok: false, why: `beat order ${JSON.stringify(hop.beats)} breaks at ${bad}` };
-  return { ok: true, note: `${BEATS.map((b) => b + " " + hop.beats[b].toFixed(2)).join(", ")}, ${hop.dance}, zoom ${s.zoom.toFixed(3)}` };
+  const DANCE = ["wiggle", "spin", "pump"];
+  for (const b of ["dance", "drop", "hold"]) {
+    const c = hop.clips?.[b] || [];
+    if (!c.length || !c.every((n) => n === hop.dance) || !DANCE.includes(hop.dance)) return { ok: false, why: `clip during ${b} is ${JSON.stringify(c)}, want dance ${hop.dance}` };
+  }
+  return { ok: true, note: `${BEATS.map((b) => b + " " + hop.beats[b].toFixed(2)).join(", ")}, ${hop.dance} (hold ${hop.clips.hold.join("/")}), zoom ${s.zoom.toFixed(3)}` };
 }
 
 async function touchCheck(name) {

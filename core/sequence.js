@@ -3,7 +3,7 @@ export const SEQ = {
   danceAt: 0.3,
   danceMax: 2.3,
   drop: 1.2,
-  braceAt: 2.6,
+  braceLead: 0.5,
   holdMin: 1.8,
   holdMax: 8,
   arrive: 1.0,
@@ -29,7 +29,8 @@ const easeIn = (t) => t * t * t;
 const easeOut = (t) => 1 - (1 - t) ** 3;
 
 export function createSequence({ game, run, view, rise = 2.4, short = () => false, dances = [], doc = typeof document !== "undefined" ? document : null }) {
-  const pool = dances.filter((d) => d.duration <= SEQ.danceMax).map((d) => d.name);
+  const fit = dances.filter((d) => d.duration <= SEQ.danceMax);
+  const pool = fit.map((d) => d.name), span = Object.fromEntries(fit.map((d) => [d.name, d.duration]));
   let s = null, count = 0, frozen = null, veil = null;
   const hops = [];
   const api = {
@@ -67,7 +68,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
 
   function begin(e) {
     const st = game.state;
-    s = { t: 0, thingId: e.thing.id, from: st.level.name, next: e.next, arrive: e.thing.arrive, beats: {}, short: short(), prepared: null, failed: null, navigated: false };
+    s = { t: 0, thingId: e.thing.id, from: st.level.name, next: e.next, arrive: e.thing.arrive, beats: {}, clips: {}, short: short(), prepared: null, failed: null, navigated: false };
     s.dir = s.arrive === "exit" ? -1 : 1;
     rideUniforms.uRideDir.value = s.dir;
     rideUniforms.uRideTime.value = 0;
@@ -89,7 +90,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
   function finish() {
     view.release?.();
     const total = +s.t.toFixed(3);
-    hops.push({ from: s.from, next: s.next, dance: s.dance || null, beats: s.beats, total, failed: !!s.failAt });
+    hops.push({ from: s.from, next: s.next, dance: s.dance || null, beats: s.beats, clips: Object.fromEntries(Object.entries(s.clips).map(([b, c]) => [b, [...c]])), total, failed: !!s.failAt });
     s = null;
     api.state = "idle";
     rideUniforms.uRide.value = 0;
@@ -150,11 +151,11 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     st.actor.held = null;
     st.actor.facing = facing();
     s.landId = e?.id || null;
-    if (e) { e.state = "landing"; e.ride = 1; e.lift = rise; }
+    if (e) { e.state = "landing"; e.ride = 1; e.lift = -s.dir * rise; }
     s.D2 = view.dropSpan();
     view.holdBg?.();
-    view.seq({ y: -s.dir * s.D2, keep: s.landId, frac: SEQ.heroFrac });
-    view.hero?.userData.play?.("brace", { fade: 0, at: 10 });
+    view.seq({ y: s.dir * s.D2, keep: s.landId, frac: SEQ.heroFrac });
+    if (s.dance) view.hero?.userData.play?.(s.dance, { fade: 0, at: (s.t - s.danceAt) % span[s.dance] });
     view.snap();
   }
 
@@ -178,6 +179,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     }
     if (!s.danced && t >= SEQ.danceAt) {
       s.danced = true;
+      s.danceAt = t;
       if (s.dance) view.hero?.userData.play?.(s.dance);
       mark("dance");
     }
@@ -194,12 +196,6 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     }
     if (s.dropAt == null) return;
     if (s.holdAt == null) view.seq({ y: -s.dir * s.D * easeIn(clamp01((t - s.dropAt) / SEQ.drop)) });
-    if (!s.braced && t >= SEQ.braceAt) {
-      s.braced = true;
-      view.hero?.userData.play?.("brace");
-      view.seq({ shake: SEQ.jitter });
-      mark("brace");
-    }
     if (s.holdAt == null && t - s.dropAt >= SEQ.drop) { s.holdAt = t; mark("hold"); }
     if (s.arriveAt == null) {
       const r = clamp01((t - SEQ.rideFrom) / SEQ.rideIn);
@@ -208,7 +204,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     if (s.holdAt != null && s.arriveAt == null) {
       if (!s.steps) {
         if (s.failed) return fail(s.failed);
-        if (s.prepared && s.braced) stage();
+        if (s.prepared) stage();
         else if (t - s.holdAt >= SEQ.holdMax) return fail(new Error("The lift stalls"));
         return;
       }
@@ -221,6 +217,13 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
         return;
       }
       if (t - s.holdAt < SEQ.holdMin) return;
+      if (!s.braced) {
+        s.braced = t;
+        view.hero?.userData.play?.("brace");
+        view.seq({ shake: SEQ.jitter });
+        mark("brace");
+      }
+      if (t - s.braced < SEQ.braceLead) return;
       run.commit(s.next, s.from, s.arrive);
       view.release?.();
       view.fadeBg?.();
@@ -232,13 +235,13 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     if (s.arriveAt == null) return;
     const u = clamp01((t - s.arriveAt) / SEQ.arrive);
     s.k = 1 - inOut(u);
-    view.seq({ k: s.k, y: -s.dir * s.D2 * (1 - easeOut(u)) });
+    view.seq({ k: s.k, y: s.dir * s.D2 * (1 - easeOut(u)) });
     rideUniforms.uRide.value = 1 - clamp01((t - s.arriveAt) / SEQ.rideOut);
     const e = s.landId ? game.state.things?.byId[s.landId] : null;
     if (e) {
       const v = clamp01((t - s.arriveAt - (SEQ.arrive - SEQ.settle)) / SEQ.settle);
       const dip = v > 0.6 ? SEQ.overshoot * Math.sin(Math.PI * (v - 0.6) / 0.4) : 0;
-      e.lift = rise * (1 - inOut(v)) - dip;
+      e.lift = s.dir * (dip - rise * (1 - inOut(v)));
     }
     if (u < 1) return;
     if (e) { e.lift = null; e.ride = 0; e.rideDir = 0; e.state = "idle"; }
@@ -256,6 +259,8 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     rideUniforms.uRideTime.value += dt * rideUniforms.uRide.value;
     if (s.short) stepShort(dt);
     else stepFull(dt);
+    const c = s && view.hero?.userData.clip?.();
+    if (c) (s.clips[s.beat] ||= new Set()).add(c);
   });
 
   run.onLoad((state) => {
