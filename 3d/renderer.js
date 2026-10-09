@@ -4,6 +4,7 @@ import { buildDecor } from "./decor.js";
 import { buildCharacter } from "./character.js";
 import { levelScreenBounds } from "../core/iso.js";
 import { xray } from "./xray.js";
+import { highlight } from "./highlight.js";
 import { liftAt } from "./terrain.js";
 import { makeStyle } from "./style.js";
 import { initMotion, stepMotion } from "./motion.js";
@@ -14,6 +15,15 @@ import { GLBS } from "./hooks.js";
 import { createPathLine } from "./pathline.js";
 
 const FRAME = [351, 390];
+
+export const HERO_OUTLINE = { color: "#12c4f0", width: 4, through: "hidden", inner: { color: "#1b1f27", width: 1.5 } };
+export const HERO_FILL = { color: "#12c4f0", opacity: 0.45, through: "hidden" };
+
+export function occludeModes(v) {
+  const t = String(v || "circle").toLowerCase().split(/[,+ ]/).filter(Boolean);
+  const has = (k) => t.includes(k) || (t.includes("both") && (k === "circle" || k === "outline")) || (t.includes("all") && k !== "none");
+  return { circle: has("circle"), outline: has("outline"), fill: has("fill") };
+}
 
 export function disposeTree(root, keep = new Set()) {
   root.traverse((o) => {
@@ -26,7 +36,7 @@ export function disposeTree(root, keep = new Set()) {
 }
 
 export function createRenderer(container = document.body) {
-  const gl = new THREE.WebGLRenderer({ antialias: true });
+  const gl = new THREE.WebGLRenderer({ antialias: true, stencil: true });
   gl.setPixelRatio(Math.min(2, devicePixelRatio || 1));
   container.appendChild(gl.domElement);
   const scene = new THREE.Scene();
@@ -35,7 +45,7 @@ export function createRenderer(container = document.body) {
   const line = createPathLine();
   scene.add(line.mesh);
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
-  let seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
+  let occ = occludeModes(), seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
   const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, zoom: 1, hero: false, style: null };
   const flashBase = new THREE.Color(), WHITE = new THREE.Color(1, 1, 1);
   let warmed = false, oriented = null;
@@ -134,6 +144,8 @@ export function createRenderer(container = document.body) {
       }
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
+      occ = occludeModes(state.params.occlude);
+      if (occ.outline || occ.fill) highlight(hero, { outline: occ.outline && HERO_OUTLINE, fill: occ.fill && { ...HERO_FILL, effect: state.params.fillfx || "hatch" } });
       scene.add(hero);
       line.reset(state);
       bounds = levelScreenBounds(L, state.proj);
@@ -268,7 +280,7 @@ export function createRenderer(container = document.body) {
       xray.uDepthSoft.value = 0.3 / (camera.far - camera.near);
       xray.uSlack.value = 0.35 / (camera.far - camera.near);
       xray.uFeet.value = feet;
-      xray.uRadius.value = hero.visible && S.params.xray !== "0" ? 1.2 * zoom * px : 0;
+      xray.uRadius.value = hero.visible && occ.circle && S.params.xray !== "0" ? 1.2 * zoom * px : 0;
       if (hero.visible) beamClear.value.set(xray.uHero.value[0], xray.uHero.value[1], CLEAR.radius * zoom * px); else beamClear.value.set(-1e5, -1e5, 1);
       if (fx.length) {
         fxCtx.x = a.pos.x; fxCtx.y = feet; fxCtx.z = a.pos.z;
