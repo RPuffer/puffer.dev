@@ -24,7 +24,7 @@ void main() {
     float core = exp(-v * v * 70.0);
     float halo = exp(-v * v * 5.0);
     float ph = fract((s + v * 0.22) * 1.8 - uTime * 1.5);
-    float chev = smoothstep(0.0, 0.05, ph) * (1.0 - smoothstep(0.26, 0.31, ph)) * (1.0 - smoothstep(0.75, 0.95, v)) * step(0.22, v);
+    float chev = 0.5 * smoothstep(0.0, 0.05, ph) * (1.0 - smoothstep(0.18, 0.23, ph)) * (1.0 - smoothstep(0.55, 0.7, v)) * step(0.2, v);
     float lead = smoothstep(0.0, 0.45, s - uHead);
     float tail = 1.0 - smoothstep(uLen - 0.05, uLen + 0.02, s);
     float front = 1.0 - smoothstep(uGrow - 0.6, uGrow, s) * step(uGrow, uLen);
