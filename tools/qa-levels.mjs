@@ -109,6 +109,26 @@ async function openGated(url) {
   return o;
 }
 
+async function liftToLift(name) {
+  const o = await openGated(`${BASE}/3d/index.html?level=${name}`);
+  if (!o.done) { await o.page.close(); return { ok: false, detail: "page did not load" }; }
+  const r = await o.page.evaluate(async () => {
+    const { routeTo } = await import("/core/path.js");
+    const S = window.__game.state, things = S.things?.things || S.level.things || [];
+    const lift = (role) => things.find((t) => t.kind === "elevator" && t.role === role);
+    const a = lift("entry"), b = lift("exit");
+    if (!a || !b) return null;
+    const gates = things.filter((t) => t.kind === "gate");
+    const r = routeTo(S.level, [a.x, a.z], [b.x, b.z]);
+    return { from: [a.x, a.z], to: [b.x, b.z], open: gates.every((t) => t.state === "open"), gates: gates.length, reached: !!r?.reached, steps: r?.cells.length || 0, end: r?.cells.at(-1) || null };
+  });
+  await forgetThings(o.page);
+  await o.page.close();
+  if (!r) return null;
+  const ok = r.reached && r.open && r.end?.join() === r.to.join();
+  return { ok, gates: r.gates, detail: `${r.from} -> ${r.to} ${ok ? r.steps + " cells" : r.open ? "no route, nearest " + r.end : "gate did not open"}` };
+}
+
 async function forgetThings(page) {
   await page.evaluate(async () => { const { storageKey } = await import("/core/interact.js"); localStorage.removeItem(storageKey(window.__game.state.level.name)); }).catch(() => {});
 }
@@ -186,6 +206,18 @@ async function levelSuite(name) {
   await idle(page); await wait(400);
   const P = await plan(page, file);
   record(`${tag} spawns at level file spawn`, P.spawnLive.join() === P.spawnFile.join(), `${P.spawnLive} vs ${P.spawnFile}`);
+  const landings = await page.evaluate(() => {
+    const L = window.__game.state.level, D = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] }, out = [];
+    let n = 0;
+    L.cells.forEach((row, z) => row.forEach((c, x) => {
+      if (c.s !== "ramp" || !D[c.d]) return;
+      n++;
+      const [dx, dz] = D[c.d];
+      for (const [end, a, b] of [["top", x - dx, z - dz], ["bottom", x + dx, z + dz]]) if (L.blocked.has(a + "," + b)) out.push(`${x},${z} ${end} ${a},${b}`);
+    }));
+    return { n, out };
+  });
+  record(`${tag} ramp landings unblocked`, landings.out.length === 0, landings.out.length ? landings.out.slice(0, 4).join(" | ") : `${landings.n} ramps`);
   for (const code of ["KeyW", "KeyD", "KeyS", "KeyA"]) {
     const r = await keyStep(page, code);
     record(`${tag} ${code} steps as canStep predicts`, r.after.join() === r.expect.join(), `${r.before} -> ${r.after} (expect ${r.expect})`);
@@ -211,6 +243,9 @@ async function levelSuite(name) {
   await page.screenshot({ path: path.join(OUT, `${tag}-play.png`) });
   record(`${tag} no console errors or failed requests`, clean(name, problems).length === 0, clean(name, problems).slice(0, 3).join(" | "));
   await page.close();
+
+  const lifts = await liftToLift(name);
+  if (lifts) record(`${tag} lift to lift${lifts.gates ? " (gates opened)" : ""}`, lifts.ok, lifts.detail);
 
   if (!P.plateau) record(`${tag} ramp climb`, name === "hooks-test", "no ramp route to a higher cell, gates closed or open" + (name === "hooks-test" ? " (flat test level)" : ""));
   else {

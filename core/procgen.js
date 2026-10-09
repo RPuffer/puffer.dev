@@ -1,6 +1,8 @@
 import { CATALOG, maskCells } from "./catalog.js";
 import { DIRS, cellAt, isWalkable, canStep, validateLevel } from "./level.js";
 import { makeProjection } from "./iso.js";
+import { normalizeThing, thingBlocks } from "./interact.js";
+import { findPath } from "./path.js";
 
 export const VIEW = { pitch: 35.264, yaw: 45, tileH: 1.5 };
 export const FRAME = { w: 351, h: 390, fillW: 0.96, fillH: 0.94, offX: 0, offY: 0 };
@@ -133,6 +135,13 @@ export function checkLevel(raw) {
     if (!down || down.h !== c.h - 1 || !isWalkable({ ...L, blocked: new Set() }, x + DIRS[c.d][0], z + DIRS[c.d][1])) problems.push(`ramp ${x},${z}: downhill cell not one tier lower`);
     if (!up || up.h !== c.h) problems.push(`ramp ${x},${z}: uphill cell not level`);
   }
+  for (const msg of rampLandings(raw, L.blocked)) problems.push(msg);
+  const lift = (role) => (raw.things || []).find((t) => t.kind === "elevator" && t.role === role);
+  if (lift("entry") && lift("exit")) {
+    const open = { ...L, blocked: new Set(L.blocked), edges: new Set() };
+    for (const t of raw.things) if (t.kind === "bonfire" || t.kind === "chest") open.blocked.add(key(t.x, t.z));
+    if (!findPath(open, [lift("entry").x, lift("entry").z], [lift("exit").x, lift("exit").z])) problems.push(`lift to lift: no path from entry ${lift("entry").x},${lift("entry").z} to exit ${lift("exit").x},${lift("exit").z} with gates open`);
+  }
   const inRun = new Set();
   for (const [dx, dz] of [[1, 0], [0, 1]]) {
     for (const [x, z] of cellsWhere(L, (c, x, z) => c.s === "bridge" && cellAt(L, x - dx, z - dz)?.s !== "bridge")) {
@@ -148,4 +157,16 @@ export function checkLevel(raw) {
   if (s.grassShare < 0.25 || s.grassShare > 0.45) problems.push(`grass share ${s.grassShare.toFixed(2)} outside 0.25-0.45`);
   if (s.plateauComps !== 1) problems.push(`plateau in ${s.plateauComps} pieces`);
   return problems;
+}
+
+export function rampLandings(raw, decorBlocked) {
+  const solid = new Set(decorBlocked);
+  for (const t of raw.things || []) if (t && (t.kind || t.t)) for (const [x, z] of thingBlocks(normalizeThing(t))) solid.add(key(x, z));
+  const out = [];
+  raw.cells.forEach((row, z) => row.forEach((c, x) => {
+    if (c.s !== "ramp" || !DIRS[c.d]) return;
+    const [dx, dz] = DIRS[c.d];
+    for (const [end, nx, nz] of [["top", x - dx, z - dz], ["bottom", x + dx, z + dz]]) if (solid.has(key(nx, nz))) out.push(`ramp ${x},${z}: ${end} landing ${nx},${nz} blocked`);
+  }));
+  return out;
 }
