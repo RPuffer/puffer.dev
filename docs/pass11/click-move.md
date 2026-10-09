@@ -13,6 +13,8 @@ Click or tap a tile and the hero walks the fewest-step route there. WASD, the ar
 
 `tools/qa.mjs` gains `clickSuite` at 1200 and 400 touch, yaw 45 and 225: far tile arrives, path line present mid-walk, route clears on arrival, unreachable tile walks to nearest and marks amber, `route.interrupt` stops on the cell, a key press cancels. `QA_ONLY=click` runs just that suite.
 
+Counts (PP_PROFILE=.pp-profile-p11b, port 8765): qa.mjs 226/226 (40 click checks), qa-ride-keys wizard-medium 2/2, qa-run 14/14, qa-things wizard-medium 40/40.
+
 Clip: `out/pass11/click-move.mp4` on wizard-medium (click, re-path mid-walk, turn to 225, unreachable click, long walk).
 
 ## Open
