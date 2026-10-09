@@ -272,7 +272,7 @@ async function levelSuite(name) {
 
   if (!P.behind) record(`${tag} see-through window`, "skip", `no walkable cell within two rings behind a tall, multi-cell, or figure piece in ${P.reach} cells reachable with gates closed (pieces: ${P.tall.join(" ") || "none"})`);
   else {
-    const x = await open(`${BASE}/3d/index.html?level=${name}&spawn=${P.behind.cell.join(",")}`);
+    const x = await open(`${BASE}/3d/index.html?level=${name}&spawn=${P.behind.cell.join(",")}&occlude=circle`);
     if (!x.done) record(`${tag} x-ray page loads`, false);
     else {
       const n = await xrayDiff(x.page, tag);
