@@ -89,7 +89,15 @@ try {
   game.canRotate = () => !sequence.active && !game.state.actor?.locked;
   renderer.onOrient((state) => clouds?.orient(state));
   run.boot(first);
-  mountUI({ rotate: (step) => game.rotate(step) });
+  window.__ui = mountUI({
+    rotate: (step) => game.rotate(step),
+    nav: {
+      current: () => game.state.level?.name,
+      busy: () => sequence.active || !!game.state.actor?.locked,
+      preload: (name) => run.preload(name).catch(() => {}),
+      go: (name) => run.swap(name, { from: game.state.level.name }),
+    },
+  });
   if (params.seq === "hold") holdAtExit(game, sequence);
   if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;
 } catch (e) {

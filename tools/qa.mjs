@@ -446,14 +446,79 @@ async function compareSuite(size) {
   await page.close();
 }
 
+async function navSuite(size) {
+  const tag = `nav@${size.width}${size.touch ? "t" : ""}`;
+  const order = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
+  const at = 3, here = order[at], back = order[at - 1], ahead = order[at + 1];
+  const { page, problems, done, ms } = await open(`${BASE}/3d/index.html?level=${here}&reset=1`, size);
+  record(`${tag} __done within 10 s`, done, `${ms} ms`);
+  if (!done) { await page.close(); return; }
+  await page.evaluate((back, ahead) => {
+    localStorage.setItem("isoworld:things:" + back, JSON.stringify({ things: {} }));
+    for (const n of ahead) localStorage.removeItem("isoworld:things:" + n);
+  }, back, order.slice(at + 1));
+  const shown = await page.waitForFunction(() => { const b = document.querySelector(".iw-nav-btn"); return b && !b.hidden && b.getBoundingClientRect().width > 0; }, { timeout: 15000, polling: 100 }).then(() => true, () => false);
+  record(`${tag} navigator button shown`, shown);
+  if (!shown) { await page.close(); return; }
+  const tapBtn = async (sel) => {
+    const el = await page.$(sel);
+    if (size.touch) { const b = await el.boundingBox(); await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); } else await el.click();
+  };
+  await tapBtn(".iw-nav-btn");
+  await wait(800);
+  const nodes = await page.evaluate(() => [...document.querySelectorAll(".iw-nav .node")].map((n) => {
+    const r = n.getBoundingClientRect();
+    return { level: n.dataset.level, k: +n.dataset.offset, locked: n.classList.contains("locked"), inView: r.left >= 0 && r.right <= innerWidth && r.top >= 0 && r.bottom <= innerHeight };
+  }));
+  record(`${tag} opens with up to 5 nodes centred on the current island`, nodes.length >= 1 && nodes.length <= 5 && nodes.find((n) => n.k === 0)?.level === here, nodes.map((n) => `${n.k}:${n.level}${n.locked ? "(L)" : ""}`).join(" "));
+  record(`${tag} all nodes inside the viewport`, nodes.length > 0 && nodes.every((n) => n.inView));
+  const lockedAhead = nodes.find((n) => n.k === 1);
+  record(`${tag} unreached ahead node locked, reached behind node open`, !!lockedAhead?.locked && nodes.find((n) => n.k === -1)?.locked === false);
+  if (size.width === 1200 && !size.touch) await page.screenshot({ path: path.join(root, "out/pass12/navigator.png") });
+  const swaps0 = await page.evaluate(() => window.__swapCount);
+  await tapBtn(`.iw-nav .node[data-offset="1"]`);
+  await wait(900);
+  const afterLock = await page.evaluate(() => ({ level: window.__game.state.level.name, swaps: window.__swapCount, open: !!document.querySelector(".iw-nav.open") }));
+  record(`${tag} locked node does nothing`, afterLock.level === here && afterLock.swaps === swaps0 && afterLock.open, JSON.stringify(afterLock));
+  if (!size.touch) {
+    await page.keyboard.press("Escape");
+    await wait(600);
+    const gone = await page.evaluate(() => !document.querySelector(".iw-nav") && document.activeElement?.classList.contains("iw-nav-btn"));
+    record(`${tag} Escape closes and refocuses the button`, gone);
+    await page.keyboard.press("Enter");
+    await wait(700);
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    const focused = await page.evaluate(() => document.activeElement?.dataset?.offset);
+    record(`${tag} Enter opens, Tab stays inside the molecule`, focused != null, `focus offset ${focused}`);
+    await page.focus(`.iw-nav .node[data-offset="-1"]`);
+    await page.keyboard.press("Enter");
+  } else await tapBtn(`.iw-nav .node[data-offset="-1"]`);
+  const jumped = await page.waitForFunction((back) => window.__game.state.level.name === back && !document.querySelector(".iw-veil"), { timeout: 15000, polling: 100 }, back).then(() => true, () => false);
+  const after = await page.evaluate(() => ({ level: window.__game.state.level.name, url: new URL(location.href).searchParams.get("level"), swaps: window.__swapCount }));
+  record(`${tag} jump to a reached island changes level`, jumped && after.url === back && after.swaps === swaps0 + 1, JSON.stringify(after));
+  record(`${tag} no console errors or failed requests`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.close();
+  if (size.width === 1200) {
+    const h = await open(`${BASE}/3d/index.html?level=${here}&hero=0`, size);
+    await wait(500);
+    record(`${tag} no navigator at hero=0`, h.done && !(await h.page.$(".iw-nav-btn")));
+    await h.page.close();
+  }
+}
+
 try {
   for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }]) {
     const only = process.env.QA_ONLY;
     if (only === "click") { if (size.width === 1200 || size.touch) await clickSuite(size); continue; }
+    if (only === "nav") { await navSuite(size); continue; }
     for (const build of ["3d", "2d"]) await buildSuite(build, size);
     if (size.width === 1200 || size.touch) await rotationSuite(size);
     if (size.width === 1200 || size.touch) await clickSuite(size);
     if (!size.touch) { await compareSuite(size); await startSuite(size); }
+    await navSuite(size);
   }
 } finally {
   await browser.close();
