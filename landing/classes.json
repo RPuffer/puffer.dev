@@ -11,39 +11,8 @@
    }
   ]
  },
- "default": "wanderer",
+ "default": "aws",
  "classes": [
-  {
-   "id": "wanderer",
-   "name": "Wanderer",
-   "line": "Off the clock: games, ink and paint, violin, and EDM as orva.",
-   "stats": [
-    [
-     "Video Games",
-     9
-    ],
-    [
-     "Music Production",
-     8
-    ],
-    [
-     "Violin",
-     8
-    ],
-    [
-     "Drawing and Painting",
-     9
-    ],
-    [
-     "Guitar and Drums",
-     6
-    ],
-    [
-     "Creature Design",
-     9
-    ]
-   ]
-  },
   {
    "id": "aws",
    "name": "AWS",
@@ -134,6 +103,37 @@
     [
      "Product",
      6
+    ]
+   ]
+  },
+  {
+   "id": "wanderer",
+   "name": "Wanderer",
+   "line": "Off the clock: games, ink and paint, violin, and EDM as orva.",
+   "stats": [
+    [
+     "Video Games",
+     9
+    ],
+    [
+     "Music Production",
+     8
+    ],
+    [
+     "Violin",
+     8
+    ],
+    [
+     "Drawing and Painting",
+     9
+    ],
+    [
+     "Guitar and Drums",
+     6
+    ],
+    [
+     "Creature Design",
+     9
     ]
    ]
   }
