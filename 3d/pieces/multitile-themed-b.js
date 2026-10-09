@@ -72,7 +72,7 @@ function doodleFountain(K, L) {
   K.part("column-top", {}, () => K.rbox(0.46, 0.45, 0.46, L.slateDark, 0, 1.65, 0));
   K.part("collar", {}, () => K.rbox(0.72, 0.2, 0.72, L.lilac, 0, 2.1, 0));
   K.part("bubbles", {}, () => B.sway("ripple", { amp: 0.04, root: [0, 0.8, 0] }, () => {
-    for (let k = 0; k < 6; k++) B.at(0, 0, 0, k * Math.PI / 3 + 0.3, () => K.cyl(0.1, 0.04, L.foam, 0, 0.78, 0.68, 6, { chamfer: false }));
+    for (let k = 0; k < 6; k++) B.at(0, 0, 0, k * Math.PI / 3 + 0.1, () => K.cyl(0.1, 0.04, L.foam, 0, 0.78, 0.72, 6, { chamfer: false }));
   }));
   K.part("bloom", {}, () => B.sway("crown", { amp: CROWN, root: [0, 2.3, 0], span: 0.8 }, () => {
     K.spike(0.36, 0.92, 0.32, L.ink, 0, 2.28, 0);

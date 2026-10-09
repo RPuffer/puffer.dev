@@ -106,10 +106,10 @@ function windmill(K, L) {
       B.pop();
     }
   });
-  K.part("ridge", {}, () => K.rbox(0.24, 0.14, 2.45, L.ridge, 0, 3.84, 0));
-  const hub = [0.1, 2.5, 1.18];
+  K.part("ridge", {}, () => K.rbox(0.24, 0.14, 2.3, L.ridge, 0, 3.84, 0));
+  const hub = [0.1, 2.5, 1.24];
   K.part("hub", {}, () => {
-    K.box(0.28, 0.28, 0.4, L.spar, hub[0], hub[1] - 0.14, 1.0);
+    K.box(0.28, 0.28, 0.4, L.spar, hub[0], hub[1] - 0.14, 1.06);
   });
   K.part("sails", {}, () => {
     B.sway("crown", { amp: CROWN * 0.6, root: hub, span: 1.9 }, () => {
@@ -278,7 +278,7 @@ function shipwreck(K, L) {
     K.rbox(0.34, 0.16, 0.34, L.hullDark, 0.25, 0.42, 0);
     tilt(B, 0.25, 0.5, 0, [0, 0, 1], -0.22, () => { K.rbox(0.22, 1.6, 0.22, L.mast, 0, 0, 0); K.rbox(0.3, 0.14, 0.3, L.hullDark, 0, 0.55, 0); });
   });
-  K.part("flag", {}, () => tilt(B, 0.25, 0.5, 0, [0, 0, 1], -0.22, () => B.sway("crown", { amp: CROWN * 1.2, root: [0, 1.3, 0], span: 0.4 }, () => K.box(0.08, 0.32, 0.46, L.flag, 0, 1.25, 0.27))));
+  K.part("flag", {}, () => tilt(B, 0.25, 0.5, 0, [0, 0, 1], -0.22, () => B.sway("crown", { amp: CROWN * 1.2, root: [0, 1.3, 0], span: 0.4 }, () => K.box(0.08, 0.32, 0.4, L.flag, 0, 1.25, 0.35))));
   K.part("spar", {}, () => tilt(B, -0.3, 0.9, -0.15, [0.3, 0, 1], 0.95, () => K.rbox(0.16, 1.5, 0.16, L.mast, 0, 0, 0)));
   B.pop(); B.pop(); B.pop();
   K.part("dock-legs", {}, () => { for (const x of [0.15, 1.85]) for (const z of [0.12, 0.88]) K.rbox(0.16, 0.24, 0.16, L.dockAlt, x, lift - 0.1, z); });
