@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { Baker, roundRect, circle, tone, bakedMaterial } from "./baker.js";
-import { makeStyle } from "./style.js";
+import { Baker, roundRect, circle, tone, col, bakedMaterial } from "./baker.js";
+import { makeStyle, BACK } from "./style.js";
 import { cellAt, isWalkable } from "../core/level.js";
 import { mulberry32, hashSeed } from "../core/rng.js";
 import { applyXray } from "./xray.js";
@@ -65,19 +65,33 @@ function dots(B, x, z, y, hex, rnd, count = 3, r = 0.05) {
   for (let i = 0; i < count; i++) B.flat(circle(cx + offs[i][0], cz + offs[i][1], r * (0.8 + rnd() * 0.4), r * (0.8 + rnd() * 0.4), 7), y, hex);
 }
 
+const DRIP_AT = {
+  z: (x, z, u, v) => [x + u, v, z + 1 - GAP + 0.006],
+  x: (x, z, u, v) => [x + 1 - GAP + 0.006, v, z + 1 - u],
+  "-z": (x, z, u, v) => [x + 1 - u, v, z + GAP - 0.006],
+  "-x": (x, z, u, v) => [x + GAP - 0.006, v, z + u],
+};
+const backTone = (hex) => col(hex).clone().multiplyScalar(BACK);
+
 function drips(B, x, z, y, face, hex, rnd, count) {
+  const at = DRIP_AT[face];
   const n = count || 3 + (rnd() < 0.4 ? 1 : 0);
   for (let i = 0; i < n; i++) {
     const c = (i + 0.5) / n + (rnd() - 0.5) * 0.08, w = 0.09 + rnd() * 0.04, d = 0.08 + rnd() * 0.1;
     const pts = [];
     for (let k = 0; k <= 6; k++) {
-      const a = Math.PI * (k / 6), u = c - Math.cos(a) * w, v = y - Math.sin(a) * d;
-      pts.push(face === "z" ? [x + u, v, z + 1 - GAP + 0.006] : [x + 1 - GAP + 0.006, v, z + 1 - u]);
+      const a = Math.PI * (k / 6);
+      pts.push(at(x, z, c - Math.cos(a) * w, y - Math.sin(a) * d));
     }
-    pts.push(face === "z" ? [x + c, y + 0.02, z + 1 - GAP + 0.006] : [x + 1 - GAP + 0.006, y + 0.02, z + 1 - c]);
-    const hub = pts[7];
+    const hub = at(x, z, c, y + 0.02);
     for (let k = 0; k < 6; k++) B.vpoly([hub, pts[k], pts[k + 1]], hex);
   }
+}
+
+function farDrips(L, x, z, c, rnd, draw) {
+  const open = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return !(isLand(n) && n.h >= c.h); };
+  if (open(-1, 0)) draw("-x", rnd);
+  if (open(0, -1)) draw("-z", rnd);
 }
 
 function specks(B, x, z, y0, y1, hex, rnd) {
@@ -103,7 +117,7 @@ function bottomOf(top, h, F, T) {
   return top - DEPTH - Math.max(0, h - F) * T;
 }
 
-function landCell(B, L, x, z, c, T, F, rnd) {
+function landCell(B, L, x, z, c, T, F, rnd, far) {
   const P = B.pal;
   const top = c.h * T;
   const upper = c.h > F;
@@ -116,6 +130,7 @@ function landCell(B, L, x, z, c, T, F, rnd) {
     const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
     if (!(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - GL, "z", P.grass.fringe, rnd);
     if (!(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - GL, "x", P.grass.fringeDark, rnd);
+    farDrips(L, x, z, c, far, (f, r) => drips(B, x, z, top - GL, f, f === "-z" ? backTone(P.grass.fringeDark) : P.grass.fringeDark, r));
     if (kind === "patch" || c.patch) pathPatch(B, x, z, top, rnd);
     else if (!L.explicitPatches && rnd() < 0.18) B.flat(blob(x + 0.4 + rnd() * 0.2, z + 0.4 + rnd() * 0.2, 0.28, rnd), top + 0.003, P.dirt.patch);
     dots(B, x, z, top + 0.005, P.grass.speck, rnd, 3, 0.045);
@@ -152,6 +167,7 @@ function landCell(B, L, x, z, c, T, F, rnd) {
   const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
   if (rnd() < 0.35 && !(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - LIP, "z", P.sand.edge, rnd, 2);
   if (rnd() < 0.35 && !(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - LIP, "x", P.sand.lip, rnd, 2);
+  farDrips(L, x, z, c, far, (f, r) => { if (r() < 0.35) drips(B, x, z, top - LIP, f, f === "-z" ? backTone(P.sand.lip) : P.sand.lip, r, 2); });
 }
 
 function stoneSlab(B, x, z, y0, y1, rnd) {
@@ -294,7 +310,8 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
   const overVoid = (x, z) => [[1, 0], [0, 1]].some(([dx, dz]) => { const n = cellAt(L, x + dx, z + dz); return !n || n.s === "none"; });
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
     const c = cellAt(L, x, z);
-    const rnd = mulberry32(hashSeed(seed) ^ Math.imul(x + 1, 73856093) ^ Math.imul(z + 1, 19349663));
+    const key = hashSeed(seed) ^ Math.imul(x + 1, 73856093) ^ Math.imul(z + 1, 19349663);
+    const rnd = mulberry32(key);
     if (c.s === "none") continue;
     if (c.s === "water" || (c.h === 0 && c.s !== "bridge")) { waterCell(Wb, L, x, z, c.h, T, rnd, c.h > 0 ? (lowestWater(x, z) ?? (overVoid(x, z) ? c.h * T - WATER_DROP - DEPTH : c.h * T - 0.4)) : null); continue; }
     if (c.s === "bridge") {
@@ -304,7 +321,7 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
     }
     if (c.s === "ramp") { rampCell(B, L, x, z, c, T, F, rnd); continue; }
     if (c.s === "lift") { liftTile(B, L, x, z, c, T, bottomOf(c.h * T, c.h, F, T)); continue; }
-    landCell(B, L, x, z, c, T, F, rnd);
+    landCell(B, L, x, z, c, T, F, rnd, mulberry32(key ^ 0x5bd1e995));
   }
   const group = new THREE.Group();
   const landMesh = new THREE.Mesh(B.geometry(), applyXray(bakedMaterial()));
