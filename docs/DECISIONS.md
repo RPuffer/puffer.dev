@@ -52,3 +52,4 @@
 - 2026-10-08 Operator play notes on the ride: the arrival reads reversed (going up ends with coming down into the new island; it must rise up into the new island from below, as the tower climb idea says), and the hero does not dance during the ride.
 - 2026-10-08 Reviews move live: the operator plays the dev server; routine passes report what changed and where to look instead of filing fortress cards.
 - 2026-10-08 Visibility is no longer a hard gate: with rotation and the trap/puzzle direction, a route cell hidden from every angle is a warning (a sneaky route), not a failure; only a hidden ramp the player must take with no visible alternative stays a failure.
+- 2026-10-08 Occlusion: the hero's outline plus hologram fill replaces the see-through circle as the default (`?occlude=circle` keeps the old window). Path QA narrows to the one critical check: every lift reaches every other lift by the click pathfinder.

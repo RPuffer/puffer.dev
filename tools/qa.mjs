@@ -185,7 +185,13 @@ async function buildSuite(build, size) {
   record(`${tag} no console errors or failed requests`, problems.length === 0, problems.slice(0, 3).join(" | "));
   await page.close();
 
-  const x = await open(`${BASE}/${build}/index.html?level=home&spawn=0,1&reset=1`, size);
+  if (build === "3d") {
+    const shot = async (q) => { const o = await open(`${BASE}/3d/index.html?level=home&spawn=0,1&reset=1&hero=1${q}`, size); await settle(o.page, 1200); await o.page.evaluate(() => { const g = window.__game; g.stop(); g.renderer.render(g.state, 0); }); await wait(150); const img = await o.page.screenshot(); await o.page.close(); return img; };
+    const lit = await shot(""), bare = await shot("&occlude=none");
+    const d = await diffCount(lit, bare);
+    record(`${tag} outline and hologram fill show the hidden hero at spawn 0,1`, d > 40, `${d} px differ default vs occlude=none`);
+  }
+  const x = await open(`${BASE}/${build}/index.html?level=home&spawn=0,1&reset=1&occlude=circle`, size);
   if (!x.done) { record(`${tag} x-ray page loads`, false); await x.page.close(); return; }
   const n = await xrayCheck(x.page, tag);
   record(`${tag} see-through window reveals hero at spawn 0,1`, n > 40, `${n} px differ window on/off`);

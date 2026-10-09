@@ -20,7 +20,7 @@ export const HERO_OUTLINE = { color: "#12c4f0", width: 4, through: "hidden", inn
 export const HERO_FILL = { color: "#12c4f0", opacity: 0.45, through: "hidden" };
 
 export function occludeModes(v) {
-  const t = String(v || "circle").toLowerCase().split(/[,+ ]/).filter(Boolean);
+  const t = String(v || "outline,fill").toLowerCase().split(/[,+ ]/).filter(Boolean);
   const has = (k) => t.includes(k) || (t.includes("both") && (k === "circle" || k === "outline")) || (t.includes("all") && k !== "none");
   return { circle: has("circle"), outline: has("outline"), fill: has("fill") };
 }
@@ -145,7 +145,7 @@ export function createRenderer(container = document.body) {
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       occ = occludeModes(state.params.occlude);
-      if (occ.outline || occ.fill) highlight(hero, { outline: occ.outline && HERO_OUTLINE, fill: occ.fill && { ...HERO_FILL, effect: state.params.fillfx || "hatch" } });
+      if (occ.outline || occ.fill) highlight(hero, { outline: occ.outline && HERO_OUTLINE, fill: occ.fill && { ...HERO_FILL, effect: state.params.fillfx || "holo" } });
       scene.add(hero);
       line.reset(state);
       bounds = levelScreenBounds(L, state.proj);
