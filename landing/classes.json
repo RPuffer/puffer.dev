@@ -108,11 +108,15 @@
   },
   {
    "id": "wanderer",
-   "name": "Wanderer",
+   "name": "Wretch",
    "line": "Off the clock: games, ink and paint, violin, and EDM as orva.",
    "stats": [
     [
-     "Video Games",
+     "Rocket League",
+     9
+    ],
+    [
+     "Destiny",
      9
     ],
     [
@@ -130,10 +134,6 @@
     [
      "Guitar and Drums",
      6
-    ],
-    [
-     "Creature Design",
-     9
     ]
    ]
   }
