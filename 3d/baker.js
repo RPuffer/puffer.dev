@@ -77,7 +77,8 @@ export class Baker {
     const r = opts.root || [0, 0, 0];
     const root = new THREE.Vector3(r[0], r[1], r[2]).applyMatrix4(this.m);
     const prev = this.tag;
-    this.tag = { mode: SWAY[kind] || 0, amp: opts.rate ?? opts.amp ?? 0, phase: opts.phase || 0, span: opts.duty ?? opts.span ?? 1, root, alt: opts.alt || null };
+    const s = this.m.getMaxScaleOnAxis(), k = kind === "swatch" || Math.abs(s - 1) < 1e-6 ? 1 : s;
+    this.tag = { mode: SWAY[kind] || 0, amp: opts.rate ?? (opts.amp ?? 0) * k, phase: opts.phase || 0, span: opts.duty ?? (opts.span ?? 1) * k, root, alt: opts.alt || null };
     fn();
     this.tag = prev;
     return this;
