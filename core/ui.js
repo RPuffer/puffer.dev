@@ -197,7 +197,7 @@ function mountNavigator({ current, go, busy = () => false, preload = null, reach
   return { button: btn, open, close, sync, get isOpen() { return !!layer && !closing; }, dispose() { clearInterval(timer); layer?.remove(); btn.remove(); } };
 }
 
-export const startHref = () => new URL("../index.html", import.meta.url).href;
+export const startHref = () => new URL("../islands.html", import.meta.url).href;
 
 const framed = () => { try { return window.top !== window; } catch { return true; } };
 

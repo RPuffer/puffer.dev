@@ -135,7 +135,7 @@ async function uiChecks(page, tag) {
   record(`${tag} ui overlay mounted`, !!has);
   if (!has) return;
   const href = await page.$eval(".iw-ui a", (a) => a.href);
-  record(`${tag} overlay links to the start page`, /\/index\.html$/.test(href) && !/\/(3d|2d)\//.test(href), href);
+  record(`${tag} overlay links to the start page`, /\/islands\.html$/.test(href) && !/\/(3d|2d)\//.test(href), href);
   await Promise.all([page.waitForNavigation({ waitUntil: "load" }), page.click(".iw-ui a")]);
   const begin = await page.$("#begin");
   record(`${tag} islands link opens the start page`, !!begin, page.url());
@@ -394,7 +394,7 @@ async function clickSuite(size) {
 
 async function startSuite(size) {
   const tag = `start@${size.width}${size.touch ? "t" : ""}`;
-  const { page, problems, done, ms } = await open(`${BASE}/`, size);
+  const { page, problems, done, ms } = await open(`${BASE}/islands.html`, size);
   record(`${tag} __done within 10 s`, done, `${ms} ms`);
   if (!done) { await page.close(); return; }
   const order = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;

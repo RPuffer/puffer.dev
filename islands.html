@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The amalgam</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--bg:#404040;--deep:#333;--fg:#f4efe4;--dim:#b9b2a4;--sun:#f5c243;--ember:#e8873a;--moss:#7cc56a;--ink:#1f1d1a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+body{min-height:100vh;display:flex;flex-direction:column;padding:max(28px,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+main{width:100%;max-width:1080px;margin:0 auto;flex:1}
+.mark{display:flex;gap:6px;margin-bottom:18px}
+.mark i{display:block;width:18px;height:18px;border-radius:3px}
+.mark i:nth-child(1){background:var(--sun)}
+.mark i:nth-child(2){background:var(--ember)}
+.mark i:nth-child(3){background:var(--moss)}
+h1{margin:0;font-size:clamp(44px,9vw,84px);line-height:.95;font-weight:800;letter-spacing:-.02em}
+.what{margin:14px 0 0;max-width:34em;font-size:clamp(16px,2.2vw,19px);color:var(--dim)}
+.go{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 12px}
+.go a{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 26px;border-radius:8px;font-weight:800;font-size:18px;text-decoration:none;color:var(--ink)}
+.go a[hidden]{display:none}
+#begin{background:var(--sun)}
+#continue{background:var(--moss)}
+#continue small{font-weight:600;font-size:14px;opacity:.75}
+.go a:hover,.go a:focus-visible{filter:brightness(1.08);outline:none}
+.go a:focus-visible{box-shadow:0 0 0 4px var(--fg)}
+.keys{margin:0 0 36px;color:var(--dim);font-size:14px}
+kbd{display:inline-block;min-width:22px;padding:1px 6px;border-radius:4px;background:var(--deep);color:var(--fg);font:700 12px/18px system-ui,sans-serif;text-align:center}
+h2{margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+@media (max-width:900px){ol{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:560px){ol{grid-template-columns:repeat(3,1fr);gap:8px}}
+li a{display:block;position:relative;border-radius:6px;overflow:hidden;background:var(--deep);color:var(--fg);text-decoration:none}
+li img{display:block;width:100%;height:auto;aspect-ratio:300/267;object-fit:cover}
+li span{display:flex;gap:6px;align-items:baseline;padding:6px 8px 7px;font-size:13px;font-weight:600}
+li b{color:var(--sun);font-weight:800}
+li a:hover span,li a:focus-visible span{background:var(--sun);color:var(--ink)}
+li a:hover b,li a:focus-visible b{color:var(--ink)}
+li a:focus-visible{outline:none}
+li a.lit::after{content:"";position:absolute;top:7px;right:7px;width:12px;height:12px;border-radius:2px;background:var(--ember)}
+footer{width:100%;max-width:1080px;margin:36px auto 0;font-size:13px;color:var(--dim)}
+footer a{color:var(--fg)}
+</style>
+</head>
+<body>
+<main>
+<div class="mark" aria-hidden="true"><i></i><i></i><i></i></div>
+<h1>The amalgam</h1>
+<p class="what">Twelve islands stacked into one climb. Light the bonfires, open the gates, and ride each lift to the next island.</p>
+<div class="go">
+<a id="begin" href="3d/index.html?level=cat-medium&amp;reset=1">Begin</a>
+<a id="continue" href="#" hidden>Continue <small></small></a>
+</div>
+<p class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrows to walk, <kbd>F</kbd> to use, <kbd>Q</kbd> <kbd>E</kbd> to turn the island, tap to walk or use on a phone.</p>
+<h2>Islands</h2>
+<ol id="islands"></ol>
+</main>
+<footer><a href="compare.html">3d and 2d side by side</a></footer>
+<script type="module">
+const KEY = (n) => "isoworld:things:" + n;
+const label = (n) => n.split("-")[0];
+const saved = (n) => {
+  try { const v = JSON.parse(localStorage.getItem(KEY(n)) || "null"); return v && typeof v === "object" ? v : null; } catch { return null; }
+};
+const lit = (s) => !!(s && Array.isArray(s.respawn) && Object.values(s.things || {}).some((t) => t?.state === "lit"));
+const play = (n, reset) => "3d/index.html?level=" + encodeURIComponent(n) + (reset ? "&reset=1" : "");
+try {
+  const order = (await (await fetch("levels/run.json")).json()).order;
+  const begin = document.getElementById("begin");
+  begin.href = play(order[0], true);
+  begin.addEventListener("click", () => { for (const n of order) try { localStorage.removeItem(KEY(n)); } catch {} });
+  const state = order.map(saved);
+  let at = -1;
+  for (let i = 0; i < order.length; i++) if (lit(state[i])) at = i;
+  if (at < 0) for (let i = 0; i < order.length; i++) if (state[i]) at = i;
+  if (at >= 0) {
+    const c = document.getElementById("continue");
+    c.href = play(order[at]);
+    c.querySelector("small").textContent = (at + 1) + ". " + label(order[at]);
+    c.hidden = false;
+  }
+  const ol = document.getElementById("islands");
+  order.forEach((n, i) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = play(n);
+    if (lit(state[i])) { a.className = "lit"; a.title = "bonfire lit"; }
+    const img = document.createElement("img");
+    img.src = "assets/start/" + n + ".jpg";
+    img.alt = "";
+    img.width = 300; img.height = 267;
+    const s = document.createElement("span");
+    s.innerHTML = "<b>" + (i + 1) + "</b>";
+    s.append(label(n));
+    a.append(img, s);
+    li.append(a);
+    ol.append(li);
+  });
+  await Promise.all([...ol.querySelectorAll("img")].map((im) => im.decode().catch(() => {})));
+} catch (e) {
+  window.__error = String(e);
+}
+window.__done = true;
+</script>
+</body>
+</html>
