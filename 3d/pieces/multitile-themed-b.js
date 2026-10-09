@@ -90,7 +90,7 @@ function slateEyrie(K, L) {
   K.part("shard-left", {}, () => boxAt(K, 0.8, 0.75, 0.75, L.slateDeep, -0.95, 0, 0.75, 0.25));
   K.part("shard-back", {}, () => boxAt(K, 0.9, 1.4, 0.8, L.slate, -0.6, 0, -0.95, -0.15));
   K.part("crag-mid", {}, () => K.cone(0.95 * R2, 0.78 * R2, 0.75, L.slate, 0, 0.9, 0, 4));
-  K.part("shard-mid-front", {}, () => boxAt(K, 0.75, 0.75, 0.55, L.slateHi, 0.15, 0.9, 0.75, -0.18));
+  K.part("shard-mid-front", {}, () => boxAt(K, 0.75, 0.72, 0.55, L.slateHi, 0.15, 0.9, 0.75, -0.18));
   K.part("shard-mid-right", {}, () => boxAt(K, 0.55, 0.65, 0.75, L.slateHi, 0.75, 0.9, 0.1, 0.1));
   K.part("crag-top", {}, () => K.rbox(1.3, 0.42, 1.3, L.slateHi, 0, 1.65, 0));
   K.part("nest-lower", {}, () => {

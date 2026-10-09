@@ -82,7 +82,7 @@ function windmill(K, L) {
     K.box(0.1, 0.18, 0.3, L.stoneLight, 0.8, 1.22, -0.3);
   });
   K.part("sill", {}, () => K.rbox(2.05, 0.24, 2.05, L.timber, 0, 1.68, 0));
-  K.part("body", {}, () => K.box(1.7, 1.08, 1.7, L.infill, 0, 1.92, 0));
+  K.part("body", {}, () => K.box(1.7, 1.06, 1.7, L.infill, 0, 1.92, 0));
   K.part("posts", {}, () => {
     for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) K.rbox(0.24, 1.08, 0.24, L.timber, sx * 0.86, 1.92, sz * 0.86);
     K.box(0.16, 1.08, 0.1, L.timber, 0.22, 1.92, 0.86);
@@ -117,9 +117,9 @@ function windmill(K, L) {
         B.push(hub[0], hub[1], hub[2], 0);
         B.rot([0, 0, 1], 0.55 + k * Math.PI / 2, 0, 0, 0);
         K.box(0.15, 1.85, 0.1, L.spar, 0, -0.05, 0);
-        K.box(0.56, 1.4, 0.06, L.sail, 0.35, 0.42, -0.02);
+        K.box(0.56, 1.4, 0.06, L.sail, 0.35, 0.42, 0);
         for (let r = 0; r < 5; r++) K.box(0.58, 0.07, 0.05, L.spar, 0.35, 0.5 + r * 0.3, 0.03);
-        K.box(0.07, 1.4, 0.05, L.spar, 0.64, 0.42, 0.03);
+        K.box(0.07, 1.36, 0.05, L.spar, 0.64, 0.44, 0.03);
         B.pop();
         B.pop();
       }
@@ -180,7 +180,7 @@ function watchtower(K, L) {
   const B = K.B, c = 0.68, deck = 2.3;
   const corners = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
   K.part("footings", {}, () => { for (const [sx, sz] of corners) K.rbox(0.44, 0.34, 0.44, L.postDark, sx * c, 0, sz * c); });
-  K.part("legs", {}, () => { for (const [sx, sz] of corners) K.rbox(0.3, deck - 0.3, 0.3, L.post, sx * c, 0.3, sz * c); });
+  K.part("legs", {}, () => { for (const [sx, sz] of corners) K.rbox(0.3, deck - 0.32, 0.3, L.post, sx * c, 0.3, sz * c); });
   const brace = (axis, x, z) => {
     const a = Math.atan2(2 * c, 1.9), len = Math.hypot(2 * c, 1.9);
     for (const s of [-1, 1]) tilt(B, x, 1.35, z, axis, s * a, () => K.box(axis[0] ? 0.1 : 0.14, len, axis[0] ? 0.14 : 0.1, L.postDark, 0, -len / 2, 0));
@@ -299,8 +299,8 @@ function shrine(K, L) {
   K.part("capitals", {}, () => { for (const [sx, sz] of cols) K.rbox(0.44, 0.16, 0.44, L.shrineLight, sx * p, 1.56, sz * p); });
   K.part("lintels", {}, () => {
     for (const s of [-1, 1]) {
-      K.box(2.0, 0.14, 0.3, L.shrineDark, 0, 1.58, s * p);
-      K.box(0.3, 0.14, 2.0, L.shrineDark, s * p, 1.58, 0);
+      K.box(2.0, 0.12, 0.3, L.shrineDark, 0, 1.58, s * p);
+      K.box(0.3, 0.12, 2.0, L.shrineDark, s * p, 1.58, 0);
     }
   });
   K.part("roof", {}, () => K.rbox(2.7, 0.24, 2.7, L.shrineLight, 0, 1.72, 0));
@@ -317,8 +317,8 @@ function marketRow(K, L) {
   K.part("posts-front", {}, () => { for (const x of [-1.42, -0.5, 0.5, 1.42]) K.rbox(0.13, 1.42, 0.13, L.stall, x, 0, 0.4); });
   K.part("posts-back", {}, () => { for (const x of [-1.42, -0.5, 0.5, 1.42]) K.rbox(0.13, 1.62, 0.13, L.stall, x, 0, -0.4); });
   K.part("beams", {}, () => {
-    K.box(2.96, 0.1, 0.12, L.stall, 0, 1.36, 0.4);
-    K.box(2.96, 0.1, 0.12, L.stall, 0, 1.56, -0.4);
+    K.box(2.96, 0.1, 0.09, L.stall, 0, 1.36, 0.4);
+    K.box(2.96, 0.1, 0.09, L.stall, 0, 1.56, -0.4);
   });
   const strips = 10, sw = 3.1 / strips;
   const cloth = (y0, z0, ang, depth) => tilt(B, 0, y0, z0, [1, 0, 0], ang, () => {
@@ -326,8 +326,8 @@ function marketRow(K, L) {
   });
   const sway = (fn) => B.sway("crown", { amp: CROWN * 0.5, root: [0, 1.5, 0], span: 0.5 }, fn);
   K.part("awning", {}, () => sway(() => cloth(1.98, -0.46, 0.42, 1.16)));
-  K.part("awning-roll", {}, () => sway(() => { for (let i = 0; i < strips; i++) K.rbox(sw, 0.2, 0.24, i % 2 ? L.awningWhite : L.awning, -1.55 + sw * (i + 0.5), 1.86, -0.5); }));
-  K.part("shelf", {}, () => K.box(2.9, 0.08, 0.14, L.stallTop, 0, 1.05, -0.4));
+  K.part("awning-roll", {}, () => sway(() => { for (let i = 0; i < strips; i++) K.rbox(sw, 0.2, 0.24, i % 2 ? L.awningWhite : L.awning, -1.53 + sw * (i + 0.5), 1.86, -0.5); }));
+  K.part("shelf", {}, () => K.box(2.9, 0.08, 0.1, L.stallTop, 0, 1.05, -0.4));
   K.part("valance", {}, () => sway(() => { for (let i = 0; i < strips; i++) K.box(sw, 0.3, 0.07, i % 2 ? L.awningWhite : L.awning, -1.55 + sw * (i + 0.5), 1.18, 0.6); }));
   K.part("crates", {}, () => {
     K.rbox(0.3, 0.26, 0.3, L.crate, -1.18, 0.63, 0.05);
@@ -351,8 +351,8 @@ function waterfallCliff(K, L) {
   const B = K.B, fw = 0.8;
   K.part("base", {}, () => K.rbox(2.0, 1.0, 2.0, L.dirt, 0, 0, -0.5));
   K.part("ledge-grass", {}, () => {
-    K.rbox(0.72, 0.18, 0.66, L.grass, -0.64, 0.96, 0.17);
-    K.rbox(0.72, 0.18, 0.66, L.grass, 0.64, 0.96, 0.17);
+    K.rbox(0.68, 0.18, 0.66, L.grass, -0.64, 0.96, 0.17);
+    K.rbox(0.68, 0.18, 0.66, L.grass, 0.64, 0.96, 0.17);
   });
   K.part("rocks", {}, () => {
     K.rbox(0.56, 0.46, 1.0, L.rock, -0.72, 0.98, -0.32);
@@ -375,7 +375,7 @@ function waterfallCliff(K, L) {
     }
   };
   K.part("fall-upper", {}, () => stream(2.9, 1.42, -0.94, 5, 0));
-  K.part("channel", {}, () => { K.box(fw, 0.08, 1.46, L.fallLight, 0, 1.36, -0.24); K.box(fw + 0.04, 0.1, 0.16, L.foam, 0, 1.4, -0.86); });
+  K.part("channel", {}, () => { K.box(fw - 0.04, 0.08, 1.46, L.fallLight, 0, 1.36, -0.24); K.box(fw + 0.04, 0.1, 0.16, L.foam, 0, 1.4, -0.86); });
   K.part("fall-lower", {}, () => stream(1.46, 0.04, 0.54, 6, 5));
   K.part("pool", {}, () => {
     K.rbox(1.96, 0.05, 0.96, L.pool, 0, 0, 1.0);

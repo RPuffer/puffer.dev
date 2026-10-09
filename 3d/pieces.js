@@ -188,7 +188,7 @@ export function makePieces(style) {
       B.cyl(r, h, tone(W.mid, W.mid, W.dark), 0, 0, 0, 10, { topPal: P.interior });
       B.cyl(r + 0.012, 0.05, tone(W.dark, W.dark, W.shadow), 0, 0.06, 0, 10, { top: false });
       B.cyl(r + 0.012, 0.05, tone(W.dark, W.dark, W.shadow), 0, h - 0.1, 0, 10, { top: false });
-      ring(B, 0, 0, h + 0.001, r, 0.035, solid(W.light), 10);
+      ring(B, 0, 0, h + 0.008, r, 0.035, solid(W.light), 10);
     },
     pot(B, H, v) {
       const c = P.pot;
@@ -199,7 +199,7 @@ export function makePieces(style) {
     },
     crate(B, H) {
       const s = 0.55, c = P.crate;
-      B.box(s, s, s, tone(c[0], c[1], c[2]));
+      B.box(s, s - 0.02, s, tone(c[0], c[1], c[2]));
       const trim = tone(c[1], c[2], W.shadow);
       for (const y of [0, s - 0.06]) B.box(s + 0.02, 0.06, s + 0.02, trim, 0, y, 0);
       B.vpoly([[-s / 2, 0.06, s / 2 + 0.012], [-s / 2 + 0.08, 0.06, s / 2 + 0.012], [s / 2, s - 0.06, s / 2 + 0.012], [s / 2 - 0.08, s - 0.06, s / 2 + 0.012]], c[2]);
@@ -239,8 +239,8 @@ export function makePieces(style) {
       const r = 0.3;
       B.rot([1, 0, 0], Math.PI / 2, 0, 0.3 + r, 0);
       B.cyl(r, 0.08, tone(P.gold[1], P.gold[1], P.gold[1]), 0, -0.04, 0, 12, { topPal: P.gold[0] });
-      B.cyl(r * 0.68, 0.1, solid(P.gold[1]), 0, -0.05, 0, 12, { topPal: P.gold[1] });
-      B.cyl(r * 0.5, 0.11, solid(P.gold[1]), 0, -0.05, 0, 12, { topPal: P.gold[0] });
+      B.cyl(r * 0.68, 0.14, solid(P.gold[1]), 0, -0.07, 0, 12, { topPal: P.gold[1] });
+      B.cyl(r * 0.5, 0.2, solid(P.gold[1]), 0, -0.1, 0, 12, { topPal: P.gold[0] });
       B.pop();
     },
     marker(B) {
@@ -257,7 +257,7 @@ export function makePieces(style) {
       B.cone(0.2, 0.12, 0.08, tone(c[0], c[1], c[2]), 0, y + 0.2, 0, 6);
     },
     torch(B, H) {
-      B.cyl(0.07, H - 0.3, tone(W.mid, W.mid, W.dark), 0, 0, 0, 6);
+      B.cyl(0.07, H - 0.32, tone(W.mid, W.mid, W.dark), 0, 0, 0, 6);
       B.cyl(0.12, 0.1, tone(W.dark, W.dark, W.shadow), 0, H - 0.4, 0, 8, { topPal: W.shadow });
       flame(B, 0, H - 0.3, 0, 0.12);
     },
@@ -310,11 +310,11 @@ export function makePieces(style) {
     },
     stump(B, H) {
       B.cyl(0.2, 0.3, tone(W.mid, W.mid, W.dark), 0, 0, 0, 10, { topPal: W.end });
-      ring(B, 0, 0, 0.301, 0.2, 0.03, solid(W.dark), 10);
+      ring(B, 0, 0, 0.308, 0.2, 0.03, solid(W.dark), 10);
       B.push(0.02, 0.3, 0, -Math.PI / 4);
       B.rot([0, 0, 1], 0.35);
       B.box(0.04, 0.26, 0.04, tone(W.mid, W.mid, W.dark), 0, -0.02, 0);
-      B.box(0.03, 0.1, 0.14, tone(P.axe[0], P.axe[1], P.axe[2]), 0, -0.05, 0.05);
+      B.box(0.03, 0.1, 0.14, tone(P.axe[0], P.axe[1], P.axe[2]), 0, -0.05, 0.07);
       B.pop(); B.pop();
     },
     ladder(B, H, v, ctx) {

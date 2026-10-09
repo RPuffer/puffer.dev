@@ -124,13 +124,13 @@ function inkSlab(K, L, id, x, z, h) {
   K.part(id, {}, () => {
     tilt(B, [x, 0.6, z], [1, 0, 0], -0.05, () => {
       K.box(w, h, d, L.ink, 0, 0, 0);
-      K.box(w + 0.02, h, 0.05, L.pale, -0.01, 0, d / 2);
+      K.box(w + 0.04, h - 0.02, 0.05, L.pale, 0, 0, d / 2);
     });
   });
   K.part(id + "-cap", {}, () => {
     tilt(B, [x, 0.6, z], [1, 0, 0], -0.05, () => {
-      K.box(w + 0.02, 0.05, d - bev, L.pale, -0.01, h, -bev / 2);
-      K.wedge(w + 0.02, bev, bev + 0.05, L.pale, -0.01, h - bev, d / 2 - bev / 2 + 0.025);
+      K.box(w + 0.08, 0.05, d - bev, L.pale, 0, h, -bev / 2);
+      K.wedge(w + 0.08, bev, bev + 0.05, L.pale, 0, h - bev, d / 2 - bev / 2 + 0.025);
     });
   });
 }
@@ -165,7 +165,7 @@ function scrollTower(K, L) {
   K.part("scrolls-cream", {}, () => { for (const [x, z, h, w] of ring) if (!w) K.cyl(0.35, h, L.cream, x, 0, z, 6); });
   K.part("ties", {}, () => { for (const [x, z, h] of ring) K.cyl(0.38, 0.22, L.navy, x, h * 0.5, z, 6); });
   K.part("scroll-ends", {}, () => { for (const [x, z, h] of ring) K.cyl(0.17, 0.04, L.end, x, h, z, 6); });
-  K.part("brim-under", {}, () => K.cyl(1.05, 0.08, L.navy, 0, 1.92, 0, 8));
+  K.part("brim-under", {}, () => K.cyl(1.05, 0.06, L.navy, 0, 1.92, 0, 8));
   K.part("brim", {}, () => K.cyl(1.48, 0.22, L.navy, 0, 2.0, 0, 8));
   K.part("crown-1", {}, () => K.rbox(1.45, 0.5, 1.45, L.navy, 0, 2.22, 0));
   K.part("crown-2", {}, () => K.rbox(1.02, 0.46, 1.02, L.navy, 0, 2.72, 0));
