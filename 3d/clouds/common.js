@@ -88,6 +88,53 @@ float fogAt(vec2 xz) { return smoothstep(uRadius + 1.5, uRadius + 9.0, distance(
 float fadeAt(vec2 xz) { return 1.0 - smoothstep(uRadius + 6.0, uRadius + 11.0, distance(xz, uCenter)); }
 `;
 
+export function shapeDistance(I) {
+  if (I._sd) return I._sd;
+  const pad = 24, step = 0.5, X0 = -pad, Z0 = -pad, NX = Math.ceil((I.W + 2 * pad) / step), NZ = Math.ceil((I.D + 2 * pad) / step);
+  const d = new Float32Array(NX * NZ).fill(1e9), q = [];
+  for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) if (I.occupied(X0 + (i + 0.5) * step, Z0 + (j + 0.5) * step)) { d[j * NX + i] = 0; q.push(j * NX + i); }
+  for (let pass = 0; pass < 2; pass++) for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) {
+    const k = j * NX + i;
+    for (const [di, dj, w] of pass ? [[1, 0, 1], [0, 1, 1], [1, 1, 1.414], [-1, 1, 1.414]] : [[-1, 0, 1], [0, -1, 1], [-1, -1, 1.414], [1, -1, 1.414]]) {
+      const a = i + (pass ? di : di), b = j + (pass ? dj : dj);
+      if (a < 0 || b < 0 || a >= NX || b >= NZ) continue;
+      const v = d[b * NX + a] + w * step;
+      if (v < d[k]) d[k] = v;
+    }
+  }
+  for (let pass = 0; pass < 2; pass++) for (let j = NZ - 1; j >= 0; j--) for (let i = NX - 1; i >= 0; i--) {
+    const k = j * NX + i;
+    for (const [di, dj, w] of [[1, 0, 1], [0, 1, 1], [1, 1, 1.414], [-1, 1, 1.414]]) {
+      const a = i + di, b = j + dj;
+      if (a < 0 || b < 0 || a >= NX || b >= NZ) continue;
+      const v = d[b * NX + a] + w * step;
+      if (v < d[k]) d[k] = v;
+    }
+  }
+  I._sd = (x, z) => {
+    const i = Math.floor((x - X0) / step), j = Math.floor((z - Z0) / step);
+    return i < 0 || j < 0 || i >= NX || j >= NZ ? 1e9 : d[j * NX + i];
+  };
+  return I._sd;
+}
+
+export function hugScatter(I, rng, { count, inner, outer, round = 8, yMin, yMax, minGap = 0 }) {
+  const sd = shapeDistance(I), out = [], core = Math.max(1, I.radius * 0.55);
+  const reach = outer + round;
+  let tries = 0;
+  while (out.length < count && tries++ < count * 60) {
+    const x = I.box.x0 - reach + rng() * (I.box.x1 - I.box.x0 + 2 * reach), z = I.box.z0 - reach + rng() * (I.box.z1 - I.box.z0 + 2 * reach);
+    const ds = sd(x, z);
+    if (ds <= 0.05) continue;
+    const dc = Math.max(0, Math.hypot(x - I.center.x, z - I.center.y) - core);
+    const w = Math.min(1, ds / round), lvl = ds * (1 - w) + Math.max(ds, dc - (I.radius - core)) * w;
+    if (lvl < inner || lvl > outer) continue;
+    if (minGap && out.some((p) => (p.x - x) ** 2 + (p.z - z) ** 2 < minGap * minGap)) continue;
+    out.push({ x, y: yMin + rng() * (yMax - yMin), z, r: rng() });
+  }
+  return out;
+}
+
 export function scatter(I, rng, { count, inner, outer, yMin, yMax, minGap = 0, avoid = true }) {
   const out = [];
   let tries = 0;
