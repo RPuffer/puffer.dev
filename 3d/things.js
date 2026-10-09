@@ -116,9 +116,7 @@ function partMesh(build, light, k, at, rotY, reach = false) {
 
 export function bakeThingBases(S, L, view, style, P = S) {
   const LL = liftLevel(L), k = lookOf(style);
-  const byId = new Map((live || []).map((q) => [q.id, q]));
   for (const t of L.things || []) {
-    const st = byId.get(t.id)?.state ?? t.state;
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
@@ -136,7 +134,9 @@ export function buildThings(L, view, style, decorGroup, live = null) {
   const heads = {};
   let kept = null;
   decorGroup?.traverse((o) => { if (o.userData?.live?.thing) heads[o.userData.live.thing] = o; });
+  const byId = new Map((live || []).map((q) => [q.id, q]));
   for (const t of L.things || []) {
+    const st = byId.get(t.id)?.state ?? t.state;
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") {
       const m = partMesh(bonfireFlame, light, k, new THREE.Vector3(x, y, z), r);
