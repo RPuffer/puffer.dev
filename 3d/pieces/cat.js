@@ -71,7 +71,7 @@ function catBase(B, kind, style) {
   if (kind === "palette") {
     B.prism(circle(0, 0, 0.98, 0.82, 10, 0.3), 0, 0.14, pal(["#c98a4e", "#a86d38", "#7f5028"]));
     B.cyl(0.14, 0.02, pal(style.bg || F.white), -0.6, 0.14, 0.32, 8);
-    const daubs = [[F.blue, -0.62, -0.28], [F.magenta, -0.2, -0.62], [F.yellow, 0.3, -0.6], [F.orange, 0.66, -0.2], [F.teal, 0.62, 0.3], [F.pink, 0.22, 0.6]];
+    const daubs = [[F.blue, -0.62, -0.28], [F.magenta, -0.2, -0.62], [F.yellow, 0.3, -0.63], [F.orange, 0.66, -0.2], [F.teal, 0.62, 0.3], [F.pink, 0.22, 0.6]];
     for (const [c, x, z] of daubs) { B.rbox(0.26, 0.1, 0.22, 0.08, pal(c), x, 0.14, z); B.cone(0.08, 0, 0.1, pal(c), x + 0.03, 0.24, z, 4); }
     return 0.14;
   }
@@ -143,8 +143,8 @@ export function catSpec(c, o = {}) {
       { id: "nose", face: true, group: "head", prim: "box", dims: [0.1, 0.06, 0.05], at: [0, 1.43, 0.58], base: c.accent },
       { id: "mouth", face: true, group: "head", prim: "box", dims: [0.3, 0.15, 0.06], at: [0, 1.09, 0.47], base: ink },
       { id: "tongue", face: true, group: "head", prim: "box", dims: [0.16, 0.05, 0.05], at: [0, 1.09, 0.5], base: c.accent },
-      { id: "fangL", face: true, group: "head", prim: "box", dims: [0.05, 0.06, 0.03], at: [-0.08, 1.18, 0.51], base: white },
-      { id: "fangR", face: true, group: "head", prim: "box", dims: [0.05, 0.06, 0.03], at: [0.08, 1.18, 0.51], base: white },
+      { id: "fangL", face: true, group: "head", prim: "box", dims: [0.05, 0.06, 0.03], at: [-0.08, 1.16, 0.51], base: white },
+      { id: "fangR", face: true, group: "head", prim: "box", dims: [0.05, 0.06, 0.03], at: [0.08, 1.16, 0.51], base: white },
     ],
   };
 }
@@ -205,7 +205,7 @@ const LENS_BUILD = {
     B.sway("crown", { amp: 0.045, root: [0, 0.14, 0], span: H }, () => {
       for (let i = 0; i < 7; i++) {
         const a = (i - 3) * 0.32, c = HUES[(i + v) % 6];
-        slab(B, [[0, -0.05], [H * 0.9, -0.03], [H, 0], [H * 0.9, 0.04], [0, 0.05]], V(Math.sin(a) * 0.06, 0.14, 0), V(Math.sin(a) * 0.7, 1, (i % 2 ? 0.18 : -0.12)), V(Math.cos(a), 0, 0), 0.12, c);
+        slab(B, [[0, -0.05], [H * 0.9, -0.03], [H, 0], [H * 0.9, 0.04], [0, 0.05]], V(Math.sin(a) * 0.06, 0.14, (i - 3) * 0.012), V(Math.sin(a) * 0.7, 1, (i % 2 ? 0.18 : -0.12)), V(Math.cos(a), 0, 0), 0.12, c);
       }
     });
   },
@@ -294,8 +294,8 @@ const LENS_BUILD = {
     B.box(0.72, 0.06, 0.02, pal(F.ink), 0, H * 0.66, 0.28);
     const jars = [[F.yellow, -0.22], [F.magenta, 0.0], [F.teal, 0.22]];
     for (const [k, [c, x]] of jars.entries()) {
-      B.cyl(0.09, 0.2, pal(c), x, H * 0.4, 0.2, 6);
-      B.cyl(0.08, 0.2, pal(HUES[(k + v + 2) % 6]), x, H * 0.72, 0.2, 6);
+      B.cyl(0.09, 0.2, pal(c), x, H * 0.4, 0.22, 6);
+      B.cyl(0.08, 0.2, pal(HUES[(k + v + 2) % 6]), x, H * 0.72, 0.23, 6);
     }
     B.box(0.9, 0.08, 0.62, pal(CREAM), 0, H, 0);
     B.box(0.06, 0.18, 0.06, pal(F.yellow), 0.3, H * 0.12, 0.3);

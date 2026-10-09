@@ -76,14 +76,14 @@ function swallow(B, pose) {
   B.box(0.4, 0.2, 0.46, pal(INK.espresso), 0, 0.22, 0.02);
   wedge(B, 0.46, 0.22, 0.22, INK.cream, 0, 0, 0.42);
   B.box(0.3, 0.26, 0.34, pal(INK.espresso), 0, 0.12, -0.34);
-  B.box(0.26, 0.1, 0.3, pal(INK.cream), 0, 0.04, -0.32);
+  B.box(0.26, 0.1, 0.28, pal(INK.cream), 0, 0.04, -0.33);
   B.box(0.34, 0.16, 0.08, pal(INK.rust), 0, 0.22, 0.31);
   for (const s of [-1, 1]) {
     const root = V(s * 0.16, 0.34, 0.02);
     const U = V(s * Q.wing[0], Q.wing[1], Q.wing[2]);
     const W = V(s * Q.wFlat[0], Q.wFlat[1], Q.wFlat[2]);
     slab(B, BLADE.map(([a, b]) => [a * Q.wLen, b]), root, U, W, 0.1, INK.espresso);
-    slab(B, STRIPE.map(([a, b]) => [a * Q.wLen, b]), root.clone().add(V(s * 0.03, 0.02, 0)), U, W, 0.12, INK.cream);
+    slab(B, STRIPE.map(([a, b]) => [a * Q.wLen, b]), root.clone().add(V(s * 0.03, 0.02, 0)), U, W, 0.14, INK.cream);
     slab(B, TAIL.map(([a, b]) => [a * Q.tLen, b]), V(s * 0.08, 0.18, -0.48), V(s * Q.tail[0], Q.tail[1], Q.tail[2]), V(1, 0, 0.2 * s), 0.08, s < 0 ? INK.espresso : INK.umber);
   }
   B.at(0, 0.36, 0.3, Q.head, () => {
@@ -221,7 +221,7 @@ const LENS_BUILD = {
     B.box(0.46, 0.2, 0.46, pal(c1));
     B.box(0.28, H * 0.6, 0.28, pal(c0), 0, 0.2, 0);
     B.at(0, 0.2 + H * 0.6, 0, d.axis === "x" ? Math.PI / 2 : 0, () => {
-      for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + i * 0.75, r = 0.3 - i * 0.025; B.box(0.14, 0.14, 0.2, pal(i % 2 ? c2 : c0), Math.cos(a) * r * (d.side || 1) * -1, 0.3 + Math.sin(a) * r, 0); }
+      for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + i * 0.75, r = 0.3 - i * 0.025; B.box(0.14, 0.14, i % 2 ? 0.17 : 0.2, pal(i % 2 ? c2 : c0), Math.cos(a) * r * (d.side || 1) * -1, 0.3 + Math.sin(a) * r, 0); }
     });
   },
   forkArch(B, H, v, { c0, c1, c2, d }) {

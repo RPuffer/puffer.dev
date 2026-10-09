@@ -61,19 +61,19 @@ function wizard(B, H, look, v, pose = {}, head = null) {
   B.at(0, 0, 0, pose.yaw ?? -0.12, () => {
     B.box(0.12, 0.34, 0.12, pal(ART.skin), -0.14, y0, 0.06);
     B.box(0.12, 0.34, 0.12, pal(ART.skin), 0.14, y0, 0.02);
-    B.box(0.16, 0.08, 0.3, pal(ART.skinLight), -0.16, y0, 0.14);
-    B.box(0.16, 0.08, 0.3, pal(ART.skinLight), 0.16, y0, 0.1);
+    B.box(0.2, 0.08, 0.3, pal(ART.skinLight), -0.16, y0, 0.14);
+    B.box(0.2, 0.08, 0.3, pal(ART.skinLight), 0.16, y0, 0.1);
     B.rbox(0.36, 1.72, 0.34, 0.12, pal(ART.skin), 0, y0 + 0.3, 0);
     B.box(0.06, 1.2, 0.04, pal(ART.skinLight), 0.1, y0 + 0.5, 0.17);
     B.box(0.34, 0.5, 0.6, pal(ART.robe), -0.26, y0 + 0.18, -0.04);
     B.box(0.34, 0.5, 0.6, pal(ART.robe), 0.26, y0 + 0.18, -0.04);
-    B.box(0.86, 0.5, 0.26, pal(ART.robeDark), 0, y0 + 0.18, -0.24);
+    B.box(0.82, 0.47, 0.26, pal(ART.robeDark), 0, y0 + 0.18, -0.24);
     B.box(0.3, 0.48, 0.52, pal(ART.robe), -0.24, y0 + 0.68, -0.02);
     B.box(0.3, 0.48, 0.52, pal(ART.robe), 0.24, y0 + 0.68, -0.02);
-    B.box(0.76, 0.48, 0.22, pal(ART.robeDark), 0, y0 + 0.68, -0.2);
-    B.box(0.66, 0.24, 0.46, pal(ART.robe), 0, y0 + 1.16, -0.06);
-    B.box(0.2, 0.24, 0.12, pal(ART.robe), -0.23, y0 + 1.16, 0.2);
-    B.box(0.2, 0.24, 0.12, pal(ART.robe), 0.23, y0 + 1.16, 0.2);
+    B.box(0.74, 0.45, 0.22, pal(ART.robeDark), 0, y0 + 0.68, -0.2);
+    B.box(0.66, 0.24, 0.46, pal(ART.robe), 0, y0 + 1.16, -0.07);
+    B.box(0.24, 0.24, 0.12, pal(ART.robe), -0.23, y0 + 1.16, 0.2);
+    B.box(0.24, 0.24, 0.12, pal(ART.robe), 0.23, y0 + 1.16, 0.2);
     wedge(B, 0.18, 0.44, 0.14, ART.collar, -0.3, y0 + 1.3, 0.02);
     wedge(B, 0.18, 0.44, 0.14, ART.collar, 0.3, y0 + 1.3, 0.02);
     B.box(0.72, 0.4, 0.1, pal(ART.collar), 0, y0 + 1.36, -0.22);
@@ -86,7 +86,7 @@ function wizard(B, H, look, v, pose = {}, head = null) {
       B.box(0.36, 0.34, 0.36, pal(ART.robe), -0.04, -0.3, 0.04);
       B.box(0.24, 0.1, 0.26, pal(ART.lining), -0.04, -0.3, 0.06);
       B.box(0.1, 0.1, 0.44, pal(ART.skin), -0.02, -0.12, 0.38);
-      B.box(0.2, 0.05, 0.16, pal(ART.skinLight), -0.02, -0.07, 0.62);
+      B.box(0.2, 0.05, 0.16, pal(ART.skinLight), -0.02, -0.09, 0.62);
       flame(B, -0.02, pose.lift ?? -0.02, 0.62, pose.flame ?? 1.6);
       if (pose.orb) { B.box(0.3, 0.3, 0.3, pal(ART.flame), -0.02, 0.5, 0.62); B.box(0.16, 0.16, 0.16, pal(ART.flameCore), -0.02, 0.57, 0.8); }
     });
@@ -198,9 +198,9 @@ function crooked(B, H, c, base) {
   const hh = (H - 0.6) / segs.length;
   segs.forEach(([x, z], i) => B.box(0.18, hh + 0.02, 0.18, pal(i % 2 ? c : ART.staff), x, 0.18 + i * hh, z));
   const top = 0.18 + segs.length * hh;
-  B.box(0.18, 0.26, 0.18, pal(c), 0.05, top, 0);
+  B.box(0.16, 0.26, 0.16, pal(c), 0.05, top, 0);
   B.box(0.46, 0.16, 0.18, pal(c), -0.1, top + 0.24, 0);
-  B.box(0.16, 0.26, 0.18, pal(ART.staff), -0.3, top + 0.1, 0);
+  B.box(0.16, 0.26, 0.14, pal(ART.staff), -0.3, top + 0.1, 0);
   B.box(0.1, 0.1, 0.1, pal(ART.star), -0.3, top + 0.02, 0.06);
 }
 
@@ -255,8 +255,8 @@ const LENS_BUILD = {
     const lean = v % 2 ? -1 : 1;
     const segs = [0.4, 0.34, 0.28, 0.22, 0.16];
     const hh = (H - 0.5) / segs.length;
-    segs.forEach((w, i) => B.box(w, hh + 0.01, w * 0.8, pal(i % 2 ? INDIGO : ART.ink), lean * i * i * 0.03, 0.16 + i * hh, 0));
-    const tx = lean * 16 * 0.03;
+    segs.forEach((w, i) => B.box(w, hh + 0.01, w * 0.8, pal(i % 2 ? INDIGO : ART.ink), lean * (i * i * 0.03 + i * 0.012), 0.16 + i * hh, 0));
+    const tx = lean * (16 * 0.03 + 4 * 0.012);
     B.at(tx, 0.16 + segs.length * hh, 0, lean > 0 ? 0 : Math.PI, () => wedge(B, 0.14, 0.34, 0.36, ART.ink, 0, 0, 0));
     B.box(0.06, H * 0.5, 0.04, pal(["#6f86d6", "#5a70bd", "#44579a"]), -0.08, 0.3, 0.17);
   },

@@ -90,7 +90,7 @@ function head(B, v, pose) {
   B.box(0.16, 0.03, 0.04, pal(BLOOM.line), 0, fy + 0.3, 0.38);
   B.box(0.12, 0.18, 0.1, pal(BLOOM.skinLo), 0, fy + 0.36, 0.41);
   for (const x of [-0.27, 0.27]) {
-    B.box(0.3, 0.06, 0.04, pal(BLOOM.ink), x, fy + 0.6, 0.39);
+    B.box(0.3, 0.06, 0.04, pal(BLOOM.ink), x, fy + 0.58, 0.39);
     B.box(0.06, 0.05, 0.04, pal(BLOOM.ink), x - 0.16, fy + 0.57, 0.39);
     for (const dx of [-0.08, 0, 0.08]) B.box(0.035, 0.08, 0.04, pal(BLOOM.ink), x + dx, fy + 0.52, 0.4);
     B.rbox(0.1, 0.28, 0.2, 0.05, pal(BLOOM.skinLo), x * 2.2, fy + 0.42, 0);
