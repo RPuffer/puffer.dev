@@ -44,6 +44,11 @@ Block size `s` is the smallest horizontal side of a part.
 - Top chamfer: 0.05 s, clamped to 0.012 to 0.04 tile and never over 0.3 of the part's height, toned step +1. It draws the lit rim the pack's blocks carry.
 - Everything flat-shaded, one colour per triangle, no gradients, no outlines.
 
+## Wind
+
+- Parts of one prop sway independently, each on its own phase and amplitude; a sway's amplitude and span scale with the prop.
+- Adjacent parts keep a gap of at least their combined max sway, so the idle wind never pushes one face through another; `node tools/qa-sway.mjs` checks every catalog type and island decor.
+
 ## Highlight floor
 
 V (max of R, G, B) at the 90th percentile of non-background pixels reaches 0.80 or more. The rejected forest-medium sat at 0.71.
