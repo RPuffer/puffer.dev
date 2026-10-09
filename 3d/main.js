@@ -12,6 +12,7 @@ import { CLIP_DATA, DANCES } from "./clips.js";
 import { RISE } from "./things.js";
 import { motion } from "./motion.js";
 import { createRideFx } from "./speedlines.js";
+import { SKY, SKY_BG } from "./sky.js";
 
 const msg = document.getElementById("msg");
 const params = readParams();
@@ -33,6 +34,7 @@ const resetRegistry = () => {
 
 async function prepare(name) {
   const level = await loadLevel(name, { beforePrepare: async (raw) => { resetRegistry(); await loadPieces(raw); } });
+  if (SKY !== "none") level.bg = SKY_BG;
   const style = makeStyle(level);
   await loadGlbs(level, style);
   return { level, style };

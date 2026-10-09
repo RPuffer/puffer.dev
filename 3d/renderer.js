@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { createSky } from "./sky.js";
 import { buildTerrain } from "./terrain.js";
 import { buildDecor } from "./decor.js";
 import { buildCharacter } from "./character.js";
@@ -44,6 +45,8 @@ export function createRenderer(container = document.body) {
   const raycaster = new THREE.Raycaster();
   const line = createPathLine();
   scene.add(line.mesh);
+  const sky = createSky();
+  if (sky) scene.add(sky.mesh);
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
   let occ = occludeModes(), seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
   const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, zoom: 1, hero: false, style: null };
@@ -125,6 +128,7 @@ export function createRenderer(container = document.body) {
   return {
     element: gl.domElement,
     three: { gl, scene, camera },
+    sky,
     mount(state, st = makeStyle(state.level)) {
       const style = st;
       S = state;
@@ -299,6 +303,10 @@ export function createRenderer(container = document.body) {
         fxCtx.sx = xray.uHero.value[0]; fxCtx.sy = xray.uHero.value[1]; fxCtx.w = w; fxCtx.h = h; fxCtx.zoom = zoom * px; fxCtx.hero = hero.visible;
         for (const f of fx) f.update(fxCtx);
         if (!warmed) warm();
+      }
+      if (sky) {
+        const ch = container.clientHeight || innerHeight, p = S.proj.project(focus.x, focus.y, focus.z);
+        sky.update({ w: gl.domElement.width, h: gl.domElement.height, yaw: S.view.yaw, panX: p.sx * zoom / ch, panY: -p.sy * zoom / ch, bg: scene.background });
       }
       gl.render(scene, camera);
     },

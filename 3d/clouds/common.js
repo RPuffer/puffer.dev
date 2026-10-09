@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { DEPTH, liftLevel, floorLevel } from "../terrain.js";
 import { mulberry32, hashSeed } from "../../core/rng.js";
 import { motion } from "../motion.js";
+import { SKY } from "../sky.js";
 
 const PACK_DIR = [0.3, 1, 0.6];
 const VOID = -99;
@@ -43,9 +44,10 @@ export function island(state, style) {
   const sat = mx - Math.min(srgb.r, srgb.g, srgb.b), lum = 0.299 * srgb.r + 0.587 * srgb.g + 0.114 * srgb.b;
   const night = THREE.MathUtils.clamp((0.28 - lum) / 0.18, 0, 1), tinted = THREE.MathUtils.smoothstep(sat, 0.03, 0.1);
   const chroma = new THREE.Color(srgb.r / mx, srgb.g / mx, srgb.b / mx);
-  const hue = new THREE.Color(0.78, 0.86, 1).lerp(new THREE.Color(0.62, 0.7, 1), night).lerp(chroma, Math.max(tinted, 0.5 * night)).convertSRGBToLinear();
+  const lit = SKY !== "none";
+  const hue = new THREE.Color(0.78, 0.86, 1).lerp(new THREE.Color(0.62, 0.7, 1), lit ? 0.4 : night).lerp(chroma, lit ? 0.15 : Math.max(tinted, 0.5 * night)).convertSRGBToLinear();
   const exposure = style.light ? Math.min(1, style.light.ambient + style.light.sun) : 1;
-  const gain = exposure * (1 - 0.55 * night * (1 - tinted));
+  const gain = exposure * (lit ? 1 : 1 - 0.55 * night * (1 - tinted));
   const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2, radius = Math.hypot(x1 - x0, z1 - z0) / 2;
   const dir = new THREE.Vector3(...state.proj.dir);
   const right = new THREE.Vector3(...state.proj.right), up = new THREE.Vector3(...state.proj.up);

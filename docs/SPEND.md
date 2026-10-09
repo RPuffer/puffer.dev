@@ -225,4 +225,6 @@ Total: $2.835
 
 2026-10-07 | gemini-3.1-flash-image | 3 | 0.135 | cloud atlas: cumulus, stratocumulus and wisp tufts on magenta, 12 tiles kept
 
-Running total: $34.570
+2026-10-09 | gemini-3.1-flash-image | 1 | 0.045 | space backdrop: 21:9 painterly nebula panorama, kept as 3d/assets/sky/nebula.webp
+
+Running total: $34.615
