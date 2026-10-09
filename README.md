@@ -15,7 +15,7 @@ sh tools/serve.sh
 
 Then open:
 
-- `http://localhost:8765/` for the run's start page (Begin, Continue, the twelve islands)
+- `http://localhost:8765/` for the landing (character select); `islands.html` for the run start page
 - `http://localhost:8765/3d/index.html?level=cat-medium` for one island in the 3d build
 - `http://localhost:8765/compare.html` for the old 3d and 2d side by side
 
