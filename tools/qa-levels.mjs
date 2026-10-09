@@ -150,6 +150,37 @@ async function liftToLift(name) {
   return { ok, gates: info.gates, detail: `${info.from} -> ${info.to} by click: ${trail.join("; ")}` };
 }
 
+async function gateSeal(page) {
+  return page.evaluate(async () => {
+    const { findPath, reachable } = await import("/core/path.js");
+    const { edgeKey } = await import("/core/interact.js");
+    const S = window.__game.state, things = S.things?.things || [];
+    const entry = things.find((t) => t.kind === "elevator" && t.role === "entry");
+    const gates = things.filter((t) => t.kind === "gate" && t.edge);
+    if (!entry || !gates.length) return null;
+    const blocked = new Set(S.level.blocked);
+    for (const g of gates) if (g.hold) for (const [x, z] of g.blocks || []) blocked.add(x + "," + z);
+    const L = { ...S.level, blocked, edges: new Set(gates.map((g) => edgeKey(g.edge[0], g.edge[1]))) };
+    const from = [entry.x, entry.z], seen = new Set(reachable(L, from).map((c) => c.join()));
+    const out = [];
+    const { CATALOG } = await import("/core/catalog.js");
+    const raw = await fetch(`/levels/${S.level.name}.json`, { cache: "no-store" }).then((r) => r.json()).catch(() => null);
+    const posts = raw ? [] : ["level file did not load"];
+    for (const g of gates) {
+      const around = findPath(L, g.edge[0], g.edge[1]);
+      if (around) out.push(`${g.id} threshold ${g.edge[0]} reaches far side ${g.edge[1]} around the shut edge via ${around.map((c) => c.join(",")).join(" ")}`);
+      for (const [x, z] of [[g.edge[1][0] - 1, g.edge[1][1]], [g.edge[1][0] + 1, g.edge[1][1]], [g.edge[1][0], g.edge[1][1] - 1], [g.edge[1][0], g.edge[1][1] + 1]]) {
+        const unk = (raw?.decor || []).filter((d) => d.x === x && d.z === z && !CATALOG[d.t]);
+        if (unk.length) out.push(`${g.id} post ${unk[0].t}@${x},${z} not in the catalog, so it does not block`);
+      }
+      if (!seen.has(g.edge[1].join())) continue;
+      const p = findPath(L, from, g.edge[1]) || [];
+      out.push(`${g.id} far side ${g.edge[1]} reached around edge ${g.edge[0]}|${g.edge[1]} via ${p.slice(-4).map((c) => c.join(",")).join(" ")}`);
+    }
+    return { n: gates.length, out: [...posts, ...out], reach: seen.size, from };
+  });
+}
+
 async function forgetThings(page) {
   await page.evaluate(async () => { const { storageKey } = await import("/core/interact.js"); localStorage.removeItem(storageKey(window.__game.state.level.name)); }).catch(() => {});
 }
@@ -239,6 +270,8 @@ async function levelSuite(name) {
     return { n, out };
   });
   record(`${tag} ramp landings unblocked`, landings.out.length === 0, landings.out.length ? landings.out.slice(0, 4).join(" | ") : `${landings.n} ramps`);
+  const seal = await gateSeal(page);
+  if (seal) record(`${tag} closed gates sealed from the arrival lift`, seal.out.length === 0, seal.out.length ? seal.out.join(" | ") : `${seal.n} gate(s), ${seal.reach} cells reachable from entry ${seal.from}`);
   for (const code of ["KeyW", "KeyD", "KeyS", "KeyA"]) {
     const r = await keyStep(page, code);
     record(`${tag} ${code} steps as canStep predicts`, r.after.join() === r.expect.join(), `${r.before} -> ${r.after} (expect ${r.expect})`);

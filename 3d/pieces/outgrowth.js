@@ -148,3 +148,12 @@ export function suggest(L, o = {}) {
   }
   return picked;
 }
+
+export function grow(L, spec) {
+  if (!spec) return [];
+  const [l, t] = growGrid(L, spec.pad || [0, 0, 0, 0]);
+  for (const [x, z, c] of spec.cells) L.cells[z][x] = { ...c };
+  for (const d of spec.decor || []) L.decor.push({ ...d });
+  if (spec.docks?.length) L.outgrowths = [...(L.outgrowths || []), ...spec.docks.map((g) => ({ ...g, at: [...g.at], cells: g.cells.map((c) => [...c]) }))];
+  return [`grow: ${spec.cells.length} cells, ${(spec.decor || []).length} decor, ${(spec.docks || []).length} docks, pad ${spec.pad}${l || t ? `, shift ${l},${t}` : ""}`];
+}

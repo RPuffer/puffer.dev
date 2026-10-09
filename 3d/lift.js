@@ -8,7 +8,7 @@ const SIDE = [[0, 1], [1, 0], [0, -1], [-1, 0]];
 
 export const beamClear = { value: new THREE.Vector3(-1e5, -1e5, 1) };
 
-export const BEAM = { up: 32, down: -9, low: -7.5, rise: 6, fade: [2.0, 15], color: "#12c4f0", hot: "#ffffff" };
+export const BEAM = { up: 64, down: -9, low: -7.5, rise: 6, fade: [2.0, 15], color: "#12c4f0", hot: "#ffffff" };
 
 const K = {
   hull: tone("#4a5466", "#363e4d", "#262c37"),
