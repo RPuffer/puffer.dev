@@ -80,18 +80,18 @@ function parts(g) {
   return out;
 }
 
-function over(q, A, rel) {
+function over(q, A, rel, strict) {
   if (A.planes) {
     const sd = A.planes.map(([n, d]) => [n[0] * q[0] + n[1] * q[1] + n[2] * q[2] - d, Math.abs(n[0]) * rel[0] + Math.abs(n[1]) * rel[1] + Math.abs(n[2]) * rel[2]]);
     if (sd.some(([s]) => s > 1e-4)) return Math.min(...sd.map(([s, r]) => r - s));
     if (sd.some(([s, r]) => s > -2e-3 && r <= TOL)) return 0;
-    return Math.max(...sd.map(([s, r]) => s + r));
+    return strict ? TOL + Math.min(...sd.map(([s]) => -s)) + Math.max(...sd.map(([, r]) => r)) : Math.max(...sd.map(([s, r]) => s + r));
   }
   const out = [0, 1, 2].map((a) => Math.max(0, A.min[a] - q[a], q[a] - A.max[a]));
   if (out.some((o) => o > 0)) return Math.min(...[0, 1, 2].map((a) => rel[a] - out[a]));
   const depth = [0, 1, 2].map((a) => Math.min(q[a] - A.min[a], A.max[a] - q[a]));
   if (depth.some((d, a) => d < 2e-3 && rel[a] <= TOL)) return 0;
-  return Math.max(...depth.map((d, a) => rel[a] - d));
+  return strict ? TOL + Math.min(...depth) + Math.max(...rel) : Math.max(...depth.map((d, a) => rel[a] - d));
 }
 const boxGap = (A, B) => Math.sqrt([0, 1, 2].reduce((s, a) => s + Math.max(0, A.min[a] - B.max[a], B.min[a] - A.max[a]) ** 2, 0));
 const samePhase = (A, B) => A.sw[0] === B.sw[0] && A.sw[2] === B.sw[2] && Math.abs(A.rt[0] - B.rt[0]) < 1e-4 && Math.abs(A.rt[2] - B.rt[2]) < 1e-4;
@@ -102,11 +102,11 @@ function check(ps) {
     const A = ps[i], B = ps[j];
     if (A.key === B.key || (!A.peak && !B.peak)) continue;
     if (boxGap(A, B) > A.peak + B.peak + TOL) continue;
-    const same = samePhase(A, B);
+    const strict = A.sw[0] > 0 && B.sw[0] > 0;
     let worst = 0, at = null;
     for (const [P, Q] of [[A, B], [B, A]]) for (const v of P.verts) {
       const bp = bound(P, v[1]), bq = bound(Q, v[1]);
-      const o = over(v, Q, bp.map((x, a) => (same ? Math.abs(x - bq[a]) : x + bq[a])));
+      const o = over(v, Q, bp.map((x, a) => x + bq[a]), strict);
       if (o > worst) { worst = o; at = v; }
     }
     if (worst > TOL) fails.push({ A, B, worst, at });

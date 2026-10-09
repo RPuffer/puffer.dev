@@ -47,7 +47,7 @@ Block size `s` is the smallest horizontal side of a part.
 ## Wind
 
 - Parts of one prop sway independently, each on its own phase and amplitude; a sway's amplitude and span scale with the prop.
-- Adjacent parts keep a gap of at least their combined max sway, so the idle wind never pushes one face through another; `node tools/qa-sway.mjs` checks every catalog type and island decor.
+- Two parts that sway differently (another phase, amplitude, span or root) never intersect, at rest or at any phase: their gap is at least their combined max sway at that height. Only parts that sway identically may overlap; they move as one welded group. A canopy spaces its clumps apart with small gaps rather than welding them. A swaying part may seat onto its static mount (a trunk, a rim) or keep a gap of its own max sway. `node tools/qa-sway.mjs` checks every catalog type and island decor.
 - No two prims of one prop share a coplanar overlapping face: offset one by at least 0.01 (prefer a few hundredths) or overlap them clearly; `qa-sway` flags any same-facing pair closer than 0.004 plus their relative sway.
 
 ## Highlight floor
