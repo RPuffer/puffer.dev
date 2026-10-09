@@ -79,6 +79,17 @@ export function reachable(L, from) {
 export function routeTo(L, from, to) {
   const direct = findPath(L, from, to);
   if (direct) return { cells: direct, reached: true };
+  const target = L.cells[to[1]]?.[to[0]];
+  if (target && !isWalkable(L, to[0], to[1])) {
+    let side = null;
+    for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const x = to[0] + dx, z = to[1] + dz, c = L.cells[z]?.[x];
+      if (!c || c.h !== target.h || !isWalkable(L, x, z)) continue;
+      const p = findPath(L, from, [x, z]);
+      if (p && (!side || p.length < side.length)) side = p;
+    }
+    if (side) return { cells: side, reached: false, beside: true };
+  }
   const viaGate = gateToward(L, from, to);
   if (viaGate) return { cells: viaGate.cells, reached: false, gate: viaGate.id };
   let best = null, bd = Infinity;
