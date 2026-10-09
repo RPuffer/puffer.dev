@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ryne Puffer, character creation</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--bg:#0f0e0c;--panel:rgba(22,20,17,.86);--line:#4a4236;--fg:#e9e1cf;--dim:#9a8f7b;--gold:#d8b46a;--ember:#e8873a}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);font:16px/1.4 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+body{min-height:100vh;background:radial-gradient(ellipse 60% 70% at 28% 55%,#3a2c1c 0%,#16120e 55%,var(--bg) 100%);padding:max(20px,env(safe-area-inset-top,0px)) 20px max(20px,env(safe-area-inset-bottom,0px))}
+.top{display:flex;justify-content:space-between;align-items:baseline;max-width:1120px;margin:0 auto 8px}
+.top h1{margin:0;font-size:13px;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--dim)}
+.top button{background:none;border:1px solid var(--line);color:var(--fg);font:inherit;font-size:14px;letter-spacing:.12em;padding:6px 14px;cursor:pointer}
+.top button:hover,.top button:focus-visible{border-color:var(--gold);color:var(--gold);outline:none}
+main{display:grid;grid-template-columns:1fr 1.05fr;gap:28px;max-width:1120px;margin:0 auto;align-items:center}
+.avatar{position:relative;height:min(76vh,640px);display:flex;align-items:flex-end;justify-content:center}
+.avatar::before{content:"";position:absolute;inset:auto 8% 2% 8%;height:16%;border-radius:50%;background:radial-gradient(closest-side,rgba(232,135,58,.35),transparent)}
+.avatar figure{margin:0;width:min(100%,460px);aspect-ratio:9/10;border-radius:50% 50% 8px 8px/38% 38% 8px 8px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 30px 80px rgba(0,0,0,.6);animation:turn 9s ease-in-out infinite}
+.avatar img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+@keyframes turn{0%,100%{transform:perspective(900px) rotateY(-9deg)}50%{transform:perspective(900px) rotateY(9deg)}}
+@media (prefers-reduced-motion:reduce){.avatar figure{animation:none}}
+.sheet{background:var(--panel);border:1px solid var(--line);padding:18px 22px 16px}
+.row{display:grid;grid-template-columns:8.5em 1fr;gap:12px;align-items:center;padding:4px 8px;font-size:15px;border-bottom:1px solid rgba(74,66,54,.5);outline:none;cursor:default}
+.row:focus-visible,.row:hover{background:linear-gradient(90deg,rgba(216,180,106,.18),transparent)}
+.row>span:first-child{color:var(--dim);font-size:14px;letter-spacing:.06em}
+.val{display:flex;align-items:center;gap:10px}
+.lock{color:#5d5547;font-size:13px}
+.name{font-size:22px;color:var(--gold)}
+h2{margin:10px 0 2px;font-size:12px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+.bar{flex:1;height:7px;background:#2a251e;border:1px solid #3d362c}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#8a6a33,var(--gold))}
+.desc{min-height:2.9em;margin:10px 0 0;padding:10px 12px;border:1px solid var(--line);color:var(--dim);font-style:italic;font-size:15px}
+.go{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:12px 0 0}
+.go a{min-width:12em;text-align:center;padding:12px 22px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;letter-spacing:.24em;text-transform:uppercase;font-size:15px;background:rgba(216,180,106,.06)}
+.go a[hidden]{display:none}
+.go a:hover,.go a:focus-visible{background:var(--gold);color:#17130d;outline:none}
+.go small{display:block;letter-spacing:.06em;text-transform:none;font-size:12px;opacity:.75}
+dialog{max-width:560px;width:calc(100% - 32px);background:#17140f;color:var(--fg);border:1px solid var(--gold);padding:20px 22px}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+dialog ol{list-style:none;margin:0;padding:0}
+dialog li{padding:8px 0;border-bottom:1px solid var(--line);display:grid;gap:2px}
+dialog li span{color:var(--dim);font-size:14px}
+dialog li i{color:var(--gold);font-size:13px}
+dialog button{margin-top:14px;background:none;border:1px solid var(--line);color:var(--fg);font:inherit;padding:6px 14px;cursor:pointer}
+@media (max-width:760px){
+  .go{position:sticky;bottom:0;margin:0 -12px -12px;padding:10px 12px max(10px,env(safe-area-inset-bottom,0px));background:#16130f;border-top:1px solid var(--line)}
+  .go a{flex:1;min-width:0}
+  main{grid-template-columns:1fr;gap:14px}
+  .avatar{height:auto}
+  .avatar figure{width:62%;max-width:260px}
+  .sheet{padding:12px 12px}
+  .row{grid-template-columns:7em 1fr;padding:6px 4px;font-size:15px}
+  .name{font-size:19px}
+}
+</style>
+</head>
+<body>
+<div class="top"><h1>Character creation</h1><button id="resume" type="button">Resume</button></div>
+<main>
+<div class="avatar" aria-hidden="true"><figure><img src="hero.jpg" alt="" width="900" height="1000"></figure></div>
+<section class="sheet" aria-label="Character sheet">
+<div id="rows"></div>
+<p class="desc" id="desc" aria-live="polite">This character already exists. Nothing here can be changed.</p>
+<div class="go">
+<a id="begin" href="#">Begin</a>
+<a id="continue" href="#" hidden>Continue<small id="where"></small></a>
+</div>
+</section>
+</main>
+<dialog id="roles"><ol id="rolelist"></ol><button type="button" id="close">Close</button></dialog>
+<script type="module">
+import { wire, rolesList, settle } from "./run.js";
+const fields = [
+  ["Name", "<span class=name>Ryne Puffer</span>", "Software engineer, visual artist, musician."],
+  ["Class", "Jack of All Trades <span class=lock>locked</span>", "Ten years of production software, paintings in many media, classical violin training. Pick one? He did not."],
+  ["Origin", "Milwaukee", "Computer Engineering at UW Milwaukee, then Pixel Hangers and Northwestern Mutual, all in Milwaukee."],
+  ["Level", "10", "Ten years in production, promoted at each of the last three employers."],
+  ["Starting gift", "Violin", "Classically trained. Later, self-taught guitar, drums, composing and producing."],
+  ["Covenant", "None yet", "Currently SDE II on AWS API Gateway."],
+];
+const groups = [
+  ["Disciplines", [["Engineering", 92, "API ingress, WebSockets, DDoS resiliency, alarm design, AI agent tooling, legacy modernization."], ["Visual art", 78, "No formal training. The twelve islands of this world are his paintings and drawings."], ["Music", 70, "Classically trained violinist. Self-taught guitarist, drummer, composer and producer."]]],
+  ["Proficiencies", [["Rust", 70, "A Rust canary that caught launch critical bugs before a fixed conference deadline."], ["Go", 66, "Wrote the first Go application in the Benefits organization at Northwestern Mutual."], ["Node", 80, "Moved Java Struts business applications onto Node and React."], ["React", 72, "React and Redux UI for a digital disability claims experience, on a tight deadline."], ["AWS", 88, "API Gateway, Lambda, EC2, S3, SQS, CodeDeploy, VPC, IAM, PrivateLink, CDK."], ["Containers", 74, "Docker and Kubernetes, carrying enterprise systems to the cloud."], ["AI agents", 84, "Founded the team's AI coding agent framework: 11 agents, 14 skills, 7 procedures from six engineers."]]],
+];
+const rows = document.getElementById("rows"), desc = document.getElementById("desc");
+const row = (k, v, d) => `<div class="row" tabindex="0" data-d="${d.replace(/"/g, "&quot;")}"><span>${k}</span><span class="val">${v}</span></div>`;
+rows.innerHTML = fields.map((f) => row(...f)).join("") + groups.map(([h, list]) => `<h2>${h}</h2>` + list.map(([k, n, d]) => row(k, `<span class="bar"><i style="width:${n}%"></i></span>`, d)).join("")).join("");
+const all = [...rows.querySelectorAll(".row")];
+const show = (r) => { desc.textContent = r.dataset.d; };
+all.forEach((r, i) => {
+  r.addEventListener("focus", () => show(r));
+  r.addEventListener("pointerenter", () => show(r));
+  r.addEventListener("click", () => r.focus());
+  r.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); all[(i + (e.key === "ArrowDown" ? 1 : all.length - 1)) % all.length].focus(); }
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") desc.textContent = "This character already exists. Nothing here can be changed.";
+  });
+});
+const dlg = document.getElementById("roles");
+rolesList(document.getElementById("rolelist"));
+document.getElementById("resume").onclick = () => dlg.showModal();
+document.getElementById("close").onclick = () => dlg.close();
+await wire({ begin: document.getElementById("begin"), cont: document.getElementById("continue"), label: document.getElementById("where") });
+await settle();
+</script>
+</body>
+</html>
