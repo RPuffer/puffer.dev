@@ -160,12 +160,18 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       if (!t) return false;
       if (inRange(t)) { act(t); return true; }
       const from = actor.path[0] || actor.cell;
-      const goals = t.kind === "elevator" ? [[t.x, t.z]] : N8.map(([dx, dz]) => [t.x + dx, t.z + dz]).filter(([x, z]) => isWalkable(level, x, z));
-      let best = null;
-      for (const g of goals) {
-        const p = pathToward(level, from, g);
-        if (p && p[p.length - 1][0] === g[0] && p[p.length - 1][1] === g[1] && (!best || p.length < best.length)) best = p;
-      }
+      const h = level.cells[t.z]?.[t.x]?.h;
+      const near = N8.map(([dx, dz]) => [t.x + dx, t.z + dz]).filter(([x, z]) => isWalkable(level, x, z));
+      const side = near.filter(([x, z]) => Math.abs(x - t.x) + Math.abs(z - t.z) === 1 && level.cells[z][x].h === h);
+      const shortest = (goals) => {
+        let best = null;
+        for (const g of goals) {
+          const p = pathToward(level, from, g);
+          if (p && p[p.length - 1][0] === g[0] && p[p.length - 1][1] === g[1] && (!best || p.length < best.length)) best = p;
+        }
+        return best;
+      };
+      const best = t.kind === "elevator" ? shortest([[t.x, t.z]]) : shortest(side) || shortest(near);
       if (!best) return false;
       actor.setPath(best);
       pending = t.id;
