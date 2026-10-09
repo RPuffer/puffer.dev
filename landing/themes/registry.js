@@ -3,3 +3,5 @@ export const THEMES = {
   destiny: () => import("./destiny.js"),
   deck: () => import("./deck.js"),
 };
+
+export const ROTATION = ["souls"];

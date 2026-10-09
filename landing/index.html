@@ -27,10 +27,10 @@ a[hidden]{display:none!important}
 <main id="stage"></main>
 <button id="swap" type="button" title="Next theme (T)">theme <b id="tname"></b> &#9656;</button>
 <script type="module">
-import { THEMES } from "./themes/registry.js";
+import { THEMES, ROTATION } from "./themes/registry.js";
 import * as data from "./skills.js";
 import { wire, rolesList, settle } from "./run.js";
-const names = Object.keys(THEMES);
+const names = ROTATION.filter((n) => THEMES[n]);
 const stage = document.getElementById("stage"), css = document.getElementById("theme-css");
 let off = [], current = null;
 const kit = { ...data, wire, rolesList, hero: "hero.jpg", bust: "hero-bust.jpg", on(t, e, f, o) { t.addEventListener(e, f, o); off.push(() => t.removeEventListener(e, f, o)); } };
@@ -56,11 +56,13 @@ async function show(name) {
   await settle();
 }
 const next = () => {
+  if (names.length < 2 && current === names[0]) return;
   const n = names[(names.indexOf(current) + 1) % names.length];
   const u = new URL(location.href); u.searchParams.set("theme", n); history.replaceState(null, "", u);
   show(n);
 };
 document.getElementById("swap").addEventListener("click", next);
+if (names.length < 2) document.getElementById("swap").hidden = true;
 document.addEventListener("keydown", (e) => { if ((e.key === "t" || e.key === "T") && !e.metaKey && !e.ctrlKey && !(e.target instanceof HTMLInputElement)) next(); });
 show(pick());
 </script>

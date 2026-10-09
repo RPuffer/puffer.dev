@@ -1,73 +1,105 @@
+const data = await (await fetch(new URL("../classes.json", import.meta.url))).json();
+
 const css = `
-body.t-souls{--sky1:#3b2a4a;--sky2:#8a4a52;--cloud:#e9cfc0;--cloud2:#c79f97;color:#fff3e0}
-.sl{max-width:1160px;margin:0 auto;padding:max(18px,env(safe-area-inset-top,0px)) 18px 90px;display:grid;grid-template-columns:15rem 1fr 21rem;grid-template-areas:"top top top" "org hero att" "go go go";gap:14px 22px;align-items:start}
-.sl-top{grid-area:top;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:2px solid #f5c24366;padding-bottom:8px}
-.sl-top h1{margin:0;font:600 13px/1 Georgia,"Iowan Old Style",serif;letter-spacing:.34em;text-transform:uppercase;color:#f5c243}
-.sl-top span{font-size:13px;opacity:.8;letter-spacing:.06em}
-.sl h2{margin:0 0 8px;font:600 12px/1 Georgia,serif;letter-spacing:.3em;text-transform:uppercase;color:#f5c243cc;display:flex;align-items:center;gap:8px}
-.sl h2::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,#f5c24399,transparent)}
-.sl-org{grid-area:org;display:grid;gap:6px}
-.sl-org button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:#2a1f33cc;border:2px solid #2a1f33;box-shadow:inset 0 -4px 0 #00000040;font-weight:600}
-.sl-org button i{width:12px;height:12px;border-radius:4px;transform:rotate(45deg);background:var(--h);box-shadow:inset -3px -3px 0 #0003}
-.sl-org button[aria-pressed=true]{background:linear-gradient(90deg,#f5c24355,#2a1f33cc 80%);border-color:#f5c243;color:#fff}
-.sl-org button:focus-visible{outline:3px solid #12c4f0;outline-offset:2px}
-.sl-hero{grid-area:hero;position:relative;display:grid;place-items:center;padding-top:6px}
-.sl-hero figure{margin:0;width:min(100%,360px);aspect-ratio:9/10;border-radius:46% 46% 22px 22px/36% 36% 22px 22px;overflow:hidden;border:3px solid #2a1f33;box-shadow:0 0 0 4px #f5c24355,0 24px 0 -8px #2a1f3366;animation:sl-turn 8s ease-in-out infinite}
-.sl-hero img{display:block;width:100%;height:100%;object-fit:cover}
-.sl-hero::after{content:"";position:absolute;bottom:-14px;width:62%;height:26px;border-radius:50%;background:radial-gradient(closest-side,#f5c24399,transparent);animation:sl-glow 2.8s ease-in-out infinite}
-@keyframes sl-turn{0%,100%{transform:perspective(900px) rotateY(-8deg)}50%{transform:perspective(900px) rotateY(8deg)}}
-@keyframes sl-glow{50%{opacity:.5}}
-.sl-att{grid-area:att;background:#2a1f33d9;border:2px solid #2a1f33;border-radius:16px;padding:14px 14px 12px;box-shadow:inset 0 -5px 0 #00000045}
-#sl-thumb{display:block;width:100%;height:96px;object-fit:cover;border-radius:10px;border:2px solid #2a1f33;margin:0 0 10px;background:#fff6ea}
-.sl-stat{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;font-size:14px;margin-bottom:10px}
-.sl-stat dt{opacity:.7}.sl-stat dd{margin:0;text-align:right;font-weight:600}
-.sl-row{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px;font-size:15px}
-.sl-row::before{content:"";width:8px;height:8px;transform:rotate(45deg);background:var(--h);flex:none}
-.sl-row:hover,.sl-row:focus-visible{background:linear-gradient(90deg,#f5c24333,transparent);outline:none}
-.sl-row[aria-current=true]{color:#f5c243}
-.sl-desc{margin:10px 0 0;min-height:4.4em;padding:10px 12px;border-radius:10px;background:#00000038;border:1px solid #f5c24355;font:italic 14px/1.45 Georgia,serif;color:#f3e3cf}
-.sl-go{grid-area:go;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.sl-go a{min-width:12em;text-align:center;padding:12px 22px;border-radius:14px;border:3px solid #2a1f33;background:#f5c243;color:#2a1f33;box-shadow:inset 0 -5px 0 #dd9200;text-decoration:none;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
-.sl-go a.alt{background:#fff3e0;box-shadow:inset 0 -5px 0 #e2c9ad}
-.sl-go a:hover,.sl-go a:focus-visible{outline:3px solid #12c4f0;outline-offset:3px}
-.sl-go small{display:block;font-size:11px;letter-spacing:.04em;text-transform:none;font-weight:600}
-.sl-keys{grid-area:go;margin-top:64px;text-align:center;font-size:12px;opacity:.7;letter-spacing:.06em}
-.sl-band{position:fixed;inset:38% 0 auto;z-index:8;padding:22px 0;text-align:center;background:linear-gradient(90deg,transparent,#2a1f33ee 20%,#2a1f33ee 80%,transparent);font:600 clamp(20px,4vw,34px)/1 Georgia,serif;letter-spacing:.32em;text-transform:uppercase;color:#f5c243;pointer-events:none;animation:sl-band 2.4s ease forwards}
-@keyframes sl-band{0%{opacity:0;letter-spacing:.6em}25%,70%{opacity:1;letter-spacing:.32em}100%{opacity:0;visibility:hidden}}
-@media (max-width:820px){.sl{grid-template-columns:1fr;grid-template-areas:"top" "hero" "org" "att" "go";padding-bottom:150px}.sl-hero figure{width:56%;max-width:230px}.sl-org{grid-template-columns:1fr 1fr}.sl-org button{padding:8px 10px;font-size:14px}.sl-go{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:10px 12px max(12px,env(safe-area-inset-bottom,0px)) 120px;background:#2a1f33f2;border-top:2px solid #f5c24366}.sl-go a{flex:1;min-width:0;padding:11px 8px}.sl-keys{display:none}}
+body.t-souls{--sky1:#2e2129;--sky2:#160f15;color:#fff3e0}
+body.t-souls .bed{display:none}
+.sc{--pan:#34262f;--pan2:#1f161d;--edge:#110b10;--dim:#fff3e09c;--b:#12c4f0;--b2:#0a86ad;max-width:1180px;margin:0 auto;padding:max(26px,env(safe-area-inset-top,0px)) 28px 28px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-areas:"head head" "info hero" "att hero" "keys keys";gap:20px 26px}
+.sc-p{background:var(--pan);border:2px solid var(--edge);border-radius:20px;box-shadow:inset 0 -6px 0 var(--pan2)}
+.sc-head{grid-area:head;display:flex;align-items:center;gap:16px}
+.sc-head img{width:64px;height:64px;object-fit:cover;object-position:50% 30%;border-radius:16px;border:2px solid var(--edge);box-shadow:inset 0 -4px 0 #0004}
+.sc-head small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+.sc-head h1{margin:2px 0 0;font:800 28px/1.1 var(--round);letter-spacing:.02em}
+.sc-info{grid-area:info;padding:18px 20px 20px;display:grid;gap:16px}
+.sc-rows{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
+.sc-rows div{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px;padding:0 12px;border-radius:12px}
+.sc-rows dt{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.sc-rows dd{margin:0;font-weight:700;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc-rows a{color:inherit;text-decoration:none;border-bottom:2px solid #12c4f066}
+.sc-rows a:hover,.sc-rows a:focus-visible{border-color:var(--b);outline:none}
+.sc-rows .sc-class{grid-column:1/-1;background:#12c4f022;box-shadow:inset 0 0 0 2px #12c4f088}
+.sc-class dd{display:flex;align-items:center;gap:8px}
+.sc-class output{min-width:11em;text-align:center;font-size:17px}
+.sc-arw{all:unset;cursor:pointer;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--b);color:#10202a;font-weight:900;box-shadow:inset 0 -3px 0 var(--b2)}
+.sc-arw:focus-visible,.sc-arw:hover{outline:3px solid #fff3e0;outline-offset:2px}
+.sc-go{display:flex;gap:12px;justify-content:flex-end}
+.sc-go a{min-width:9.5em;text-align:center;padding:11px 20px;border-radius:14px;border:2px solid var(--edge);background:var(--b);color:#10202a;box-shadow:inset 0 -4px 0 var(--b2);text-decoration:none;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.sc-go a.alt{background:#fff3e0;box-shadow:inset 0 -4px 0 #d9c7ae}
+.sc-go a:hover,.sc-go a:focus-visible{outline:3px solid #fff3e0;outline-offset:3px}
+.sc-go small{display:block;font-size:11px;letter-spacing:.04em;text-transform:none;font-weight:600}
+.sc-att{grid-area:att;padding:18px 22px 20px}
+.sc-line{margin:0 0 14px;min-height:1.4em;color:var(--dim);transition:opacity .25s}
+.sc-line.out{opacity:0}
+.sc-att ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sc-att li{display:grid;grid-template-columns:11.5em 1fr 2ch;align-items:center;gap:14px;font-weight:700}
+.sc-bar{height:14px;border-radius:999px;background:var(--pan2);box-shadow:inset 0 2px 0 #0005;overflow:hidden}
+.sc-bar b{display:block;height:100%;width:0;border-radius:999px;background:var(--b);box-shadow:inset 0 -4px 0 var(--b2);transition:width .6s cubic-bezier(.3,1.3,.5,1)}
+.sc-att em{font-style:normal;text-align:right;color:var(--b)}
+.sc-hero{grid-area:hero;margin:0;overflow:hidden;min-height:420px;position:relative}
+.sc-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;animation:sc-idle 3.2s ease-in-out infinite}
+@keyframes sc-idle{50%{transform:scale(1.025) translateY(-4px)}}
+.sc-keys{grid-area:keys;display:flex;gap:22px;justify-content:flex-start;font-size:13px;color:var(--dim)}
+.sc-keys kbd{font:700 12px/1 var(--round);padding:4px 7px;margin-right:6px;border-radius:7px;background:#fff3e0;color:var(--edge);box-shadow:inset 0 -2px 0 #d9c7ae}
+@media (max-width:820px){
+.sc{grid-template-columns:1fr;grid-template-areas:"head" "hero" "info" "att";padding:18px 16px 96px;gap:14px}
+.sc-head img{width:52px;height:52px}.sc-head h1{font-size:23px}
+.sc-hero{min-height:0;aspect-ratio:16/10}
+.sc-rows{grid-template-columns:1fr}.sc-rows div:first-child{display:none}.sc-rows div{padding:0 10px}
+.sc-class output{min-width:0;flex:1;font-size:16px}.sc-class dd{flex:1;justify-content:flex-end}.sc-rows .sc-class{gap:8px}
+.sc-att li{grid-template-columns:1fr 2ch;gap:6px 10px}.sc-bar{grid-column:1/-1;grid-row:2}
+.sc-go{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:10px 12px max(10px,env(safe-area-inset-bottom,0px));background:#160f15f2;border-top:2px solid var(--edge)}
+.sc-go a{flex:1;min-width:0;padding:12px 8px}
+.sc-keys{display:none}}
 `;
+
 function mount(root, k) {
-  root.innerHTML = `<div class="sl">
-<header class="sl-top"><h1>Character creation</h1><span>${k.PERSON.name} &middot; Level ${k.PERSON.level}</span></header>
-<nav class="sl-org" aria-label="Origin"></nav>
-<div class="sl-hero" aria-hidden="true"><figure><img src="${k.hero}" alt="" width="900" height="1000"></figure></div>
-<section class="sl-att" aria-label="Attributes">
-<dl class="sl-stat"><dt>Class</dt><dd>${k.PERSON.cls}</dd><dt>Level</dt><dd>${k.PERSON.level} years</dd><dt>Covenant</dt><dd>None yet</dd></dl>
-<img id="sl-thumb" alt="" width="300" height="267"><h2 id="sl-oname"></h2><div id="sl-rows"></div><p class="sl-desc" id="sl-desc" aria-live="polite"></p></section>
-<div class="sl-go"><a id="sl-begin" href="#">Arise<small>new game</small></a><a id="sl-cont" class="alt" href="#" hidden>Continue<small id="sl-where"></small></a></div>
-<p class="sl-keys">&uarr; &darr; origin &nbsp; &larr; &rarr; attribute &nbsp; Tab to Arise &nbsp; T theme</p></div>
-<div class="sl-band">Choose an origin</div>`;
-  const org = root.querySelector(".sl-org"), rows = root.querySelector("#sl-rows"), desc = root.querySelector("#sl-desc");
-  let at = 0;
-  org.innerHTML = k.CLUSTERS.map((c, i) => `<button type="button" data-i="${i}" style="--h:${c.hue}" aria-pressed="false"><i></i>${c.name}</button>`).join("");
-  const btns = [...org.children];
-  const say = (i) => { const c = k.CLUSTERS[at]; [...rows.children].forEach((r, j) => r.setAttribute("aria-current", j === i)); desc.textContent = c.skills[i][1]; };
-  const choose = (i, focus) => {
-    at = (i + btns.length) % btns.length; const c = k.CLUSTERS[at];
-    btns.forEach((b, j) => b.setAttribute("aria-pressed", j === at));
-    root.querySelector("#sl-oname").textContent = c.line; root.querySelector("#sl-thumb").src = k.thumb(c.thumb);
-    rows.innerHTML = c.skills.map(([n], j) => `<button type="button" class="sl-row" data-j="${j}" style="--h:${c.hue}">${n}</button>`).join("");
-    say(0); if (focus) btns[at].focus();
+  const P = data.person, C = data.classes;
+  const years = new Date().getFullYear() - P.since;
+  const links = P.links.map((l) => `<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join(" &middot; ");
+  root.innerHTML = `<div class="sc">
+<header class="sc-head"><img src="${k.bust}" alt="" width="480" height="540"><div><small>Create Character</small><h1>${P.name}</h1></div></header>
+<section class="sc-info sc-p" aria-label="Details">
+<dl class="sc-rows">
+<div><dt>Name</dt><dd>${P.name}</dd></div>
+<div><dt>Based</dt><dd>${P.location}</dd></div>
+<div><dt>Email</dt><dd><a href="mailto:${P.email}">${P.email}</a></dd></div>
+<div><dt>Level</dt><dd>${years} years building software</dd></div>
+${links ? `<div><dt>Links</dt><dd>${links}</dd></div>` : ""}
+<div class="sc-class"><dt>Class</dt><dd><button type="button" class="sc-arw" data-d="-1" aria-label="Previous class">&#9664;</button><output id="sc-cls" aria-live="polite"></output><button type="button" class="sc-arw" data-d="1" aria-label="Next class">&#9654;</button></dd></div>
+</dl>
+<div class="sc-go"><a id="sc-begin" href="#">Begin</a><a id="sc-cont" class="alt" href="#" hidden>Continue<small id="sc-where"></small></a></div>
+</section>
+<section class="sc-att sc-p" aria-label="Attributes"><p class="sc-line" id="sc-line"></p><ul id="sc-stats">${"<li><span></span><i class=\"sc-bar\"><b></b></i><em></em></li>".repeat(6)}</ul></section>
+<figure class="sc-hero sc-p"><img src="${k.hero}" alt="Ryne's character standing on a golden island" width="900" height="1000"></figure>
+<footer class="sc-keys"><span><kbd>&larr;</kbd><kbd>&rarr;</kbd>Class</span><span><kbd>F</kbd><kbd>Enter</kbd>Begin</span><span><kbd>Tab</kbd>Move</span></footer>
+</div>`;
+  const $ = (s) => root.querySelector(s);
+  const cls = $("#sc-cls"), line = $("#sc-line"), rows = [...$("#sc-stats").children], begin = $("#sc-begin");
+  const q = new URLSearchParams(location.search).get("class");
+  let at = Math.max(0, C.findIndex((c) => c.id === (q || data.default)));
+  const show = (i, first) => {
+    at = (i + C.length) % C.length;
+    const c = C[at];
+    cls.textContent = c.name;
+    line.classList.add("out");
+    setTimeout(() => { line.textContent = c.line; line.classList.remove("out"); }, first ? 0 : 200);
+    rows.forEach((r, j) => {
+      const [n, v] = c.stats[j];
+      r.children[0].textContent = n;
+      r.children[2].textContent = v;
+      r.setAttribute("aria-label", `${n} ${v} of 10`);
+      requestAnimationFrame(() => requestAnimationFrame(() => { r.children[1].firstChild.style.width = v * 10 + "%"; }));
+    });
   };
-  btns.forEach((b, i) => k.on(b, "click", () => choose(i)));
-  k.on(rows, "click", (e) => { const r = e.target.closest(".sl-row"); if (r) say(+r.dataset.j); });
-  k.on(rows, "focusin", (e) => { const r = e.target.closest(".sl-row"); if (r) say(+r.dataset.j); });
-  k.on(rows, "pointerover", (e) => { const r = e.target.closest(".sl-row"); if (r) say(+r.dataset.j); });
+  root.querySelectorAll(".sc-arw").forEach((b) => k.on(b, "click", () => show(at + +b.dataset.d)));
   k.on(document, "keydown", (e) => {
-    if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); choose(at + (e.key === "ArrowDown" ? 1 : -1), true); }
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); const r = [...rows.children]; const cur = r.findIndex((x) => x.getAttribute("aria-current") === "true"); const n = (cur + (e.key === "ArrowRight" ? 1 : r.length - 1)) % r.length; r[n].focus(); say(n); }
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const d = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 }[e.key];
+    if (d) { e.preventDefault(); show(at + d); return; }
+    const onLink = e.target instanceof HTMLAnchorElement || e.target instanceof HTMLButtonElement;
+    if (e.key === "f" || e.key === "F" || (e.key === "Enter" && !onLink)) { e.preventDefault(); begin.click(); }
   });
-  choose(0);
-  return { begin: root.querySelector("#sl-begin"), cont: root.querySelector("#sl-cont"), label: root.querySelector("#sl-where") };
+  show(at, true);
+  return { begin, cont: $("#sc-cont"), label: $("#sc-where") };
 }
-export default { title: "character creation", css, mount };
+
+export default { title: "Create Character", css, mount };

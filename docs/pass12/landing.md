@@ -12,7 +12,7 @@ Stills: `out/pass12/landing-{souls,destiny,deck}-{1200,400}.png`.
 
 Each theme nods to one game through layout and one or two signature idioms, then draws everything in the isoworld look: flat two-tone panels with a darker bottom bevel, chunky rounded corners, the ink `#2a1f33` and paper `#fffaf0` of the style bible, beam cyan `#12c4f0` for focus and selection, the cloud bed along the bottom, island thumbnails from `assets/start/`, and the pass 11 hero render (`hero.jpg`, `hero-bust.jpg`, shot with `?clip=wiggle`). No game logos, fonts or art.
 
-- **souls** (Elden Ring and Dark Souls character creation). Origin list on the left, turntable hero in an arched frame, attribute panel on the right with Class, Level and Covenant, a serif item-description box, and a "Choose an origin" band that fades across the screen on load. Dusk sky over the cloud bed, gold rules. Begin reads "Arise". Up and down change origin, left and right step through attributes.
+- **souls** (Dark Souls 1 Create Character, reworked after the operator found all three themes too dense). Portrait header, a details panel (name, Denver, email, years since 2016, links) with Class as the one selectable row, a six-attribute panel of bars out of 10 below it, and a large hero render on the right. Classes and scores live in `landing/classes.json`: Wanderer (default), AWS, Dutchie, Northwestern Mutual. Arrows or the on-screen arrows cycle class and animate the bars; F or Enter begins. `?class=<id>` pins a class. Warm dark ground, no cloud bed. Stills: `out/pass12/souls-v2-{wanderer,aws}-{1200,400}.png`.
 - **destiny** (Destiny Director and subclass screens). Emblem nameplate top right with the level as a power number. The six clusters orbit the hero as island-thumbnail planets on dashed rings; picking one opens a subclass diamond of four skill nodes with the proof underneath. Night-blue sky, condensed uppercase type. Begin reads "Launch". Arrows move between planets; Tab into the diamond, where arrows pick the matching node.
 - **deck** (deckbuilder card draft). A fanned hand of six cluster cards that bob, a detail panel for the picked card, and a numbered deck list holding the top ten skills. Daylight sky. Begin reads "Play", Continue reads "Resume run". Left and right move through the hand; on a phone the hand scrolls sideways.
 
@@ -26,7 +26,7 @@ Every theme supports tap and click, Tab order reaches Begin and Continue, and on
    - `kit` carries `PERSON`, `CLUSTERS`, `TOP` and `thumb(id)` from `skills.js`, the hero paths `kit.hero` and `kit.bust`, and `kit.on(target, event, fn)`. Register every listener through `kit.on` so the shell removes them on a theme switch.
 2. Add one line to `landing/themes/registry.js`: `<name>: () => import("./<name>.js"),`.
 
-The random pick and the cycle order follow the registry. Pass 11's `a.html`, `b.html` and `c.html` stay as they were.
+`ROTATION` in the registry lists the themes the random pick and the cycle use; it holds only `souls` now, so the pill hides. Destiny and deck stay reachable through `?theme=`. Pass 11's `a.html`, `b.html` and `c.html` stay as they were.
 
 ## For the operator
 
