@@ -117,8 +117,8 @@ function partMesh(build, light, k, at, rotY, reach = false) {
 export function bakeThingBases(S, L, view, style, P = S) {
   const LL = liftLevel(L), k = lookOf(style);
   const byId = new Map((live || []).map((q) => [q.id, q]));
-  for (const t0 of L.things || []) {
-    const t = byId.get(t0.id) || t0;
+  for (const t of L.things || []) {
+    const st = byId.get(t.id)?.state ?? t.state;
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
@@ -141,8 +141,8 @@ export function buildThings(L, view, style, decorGroup, live = null) {
     if (t.kind === "bonfire") {
       const m = partMesh(bonfireFlame, light, k, new THREE.Vector3(x, y, z), r);
       m.userData.thing = t.id;
-      m.userData.scale = t.state === "lit" ? 1 : 0;
-      m.visible = t.state === "lit";
+      m.userData.scale = st === "lit" ? 1 : 0;
+      m.visible = st === "lit";
       group.add(m);
       parts[t.id] = m;
     } else if (t.kind === "chest") {
@@ -150,7 +150,7 @@ export function buildThings(L, view, style, decorGroup, live = null) {
       const m = partMesh(chestLid, light, k, new THREE.Vector3(x + piv.x, y + 0.34, z + piv.z), r);
       m.rotation.order = "YXZ";
       m.userData.thing = t.id;
-      m.userData.open = t.state === "open" ? 1 : 0;
+      m.userData.open = st === "open" ? 1 : 0;
       group.add(m);
       parts[t.id] = m;
     } else if (t.kind === "gate") {
@@ -158,7 +158,7 @@ export function buildThings(L, view, style, decorGroup, live = null) {
       const top = (g.height || 1.62) + 0.18;
       const m = partMesh((B) => { B.push(0, -top, 0); gateBars(B, k, g.span, g.width, g.height); B.pop(); }, light, k, new THREE.Vector3(g.x, g.y + top, g.z), 0, true);
       m.userData.thing = t.id;
-      m.userData.lift = t.state === "open" ? 1 : 0;
+      m.userData.lift = st === "open" ? 1 : 0;
       m.userData.y0 = g.y + top;
       group.add(m);
       parts[t.id] = m;
