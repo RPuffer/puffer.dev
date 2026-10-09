@@ -11,6 +11,7 @@ import { buildThings, bakeThingBases } from "./things.js";
 import { beamClear } from "./lift.js";
 import { CLEAR } from "./speedlines.js";
 import { GLBS } from "./hooks.js";
+import { createPathLine } from "./pathline.js";
 
 const FRAME = [351, 390];
 
@@ -31,6 +32,8 @@ export function createRenderer(container = document.body) {
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
   const raycaster = new THREE.Raycaster();
+  const line = createPathLine();
+  scene.add(line.mesh);
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
   let seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
   const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, zoom: 1, hero: false, style: null };
@@ -132,6 +135,7 @@ export function createRenderer(container = document.body) {
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       scene.add(hero);
+      line.reset(state);
       bounds = levelScreenBounds(L, state.proj);
       oriented = state.proj;
       fxCtx.style = style;
@@ -198,6 +202,7 @@ export function createRenderer(container = document.body) {
       applyDrop();
     },
     get hero() { return hero; },
+    get pathLine() { return line.mesh; },
     get things() { return things; },
     get zoomScale() { return zoom / base; },
     get drop() { return drop; },
@@ -243,6 +248,7 @@ export function createRenderer(container = document.body) {
       hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH + ride, a.pos.z);
       if (jitter > 0) hero.position.x += (Math.random() - 0.5) * 2 * jitter, hero.position.z += (Math.random() - 0.5) * 2 * jitter;
       hero.userData.animate(a, dt);
+      line.update(state, dt, { clear: beamClear.value, drop, show: hero.visible && !a.locked && seqK === 0 });
       stepMotion(dt);
       if (bgT < 1) { bgT = Math.min(1, bgT + dt / 0.6); scene.background.copy(bgFrom).lerp(bgTo, bgT); }
       if (flashT < 1) {

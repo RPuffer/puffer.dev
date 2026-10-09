@@ -1,6 +1,7 @@
 import { createInput } from "./input.js";
 import { createActor } from "./actor.js";
-import { pathToward } from "./path.js";
+import { routeTo } from "./path.js";
+import { createRoute } from "./route.js";
 import { DIRS, isWalkable } from "./level.js";
 import { makeProjection, viewFrom } from "./iso.js";
 import { createInteract, storageKey } from "./interact.js";
@@ -47,7 +48,7 @@ export function saveYaw(name, yaw, storage = globalThis.localStorage) {
 }
 
 export function createGame(renderer, params = readParams()) {
-  const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null };
+  const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null, route: createRoute(), mark: null };
   let screenHeld = null;
 
   const input = createInput(renderer.element || document.body, { dpad: params.dpad === "1" || params.touch === "1" ? true : "auto" });
@@ -58,17 +59,19 @@ export function createGame(renderer, params = readParams()) {
     if (it.kind === "hold") {
       screenHeld = it.dir || null;
       actor.held = it.dir ? screenToWorldDir(proj, it.dir) : null;
-      if (it.press && !actor.locked) actor.tapDir = screenToWorldDir(proj, it.press);
+      if (it.press && !actor.locked) { state.route.cancel(); actor.tapDir = screenToWorldDir(proj, it.press); }
     }
     if (it.kind === "tap") {
       const cell = renderer.pick?.(it.x, it.y, it.w, it.h);
-      if (!cell) return;
-      if (actor.locked || things?.tap(cell)) return;
-      const from = actor.path[0] || actor.cell;
-      const p = pathToward(level, from, cell);
-      if (p) actor.setPath(p);
+      if (!cell || actor.locked) return;
+      if (things?.tap(cell)) { if (actor.path.length) { state.route.follow(cell); markAt(cell, true); } return; }
+      const r = routeTo(level, actor.path[0] || actor.cell, cell);
+      markAt(cell, !!r?.reached);
+      if (r) state.route.set(r.cells, cell, r.reached);
     }
   });
+
+  const markAt = (cell, ok) => { state.mark = { cell: [cell[0], cell[1]], ok, time: state.time }; };
 
   const tickers = new Set();
   const orient = () => {
@@ -87,6 +90,7 @@ export function createGame(renderer, params = readParams()) {
   const tick = () => {
     stepTurn(STEP);
     state.actor.update(STEP);
+    state.route.update();
     state.things?.update(STEP);
     for (const f of tickers) f(STEP);
     renderer.update?.(state, STEP);
@@ -140,6 +144,8 @@ export function createGame(renderer, params = readParams()) {
       const cell = cellOk(sp) || cellOk(at) || things?.arrivalCell() || things?.spawnCell() || level.spawn;
       const actor = createActor(level, cell);
       things?.bind(actor);
+      state.route.bind(actor);
+      state.mark = null;
       Object.assign(state, { level, view, proj, actor, params: p, things });
       if (renderer.mount) renderer.mount(state); else renderer.init?.(state);
       renderer.update?.(state, 0);
