@@ -206,8 +206,8 @@ function bust(B, kind) {
     B.box(1.9, 0.3, 1.9, pal(CH.slate), 0, 0, 0);
     B.box(1.64, 0.3, 1.6, pal(CH.char), 0.08, 0.3, -0.08);
     B.box(1.44, 0.26, 1.36, pal(CH.slate), -0.04, 0.6, -0.12);
-    wedge(B, 1.64, 0.3, 0.3, CH.chalk, 0.08, 0.3, 0.86);
-    wedge(B, 1.44, 0.26, 0.26, CH.grey, -0.04, 0.6, 0.68);
+    wedge(B, 1.6, 0.3, 0.3, CH.chalk, 0.08, 0.3, 0.86);
+    wedge(B, 1.4, 0.26, 0.26, CH.grey, -0.04, 0.6, 0.68);
     y = 0.86;
   } else {
     B.box(1.84, 0.18, 1.84, pal(CH.black), 0, 0, 0);
@@ -229,12 +229,12 @@ function bust(B, kind) {
   } else crownLaths(B, y + 2.0, -0.2, [CH.paper, CH.grey, CH.chalk, CH.char]);
   wedge(B, 1.1, 0.2, 0.5, CH.char, 0, y + 1.76, 0.36);
   B.box(1.06, 0.1, 0.24, pal(CH.black), 0, y + 1.7, 0.52);
-  for (let i = 0; i < 5; i++) { const x = -0.44 + i * 0.22; B.rot([1, 0, 0], Math.PI, x, y + 1.02 - (i % 2) * 0.1, -0.62); wedge(B, 0.2, 0.34 + (i % 2) * 0.14, 0.14, i % 2 ? CH.chalk : CH.paper, 0, 0, 0); B.pop(); }
+  for (let i = 0; i < 5; i++) { const x = -0.44 + i * 0.22; B.rot([1, 0, 0], Math.PI, x, y + 1.02 - (i % 2) * 0.1, -0.62); wedge(B, 0.18, 0.34 + (i % 2) * 0.14, 0.14, i % 2 ? CH.chalk : CH.paper, 0, 0, 0); B.pop(); }
   for (const s of [-1, 1]) {
     B.box(0.05, 0.36, 0.44, pal(CH.black), s * 0.53, y + 1.42, 0.3);
     B.box(0.06, 0.26, 0.26, pal(CH.mint), s * 0.54, y + 1.48, 0.32);
     B.box(0.07, 0.14, 0.14, pal(CH.black), s * 0.55, y + 1.52, 0.34);
-    B.box(0.075, 0.05, 0.05, pal(CH.paper), s * 0.555, y + 1.6, 0.39);
+    B.box(0.075, 0.05, 0.05, pal(CH.paper), s * 0.565, y + 1.6, 0.39);
     B.box(0.05, 0.1, 0.5, pal(CH.grey), s * 0.53, y + 1.0, -0.1);
   }
   bigBeak(B, y + 1.28, 0.66);
@@ -325,7 +325,7 @@ const EAGLE_BUILD = {
     B.box(0.66, 0.28, 0.66, pal(INK.beak), 0, 0.24, 0);
     B.box(0.5, 0.22, 0.5, pal(INK.beak), 0, 0.52, 0.12);
     B.box(0.3, 0.3, 0.22, pal(INK.beak), 0, 0.36, 0.4);
-    B.box(0.66, 0.05, 0.4, pal(CH.black), 0, 0.5, 0.1);
+    B.box(0.7, 0.05, 0.4, pal(CH.black), 0, 0.5, 0.1);
   },
   laths(B, H, v) {
     B.box(0.8, 0.14, 0.5, pal(CH.char));
@@ -394,7 +394,7 @@ const EAGLE_BUILD = {
     const tiers = [[0.9, 0.36], [0.7, 0.32], [0.5, 0.3], [0.3, 0.28]];
     let y = H * 0.26;
     const step = (H - y) / 1.26;
-    tiers.forEach(([w, hh], i) => { const t = hh * step; B.box(w, t, w, pal(i % 2 ? CH.char : CH.black), (i % 2 ? 0.03 : -0.02), y, (i % 2 ? -0.03 : 0.02)); B.box(w * 0.4, 0.05, w + 0.02, pal(CH.grey), (i % 2 ? 0.03 : -0.02), y + t - 0.03, 0); y += t; });
+    tiers.forEach(([w, hh], i) => { const t = hh * step; B.box(w, t, w, pal(i % 2 ? CH.char : CH.black), (i % 2 ? 0.03 : -0.02), y, (i % 2 ? -0.03 : 0.02)); B.box(w * 0.32, 0.05, w + 0.02, pal(CH.grey), (i % 2 ? 0.03 : -0.02), y + t - 0.03, 0); y += t; });
   },
   inkPost(B, H) {
     B.box(0.32, 0.1, 0.32, pal(CH.char));

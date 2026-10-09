@@ -197,7 +197,7 @@ export function sharkbearSpec(c, o = {}) {
       { id: "chest", prim: "rbox", dims: [0.78, 0.62, 0.26], at: [0, 0.74, 0.5], base: c.belly },
       { id: "hump", prim: "rbox", dims: [1.18, 0.5, 0.78], at: [0, 1.3, 0.14], base: c.hide },
       { id: "fin", prim: "spike", dims: [0.66, 0.62, 0.12, -0.22], at: [0, 1.8, 0.08], ry: Math.PI / 2, base: c.hide },
-      { id: "tail", prim: "chain", at: [0.3, 0, -0.62], base: c.hide, links: [3.6, 3.15, 2.7, 2.25, 1.8, 1.35].map((f, i) => ({ dims: [0.34 - i * 0.03, 0.3 - i * 0.03, 0.4], at: [0.56 * Math.sin(f), 0.74 - i * 0.14, 0.56 * Math.cos(f)], ry: Math.atan2(-Math.cos(f), Math.sin(f)), base: i % 2 ? c.dark : c.hide })).concat([[0.8, 0.62, 0.36], [0.42, 0.3, -0.12]].map(([w, h, l]) => ({ prim: "spike", dims: [w, h, 0.1, l], at: [0.56 * Math.sin(1.0), 0.02, 0.56 * Math.cos(1.0)], ry: Math.atan2(-Math.cos(1.0), Math.sin(1.0)) - Math.PI / 2, base: l > 0 ? c.hide : c.dark }))) },
+      { id: "tail", prim: "chain", at: [0.3, 0, -0.62], base: c.hide, links: [3.6, 3.15, 2.7, 2.25, 1.8, 1.35].map((f, i) => ({ dims: [0.34 - i * 0.03, 0.3 - i * 0.03, 0.4], at: [0.56 * Math.sin(f), 0.74 - i * 0.14, 0.56 * Math.cos(f)], ry: Math.atan2(-Math.cos(f), Math.sin(f)), base: i % 2 ? c.dark : c.hide })).concat([[0.8, 0.62, 0.36], [0.42, 0.3, -0.12]].map(([w, h, l]) => ({ prim: "spike", dims: [w, h, l > 0 ? 0.1 : 0.14, l], at: [0.56 * Math.sin(1.0), 0.02, 0.56 * Math.cos(1.0)], ry: Math.atan2(-Math.cos(1.0), Math.sin(1.0)) - Math.PI / 2, base: l > 0 ? c.hide : c.dark }))) },
       { id: "head", ...hd, prim: "rbox", dims: [0.74, 0.5, 0.74], at: [0, 0.98, 1.0], base: c.hide },
       { id: "snout", ...hd, prim: "chain", at: [0, 1.06, 1.36], base: c.hide, links: [
         { prim: "wedge", dims: [0.6, 0.42, 0.56], at: [0, 0, 0.12], base: c.hide },
@@ -212,7 +212,7 @@ export function sharkbearSpec(c, o = {}) {
         { prim: "box", dims: [0.04, 0.08, 0.14], at: [-0.38, 0, 0], base: c.accent },
         { prim: "box", dims: [0.04, 0.08, 0.14], at: [0.38, 0, 0], base: c.accent },
       ] },
-      { id: "gills", ...hd, face: true, prim: "chain", at: [0, 1.04, 0.82], base: c.accent, links: [-0.38, 0.38].flatMap((x) => [0, 0.1, 0.2].map((dz) => ({ prim: "box", dims: [0.04, 0.3, 0.04], at: [x, 0, dz], base: c.accent }))) },
+      { id: "gills", ...hd, face: true, prim: "chain", at: [0, 1.04, 0.82], base: c.accent, links: [-0.38, 0.38].flatMap((x) => [0, 0.1, 0.2].map((dz) => ({ prim: "box", dims: [0.04, 0.28, 0.04], at: [x, 0, dz], base: c.accent }))) },
     ],
   };
 }
@@ -345,7 +345,7 @@ const LENS_BUILD = {
     B.at(0, 0, 0, (d.axis === "x" ? Math.PI / 2 : 0) + flip, () => {
       const s = H - 0.35;
       blade(B, [[0, -0.26], [0, 0.26], [s * 0.45, 0.16], [s * 0.8, -0.06], [s, -0.36], [s * 0.86, -0.34], [s * 0.5, -0.3]], 0.12, BONE, 0, 0.42, 0);
-      blade(B, [[0, -0.3], [0, -0.2], [s * 0.5, -0.24], [s * 0.86, -0.3], [s * 0.4, -0.34]], 0.14, SLATE, 0, 0.42, 0);
+      blade(B, [[0, -0.3], [0, -0.2], [s * 0.5, -0.24], [s * 0.86, -0.3], [s * 0.4, -0.34]], 0.14, SLATE, 0, 0.4, 0);
     });
   },
   ribGate(B, H, v, { c0, c1, d, t }) {

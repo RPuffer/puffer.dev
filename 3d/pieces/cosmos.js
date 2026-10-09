@@ -505,8 +505,8 @@ const R5 = {
     B.box(0.46, 0.14, 0.4, pal(R5C.plum));
     B.at(0, 0.14, 0, v % 2 ? 0.5 : -0.3, () => {
       B.box(0.9, H - 0.14, 0.12, pal(R5C.tape));
-      B.box(0.9, (H - 0.14) * 0.45, 0.14, pal(v % 2 ? R5C.cyanPale : R5C.peach), 0, 0, 0);
-      B.box(0.9, (H - 0.14) * 0.22, 0.15, pal(v % 2 ? NEB.teal : R5C.rose), 0, 0, 0);
+      B.box(0.94, (H - 0.14) * 0.45, 0.16, pal(v % 2 ? R5C.cyanPale : R5C.peach), 0, 0, 0);
+      B.box(0.98, (H - 0.14) * 0.22, 0.2, pal(v % 2 ? NEB.teal : R5C.rose), 0, 0, 0);
       B.cyl(0.2, 0.18, pal(R5C.plum), 0, (H - 0.14) * 0.66, 0, 10);
     });
   },
@@ -514,7 +514,7 @@ const R5 = {
     const cols = v % 2 ? [NEB.teal, NEB.cyan, R5C.cyanPale] : [R5C.rose, R5C.peach, R5C.tape];
     const ws = [0.34, 0.58, 0.84], hh = H / 3;
     ws.forEach((w, i) => B.rbox(w, hh * 1.04, w * 0.9, Math.min(0.12, w * 0.2), pal(cols[i]), i % 2 ? 0.04 : -0.04, i * hh, 0));
-    for (const [x, y, z] of [[0.4, H * 0.5, 0.2], [-0.42, H * 0.7, -0.1], [0.3, H * 0.9, -0.3]]) B.box(0.08, 0.08, 0.08, pal(cols[1]), x, y, z);
+    for (const [x, y, z] of [[0.4, H * 0.5, 0.2], [-0.44, H * 0.7, -0.1], [0.3, H * 0.9, -0.3]]) B.box(0.08, 0.08, 0.08, pal(cols[1]), x, y, z);
   },
   "tape-roll"(B, H) {
     const r = H * 0.5;
@@ -532,7 +532,7 @@ const R5 = {
     B.cyl(0.15, 0.06, pal(R5C.plum), 0, H - 0.44, 0, 8);
     B.cone(0.12, 0.03, 0.2, pal(NEB.gold), 0, H - 0.4, 0, 8);
     B.rbox(0.26, 0.2, 0.26, 0.08, pal(NEB.cyan), 0, H - 0.22, 0);
-    B.box(0.08, 0.06, 0.08, pal(NEB.star), 0.12, H - 0.08, 0.1);
+    B.box(0.08, 0.06, 0.08, pal(NEB.star), 0.12, H - 0.06, 0.1);
   },
   "spatter-pad"(B, H, v) {
     const dots = [[-0.3, -0.2, 0.09, NEB.star], [0.2, -0.26, 0.06, NEB.cyan], [0.1, 0.1, 0.11, NEB.star], [-0.12, 0.28, 0.05, R5C.peach], [0.32, 0.26, 0.07, NEB.star], [-0.34, 0.12, 0.05, NEB.cyan], [0.02, -0.34, 0.04, NEB.star]];

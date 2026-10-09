@@ -102,7 +102,7 @@ function spirit(B, H, look, v, pose = "rest") {
     for (const x of [-0.24, -0.1, 0.1, 0.24]) B.cone(0.045, 0, 0.14, pal(HOT.bone), x, 0.3, 0.24, 4);
     for (const x of [-0.2, 0.2]) B.cone(0.04, 0, 0.12, pal(HOT.bone), x, 0.02, 0.26, 4);
     B.rbox(0.9, 0.46, 0.7, 0.1, pal(HOT.skull), 0, 0.3, -0.04);
-    B.box(0.7, 0.1, 0.12, pal(HOT.brow), 0, 0.3, 0.3);
+    B.box(0.7, 0.1, 0.12, pal(HOT.brow), 0, 0.3, 0.32);
     for (const x of [-0.2, 0.2]) {
       B.box(0.24, 0.18, 0.06, pal(HOT.ink), x, 0.46, 0.31);
       B.box(0.12, 0.08, 0.05, pal(HOT.yellow), x, 0.5, 0.34);
@@ -127,12 +127,12 @@ function spirit(B, H, look, v, pose = "rest") {
     B.rbox(0.36, 0.3, 0.32, 0.05, pal(HOT.hide), 0, -0.26, -0.06);
     B.rbox(0.6, 0.4, 0.52, 0.08, pal(HOT.hide), 0, 0, -0.04);
     B.box(0.42, 0.12, 0.34, pal(HOT.rust), 0, 0.0, 0.3);
-    B.box(0.2, 0.12, 0.16, pal(HOT.pale), 0, 0.0, 0.34);
+    B.box(0.2, 0.1, 0.16, pal(HOT.pale), 0, 0.01, 0.34);
     wedge(B, 0.4, 0.18, 0.36, HOT.rust, 0, 0.12, 0.3);
     B.box(0.3, 0.06, 0.08, pal(HOT.bone), 0, 0.1, 0.44);
     for (const x of [-0.15, 0.15]) {
       B.box(0.14, 0.06, 0.05, pal(HOT.yellow), x, 0.26, 0.21);
-      B.box(0.04, 0.06, 0.03, pal(HOT.ink), x, 0.26, 0.24);
+      B.box(0.04, 0.06, 0.03, pal(HOT.ink), x, 0.25, 0.24);
       wedge(B, 0.18, 0.07, 0.12, HOT.brow, x, 0.32, 0.18);
     }
     for (const [x, z, h, c, l] of [[0, -0.1, 0.62, HOT.hide, 0], [-0.16, -0.04, 0.5, HOT.rust, 0.3], [0.16, -0.04, 0.5, HOT.hide, -0.3], [-0.3, -0.12, 0.4, HOT.brow, 0.65], [0.3, -0.12, 0.4, HOT.rust, -0.65], [0, -0.28, 0.44, HOT.brow, 0], [-0.3, 0.08, 0.24, HOT.brow, 1.1], [0.3, 0.08, 0.24, HOT.brow, -1.1]]) tongue(B, 0.09, h, c, x, 0.34, z, l);
@@ -177,7 +177,7 @@ function hornArc(B, H, side, lo, hi) {
     const w = 0.36 - 0.24 * t;
     B.rot([0, 0, 1], Math.atan2(p[1] - prev[1], p[0] - prev[0]), mx, my, 0);
     B.box(len, w, w, pal(i % 2 ? hi : lo), 0, -w / 2, 0);
-    if (i % 3 === 0) B.box(0.04, w + 0.03, w + 0.03, pal(HOT.hornTip), len / 2 - 0.02, -w / 2 - 0.015, 0);
+    if (i % 3 === 0) B.box(0.04, w + 0.03, w + 0.03, pal(HOT.hornTip), len / 2 - 0.04, -w / 2 - 0.015, 0);
     B.pop();
     prev = p;
   }
@@ -245,8 +245,8 @@ const LENS_BUILD = {
     let y = 0.18;
     [[0.5, 0.62], [0.42, 0.54], [0.32, 0.46]].forEach(([dd, hh], i) => {
       const h = hh * (H - 0.18) / 1.6;
-      wedge(B, 0.18, h, dd, cs[i], k * i, y, -0.04 * i);
-      wedge(B, 0.2, h * 0.3, dd * 0.4, HOT.orange, k * i, y, dd * 0.25 - 0.04 * i);
+      wedge(B, 0.18, h, dd, cs[i], k * i, y, [0, -0.06, -0.13][i]);
+      wedge(B, 0.2, h * 0.3, dd * 0.4, HOT.orange, k * i, y, dd * 0.25 + [0, -0.06, -0.13][i]);
       y += h * 0.62;
     });
     B.cone(0.08, 0, 0.26, pal(HOT.hornTip), k * 3, y, -0.14, 4);
