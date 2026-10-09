@@ -1,4 +1,5 @@
 import { neighbours, isWalkable } from "./level.js";
+import { edgeKey } from "./interact.js";
 
 const key = (x, z) => x + "," + z;
 const TURN_COST = 1e-3;
@@ -78,6 +79,8 @@ export function reachable(L, from) {
 export function routeTo(L, from, to) {
   const direct = findPath(L, from, to);
   if (direct) return { cells: direct, reached: true };
+  const viaGate = gateToward(L, from, to);
+  if (viaGate) return { cells: viaGate.cells, reached: false, gate: viaGate.id };
   let best = null, bd = Infinity;
   for (const c of reachable(L, from)) {
     const d = Math.hypot(c[0] - to[0], c[1] - to[1]);
@@ -85,6 +88,26 @@ export function routeTo(L, from, to) {
   }
   const cells = best && findPath(L, from, best);
   return cells ? { cells, reached: false } : null;
+}
+
+export function gateToward(L, from, to) {
+  let best = null;
+  for (const g of L.things || []) {
+    if (g.kind !== "gate" || !g.edge) continue;
+    const ek = edgeKey(g.edge[0], g.edge[1]);
+    const shutEdge = L.edges?.has(ek);
+    const shutCells = (g.blocks || []).map(([x, z]) => key(x, z)).filter((k) => L.blocked?.has(k));
+    if (!shutEdge && !shutCells.length) continue;
+    if (shutEdge) L.edges.delete(ek);
+    for (const k of shutCells) L.blocked.delete(k);
+    const through = findPath(L, from, to);
+    if (shutEdge) L.edges.add(ek);
+    for (const k of shutCells) L.blocked.add(k);
+    if (!through) continue;
+    const cells = findPath(L, from, g.edge[0]);
+    if (cells && (!best || cells.length < best.cells.length)) best = { cells, id: g.id };
+  }
+  return best;
 }
 
 export function pathToward(L, from, to) {
