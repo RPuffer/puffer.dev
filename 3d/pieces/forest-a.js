@@ -95,7 +95,7 @@ export function register(style) {
     const G = P.grass || {};
     const mound = tone(G.top || "#4b8c4b", G.fringe || "#3f7643", G.fringeDark || "#2f5734");
     B.prism(circle(0.05, 0, 0.92, 0.86, 12), 0, 0.12, mound);
-    B.prism(circle(0, 0.05, 0.62, 0.58, 10), 0.12, 0.22, mound);
+    B.prism(circle(0, 0.05, 0.62, 0.58, 10), 0.12, 0.24, mound);
     B.push(0, 0.22, 0, 0);
     for (const [u, d] of [[-0.12, -0.14], [0.12, 0.1]]) {
       upright(B, S(flame(0.2, 0.9, 0.05, 4)).map(([a, b]) => [a + u * k, b]), orange, { d0: d - 0.05, d1: d + 0.05 });
