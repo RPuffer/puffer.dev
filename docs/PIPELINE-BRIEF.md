@@ -148,3 +148,7 @@ Order: the visibility rule relaxes first (cheap); outgrowths (docks, side platea
 Operator: "I'm debating shifting to point-and-click movement controls - that would actually eliminate the entire path visibility QA - and then the booby traps can be focused on interrupting auto-paths - the basic function would be: user clicks a tile, math out the optimal path there, draw a fun sci-fi looking line along the path, then have the character walk to the endpoint."
 
 Starting point: tap-to-walk already exists (`core/path.js` pathToward, `renderer.pick`); the new parts are an optimal-path solver aware of traps, a stylised sci-fi path line drawn along the route before the walk, and trap design built around interrupting auto-paths. If adopted, tools/qa-visibility.mjs retires.
+
+## Pass 11 (2026-10-08)
+
+Operator: "there's still an obvious front and back, could we introduce maybe some more symmetry to help round out the backside a bit more - then go ahead with the point-and-click movement PoC, and if limits allow, give me some options to review for the character-selection landing page."
