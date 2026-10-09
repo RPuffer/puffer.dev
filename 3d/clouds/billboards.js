@@ -80,8 +80,8 @@ export function layout(I, meta) {
   const mult = Math.max(0.25, +(q.get("cloudx") || 1)), back = q.get("cloudback") === "1";
   for (const p of rimPoints(I, rng, { every: 1, outset: 0.75 })) out.push({ x: p.x, y: p.bot + 0.1 + rng() * 0.25 * T, z: p.z, s: 2.2 + rng() * 0.8, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 0.95 });
   for (const p of underPoints(I, rng, { step: 2.2, y0: B - 1.7, y1: B - 0.7 })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.2 + rng() * 1.2, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
-  for (const p of scatter(I, rng, { count: Math.round(70 * mult), inner: I.radius * 0.75, outer: I.radius + 5, yMin: B - 1.2, yMax: B + 0.1, minGap: 1.1 })) out.push({ x: p.x, y: p.y, z: p.z, s: 2.6 + rng() * 1.4, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
-  for (const p of scatter(I, rng, { count: Math.round(70 * mult), inner: I.radius + 3, outer: I.radius + 11, yMin: B - 2.2, yMax: B - 0.6, minGap: 1.8 })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.6 + rng() * 2, tile: pick(meta, ["flat", "tuft"], rng()), alpha: 1 });
+  for (const p of scatter(I, rng, { count: Math.round(70 * mult), inner: I.radius * 0.75, outer: I.radius + 3.5, yMin: B - 1.2, yMax: B + 0.1, minGap: 1.1 / Math.sqrt(mult) })) out.push({ x: p.x, y: p.y, z: p.z, s: 2.6 + rng() * 1.4, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
+  for (const p of scatter(I, rng, { count: Math.round(70 * mult), inner: I.radius + 2, outer: I.radius + 7.5, yMin: B - 2.2, yMax: B - 0.6, minGap: 1.8 / Math.sqrt(mult) })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.6 + rng() * 2, tile: pick(meta, ["flat", "tuft"], rng()), alpha: 1 });
   if (back) for (const p of scatter(I, rng, { count: 36, inner: I.radius + 2, outer: I.radius + 18, yMin: B - 6, yMax: B - 3.5, minGap: 4 })) out.push({ x: p.x, y: p.y, z: p.z, s: 8 + rng() * 5, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 0.9 });
   return out;
 }
