@@ -110,23 +110,44 @@ async function openGated(url) {
 }
 
 async function liftToLift(name) {
-  const o = await openGated(`${BASE}/3d/index.html?level=${name}`);
+  const o = await open(`${BASE}/3d/index.html?level=${name}&arrive=entry&reset=1`);
   if (!o.done) { await o.page.close(); return { ok: false, detail: "page did not load" }; }
-  const r = await o.page.evaluate(async () => {
-    const { routeTo } = await import("/core/path.js");
-    const S = window.__game.state, things = S.things?.things || S.level.things || [];
+  const page = o.page;
+  const info = await page.evaluate(() => {
+    const S = window.__game.state, things = S.things?.things || [];
     const lift = (role) => things.find((t) => t.kind === "elevator" && t.role === role);
-    const a = lift("entry"), b = lift("exit");
+    const a = lift("entry"), b = lift("exit"), fire = things.find((t) => t.kind === "bonfire");
     if (!a || !b) return null;
-    const gates = things.filter((t) => t.kind === "gate");
-    const r = routeTo(S.level, [a.x, a.z], [b.x, b.z]);
-    return { from: [a.x, a.z], to: [b.x, b.z], open: gates.every((t) => t.state === "open"), gates: gates.length, reached: !!r?.reached, steps: r?.cells.length || 0, end: r?.cells.at(-1) || null };
+    return { from: [a.x, a.z], to: [b.x, b.z], fire: fire && [fire.x, fire.z], gates: things.filter((t) => t.kind === "gate").length, start: S.actor.cell.slice() };
   });
-  await forgetThings(o.page);
-  await o.page.close();
-  if (!r) return null;
-  const ok = r.reached && r.open && r.end?.join() === r.to.join();
-  return { ok, gates: r.gates, detail: `${r.from} -> ${r.to} ${ok ? r.steps + " cells" : r.open ? "no route, nearest " + r.end : "gate did not open"}` };
+  if (!info) { await page.close(); return null; }
+  const settle = async () => {
+    await wait(250);
+    await page.waitForFunction(() => { const a = window.__game.state.actor; return !a.path.length && !a.moving; }, { timeout: 30000, polling: 100 }).catch(() => {});
+    await wait(1500);
+    return page.evaluate(() => ({ cell: window.__game.state.actor.cell.slice(), th: (window.__game.state.things?.things || []).filter((t) => t.kind !== "elevator").map((t) => t.id + ":" + t.state).join(" ") }));
+  };
+  const click = (cell, thing) => page.evaluate(async ([cell, thing]) => {
+    const { routeTo } = await import("/core/path.js");
+    const S = window.__game.state, a = S.actor;
+    if (thing) return S.things.tap(cell);
+    const r = routeTo(S.level, a.path[0] || a.cell, cell);
+    if (r) S.route.set(r.cells, cell, r.reached);
+    return !!r;
+  }, [cell, thing]);
+  const trail = [];
+  let ok = info.start.join() === info.from.join(), now = { cell: info.start, th: "" };
+  if (!ok) trail.push(`arrived at ${info.start} not entry lift`);
+  if (ok && info.fire) { await click(info.fire, true); now = await settle(); trail.push(`bonfire -> ${now.cell} [${now.th}]`); }
+  for (let i = 0; ok && i < 4 && now.cell.join() !== info.to.join(); i++) {
+    if (!(await click(info.to, false))) { trail.push("no route"); break; }
+    now = await settle();
+    trail.push(`click exit -> ${now.cell} [${now.th}]`);
+  }
+  ok = ok && now.cell.join() === info.to.join();
+  await forgetThings(page);
+  await page.close();
+  return { ok, gates: info.gates, detail: `${info.from} -> ${info.to} by click: ${trail.join("; ")}` };
 }
 
 async function forgetThings(page) {
@@ -200,7 +221,7 @@ const clean = (name, problems) => problems.filter((p) => !(EXPECTED[name] && EXP
 async function levelSuite(name) {
   const file = JSON.parse(fs.readFileSync(path.join(root, "levels", name + ".json"), "utf8"));
   const tag = `lvl-${name}`;
-  const { page, problems, done, ms } = await open(`${BASE}/3d/index.html?level=${name}`);
+  const { page, problems, done, ms } = await open(`${BASE}/3d/index.html?level=${name}&reset=1`);
   record(`${tag} __done within 15 s`, done, `${ms} ms`);
   if (!done) { record(`${tag} no console errors or failed requests`, false, problems.slice(0, 3).join(" | ")); await page.close(); return; }
   await idle(page); await wait(400);
@@ -245,7 +266,7 @@ async function levelSuite(name) {
   await page.close();
 
   const lifts = await liftToLift(name);
-  if (lifts) record(`${tag} lift to lift${lifts.gates ? " (gates opened)" : ""}`, lifts.ok, lifts.detail);
+  if (lifts) record(`${tag} lift to lift by click from fresh arrival${lifts.gates ? " (gates opened by their conditions)" : ""}`, lifts.ok, lifts.detail);
 
   if (!P.plateau) record(`${tag} ramp climb`, name === "hooks-test", "no ramp route to a higher cell, gates closed or open" + (name === "hooks-test" ? " (flat test level)" : ""));
   else {
