@@ -509,16 +509,70 @@ async function navSuite(size) {
   }
 }
 
+async function camSuite(size) {
+  const tag = `cam@${size.width}${size.touch ? "t" : ""}`;
+  const lvl = "wizard-medium";
+  const span = (page) => page.evaluate(() => { const r = window.__game.renderer, c = r.three.camera; return { w: (c.right - c.left) / Math.SQRT2, s: r.zoomScale, cam: r.cam }; });
+  const d = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1`, size);
+  await settle(d.page, 300);
+  const def = await span(d.page);
+  await d.page.close();
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1&cam=close`, size);
+  record(`${tag} page loads`, done);
+  if (!done) { await page.close(); return; }
+  await settle(page, 600);
+  const cl = await span(page);
+  const want = size.width === 1200 ? cl.w >= 9 && cl.w <= 11 : cl.w < def.w * 0.8;
+  record(`${tag} close view is tighter than fit`, cl.cam === "close" && cl.w < def.w && want, `fit ${def.w.toFixed(1)} close ${cl.w.toFixed(1)} tiles`);
+  await page.evaluate(() => {
+    window.__camWorst = 1;
+    const loop = () => {
+      const g = window.__game, a = g.state.actor, c = g.renderer.three.camera;
+      const v = new c.position.constructor(a.pos.x, a.y * g.state.view.tileH + 0.45, a.pos.z).project(c);
+      window.__camWorst = Math.min(window.__camWorst, 1 - Math.abs(v.x), 1 - Math.abs(v.y));
+      window.__camRaf = requestAnimationFrame(loop);
+    };
+    loop();
+  });
+  let hops = 0, landed = 0, moved = 0;
+  const start = await cellOf(page);
+  for (const key of [null, "KeyE", null, "KeyQ", null]) {
+    if (key) { await page.keyboard.press(key); await wait(600); continue; }
+    await settle(page, 400);
+    const t = await clickTargets(page);
+    if (!t.far) continue;
+    hops++;
+    await clickAt(page, t.far.p, size.touch);
+    await wait(300); await idle(page);
+    const got = await cellOf(page);
+    if (got.join() === t.far.c.join()) landed++;
+    moved = Math.max(moved, Math.abs(got[0] - start[0]) + Math.abs(got[1] - start[1]));
+  }
+  const worst = await page.evaluate(() => { cancelAnimationFrame(window.__camRaf); return window.__camWorst; });
+  record(`${tag} click picking lands on the clicked tile`, hops >= 3 && landed === hops, `${landed}/${hops} hops`);
+  record(`${tag} hero stays in frame while walking far`, worst > 0.05 && moved >= 8, `min edge margin ${(worst * 50).toFixed(1)}% moved ${moved} tiles`);
+  const z = await page.evaluate(async () => {
+    const r = window.__game.renderer, z0 = r.three.camera.right;
+    r.seq({ k: 1 }); const z1 = r.three.camera.right; r.seq({ k: 0 });
+    return { z0, z1, z2: r.three.camera.right };
+  });
+  record(`${tag} ride close-in returns to the cam zoom`, z.z1 < z.z0 && Math.abs(z.z2 - z.z0) < 1e-6, JSON.stringify(z));
+  record(`${tag} no console errors`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.close();
+}
+
 try {
   for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }]) {
     const only = process.env.QA_ONLY;
     if (only === "click") { if (size.width === 1200 || size.touch) await clickSuite(size); continue; }
     if (only === "nav") { await navSuite(size); continue; }
+    if (only === "cam") { await camSuite(size); continue; }
     for (const build of ["3d", "2d"]) await buildSuite(build, size);
     if (size.width === 1200 || size.touch) await rotationSuite(size);
     if (size.width === 1200 || size.touch) await clickSuite(size);
     if (!size.touch) { await compareSuite(size); await startSuite(size); }
     await navSuite(size);
+    await camSuite(size);
   }
 } finally {
   await browser.close();

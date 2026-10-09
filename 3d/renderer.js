@@ -77,9 +77,13 @@ export function createRenderer(container = document.body) {
     gl.setSize(w, h, false);
     if (!S) return;
     base = S.view.zoom > 0 ? S.view.zoom * (Number(S.params.zoom) > 0 ? 1 : Math.min(w / FRAME[0], h / FRAME[1])) : fitZoom(w, h);
+    if (cam === "close") base = Math.max(base, CLOSE_PX * Math.min(1, Math.max(0.6, Math.min(w / 1200, h / 800))));
+    else if (Number(cam) > 0) base *= Number(cam);
     frame();
   };
 
+  const CLOSE_PX = 1200 / (10 * Math.SQRT2), lead = new THREE.Vector3(), leadTo = new THREE.Vector3();
+  let cam = "";
   const closeZoom = () => heroFrac * (container.clientHeight || innerHeight) / HERO_H;
 
   const frame = () => {
@@ -124,6 +128,7 @@ export function createRenderer(container = document.body) {
     mount(state, st = makeStyle(state.level)) {
       const style = st;
       S = state;
+      cam = String(state.params.cam || "");
       initMotion(state.params);
       const L = state.level, seed = state.params.seed;
       scene.background = new THREE.Color(style.bg);
@@ -217,6 +222,8 @@ export function createRenderer(container = document.body) {
     get pathLine() { return line.mesh; },
     get things() { return things; },
     get zoomScale() { return zoom / base; },
+    get cam() { return cam; },
+    setCam(v) { cam = String(v || ""); resize(); },
     get drop() { return drop; },
     seq({ k = seqK, y = drop, keep, shake = jitter, frac } = {}) {
       if (frac > 0) heroFrac = frac;
@@ -268,6 +275,11 @@ export function createRenderer(container = document.body) {
         scene.background.copy(flashBase).lerp(WHITE, flashT < 1 ? this.flashAmount : 0);
       }
       const t = heroTarget(a), k = dt > 0 ? 1 - Math.exp(-dt * (4 + 26 * seqK)) : 1;
+      if (cam && seqK === 0) {
+        const L = a.moving && !a.locked ? 1.4 : 0;
+        lead.lerp(leadTo.set(Math.sin(a.facing) * L, 0, Math.cos(a.facing) * L), dt > 0 ? 1 - Math.exp(-dt * 2.5) : 1);
+        t.add(lead);
+      } else lead.set(0, 0, 0);
       focus.lerp(t, k);
     },
     render() {
