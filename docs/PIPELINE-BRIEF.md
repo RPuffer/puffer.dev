@@ -152,3 +152,4 @@ Starting point: tap-to-walk already exists (`core/path.js` pathToward, `renderer
 ## Pass 11 (2026-10-08)
 
 Operator: "there's still an obvious front and back, could we introduce maybe some more symmetry to help round out the backside a bit more - then go ahead with the point-and-click movement PoC, and if limits allow, give me some options to review for the character-selection landing page."
+- Island navigator (2026-10-08, later): "island navigation button, circular, on click, it opens up with a bouncy animation into a molecule like structure with multiple islands represented (let's call it 2 ahead of the current, and 2 behind the current)." A round button that springs open into a molecule-like graph of nodes: the current island at the centre, two islands ahead and two behind in run order, linked like bonds; candidates for jumping to visited islands.
