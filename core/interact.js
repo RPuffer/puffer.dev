@@ -45,6 +45,8 @@ export function thingBlocks(t) {
   return t.blocks || [];
 }
 
+export const GATE_LIFT = 1.1;
+
 export function storageKey(name) { return "isoworld:things:" + (name || "level"); }
 
 export function createInteract(level, { params = {}, storage = globalThis.localStorage, navigate, dom = typeof document !== "undefined" } = {}) {
@@ -213,10 +215,14 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
         }
       }
       for (const g of things) {
-        if (g.kind !== "gate" || g.state === "open" || !gateReady(g)) continue;
-        g.state = "open";
-        openGate(g);
-        save();
+        if (g.kind !== "gate" || g.state === "open") continue;
+        if (g.lifting != null) {
+          g.lifting -= dt;
+          if (g.lifting <= 0) { g.lifting = null; g.state = "open"; openGate(g); save(); }
+          continue;
+        }
+        if (!gateReady(g)) continue;
+        g.lifting = GATE_LIFT;
         emit({ type: "gate", thing: g });
       }
       if (pending) {

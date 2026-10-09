@@ -6,6 +6,7 @@ import { surfaceY, liftLevel } from "./terrain.js";
 import { createTweens, ease } from "./tween.js";
 import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
 import { liftDeck, beamGeometry, beamMaterial } from "./lift.js";
+import { GATE_LIFT } from "../core/interact.js";
 
 export const RISE = 2.4;
 const t3 =(c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
@@ -225,7 +226,7 @@ export function buildThings(L, view, style, decorGroup) {
     if (!m) return;
     if (e.type === "lit") { m.visible = true; m.userData.scale = 0; tweens.to(m.userData, "scale", 1, { duration: 0.7 }); }
     if (e.type === "open") tweens.to(m.userData, "open", 1, { duration: 0.6 });
-    if (e.type === "gate") tweens.to(m.userData, "lift", 1, { duration: 1.1 });
+    if (e.type === "gate") tweens.to(m.userData, "lift", 1, { duration: GATE_LIFT });
     if (e.type === "faced") tweens.to(m.userData, "glow", 1, { duration: 0.5 });
     if (e.type === "unwatch") tweens.to(m.userData, "glow", 0, { duration: 0.8, easing: ease.inOut });
   };
