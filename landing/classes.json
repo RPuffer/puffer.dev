@@ -1,66 +1,141 @@
 {
-  "person": {
-    "name": "Ryne Puffer",
-    "email": "rynepuffer@gmail.com",
-    "location": "Denver, CO",
-    "since": 2016,
-    "links": [
-      { "label": "Behance", "url": "https://www.behance.net/SyntheticFlow" }
-    ]
-  },
-  "default": "wanderer",
-  "classes": [
-    {
-      "id": "wanderer",
-      "name": "Wanderer",
-      "line": "A decade of shipped software, plus ink, acrylic, violin and EDM as orva.",
-      "stats": [
-        ["Distributed Systems", 8],
-        ["Cloud Infrastructure", 8],
-        ["Applied AI", 8],
-        ["Reliability", 8],
-        ["Full Stack", 7],
-        ["Art and Music", 9]
-      ]
-    },
-    {
-      "id": "aws",
-      "name": "AWS",
-      "line": "API Gateway and Lambda: ingress, WebSockets, DDoS resilience, 2022 to now.",
-      "stats": [
-        ["Distributed Systems", 9],
-        ["Reliability", 9],
-        ["Cloud Infrastructure", 9],
-        ["Security", 8],
-        ["Applied AI", 8],
-        ["Automation", 8]
-      ]
-    },
-    {
-      "id": "dutchie",
-      "name": "Dutchie",
-      "line": "Zero Ruby to production GraphQL in a month, then a greenfield Brand Portal.",
-      "stats": [
-        ["Backend", 8],
-        ["API Design", 8],
-        ["Fast Ramp", 9],
-        ["Product", 7],
-        ["Frontend", 6],
-        ["Mentoring", 6]
-      ]
-    },
-    {
-      "id": "nm",
-      "name": "Northwestern Mutual",
-      "line": "Java Struts to Node and React, carried onto Kubernetes and AWS.",
-      "stats": [
-        ["Legacy Modernization", 9],
-        ["Frontend", 8],
-        ["Backend", 8],
-        ["Systems Integration", 7],
-        ["Cloud Infrastructure", 7],
-        ["Product", 6]
-      ]
-    }
+ "person": {
+  "name": "Ryne Puffer",
+  "email": "rynepuffer@gmail.com",
+  "location": "Denver, CO",
+  "since": 2016,
+  "links": [
+   {
+    "label": "Behance",
+    "url": "https://www.behance.net/SyntheticFlow"
+   }
   ]
+ },
+ "default": "wanderer",
+ "classes": [
+  {
+   "id": "wanderer",
+   "name": "Wanderer",
+   "line": "Off the clock: games, ink and paint, violin, and EDM as orva.",
+   "stats": [
+    [
+     "Video Games",
+     9
+    ],
+    [
+     "Music Production",
+     8
+    ],
+    [
+     "Violin",
+     8
+    ],
+    [
+     "Drawing and Painting",
+     9
+    ],
+    [
+     "Guitar and Drums",
+     6
+    ],
+    [
+     "Creature Design",
+     9
+    ]
+   ]
+  },
+  {
+   "id": "aws",
+   "name": "AWS",
+   "line": "API Gateway and Lambda: ingress, WebSockets, DDoS resilience, 2022 to now.",
+   "stats": [
+    [
+     "Distributed Systems",
+     9
+    ],
+    [
+     "Reliability",
+     9
+    ],
+    [
+     "Cloud Infrastructure",
+     9
+    ],
+    [
+     "Security",
+     8
+    ],
+    [
+     "Applied AI",
+     8
+    ],
+    [
+     "Automation",
+     8
+    ]
+   ]
+  },
+  {
+   "id": "dutchie",
+   "name": "Dutchie",
+   "line": "Zero Ruby to production GraphQL in a month, then a greenfield Brand Portal.",
+   "stats": [
+    [
+     "Backend",
+     8
+    ],
+    [
+     "API Design",
+     8
+    ],
+    [
+     "Fast Ramp",
+     9
+    ],
+    [
+     "Product",
+     7
+    ],
+    [
+     "Frontend",
+     6
+    ],
+    [
+     "Mentoring",
+     6
+    ]
+   ]
+  },
+  {
+   "id": "nm",
+   "name": "Northwestern Mutual",
+   "line": "Java Struts to Node and React, carried onto Kubernetes and AWS.",
+   "stats": [
+    [
+     "Legacy Modernization",
+     9
+    ],
+    [
+     "Frontend",
+     8
+    ],
+    [
+     "Backend",
+     8
+    ],
+    [
+     "Systems Integration",
+     7
+    ],
+    [
+     "Cloud Infrastructure",
+     7
+    ],
+    [
+     "Product",
+     6
+    ]
+   ]
+  }
+ ]
 }
