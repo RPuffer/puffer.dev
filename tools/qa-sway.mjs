@@ -12,6 +12,7 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 const ISLANDS = ["cat-medium", "wizard-medium", "swallow-medium", "forest-volute", "mindbloom-medium", "cosmos-frisket", "gremlin-subject", "eagle-composition", "dragon-medium", "sharkbear-medium", "chimera-medium", "ember-subject"];
 const MODES = ["static", "crown", "flame", "ripple", "fall", "mist", "pickup", "swatch"];
 const TOL = 0.01;
+const FACE_GAP = 0.004, FACE_WIN = 0.12, FACE_AREA = 2e-4;
 const args = process.argv.slice(2);
 const verbose = args.includes("--verbose");
 const only = args.find((a) => a.startsWith("--type="))?.slice(7);
@@ -29,7 +30,7 @@ function bound(s, y) {
 }
 
 function parts(g) {
-  const P = g.attributes.position.array, S = g.attributes.aSway.array, R = g.attributes.aRoot.array;
+  const P = g.attributes.position.array, C = g.attributes.color.array, S = g.attributes.aSway.array, R = g.attributes.aRoot.array;
   const n = P.length / 9, key = [], par = new Int32Array(n).map((_, i) => i);
   const find = (i) => { while (par[i] !== i) i = par[i] = par[par[i]]; return i; };
   const seen = new Map();
@@ -122,16 +123,75 @@ function bakeOne(t, v, base) {
   const cells = Array.from({ length: N }, () => Array.from({ length: N }, () => ({ h: 1, s: "sand" })));
   const L = { ...base, size: [N, N], decor: [{ t, x: 1, z: 1, v, rot: 0, ox: 0, oz: 0 }], cells, things: [] };
   const { group } = buildDecor(L, viewFrom(L, {}), makeStyle(L));
-  const out = [];
-  group.traverse((o) => { if (o.isMesh && o.geometry?.attributes?.aSway) out.push(...parts(o.geometry)); });
+  const out = [], geos = [];
+  group.updateMatrixWorld(true);
+  group.traverse((o) => { if (o.isMesh && o.geometry?.attributes?.aSway) { out.push(...parts(o.geometry)); geos.push(o.geometry.clone().applyMatrix4(o.matrixWorld)); } });
+  out.geos = geos;
   return out;
+}
+
+function clip(poly, a, b) {
+  const out = [], side = (p) => (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]);
+  for (let i = 0; i < poly.length; i++) {
+    const p = poly[i], q = poly[(i + 1) % poly.length], sp = side(p), sq = side(q);
+    if (sp >= 0) out.push(p);
+    if (sp >= 0 !== sq >= 0) { const t = sp / (sp - sq); out.push([p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])]); }
+  }
+  return out;
+}
+const area2 = (p) => p.reduce((s, a, i) => { const b = p[(i + 1) % p.length]; return s + a[0] * b[1] - b[0] * a[1]; }, 0) / 2;
+const orient = (t) => (area2(t) < 0 ? [t[0], t[2], t[1]] : t);
+
+function faces(geos) {
+  const tris = [], seen = new Map(), par = [];
+  const find = (i) => { while (par[i] !== i) i = par[i] = par[par[i]]; return i; };
+  for (const g of geos) {
+    const P = g.attributes.position.array, C = g.attributes.color.array, S = g.attributes.aSway.array, R = g.attributes.aRoot.array;
+    for (let v = 0; v < P.length; v += 9) {
+      const vi = v / 3, sw = [...S.slice(vi * 4, vi * 4 + 4)], rt = [...R.slice(vi * 3, vi * 3 + 3)];
+      if (sw[0] === 7) sw.fill(0);
+      const t = tris.length, q = [0, 1, 2].map((k) => [P[v + k * 3], P[v + k * 3 + 1], P[v + k * 3 + 2]]);
+      par.push(t);
+      for (const x of q) { const id = x.map((c) => Math.round(c * 1e4)).join(); const o = seen.get(id); if (o === undefined) seen.set(id, t); else par[find(t)] = find(o); }
+      const u = [0, 1, 2].map((a) => q[1][a] - q[0][a]), w = [0, 1, 2].map((a) => q[2][a] - q[0][a]);
+      const n = [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]], l = Math.hypot(...n);
+      if (l < 1e-9) { tris.push(null); continue; }
+      const nn = n.map((x) => x / l), ax = nn.map(Math.abs).indexOf(Math.max(...nn.map(Math.abs)));
+      const [i, j] = [0, 1, 2].filter((a) => a !== ax);
+      const p2 = orient(q.map((x) => [x[i], x[j]]));
+      tris.push({ col: [...C.slice(v, v + 3)].map((x) => Math.round(x * 255)).join(), sw, rt, r: Math.max(...q.map((x) => Math.hypot(x[0] - rt[0], x[2] - rt[2]))), n: nn, d: nn[0] * q[0][0] + nn[1] * q[0][1] + nn[2] * q[0][2], p2, q, min: [0, 1].map((k) => Math.min(...p2.map((x) => x[k]))), max: [0, 1].map((k) => Math.max(...p2.map((x) => x[k]))) });
+    }
+  }
+  const box = new Map();
+  tris.forEach((t, i) => { if (!t) return; const c = find(i), b = box.get(c) || box.set(c, [[Infinity, Infinity, Infinity], [-Infinity, -Infinity, -Infinity]]).get(c); for (const x of t.q) for (let a = 0; a < 3; a++) { b[0][a] = Math.min(b[0][a], x[a]); b[1][a] = Math.max(b[1][a], x[a]); } });
+  const buckets = new Map();
+  tris.forEach((t, i) => { if (!t) return; t.c = find(i); const k = t.n.map((x) => Math.round(x * 50)).join(); (buckets.get(k) || buckets.set(k, []).get(k)).push(t); });
+  const hits = new Map();
+  for (const list of buckets.values()) {
+    list.sort((a, b) => a.d - b.d);
+    for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length && list[j].d - list[i].d < FACE_WIN; j++) {
+      const A = list[i], B = list[j];
+      if (A.c === B.c || A.n[0] * B.n[0] + A.n[1] * B.n[1] + A.n[2] * B.n[2] < 0.999) continue;
+      const same = samePhase(A, B) && A.sw[1] === B.sw[1] && A.sw[3] === B.sw[3] && A.rt[1] === B.rt[1];
+      const rel = Math.max(...[...A.q, ...B.q].map((v) => { const ba = bound(A, v[1]), bb = bound(B, v[1]); return [0, 1, 2].reduce((s, k) => s + Math.abs(A.n[k]) * (same ? Math.abs(ba[k] - bb[k]) : ba[k] + bb[k]), 0); }));
+      if (B.d - A.d >= FACE_GAP + rel || (same && A.col === B.col)) continue;
+      if (A.max[0] <= B.min[0] || B.max[0] <= A.min[0] || A.max[1] <= B.min[1] || B.max[1] <= A.min[1]) continue;
+      let poly = A.p2;
+      for (let e = 0; e < 3 && poly.length; e++) poly = clip(poly, B.p2[e], B.p2[(e + 1) % 3]);
+      const a = poly.length > 2 ? Math.abs(area2(poly)) : 0;
+      if (a < 1e-6) continue;
+      const id = A.c < B.c ? `${A.c},${B.c}` : `${B.c},${A.c}`, h = hits.get(id) || hits.set(id, { area: 0, gap: B.d - A.d, rel, boxes: [box.get(A.c), box.get(B.c)], at: A.q[0], n: A.n }).get(id);
+      h.area += a;
+    }
+  }
+  return [...hits.values()].filter((h) => h.area > FACE_AREA);
 }
 
 Object.defineProperty(Baker.prototype, "cull", { get: () => false, set() {} });
 const loadErrors = [];
 const err = console.error;
 console.error = (...a) => { if (String(a[0]).startsWith("[pieces]")) loadErrors.push(a.join(" ")); err(...a); };
-const results = new Map();
+const results = new Map(), zfight = new Map();
 let tested = 0;
 async function sweep(name, base) {
   for (const t of Object.keys(CATALOG)) {
@@ -141,9 +201,10 @@ async function sweep(name, base) {
       let ps;
       try { ps = bakeOne(t, v, base); } catch (e) { if (verbose) console.error(`${name} ${t} v${v} bake failed: ${e.message}`); continue; }
       tested++;
+      const id = `${t} v${v}`, zf = faces(ps.geos);
+      if (zf.length && !zfight.has(id)) zfight.set(id, { name, zf });
       if (!ps.some((p) => p.peak)) continue;
       const fails = check(ps);
-      const id = `${t} v${v}`;
       if (fails.length && !results.has(id)) results.set(id, { name, fails });
     }
   }
@@ -164,7 +225,11 @@ for (const [id, { name, fails }] of results) {
   console.log(`FAIL ${id} (${name})`);
   for (const f of fails.slice(0, verbose ? 99 : 3)) console.log(`  ${f.worst.toFixed(3)} over: ${label(f.A)} x ${label(f.B)} near [${f.at.map((x) => x.toFixed(2))}]`);
 }
+for (const [id, { name, zf }] of zfight) {
+  console.log(`FAIL ${id} (${name}) coplanar faces`);
+  for (const h of zf.slice(0, verbose ? 99 : 3)) console.log(`  area ${h.area.toFixed(4)} gap ${h.gap.toFixed(4)} need ${(FACE_GAP + h.rel).toFixed(4)} normal [${h.n.map((x) => x.toFixed(2))}] near [${h.at.map((x) => x.toFixed(2))}]${verbose ? " " + h.boxes.map((b) => `[${b[0].map((x) => x.toFixed(2))}..${b[1].map((x) => x.toFixed(2))}]`).join(" x ") : ""}`);
+}
 for (const e of loadErrors) console.log(`FAIL load ${e}`);
-const fails = results.size + loadErrors.length + (tested ? 0 : 1);
+const fails = results.size + zfight.size + loadErrors.length + (tested ? 0 : 1);
 console.log(`qa-sway: ${tested} prop variants, ${fails} fail`);
 process.exitCode = fails ? 1 : 0;
