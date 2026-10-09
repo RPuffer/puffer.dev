@@ -116,7 +116,9 @@ function partMesh(build, light, k, at, rotY, reach = false) {
 
 export function bakeThingBases(S, L, view, style, P = S) {
   const LL = liftLevel(L), k = lookOf(style);
-  for (const t of L.things || []) {
+  const byId = new Map((live || []).map((q) => [q.id, q]));
+  for (const t0 of L.things || []) {
+    const t = byId.get(t0.id) || t0;
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
@@ -124,7 +126,7 @@ export function bakeThingBases(S, L, view, style, P = S) {
   }
 }
 
-export function buildThings(L, view, style, decorGroup) {
+export function buildThings(L, view, style, decorGroup, live = null) {
   const group = new THREE.Group();
   group.name = "things";
   const LL = liftLevel(L), k = lookOf(style), light = style.light;

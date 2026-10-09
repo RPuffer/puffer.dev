@@ -142,7 +142,7 @@ export function createRenderer(container = document.body) {
       things = null;
       ride = 0;
       if (hasThings) {
-        things = buildThings(L, state.view, style, decor.group);
+        things = buildThings(L, state.view, style, decor.group, state.things?.things);
         scene.add(things.group);
         mounted.push(things.group);
         state.things?.on(things.onEvent);
