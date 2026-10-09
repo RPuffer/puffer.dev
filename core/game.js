@@ -56,6 +56,7 @@ export function createGame(renderer, params = readParams()) {
     const { actor, proj, things, level } = state;
     if (!actor) return;
     if (it.kind === "rotate") { game.rotate(it.step); return; }
+    if (it.kind === "zoom") { game.zoom(it.step); return; }
     if (it.kind === "hold") {
       screenHeld = it.dir || null;
       actor.held = it.dir ? screenToWorldDir(proj, it.dir) : null;
@@ -114,6 +115,8 @@ export function createGame(renderer, params = readParams()) {
     renderer,
     onTick(f) { tickers.add(f); return () => tickers.delete(f); },
     canRotate: () => true,
+    canZoom: () => true,
+    zoom(step) { return !!(state.actor && game.canZoom() && renderer.zoomStep?.(step)); },
     rotate(step = 1) {
       if (!renderer.onOrient || !state.view || !state.actor || !step || !game.canRotate()) return false;
       const base = state.turn ? state.turn.to : state.view.yaw;

@@ -3,6 +3,7 @@ const KEYS = {
   KeyA: "left", ArrowLeft: "left", KeyD: "right", ArrowRight: "right",
 };
 const TURNS = { KeyQ: -1, KeyE: 1 };
+const ZOOM_KEYS = { Equal: 1, NumpadAdd: 1, Minus: -1, NumpadSubtract: -1 };
 
 const PAD_CSS = `
 .iso-dpad{position:fixed;left:18px;bottom:18px;width:132px;height:132px;z-index:10;touch-action:none;user-select:none;-webkit-user-select:none}
@@ -23,6 +24,8 @@ export function createInput(el, { dpad = "auto" } = {}) {
   const onKeyDown = (e) => {
     const r = TURNS[e.code];
     if (r && !e.metaKey && !e.ctrlKey && !e.altKey) { if (!e.repeat) setTimeout(() => { if (!e.defaultPrevented) emit({ kind: "rotate", step: r }); }, 0); return; }
+    const z = ZOOM_KEYS[e.code];
+    if (z && !e.metaKey && !e.ctrlKey && !e.altKey) { e.preventDefault(); if (!e.repeat) emit({ kind: "zoom", step: z }); return; }
     const d = KEYS[e.code];
     if (!d || e.metaKey || e.ctrlKey || e.altKey) return;
     e.preventDefault();
@@ -45,6 +48,18 @@ export function createInput(el, { dpad = "auto" } = {}) {
     const r = el.getBoundingClientRect();
     emit({ kind: "tap", x: e.clientX - r.left, y: e.clientY - r.top, w: r.width, h: r.height });
   };
+  let wheelAcc = 0, wheelAt = 0;
+  const onWheel = (e) => {
+    e.preventDefault();
+    const now = performance.now();
+    if (now - wheelAt > 400) wheelAcc = 0;
+    wheelAt = now;
+    wheelAcc += (e.deltaMode === 1 ? 40 : 1) * e.deltaY * (e.ctrlKey ? 6 : 1);
+    if (Math.abs(wheelAcc) < 90) return;
+    emit({ kind: "zoom", step: wheelAcc < 0 ? 1 : -1 });
+    wheelAcc = 0;
+  };
+  el.addEventListener("wheel", onWheel, { passive: false });
   el.addEventListener("pointerdown", onPointerDown);
   el.addEventListener("pointerup", onPointerUp);
 
@@ -85,6 +100,7 @@ export function createInput(el, { dpad = "auto" } = {}) {
       removeEventListener("blur", onBlur);
       removeEventListener("pagehide", onBlur);
       removeEventListener("touchstart", onTouch);
+      el.removeEventListener("wheel", onWheel);
       el.removeEventListener("pointerdown", onPointerDown);
       el.removeEventListener("pointerup", onPointerUp);
       pad?.remove();

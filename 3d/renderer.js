@@ -36,6 +36,14 @@ export function disposeTree(root, keep = new Set()) {
   });
 }
 
+export const ZOOMS = [1, 1.5, 2, 3, 4], ZOOM_DEFAULT = 3, ZOOM_KEY = "isoworld:zoom";
+export function savedZoom(storage = globalThis.localStorage) {
+  try { const v = Number(storage?.getItem(ZOOM_KEY)); return ZOOMS.includes(v) ? v : ZOOM_DEFAULT; } catch { return ZOOM_DEFAULT; }
+}
+export function saveZoom(v, storage = globalThis.localStorage) {
+  try { storage?.setItem(ZOOM_KEY, String(v)); } catch {}
+}
+
 export function createRenderer(container = document.body) {
   const gl = new THREE.WebGLRenderer({ antialias: true, stencil: true });
   gl.setPixelRatio(Math.min(2, devicePixelRatio || 1));
@@ -79,14 +87,23 @@ export function createRenderer(container = document.body) {
     const w = container.clientWidth || innerWidth, h = container.clientHeight || innerHeight;
     gl.setSize(w, h, false);
     if (!S) return;
-    base = S.view.zoom > 0 ? S.view.zoom * (Number(S.params.zoom) > 0 ? 1 : Math.min(w / FRAME[0], h / FRAME[1])) : fitZoom(w, h);
-    if (cam === "close") base = Math.max(base, CLOSE_PX * Math.min(1, Math.max(0.6, Math.min(w / 1200, h / 800))));
-    else if (Number(cam) > 0) base *= Number(cam);
+    fitBase = S.view.zoom > 0 ? S.view.zoom * (Number(S.params.zoom) > 0 ? 1 : Math.min(w / FRAME[0], h / FRAME[1])) : fitZoom(w, h);
+    rebase();
+  };
+  const rebase = () => {
+    const w = container.clientWidth || innerWidth, h = container.clientHeight || innerHeight;
+    base = cam === "close" ? Math.max(fitBase, CLOSE_PX * Math.min(1, Math.max(0.6, Math.min(w / 1200, h / 800)))) : fitBase * mul;
     frame();
   };
 
   const CLOSE_PX = 1200 / (10 * Math.SQRT2), lead = new THREE.Vector3(), leadTo = new THREE.Vector3();
-  let cam = "";
+  let cam = "", fitBase = 60, mul = 1, mulTo = 1;
+  const setCam = (v, smooth = false) => {
+    cam = String(v || "");
+    mulTo = Number(cam) > 0 ? Number(cam) : 1;
+    if (!smooth) mul = mulTo;
+    if (S) rebase();
+  };
   const closeZoom = () => heroFrac * (container.clientHeight || innerHeight) / HERO_H;
 
   const frame = () => {
@@ -132,7 +149,7 @@ export function createRenderer(container = document.body) {
     mount(state, st = makeStyle(state.level)) {
       const style = st;
       S = state;
-      cam = String(state.params.cam || "");
+      setCam(state.params.cam != null && state.params.cam !== "" ? state.params.cam : state.params.hero === "0" ? 1 : savedZoom());
       initMotion(state.params);
       const L = state.level, seed = state.params.seed;
       scene.background = new THREE.Color(style.bg);
@@ -227,7 +244,19 @@ export function createRenderer(container = document.body) {
     get things() { return things; },
     get zoomScale() { return zoom / base; },
     get cam() { return cam; },
-    setCam(v) { cam = String(v || ""); resize(); },
+    setCam(v) { setCam(v); resize(); },
+    zoomStep(step) {
+      if (!step || !S) return false;
+      const cur = Number(cam) > 0 ? mulTo : 1;
+      let i = ZOOMS.findIndex((z) => z >= cur - 1e-6);
+      if (i < 0) i = ZOOMS.length - 1;
+      else if (step < 0 && ZOOMS[i] > cur + 1e-6) i--;
+      const to = ZOOMS[Math.max(0, Math.min(ZOOMS.length - 1, i + Math.sign(step)))];
+      if (to === cur && cam !== "close") return false;
+      setCam(to, true);
+      saveZoom(to);
+      return true;
+    },
     get drop() { return drop; },
     seq({ k = seqK, y = drop, keep, shake = jitter, frac } = {}) {
       if (frac > 0) heroFrac = frac;
@@ -273,6 +302,11 @@ export function createRenderer(container = document.body) {
       hero.userData.animate(a, dt);
       line.update(state, dt, { clear: beamClear.value, drop, show: hero.visible && !a.locked && seqK === 0 });
       stepMotion(dt);
+      if (mul !== mulTo) {
+        mul += (mulTo - mul) * (dt > 0 ? 1 - Math.exp(-dt * 12) : 1);
+        if (Math.abs(mul - mulTo) < 1e-3 * mulTo) mul = mulTo;
+        rebase();
+      }
       if (bgT < 1) { bgT = Math.min(1, bgT + dt / 0.6); scene.background.copy(bgFrom).lerp(bgTo, bgT); }
       if (flashT < 1) {
         flashT = Math.min(1, flashT + dt / 0.12);

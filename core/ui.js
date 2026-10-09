@@ -201,7 +201,7 @@ export const startHref = () => new URL("../islands.html", import.meta.url).href;
 
 const framed = () => { try { return window.top !== window; } catch { return true; } };
 
-export function mountUI({ container, rotate = null, nav = null } = {}) {
+export function mountUI({ container, rotate = null, zoom = null, nav = null } = {}) {
   const q = new URLSearchParams(location.search);
   if (!container && (framed() || q.get("ui") === "0" || q.get("hero") === "0")) return null;
   if (!document.getElementById("iw-ui-css")) {
@@ -215,6 +215,18 @@ export function mountUI({ container, rotate = null, nav = null } = {}) {
   const islands = document.createElement("a");
   islands.textContent = "islands";
   islands.href = startHref();
+  const button = (label, title, data, act) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = label;
+    b.title = title;
+    b.setAttribute("aria-label", title);
+    Object.assign(b.dataset, data);
+    b.addEventListener("pointerdown", (e) => e.stopPropagation());
+    b.addEventListener("click", (e) => { e.preventDefault(); act(); });
+    return b;
+  };
+  const zooms = zoom ? [[-1, "\u2212", "zoom out (-)"], [1, "+", "zoom in (+)"]].map(([step, label, title]) => button(label, title, { zoom: String(step) }, () => zoom(step))) : [];
   const turns = rotate ? [[-1, "⟲", "rotate left (Q)"], [1, "⟳", "rotate right (E)"]].map(([step, label, title]) => {
     const b = document.createElement("button");
     b.type = "button";
@@ -227,7 +239,7 @@ export function mountUI({ container, rotate = null, nav = null } = {}) {
     return b;
   }) : [];
   const navigator = nav ? mountNavigator(nav) : null;
-  box.append(...turns, ...(navigator ? [navigator.button] : []), islands);
+  box.append(...zooms, ...turns, ...(navigator ? [navigator.button] : []), islands);
   (container || document.body).appendChild(box);
-  return { element: box, link: islands, turns, navigator };
+  return { element: box, link: islands, turns, zooms, navigator };
 }

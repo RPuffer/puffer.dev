@@ -89,10 +89,12 @@ try {
   });
   run.use(sequence);
   game.canRotate = () => !sequence.active && !game.state.actor?.locked;
+  game.canZoom = () => !sequence.active;
   renderer.onOrient((state) => clouds?.orient(state));
   run.boot(first);
   window.__ui = mountUI({
     rotate: (step) => game.rotate(step),
+    zoom: (step) => game.zoom(step),
     nav: {
       current: () => game.state.level?.name,
       busy: () => sequence.active || !!game.state.actor?.locked,

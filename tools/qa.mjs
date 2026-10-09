@@ -513,7 +513,7 @@ async function camSuite(size) {
   const tag = `cam@${size.width}${size.touch ? "t" : ""}`;
   const lvl = "wizard-medium";
   const span = (page) => page.evaluate(() => { const r = window.__game.renderer, c = r.three.camera; return { w: (c.right - c.left) / Math.SQRT2, s: r.zoomScale, cam: r.cam }; });
-  const d = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1`, size);
+  const d = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1&cam=1`, size);
   await settle(d.page, 300);
   const def = await span(d.page);
   await d.page.close();
