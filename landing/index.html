@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ryne Puffer</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--ink:#2a1f33;--paper:#fffaf0;--beam:#12c4f0;--sun:#f5c243;--ember:#e8873a;--moss:#7cc56a;--rose:#e86aa0;--sky1:#fbe6d4;--sky2:#f2cdbf;--cloud:#fff6ea;--cloud2:#f1dccb;--round:ui-rounded,"SF Pro Rounded","Nunito","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;color:var(--ink);font:16px/1.4 var(--round)}
+body{min-height:100vh;background:linear-gradient(var(--sky1),var(--sky2));overflow-x:hidden}
+.bed{position:fixed;inset:auto -10% -6vh -10%;height:34vh;pointer-events:none;z-index:0}
+.bed i{position:absolute;bottom:0;border-radius:50%;background:var(--cloud);box-shadow:inset 0 -14px 0 var(--cloud2)}
+.bed i:nth-child(1){left:0;width:34%;height:70%}.bed i:nth-child(2){left:22%;width:30%;height:95%}.bed i:nth-child(3){left:44%;width:28%;height:66%}.bed i:nth-child(4){left:62%;width:30%;height:88%}.bed i:nth-child(5){left:82%;width:28%;height:60%}
+#stage{position:relative;z-index:1;min-height:100vh}
+#swap{position:fixed;z-index:9;left:max(12px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));font:600 12px/1 var(--round);letter-spacing:.08em;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:7px 12px;box-shadow:inset 0 -3px 0 #e7dccb;cursor:pointer;opacity:.82}
+#swap:hover,#swap:focus-visible{opacity:1;outline:3px solid var(--beam);outline-offset:2px}
+#swap b{color:var(--beam)}
+a[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;transition-duration:0s!important}}
+</style>
+<style id="theme-css"></style>
+</head>
+<body>
+<div class="bed" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<main id="stage"></main>
+<button id="swap" type="button" title="Next theme (T)">theme <b id="tname"></b> &#9656;</button>
+<script type="module">
+import { THEMES } from "./themes/registry.js";
+import * as data from "./skills.js";
+import { wire, rolesList, settle } from "./run.js";
+const names = Object.keys(THEMES);
+const stage = document.getElementById("stage"), css = document.getElementById("theme-css");
+let off = [], current = null;
+const kit = { ...data, wire, rolesList, hero: "hero.jpg", bust: "hero-bust.jpg", on(t, e, f, o) { t.addEventListener(e, f, o); off.push(() => t.removeEventListener(e, f, o)); } };
+const pick = () => {
+  const q = new URLSearchParams(location.search).get("theme");
+  if (q && THEMES[q]) return q;
+  let last = null; try { last = sessionStorage.getItem("landing:theme"); } catch {}
+  const pool = names.length > 1 ? names.filter((n) => n !== last) : names;
+  return pool[Math.floor(Math.random() * pool.length)];
+};
+async function show(name) {
+  off.forEach((f) => f()); off = [];
+  const mod = (await THEMES[name]()).default;
+  current = name;
+  try { sessionStorage.setItem("landing:theme", name); } catch {}
+  document.body.className = "t-" + name;
+  document.title = "Ryne Puffer, " + mod.title;
+  css.textContent = mod.css || "";
+  stage.innerHTML = "";
+  const refs = mod.mount(stage, kit);
+  document.getElementById("tname").textContent = name;
+  await wire(refs);
+  await settle();
+}
+const next = () => {
+  const n = names[(names.indexOf(current) + 1) % names.length];
+  const u = new URL(location.href); u.searchParams.set("theme", n); history.replaceState(null, "", u);
+  show(n);
+};
+document.getElementById("swap").addEventListener("click", next);
+document.addEventListener("keydown", (e) => { if ((e.key === "t" || e.key === "T") && !e.metaKey && !e.ctrlKey && !(e.target instanceof HTMLInputElement)) next(); });
+show(pick());
+</script>
+</body>
+</html>
