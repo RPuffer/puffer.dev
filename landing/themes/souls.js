@@ -27,8 +27,6 @@ body.t-souls .bed{display:none}
 .sc-go a:hover,.sc-go a:focus-visible{outline:3px solid #fff3e0;outline-offset:3px}
 .sc-go small{display:block;font-size:11px;letter-spacing:.04em;text-transform:none;font-weight:600}
 .sc-att{grid-area:att;padding:18px 22px 20px}
-.sc-line{margin:0 0 14px;min-height:1.4em;color:var(--dim);transition:opacity .25s}
-.sc-line.out{opacity:0}
 .sc-att ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .sc-att li{display:grid;grid-template-columns:11.5em 1fr 2ch;align-items:center;gap:14px;font-weight:700}
 .sc-bar{height:14px;border-radius:999px;background:var(--pan2);box-shadow:inset 0 2px 0 #0005;overflow:hidden}
@@ -68,20 +66,18 @@ ${links ? `<div><dt>Links</dt><dd>${links}</dd></div>` : ""}
 </dl>
 <div class="sc-go"><a id="sc-begin" href="#">Begin</a><a id="sc-cont" class="alt" href="#" hidden>Continue<small id="sc-where"></small></a></div>
 </section>
-<section class="sc-att sc-p" aria-label="Attributes"><p class="sc-line" id="sc-line"></p><ul id="sc-stats">${"<li><span></span><i class=\"sc-bar\"><b></b></i><em></em></li>".repeat(6)}</ul></section>
+<section class="sc-att sc-p" aria-label="Attributes"><ul id="sc-stats">${"<li><span></span><i class=\"sc-bar\"><b></b></i><em></em></li>".repeat(6)}</ul></section>
 <figure class="sc-hero sc-p"><img src="${k.hero}" alt="Ryne's character standing on a golden island" width="900" height="1000"></figure>
 <footer class="sc-keys"><span><kbd>&larr;</kbd><kbd>&rarr;</kbd>Class</span><span><kbd>F</kbd><kbd>Enter</kbd>Begin</span><span><kbd>Tab</kbd>Move</span></footer>
 </div>`;
   const $ = (s) => root.querySelector(s);
-  const cls = $("#sc-cls"), line = $("#sc-line"), rows = [...$("#sc-stats").children], begin = $("#sc-begin");
+  const cls = $("#sc-cls"), rows = [...$("#sc-stats").children], begin = $("#sc-begin");
   const q = new URLSearchParams(location.search).get("class");
   let at = Math.max(0, C.findIndex((c) => c.id === (q || data.default)));
   const show = (i, first) => {
     at = (i + C.length) % C.length;
     const c = C[at];
     cls.textContent = c.name;
-    line.classList.add("out");
-    setTimeout(() => { line.textContent = c.line; line.classList.remove("out"); }, first ? 0 : 200);
     rows.forEach((r, j) => {
       const [n, v] = c.stats[j];
       r.children[0].textContent = n;

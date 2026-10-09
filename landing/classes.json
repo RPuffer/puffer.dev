@@ -16,7 +16,6 @@
   {
    "id": "aws",
    "name": "AWS",
-   "line": "API Gateway and Lambda: ingress, WebSockets, DDoS resilience, 2022 to now.",
    "stats": [
     [
      "Distributed Systems",
@@ -47,7 +46,6 @@
   {
    "id": "dutchie",
    "name": "Dutchie",
-   "line": "Zero Ruby to production GraphQL in a month, then a greenfield Brand Portal.",
    "stats": [
     [
      "Backend",
@@ -78,7 +76,6 @@
   {
    "id": "nm",
    "name": "Northwestern Mutual",
-   "line": "Java Struts to Node and React, carried onto Kubernetes and AWS.",
    "stats": [
     [
      "Legacy Modernization",
@@ -109,7 +106,6 @@
   {
    "id": "wanderer",
    "name": "Wretch",
-   "line": "Off the clock: games, ink and paint, violin, and EDM as orva.",
    "stats": [
     [
      "Rocket League",
