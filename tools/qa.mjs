@@ -281,6 +281,111 @@ async function rotationSuite(size) {
   await page.close();
 }
 
+async function pickMap(page) {
+  return page.evaluate(() => {
+    const r = window.__game.renderer, el = r.element, w = el.clientWidth, h = el.clientHeight, m = {};
+    for (let y = 2; y < h; y += 6) for (let x = 2; x < w; x += 6) {
+      const c = r.pick(x, y, w, h);
+      if (!c) continue;
+      const k = c.join(","), e = m[k] || (m[k] = [0, 0, 0]);
+      e[0] += x; e[1] += y; e[2]++;
+    }
+    for (const k in m) { const e = m[k]; m[k] = [e[0] / e[2], e[1] / e[2], e[2]]; }
+    return m;
+  });
+}
+
+async function clickTargets(page) {
+  const map = await pickMap(page);
+  return page.evaluate(async (map) => {
+    const { routeTo, reachable } = await import("/core/path.js");
+    const S = window.__game.state, a = S.actor, L = S.level;
+    const seen = new Set(reachable(L, a.cell).map((c) => c.join(",")));
+    let far = null, miss = null;
+    for (const [k, e] of Object.entries(map)) {
+      if (e[2] < 6) continue;
+      const c = k.split(",").map(Number), r = routeTo(L, a.cell, c);
+      if (!r) continue;
+      if (seen.has(k)) { if (!far || r.cells.length > far.n) far = { c, n: r.cells.length, p: e }; }
+      else if (L.cells[c[1]]?.[c[0]]?.h >= 1) {
+        const end = r.cells[r.cells.length - 1];
+        if (end[0] === a.cell[0] && end[1] === a.cell[1]) continue;
+        if (!miss || e[2] > miss.p[2]) miss = { c, end, p: e };
+      }
+    }
+    return { far, miss };
+  }, map);
+}
+
+const routeInfo = (page) => page.evaluate(() => {
+  const g = window.__game, R = g.state.route, m = g.renderer.pathLine, u = m?.material.uniforms;
+  return { active: R.active, length: R.length, goal: R.goal, ahead: R.ahead(), vis: !!m?.visible, count: m?.geometry.drawRange.count || 0, head: u?.uHead.value, len: u?.uLen.value, mark: g.state.mark };
+});
+
+async function clickAt(page, p, touch) {
+  if (touch) await page.touchscreen.tap(p[0], p[1]); else await page.mouse.click(p[0], p[1]);
+}
+
+async function clickSuite(size) {
+  const tag = `click@${size.width}${size.touch ? "t" : ""}`;
+  for (const yaw of [45, 225]) {
+    const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1&yaw=${yaw}`, size);
+    record(`${tag} yaw ${yaw} page loads`, done);
+    if (!done) { await page.close(); continue; }
+    await settle(page, 800);
+    let t = await clickTargets(page);
+    record(`${tag} yaw ${yaw} far reachable tile on screen`, !!t.far, t.far ? `${t.far.c} ${t.far.n} cells` : "");
+    if (t.far) {
+      await clickAt(page, t.far.p, size.touch);
+      await wait(350);
+      const mid = await routeInfo(page);
+      record(`${tag} yaw ${yaw} path line present mid-walk`, mid.active && mid.vis && mid.count > 12 && mid.head < mid.len && mid.goal?.join() === t.far.c.join(), `route ${mid.length} head ${mid.head?.toFixed(2)} / ${mid.len?.toFixed(2)} draw ${mid.count}`);
+      if (yaw === 45 && !size.touch) await page.screenshot({ path: path.join(OUT, `${tag}-midwalk.png`) });
+      await wait(200); await idle(page);
+      const got = await cellOf(page), after = await routeInfo(page);
+      record(`${tag} yaw ${yaw} click far tile, hero arrives`, got.join() === t.far.c.join(), `target ${t.far.c} got ${got}`);
+      record(`${tag} yaw ${yaw} route clears on arrival`, !after.active);
+    }
+    await settle(page, 300);
+    t = await clickTargets(page);
+    record(`${tag} yaw ${yaw} unreachable tile on screen`, !!t.miss);
+    if (t.miss) {
+      await clickAt(page, t.miss.p, size.touch);
+      await wait(150);
+      const m = await routeInfo(page);
+      await idle(page);
+      const got = await cellOf(page);
+      record(`${tag} yaw ${yaw} unreachable tile walks to nearest`, got.join() === t.miss.end.join() && got.join() !== t.miss.c.join(), `clicked ${t.miss.c} nearest ${t.miss.end} got ${got}`);
+      record(`${tag} yaw ${yaw} unreachable tile marked`, m.mark?.ok === false && m.mark.cell.join() === t.miss.c.join());
+    }
+    if (yaw === 45) {
+      await settle(page, 300);
+      t = await clickTargets(page);
+      if (t.far && t.far.n > 4) {
+        await clickAt(page, t.far.p, size.touch);
+        await wait(120);
+        const stop = await page.evaluate(() => { const R = window.__game.state.route, c = R[R.ahead() + 1]; return c && R.interrupt(c) ? c : null; });
+        await idle(page);
+        const got = await cellOf(page);
+        record(`${tag} route.interrupt(cell) stops the walk there`, !!stop && got.join() === stop.join(), `stop ${stop} got ${got}`);
+        await settle(page, 200);
+        t = await clickTargets(page);
+        if (t.far && t.far.n > 4) {
+          await clickAt(page, t.far.p, size.touch);
+          await wait(120);
+          await page.keyboard.down("KeyS"); await wait(60); await page.keyboard.up("KeyS");
+          const r = await routeInfo(page);
+          await idle(page);
+          const got2 = await cellOf(page);
+          record(`${tag} key press cancels the route`, !r.active && got2.join() !== t.far.c.join(), `got ${got2}`);
+        }
+      }
+    }
+    record(`${tag} yaw ${yaw} no console errors`, problems.length === 0, problems.slice(0, 3).join(" | "));
+    await page.close();
+  }
+}
+
 async function startSuite(size) {
   const tag = `start@${size.width}${size.touch ? "t" : ""}`;
   const { page, problems, done, ms } = await open(`${BASE}/`, size);
@@ -337,8 +442,11 @@ async function compareSuite(size) {
 
 try {
   for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }]) {
+    const only = process.env.QA_ONLY;
+    if (only === "click") { if (size.width === 1200 || size.touch) await clickSuite(size); continue; }
     for (const build of ["3d", "2d"]) await buildSuite(build, size);
     if (size.width === 1200 || size.touch) await rotationSuite(size);
+    if (size.width === 1200 || size.touch) await clickSuite(size);
     if (!size.touch) { await compareSuite(size); await startSuite(size); }
   }
 } finally {
