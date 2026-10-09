@@ -77,7 +77,7 @@ const pick = (meta, kinds, r) => {
 export function layout(I, meta) {
   const rng = I.rng("billboards"), out = [], B = I.base, T = I.T;
   const q = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
-  const mult = Math.max(0.25, +(q.get("cloudx") || 1)), back = q.get("cloudback") === "1";
+  const mult = Math.max(0.25, +(q.get("cloudx") || 2)), back = q.get("cloudback") !== "0";
   for (const p of rimPoints(I, rng, { every: 1, outset: 0.75 })) out.push({ x: p.x, y: p.bot + 0.1 + rng() * 0.25 * T, z: p.z, s: 2.2 + rng() * 0.8, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 0.95 });
   for (const p of underPoints(I, rng, { step: 2.2, y0: B - 1.7, y1: B - 0.7 })) out.push({ x: p.x, y: p.y, z: p.z, s: 3.2 + rng() * 1.2, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
   for (const p of hugScatter(I, rng, { count: Math.round(70 * mult), inner: 0.4, outer: 3.5, round: 6, yMin: B - 1.2, yMax: B + 0.1, minGap: 1.1 / Math.sqrt(mult) })) out.push({ x: p.x, y: p.y, z: p.z, s: 2.6 + rng() * 1.4, tile: pick(meta, ["tuft", "flat"], rng()), alpha: 1 });
