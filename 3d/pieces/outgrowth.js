@@ -100,6 +100,14 @@ export function growGrid(L, pad) {
   return [l, t];
 }
 
+export function echo(L, spec) {
+  if (!spec) return [];
+  const [l, t] = growGrid(L, spec.pad || [0, 0, 0, 0]);
+  for (const [x, z, c] of spec.cells) L.cells[z][x] = { ...c };
+  for (const d of spec.decor || []) L.decor.push({ ...d });
+  return [`back echo: ${spec.cells.length} cells, ${(spec.decor || []).length} decor${l || t ? `, shift ${l},${t}` : ""}`];
+}
+
 export function outgrow(L, specs, o = {}) {
   const log = [];
   if (!specs?.length || L.outgrowths?.length) return log;
