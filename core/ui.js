@@ -27,6 +27,7 @@ const CSS = `
 .iw-nav .node:focus-visible{outline:3px solid #12c4f0;outline-offset:4px}
 .iw-nav .node:hover:not(.locked){filter:brightness(1.12)}
 .iw-nav .name{position:absolute;left:50%;top:calc(100% + 9px);transform:translateX(-50%);white-space:nowrap;padding:4px 9px;border-radius:999px;background:rgba(20,24,31,.88);color:#f0ede6;font:600 12px/1.2 system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .2s}
+.iw-nav .node.mid,.iw-nav .node:hover,.iw-nav .node:focus-visible{z-index:2}
 .iw-nav .node:hover .name,.iw-nav .node:focus-visible .name,.iw-nav .node.mid .name{opacity:1}
 .iw-nav .node.shake{animation:iw-shake .3s}
 @keyframes iw-shake{25%{margin-left:calc(var(--s) / -2 - 6px)}75%{margin-left:calc(var(--s) / -2 + 6px)}}
