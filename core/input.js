@@ -8,6 +8,8 @@ export const SWIPE = 64, PINCH = 1.3;
 
 const BAND_CSS = `
 .iw-band{--g:min(132px,19vh);position:fixed;left:0;right:0;bottom:0;height:max(25vh,150px);z-index:12;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;background:linear-gradient(to top,rgba(8,14,24,.52),rgba(8,14,24,.2) 72%,rgba(8,14,24,0));box-shadow:inset 0 2px 0 rgba(18,196,240,.22);transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s}
+@supports ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{-webkit-backdrop-filter:brightness(.62) saturate(1.7);backdrop-filter:brightness(.62) saturate(1.7);border-top:2px solid rgba(18,196,240,.35)}}
+@supports not ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{background:rgba(10,16,30,.6);border-top:2px solid rgba(18,196,240,.35)}}
 .iw-band.off{transform:translateY(110%);opacity:0;pointer-events:none}
 .iw-band .hit{position:absolute;left:12%;right:30%;top:0;bottom:0}
 .iw-stick{position:absolute;left:50%;top:52%;width:var(--g);height:var(--g);margin:calc(var(--g) / -2) 0 0 calc(var(--g) / -2);border-radius:50%;background:rgba(38,44,55,.72);box-shadow:0 7px 0 rgba(20,24,31,.75),inset 0 0 0 4px rgba(18,196,240,.35);pointer-events:none}
