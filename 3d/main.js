@@ -1,3 +1,4 @@
+import { guardPageZoom } from "../core/nozoom.js";
 import { loadLevel } from "../core/level.js";
 import { createGame, readParams } from "../core/game.js";
 import { createRun } from "../core/run.js";
@@ -14,6 +15,8 @@ import { motion } from "./motion.js";
 import { createRideFx } from "./speedlines.js";
 import { SKY, SKY_BG } from "./sky.js";
 import { idle, warmIsland } from "../core/warm.js";
+
+guardPageZoom();
 
 const msg = document.getElementById("msg");
 const params = readParams();

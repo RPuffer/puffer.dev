@@ -27,6 +27,8 @@ a[hidden]{display:none!important}
 <main id="stage"></main>
 <button id="swap" type="button" title="Next theme (T)">theme <b id="tname"></b> &#9656;</button>
 <script type="module">
+import { guardPageZoom } from "../core/nozoom.js";
+guardPageZoom();
 import { THEMES, ROTATION } from "./themes/registry.js";
 import * as data from "./skills.js";
 import { wire, rolesList, settle } from "./run.js";
