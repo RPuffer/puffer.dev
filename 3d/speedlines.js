@@ -56,7 +56,9 @@ void main() {
   float al = line * mask * on * dashed * smoothstep(uClear.z * ${CLEAR.inner.toFixed(3)}, uClear.z * ${CLEAR.outer.toFixed(3)}, distance(gl_FragCoord.xy, uClear.xy));
   if (al < 0.01) discard;
   bool strong = r3 > 0.5;
-  gl_FragColor = vec4(strong ? uInk : uSoft, al * (strong ? 0.92 : 0.7));
+  vec3 hue = clamp(abs(mod(r1 * 6.0 + uRideTime * 0.8 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
+  vec3 rain = mix(hue, vec3(1.0), strong ? 0.12 : 0.35);
+  gl_FragColor = vec4(rain, al * (strong ? 0.92 : 0.7));
   #include <colorspace_fragment>
 }`;
 
@@ -82,7 +84,8 @@ void main() {
   float t = vY < 0.0 ? 1.0 + vY : vY;
   float clear = smoothstep(uClear.z * ${CLEAR.inner.toFixed(3)}, uClear.z * ${CLEAR.outer.toFixed(3)}, distance(gl_FragCoord.xy, uClear.xy));
   if (clear < 0.01) discard;
-  gl_FragColor = vec4(uColor, uAlpha * clear * (t > 0.55 ? 0.45 : 1.0));
+  vec3 hue = clamp(abs(mod(gl_FragCoord.x * 0.004 + gl_FragCoord.y * 0.002 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
+  gl_FragColor = vec4(mix(hue, uColor, 0.25), uAlpha * clear * (t > 0.55 ? 0.45 : 1.0));
   #include <colorspace_fragment>
 }`;
 
