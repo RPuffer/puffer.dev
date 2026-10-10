@@ -6,7 +6,13 @@ const TURNS = { KeyQ: -1, KeyE: 1 };
 const ZOOM_KEYS = { Equal: 1, NumpadAdd: 1, Minus: -1, NumpadSubtract: -1 };
 export const SWIPE = 64, PINCH = 1.3;
 
+export const HOME = new URL("../landing/index.html", import.meta.url).href;
+export const BUST = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0z"/></svg>';
+
 const BAND_CSS = `
+.iw-back{--k:calc(var(--g) * .38);position:absolute;left:calc(25% - var(--g) / 4);top:52%;width:var(--k);height:var(--k);margin:calc(var(--k) / -2) 0 0 calc(var(--k) / -2);display:grid;place-items:center;border-radius:50%;background:linear-gradient(160deg,#ffd76a 0 46%,#f5c243 46%);box-shadow:0 0 0 4px rgba(38,44,55,.85),0 6px 0 4px rgba(20,24,31,.8);color:rgba(31,29,26,.6);-webkit-tap-highlight-color:transparent}
+.iw-back:active{transform:translateY(4px);box-shadow:0 0 0 4px rgba(38,44,55,.85),0 2px 0 4px rgba(20,24,31,.8)}
+.iw-back svg{width:52%;height:52%;fill:currentColor}
 .iw-band{--g:min(132px,19vh);position:fixed;left:0;right:0;bottom:0;height:max(25vh,150px);z-index:12;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;background:linear-gradient(to top,rgba(8,14,24,.52),rgba(8,14,24,.2) 72%,rgba(8,14,24,0));box-shadow:inset 0 2px 0 rgba(18,196,240,.22);transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s}
 @supports ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{-webkit-backdrop-filter:brightness(.62) saturate(1.7);backdrop-filter:brightness(.62) saturate(1.7);border-top:2px solid rgba(18,196,240,.35)}}
 @supports not ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{background:rgba(10,16,30,.6);border-top:2px solid rgba(18,196,240,.35)}}
@@ -119,7 +125,7 @@ export function createInput(el, { touch = "auto" } = {}) {
     document.head.appendChild(style);
     band = document.createElement("div");
     band.className = "iw-band" + (busy ? " off" : "");
-    band.innerHTML = `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div><button type="button" class="iw-act" aria-label="use">✦</button>`;
+    band.innerHTML = `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div><button type="button" class="iw-act" aria-label="use">✦</button><a class="iw-back" href="${HOME}" aria-label="character select" title="character select">${BUST}</a>`;
     knob = band.querySelector(".iw-knob");
     const stick = band.querySelector(".iw-stick"), hit = band.querySelector(".hit"), act = band.querySelector(".iw-act");
     const aim = (e) => {

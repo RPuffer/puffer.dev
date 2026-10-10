@@ -1,3 +1,4 @@
+import { HOME, BUST } from "./input.js";
 const CSS = `
 .iw-ui{position:fixed;right:max(10px,env(safe-area-inset-right,0px));bottom:max(10px,env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:7px;align-items:center;padding:7px;border-radius:14px;background:rgba(20,24,31,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .iw-ui:empty,.iw-touch .iw-ui:not(.iw-inline){display:none}
@@ -7,6 +8,11 @@ const CSS = `
 .iw-ui button:active{transform:translateY(2px);box-shadow:0 1px 0 #1a1f28}
 .iw-orb{--o:58px;position:fixed;left:50%;top:max(12px,env(safe-area-inset-top,0px));z-index:22;width:var(--o);height:var(--o);margin-left:calc(var(--o) / -2);padding:0;border:0;border-radius:50%;background:#262c37 center/cover no-repeat;box-shadow:0 0 0 4px #262c37,0 0 0 7px #12c4f0,0 6px 0 7px rgba(20,24,31,.55);cursor:pointer;touch-action:manipulation;transition:transform .5s cubic-bezier(.34,1.7,.5,1),opacity .18s;-webkit-tap-highlight-color:transparent}
 .iw-orb:hover{transform:scale(1.07)}
+.iw-home{position:fixed;left:calc(50% - 82px);top:calc(max(12px,env(safe-area-inset-top,0px)) + 11px);z-index:22;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#363e4d;color:#f0ede6;box-shadow:0 3px 0 #1a1f28;transition:transform .12s}
+.iw-home:hover,.iw-home:focus-visible{transform:translateY(-1px);box-shadow:0 3px 0 #1a1f28,0 0 0 2px #12c4f0;outline:none}
+.iw-home svg{width:20px;height:20px;fill:currentColor}
+.iw-touch .iw-home{display:none}
+@media (min-width:700px){.iw-home{left:calc(50% - 88px);top:calc(max(12px,env(safe-area-inset-top,0px)) + 14px)}}
 .iw-orb.open{transform:scale(.5);opacity:0;pointer-events:none}
 .iw-orb[hidden]{display:none}
 .iw-orb:focus-visible{outline:3px solid #ffd36a;outline-offset:6px}
@@ -403,6 +409,16 @@ export function mountUI({ container, rotate = null, zoom = null, nav = {} } = {}
   const zooms = zoom ? [[-1, "−", "zoom out (-)"], [1, "+", "zoom in (+)"]].map(([step, label, title]) => button(label, title, { zoom: String(step) }, () => zoom(step))) : [];
   const turns = rotate ? [[-1, "⟲", "rotate left (Q)"], [1, "⟳", "rotate right (E)"]].map(([step, label, title]) => button(label, title, { rotate: String(step) }, () => rotate(step))) : [];
   const navigator = nav && !container ? mountNavigator(nav) : null;
+  if (!container && !document.querySelector(".iw-home")) {
+    const home = document.createElement("a");
+    home.className = "iw-home";
+    home.href = HOME;
+    home.title = "character select";
+    home.setAttribute("aria-label", "character select");
+    home.innerHTML = BUST;
+    home.addEventListener("pointerdown", (e) => e.stopPropagation());
+    document.body.appendChild(home);
+  }
   box.append(...zooms, ...turns);
   (container || document.body).appendChild(box);
   return { element: box, turns, zooms, navigator };
