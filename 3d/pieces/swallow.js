@@ -1,0 +1,440 @@
+import * as THREE from "three";
+import { Baker, tone, circle, bakedMaterial } from "../baker.js";
+import { placeLandmark } from "./multitile-themed-a.js";
+import { placeThings } from "./wizard.js";
+import { faceClimb, plugShadow } from "./sightline.js";
+import { placeGeneric } from "./multitile-place.js";
+import { bakeParts } from "../../pipeline/a-transcribe/parts.js";
+import { outgrow as growOut, echo, grow as widen } from "./outgrowth.js";
+
+const INK = {
+  espresso: ["#6e3527", "#57281c", "#401c14"],
+  umber: ["#9a4a2e", "#7d3a22", "#5f2b19"],
+  rust: ["#f06a3c", "#d6532a", "#b3401e"],
+  cream: ["#fff3dc", "#f0dfc0", "#d8c29c"],
+  sand: ["#f6d49a", "#e3b876", "#c79a58"],
+  gold: ["#ffc93a", "#f0aa1e", "#cf8a12"],
+  ink: ["#2a1712", "#22120e", "#180c09"],
+  moss: ["#7cc65a", "#5fa845", "#468535"],
+  mint: ["#8fe0b0", "#6cc594", "#4fa377"],
+  amber: ["#ffb347", "#f0922a", "#cf7418"],
+};
+const pal = (c) => tone(c[0], c[1], c[2]);
+const mesh = (B) => new THREE.Mesh(B.geometry(), bakedMaterial());
+const tonesOf = (P, t) => P.tones?.[t] || [];
+const pick = (list, i, d) => list[i] || list[list.length - 1] || d;
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+
+function otri(B, a, b, c, out, p) {
+  const n = V().subVectors(b, a).cross(V().subVectors(c, a));
+  if (n.dot(out) < 0) B.tri(a.toArray(), c.toArray(), b.toArray(), p);
+  else B.tri(a.toArray(), b.toArray(), c.toArray(), p);
+}
+
+function slab(B, pts, o, U, W, t, c) {
+  const u = U.clone().normalize(), w0 = W.clone().normalize();
+  const N = V().crossVectors(u, w0).normalize();
+  const w = V().crossVectors(N, u).normalize();
+  let area = 0;
+  for (let i = 0; i < pts.length; i++) { const [a, b] = pts[i], [c2, d] = pts[(i + 1) % pts.length]; area += a * d - c2 * b; }
+  const P = area < 0 ? [...pts].reverse() : pts;
+  const at = (p, s) => o.clone().addScaledVector(u, p[0]).addScaledVector(w, p[1]).addScaledVector(N, s * t / 2);
+  const f = P.map((p) => at(p, 1)), k = P.map((p) => at(p, -1));
+  const p = pal(c), nN = N.clone().negate();
+  for (let i = 1; i < P.length - 1; i++) { otri(B, f[0], f[i], f[i + 1], N, p); otri(B, k[0], k[i], k[i + 1], nN, p); }
+  for (let i = 0; i < P.length; i++) {
+    const j = (i + 1) % P.length;
+    const e = V().subVectors(f[j], f[i]);
+    const out = V().crossVectors(e, N);
+    otri(B, f[i], f[j], k[j], out, p);
+    otri(B, f[i], k[j], k[i], out, p);
+  }
+}
+
+function wedge(B, w, h, d, c, x = 0, y = 0, z = 0) {
+  const x0 = x - w / 2, x1 = x + w / 2, zb = z - d / 2, zf = z + d / 2;
+  const p = pal(c);
+  B.quad([x0, y, zf], [x1, y, zf], [x1, y + h, zb], [x0, y + h, zb], p);
+  B.quad([x0, y, zb], [x0, y + h, zb], [x1, y + h, zb], [x1, y, zb], p);
+  B.tri([x0, y, zb], [x0, y, zf], [x0, y + h, zb], p);
+  B.tri([x1, y, zb], [x1, y + h, zb], [x1, y, zf], p);
+}
+
+const BLADE = [[0, -0.14], [0.2, 0.14], [0.6, 0.16], [1.0, 0.04], [0.98, -0.02], [0.6, -0.12], [0.2, -0.18]];
+const STRIPE = [[0.12, 0.02], [0.55, 0.06], [0.85, 0.02], [0.55, -0.02], [0.12, -0.04]];
+const TAIL = [[0, -0.12], [0.4, -0.07], [1.0, 0.0], [0.45, 0.06], [0, 0.12]];
+
+const POSES = {
+  rest: { wing: [0.3, 1.0, -0.62], wLen: 1.0, wFlat: [0, 0.3, 1], tail: [0.26, -0.28, -1], tLen: 0.85, head: -0.35 },
+  statue: { wing: [0.22, 1.0, -0.4], wLen: 1.0, wFlat: [0, 0.2, 1], tail: [0.22, -0.4, -1], tLen: 0.8, head: -0.3 },
+  flare: { wing: [0.75, 1.0, -0.25], wLen: 1.1, wFlat: [0, 0.4, 1], tail: [0.4, -0.2, -1], tLen: 0.85, head: -0.4 },
+};
+
+function swallow(B, pose) {
+  const Q = POSES[pose];
+  B.box(0.46, 0.22, 0.5, pal(INK.cream), 0, 0, 0.06);
+  B.box(0.4, 0.2, 0.46, pal(INK.espresso), 0, 0.22, 0.02);
+  wedge(B, 0.46, 0.22, 0.22, INK.cream, 0, 0, 0.42);
+  B.box(0.3, 0.26, 0.34, pal(INK.espresso), 0, 0.12, -0.34);
+  B.box(0.26, 0.1, 0.28, pal(INK.cream), 0, 0.04, -0.33);
+  B.box(0.34, 0.16, 0.08, pal(INK.rust), 0, 0.22, 0.31);
+  for (const s of [-1, 1]) {
+    const root = V(s * 0.16, 0.34, 0.02);
+    const U = V(s * Q.wing[0], Q.wing[1], Q.wing[2]);
+    const W = V(s * Q.wFlat[0], Q.wFlat[1], Q.wFlat[2]);
+    slab(B, BLADE.map(([a, b]) => [a * Q.wLen, b]), root, U, W, 0.1, INK.espresso);
+    slab(B, STRIPE.map(([a, b]) => [a * Q.wLen, b]), root.clone().add(V(s * 0.03, 0.02, 0)), U, W, 0.14, INK.cream);
+    slab(B, TAIL.map(([a, b]) => [a * Q.tLen, b]), V(s * 0.08, 0.18, -0.48), V(s * Q.tail[0], Q.tail[1], Q.tail[2]), V(1, 0, 0.2 * s), 0.08, s < 0 ? INK.espresso : INK.umber);
+  }
+  B.at(0, 0.36, 0.3, Q.head, () => {
+    B.rbox(0.36, 0.3, 0.36, 0.06, pal(INK.espresso), 0, 0, 0);
+    B.box(0.3, 0.16, 0.12, pal(INK.rust), 0, 0.0, 0.14);
+    B.box(0.24, 0.1, 0.1, pal(INK.cream), 0, 0.0, 0.2);
+    slab(B, [[0, -0.08], [0.34, 0], [0, 0.08]], V(0, 0.15, 0.2), V(0, -0.08, 1), V(0, 1, 0), 0.16, INK.gold);
+    for (const s of [-1, 1]) {
+      B.box(0.03, 0.14, 0.14, pal(INK.cream), s * 0.18, 0.1, 0.05);
+      B.box(0.03, 0.08, 0.08, pal(INK.ink), s * 0.19, 0.13, 0.07);
+      B.box(0.03, 0.03, 0.03, pal(INK.cream), s * 0.2, 0.17, 0.08);
+    }
+    B.box(0.12, 0.08, 0.26, pal(INK.umber), 0, 0.3, -0.02);
+  });
+}
+
+function perch(B, pose, lo, hi, post) {
+  if (pose === "rest") {
+    B.prism(circle(0, 0, 0.9, 0.8, 8, Math.PI / 8), 0, 0.16, pal(lo));
+    B.box(0.4, 0.4, 0.4, pal(post), 0, 0.16, 0);
+    B.prism(circle(0, 0, 0.62, 0.54, 8, Math.PI / 8), 0.56, 0.7, pal(hi));
+    B.prism(circle(0, 0, 0.52, 0.44, 8, Math.PI / 8), 0.7, 0.78, pal(INK.sand));
+    return 0.74;
+  }
+  if (pose === "statue") {
+    B.prism(circle(0, 0, 0.92, 0.92, 8, Math.PI / 8), 0, 0.2, pal(lo));
+    B.prism(circle(0, 0, 0.72, 0.72, 8, Math.PI / 8), 0.2, 0.42, pal(hi));
+    B.box(0.56, 0.2, 0.56, pal(lo), 0, 0.42, 0);
+    B.box(0.7, 0.1, 0.7, pal(hi), 0, 0.62, 0);
+    return 0.72;
+  }
+  B.prism(circle(0, 0, 0.86, 0.86, 6, Math.PI / 6), 0, 0.3, pal(lo));
+  B.prism(circle(0, 0, 0.44, 0.44, 6, Math.PI / 6), 0.3, 0.62, pal(post));
+  B.prism(circle(0, 0, 0.56, 0.56, 6, Math.PI / 6), 0.62, 0.74, pal(hi));
+  return 0.74;
+}
+
+function lead(B, H, look, pose) {
+  const s = H / 2.6;
+  B.push(0, 0, 0, 0, s);
+  const top = perch(B, pose, look.lo, look.hi, look.post);
+  B.at(0.05, top, 0.05, 1.9, () => swallow(B, pose), 1.6);
+  B.pop();
+}
+
+const ROLE_RE = [["threshold", /gate|arch|torii|threshold|portal|gallow|barrier/i], ["dais", /dais|altar|plinth|pedestal|roost|perch|throne|nest-plat/i], ["light", /lantern|torch|brazier|lamp/i], ["offering", /pot|basket|bowl|offering|chest|cairn|urn|cache|coffer/i], ["mass", /tree|pine|spire|pillar|monolith|rock|cliff|totem|pinnacle/i]];
+const GATE_RE = /gate|torii|barrier|gallow|arch/i;
+const roleOf = (P, t) => { const r = P.props?.[t]?.role; if (r && r !== "lead" && GATE_RE.test(t)) return "threshold"; return r || (ROLE_RE.find(([, re]) => re.test(t)) || ["detail"])[0]; };
+const poseOf = (t, p = "") => /idol|shrine|statue|vigil|totem|figurine/i.test(t) ? "statue" : /aero|gale|boss|dive|storm|bank/i.test(t) || /bank|soar|climb|swoop|flight|wings? (thrown|raised|high)/i.test(p) ? "flare" : "rest";
+
+function fork(B, y, c, w = 0.5) {
+  for (const s of [-1, 1]) slab(B, [[0, -0.07], [0.4, -0.03], [0.62, 0], [0.4, 0.04], [0, 0.07]], V(0, y, 0), V(s * 0.55, 1, 0), V(0, 0, 1), 0.12, c);
+  B.box(w * 0.5, 0.1, 0.2, pal(c), 0, y - 0.05, 0);
+}
+
+const LENS_KINDS = [
+  ["trellis", /trellis|pier|lintel|frame/i],
+  ["curlArch", /curl.*arch|scroll.*arch|loop.*arch|curl-gate/i],
+  ["forkArch", /fork.*arch|tine.*arch|prong/i],
+  ["swarm", /midge|swarm|insect|gnat|mote/i],
+  ["mudcups", /mud|cup|nest/i],
+  ["snag", /snag|driftwood|branch/i],
+  ["reeds", /reed|rush|sedge/i],
+  ["sickle", /tail|fin|sickle|tine|scythe/i],
+  ["blade", /blade|ribbon|pylon|wing|feather|sweep|spire|crest/i],
+  ["curl", /curl|spiral|swirl|coil|eddy/i],
+  ["smudge", /smudge|boulder|stone|pebble/i],
+];
+const lensKind = (t, role) => (role === "lead" || role === "creature" ? null : role === "threshold" ? (/fork|tine|prong/i.test(t) ? "forkArch" : /spiral|curl|scroll|coil|loop/i.test(t) ? "curlArch" : "trellis") : (LENS_KINDS.find(([, re]) => re.test(t)) || [role === "threshold" || role === "dais" || role === "light" || role === "offering" || role === "mass" ? null : "parts"])[0]);
+
+function tine(B, len, w, c, o, dir, up) {
+  slab(B, [[0, -w], [len * 0.45, -w * 0.6], [len, 0], [len * 0.45, w * 0.7], [0, w]], o, dir, up, 0.1, c);
+}
+
+const LENS_BUILD = {
+  blade(B, H, v, { c0, c1, c2 }) {
+    B.rbox(0.56, 0.16, 0.5, 0.08, pal(c1), 0, 0, 0);
+    const lean = v % 2 ? -1 : 1;
+    slab(B, BLADE.map(([a, b]) => [a * H * 0.95, b * 1.9]), V(-0.08 * lean, 0.12, 0), V(0.22 * lean, 1, 0.12), V(0, 0, 1), 0.16, c0);
+    slab(B, STRIPE.map(([a, b]) => [a * H * 0.95, b * 1.9]), V(-0.06 * lean, 0.16, 0.02), V(0.22 * lean, 1, 0.12), V(0, 0, 1), 0.2, c2 === c0 ? INK.cream : c2);
+  },
+  sickle(B, H, v, { c0, c1 }) {
+    B.rbox(0.44, 0.12, 0.36, 0.06, pal(c1), 0, 0, 0);
+    for (const s of [-1, 1]) tine(B, H * (s < 0 ? 1 : 0.8), 0.13, s < 0 ? c0 : INK.umber, V(s * 0.07, 0.1, 0), V(s * 0.45, 1, (v % 2 ? 0.2 : -0.2)), V(0, 0, 1));
+  },
+  curl(B, H, v, { c0, c1, c2 }) {
+    B.rbox(0.74, H * 0.55, 0.64, 0.14, pal(c1), 0, 0, 0);
+    B.rbox(0.54, H * 0.3, 0.46, 0.12, pal(c0), 0.04, H * 0.55, -0.02);
+    for (let i = 0; i < 7; i++) { const a = i * 0.9, r = 0.1 + i * 0.035; B.box(0.1, 0.05, 0.1, pal(c2), Math.cos(a) * r, H * 0.85, Math.sin(a) * r); }
+  },
+  smudge(B, H, v, { c0, c1 }) {
+    B.rbox(0.8, H * 0.6, 0.66, 0.15, pal(c0), 0, 0, 0);
+    B.rbox(0.5, H * 0.4, 0.42, 0.12, pal(c1), v % 2 ? 0.1 : -0.08, H * 0.6, 0.04);
+  },
+  mudcups(B, H, v, { c0, c1 }) {
+    B.rbox(0.86, 0.12, 0.7, 0.08, pal(c1), 0, 0, 0);
+    const cups = v % 2 ? [[-0.2, -0.12, 0.26], [0.22, -0.06, 0.22], [0, 0.22, 0.2]] : [[-0.18, 0.1, 0.25], [0.2, -0.14, 0.24], [0.16, 0.24, 0.18]];
+    for (const [x, z, r] of cups) {
+      B.cyl(r, H * 0.55, pal(c0), x, 0.12, z, 8);
+      B.cyl(r * 0.8, H * 0.2, pal(c1), x, 0.12 + H * 0.55, z, 8);
+      B.box(r * 0.7, r * 0.5, 0.04, pal(INK.ink), x, 0.12 + H * 0.3, z + r * 0.92);
+    }
+  },
+  swarm(B, H, v, { c0, c1, P }) {
+    B.rbox(0.42, 0.14, 0.42, 0.08, pal(c1), 0, 0, 0);
+    B.box(0.2, H * 0.45, 0.2, pal(c0), 0, 0.14, 0);
+    B.rbox(0.3, 0.08, 0.3, 0.06, pal(INK.moss), 0, 0.14 + H * 0.45, 0);
+    const gold = P.flame || INK.gold;
+    for (let i = 0; i < 11; i++) { const a = i * 2.4 + v, r = 0.12 + (i % 4) * 0.07, y = 0.3 + H * 0.45 + (i / 11) * H * 0.45; B.box(0.08, 0.08, 0.08, pal(gold), Math.cos(a) * r, y, Math.sin(a) * r); }
+  },
+  snag(B, H, v, { c0, c1 }) {
+    B.at(0, 0.16, 0, v % 2 ? 0.7 : -0.5, () => {
+      B.rbox(0.9, 0.3, 0.32, 0.1, pal(c0), 0, -0.14, 0);
+      B.box(0.12, H * 0.55, 0.12, pal(c1), 0.36, 0, 0.04);
+      B.box(0.28, 0.1, 0.1, pal(c1), -0.44, 0.02, 0.1);
+    });
+  },
+  reeds(B, H, v, { c0, c1 }) {
+    B.rbox(0.6, 0.1, 0.5, 0.08, pal(INK.moss), 0, 0, 0);
+    const st = [[-0.16, -0.1, 1], [0.1, -0.14, 0.85], [0.16, 0.12, 0.95], [-0.06, 0.16, 0.75], [0.0, 0.0, 1.05]];
+    for (const [x, z, k] of st) { B.box(0.06, H * k * 0.8, 0.06, pal(INK.moss), x, 0.1, z); B.rbox(0.1, H * 0.2 * k, 0.1, 0.04, pal(c0), x, 0.1 + H * k * 0.66, z); }
+  },
+  trellis(B, H, v, { c0, c1, c2, d }) {
+    B.box(0.46, 0.2, 0.46, pal(c1));
+    B.box(0.3, H * 0.72, 0.3, pal(c0), 0, 0.2, 0);
+    B.box(0.36, 0.1, 0.36, pal(c2), 0, 0.2 + H * 0.4, 0);
+    B.rbox(0.36, 0.3, 0.36, 0.1, pal(INK.sand), 0, 0.2 + H * 0.72, 0);
+    if (d.side) {
+      const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.2, th, reach + 0.3, pal(c), 0, y, -d.side * (reach / 2 - 0.05)) : B.box(reach + 0.3, th, 0.2, pal(c), -d.side * (reach / 2 - 0.05), y, 0);
+      beam(H * 0.8, 0.16, c0);
+      beam(H * 0.8 + 0.16, 0.12, INK.sand);
+    }
+  },
+  curlArch(B, H, v, { c0, c1, c2, d }) {
+    B.box(0.46, 0.2, 0.46, pal(c1));
+    B.box(0.28, H * 0.6, 0.28, pal(c0), 0, 0.2, 0);
+    B.at(0, 0.2 + H * 0.6, 0, d.axis === "x" ? Math.PI / 2 : 0, () => {
+      for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + i * 0.75, r = 0.3 - i * 0.025; B.box(0.14, 0.14, i % 2 ? 0.17 : 0.2, pal(i % 2 ? c2 : c0), Math.cos(a) * r * (d.side || 1) * -1, 0.3 + Math.sin(a) * r, 0); }
+    });
+  },
+  forkArch(B, H, v, { c0, c1, c2, d }) {
+    B.box(0.46, 0.2, 0.46, pal(c1));
+    B.box(0.3, H * 0.55, 0.3, pal(c0), 0, 0.2, 0);
+    fork(B, 0.2 + H * 0.55, INK.espresso, 0.46);
+    if (d.side) {
+      const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.2, th, reach + 0.3, pal(c), 0, y, -d.side * (reach / 2 - 0.05)) : B.box(reach + 0.3, th, 0.2, pal(c), -d.side * (reach / 2 - 0.05), y, 0);
+      beam(H * 0.5, 0.14, c2);
+    }
+  },
+};
+
+export function register(style) {
+  const P = style.palette;
+  const props = P.props || {};
+  const types = Object.keys(props);
+  const daisT = types.find((t) => roleOf(P, t) === "dais");
+  const dt = daisT ? tonesOf(P, daisT) : [];
+  const gateT = types.find((t) => roleOf(P, t) === "threshold");
+  const gt = gateT ? tonesOf(P, gateT) : [];
+  const look = { lo: pick(dt, 0, ["#b9a58c", "#9c8a72", "#7c6c58"]), hi: pick(dt, 1, ["#e8d2a8", "#cdb58a", "#a8916a"]), post: pick(gt, 0, INK.umber) };
+
+  const catalog = {};
+  const builders = {};
+  for (const t of types) {
+    const p = props[t], role = roleOf(P, t);
+    catalog[t] = { footprint: role === "lead" ? [2, 2] : p.footprint || [1, 1], passable: role === "lead" ? false : !!p.passable, variants: 2, height: role === "lead" ? 2.6 : Math.min(2.6, Math.max(0.3, p.height || 1)) };
+    const tn = tonesOf(P, t);
+    const c0 = pick(tn, 0, INK.umber), c1 = pick(tn, 1, INK.sand), c2 = pick(tn, 2, INK.rust);
+    const pose = poseOf(t, p.pose || "");
+    const lens = lensKind(t, role);
+    builders[t] = (v, rot, st, ctx) => {
+      const B = new Baker(), H = ctx.height, d = ctx.decor || {};
+      if (role === "lead" || role === "creature") lead(B, H, look, pose);
+      else if (lens && LENS_BUILD[lens]) LENS_BUILD[lens](B, H, v, { c0, c1, c2, d, P });
+      else if (lens === "parts" && p.parts?.length) bakeParts(B, p.parts, { height: H, fallback: c0 });
+      else if (role === "threshold") {
+        B.box(0.46, 0.22, 0.46, pal(c1));
+        B.box(0.32, H * 0.6, 0.32, pal(c0), 0, 0.22, 0);
+        B.box(0.38, 0.12, 0.38, pal(c2), 0, 0.22 + H * 0.6, 0);
+        fork(B, 0.34 + H * 0.6, INK.espresso);
+        if (d.side) {
+          const reach = 1.0, beam = (y, th, c) => d.axis === "x" ? B.box(0.22, th, reach + 0.3, pal(c), 0, y, -d.side * (reach / 2 - 0.05)) : B.box(reach + 0.3, th, 0.22, pal(c), -d.side * (reach / 2 - 0.05), y, 0);
+          beam(H * 0.66, 0.16, c2);
+          beam(H * 0.66 + 0.22, 0.08, INK.cream);
+        }
+      } else if (role === "dais") {
+        B.prism(circle(0, 0, 0.44, 0.44, 8, Math.PI / 8), 0, H * 0.6, pal(c0));
+        B.prism(circle(0, 0, 0.36, 0.36, 8, Math.PI / 8), H * 0.6, H, pal(c1));
+      } else if (role === "light") {
+        B.box(0.3, 0.14, 0.3, pal(c0));
+        B.box(0.16, H - 0.56, 0.16, pal(c0), 0, 0.14, 0);
+        B.box(0.3, 0.06, 0.3, pal(c2), 0, H - 0.42, 0);
+        B.box(0.22, 0.24, 0.22, pal(P.flame || INK.gold), 0, H - 0.36, 0);
+        B.cone(0.22, 0, 0.16, pal(c2), 0, H - 0.12, 0, 4);
+      } else if (role === "offering") {
+        if (v % 2) {
+          B.cyl(0.2, H * 0.6, pal(c0), 0, 0, 0, 8);
+          B.cyl(0.24, 0.06, pal(c1), 0, H * 0.6, 0, 8);
+        } else {
+          B.box(0.5, H * 0.55, 0.36, pal(c0));
+          B.box(0.54, H * 0.2, 0.4, pal(c1), 0, H * 0.55, 0);
+          B.box(0.08, H * 0.4, 0.42, pal(INK.gold), -0.14, 0.02, 0);
+          B.box(0.08, H * 0.4, 0.42, pal(INK.gold), 0.14, 0.02, 0);
+        }
+      } else if (role === "mass" && /tree|bough|pine/i.test(t)) {
+        B.box(0.3, H * 0.45, 0.3, pal(pick(tn, 0, INK.espresso)));
+        const cs = v % 2 ? [[0.9, 0.4], [0.7, 0.36], [0.44, 0.3]] : [[0.82, 0.38], [0.62, 0.34], [0.4, 0.28]];
+        let y = H * 0.4;
+        cs.forEach(([w, h], i) => { B.rbox(w, h, w, 0.12, pal(i === 1 ? c2 : c1), (i % 2 ? 0.04 : -0.03), y, (i % 2 ? -0.03 : 0.03)); y += h; });
+      } else if (role === "mass") {
+        const segs = v % 2 ? [0.64, 0.48, 0.32] : [0.58, 0.44, 0.3];
+        const tot = /barrier|totem/i.test(t) ? H - 0.5 : H - 0.3;
+        const hh = tot / segs.length;
+        segs.forEach((w, i) => B.box(w, hh, w, pal([c0, c1, c2][i % 3]), (i % 2 ? 0.05 : -0.04), i * hh, (i % 2 ? -0.04 : 0.04)));
+        if (/barrier|totem|fork|gale/i.test(t)) fork(B, tot, INK.espresso, 0.4);
+        else B.cone(segs[segs.length - 1] * 0.7, 0, 0.3, pal(c2), 0, tot, 0, 4);
+      } else if (/stone|paver|step/i.test(t)) {
+        B.rbox(0.42, 0.08, 0.36, 0.1, pal(c0), -0.14, 0, -0.1);
+        B.rbox(0.34, 0.06, 0.3, 0.1, pal(c1), 0.2, 0, 0.16);
+      } else {
+        const g = [[0, 0, 0.5, H * 0.7, c0], [0.2, 0.12, 0.34, H * 0.55, c1], [-0.18, 0.16, 0.3, H * 0.45, c2]];
+        for (const [x, z, w, h, c] of g) B.rbox(w, h, w, 0.1, pal(c), x, 0, z);
+      }
+      return mesh(B);
+    };
+  }
+  return { catalog, builders };
+}
+
+function fixRamps(level, h) {
+  const at = (x, z) => level.cells[z]?.[x];
+  for (let z = 0; z < level.cells.length; z++) for (let x = 0; x < level.cells[z].length; x++) {
+    const c = at(x, z);
+    if (!c || c.s !== "ramp") continue;
+    const [dx, dz] = h.DIRS[c.d], up = at(x - dx, z - dz);
+    if (up && up.h === c.h && up.s !== "ramp") continue;
+    const up2 = at(x - 2 * dx, z - 2 * dz), D = at(x + dx, z + dz), D2 = at(x + 2 * dx, z + 2 * dz);
+    const flat = (q, hh) => q && q.h === hh && q.s !== "ramp" && h.land(q);
+    if (up && up.h === c.h + 1 && flat(up2, up.h) && flat(D, c.h - 1) && flat(D2, c.h - 1) && !h.isFig(x + dx, z + dz) && !h.isFig(x - dx, z - dz)) {
+      level.cells[z - dz][x - dx] = { h: up.h, s: "ramp", d: c.d, m: c.m || "stone" };
+      level.cells[z][x] = { h: c.h, s: h.surf.path };
+      level.cells[z + dz][x + dx] = { h: c.h, s: "ramp", d: c.d, m: c.m || "stone" };
+      h.clear(x - dx, z - dz); h.clear(x + dx, z + dz);
+      for (const [sx, sz] of [[dz, dx], [-dz, -dx]].filter(([p, q]) => p + q > 0)) {
+        const X = x - dx + sx, Z = z - dz + sz, n = at(X, Z), f = at(X + dx, Z + dz);
+        if (flat(n, up.h) && f && f.h < up.h && !h.isFig(X, Z)) level.cells[Z][X] = { h: up.h - 1, s: n.s };
+      }
+    } else level.cells[z][x] = { h: c.h, s: h.surf.path };
+  }
+}
+
+function rampTone(level, h) {
+  level.cells.forEach((row, z) => row.forEach((c, x) => {
+    if (!c || c.s !== "ramp") return;
+    const [dx, dz] = h.DIRS[c.d], up = level.cells[z - dz]?.[x - dx];
+    if (up && ["sand", "grass", "dirt", "stone"].includes(up.s)) c.m = up.s;
+  }));
+}
+
+function repaint(level, h, keep) {
+  const cells = [];
+  level.cells.forEach((row, z) => row.forEach((c, x) => { if (c && h.land(c) && c.s !== "ramp") cells.push([x, z, c]); }));
+  const stone = cells.filter(([, , c]) => c.s === "stone");
+  if (stone.length < cells.length * 0.3) return;
+  const wet = (x, z) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => level.cells[z + dz]?.[x + dx]?.s === "water");
+  const to = { 1: "grass", 2: "sand", 3: "grass" };
+  for (const [x, z, c] of stone) {
+    if (keep.has(h.key(x, z)) || wet(x, z) || (x * 7 + z * 3) % 11 === 0) continue;
+    level.cells[z][x] = { h: c.h, s: to[c.h] || "grass" };
+  }
+}
+
+function finishLens(level, brief, h) {
+  h.dryRim();
+  const daisTypes = h.ofRole("dais");
+  h.removeDecor((d) => daisTypes.includes(d.t));
+  const gateT = brief.threshold?.prop && level.palette?.props?.[brief.threshold.prop] ? brief.threshold.prop : h.ofRole("threshold")[0];
+  const lightT = h.ofRole("light")[0] || "lantern";
+  const passT = h.passes().filter((t) => t !== gateT && t !== lightT && !daisTypes.includes(t));
+  h.removeDecor((d) => d.t === gateT || d.t === lightT || passT.includes(d.t));
+  let r = h.spawnAt({ min: 9, max: 16 });
+  if (r.length) h.path(r);
+  r = h.approach();
+  fixRamps(level, h);
+  const g = gateT ? h.gate(gateT, { route: r, frac: 0.6 }) : null;
+  const [ax, az] = h.figure.anchor;
+  for (const [x, z] of [[ax - 1, az], [ax - 1, az + 1], [ax - 1, az + 2], [ax - 2, az + 1]]) h.removeDecor((d) => d.t !== gateT && d.x === x && d.z === z);
+  const posts = level.decor.filter((d) => d.t === gateT);
+  h.removeDecor((d) => /tree|pine|pinnacle|spire|bough|pylon|blade/i.test(d.t) && posts.some((q) => Math.abs(q.x - d.x) <= 1 && Math.abs(q.z - d.z) <= 1));
+  const wet = (x, z) => [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => level.cells[z + dz]?.[x + dx]?.s === "water");
+  h.removeDecor((d) => d.t === "stepping-stones" && !wet(d.x, d.z));
+  h.along(passT.filter((t) => t !== "stepping-stones"), { route: r });
+  h.lights(lightT, { route: r, every: 4, skip: 2, max: 4, avoid: g ? [g] : [], keep: [gateT, ...passT] });
+  h.ledges({ keep: [gateT] });
+  h.repair({ keep: [gateT] });
+  h.pruneRamps({ route: h.approach() });
+  h.pruneRamps({ all: true, slotsOnly: true });
+  h.openRamps();
+  h.pruneRamps({ all: true, nearFig: 1 });
+  if (h.walkN() < 84) h.thin(84, { keep: [gateT, lightT] });
+  if (h.walkN() < 84) h.grow(84);
+  h.rampTone();
+  if (level.name === "swallow-medium") placeLandmark(level, h, "swallow-blade-arch");
+  if (level.name === "swallow-medium") {
+    const t = placeGeneric(level, h, "watchtower", { near: 1, span: 0.4, spawnGap: 6, at: [6, 9], hideWeight: 0 });
+    if (t) for (const [x, z] of h.footprint(level.decor.find((d) => d.t === t.t && d.x === t.x && d.z === t.z))) level.cells[z][x] = { h: h.cell(x, z).h, s: "stone" };
+    if (t && !h.decorAt(t.x + 1, t.z).length) h.put("lantern", t.x + 1, t.z);
+    if (h.land(h.cell(3, 5)) && !h.blockedSet().has(h.key(3, 5))) level.spawn = [3, 5];
+    faceClimb(level, h, { budget: 3 });
+  }
+  if (level.name === "swallow-medium") placeThings(level, h, { chestText: "A parchment feather, swept loose from the windward crest." });
+  if (level.name === "swallow-medium") plugShadow(level, h, [11, 2]);
+}
+
+export const PIN = { "swallow-medium": {"spawn":[3,5],"cells":[[8,6,{"h":2,"s":"sand"}],[3,9,{"h":2,"s":"ramp","d":"s","m":"dirt"}]],"decor":[{"t":"spiral-swallow","x":11,"z":3,"v":0,"rot":0,"ox":0,"oz":0,"watch":"w1"},{"t":"arc-ribbon-pylon","x":5,"z":2,"v":1,"rot":0,"ox":0.05,"oz":-0.02},{"t":"arc-ribbon-pylon","x":6,"z":1,"v":1,"rot":0,"ox":-0.04,"oz":-0.11},{"t":"arc-ribbon-pylon","x":7,"z":3,"v":1,"rot":0,"ox":-0.02,"oz":-0.1},{"t":"arc-ribbon-pylon","x":7,"z":8,"v":0,"rot":0,"ox":-0.04,"oz":-0.06},{"t":"arc-ribbon-pylon","x":9,"z":2,"v":1,"rot":0,"ox":0.07,"oz":0},{"t":"marker","x":10,"z":6,"v":0,"rot":0,"ox":0.13,"oz":0.05},{"t":"marker","x":14,"z":2,"v":0,"rot":0,"ox":-0.14,"oz":0.07},{"t":"marker","x":9,"z":8,"v":0,"rot":0,"ox":-0.12,"oz":0.04},{"t":"marker","x":9,"z":5,"v":0,"rot":0,"ox":0.13,"oz":-0.08},{"t":"marker","x":4,"z":3,"v":0,"rot":0,"ox":-0.09,"oz":-0.11},{"t":"marker","x":4,"z":8,"v":0,"rot":0,"ox":-0.07,"oz":0.01},{"t":"calligraphy-curl-arch","x":6,"z":6,"v":0,"rot":0,"ox":0,"oz":0,"side":-1,"axis":"z","gapX":7,"gapZ":6},{"t":"calligraphy-curl-arch","x":8,"z":6,"v":0,"rot":0,"ox":0,"oz":0,"side":1,"axis":"z","gapX":7,"gapZ":6},{"t":"rock-big","x":9,"z":9,"v":1,"rot":0,"ox":0,"oz":0},{"t":"lantern","x":1,"z":8,"v":0,"rot":0,"ox":0,"oz":0,"axis":"z","gapX":2,"gapZ":8},{"t":"lantern","x":6,"z":4,"v":0,"rot":0,"ox":0,"oz":0,"axis":"z","gapX":7,"gapZ":4},{"t":"swallow-blade-arch","x":9,"z":1,"v":0,"rot":0,"ox":0,"oz":0},{"t":"watchtower-small","x":7,"z":9,"v":0,"rot":0,"ox":0,"oz":0},{"t":"lantern","x":8,"z":9,"v":0,"rot":0,"ox":0,"oz":0},{"t":"rock","x":11,"z":2,"v":1,"rot":0,"ox":0,"oz":0,"axis":"z"},{"t":"perch-dais","x":5,"z":7,"v":1,"rot":0,"ox":-0.08,"oz":-0.12},{"t":"rock","x":8,"z":2,"v":2,"rot":0,"ox":0.12,"oz":0.05},{"t":"perch-dais","x":13,"z":6,"v":1,"rot":0,"ox":0.01,"oz":0.03},{"t":"spiral-tail-fin","x":1,"z":9,"v":1,"rot":0,"ox":-0.11,"oz":0.09},{"t":"rock","x":4,"z":4,"v":2,"rot":0,"ox":0,"oz":0.05},{"t":"perch-dais","x":9,"z":6,"v":1,"rot":0,"ox":-0.1,"oz":0.08},{"t":"perch-dais","x":6,"z":3,"v":0,"rot":0,"ox":0.03,"oz":-0.02},{"t":"rock","x":9,"z":3,"v":0,"rot":0,"ox":-0.11,"oz":-0.05},{"t":"perch-dais","x":8,"z":7,"v":0,"rot":0,"ox":0.04,"oz":0.04},{"t":"rock","x":8,"z":3,"v":1,"rot":0,"ox":-0.02,"oz":0.08},{"t":"perch-dais","x":14,"z":5,"v":0,"rot":0,"ox":0.04,"oz":-0.04},{"t":"spiral-tail-fin","x":11,"z":9,"v":1,"rot":0,"ox":-0.06,"oz":0.11},{"t":"rock-big","x":10,"z":9,"v":0,"rot":0,"ox":-0.08,"oz":0.04},{"t":"perch-dais","x":14,"z":4,"v":0,"rot":0,"ox":-0.02,"oz":0.01}],"things":[{"id":"b1","kind":"bonfire","x":2,"z":8,"rot":0},{"id":"c1","kind":"chest","x":5,"z":8,"rot":1,"text":"A parchment feather, swept loose from the windward crest."},{"id":"w1","kind":"watcher","x":11,"z":3,"size":[2,2],"radius":6.3},{"id":"g1","kind":"gate","x":7,"z":6,"span":"x","blocks":[[7,6]],"open":"watcher:w1","threshold":[[7,7]],"edge":[[7,7],[7,6]]},{"id":"e1","kind":"elevator","role":"exit","x":12,"z":1,"rot":2},{"id":"e0","kind":"elevator","role":"entry","x":3,"z":4,"rot":2}],"edits":[{"x":5,"z":7,"kind":"lower","from":{"h":3,"s":"ramp"},"to":{"h":2,"s":"dirt"}},{"x":6,"z":8,"kind":"ramp","from":{"h":3,"s":"dirt"},"to":{"h":3,"s":"ramp"}},{"x":5,"z":8,"kind":"lower","from":{"h":3,"s":"sand"},"to":{"h":2,"s":"sand"}},{"x":8,"z":6,"kind":"lower","from":{"h":3,"s":"sand"},"to":{"h":2,"s":"sand"}}],"back":{"pad":[2,2,0,0],"cells":[[8,6,{"h":3,"s":"sand"}],[4,7,{"h":2,"s":"stone"}],[5,7,{"h":2,"s":"stone"}],[6,7,{"h":2,"s":"stone"}],[7,7,{"h":2,"s":"grass"}],[5,9,{"h":2,"s":"grass"}],[6,9,{"h":2,"s":"sand"}],[7,6,{"h":2,"s":"grass"}],[4,9,{"h":2,"s":"grass"}],[6,6,{"h":2,"s":"grass"}],[3,9,{"h":2,"s":"grass"}],[2,6,{"h":1,"s":"stone"}],[3,6,{"h":2,"s":"ramp","d":"n","m":"stone"}],[4,6,{"h":1,"s":"stone"}],[5,6,{"h":1,"s":"stone"}],[3,5,{"h":1,"s":"stone"}],[2,5,{"h":1,"s":"stone"}],[4,5,{"h":1,"s":"stone"}],[11,1,{"h":1,"s":"stone"}],[12,1,{"h":2,"s":"ramp","d":"n","m":"stone"}],[13,1,{"h":1,"s":"stone"}],[12,0,{"h":1,"s":"stone"}],[11,0,{"h":1,"s":"stone"}],[13,0,{"h":1,"s":"stone"}],[1,7,{"h":1,"s":"stone"}],[1,8,{"h":2,"s":"ramp","d":"w","m":"stone"}],[0,8,{"h":1,"s":"stone"}],[0,7,{"h":1,"s":"stone"}],[6,5,{"h":1,"s":"grass"}],[7,5,{"h":1,"s":"grass"}],[8,5,{"h":2,"s":"sand"}],[9,5,{"h":2,"s":"sand"}],[10,2,{"h":1,"s":"stone"}],[10,3,{"h":1,"s":"stone"}],[2,9,{"h":1,"s":"grass"}],[10,4,{"h":2,"s":"sand"}],[14,4,{"h":1,"s":"grass"}],[8,4,{"h":1,"s":"sand"}],[9,4,{"h":1,"s":"sand"}]],"decor":[{"t":"perch-dais","x":2,"z":6,"v":0,"rot":0,"ox":0,"oz":0},{"t":"marker","x":4,"z":6,"v":1,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":5,"z":6,"v":2,"rot":0,"ox":0,"oz":0},{"t":"marker","x":11,"z":1,"v":2,"rot":0,"ox":0,"oz":0},{"t":"perch-dais","x":13,"z":1,"v":0,"rot":0,"ox":0,"oz":0},{"t":"marker","x":1,"z":7,"v":0,"rot":0,"ox":0,"oz":0},{"t":"arc-ribbon-pylon","x":6,"z":5,"v":2,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":7,"z":5,"v":0,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":8,"z":5,"v":2,"rot":0,"ox":0,"oz":0},{"t":"arc-ribbon-pylon","x":9,"z":5,"v":0,"rot":0,"ox":0,"oz":0},{"t":"arc-ribbon-pylon","x":10,"z":2,"v":2,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":10,"z":3,"v":0,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":2,"z":9,"v":2,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":10,"z":4,"v":1,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":14,"z":4,"v":0,"rot":0,"ox":0,"oz":0},{"t":"rock-big","x":8,"z":4,"v":2,"rot":0,"ox":0,"oz":0},{"t":"arc-ribbon-pylon","x":9,"z":4,"v":0,"rot":0,"ox":0,"oz":0}]},"grow":{"pad":[4,8,4,3],"cells":[[15,0,{"h":2,"s":"stone"}],[16,0,{"h":2,"s":"stone"}],[14,1,{"h":2,"s":"dirt"}],[15,1,{"h":2,"s":"dirt"}],[16,1,{"h":2,"s":"dirt"}],[17,1,{"h":2,"s":"stone"}],[18,1,{"h":2,"s":"stone"}],[14,2,{"h":2,"s":"stone"}],[15,2,{"h":2,"s":"stone"}],[16,2,{"h":2,"s":"dirt"}],[17,2,{"h":2,"s":"stone"}],[18,2,{"h":2,"s":"stone"}],[14,3,{"h":2,"s":"stone"}],[15,3,{"h":2,"s":"stone"}],[16,3,{"h":2,"s":"dirt"}],[17,3,{"h":2,"s":"stone"}],[18,3,{"h":2,"s":"stone"}],[14,4,{"h":2,"s":"stone"}],[15,4,{"h":2,"s":"dirt"}],[16,4,{"h":2,"s":"dirt"}],[17,4,{"h":2,"s":"sand"}],[15,5,{"h":2,"s":"sand"}],[16,5,{"h":2,"s":"dirt"}],[17,5,{"h":2,"s":"sand"}],[15,6,{"h":2,"s":"sand"}],[16,6,{"h":2,"s":"dirt"}],[17,6,{"h":2,"s":"sand"}],[15,7,{"h":1,"s":"stone"}],[16,7,{"h":2,"s":"ramp","d":"s","m":"stone"}],[17,7,{"h":1,"s":"stone"}],[1,12,{"h":1,"s":"sand"}],[2,12,{"h":1,"s":"sand"}],[3,12,{"h":1,"s":"sand"}],[17,12,{"h":2,"s":"stone"}],[1,13,{"h":1,"s":"sand"}],[2,13,{"h":1,"s":"sand"}],[3,13,{"h":1,"s":"sand"}],[4,13,{"h":1,"s":"sand"}],[5,13,{"h":1,"s":"sand"}],[9,13,{"h":1,"s":"grass"}],[23,13,{"h":1,"s":"dirt"}],[24,13,{"h":1,"s":"dirt"}],[25,13,{"h":2,"s":"stone"}],[26,13,{"h":2,"s":"stone"}],[27,13,{"h":2,"s":"stone"}],[0,14,{"h":1,"s":"sand"}],[1,14,{"h":1,"s":"sand"}],[2,14,{"h":1,"s":"dirt"}],[3,14,{"h":1,"s":"dirt"}],[4,14,{"h":1,"s":"dirt"}],[5,14,{"h":1,"s":"dirt"}],[23,14,{"h":1,"s":"dirt"}],[24,14,{"h":1,"s":"sand"}],[25,14,{"h":1,"s":"sand"}],[26,14,{"h":2,"s":"stone"}],[27,14,{"h":2,"s":"stone"}],[0,15,{"h":1,"s":"sand"}],[1,15,{"h":1,"s":"sand"}],[2,15,{"h":1,"s":"dirt"}],[3,15,{"h":1,"s":"dirt"}],[23,15,{"h":1,"s":"dirt"}],[24,15,{"h":1,"s":"sand"}],[25,15,{"h":1,"s":"sand"}],[26,15,{"h":1,"s":"sand"}],[27,15,{"h":2,"s":"ramp","d":"s","m":"sand"}],[1,16,{"h":1,"s":"dirt"}],[2,16,{"h":1,"s":"dirt"}],[3,16,{"h":1,"s":"dirt"}],[23,16,{"h":1,"s":"dirt"}],[26,16,{"h":1,"s":"sand"}],[27,16,{"h":1,"s":"sand"}],[23,17,{"h":2,"s":"dirt"}],[24,17,{"h":2,"s":"bridge","m":"planks","post":1}],[25,17,{"h":2,"s":"bridge","m":"planks","post":1}],[23,18,{"h":2,"s":"dirt"}],[24,18,{"h":2,"s":"dirt"}],[21,19,{"h":2,"s":"dirt"}],[22,19,{"h":2,"s":"dirt"}],[23,19,{"h":2,"s":"dirt"}],[24,19,{"h":2,"s":"dirt"}],[25,19,{"h":2,"s":"dirt"}],[19,20,{"h":1,"s":"grass"}],[20,20,{"h":2,"s":"ramp","d":"w","m":"grass"}],[21,20,{"h":2,"s":"dirt"}],[22,20,{"h":2,"s":"stone"}],[23,20,{"h":2,"s":"stone"}],[24,20,{"h":2,"s":"sand"}],[25,20,{"h":2,"s":"dirt"}],[21,21,{"h":2,"s":"stone"}],[22,21,{"h":2,"s":"stone"}],[23,21,{"h":2,"s":"stone"}],[24,21,{"h":2,"s":"sand"}],[25,21,{"h":2,"s":"dirt"}],[26,21,{"h":2,"s":"dirt"}],[2,22,{"h":2,"s":"bridge","m":"planks","post":1}],[3,22,{"h":2,"s":"bridge","m":"planks","post":1}],[4,22,{"h":2,"s":"bridge","m":"planks","post":1}],[5,22,{"h":2,"s":"sand"}],[6,22,{"h":2,"s":"sand"}],[7,22,{"h":2,"s":"sand"}],[8,22,{"h":2,"s":"sand"}],[5,23,{"h":2,"s":"sand"}],[6,23,{"h":2,"s":"sand"}],[7,23,{"h":2,"s":"sand"}],[8,23,{"h":2,"s":"sand"}],[9,23,{"h":2,"s":"ramp","d":"n","m":"grass"}],[10,23,{"h":1,"s":"dirt"}],[18,23,{"h":1,"s":"sand"}],[19,23,{"h":2,"s":"ramp","d":"n","m":"sand"}],[5,24,{"h":3,"s":"ramp","d":"n","m":"sand"}],[6,24,{"h":2,"s":"sand"}],[7,24,{"h":2,"s":"stone"}],[8,24,{"h":2,"s":"stone"}],[9,24,{"h":2,"s":"dirt"}],[10,24,{"h":2,"s":"stone"}],[18,24,{"h":2,"s":"stone"}],[19,24,{"h":2,"s":"dirt"}],[20,24,{"h":2,"s":"dirt"}],[21,24,{"h":2,"s":"dirt"}],[5,25,{"h":3,"s":"stone"}],[6,25,{"h":2,"s":"sand"}],[7,25,{"h":3,"s":"sand"}],[8,25,{"h":2,"s":"stone"}],[9,25,{"h":2,"s":"dirt"}],[10,25,{"h":2,"s":"stone"}],[18,25,{"h":2,"s":"stone"}],[19,25,{"h":2,"s":"stone"}],[20,25,{"h":2,"s":"stone"}],[21,25,{"h":3,"s":"sand"}],[5,26,{"h":3,"s":"stone"}],[6,26,{"h":3,"s":"stone"}],[7,26,{"h":3,"s":"sand"}],[8,26,{"h":3,"s":"sand"}],[9,26,{"h":2,"s":"dirt"}],[10,26,{"h":2,"s":"stone"}],[18,26,{"h":2,"s":"stone"}],[19,26,{"h":2,"s":"stone"}],[20,26,{"h":3,"s":"sand"}],[21,26,{"h":3,"s":"sand"}],[5,27,{"h":3,"s":"stone"}],[6,27,{"h":3,"s":"stone"}],[7,27,{"h":3,"s":"sand"}],[8,27,{"h":3,"s":"sand"}],[9,27,{"h":3,"s":"ramp","d":"e","m":"stone"}],[10,27,{"h":2,"s":"stone"}],[18,27,{"h":2,"s":"stone"}],[19,27,{"h":3,"s":"ramp","d":"w","m":"stone"}],[20,27,{"h":3,"s":"sand"}],[21,27,{"h":3,"s":"sand"}]],"decor":[{"t":"arc-ribbon-pylon","x":6,"z":26,"v":0,"rot":0,"ox":-0.07,"oz":0},{"t":"spiral-tail-fin","x":6,"z":27,"v":1,"rot":0,"ox":-0.06,"oz":0.01},{"t":"arc-ribbon-pylon","x":6,"z":25,"v":0,"rot":0,"ox":-0.03,"oz":0.06},{"t":"spiral-tail-fin","x":7,"z":27,"v":0,"rot":0,"ox":-0.12,"oz":-0.07},{"t":"rock","x":2,"z":12,"v":2,"rot":0,"ox":0.02,"oz":-0.04},{"t":"rock","x":3,"z":12,"v":2,"rot":0,"ox":0.11,"oz":-0.08},{"t":"rock-big","x":2,"z":13,"v":1,"rot":0,"ox":0.09,"oz":0.06},{"t":"rock","x":1,"z":12,"v":1,"rot":0,"ox":0.07,"oz":0.11},{"t":"spiral-tail-fin","x":25,"z":14,"v":1,"rot":0,"ox":0,"oz":0.06},{"t":"spiral-tail-fin","x":26,"z":14,"v":1,"rot":0,"ox":-0.03,"oz":0.08},{"t":"arc-ribbon-pylon","x":24,"z":14,"v":1,"rot":0,"ox":-0.11,"oz":0.02},{"t":"spiral-tail-fin","x":25,"z":13,"v":0,"rot":0,"ox":0.07,"oz":0.06},{"t":"rock-big","x":17,"z":6,"v":0,"rot":0,"ox":0.04,"oz":-0.09},{"t":"rock","x":17,"z":7,"v":1,"rot":0,"ox":-0.04,"oz":-0.04},{"t":"rock-big","x":17,"z":5,"v":1,"rot":0,"ox":-0.09,"oz":-0.04},{"t":"rock-big","x":0,"z":15,"v":1,"rot":0,"ox":-0.08,"oz":-0.01},{"t":"rock","x":1,"z":15,"v":1,"rot":0,"ox":-0.12,"oz":-0.04},{"t":"perch-dais","x":0,"z":14,"v":1,"rot":0,"ox":0.12,"oz":-0.1},{"t":"rock","x":9,"z":13,"v":0,"rot":0,"ox":-0.03,"oz":-0.03},{"t":"arc-ribbon-pylon","x":15,"z":0,"v":1,"rot":0,"ox":0.08,"oz":0.08},{"t":"spiral-tail-fin","x":16,"z":0,"v":0,"rot":0,"ox":-0.05,"oz":-0.02},{"t":"rock-big","x":17,"z":12,"v":1,"rot":0,"ox":-0.09,"oz":-0.02},{"t":"calligraphy-curl-arch","x":5,"z":14,"v":0,"rot":0,"ox":0.09,"oz":0.04},{"t":"spiral-tail-fin","x":22,"z":20,"v":0,"rot":0,"ox":-0.08,"oz":-0.05},{"t":"arc-ribbon-pylon","x":23,"z":20,"v":1,"rot":0,"ox":-0.11,"oz":-0.01},{"t":"rock-big","x":25,"z":19,"v":1,"rot":0,"ox":-0.11,"oz":0.11},{"t":"calligraphy-curl-arch","x":24,"z":19,"v":0,"rot":0,"ox":-0.09,"oz":0.05},{"t":"rock-big","x":20,"z":25,"v":0,"rot":0,"ox":-0.07,"oz":-0.12},{"t":"calligraphy-curl-arch","x":21,"z":25,"v":0,"rot":0,"ox":-0.01,"oz":-0.1},{"t":"spiral-tail-fin","x":14,"z":4,"v":0,"rot":0,"ox":0,"oz":0.08},{"t":"arc-ribbon-pylon","x":15,"z":4,"v":1,"rot":0,"ox":-0.02,"oz":0.05}],"docks":[{"kind":"dock","side":"e","at":[23,17],"cells":[[24,17],[25,17]]},{"kind":"dock","side":"w","at":[5,22],"cells":[[4,22],[3,22],[2,22]]}]}} };
+
+export function finish(level, brief, h) {
+  if (brief.lens) {
+    finishLens(level, brief, h);
+    if (level.name === "swallow-medium") { h.edgeLifts({ entry: [4, 11] }); h.pin(PIN[level.name]); }
+    return;
+  }
+  const daisTypes = h.ofRole("dais");
+  h.removeDecor((d) => daisTypes.includes(d.t));
+  const gateT = h.ofRole("threshold")[0] || Object.keys(level.palette?.props || {}).find((t) => GATE_RE.test(t)) || (brief.motifs || []).map((m) => m.type).find((t) => GATE_RE.test(t || ""));
+  const lightT = h.ofRole("light")[0] || (brief.motifs || []).map((m) => m.type).find((t) => t === "torch" || t === "lantern") || "lantern";
+  h.removeDecor((d) => d.t === gateT || d.t === lightT || d.t === "torch" || d.t === "lantern");
+  let r = h.approach();
+  if (r.length < 6) {
+    let best = null;
+    level.cells.forEach((row, z) => row.forEach((c, x) => {
+      if (!c || !h.land(c) || c.s === "ramp" || h.isFig(x, z)) return;
+      const q = h.approach({ from: [x, z] });
+      const sc = q.length + 0.4 * (x + z);
+      if (q.length >= 6 && q.length <= 12 && (!best || sc > best[0])) best = [sc, x, z];
+    }));
+    if (best) { h.clear(best[1], best[2]); level.spawn = [best[1], best[2]]; r = h.approach(); }
+  }
+  if (r.length) h.path(r);
+  r = h.approach();
+  fixRamps(level, h);
+  repaint(level, h, new Set([...r, ...h.figRing()].map(([x, z]) => h.key(x, z))));
+  const g = gateT ? h.gate(gateT, { route: r, frac: 0.55 }) : null;
+  const [ax, az] = h.figure.anchor;
+  for (const [x, z] of [[ax - 1, az], [ax - 1, az + 1], [ax - 1, az + 2], [ax - 2, az + 1]]) h.removeDecor((d) => d.t !== gateT && d.x === x && d.z === z);
+  const posts = level.decor.filter((d) => d.t === gateT);
+  h.removeDecor((d) => /tree|pine|pinnacle|spire|bough/i.test(d.t) && posts.some((q) => Math.abs(q.x - d.x) <= 1 && Math.abs(q.z - d.z) <= 1 || Math.abs(q.x - d.x) + Math.abs(q.z - d.z) <= 2 && (d.x < q.x || d.z < q.z)));
+  h.lights(lightT, { route: r, every: 3, skip: 1, max: 6, avoid: g ? [g] : [], keep: [gateT] });
+  h.repair({ keep: [gateT] });
+  rampTone(level, h);
+}
+
+export const GROW = { "swallow-medium": [{"kind":"plateau","side":"n","at":[8,1],"size":[2,3],"tier":-1,"decor":[{"t":"perch-dais","u":3,"v":1},{"t":"rock","u":2,"v":-1}]},{"kind":"dock","side":"w","at":[1,7],"len":2,"decor":[{"t":"marker","u":2}]},{"kind":"walkway","side":"w","at":[3,4],"len":3,"islet":[2,2],"causeway":true,"decor":[{"t":"marker","u":5,"v":1}]},{"kind":"dock","side":"s","at":[8,10],"len":2,"decor":[]}] };
+export const outgrow = (level, o) => [...growOut(level, GROW[level.name], o), ...echo(level, PIN[level.name]?.back), ...widen(level, PIN[level.name]?.grow)];

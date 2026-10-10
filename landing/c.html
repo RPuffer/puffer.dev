@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ryne Puffer, loadout</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--bg:#404040;--deep:#2e2e2e;--card:#363636;--fg:#f4efe4;--dim:#b9b2a4;--sun:#f5c243;--ember:#e8873a;--moss:#7cc56a;--rare:#5aa9ff;--epic:#c27cff;--leg:#f5a623;--ink:#1f1d1a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.4 ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+body{min-height:100vh;padding:max(18px,env(safe-area-inset-top,0px)) 16px max(18px,env(safe-area-inset-bottom,0px))}
+.wrap{max-width:1160px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-bottom:14px}
+header h1{margin:0;font:800 clamp(24px,4vw,38px)/1 system-ui,-apple-system,sans-serif;letter-spacing:-.01em}
+header p{margin:0;color:var(--dim);font-size:13px}
+header b{color:var(--sun)}
+.cols{display:grid;grid-template-columns:420px 1fr;gap:18px}
+.doll{background:var(--deep);border-radius:8px;padding:14px;display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:10px;align-items:center}
+.doll figure{margin:0;grid-column:2;grid-row:1/4;border-radius:6px;overflow:hidden;background:#000;aspect-ratio:9/13}
+.doll figure img{display:block;width:100%;height:100%;object-fit:cover;object-position:52% 40%}
+.slot{all:unset;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:86px;padding:8px;border-radius:6px;background:var(--card);border:2px solid var(--c,#555);cursor:pointer;font-size:12px;color:var(--fg)}
+.slot small{color:var(--dim);text-transform:uppercase;letter-spacing:.08em;font-size:10px}
+.slot b{color:var(--c);font-size:13px;line-height:1.2}
+.slot:focus-visible,.slot:hover,.slot[aria-current="true"]{background:#444;box-shadow:0 0 0 3px var(--fg)}
+.tree{background:var(--deep);border-radius:8px;padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.branch h2{display:flex;align-items:center;gap:8px;margin:0 0 10px;font:800 15px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em}
+.branch h2 img{width:34px;height:34px;border-radius:5px;object-fit:cover}
+.branch ol{list-style:none;margin:0;padding:0;position:relative}
+.branch ol::before{content:"";position:absolute;left:15px;top:14px;bottom:14px;width:3px;background:var(--b)}
+.node{all:unset;box-sizing:border-box;position:relative;display:flex;align-items:center;gap:10px;width:100%;padding:5px 6px 5px 0;margin:0 0 4px;border-radius:5px;cursor:pointer;font-size:13px}
+.node i{flex:none;width:33px;height:33px;border-radius:50%;background:var(--b);border:3px solid var(--deep);box-shadow:0 0 0 2px var(--b);display:grid;place-items:center;font-style:normal;font-weight:800;color:var(--ink);font-size:12px}
+.node:focus-visible,.node:hover,.node[aria-current="true"]{background:#444}
+.node[aria-current="true"] i{box-shadow:0 0 0 2px var(--fg)}
+.detail{grid-column:1/-1;min-height:4.4em;margin:4px 0 0;padding:10px 12px;border-radius:6px;background:var(--card);border-left:4px solid var(--sun)}
+.detail b{display:block;color:var(--sun);margin-bottom:2px}
+.go{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;align-items:center}
+.go a{display:inline-flex;flex-direction:column;justify-content:center;min-height:52px;padding:0 28px;border-radius:8px;font:800 18px system-ui,sans-serif;text-decoration:none;color:var(--ink);background:var(--sun)}
+.go a#continue{background:var(--moss)}
+.go a[hidden]{display:none}
+.go a small{font-weight:600;font-size:12px;opacity:.75}
+.go a:hover,.go a:focus-visible{filter:brightness(1.08);outline:none;box-shadow:0 0 0 4px var(--fg)}
+.go p{margin:0;color:var(--dim);font-size:12px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}.doll{max-width:520px}}
+@media (max-width:560px){
+  .slot{grid-column:auto!important;grid-row:auto!important}
+  .doll figure{order:-1}
+  .go{position:sticky;bottom:0;margin:12px -16px 0;padding:10px 16px max(10px,env(safe-area-inset-bottom,0px));background:var(--bg);box-shadow:0 -6px 16px rgba(0,0,0,.35)}
+  .go a{flex:1;align-items:center}
+  .go p{display:none}
+  .doll{grid-template-columns:1fr 1fr;padding:10px;gap:8px}
+  .doll figure{grid-column:1/-1;grid-row:auto;aspect-ratio:16/11}
+  .slot{min-height:64px}
+  .tree{grid-template-columns:1fr;padding:10px;gap:10px}
+  .branch ol{display:flex;flex-wrap:wrap;gap:6px}
+  .branch ol::before{display:none}
+  .node{width:auto;padding:3px 8px 3px 3px;background:var(--card);border-radius:20px;margin:0}
+  .node i{width:26px;height:26px;font-size:11px;border-width:2px}
+  .detail{grid-row:2}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>Ryne Puffer</h1><p>Level <b>10</b> · Jack of All Trades · skill points remaining <b>0</b></p></header>
+<div class="cols">
+<section class="doll" aria-label="Loadout" id="doll">
+<figure><img src="hero.jpg" alt="The hero, a blocky figure with brown hair and a red shirt, mid-dance" width="900" height="1000"></figure>
+</section>
+<section class="tree" aria-label="Skill tree" id="tree">
+<p class="detail" id="detail" aria-live="polite"><b>All points spent</b>Three trees, every node unlocked. Pick any node or slot to read it.</p>
+</section>
+</div>
+<div class="go">
+<a id="begin" href="#">Begin</a>
+<a id="continue" href="#" hidden>Continue<small id="where"></small></a>
+<p>Arrows move through the tree. Enter on Begin starts the climb.</p>
+</div>
+</div>
+<script type="module">
+import { wire, settle } from "./run.js";
+const R = { rare: "var(--rare)", epic: "var(--epic)", leg: "var(--leg)" };
+const slots = [
+  ["Main hand", "Rust Canary", "leg", "Caught several launch-critical bugs before a fixed conference deadline."],
+  ["Head", "Guardrail Hook", "epic", "Blocks cloud and credential CLI commands from an agent's shell. The documented guardrail in the team's agent package."],
+  ["Ring", "Container Band", "rare", "Docker and Kubernetes, used to bring enterprise systems to AWS."],
+  ["Off hand", "Violin", "leg", "Starting gift. Classically trained."],
+  ["Body", "Gateway Plate", "epic", "SDE II on AWS API Gateway: API ingress, WebSocket architecture, DDoS resiliency."],
+  ["Trinket", "Untaught Brush", "rare", "Visual artist with no formal training. Official RAW artist."],
+];
+const tree = [
+  ["Engineering", "wizard-medium", "var(--sun)", [
+    ["VB", "Office add-ins", "Pixel Hangers, 2016 to 2017. Custom add-ins for Word, PowerPoint, Outlook and Excel in VB.NET."],
+    ["JS", "Struts to Node", "Northwestern Mutual, 2017 to 2021. Java Struts apps to Node and React, Redux, onto Docker, Kubernetes and AWS."],
+    ["Go", "First Go", "The first Go application in the Benefits organization: a batch processor for notifications."],
+    ["GQ", "GraphQL layer", "Dutchie, 2021 to 2022. GraphQL over a Rails backend; promoted to Senior inside a year."],
+    ["λ", "Concurrency", "AWS Lambda, 2022 to 2023. A service that evaluates customer concurrency limit requests, launched into three new regions."],
+    ["43", "On-call cut", "AWS API Gateway, 2023 to present. Cut operator load across ingress by about 43 percent of critical tickets a week."],
+    ["AI", "Agent framework", "Founded the team's AI coding agent framework: 11 agents, 14 skills, 7 procedures from six engineers."],
+  ]],
+  ["Art", "cosmos-frisket", "var(--ember)", [
+    ["0", "No formal training", "Self-taught. The work speaks for itself."],
+    ["10", "Ten media", "Ink crosshatch, acrylic, airbrush, cartoon, psychedelic vector and more."],
+    ["R", "RAW artist", "Official RAW artist: rawartists.org/rynepuffer."],
+    ["Bē", "SyntheticFlow", "Portfolio at behance.net/SyntheticFlow."],
+    ["12", "This world", "Every island on the climb is built from one of his works."],
+  ]],
+  ["Music", "swallow-medium", "var(--moss)", [
+    ["𝄞", "Violin", "Classically trained violinist."],
+    ["G", "Guitar", "Self-taught guitarist."],
+    ["D", "Drums", "Self-taught drummer."],
+    ["P", "Composer, producer", "Writes and produces his own music."],
+  ]],
+];
+const doll = document.getElementById("doll"), tr = document.getElementById("tree"), detail = document.getElementById("detail");
+let cur = null;
+const show = (el, t, d) => { if (cur) cur.removeAttribute("aria-current"); cur = el; el.setAttribute("aria-current", "true"); detail.innerHTML = `<b></b>`; detail.firstChild.textContent = t; detail.append(d); };
+slots.forEach(([where, name, r, d], i) => {
+  const b = document.createElement("button");
+  b.className = "slot"; b.type = "button"; b.style.setProperty("--c", R[r]);
+  b.innerHTML = `<small>${where}</small><b>${name}</b>`;
+  b.style.gridColumn = i < 3 ? 1 : 3; b.style.gridRow = (i % 3) + 1;
+  b.onclick = b.onfocus = () => show(b, name + " · " + where, d);
+  doll.append(b);
+});
+const cols = tree.map(([h, img, color, nodes], c) => {
+  const s = document.createElement("div");
+  s.className = "branch"; s.style.setProperty("--b", color);
+  s.innerHTML = `<h2><img src="../assets/start/${img}.jpg" alt="" width="34" height="34">${h}</h2><ol></ol>`;
+  const ol = s.querySelector("ol");
+  const btns = nodes.map(([g, t, d]) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.className = "node"; b.type = "button"; b.innerHTML = `<i aria-hidden="true">${g}</i><span>${t}</span>`;
+    b.onclick = b.onfocus = () => show(b, t, d);
+    li.append(b); ol.append(li); return b;
+  });
+  tr.insertBefore(s, detail);
+  return btns;
+});
+tr.addEventListener("keydown", (e) => {
+  const c = cols.findIndex((l) => l.includes(document.activeElement)); if (c < 0) return;
+  const r = cols[c].indexOf(document.activeElement);
+  let nc = c, nr = r;
+  if (e.key === "ArrowDown") nr++; else if (e.key === "ArrowUp") nr--; else if (e.key === "ArrowRight") nc++; else if (e.key === "ArrowLeft") nc--; else return;
+  e.preventDefault();
+  nc = (nc + 3) % 3; nr = Math.max(0, Math.min(cols[nc].length - 1, nr));
+  cols[nc][nr].focus();
+});
+await wire({ begin: document.getElementById("begin"), cont: document.getElementById("continue"), label: document.getElementById("where") });
+await settle();
+</script>
+</body>
+</html>

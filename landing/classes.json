@@ -1,0 +1,137 @@
+{
+ "person": {
+  "name": "Ryne Puffer",
+  "location": "Denver, CO",
+  "since": 2016,
+  "links": [
+   {
+    "label": "Behance",
+    "url": "https://www.behance.net/SyntheticFlow"
+   }
+  ],
+  "mail": "bW9jLmxpYW1nQHJlZmZ1cGVueXI="
+ },
+ "default": "aws",
+ "classes": [
+  {
+   "id": "aws",
+   "name": "AWS",
+   "stats": [
+    [
+     "Distributed Systems",
+     9
+    ],
+    [
+     "Reliability",
+     9
+    ],
+    [
+     "Cloud Infrastructure",
+     9
+    ],
+    [
+     "Security",
+     8
+    ],
+    [
+     "Applied AI",
+     8
+    ],
+    [
+     "Automation",
+     8
+    ]
+   ]
+  },
+  {
+   "id": "dutchie",
+   "name": "Dutchie",
+   "stats": [
+    [
+     "Backend",
+     8
+    ],
+    [
+     "API Design",
+     8
+    ],
+    [
+     "Fast Ramp",
+     9
+    ],
+    [
+     "Product",
+     7
+    ],
+    [
+     "Frontend",
+     6
+    ],
+    [
+     "Mentoring",
+     6
+    ]
+   ]
+  },
+  {
+   "id": "nm",
+   "name": "Northwestern Mutual",
+   "stats": [
+    [
+     "Legacy Modernization",
+     9
+    ],
+    [
+     "Frontend",
+     8
+    ],
+    [
+     "Backend",
+     8
+    ],
+    [
+     "Systems Integration",
+     7
+    ],
+    [
+     "Cloud Infrastructure",
+     7
+    ],
+    [
+     "Product",
+     6
+    ]
+   ]
+  },
+  {
+   "id": "wanderer",
+   "name": "Wretch",
+   "stats": [
+    [
+     "Rocket League",
+     9
+    ],
+    [
+     "Destiny",
+     9
+    ],
+    [
+     "Music Production",
+     8
+    ],
+    [
+     "Violin",
+     8
+    ],
+    [
+     "Drawing and Painting",
+     9
+    ],
+    [
+     "Guitar and Drums",
+     6
+    ]
+   ]
+  }
+ ]
+}
