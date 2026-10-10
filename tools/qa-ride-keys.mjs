@@ -258,9 +258,9 @@ async function touchCheck(name) {
   const label = `touch ${name} 400x800`;
   await page.setViewport({ width: 400, height: 800, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   if (!(await go(`level=${name}&reset=1`))) return record("FAIL", label, "did not load");
-  const ui = await page.evaluate(() => { const u = document.querySelector(".iw-use"), p = document.querySelector(".iso-dpad"); if (!u || u.hidden) return null; const a = u.getBoundingClientRect(), b = p?.getBoundingClientRect(); return { pad: !!p, beside: !!b && a.left >= b.right && a.bottom > b.top && a.top < b.bottom }; });
+  const ui = await page.evaluate(() => { const u = document.querySelector(".iw-act"), p = document.querySelector(".iw-band"), k = document.querySelector(".iw-stick"); if (!u || !p) return null; const a = u.getBoundingClientRect(), b = p.getBoundingClientRect(), c = k.getBoundingClientRect(); return { pad: !!k, beside: a.left >= c.right && a.top >= b.top && a.bottom <= b.bottom }; });
   if (!ui) return record("FAIL", label, "no interact button on a touch device");
-  if (!ui.beside) return record("FAIL", label, "interact button not beside the d-pad");
+  if (!ui.beside) return record("FAIL", label, "action button not beside the joystick in the band");
   const s = await snap();
   const b = s.things.find((t) => t.kind === "bonfire");
   const others = s.things.filter((t) => t.kind === "chest");
@@ -274,9 +274,9 @@ async function touchCheck(name) {
     await wait(150);
     await idle();
   }
-  const prompt = await page.waitForFunction(() => { const e = document.querySelector(".iw-prompt:not([hidden])"), u = document.querySelector(".iw-use.on"); if (!e || !u) return null; const a = e.getBoundingClientRect(), c = u.getBoundingClientRect(); return { text: e.textContent, above: a.bottom <= c.top }; }, { timeout: 3000, polling: 50 }).then((h) => h.jsonValue(), () => null);
+  const prompt = await page.waitForFunction(() => { const e = document.querySelector(".iw-prompt:not([hidden])"), u = document.documentElement.dataset.iwAct === "1" && document.querySelector(".iw-act"); if (!e || !u) return null; const a = e.getBoundingClientRect(), c = u.getBoundingClientRect(); return { text: e.textContent, above: a.bottom <= c.top }; }, { timeout: 3000, polling: 50 }).then((h) => h.jsonValue(), () => null);
   if (!prompt) return record("FAIL", label, `no prompt beside the bonfire on ${await cellNow()}`);
-  const box = await page.$eval(".iw-use", (u) => { const r = u.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+  const box = await page.$eval(".iw-act", (u) => { const r = u.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
   await page.touchscreen.tap(box.x, box.y);
   await wait(300);
   const st = await thingState(b.id);

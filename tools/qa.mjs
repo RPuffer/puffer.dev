@@ -51,7 +51,7 @@ async function screenOf(page, [cx, cz]) {
     const w = el.clientWidth || innerWidth, h = el.clientHeight || innerHeight;
     let sx = 0, sy = 0, n = 0;
     for (let y = 2; y < h; y += 4) for (let x = 2; x < w; x += 4) {
-      const c = r.pick(x, y, w, h);
+      const c = document.elementFromPoint(x, y) === el && r.pick(x, y, w, h);
       if (c && c[0] === cx && c[1] === cz) { sx += x; sy += y; n++; }
     }
     return n ? [sx / n, sy / n, n] : null;
@@ -136,15 +136,45 @@ async function xrayCheck(page, tag) {
   return diffCount(on, off);
 }
 
-async function uiChecks(page, tag) {
-  const has = await page.$(".iw-ui a");
-  record(`${tag} ui overlay mounted`, !!has);
-  if (!has) return;
-  const href = await page.$eval(".iw-ui a", (a) => a.href);
-  record(`${tag} overlay links to the start page`, /\/islands\.html$/.test(href) && !/\/(3d|2d)\//.test(href), href);
-  await Promise.all([page.waitForNavigation({ waitUntil: "load" }), page.click(".iw-ui a")]);
-  const begin = await page.$("#begin");
-  record(`${tag} islands link opens the start page`, !!begin, page.url());
+const tapEl = async (page, sel, touch) => {
+  const el = await page.$(sel);
+  if (!el) return false;
+  const b = await el.boundingBox();
+  if (touch) await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); else await page.mouse.click(b.x + b.width / 2, b.y + b.height / 2);
+  return true;
+};
+const orbShown = (page) => page.waitForFunction(() => { const o = document.querySelector(".iw-orb"); return o && !o.hidden && o.getBoundingClientRect().width > 0; }, { timeout: 15000, polling: 100 }).then(() => true, () => false);
+const navNodes = (page) => page.evaluate(() => [...document.querySelectorAll(".iw-nav .node")].map((n) => {
+  const r = n.getBoundingClientRect();
+  return { i: +n.dataset.index, slot: +n.dataset.slot, level: n.dataset.level, w: r.width, x: r.left + r.width / 2, y: r.top + r.height / 2, locked: n.classList.contains("locked"), inView: r.left >= -1 && r.right <= innerWidth + 1 && r.top >= -1, leaving: !!n.dataset.leaving };
+}));
+async function panelOpens(page) {
+  const ok = await page.waitForSelector(".iw-panel iframe", { timeout: 4000 }).then(() => true, () => false);
+  if (!ok) return false;
+  const f = await (await page.$(".iw-panel iframe")).contentFrame();
+  const begin = await f.waitForSelector("#begin", { timeout: 6000 }).then(() => true, () => false);
+  await f.waitForFunction(() => window.__done === true, { timeout: 8000 }).catch(() => {});
+  return begin;
+}
+
+async function uiChecks(page, tag, touch) {
+  const shown = await orbShown(page);
+  const o = shown && await page.$eval(".iw-orb", (e) => { const r = e.getBoundingClientRect(); return { cx: r.left + r.width / 2, top: r.top, w: innerWidth }; });
+  record(`${tag} island orb at top centre`, !!o && Math.abs(o.cx - o.w / 2) < 2 && o.top < 40, JSON.stringify(o));
+  record(`${tag} old hex button and islands link gone`, !(await page.$(".iw-nav-btn")) && !(await page.$(".iw-ui a")));
+  if (!shown) return;
+  await tapEl(page, ".iw-orb", touch);
+  await wait(700);
+  for (let i = 0; i < 14; i++) await page.keyboard.press("ArrowLeft");
+  await wait(750);
+  const left = await page.$('.iw-nav .node[data-index="0"]');
+  record(`${tag} leftmost node is the island selector`, !!left && (await navNodes(page)).filter((n) => !n.leaving && n.w > 20).sort((a, b) => a.x - b.x)[0]?.i === 0);
+  if (!left) return;
+  await tapEl(page, '.iw-nav .node[data-index="0"]', touch);
+  record(`${tag} selector node opens the islands panel`, await panelOpens(page));
+  await page.keyboard.press("Escape");
+  await wait(300);
+  record(`${tag} Escape closes the panel`, !(await page.$(".iw-panel")));
 }
 
 async function buildSuite(build, size) {
@@ -167,27 +197,11 @@ async function buildSuite(build, size) {
   const got2 = bt && await tap(page, bt.c);
   record(`${tag} tap blocked cell stops adjacent`, !!got2 && Math.abs(got2[0] - bt.c[0]) + Math.abs(got2[1] - bt.c[1]) === 1, `target ${bt?.c} got ${got2}`);
   if (size.touch) {
-    const pad = await page.$(".iso-dpad");
-    record(`${tag} d-pad shown under touch`, !!pad);
-    if (pad) {
-      const before = await cellOf(page);
-      const btn = await page.$('.iso-dpad [data-d="left"]');
-      const box = await btn.boundingBox();
-      await page.touchscreen.touchStart(box.x + box.width / 2, box.y + box.height / 2);
-      await wait(120);
-      await page.touchscreen.touchEnd();
-      await wait(200); await idle(page);
-      const after = await cellOf(page);
-      const ui = await page.$(".iw-ui");
-      const ub = ui && await ui.boundingBox();
-      const pb = await pad.boundingBox();
-      const overlap = ub && !(ub.x >= pb.x + pb.width || ub.x + ub.width <= pb.x || ub.y >= pb.y + pb.height || ub.y + ub.height <= pb.y);
-      record(`${tag} d-pad press moves hero`, before.join() !== after.join(), `${before} -> ${after}`);
-      record(`${tag} d-pad clear of ui overlay`, !overlap);
-    }
+    const band = await page.evaluate(() => { const b = document.querySelector(".iw-band"), u = document.querySelector(".iw-ui"); return { band: !!b && !b.classList.contains("off"), ui: !!u && getComputedStyle(u).display !== "none", old: !!document.querySelector(".iso-dpad,.iw-use") }; });
+    record(`${tag} touch band shown, desktop buttons and d-pad gone`, band.band && !band.ui && !band.old, JSON.stringify(band));
   }
   await page.screenshot({ path: path.join(OUT, `${tag}-play.png`) });
-  await uiChecks(page, tag);
+  await uiChecks(page, tag, size.touch);
   record(`${tag} no console errors or failed requests`, problems.length === 0, problems.slice(0, 3).join(" | "));
   await page.close();
 
@@ -249,13 +263,15 @@ async function rotationSuite(size) {
   });
   record(`${tag} turn eases over about 0.35 s`, elapsed > 250 && elapsed < 900, `${Math.round(elapsed)} ms`);
   const yNow = await yawOf(page);
-  const btn = await page.$('.iw-ui [data-rotate="1"]');
-  record(`${tag} rotate buttons in the overlay`, !!btn && !!(await page.$('.iw-ui [data-rotate="-1"]')));
-  if (btn) {
-    if (size.touch) { const b = await btn.boundingBox(); await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); } else await btn.click();
-    await wait(60); await turning(page);
-    const y = await yawOf(page);
-    record(`${tag} rotate button turns right`, y === (yNow + 90) % 360, `${yNow} -> ${y}`);
+  if (!size.touch) {
+    const btn = await page.$('.iw-ui [data-rotate="1"]');
+    record(`${tag} rotate buttons in the overlay`, !!btn && !!(await page.$('.iw-ui [data-rotate="-1"]')));
+    if (btn) {
+      await btn.click();
+      await wait(60); await turning(page);
+      const y = await yawOf(page);
+      record(`${tag} rotate button turns right`, y === (yNow + 90) % 360, `${yNow} -> ${y}`);
+    }
   }
   await settle(page, 600);
   const wt = await walkableTarget(page);
@@ -263,12 +279,12 @@ async function rotationSuite(size) {
   record(`${tag} tap-to-walk at yaw ${await yawOf(page)}`, !!got && got.join() === wt.join(), `target ${wt} got ${got}`);
   if (size.touch) {
     await settle(page, 400);
-    const pad = await page.$('.iso-dpad [data-d="up"]');
-    record(`${tag} d-pad shown`, !!pad);
-    if (pad) {
-      const b = await pad.boundingBox();
-      let r = await screenUp(page, async () => { await page.touchscreen.touchStart(b.x + b.width / 2, b.y + b.height / 2); await wait(120); await page.touchscreen.touchEnd(); });
-      record(`${tag} d-pad up moves up on screen at yaw ${await yawOf(page)}`, r.moved ? r.up : true, `${r.before} -> ${r.after} screen d(${r.dx},${r.dy})`);
+    const st = await page.$(".iw-stick");
+    record(`${tag} joystick shown`, !!st);
+    if (st) {
+      const b = await st.boundingBox(), cx = b.x + b.width / 2, cy = b.y + b.height / 2, d = b.width * 0.3;
+      const r = await screenUp(page, async () => { await page.touchscreen.touchStart(cx + d, cy - d); await wait(120); await page.touchscreen.touchEnd(); });
+      record(`${tag} joystick up-right moves up on screen at yaw ${await yawOf(page)}`, r.moved ? r.up : true, `${r.before} -> ${r.after} screen d(${r.dx},${r.dy})`);
     }
   }
   const kept = await yawOf(page);
@@ -297,7 +313,7 @@ async function pickMap(page) {
   return page.evaluate(() => {
     const r = window.__game.renderer, el = r.element, w = el.clientWidth, h = el.clientHeight, m = {};
     for (let y = 2; y < h; y += 6) for (let x = 2; x < w; x += 6) {
-      const c = r.pick(x, y, w, h);
+      const c = document.elementFromPoint(x, y) === el && r.pick(x, y, w, h);
       if (!c) continue;
       const k = c.join(","), e = m[k] || (m[k] = [0, 0, 0, []]);
       e[0] += x; e[1] += y; e[2]++; e[3].push([x, y]);
@@ -457,65 +473,175 @@ async function compareSuite(size) {
   await page.close();
 }
 
+async function touchPoints(page, frames) {
+  const c = await page.target().createCDPSession();
+  for (const [type, pts] of frames) { await c.send("Input.dispatchTouchEvent", { type, touchPoints: pts.map(([x, y], id) => ({ x, y, id })) }); await wait(35); }
+  await c.detach();
+}
+const slide = (from, to, n = 8) => {
+  const out = [["touchStart", from]];
+  for (let k = 1; k <= n; k++) out.push(["touchMove", from.map((p, j) => [p[0] + (to[j][0] - p[0]) * k / n, p[1] + (to[j][1] - p[1]) * k / n])]);
+  out.push(["touchEnd", []]);
+  return out;
+};
+
+async function touchSuite(size) {
+  const tag = `touch@${size.width}t`;
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1`, size);
+  record(`${tag} page loads`, done);
+  if (!done) { await page.close(); return; }
+  await settle(page, 1500);
+  const band = await page.evaluate(() => { const b = document.querySelector(".iw-band")?.getBoundingClientRect(); return b && { top: b.top, h: b.height, H: innerHeight }; });
+  record(`${tag} control band covers the bottom quarter`, !!band && Math.abs(band.top + band.h - band.H) < 2 && band.h >= band.H * 0.24 && band.h <= Math.max(151, band.H * 0.26), JSON.stringify(band));
+  const states = () => page.evaluate(() => window.__game.state.things.things.map((t) => t.id + ":" + t.state).join());
+  const prompt = await page.waitForFunction(() => document.documentElement.dataset.iwAct === "1", { timeout: 4000, polling: 50 }).then(() => true, () => false);
+  await page.screenshot({ path: path.join(root, "out/pass14/touch-400x800.png") });
+  const s0 = await states();
+  await tapEl(page, ".iw-act", true);
+  await wait(600);
+  record(`${tag} action button interacts like F`, prompt && (await states()) !== s0, `prompt ${prompt}`);
+  await settle(page, 1500);
+  const st = await (await page.$(".iw-stick")).boundingBox(), cx = st.x + st.width / 2, cy = st.y + st.height / 2, R = st.width * 0.32;
+  for (const [name, dx, dy] of [["down-left", -R, R], ["up-right", R, -R], ["right", R * 1.4, 0]]) {
+    await idle(page);
+    const c0 = await cellOf(page), h0 = await heroScreen(page);
+    await page.touchscreen.touchStart(cx + dx, cy + dy);
+    await wait(900);
+    const mid = await page.evaluate(() => typeof window.__game.state.actor.held === "function");
+    await page.touchscreen.touchEnd();
+    await wait(150); await idle(page);
+    const c1 = await cellOf(page), h1 = await heroScreen(page);
+    const sx = h1[0] - h0[0], sy = h1[1] - h0[1], steps = Math.abs(c1[0] - c0[0]) + Math.abs(c1[1] - c0[1]);
+    const ok = name === "right" ? sx > 0.3 && Math.abs(sy) < sx : (dx > 0 ? sx > 0 : sx < 0) && (dy > 0 ? sy > 0 : sy < 0);
+    record(`${tag} joystick ${name} held walks that way`, mid && steps >= 1 && ok, `${c0} -> ${c1} (${steps} steps) screen d(${sx.toFixed(2)},${sy.toFixed(2)})`);
+  }
+  const held = await page.evaluate(() => window.__game.state.actor.held);
+  record(`${tag} releasing the joystick stops the hero`, held == null);
+  const y0 = await yawOf(page);
+  await touchPoints(page, slide([[320, 300]], [[110, 310]]));
+  await wait(60); await turning(page);
+  const y1 = await yawOf(page);
+  record(`${tag} one-finger swipe left turns the island`, y1 === (y0 + 90) % 360, `${y0} -> ${y1}`);
+  await touchPoints(page, slide([[120, 300], [200, 300]], [[300, 305], [380, 305]]));
+  await wait(60); await turning(page);
+  const y2 = await yawOf(page);
+  record(`${tag} two-finger swipe right turns it back`, y2 === y0, `${y1} -> ${y2}`);
+  const z0 = await page.evaluate(() => window.__game.renderer.cam);
+  await touchPoints(page, slide([[150, 350], [250, 350]], [[125, 350], [275, 350]], 5));
+  const z1 = await page.evaluate(() => window.__game.renderer.cam);
+  await touchPoints(page, slide([[135, 350], [265, 350]], [[155, 350], [245, 350]], 5));
+  const z2 = await page.evaluate(() => window.__game.renderer.cam);
+  record(`${tag} pinch out zooms in one step, pinch in zooms back`, z1 > z0 && z2 === z0 && (await yawOf(page)) === y0, `${z0} -> ${z1} -> ${z2}`);
+  await page.evaluate(() => { window.__game.state.actor.locked = true; });
+  await wait(250);
+  const hid = await page.evaluate(() => document.querySelector(".iw-band").classList.contains("off"));
+  await page.evaluate(() => { window.__game.state.actor.locked = false; });
+  await wait(250);
+  const back = await page.evaluate(() => !document.querySelector(".iw-band").classList.contains("off"));
+  record(`${tag} band hides while the hero is locked for a ride`, hid && back);
+  record(`${tag} no console errors`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.close();
+}
+
 async function navSuite(size) {
   const tag = `nav@${size.width}${size.touch ? "t" : ""}`;
   const order = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
-  const at = 3, here = order[at], back = order[at - 1], ahead = order[at + 1];
+  const at = 4, here = order[at], back = order[at - 1];
   const { page, problems, done, ms } = await open(`${BASE}/3d/index.html?level=${here}&reset=1`, size);
   record(`${tag} __done within 10 s`, done, `${ms} ms`);
   if (!done) { await page.close(); return; }
-  await page.evaluate((back, ahead) => {
-    localStorage.setItem("isoworld:things:" + back, JSON.stringify({ things: {} }));
+  await page.evaluate((reached, ahead) => {
+    for (const n of reached) localStorage.setItem("isoworld:things:" + n, JSON.stringify({ things: {} }));
     for (const n of ahead) localStorage.removeItem("isoworld:things:" + n);
-  }, back, order.slice(at + 1));
-  const shown = await page.waitForFunction(() => { const b = document.querySelector(".iw-nav-btn"); return b && !b.hidden && b.getBoundingClientRect().width > 0; }, { timeout: 15000, polling: 100 }).then(() => true, () => false);
-  record(`${tag} navigator button shown`, shown);
+  }, order.slice(0, at), order.slice(at + 1));
+  const shown = await orbShown(page);
+  const bg = shown && await page.$eval(".iw-orb", (o) => o.style.backgroundImage);
+  record(`${tag} orb shows the current island`, shown && bg.includes(`/assets/start/${here}.jpg`), bg);
   if (!shown) { await page.close(); return; }
-  const tapBtn = async (sel) => {
-    const el = await page.$(sel);
-    if (size.touch) { const b = await el.boundingBox(); await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); } else await el.click();
-  };
-  await tapBtn(".iw-nav-btn");
-  await wait(800);
-  const nodes = await page.evaluate(() => [...document.querySelectorAll(".iw-nav .node")].map((n) => {
-    const r = n.getBoundingClientRect();
-    return { level: n.dataset.level, k: +n.dataset.offset, locked: n.classList.contains("locked"), inView: r.left >= 0 && r.right <= innerWidth && r.top >= 0 && r.bottom <= innerHeight };
-  }));
-  record(`${tag} opens with up to 5 nodes centred on the current island`, nodes.length >= 1 && nodes.length <= 5 && nodes.find((n) => n.k === 0)?.level === here, nodes.map((n) => `${n.k}:${n.level}${n.locked ? "(L)" : ""}`).join(" "));
-  record(`${tag} all nodes inside the viewport`, nodes.length > 0 && nodes.every((n) => n.inView));
-  const lockedAhead = nodes.find((n) => n.k === 1);
-  record(`${tag} unreached ahead node locked, reached behind node open`, !!lockedAhead?.locked && nodes.find((n) => n.k === -1)?.locked === false);
-  if (size.width === 1200 && !size.touch) await page.screenshot({ path: path.join(root, "out/pass12/navigator.png") });
-  const swaps0 = await page.evaluate(() => window.__swapCount);
-  await tapBtn(`.iw-nav .node[data-offset="1"]`);
+  await tapEl(page, ".iw-orb", size.touch);
   await wait(900);
+  let nodes = await navNodes(page);
+  const mid = nodes.find((n) => n.slot === 0), full = nodes.filter((n) => n.w > mid.w * 0.5), outer = nodes.filter((n) => Math.abs(n.slot) === 2);
+  record(`${tag} tap morphs into 5 circles centred on here`, full.length === 5 && mid.level === here && full.every((n) => n.inView), nodes.map((n) => `${n.slot}:${n.i}:${Math.round(n.w)}`).join(" "));
+  record(`${tag} outer two slightly smaller than the middle three`, outer.length === 2 && outer.every((n) => n.w < mid.w * 0.9 && n.w > mid.w * 0.65) && nodes.filter((n) => Math.abs(n.slot) === 1).every((n) => Math.abs(n.w - mid.w) < 1));
+  record(`${tag} unreached islands locked`, nodes.filter((n) => n.slot > 0).every((n) => n.locked) && nodes.filter((n) => n.slot < 0 && n.i > 0).every((n) => !n.locked));
+  await page.screenshot({ path: path.join(root, `out/pass14/nav-${size.width}x${size.height}${size.touch ? "-touch" : ""}.png`) });
+  const comer = nodes.find((n) => n.slot === -3), mover = nodes.find((n) => n.slot === -1);
+  const step = nodes.find((n) => n.slot === 1).x - mid.x;
+  const sampler = page.evaluate((ci, mi) => new Promise((res) => {
+    const out = [], t0 = performance.now();
+    const f = () => {
+      const c = document.querySelector(`.iw-nav .node[data-index="${ci}"]`), m = document.querySelector(`.iw-nav .node[data-index="${mi}"]`);
+      if (c && m) { const a = c.getBoundingClientRect(), b = m.getBoundingClientRect(); out.push([a.width, +getComputedStyle(c).opacity, b.top + b.height / 2]); }
+      if (performance.now() - t0 < 1600) requestAnimationFrame(f); else res(out);
+    };
+    f();
+  }), comer.i, mover.i);
+  if (size.touch) await touchPoints(page, slide([[60, 300]], [[60 + step * 1.05, 302]], 6));
+  else { await page.mouse.move(size.width / 2, 400); await page.mouse.wheel({ deltaY: -120 }); }
+  const samples = await sampler;
+  nodes = await navNodes(page);
+  const ws = samples.map((s) => s[0]), ys = samples.map((s) => s[2]), finalY = mid.y, startY = ys[0];
+  const grew = ws.length > 5 && ws[0] < mid.w * 0.25 && Math.abs(ws[ws.length - 1] - mid.w * 0.8) < 3;
+  const noFade = samples.every((s) => s[1] === 1);
+  const overshoot = startY > finalY ? Math.min(...ys) < finalY - 2 : Math.max(...ys) > finalY + 2;
+  record(`${tag} ${size.touch ? "swipe" : "wheel"} scrolls; entering node grows from a dot, no fade`, grew && noFade && nodes.find((n) => n.slot === 0)?.i === mid.i - 1, `width ${Math.round(ws[0])} -> ${Math.round(ws[ws.length - 1])}, opacity ${noFade ? "1 throughout" : "varied"}`);
+  record(`${tag} nodes bounce up and down as they settle`, overshoot, `y ${Math.round(startY)} -> ${Math.round(finalY)}, extreme ${Math.round(startY > finalY ? Math.min(...ys) : Math.max(...ys))}`);
+  if (size.width === 1200) await page.screenshot({ path: path.join(root, "out/pass14/nav-scrolled-1200x800.png") });
+  const swaps0 = await page.evaluate(() => window.__swapCount);
+  if (size.touch) await touchPoints(page, slide([[200, 300]], [[200 - step * 1.05, 302]], 6));
+  else await page.mouse.wheel({ deltaY: 120 });
+  await wait(700);
+  await tapEl(page, `.iw-nav .node[data-slot="1"]`, size.touch);
+  await wait(700);
   const afterLock = await page.evaluate(() => ({ level: window.__game.state.level.name, swaps: window.__swapCount, open: !!document.querySelector(".iw-nav.open") }));
-  record(`${tag} locked node does nothing`, afterLock.level === here && afterLock.swaps === swaps0 && afterLock.open, JSON.stringify(afterLock));
+  record(`${tag} locked node stays put`, afterLock.level === here && afterLock.swaps === swaps0 && afterLock.open, JSON.stringify(afterLock));
   if (!size.touch) {
     await page.keyboard.press("Escape");
     await wait(600);
-    const gone = await page.evaluate(() => !document.querySelector(".iw-nav") && document.activeElement?.classList.contains("iw-nav-btn"));
-    record(`${tag} Escape closes and refocuses the button`, gone);
+    record(`${tag} Escape closes and refocuses the orb`, await page.evaluate(() => !document.querySelector(".iw-nav") && document.activeElement?.classList.contains("iw-orb")));
     await page.keyboard.press("Enter");
+    await wait(800);
+    for (let i = 0; i < 6; i++) await page.keyboard.press("Tab");
+    record(`${tag} Enter opens, Tab stays inside`, await page.evaluate(() => !!document.activeElement?.closest(".iw-nav")));
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("ArrowLeft");
     await wait(700);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    const focused = await page.evaluate(() => document.activeElement?.dataset?.offset);
-    record(`${tag} Enter opens, Tab stays inside the molecule`, focused != null, `focus offset ${focused}`);
-    await page.focus(`.iw-nav .node[data-offset="-1"]`);
-    await page.keyboard.press("Enter");
-  } else await tapBtn(`.iw-nav .node[data-offset="-1"]`);
+  } else {
+    await page.touchscreen.tap(200, 560);
+    await wait(600);
+    record(`${tag} tapping outside closes`, !(await page.$(".iw-nav")));
+    await tapEl(page, ".iw-orb", true);
+    await wait(900);
+  }
+  await tapEl(page, `.iw-nav .node[data-slot="-1"]`, size.touch);
   const jumped = await page.waitForFunction((back) => window.__game.state.level.name === back && !document.querySelector(".iw-veil"), { timeout: 15000, polling: 100 }, back).then(() => true, () => false);
   const after = await page.evaluate(() => ({ level: window.__game.state.level.name, url: new URL(location.href).searchParams.get("level"), swaps: window.__swapCount }));
-  record(`${tag} jump to a reached island changes level`, jumped && after.url === back && after.swaps === swaps0 + 1, JSON.stringify(after));
+  record(`${tag} jump to a reached island`, jumped && after.url === back && after.swaps === swaps0 + 1, JSON.stringify(after));
+  await orbShown(page);
+  await wait(400);
+  await tapEl(page, ".iw-orb", size.touch);
+  await wait(800);
+  for (let k = 0; k < 3; k++) {
+    if (size.touch) await touchPoints(page, slide([[60, 300]], [[60 + step * 2.1, 302]], 8));
+    else { await page.mouse.wheel({ deltaY: -120 }); await wait(120); await page.mouse.wheel({ deltaY: -120 }); }
+    await wait(450);
+  }
+  await wait(400);
+  nodes = await navNodes(page);
+  const leftmost = nodes.filter((n) => !n.leaving && n.w > 20).sort((a, b) => a.x - b.x)[0];
+  record(`${tag} scrolled to the far left, the selector node leads`, leftmost?.i === 0 && leftmost.level === "@islands", nodes.map((n) => `${n.slot}:${n.i}`).join(" "));
+  if (size.width === 1200 || size.touch) await page.screenshot({ path: path.join(root, `out/pass14/nav-left-${size.width}x${size.height}${size.touch ? "-touch" : ""}.png`) });
+  await tapEl(page, '.iw-nav .node[data-index="0"]', size.touch);
+  const panel = await panelOpens(page);
+  record(`${tag} selector node opens the islands panel`, panel);
+  if (panel && (size.width === 1200 || size.touch)) { await wait(500); await page.screenshot({ path: path.join(root, `out/pass14/panel-${size.width}x${size.height}${size.touch ? "-touch" : ""}.png`) }); }
   record(`${tag} no console errors or failed requests`, problems.length === 0, problems.slice(0, 3).join(" | "));
   await page.close();
   if (size.width === 1200) {
     const h = await open(`${BASE}/3d/index.html?level=${here}&hero=0`, size);
     await wait(500);
-    record(`${tag} no navigator at hero=0`, h.done && !(await h.page.$(".iw-nav-btn")));
+    record(`${tag} no orb at hero=0`, h.done && !(await h.page.$(".iw-orb")));
     await h.page.close();
   }
 }
@@ -583,11 +709,13 @@ try {
     };
     if (only === "click") { if (size.width === 1200 || size.touch) await run("click", clickSuite); continue; }
     if (only === "nav") { await run("nav", navSuite); continue; }
+    if (only === "touch") { if (size.touch) await run("touch", touchSuite); continue; }
     if (only === "cam") { await run("cam", camSuite); continue; }
     for (const build of ["3d", "2d"]) await run(build, (s) => buildSuite(build, s));
     if (size.width === 1200 || size.touch) await run("rotation", rotationSuite);
     if (size.width === 1200 || size.touch) await run("click", clickSuite);
     if (!size.touch) { await run("compare", compareSuite); await run("start", startSuite); }
+    if (size.touch) await run("touch", touchSuite);
     await run("nav", navSuite);
     await run("cam", camSuite);
   }
