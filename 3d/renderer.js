@@ -5,7 +5,7 @@ import { buildDecor } from "./decor.js";
 import { buildCharacter } from "./character.js";
 import { levelScreenBounds } from "../core/iso.js";
 import { xray } from "./xray.js";
-import { highlight } from "./highlight.js";
+import { highlight, unhighlight } from "./highlight.js";
 import { liftAt } from "./terrain.js";
 import { makeStyle } from "./style.js";
 import { initMotion, stepMotion } from "./motion.js";
@@ -19,6 +19,7 @@ const FRAME = [351, 390];
 
 export const HERO_OUTLINE = { color: "#12c4f0", width: 4, through: "hidden", inner: { color: "#1b1f27", width: 1.5 } };
 export const HERO_FILL = { color: "#12c4f0", opacity: 0.45, through: "hidden" };
+export const RIDE_GLOW = { outline: { color: "#ffffff", width: 5, through: true, effect: "rainbow", inner: { color: "#1b1f27", width: 1.5 } }, fill: { effect: "rainbow", color: "#ffffff", opacity: 0.32, through: true } };
 
 export function occludeModes(v) {
   const t = String(v || "outline,fill").toLowerCase().split(/[,+ ]/).filter(Boolean);
@@ -56,6 +57,13 @@ export function createRenderer(container = document.body) {
   const sky = createSky();
   if (sky) scene.add(sky.mesh);
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
+  let glowing = false;
+  const heroHl = () => {
+    if (!hero) return;
+    if (glowing) highlight(hero, RIDE_GLOW);
+    else if (occ.outline || occ.fill) highlight(hero, { outline: occ.outline && HERO_OUTLINE, fill: occ.fill && { ...HERO_FILL, effect: S.params.fillfx || "holo" } });
+    else unhighlight(hero);
+  };
   let occ = occludeModes(), seqK = 0, drop = 0, jitter = 0, bgT = 1, flashT = 1, held = null;
   const fx = [], fxCtx = { x: 0, y: 0, z: 0, sx: 0, sy: 0, w: 1, h: 1, zoom: 1, hero: false, style: null };
   const flashBase = new THREE.Color(), WHITE = new THREE.Color(1, 1, 1);
@@ -171,7 +179,7 @@ export function createRenderer(container = document.body) {
       hero = buildCharacter(1, style);
       hero.visible = state.params.hero !== "0";
       occ = occludeModes(state.params.occlude);
-      if (occ.outline || occ.fill) highlight(hero, { outline: occ.outline && HERO_OUTLINE, fill: occ.fill && { ...HERO_FILL, effect: state.params.fillfx || "holo" } });
+      heroHl();
       scene.add(hero);
       line.reset(state);
       bounds = levelScreenBounds(L, state.proj);
@@ -216,6 +224,12 @@ export function createRenderer(container = document.body) {
       }
       old.hero?.traverse((o) => { if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose(); });
     },
+    glow(on) {
+      if (glowing === !!on) return;
+      glowing = !!on;
+      heroHl();
+    },
+    get glowing() { return glowing; },
     release() {
       if (!held) return;
       for (const o of [held.deck, held.shaft]) { scene.remove(o); o.geometry.dispose(); o.material.dispose(); }

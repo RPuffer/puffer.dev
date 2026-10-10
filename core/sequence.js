@@ -1,3 +1,5 @@
+export const BPM = 140;
+
 export const SEQ = {
   close: 1.2,
   danceAt: 0.3,
@@ -74,6 +76,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     rideUniforms.uRideTime.value = 0;
     if (s.short) { mark("rise"); return; }
     s.dance = pool.length ? pool[count++ % pool.length] : null;
+    view.glow?.(true);
     view.seq({ frac: SEQ.heroFrac });
     st.actor.facing = facing();
     mark("close");
@@ -89,6 +92,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
 
   function finish() {
     view.release?.();
+    view.glow?.(false);
     const total = +s.t.toFixed(3);
     hops.push({ from: s.from, next: s.next, dance: s.dance || null, beats: s.beats, clips: Object.fromEntries(Object.entries(s.clips).map(([b, c]) => [b, [...c]])), total, failed: !!s.failAt });
     s = null;
@@ -100,6 +104,7 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
     if (!s) return;
     shade(0);
     view.release?.();
+    view.glow?.(false);
     view.seq({ k: 0, y: 0, keep: null, shake: 0 });
     s = null;
     api.state = "idle";

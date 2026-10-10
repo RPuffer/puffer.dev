@@ -1,11 +1,12 @@
 import * as THREE from "three";
 import { motion } from "./motion.js";
+import { BPM } from "../core/sequence.js";
 
 const BIT = { S: 0x80, V: 0x40, F: 0x20, O: 0x10 };
 const ORDER = { V: 30, S: 31, F: 32, I: 33, O: 34 };
 const SLACK = { V: 0.05, O: 0.3 };
 
-const shared = { uRes: { value: new THREE.Vector2(1, 1) }, uDpr: { value: 1 }, uTime: motion.uTime };
+const shared = { uRes: { value: new THREE.Vector2(1, 1) }, uDpr: { value: 1 }, uTime: motion.uTime, uBpm: { value: BPM } };
 const size = new THREE.Vector2();
 const sync = (gl) => {
   gl.getDrawingBufferSize(size);
@@ -21,6 +22,10 @@ export const FILL_FX = {
   dither: "return vec4(color, hlBayer(p) < alpha ? 1.0 : 0.0);",
   holo: "float band = 0.5 + 0.5 * sin(p.y * 0.9 - t * 9.0); float sweep = smoothstep(0.92, 1.0, fract(p.y / 90.0 - t * 0.6)); float flick = 0.85 + 0.15 * sin(t * 47.0); vec3 c = mix(color, vec3(1.0), 0.25 * band + 0.6 * sweep); return vec4(c, alpha * flick * mix(0.45, 1.0, band) + sweep * 0.5);",
 };
+
+FILL_FX.rainbow = "float kick = exp(-fract(t * uBpm / 60.0) * 5.0); float h = fract((p.x + p.y) / 240.0 - t * 0.5); vec3 c = clamp(abs(mod(h * 6.0 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0); return vec4(mix(c, vec3(1.0), 0.4 * kick), alpha * (0.6 + 0.4 * kick));";
+
+export const beat = shared.uBpm;
 
 export function addFillEffect(name, glsl) {
   FILL_FX[name] = glsl;
@@ -46,6 +51,7 @@ void main() {
 const frag = (fx) => `uniform vec3 uColor;
 uniform float uAlpha;
 uniform float uPulse;
+uniform float uBpm;
 uniform float uTime;
 uniform float uDpr;
 float hlBayer(vec2 p) {
@@ -76,6 +82,7 @@ function material({ color = "#ffffff", opacity = 1, pulse = 0, width = 0, slack 
       uRes: shared.uRes,
       uDpr: shared.uDpr,
       uTime: shared.uTime,
+      uBpm: shared.uBpm,
     },
     vertexShader: VERT,
     fragmentShader: frag(fx),
@@ -144,7 +151,7 @@ function passes(opts) {
   }
   if (outline) {
     const d = DEPTH[mode(outline.through)];
-    const ring = (o) => material({ ...o, slack: SLACK.O, depth: d, ref: 0, mask: BIT.S | BIT.O, write: BIT.O, pulse: outline.pulse });
+    const ring = (o) => material({ ...o, fx: FILL_FX[o.effect] || o.effect || FILL_FX.tint, slack: SLACK.O, depth: d, ref: 0, mask: BIT.S | BIT.O, write: BIT.O, pulse: outline.pulse });
     if (outline.inner) list.push(["I", ring({ opacity: outline.opacity, ...outline.inner })]);
     list.push(["O", ring(outline)]);
   }

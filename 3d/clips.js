@@ -12,7 +12,7 @@ import loser from "./clips/loser.json" with { type: "json" };
 import bounce from "./clips/bounce.json" with { type: "json" };
 
 export const CLIP_DATA = { idle, walk, land, brace, wiggle, spin, pump, floss, shuffle, loser, bounce };
-export const DANCES = ["wiggle", "floss", "spin", "shuffle", "pump", "loser", "bounce"];
+export const DANCES = ["floss", "wiggle", "shuffle", "spin", "loser", "pump", "bounce"];
 export const JOINTS = ["hips", "torso", "head", "upperArmL", "lowerArmL", "handL", "upperArmR", "lowerArmR", "handR", "upperLegL", "lowerLegL", "footL", "upperLegR", "lowerLegR", "footR"];
 export const REST = { upperArmL: [0, 0, -7], upperArmR: [0, 0, 7] };
 

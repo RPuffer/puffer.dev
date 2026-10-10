@@ -1,3 +1,4 @@
+import { DANCES } from "../3d/clips.js";
 import puppeteer from "puppeteer-core";
 import path from "node:path";
 import fs from "node:fs";
@@ -246,7 +247,7 @@ async function ride(next) {
   const times = BEATS.map((b) => hop.beats[b]);
   const bad = BEATS.find((b, i) => times[i] == null || (i > 0 && !(times[i] > times[i - 1])));
   if (bad) return { ok: false, why: `beat order ${JSON.stringify(hop.beats)} breaks at ${bad}` };
-  const DANCE = ["wiggle", "spin", "pump"];
+  const DANCE = DANCES;
   for (const b of ["dance", "drop", "hold"]) {
     const c = hop.clips?.[b] || [];
     if (!c.length || !c.every((n) => n === hop.dance) || !DANCE.includes(hop.dance)) return { ok: false, why: `clip during ${b} is ${JSON.stringify(c)}, want dance ${hop.dance}` };
