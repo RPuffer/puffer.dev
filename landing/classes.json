@@ -6,22 +6,22 @@
   "links": [
    {
     "label": "Behance",
-    "icon": "frame",
+    "icon": "behance",
     "url": "https://www.behance.net/SyntheticFlow"
    },
    {
     "label": "GitHub",
-    "icon": "code",
+    "icon": "github",
     "url": "https://github.com/RPuffer"
    },
    {
     "label": "LinkedIn",
-    "icon": "case",
+    "icon": "linkedin",
     "url": "https://www.linkedin.com/in/ryne-puffer-2199303a/"
    },
    {
     "label": "SoundCloud",
-    "icon": "cloud",
+    "icon": "soundcloud",
     "url": "https://soundcloud.com/orva-music"
    }
   ],

@@ -29,3 +29,5 @@ The landing warm itself pulls 77 requests, 3364 KB, at low priority after the la
 |---|---|---|
 | before | 2.33 s | 6.58 s |
 | after | 1.42 s | 5.67 s |
+
+Landing link icons are the Simple Icons 13.21.0 path data (CC0, https://simpleicons.org), inlined in `landing/themes/souls.js`.
