@@ -35,7 +35,13 @@ async function open(url, { width, height, touch = false }) {
 }
 
 const cellOf = (page) => page.evaluate(() => window.__game.state.actor.cell.slice());
-const idle = (page) => page.waitForFunction(() => { const a = window.__game.state.actor; return !a.path.length && !a.held; }, { timeout: 8000, polling: 100 });
+const idle = (page, timeout = 8000) => page.waitForFunction(() => { const a = window.__game.state.actor; return !a.path.length && !a.held; }, { timeout, polling: 100 });
+const camStill = (page) => page.waitForFunction(() => {
+  const c = window.__game.renderer.three.camera, k = [...c.position.toArray(), c.right, c.top].map((v) => v.toFixed(4)).join();
+  const same = window.__camKey === k;
+  window.__camKey = k;
+  return same;
+}, { timeout: 8000, polling: 150 });
 
 async function settle(page, ms = 1500) { await idle(page); await wait(ms); }
 
@@ -293,10 +299,15 @@ async function pickMap(page) {
     for (let y = 2; y < h; y += 6) for (let x = 2; x < w; x += 6) {
       const c = r.pick(x, y, w, h);
       if (!c) continue;
-      const k = c.join(","), e = m[k] || (m[k] = [0, 0, 0]);
-      e[0] += x; e[1] += y; e[2]++;
+      const k = c.join(","), e = m[k] || (m[k] = [0, 0, 0, []]);
+      e[0] += x; e[1] += y; e[2]++; e[3].push([x, y]);
     }
-    for (const k in m) { const e = m[k]; m[k] = [e[0] / e[2], e[1] / e[2], e[2]]; }
+    for (const k in m) {
+      const e = m[k], cx = e[0] / e[2], cy = e[1] / e[2];
+      let best = e[3][0], bd = Infinity;
+      for (const q of e[3]) { const d = (q[0] - cx) ** 2 + (q[1] - cy) ** 2; if (d < bd) { bd = d; best = q; } }
+      m[k] = [best[0], best[1], e[2]];
+    }
     return m;
   });
 }
@@ -538,12 +549,12 @@ async function camSuite(size) {
   const start = await cellOf(page);
   for (const key of [null, "KeyE", null, "KeyQ", null]) {
     if (key) { await page.keyboard.press(key); await wait(600); continue; }
-    await settle(page, 400);
+    await idle(page, 30000); await camStill(page);
     const t = await clickTargets(page);
     if (!t.far) continue;
     hops++;
     await clickAt(page, t.far.p, size.touch);
-    await wait(300); await idle(page);
+    await wait(300); await idle(page, 30000);
     const got = await cellOf(page);
     if (got.join() === t.far.c.join()) landed++;
     moved = Math.max(moved, Math.abs(got[0] - start[0]) + Math.abs(got[1] - start[1]));
@@ -564,15 +575,21 @@ async function camSuite(size) {
 try {
   for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }]) {
     const only = process.env.QA_ONLY;
-    if (only === "click") { if (size.width === 1200 || size.touch) await clickSuite(size); continue; }
-    if (only === "nav") { await navSuite(size); continue; }
-    if (only === "cam") { await camSuite(size); continue; }
-    for (const build of ["3d", "2d"]) await buildSuite(build, size);
-    if (size.width === 1200 || size.touch) await rotationSuite(size);
-    if (size.width === 1200 || size.touch) await clickSuite(size);
-    if (!size.touch) { await compareSuite(size); await startSuite(size); }
-    await navSuite(size);
-    await camSuite(size);
+    const run = async (name, fn) => {
+      try { await fn(size); } catch (e) {
+        record(`${name}@${size.width}${size.touch ? "t" : ""} suite completes`, false, String(e.message || e).split("\n")[0]);
+        for (const pg of await browser.pages()) await pg.close().catch(() => {});
+      }
+    };
+    if (only === "click") { if (size.width === 1200 || size.touch) await run("click", clickSuite); continue; }
+    if (only === "nav") { await run("nav", navSuite); continue; }
+    if (only === "cam") { await run("cam", camSuite); continue; }
+    for (const build of ["3d", "2d"]) await run(build, (s) => buildSuite(build, s));
+    if (size.width === 1200 || size.touch) await run("rotation", rotationSuite);
+    if (size.width === 1200 || size.touch) await run("click", clickSuite);
+    if (!size.touch) { await run("compare", compareSuite); await run("start", startSuite); }
+    await run("nav", navSuite);
+    await run("cam", camSuite);
   }
 } finally {
   await browser.close();
