@@ -59,7 +59,7 @@ function mount(root, k) {
 <dl class="sc-rows">
 <div><dt>Name</dt><dd>${P.name}</dd></div>
 <div><dt>Based</dt><dd>${P.location}</dd></div>
-<div><dt>Email</dt><dd><a href="mailto:${P.email}">${P.email}</a></dd></div>
+<div><dt>Email</dt><dd><a id="sc-mail" href="#">email</a></dd></div>
 <div><dt>Level</dt><dd>${years} years building software</dd></div>
 ${links ? `<div><dt>Links</dt><dd>${links}</dd></div>` : ""}
 <div class="sc-class"><dt>Class</dt><dd><button type="button" class="sc-arw" data-d="-1" aria-label="Previous class">&#9664;</button><output id="sc-cls" aria-live="polite"></output><button type="button" class="sc-arw" data-d="1" aria-label="Next class">&#9654;</button></dd></div>
@@ -71,6 +71,8 @@ ${links ? `<div><dt>Links</dt><dd>${links}</dd></div>` : ""}
 <footer class="sc-keys"><span><kbd>&larr;</kbd><kbd>&rarr;</kbd>Class</span><span><kbd>F</kbd><kbd>Enter</kbd>Begin</span><span><kbd>Tab</kbd>Move</span></footer>
 </div>`;
   const $ = (s) => root.querySelector(s);
+  const mailEl = $("#sc-mail");
+  if (mailEl && P.mail) { const m = atob(P.mail).split("").reverse().join(""); mailEl.textContent = m; mailEl.href = "mailto:" + m; }
   const cls = $("#sc-cls"), rows = [...$("#sc-stats").children], begin = $("#sc-begin");
   const q = new URLSearchParams(location.search).get("class");
   let at = Math.max(0, C.findIndex((c) => c.id === (q || data.default)));

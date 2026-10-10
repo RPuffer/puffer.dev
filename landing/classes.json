@@ -1,7 +1,6 @@
 {
  "person": {
   "name": "Ryne Puffer",
-  "email": "rynepuffer@gmail.com",
   "location": "Denver, CO",
   "since": 2016,
   "links": [
@@ -9,7 +8,8 @@
     "label": "Behance",
     "url": "https://www.behance.net/SyntheticFlow"
    }
-  ]
+  ],
+  "mail": "bW9jLmxpYW1nQHJlZmZ1cGVueXI="
  },
  "default": "aws",
  "classes": [
