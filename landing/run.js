@@ -14,12 +14,20 @@ export const ROLES = [
   ["University of Wisconsin Milwaukee", "BS, Computer Engineering, with honors", "December 2016"],
 ];
 
+let warmed = false;
+const warm = (name) => {
+  if (warmed || navigator.connection?.saveData) return;
+  warmed = true;
+  import("../core/warm.js").then(({ idle, warmPage }) => idle(() => warmPage(name).finally(() => { window.__warm = true; }), 4000)).catch(() => {});
+};
+
 export async function wire({ begin, cont, label }) {
   let order = ["cat-medium"];
   try { order = (await (await fetch("../levels/run.json")).json()).order; } catch {}
   begin.href = play(order[0], true);
   begin.addEventListener("click", () => { for (const n of order) try { localStorage.removeItem(KEY(n)); } catch {} });
   const state = order.map(saved);
+  warm(order[0]);
   let at = -1;
   for (let i = 0; i < order.length; i++) if (lit(state[i])) at = i;
   if (at < 0) for (let i = 0; i < order.length; i++) if (state[i]) at = i;

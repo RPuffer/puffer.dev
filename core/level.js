@@ -1,4 +1,5 @@
 import { CATALOG, SURFACES, WALKABLE, blockedCells, maskCells } from "./catalog.js";
+import { takeLevel } from "./warm.js";
 import { THING_KINDS, normalizeThing, thingBlocks, thingEdge, edgeKey } from "./interact.js";
 
 export const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
@@ -8,19 +9,28 @@ export async function loadLevel(name, opts = {}) {
   const safe = String(name || "home").replace(/[^a-z0-9_-]/gi, "");
   if (!safe) throw new Error(`Level name "${name}" has no usable characters; use letters, digits, - or _.`);
   const file = `levels/${safe}.json`;
-  let res;
-  try { res = await fetch(new URL(`../${file}`, import.meta.url)); } catch (e) { throw new Error(`Could not fetch ${file}: ${e.message || e}`); }
-  if (res.status === 404) throw new Error(`Level "${safe}" not found: ${file} does not exist.`);
-  if (!res.ok) throw new Error(`Level "${safe}" failed to load: ${file} returned HTTP ${res.status}.`);
-  let raw;
-  try { raw = await res.json(); } catch (e) { throw new Error(`Level "${safe}": ${file} is not valid JSON (${e.message || e}).`); }
+  const raw = (await takeLevel(safe)?.catch(() => null)) || (await fetchLevel(safe, file));
   if (opts.beforePrepare) await opts.beforePrepare(raw);
   const L = prepareLevel(raw);
   if (L.things.some((t) => t.kind === "elevator" && !t.run && !t.to)) L.runOrder = await loadRunOrder();
   return L;
 }
 
-export async function loadRunOrder() {
+async function fetchLevel(safe, file) {
+  let res;
+  try { res = await fetch(new URL(`../${file}`, import.meta.url)); } catch (e) { throw new Error(`Could not fetch ${file}: ${e.message || e}`); }
+  if (res.status === 404) throw new Error(`Level "${safe}" not found: ${file} does not exist.`);
+  if (!res.ok) throw new Error(`Level "${safe}" failed to load: ${file} returned HTTP ${res.status}.`);
+  try { return await res.json(); } catch (e) { throw new Error(`Level "${safe}": ${file} is not valid JSON (${e.message || e}).`); }
+}
+
+let runOrder = null;
+export function loadRunOrder() {
+  if (!runOrder) runOrder = readRunOrder().then((r) => { if (!r) runOrder = null; return r; });
+  return runOrder;
+}
+
+async function readRunOrder() {
   try {
     const res = await fetch(new URL("../levels/run.json", import.meta.url));
     if (!res.ok) return null;

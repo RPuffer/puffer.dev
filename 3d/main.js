@@ -13,6 +13,7 @@ import { RISE } from "./things.js";
 import { motion } from "./motion.js";
 import { createRideFx } from "./speedlines.js";
 import { SKY, SKY_BG } from "./sky.js";
+import { idle, warmIsland } from "../core/warm.js";
 
 const msg = document.getElementById("msg");
 const params = readParams();
@@ -92,6 +93,13 @@ try {
   game.canZoom = () => !sequence.active;
   renderer.onOrient((state) => clouds?.orient(state));
   run.boot(first);
+  run.onLoad((state) => {
+    if (params.nav === "0") return;
+    const exit = state.things?.things.find((t) => t.kind === "elevator" && t.role === "exit");
+    const order = state.level.runOrder || [], i = order.indexOf(state.level.name);
+    const next = exit?.to || exit?.run?.[exit.run.indexOf(state.level.name) + 1] || (i >= 0 ? order[i + 1] : null);
+    if (next) idle(() => { if (game.state === state) warmIsland(next).catch(() => {}); });
+  });
   window.__ui = mountUI({
     rotate: (step) => game.rotate(step),
     zoom: (step) => game.zoom(step),
