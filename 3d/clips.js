@@ -6,9 +6,13 @@ import brace from "./clips/brace.json" with { type: "json" };
 import wiggle from "./clips/wiggle.json" with { type: "json" };
 import spin from "./clips/spin.json" with { type: "json" };
 import pump from "./clips/pump.json" with { type: "json" };
+import floss from "./clips/floss.json" with { type: "json" };
+import shuffle from "./clips/shuffle.json" with { type: "json" };
+import loser from "./clips/loser.json" with { type: "json" };
+import bounce from "./clips/bounce.json" with { type: "json" };
 
-export const CLIP_DATA = { idle, walk, land, brace, wiggle, spin, pump };
-export const DANCES = ["wiggle", "spin", "pump"];
+export const CLIP_DATA = { idle, walk, land, brace, wiggle, spin, pump, floss, shuffle, loser, bounce };
+export const DANCES = ["wiggle", "floss", "spin", "shuffle", "pump", "loser", "bounce"];
 export const JOINTS = ["hips", "torso", "head", "upperArmL", "lowerArmL", "handL", "upperArmR", "lowerArmR", "handR", "upperLegL", "lowerLegL", "footL", "upperLegR", "lowerLegR", "footR"];
 export const REST = { upperArmL: [0, 0, -7], upperArmR: [0, 0, 7] };
 

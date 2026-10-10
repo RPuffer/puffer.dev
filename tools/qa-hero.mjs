@@ -18,7 +18,7 @@ const total = heroSpec().parts.length;
 record("part count 16 to 20", total >= 16 && total <= 20, `${total}`);
 
 const names = Object.keys(CLIP_DATA);
-record("seven clips from JSON", names.length === 7 && ["idle", "walk", "land", "brace", ...DANCES].every((n) => CLIP_DATA[n]?.name === n), names.join(" "));
+record(`${4 + DANCES.length} clips from JSON`, names.length === 4 + DANCES.length && ["idle", "walk", "land", "brace", ...DANCES].every((n) => CLIP_DATA[n]?.name === n), names.join(" "));
 for (const n of names) {
   const c = CLIP_DATA[n], counts = Object.values(c.tracks).map((k) => k.length);
   const inRange = Object.values(c.tracks).every((k) => k[0][0] === 0 && Math.abs(k[k.length - 1][0] - c.duration) < 1e-6);
@@ -32,7 +32,7 @@ try {
   const { page, problems } = await openHero(browser, BASE, `level=${LEVEL}&zoom=${(z * 6).toFixed(2)}`, { width: 600, height: 600 });
   record("page loads", !problems.length, problems.join("; "));
   const live = await page.evaluate(() => window.__hero.userData.audit.ok && Object.keys(window.__hero.userData.actions).length);
-  record("hero in page audits and binds clips", live === 7, `${live} actions`);
+  record("hero in page audits and binds clips", live === names.length, `${live} actions`);
 
   for (const n of names) {
     const d = CLIP_DATA[n].duration;
