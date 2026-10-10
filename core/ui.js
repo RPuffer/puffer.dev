@@ -1,31 +1,43 @@
 const CSS = `
-.iw-ui{position:fixed;right:max(8px,env(safe-area-inset-right,0px));bottom:max(8px,env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:6px;align-items:center;padding:6px 8px;border-radius:8px;background:rgba(30,30,30,.72);color:#eee;font:12px/1.2 system-ui,sans-serif;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.iw-ui{position:fixed;right:max(10px,env(safe-area-inset-right,0px));bottom:max(10px,env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:7px;align-items:center;padding:7px;border-radius:14px;background:rgba(20,24,31,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.iw-ui:empty,.iw-touch .iw-ui:not(.iw-inline){display:none}
 .iw-ui.iw-inline{position:static;background:none;padding:0}
-@media (max-width:560px){.iw-ui:not(.iw-inline){top:max(8px,env(safe-area-inset-top,0px));bottom:auto}}
-.iw-ui button{font:15px/1 system-ui,sans-serif;color:#eee;background:#444;border:1px solid #555;border-radius:6px;padding:4px 8px;cursor:pointer;touch-action:manipulation}
-.iw-ui button:active{background:#666}
-.iw-ui a{font:inherit;color:#eee;background:#444;border:1px solid #555;border-radius:6px;padding:5px 9px;text-decoration:none}
-.iw-ui .iw-nav-btn{width:30px;height:30px;padding:0;border-radius:50%;display:grid;place-items:center;font-size:16px}
-.iw-ui .iw-nav-btn[aria-expanded=true]{background:#666}
-.iw-nav{position:fixed;inset:0;z-index:30;background:rgba(10,12,18,0);transition:background .3s;touch-action:manipulation}
+.iw-ui button{min-width:36px;height:34px;font:700 17px/1 system-ui,sans-serif;color:#f0ede6;background:#363e4d;border:0;border-radius:10px;padding:0 9px;cursor:pointer;box-shadow:0 3px 0 #1a1f28;touch-action:manipulation;transition:transform .08s,box-shadow .08s}
+.iw-ui button:hover{box-shadow:0 3px 0 #1a1f28,0 0 0 2px #12c4f0}
+.iw-ui button:active{transform:translateY(2px);box-shadow:0 1px 0 #1a1f28}
+.iw-orb{--o:58px;position:fixed;left:50%;top:max(12px,env(safe-area-inset-top,0px));z-index:22;width:var(--o);height:var(--o);margin-left:calc(var(--o) / -2);padding:0;border:0;border-radius:50%;background:#262c37 center/cover no-repeat;box-shadow:0 0 0 4px #262c37,0 0 0 7px #12c4f0,0 6px 0 7px rgba(20,24,31,.55);cursor:pointer;touch-action:manipulation;transition:transform .5s cubic-bezier(.34,1.7,.5,1),opacity .18s;-webkit-tap-highlight-color:transparent}
+.iw-orb:hover{transform:scale(1.07)}
+.iw-orb.open{transform:scale(.5);opacity:0;pointer-events:none}
+.iw-orb[hidden]{display:none}
+.iw-orb:focus-visible{outline:3px solid #ffd36a;outline-offset:6px}
+@media (min-width:700px){.iw-orb{--o:64px}}
+.iw-mark{display:flex;gap:9%;align-items:center;justify-content:center;width:100%;height:100%}
+.iw-mark i{display:block;width:20%;height:20%;border-radius:3px}
+.iw-mark i:nth-child(1){background:#f5c243}.iw-mark i:nth-child(2){background:#e8873a}.iw-mark i:nth-child(3){background:#7cc56a}
+.iw-nav{position:fixed;inset:0;z-index:30;background:rgba(10,12,18,0);transition:background .3s;touch-action:none;user-select:none;-webkit-user-select:none}
 .iw-nav.open{background:rgba(10,12,18,.45)}
-.iw-nav .mol{position:absolute;left:50%;top:50%;width:0;height:0}
-.iw-nav .bond{position:absolute;left:0;top:0;height:4px;margin-top:-2px;border-radius:2px;background:rgba(240,240,240,.7);transform-origin:0 50%;transform:rotate(var(--a)) scaleX(0);transition:transform .32s cubic-bezier(.36,0,.66,-.56)}
-.iw-nav.open .bond{transform:rotate(var(--a)) scaleX(1);transition:transform .5s cubic-bezier(.34,1.56,.64,1) var(--d)}
-.iw-nav .node{position:absolute;left:0;top:0;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);padding:0;border-radius:50%;border:3px solid #eee;background:#222 center/cover no-repeat;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.45);transform:translate(0,0) scale(.2);opacity:0;transition:transform .32s cubic-bezier(.36,0,.66,-.56),opacity .3s;touch-action:manipulation}
-.iw-nav.open .node{transform:translate(var(--x),var(--y)) scale(1);opacity:1;transition:transform .55s cubic-bezier(.34,1.56,.64,1) var(--d),opacity .2s var(--d)}
-.iw-nav .node.current{border-color:#ffd36a;box-shadow:0 0 0 4px rgba(255,211,106,.35),0 4px 14px rgba(0,0,0,.45)}
-.iw-nav .node.locked{cursor:not-allowed;filter:grayscale(1) brightness(.45);border-color:#777}
-.iw-nav .node.locked::after{content:"\\1F512";position:absolute;inset:0;display:grid;place-items:center;font-size:calc(var(--s) * .32)}
-.iw-nav .node:focus-visible{outline:3px solid #8cf;outline-offset:3px}
+.iw-nav svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.iw-nav line{stroke:rgba(240,237,230,.8);stroke-linecap:round}
+.iw-nav .mol{position:absolute;width:0;height:0}
+.iw-nav .node{position:absolute;left:0;top:0;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);padding:0;border:0;border-radius:50%;background:#262c37 center/cover no-repeat;box-shadow:0 0 0 3px #f0ede6,0 5px 0 3px rgba(20,24,31,.55);cursor:pointer;transform:translate(0,0) scale(0);transition:transform .62s cubic-bezier(.3,1.75,.5,1);touch-action:none;-webkit-tap-highlight-color:transparent}
+.iw-nav .node.current{box-shadow:0 0 0 3px #ffd36a,0 0 0 9px rgba(255,211,106,.3),0 5px 0 3px rgba(20,24,31,.55)}
+.iw-nav .node.sel{box-shadow:0 0 0 3px #12c4f0,0 5px 0 3px rgba(20,24,31,.55)}
+.iw-nav .node.locked{cursor:not-allowed;filter:grayscale(1) brightness(.45)}
+.iw-nav .node.locked::after{content:"\\1F512";position:absolute;inset:0;display:grid;place-items:center;font-size:calc(var(--s) * .34)}
+.iw-nav .node:focus-visible{outline:3px solid #12c4f0;outline-offset:4px}
 .iw-nav .node:hover:not(.locked){filter:brightness(1.12)}
-.iw-nav .name{position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);white-space:nowrap;padding:3px 7px;border-radius:6px;background:rgba(20,20,20,.85);color:#eee;font:12px/1.2 system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .15s}
-.iw-nav .node:hover .name,.iw-nav .node:focus-visible .name,.iw-nav .node.current .name{opacity:1}
+.iw-nav .name{position:absolute;left:50%;top:calc(100% + 9px);transform:translateX(-50%);white-space:nowrap;padding:4px 9px;border-radius:999px;background:rgba(20,24,31,.88);color:#f0ede6;font:600 12px/1.2 system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .2s}
+.iw-nav .node:hover .name,.iw-nav .node:focus-visible .name,.iw-nav .node.mid .name{opacity:1}
 .iw-nav .node.shake{animation:iw-shake .3s}
-@keyframes iw-shake{25%{margin-left:calc(var(--s) / -2 - 5px)}75%{margin-left:calc(var(--s) / -2 + 5px)}}
+@keyframes iw-shake{25%{margin-left:calc(var(--s) / -2 - 6px)}75%{margin-left:calc(var(--s) / -2 + 6px)}}
+.iw-sheet{position:fixed;inset:0;z-index:31;background:rgba(10,12,18,.5)}
+.iw-panel{position:absolute;top:max(84px,calc(env(safe-area-inset-top,0px) + 84px));bottom:max(12px,env(safe-area-inset-bottom,0px));left:max(10px,calc(50vw - 560px));right:max(10px,calc(50vw - 560px));border-radius:18px;overflow:hidden;background:#404040;box-shadow:0 0 0 4px #262c37,0 0 0 7px #12c4f0,0 12px 30px rgba(0,0,0,.5);transform-origin:50% -60px;animation:iw-pop .5s cubic-bezier(.34,1.56,.64,1)}
+.iw-panel iframe{display:block;width:100%;height:100%;border:0}
+.iw-panel .x{position:absolute;right:10px;top:10px;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:#262c37;color:#f0ede6;font:700 20px/36px system-ui,sans-serif;box-shadow:0 3px 0 #14181f;cursor:pointer}
+@keyframes iw-pop{from{transform:scale(.15);opacity:0}}
 .iw-veil{position:fixed;inset:0;z-index:29;pointer-events:none;opacity:0;transition:opacity .18s ease-in}
 .iw-veil.on{opacity:1}
-@media (prefers-reduced-motion:reduce){.iw-nav .node,.iw-nav .bond,.iw-nav.open .node,.iw-nav.open .bond{transition-duration:.01s}}
+@media (prefers-reduced-motion:reduce){.iw-nav .node,.iw-orb{transition-duration:.01s}.iw-panel{animation:none}}
 `;
 
 const RUN_URL = new URL("../levels/run.json", import.meta.url);
@@ -34,131 +46,282 @@ const label = (n) => n.split("-")[0].replace(/^./, (c) => c.toUpperCase());
 const reachedIn = (n) => { try { return !!JSON.parse(localStorage.getItem("isoworld:things:" + n) || "null"); } catch { return false; } };
 const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+const MARK = '<span class="iw-mark" aria-hidden="true"><i></i><i></i><i></i></span>';
+const SLOT_SCALE = [1, 1, 0.8, 0.14];
 
-function mountNavigator({ current, go, busy = () => false, preload = null, reached = reachedIn }) {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "iw-nav-btn";
-  btn.textContent = "\u2B21";
-  btn.title = "island navigator";
-  btn.setAttribute("aria-label", "island navigator");
-  btn.setAttribute("aria-expanded", "false");
-  btn.setAttribute("aria-haspopup", "dialog");
-  btn.hidden = true;
-  let order = [], layer = null, closing = null, going = false;
-  fetch(RUN_URL).then((r) => r.json()).then((j) => { order = Array.isArray(j.order) ? j.order : []; sync(); }).catch(() => {});
+export const startHref = () => new URL("../islands.html", import.meta.url).href;
+
+const urlLevel = () => new URLSearchParams(location.search).get("level") || "home";
+const hop = (n) => { const q = new URLSearchParams(location.search); q.set("level", n); q.delete("reset"); q.delete("spawn"); location.search = q.toString(); return new Promise(() => {}); };
+
+function mountNavigator({ current = urlLevel, go = hop, busy = () => false, preload = null, reached = reachedIn } = {}) {
+  const orb = document.createElement("button");
+  orb.type = "button";
+  orb.className = "iw-orb";
+  orb.title = "islands";
+  orb.setAttribute("aria-label", "islands");
+  orb.setAttribute("aria-expanded", "false");
+  orb.setAttribute("aria-haspopup", "dialog");
+  orb.hidden = true;
+  document.body.appendChild(orb);
+  let order = [], loaded = false, layer = null, closing = null, going = false, sheet = null, shown = null;
+  let center = 0, step = 80, size = 62, nodes = new Map(), raf = 0, drag = null, dragged = false, wheelAcc = 0;
+  fetch(RUN_URL).then((r) => r.json()).then((j) => { order = Array.isArray(j.order) ? j.order : []; loaded = true; sync(); }).catch(() => {});
+  const list = () => ["@islands", ...order];
 
   const sync = () => {
-    const show = !going && order.includes(current()) && !busy();
-    if (btn.hidden === show) btn.hidden = !show;
+    const cur = current();
+    const show = loaded && !going && !busy();
+    if (orb.hidden === show) orb.hidden = !show;
+    if (show && cur !== shown) {
+      shown = cur;
+      const known = order.includes(cur);
+      orb.innerHTML = known ? "" : MARK;
+      orb.style.backgroundImage = known ? `url("${thumb(cur)}")` : "";
+      orb.setAttribute("aria-label", known ? `islands (here: ${label(cur)})` : "islands");
+    }
     if (!show && layer && !going) close(false);
+    if (!show && sheet) closePanel(false);
   };
   const timer = setInterval(sync, 200);
 
-  const nodesFor = (at) => {
-    const i = order.indexOf(at);
-    const out = [];
-    for (let k = -2; k <= 2; k++) { const n = order[i + k]; if (n) out.push({ n, k }); }
-    return out;
+  const slot = (k) => {
+    const a = Math.abs(k), sx = Math.sign(k);
+    const x = a <= 2 ? k * step : sx * Math.min(2.42 * step, innerWidth / 2 - 6);
+    return [x, a % 2 ? step * 0.45 : 0, SLOT_SCALE[Math.min(a, 3)]];
+  };
+  const place = (el, k, { s = null, delay = 0 } = {}) => {
+    const [x, y, sc] = slot(k);
+    el.style.transitionDelay = delay + "ms";
+    el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s ?? sc})`;
+    el.dataset.slot = String(k);
+  };
+  const makeNode = (i) => {
+    const L = list(), n = L[i], b = document.createElement("button");
+    b.type = "button";
+    b.className = "node";
+    b.dataset.index = String(i);
+    b.style.setProperty("--s", size + "px");
+    const tag = document.createElement("span");
+    tag.className = "name";
+    if (i === 0) {
+      b.classList.add("sel");
+      b.dataset.level = "@islands";
+      b.innerHTML = MARK;
+      tag.textContent = "all islands";
+      b.setAttribute("aria-label", "all islands");
+    } else {
+      const here = n === current(), ok = here || reached(n);
+      b.dataset.level = n;
+      if (here) b.classList.add("current");
+      if (!ok) { b.classList.add("locked"); b.setAttribute("aria-disabled", "true"); }
+      b.style.backgroundImage = `url("${thumb(n)}")`;
+      const name = `${i}. ${label(n)}`;
+      tag.textContent = name + (here ? " · here" : "");
+      b.setAttribute("aria-label", name + (here ? " (here)" : ok ? "" : " (locked)"));
+      if (ok && !here && preload) { const warm = () => preload(n); b.addEventListener("pointerenter", warm, { once: true }); b.addEventListener("focus", warm, { once: true }); }
+    }
+    b.appendChild(tag);
+    return b;
   };
 
+  const render = () => {
+    const L = list(), mol = layer.querySelector(".mol");
+    for (const [i, el] of nodes) {
+      const k = i - center;
+      if (Math.abs(k) <= 3) continue;
+      if (!el.dataset.leaving) {
+        el.dataset.leaving = "1";
+        place(el, Math.sign(k) * 3, { s: 0 });
+        el.tabIndex = -1;
+        setTimeout(() => { if (el.dataset.leaving) { el.remove(); nodes.delete(i); } }, 650);
+      }
+    }
+    for (let k = -3; k <= 3; k++) {
+      const i = center + k;
+      if (i < 0 || i >= L.length) continue;
+      let el = nodes.get(i);
+      if (!el) {
+        el = makeNode(i);
+        mol.appendChild(el);
+        nodes.set(i, el);
+        place(el, k, { s: 0 });
+        el.getBoundingClientRect();
+      }
+      delete el.dataset.leaving;
+      place(el, k);
+      el.classList.toggle("mid", k === 0);
+      el.tabIndex = Math.abs(k) <= 2 ? 0 : -1;
+      el.setAttribute("aria-hidden", Math.abs(k) <= 2 ? "false" : "true");
+    }
+  };
+  const setCenter = (c) => {
+    const L = list();
+    c = Math.max(0, Math.min(L.length - 1, c));
+    if (c === center || !layer) return false;
+    center = c;
+    window.__navScrolls = (window.__navScrolls || 0) + 1;
+    render();
+    return true;
+  };
+
+  const drawBonds = () => {
+    if (!layer) return;
+    const svg = layer.querySelector("svg"), pts = [];
+    for (const [i, el] of [...nodes].sort((a, b) => a[0] - b[0])) {
+      const r = el.getBoundingClientRect();
+      pts.push({ i, x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width / size });
+    }
+    let html = "";
+    for (let j = 1; j < pts.length; j++) {
+      const a = pts[j - 1], b = pts[j];
+      if (b.i !== a.i + 1) continue;
+      const w = Math.min(a.w, b.w) * 6;
+      if (w < 0.4) continue;
+      html += `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke-width="${w.toFixed(2)}"/>`;
+    }
+    svg.innerHTML = html;
+    raf = requestAnimationFrame(drawBonds);
+  };
+
+  const visibleNodes = () => [...nodes.values()].filter((el) => !el.dataset.leaving && Math.abs(+el.dataset.slot) <= 2).sort((a, b) => +a.dataset.slot - +b.dataset.slot);
+  const focusMid = () => nodes.get(center)?.focus({ preventScroll: true });
+
+  function activate(el) {
+    const i = +el.dataset.index, n = list()[i];
+    if (Math.abs(i - center) > 2) return;
+    if (i === 0) return openPanel();
+    if (n === current()) return close();
+    if (!reached(n)) { el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); return; }
+    jump(n);
+  }
+
   function open() {
-    if (layer || btn.hidden) return;
-    const at = current();
-    const step = Math.max(58, Math.min(92, (innerWidth - 100) / 4));
-    const size = Math.round(Math.min(68, step * 0.82));
+    if (layer || orb.hidden) return;
+    const cur = current(), L = list();
+    step = Math.max(60, Math.min(116, (innerWidth - 24) / 4.7));
+    size = Math.round(Math.min(78, step * 0.78));
+    center = Math.max(0, L.indexOf(cur));
     const lay = document.createElement("div");
     lay.className = "iw-nav";
     lay.setAttribute("role", "dialog");
-    lay.setAttribute("aria-label", "islands nearby");
-    const mol = document.createElement("div");
-    mol.className = "mol";
-    lay.appendChild(mol);
-    const items = nodesFor(at);
-    const pos = (k) => [k * step, k % 2 ? -step * 0.42 : 0];
-    for (const { k } of items) {
-      if (k === 0) continue;
-      const inner = k < 0 ? k + 1 : k - 1;
-      const [x0, y0] = pos(inner), [x1, y1] = pos(k);
-      const b = document.createElement("i");
-      b.className = "bond";
-      b.style.left = x0 + "px";
-      b.style.top = y0 + "px";
-      b.style.width = Math.hypot(x1 - x0, y1 - y0) + "px";
-      b.style.setProperty("--a", Math.atan2(y1 - y0, x1 - x0) + "rad");
-      b.style.setProperty("--d", (Math.abs(k) - 1) * 60 + "ms");
-      mol.appendChild(b);
+    lay.setAttribute("aria-label", "island selector");
+    lay.innerHTML = '<svg aria-hidden="true"></svg><div class="mol"></div>';
+    const r = orb.getBoundingClientRect(), mol = lay.querySelector(".mol");
+    mol.style.left = r.left + r.width / 2 + "px";
+    mol.style.top = r.top + r.height / 2 + "px";
+    layer = lay;
+    nodes = new Map();
+    document.body.appendChild(lay);
+    for (let k = -3; k <= 3; k++) {
+      const i = center + k;
+      if (i < 0 || i >= L.length) continue;
+      const el = makeNode(i);
+      mol.appendChild(el);
+      nodes.set(i, el);
+      el.style.transition = "none";
+      el.style.transform = `translate(0,0) scale(${k === 0 ? 0.95 : 0.3})`;
     }
-    const buttons = [];
-    for (const { n, k } of items) {
-      const [x, y] = pos(k);
-      const ok = k === 0 || reached(n);
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "node" + (k === 0 ? " current" : "") + (ok ? "" : " locked");
-      b.dataset.level = n;
-      b.dataset.offset = String(k);
-      const s = k === 0 ? Math.round(size * 1.3) : size;
-      b.style.setProperty("--s", s + "px");
-      b.style.setProperty("--x", x + "px");
-      b.style.setProperty("--y", y + "px");
-      b.style.setProperty("--d", Math.abs(k) * 70 + "ms");
-      b.style.backgroundImage = `url("${thumb(n)}")`;
-      const name = `${order.indexOf(n) + 1}. ${label(n)}`;
-      b.setAttribute("aria-label", name + (k === 0 ? " (here)" : ok ? "" : " (locked)"));
-      if (!ok) b.setAttribute("aria-disabled", "true");
-      const tag = document.createElement("span");
-      tag.className = "name";
-      tag.textContent = name + (k === 0 ? " \u00B7 here" : "");
-      b.appendChild(tag);
-      if (ok && k !== 0 && preload) { const warm = () => preload(n); b.addEventListener("pointerenter", warm, { once: true }); b.addEventListener("focus", warm, { once: true }); }
-      b.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (k === 0) return close();
-        if (!ok) { b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); return; }
-        jump(n);
-      });
-      mol.appendChild(b);
-      buttons.push(b);
-    }
-    lay.addEventListener("click", (e) => { if (e.target === lay || e.target === mol) close(); });
-    for (const ev of ["pointerdown", "pointerup", "touchstart", "touchend"]) lay.addEventListener(ev, (e) => e.stopPropagation(), { passive: ev.startsWith("touch") });
+    lay.getBoundingClientRect();
+    for (const el of nodes.values()) el.style.transition = "";
+    for (const [i, el] of nodes) { const k = i - center; place(el, k, { delay: Math.abs(k) * 55 }); el.classList.toggle("mid", k === 0); el.tabIndex = Math.abs(k) <= 2 ? 0 : -1; }
+    setTimeout(() => { for (const el of nodes.values()) el.style.transitionDelay = ""; }, 400);
+    lay.addEventListener("pointerdown", (e) => {
+      e.stopPropagation();
+      drag = { id: e.pointerId, x: e.clientX, c: center };
+      dragged = false;
+    });
+    lay.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x;
+      if (Math.abs(dx) > 8) dragged = true;
+      if (dragged) setCenter(drag.c - Math.round(dx / (step * 0.85)));
+    });
+    const endDrag = (e) => { if (drag && e.pointerId === drag.id) drag = null; };
+    lay.addEventListener("pointerup", endDrag);
+    lay.addEventListener("pointercancel", endDrag);
+    for (const ev of ["pointerup", "touchstart", "touchend"]) lay.addEventListener(ev, (e) => e.stopPropagation(), { passive: ev.startsWith("touch") });
+    lay.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (dragged) { dragged = false; return; }
+      const el = e.target.closest?.(".node");
+      if (el) activate(el); else close();
+    });
+    lay.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      wheelAcc += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(wheelAcc) < 50) return;
+      setCenter(center + Math.sign(wheelAcc));
+      wheelAcc = 0;
+    }, { passive: false });
     lay.addEventListener("keydown", (e) => {
       e.stopPropagation();
       if (e.key === "Escape") { e.preventDefault(); close(); return; }
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); setCenter(center - 1); focusMid(); return; }
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); setCenter(center + 1); focusMid(); return; }
       if (e.key === "Tab") {
-        const f = buttons.indexOf(document.activeElement);
-        const nx = (f + (e.shiftKey ? -1 : 1) + buttons.length) % buttons.length;
+        const vis = visibleNodes(), at = vis.indexOf(document.activeElement);
         e.preventDefault();
-        buttons[nx].focus();
-        return;
-      }
-      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) {
-        e.preventDefault();
-        const f = Math.max(0, buttons.indexOf(document.activeElement));
-        const d = e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 1;
-        buttons[Math.min(buttons.length - 1, Math.max(0, f + d))].focus();
+        vis[(at + (e.shiftKey ? -1 : 1) + vis.length) % vis.length]?.focus({ preventScroll: true });
       }
     });
     lay.addEventListener("keyup", (e) => e.stopPropagation());
-    document.body.appendChild(lay);
-    layer = lay;
-    closing = null;
-    btn.setAttribute("aria-expanded", "true");
-    lay.getBoundingClientRect();
+    orb.classList.add("open");
+    orb.setAttribute("aria-expanded", "true");
     requestAnimationFrame(() => lay.classList.add("open"));
-    (buttons.find((b) => b.classList.contains("current")) || buttons[0])?.focus({ preventScroll: true });
+    raf = requestAnimationFrame(drawBonds);
+    focusMid();
   }
 
   function close(refocus = true) {
-    if (!layer || closing) return closing;
+    if (!layer) return closing;
+    if (closing) return closing;
     const lay = layer;
     lay.classList.remove("open");
-    btn.setAttribute("aria-expanded", "false");
-    if (refocus && !btn.hidden) btn.focus({ preventScroll: true });
-    closing = pause(380).then(() => { lay.remove(); if (layer === lay) layer = null; closing = null; });
+    for (const [i, el] of nodes) { el.style.transitionDelay = (3 - Math.min(3, Math.abs(i - center))) * 40 + "ms"; el.style.transform = "translate(0,0) scale(0.3)"; }
+    orb.classList.remove("open");
+    orb.setAttribute("aria-expanded", "false");
+    if (refocus && !orb.hidden) orb.focus({ preventScroll: true });
+    closing = pause(420).then(() => { cancelAnimationFrame(raf); lay.remove(); if (layer === lay) { layer = null; nodes = new Map(); } closing = null; });
     return closing;
   }
+
+  function openPanel() {
+    if (sheet) return;
+    close(false);
+    sheet = document.createElement("div");
+    sheet.className = "iw-sheet";
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-label", "all islands");
+    const panel = document.createElement("div");
+    panel.className = "iw-panel";
+    const frameEl = document.createElement("iframe");
+    frameEl.title = "all islands";
+    frameEl.src = startHref() + "?embed=1";
+    const x = document.createElement("button");
+    x.type = "button";
+    x.className = "x";
+    x.textContent = "×";
+    x.setAttribute("aria-label", "close");
+    panel.append(frameEl, x);
+    sheet.appendChild(panel);
+    for (const ev of ["pointerdown", "pointerup", "touchstart", "touchend", "wheel"]) sheet.addEventListener(ev, (e) => e.stopPropagation(), { passive: true });
+    sheet.addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Escape") closePanel(); });
+    sheet.addEventListener("click", (e) => { e.stopPropagation(); if (e.target === sheet || e.target === x) closePanel(); });
+    document.body.appendChild(sheet);
+    orb.classList.add("open");
+    x.focus({ preventScroll: true });
+  }
+  function closePanel(refocus = true) {
+    if (!sheet) return;
+    sheet.remove();
+    sheet = null;
+    orb.classList.remove("open");
+    if (refocus && !orb.hidden) orb.focus({ preventScroll: true });
+  }
+  const onMessage = (e) => { if (e.data?.iw === "close") closePanel(); };
+  addEventListener("message", onMessage);
 
   async function jump(n) {
     if (going) return;
@@ -186,22 +349,35 @@ function mountNavigator({ current, go, busy = () => false, preload = null, reach
       veil.remove();
       going = false;
       sync();
-      if (!btn.hidden) btn.focus({ preventScroll: true });
+      if (!orb.hidden) orb.focus({ preventScroll: true });
     }
   }
 
-  btn.addEventListener("pointerdown", (e) => e.stopPropagation());
-  btn.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") e.stopPropagation(); });
-  btn.addEventListener("click", (e) => { e.preventDefault(); if (layer && !closing) close(); else open(); });
-  addEventListener("keydown", (e) => { if (e.key === "Escape" && layer) close(); });
-  return { button: btn, open, close, sync, get isOpen() { return !!layer && !closing; }, dispose() { clearInterval(timer); layer?.remove(); btn.remove(); } };
+  for (const ev of ["pointerdown", "pointerup"]) orb.addEventListener(ev, (e) => e.stopPropagation());
+  orb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") e.stopPropagation(); });
+  orb.addEventListener("click", (e) => { e.preventDefault(); if (layer && !closing) close(); else open(); });
+  const onKey = (e) => { if (e.key !== "Escape") return; if (sheet) closePanel(); else if (layer) close(); };
+  addEventListener("keydown", onKey);
+  return {
+    button: orb,
+    orb,
+    open,
+    close,
+    sync,
+    openPanel,
+    closePanel,
+    scroll: (d) => setCenter(center + d),
+    setCenter,
+    get center() { return center; },
+    get isOpen() { return !!layer && !closing; },
+    get panelOpen() { return !!sheet; },
+    dispose() { clearInterval(timer); cancelAnimationFrame(raf); removeEventListener("keydown", onKey); removeEventListener("message", onMessage); layer?.remove(); sheet?.remove(); orb.remove(); },
+  };
 }
-
-export const startHref = () => new URL("../islands.html", import.meta.url).href;
 
 const framed = () => { try { return window.top !== window; } catch { return true; } };
 
-export function mountUI({ container, rotate = null, zoom = null, nav = null } = {}) {
+export function mountUI({ container, rotate = null, zoom = null, nav = {} } = {}) {
   const q = new URLSearchParams(location.search);
   if (!container && (framed() || q.get("ui") === "0" || q.get("hero") === "0")) return null;
   if (!document.getElementById("iw-ui-css")) {
@@ -212,9 +388,6 @@ export function mountUI({ container, rotate = null, zoom = null, nav = null } = 
   }
   const box = document.createElement("div");
   box.className = "iw-ui" + (container ? " iw-inline" : "");
-  const islands = document.createElement("a");
-  islands.textContent = "islands";
-  islands.href = startHref();
   const button = (label, title, data, act) => {
     const b = document.createElement("button");
     b.type = "button";
@@ -226,20 +399,10 @@ export function mountUI({ container, rotate = null, zoom = null, nav = null } = 
     b.addEventListener("click", (e) => { e.preventDefault(); act(); });
     return b;
   };
-  const zooms = zoom ? [[-1, "\u2212", "zoom out (-)"], [1, "+", "zoom in (+)"]].map(([step, label, title]) => button(label, title, { zoom: String(step) }, () => zoom(step))) : [];
-  const turns = rotate ? [[-1, "⟲", "rotate left (Q)"], [1, "⟳", "rotate right (E)"]].map(([step, label, title]) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.textContent = label;
-    b.title = title;
-    b.setAttribute("aria-label", title);
-    b.dataset.rotate = String(step);
-    b.addEventListener("pointerdown", (e) => e.stopPropagation());
-    b.addEventListener("click", (e) => { e.preventDefault(); rotate(step); });
-    return b;
-  }) : [];
-  const navigator = nav ? mountNavigator(nav) : null;
-  box.append(...zooms, ...turns, ...(navigator ? [navigator.button] : []), islands);
+  const zooms = zoom ? [[-1, "−", "zoom out (-)"], [1, "+", "zoom in (+)"]].map(([step, label, title]) => button(label, title, { zoom: String(step) }, () => zoom(step))) : [];
+  const turns = rotate ? [[-1, "⟲", "rotate left (Q)"], [1, "⟳", "rotate right (E)"]].map(([step, label, title]) => button(label, title, { rotate: String(step) }, () => rotate(step))) : [];
+  const navigator = nav && !container ? mountNavigator(nav) : null;
+  box.append(...zooms, ...turns);
   (container || document.body).appendChild(box);
-  return { element: box, link: islands, turns, zooms, navigator };
+  return { element: box, turns, zooms, navigator };
 }
