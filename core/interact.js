@@ -274,7 +274,22 @@ const CSS = `
 .iw-prompt[hidden],.iw-toast[hidden]{display:none}
 .iw-touch .iw-prompt{bottom:calc(max(25vh,150px) + 12px);max-width:calc(100vw - 32px);border:2px solid rgba(18,196,240,.55);font-weight:600}
 .iw-touch .iw-prompt kbd{display:none}
-.iw-toast{position:fixed;left:50%;top:max(18px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:15;padding:8px 14px;border-radius:8px;background:rgba(24,22,30,.82);color:#f4efe4;font:14px/1.3 system-ui,sans-serif;pointer-events:none;transition:opacity .25s}
+.iw-toast,.iw-scroll-ghost{position:fixed;left:50%;top:calc(max(12px,env(safe-area-inset-top,0px)) + 80px);transform:translateX(-50%) rotate(-.6deg);z-index:15;display:flex;align-items:stretch;pointer-events:none;filter:drop-shadow(0 5px 0 rgba(30,18,8,.35))}
+.iw-toast .rod{position:relative;flex:none;width:18px;margin:-5px 0;border-radius:9px;background:linear-gradient(90deg,#d9b779 0 30%,#f3dfae 30% 55%,#c9a263 55%);box-shadow:inset 0 0 0 2px #8a5a2b}
+.iw-toast .rod::before,.iw-toast .rod::after{content:"";position:absolute;left:4px;width:10px;height:12px;border-radius:5px;background:linear-gradient(90deg,#6b3f1d 0 40%,#a8693a 40% 70%,#6b3f1d 70%)}
+.iw-toast .rod::before{top:-10px}
+.iw-toast .rod::after{bottom:-10px}
+.iw-toast .paper{overflow:hidden;width:var(--pw,auto);min-height:52px;display:flex;align-items:center;background:linear-gradient(#e6c98e 0 4px,#f6e6c0 4px 10px,#fbf0d4 10px calc(100% - 10px),#efd8a6 calc(100% - 10px) calc(100% - 4px),#d9b779 calc(100% - 4px));box-shadow:inset 0 3px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(120,80,30,.25)}
+.iw-toast .msg{flex:none;box-sizing:border-box;max-width:min(calc(100vw - 72px),520px);padding:10px 16px;color:#3b2414;font:italic 600 16px/1.15 Georgia,"Palatino Linotype",Palatino,serif;letter-spacing:.02em;text-align:center;text-wrap:balance}
+.iw-toast.unfurl .paper{animation:iw-unfurl .42s cubic-bezier(.3,1.25,.5,1) both}
+.iw-toast.unfurl .msg{animation:iw-ink .5s .18s both}
+.iw-scroll-ghost .paper{animation:iw-rollup .3s ease-in both}
+.iw-scroll-ghost{animation:iw-fade .3s .12s ease-in both}
+@keyframes iw-unfurl{from{width:0}to{width:var(--pw)}}
+@keyframes iw-rollup{from{width:var(--pw)}to{width:0}}
+@keyframes iw-ink{from{opacity:0}to{opacity:1}}
+@keyframes iw-fade{to{opacity:0}}
+@media (prefers-reduced-motion:reduce){.iw-toast.unfurl .paper,.iw-toast.unfurl .msg,.iw-scroll-ghost,.iw-scroll-ghost .paper{animation-duration:.01s}}
 `;
 
 function mountThingsUI() {
@@ -292,6 +307,17 @@ function mountThingsUI() {
   toastEl.className = "iw-toast";
   toastEl.setAttribute("role", "status");
   toastEl.hidden = true;
+  toastEl.innerHTML = '<i class="rod"></i><div class="paper"><span class="msg"></span></div><i class="rod"></i>';
+  const msg = toastEl.querySelector(".msg");
+  const rollUp = () => {
+    if (toastEl.hidden) return;
+    const ghost = toastEl.cloneNode(true);
+    ghost.className = "iw-toast iw-scroll-ghost";
+    ghost.removeAttribute("role");
+    ghost.setAttribute("aria-hidden", "true");
+    document.body.appendChild(ghost);
+    setTimeout(() => ghost.remove(), 450);
+  };
   document.body.append(prompt, toastEl);
   const root = document.documentElement;
   let actFn = null, shown = "";
@@ -316,7 +342,16 @@ function mountThingsUI() {
       k.textContent = "F";
       prompt.append(k, document.createTextNode(text));
     },
-    toast(text) { toastEl.hidden = !text; toastEl.textContent = text || ""; },
+    toast(text) {
+      if (!text) { rollUp(); toastEl.hidden = true; msg.textContent = ""; return; }
+      toastEl.hidden = false;
+      toastEl.classList.remove("unfurl");
+      toastEl.style.removeProperty("--pw");
+      msg.textContent = text;
+      toastEl.style.setProperty("--pw", Math.ceil(msg.getBoundingClientRect().width) + "px");
+      void toastEl.offsetWidth;
+      toastEl.classList.add("unfurl");
+    },
     dispose() { removeEventListener("keydown", onKey); delete root.dataset.iwAct; prompt.remove(); toastEl.remove(); },
   };
 }
