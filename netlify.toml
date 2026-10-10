@@ -1,0 +1,13 @@
+[build]
+  command = "sh tools/deploy-site.sh . --no-toml"
+  publish = "build"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

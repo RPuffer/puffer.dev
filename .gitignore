@@ -4,3 +4,5 @@ out/
 *.log
 2d/gen/node_modules
 .claude/
+build/
+__pycache__/
