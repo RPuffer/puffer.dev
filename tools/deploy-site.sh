@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
-OUT="${1:?usage: tools/deploy-site.sh <out-dir>}"
+REPO="${1:?usage: tools/deploy-site.sh <repo-dir>}"
+OUT="$REPO/build"
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
 mkdir -p "$OUT"
 rsync -a --delete --exclude='.git' --exclude='netlify.toml' --exclude='README.md' \
@@ -9,9 +10,9 @@ rsync -a --delete --exclude='.git' --exclude='netlify.toml' --exclude='README.md
   --include='/core/***' --include='/3d/***' --include='/landing/***' --include='/assets/***' \
   --include='/levels/' --include='/levels/run.json' $(node -e 'for (const n of require(process.argv[1]).order) process.stdout.write(" --include=/levels/" + n + ".json")' "$SRC/levels/run.json") --include='/levels/home.json' \
   --exclude='*' "$SRC/" "$OUT/"
-cat > "$OUT/netlify.toml" <<'TOML'
+cat > "$REPO/netlify.toml" <<'TOML'
 [build]
-  publish = "."
+  publish = "build"
   command = "echo static site, no build"
 
 [[headers]]
