@@ -77,7 +77,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
   let actor = null, pending = null, focus = null, toastText = "", toastT = 0, nav = null, stalled = false;
   const log = [];
 
-  const ui = dom && params.hero !== "0" ? mountThingsUI({ touch: params.touch === "1" }) : null;
+  const ui = dom && params.hero !== "0" ? mountThingsUI() : null;
   const toast = (text) => { toastText = text; toastT = 2.6; log.push({ toast: text }); ui?.toast(text); emit({ type: "toast", text }); };
 
   const center = (t) => t.kind === "watcher" ? [t.x + t.size[0] / 2, t.z + t.size[1] / 2] : [t.x + 0.5, t.z + 0.5];
@@ -271,14 +271,13 @@ function defaultNavigate(next, from, arrive) {
 const CSS = `
 .iw-prompt{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:15;display:flex;gap:8px;align-items:center;padding:7px 12px;border:0;border-radius:999px;background:rgba(24,22,30,.78);color:#f4efe4;font:13px/1.2 system-ui,sans-serif;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .iw-prompt kbd{display:inline-block;min-width:18px;padding:1px 5px;border-radius:5px;background:#f4efe4;color:#18161e;font:600 12px/16px system-ui,sans-serif;text-align:center}
-.iw-prompt[hidden],.iw-toast[hidden],.iw-use[hidden]{display:none}
-.iw-prompt.iw-touch{left:164px;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 112px);transform:none;max-width:calc(100vw - 180px)}
-.iw-use{position:fixed;left:164px;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 38px);z-index:15;width:60px;height:60px;border:0;border-radius:50%;background:rgba(24,22,30,.45);color:rgba(244,239,228,.75);font:700 20px/60px system-ui,sans-serif;padding:0;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-.iw-use.on{background:#f5c243;color:#18161e;box-shadow:0 2px 0 rgba(24,22,30,.35)}
+.iw-prompt[hidden],.iw-toast[hidden]{display:none}
+.iw-touch .iw-prompt{bottom:calc(max(25vh,150px) + 12px);max-width:calc(100vw - 32px);border:2px solid rgba(18,196,240,.55);font-weight:600}
+.iw-touch .iw-prompt kbd{display:none}
 .iw-toast{position:fixed;left:50%;top:max(18px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:15;padding:8px 14px;border-radius:8px;background:rgba(24,22,30,.82);color:#f4efe4;font:14px/1.3 system-ui,sans-serif;pointer-events:none;transition:opacity .25s}
 `;
 
-function mountThingsUI({ touch = false } = {}) {
+function mountThingsUI() {
   if (!document.getElementById("iw-things-css")) {
     const st = document.createElement("style");
     st.id = "iw-things-css";
@@ -293,20 +292,8 @@ function mountThingsUI({ touch = false } = {}) {
   toastEl.className = "iw-toast";
   toastEl.setAttribute("role", "status");
   toastEl.hidden = true;
-  const use = document.createElement("button");
-  use.type = "button";
-  use.className = "iw-use";
-  use.textContent = "F";
-  use.setAttribute("aria-label", "Use");
-  use.hidden = true;
-  document.body.append(prompt, toastEl, use);
-  const showTouch = () => { use.hidden = false; prompt.classList.add("iw-touch"); };
-  const coarse = matchMedia?.("(pointer: coarse)").matches || "ontouchstart" in window;
-  if (touch || coarse) showTouch();
-  const onTouch = () => showTouch();
-  addEventListener("touchstart", onTouch, { once: true, passive: true });
-  for (const ev of ["pointerdown", "pointerup", "touchstart", "touchend"]) use.addEventListener(ev, (e) => e.stopPropagation(), { passive: ev.startsWith("touch") });
-  use.addEventListener("click", (e) => { e.preventDefault(); actFn?.(); });
+  document.body.append(prompt, toastEl);
+  const root = document.documentElement;
   let actFn = null, shown = "";
   const onKey = (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
@@ -321,17 +308,16 @@ function mountThingsUI({ touch = false } = {}) {
     prompt(text) {
       if (text === shown) return;
       shown = text;
-      use.classList.toggle("on", !!text);
+      if (text) root.dataset.iwAct = "1"; else delete root.dataset.iwAct;
       prompt.hidden = !text;
       prompt.innerHTML = "";
       if (!text) return;
       const k = document.createElement("kbd");
       k.textContent = "F";
-      if (prompt.classList.contains("iw-touch")) prompt.append(document.createTextNode(text));
-      else prompt.append(k, document.createTextNode(text));
+      prompt.append(k, document.createTextNode(text));
     },
     toast(text) { toastEl.hidden = !text; toastEl.textContent = text || ""; },
-    dispose() { removeEventListener("keydown", onKey); removeEventListener("touchstart", onTouch); prompt.remove(); toastEl.remove(); use.remove(); },
+    dispose() { removeEventListener("keydown", onKey); delete root.dataset.iwAct; prompt.remove(); toastEl.remove(); },
   };
 }
 

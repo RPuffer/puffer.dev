@@ -51,12 +51,30 @@ export function createGame(renderer, params = readParams()) {
   const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null, route: createRoute(), mark: null };
   let screenHeld = null;
 
-  const input = createInput(renderer.element || document.body, { dpad: params.dpad === "1" || params.touch === "1" ? true : "auto" });
+  const input = createInput(renderer.element || document.body, { touch: params.dpad === "1" || params.touch === "1" ? true : "auto" });
+  let stick = null, lastStick = null;
+  const stickDirs = () => {
+    if (!stick || !state.proj) return null;
+    const sc = Object.entries(DIRS).map(([dir, [dx, dz]]) => {
+      const s = state.proj.project(dx, 0, dz), len = Math.hypot(s.sx, s.sy) || 1;
+      return [dir, (s.sx * stick[0] + s.sy * stick[1]) / len];
+    }).filter((d) => d[1] > 0.35).sort((a, b) => b[1] - a[1]);
+    if (sc[1] && sc[1][1] > sc[0][1] - 0.2 && lastStick === sc[0][0]) sc.unshift(sc.splice(1, 1)[0]);
+    lastStick = sc[0]?.[0] ?? null;
+    return sc.map((d) => d[0]);
+  };
   input.on((it) => {
     const { actor, proj, things, level } = state;
     if (!actor) return;
     if (it.kind === "rotate") { game.rotate(it.step); return; }
     if (it.kind === "zoom") { game.zoom(it.step); return; }
+    if (it.kind === "act") { things?.act(); return; }
+    if (it.kind === "stick") {
+      stick = it.vec;
+      if (stick) { if (!actor.locked) state.route.cancel(); actor.held = stickDirs; }
+      else if (actor.held === stickDirs) actor.held = null;
+      return;
+    }
     if (it.kind === "hold") {
       screenHeld = it.dir || null;
       actor.held = it.dir ? screenToWorldDir(proj, it.dir) : null;
@@ -94,6 +112,7 @@ export function createGame(renderer, params = readParams()) {
     state.route.update();
     state.things?.update(STEP);
     for (const f of tickers) f(STEP);
+    input.setBusy(!!state.actor.locked);
     renderer.update?.(state, STEP);
     state.time += STEP;
   };
@@ -113,6 +132,7 @@ export function createGame(renderer, params = readParams()) {
   const game = {
     state,
     renderer,
+    input,
     onTick(f) { tickers.add(f); return () => tickers.delete(f); },
     canRotate: () => true,
     canZoom: () => true,
