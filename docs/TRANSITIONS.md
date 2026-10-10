@@ -12,7 +12,7 @@ Today: E on an exit sets `t.state = "rising"`, locks the actor, and `createInter
 | 0.3 | | dance clip, 2.0 to 2.3 s, picked by a counter cycling the library | | | | deck lamp brightens | |
 | 1.6 | follows the hero up, unclamped | | deck at RISE; terrain, decor, things (minus shaft and deck) and the cloud mesh translate down, ease in, clear of the frame by 2.8; rungs start scrolling | fade in 0.5 s from 2.2 | go down with the island | `bg` 15% brighter for 0.12 s | |
 | 2.6 | | dance ends, `brace` pose, jitter ±0.01 | | full speed | a 24-sprite loop column streams past | | |
-| 2.6 to T | hold | hold | hold | hold | hold | | at least 1.8 s, ends when `ready` resolves |
+| 2.6 to T | hold | hold | hold | hold | hold | | at least two beats (0.86 s), ends on the first dance beat after `ready` resolves |
 | T | zoom back to the next island's fit, 1.0 s | | next island mounts `DROP` units below the frame with its entry deck under the hero, slides up ease out 1.0 s; ride RISE to 0 over the last 0.6 s with a 0.05 overshoot | fade out 0.6 s | next bed arrives with it | `pushState` to `?level=next&from=this&arrive=entry`; toast the island label | `swap()` commits |
 | T+1.0 | clamp on | `land` clip 0.4 s, crossfade to idle; unlock | `idle` | off | normal | prompt returns | done |
 

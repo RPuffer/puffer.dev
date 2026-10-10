@@ -6,7 +6,7 @@ export const SEQ = {
   danceMax: 2.3,
   drop: 1.2,
   braceLead: 0.5,
-  holdMin: 1.8,
+  holdBeats: 2,
   holdMax: 8,
   arrive: 1.4,
   settle: 0.8,
@@ -221,7 +221,11 @@ export function createSequence({ game, run, view, rise = 2.4, short = () => fals
         if (s.stepAt === 0) settleNew();
         return;
       }
-      if (t - s.holdAt < SEQ.holdMin) return;
+      if (s.holdEnd == null) {
+        const beat = 60 / BPM, from = Math.max(t, s.holdAt + SEQ.holdBeats * beat);
+        s.holdEnd = s.danceAt + Math.ceil((from - s.danceAt) / beat - 1e-6) * beat;
+      }
+      if (t < s.holdEnd) return;
       if (!s.braced) {
         s.braced = t;
         view.hero?.userData.play?.("brace");
