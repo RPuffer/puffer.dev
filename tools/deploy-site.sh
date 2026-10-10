@@ -12,7 +12,7 @@ rsync -a --delete --exclude='.git' --exclude='netlify.toml' --exclude='README.md
 cat > "$OUT/netlify.toml" <<'TOML'
 [build]
   publish = "."
-  command = ""
+  command = "echo static site, no build"
 
 [[headers]]
   for = "/*"
