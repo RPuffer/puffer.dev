@@ -17,9 +17,9 @@ body.t-souls .bed{display:none}
 .sc-rows a{color:inherit;text-decoration:none;border-bottom:2px solid #12c4f066}
 .sc-rows a:hover,.sc-rows a:focus-visible{border-color:var(--b);outline:none}
 .sc-rows .sc-links{display:flex;gap:8px;justify-content:flex-end;overflow:visible}
-.sc-links a{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:10px;color:#fff3e0;transition:transform .12s,color .12s}
-.sc-links a:hover,.sc-links a:focus-visible{transform:translateY(-2px);color:var(--b);outline:none}
-.sc-links svg{width:22px;height:22px;fill:currentColor}
+.sc-links a{display:grid;place-items:center;width:38px;height:38px;border:2px solid rgba(255,243,224,.35);border-radius:11px;background:rgba(255,243,224,.06);color:#fff3e0;transition:transform .12s,color .12s,border-color .12s,background .12s}
+.sc-links a:hover,.sc-links a:focus-visible{transform:translateY(-2px);color:var(--b);border-color:var(--b);background:rgba(255,243,224,.12);outline:none}
+.sc-links svg{width:20px;height:20px;fill:currentColor}
 .sc-rows .sc-class{grid-column:1/-1;background:#12c4f022;box-shadow:inset 0 0 0 2px #12c4f088}
 .sc-class dd{display:flex;align-items:center;gap:8px}
 .sc-class output{min-width:11em;text-align:center;font-size:17px}
