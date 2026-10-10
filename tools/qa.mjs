@@ -161,6 +161,10 @@ async function uiChecks(page, tag, touch) {
   const shown = await orbShown(page);
   const o = shown && await page.$eval(".iw-orb", (e) => { const r = e.getBoundingClientRect(); return { cx: r.left + r.width / 2, top: r.top, w: innerWidth }; });
   record(`${tag} island orb at top centre`, !!o && Math.abs(o.cx - o.w / 2) < 2 && o.top < 40, JSON.stringify(o));
+  if (!touch) {
+    const h = await page.evaluate(() => { const a = document.querySelector(".iw-home"), o = document.querySelector(".iw-orb"); if (!a || !o) return null; const r = a.getBoundingClientRect(), q = o.getBoundingClientRect(); return { href: a.getAttribute("href"), label: a.getAttribute("aria-label"), left: r.right <= q.left, gap: Math.round(q.left - r.right), top: Math.round(r.top) }; });
+    record(`${tag} character select button beside the orb`, !!h && /landing\/index\.html$/.test(h.href) && !!h.label && h.left && h.gap < 40 && h.top < 60, JSON.stringify(h));
+  }
   record(`${tag} old hex button and islands link gone`, !(await page.$(".iw-nav-btn")) && !(await page.$(".iw-ui a")));
   if (!shown) return;
   await tapEl(page, ".iw-orb", touch);
@@ -175,6 +179,21 @@ async function uiChecks(page, tag, touch) {
   await page.keyboard.press("Escape");
   await wait(300);
   record(`${tag} Escape closes the panel`, !(await page.$(".iw-panel")));
+}
+
+async function landingSuite(size) {
+  const g = await open(`${BASE}/3d/index.html?level=cat-medium&reset=1`, size);
+  await g.page.evaluate(() => localStorage.setItem("isoworld:things:cat-medium", JSON.stringify({ respawn: [1, 1], things: { t0: { state: "lit" } } })));
+  await Promise.all([g.page.waitForNavigation({ waitUntil: "load" }), g.page.click(".iw-home")]);
+  await g.page.waitForFunction(() => window.__done === true, { timeout: 10000, polling: 100 }).catch(() => {});
+  const land = await g.page.evaluate(() => ({ path: location.pathname, cont: !!document.querySelector("#sc-cont:not([hidden])"), where: document.querySelector("#sc-where")?.textContent || "" }));
+  record("character select button returns to the landing with Continue", /\/landing\//.test(land.path) && land.cont, JSON.stringify(land));
+  const links = await g.page.$$eval(".sc-links a", (as) => as.map((a) => ({ href: a.href, label: a.getAttribute("aria-label"), title: a.title, target: a.target, rel: a.rel, svg: !!a.querySelector("svg"), text: a.textContent.trim() })));
+  const want = ["behance.net/SyntheticFlow", "github.com/RPuffer", "linkedin.com/in/ryne-puffer-2199303a", "soundcloud.com/orva-music"];
+  record("landing icon links", links.length === 4 && want.every((u, i) => links[i].href.includes(u)) && links.every((l) => l.label && l.title === l.label && l.target === "_blank" && /noopener/.test(l.rel) && l.svg && !l.text), JSON.stringify(links.map((l) => [l.label, l.target, l.rel, l.svg])));
+  await g.page.evaluate(() => localStorage.removeItem("isoworld:things:cat-medium"));
+  record("landing round trip has no console errors", g.problems.length === 0, g.problems.slice(0, 3).join(" | "));
+  await g.page.close();
 }
 
 async function buildSuite(build, size) {
@@ -199,6 +218,8 @@ async function buildSuite(build, size) {
   if (size.touch) {
     const band = await page.evaluate(() => { const b = document.querySelector(".iw-band"), u = document.querySelector(".iw-ui"); return { band: !!b && !b.classList.contains("off"), ui: !!u && getComputedStyle(u).display !== "none", old: !!document.querySelector(".iso-dpad,.iw-use") }; });
     record(`${tag} touch band shown, desktop buttons and d-pad gone`, band.band && !band.ui && !band.old, JSON.stringify(band));
+    const back = await page.evaluate(() => { const a = document.querySelector(".iw-band .iw-back"), k = document.querySelector(".iw-band .iw-stick"), h = document.querySelector(".iw-home"); if (!a || !k) return null; const r = a.getBoundingClientRect(), q = k.getBoundingClientRect(); return { href: a.getAttribute("href"), label: a.getAttribute("aria-label"), w: Math.round(r.width), left: r.right <= q.left, inView: r.left >= 0, desk: !!h && getComputedStyle(h).display !== "none" }; });
+    record(`${tag} back button left of the joystick`, !!back && /landing\/index\.html$/.test(back.href) && !!back.label && back.w > 20 && back.left && back.inView && !back.desk, JSON.stringify(back));
   }
   await page.screenshot({ path: path.join(OUT, `${tag}-play.png`) });
   await uiChecks(page, tag, size.touch);
@@ -711,10 +732,12 @@ try {
     if (only === "nav") { await run("nav", navSuite); continue; }
     if (only === "touch") { if (size.touch) await run("touch", touchSuite); continue; }
     if (only === "cam") { await run("cam", camSuite); continue; }
+    if (only === "landing") { if (size.width === 1200) await run("landing", landingSuite); continue; }
     for (const build of ["3d", "2d"]) await run(build, (s) => buildSuite(build, s));
     if (size.width === 1200 || size.touch) await run("rotation", rotationSuite);
     if (size.width === 1200 || size.touch) await run("click", clickSuite);
     if (!size.touch) { await run("compare", compareSuite); await run("start", startSuite); }
+    if (size.width === 1200) await run("landing", landingSuite);
     if (size.touch) await run("touch", touchSuite);
     await run("nav", navSuite);
     await run("cam", camSuite);
