@@ -16,6 +16,10 @@ body.t-souls .bed{display:none}
 .sc-rows dd{margin:0;font-weight:700;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sc-rows a{color:inherit;text-decoration:none;border-bottom:2px solid #12c4f066}
 .sc-rows a:hover,.sc-rows a:focus-visible{border-color:var(--b);outline:none}
+.sc-rows .sc-links{display:flex;gap:8px;justify-content:flex-end;overflow:visible}
+.sc-links a{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:10px;background:var(--b);color:#10202a;box-shadow:inset 0 -3px 0 var(--b2);transition:transform .12s}
+.sc-links a:hover,.sc-links a:focus-visible{transform:translateY(-2px);outline:3px solid #fff3e0;outline-offset:2px}
+.sc-links svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .sc-rows .sc-class{grid-column:1/-1;background:#12c4f022;box-shadow:inset 0 0 0 2px #12c4f088}
 .sc-class dd{display:flex;align-items:center;gap:8px}
 .sc-class output{min-width:11em;text-align:center;font-size:17px}
@@ -49,10 +53,17 @@ body.t-souls .bed{display:none}
 .sc-keys{display:none}}
 `;
 
+const GLYPHS = {
+  frame: '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M6 17l4.5-5 3 3 2-2L19 17"/><circle cx="15.5" cy="8.5" r="1.6"/>',
+  code: '<path d="M8.5 7L4 12l4.5 5M15.5 7L20 12l-4.5 5M13.2 5.5l-2.4 13"/>',
+  case: '<rect x="3" y="8" width="18" height="12" rx="3"/><path d="M9 8V6.5A1.5 1.5 0 0 1 10.5 5h3A1.5 1.5 0 0 1 15 6.5V8M3 13.5h18"/>',
+  cloud: '<path d="M7 18.5h10.5a3.5 3.5 0 0 0 .4-7A5.5 5.5 0 0 0 7.4 10 4.3 4.3 0 0 0 7 18.5z"/><path d="M10 13.5v2.5M12.5 12.5v4.5M15 14v2"/>',
+};
+
 function mount(root, k) {
   const P = data.person, C = data.classes;
   const years = new Date().getFullYear() - P.since;
-  const links = P.links.map((l) => `<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join(" &middot; ");
+  const links = P.links.map((l) => `<a href="${l.url}" target="_blank" rel="noopener" aria-label="${l.label}" title="${l.label}"><svg viewBox="0 0 24 24" aria-hidden="true">${GLYPHS[l.icon] || GLYPHS.frame}</svg></a>`).join("");
   root.innerHTML = `<div class="sc">
 <header class="sc-head"><img src="${k.bust}" alt="" width="480" height="540"><div><small>Create Character</small><h1>${P.name}</h1></div></header>
 <section class="sc-info sc-p" aria-label="Details">
@@ -61,7 +72,7 @@ function mount(root, k) {
 <div><dt>Based</dt><dd>${P.location}</dd></div>
 <div><dt>Email</dt><dd><a id="sc-mail" href="#">email</a></dd></div>
 <div><dt>Level</dt><dd>${years} years building software</dd></div>
-${links ? `<div><dt>Links</dt><dd>${links}</dd></div>` : ""}
+${links ? `<div><dt>Links</dt><dd class="sc-links">${links}</dd></div>` : ""}
 <div class="sc-class"><dt>Class</dt><dd><button type="button" class="sc-arw" data-d="-1" aria-label="Previous class">&#9664;</button><output id="sc-cls" aria-live="polite"></output><button type="button" class="sc-arw" data-d="1" aria-label="Next class">&#9654;</button></dd></div>
 </dl>
 <div class="sc-go"><a id="sc-begin" href="#">Begin</a><a id="sc-cont" class="alt" href="#" hidden>Continue<small id="sc-where"></small></a></div>
