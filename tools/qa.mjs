@@ -523,7 +523,7 @@ async function touchSuite(size) {
   record(`${tag} action button interacts like F`, prompt && (await states()) !== s0, `prompt ${prompt}`);
   await settle(page, 1500);
   const st = await (await page.$(".iw-stick")).boundingBox(), cx = st.x + st.width / 2, cy = st.y + st.height / 2, R = st.width * 0.32;
-  for (const [name, dx, dy] of [["down-left", -R, R], ["up-right", R, -R], ["right", R * 1.4, 0]]) {
+  for (const [name, dx, dy] of [["down-left", -R, R], ["up-right", R, -R]]) {
     await idle(page);
     const c0 = await cellOf(page), h0 = await heroScreen(page);
     await page.touchscreen.touchStart(cx + dx, cy + dy);
@@ -537,6 +537,15 @@ async function touchSuite(size) {
     record(`${tag} joystick ${name} held walks that way`, mid && steps >= 1 && ok, `${c0} -> ${c1} (${steps} steps) screen d(${sx.toFixed(2)},${sy.toFixed(2)})`);
   }
   const held = await page.evaluate(() => window.__game.state.actor.held);
+  for (const [name, dx, dy] of [["right (cross dead band)", R * 1.4, 0], ["up (cross dead band)", 0, -R * 1.4], ["light touch (center dead zone)", st.width * 0.08, -st.width * 0.08]]) {
+    await idle(page);
+    const c0 = await cellOf(page);
+    await page.touchscreen.touchStart(cx + dx, cy + dy); await wait(600);
+    const held = await page.evaluate(() => !!window.__game.state.actor.held);
+    await page.touchscreen.touchEnd(); await wait(150); await idle(page);
+    const c1 = await cellOf(page);
+    record(`${tag} joystick ${name} does not move`, !held && c1.join() === c0.join(), `${c0} -> ${c1} held ${held}`);
+  }
   record(`${tag} releasing the joystick stops the hero`, held == null);
   const y0 = await yawOf(page);
   await touchPoints(page, slide([[320, 300]], [[110, 310]]));

@@ -109,6 +109,7 @@ export function createInput(el, { touch = "auto" } = {}) {
   el.addEventListener("pointerup", onPointerUp);
   el.addEventListener("pointercancel", onPointerCancel);
 
+  const STICK_DEAD = 0.22, STICK_CROSS = 14 * Math.PI / 180;
   let band = null, knob = null, sector = null, stickId = null, busy = false;
   const stickTo = (s) => {
     if (s === sector) return;
@@ -130,7 +131,9 @@ export function createInput(el, { touch = "auto" } = {}) {
     const stick = band.querySelector(".iw-stick"), hit = band.querySelector(".hit"), act = band.querySelector(".iw-act");
     const aim = (e) => {
       const r = stick.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
-      stickTo(Math.hypot(dx, dy) < r.width * 0.14 ? null : (Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8);
+      const a = Math.atan2(dy, dx), k = Math.round((a - Math.PI / 4) / (Math.PI / 2));
+      const off = Math.abs(a - (Math.PI / 4 + k * Math.PI / 2));
+      stickTo(Math.hypot(dx, dy) < r.width * STICK_DEAD || off > Math.PI / 4 - STICK_CROSS ? null : (((2 * k + 1) % 8) + 8) % 8);
     };
     hit.addEventListener("pointerdown", (e) => { e.preventDefault(); stickId = e.pointerId; hit.setPointerCapture?.(e.pointerId); band.classList.add("held"); aim(e); });
     hit.addEventListener("pointermove", (e) => { if (e.pointerId === stickId) aim(e); });
