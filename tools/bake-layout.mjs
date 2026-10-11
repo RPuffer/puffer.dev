@@ -13,14 +13,14 @@ if (ascii) fs.mkdirSync(path.join(root, flag("--ascii-dir", "out/layout")), { re
 
 export const BAKES = {
   "wizard-medium": [
-    { seed: 1, name: "wizard-medium-r1" },
-    { seed: 2, name: "wizard-medium-r2", mirror: true, drop: true },
-    { seed: 3, name: "wizard-medium-r3" },
+    { seed: 1, name: "wizard-medium-r1", features: "showpiece" },
+    { seed: 2, name: "wizard-medium-r2", mirror: true, drop: true, features: [["hill", { size: [3, 2] }], ["alcove", { size: [3, 3] }]] },
+    { seed: 3, name: "wizard-medium-r3", features: [["hill", { size: [3, 2] }], ["lookout", { size: [4, 3] }], ["inlet", { size: [2, 2] }]] },
   ],
 };
 
 const base = JSON.parse(fs.readFileSync(path.join(root, "levels", `${baseName}.json`), "utf8"));
-for (const p of base.pieces || []) {
+for (const p of [...new Set([...(base.pieces || []), "pieces/kits.js"])]) {
   const mod = await import(path.join(root, "3d", p));
   if (mod.register) registerCatalog((await mod.register({ palette: base.palette || {} })).catalog || {});
 }

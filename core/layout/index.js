@@ -1,7 +1,8 @@
 import { createRng, hashSeed, valueNoise } from "../rng.js";
+import { maskCells } from "../catalog.js";
 import { createGrid, N4, DIR, key } from "./grid.js";
 import { planIsland } from "./plan.js";
-import { FEATURES } from "./features.js";
+import { FEATURES, stamp } from "./features.js";
 import { placeDecor } from "./decor.js";
 import { checkRoute, unreachableCells } from "./check.js";
 
@@ -96,11 +97,77 @@ function settle(level, rng) {
   for (let round = 0; round < 6; round++) {
     const lost = unreachableCells(level);
     if (!lost.length) return;
+    const covered = new Set(level.decor.filter((d) => (d.fw || 1) * (d.fd || 1) > 1).flatMap((d) => maskCells(d.t, d.x, d.z, d.rot || 0).map((m) => key(m.x, m.z))));
     for (const [x, z] of lost) {
+      if (covered.has(key(x, z))) continue;
       level.decor = level.decor.filter((d) => !(d.x === x && d.z === z && (d.fw || 1) === 1 && (d.fd || 1) === 1));
       level.decor.push({ t: rng.chance(0.5) ? "rock-big" : "rock", x, z, v: rng.int(0, 1), rot: 0, ox: 0, oz: 0, fw: 1, fd: 1, fill: true });
     }
   }
+}
+
+export const RECIPES = {
+  ring: [],
+  showpiece: [["hill", { size: [3, 2] }], ["lookout", { size: [4, 3] }], ["alcove", { size: [3, 3] }], ["inlet", { size: [2, 3] }]],
+  hill: [["hill", { size: [3, 2] }]],
+};
+
+function pathDist(G) {
+  const dist = new Map(), q = [];
+  G.each((c, x, z) => { if (c.p) { dist.set(key(x, z), 0); q.push([x, z]); } });
+  for (let i = 0; i < q.length; i++) {
+    const [x, z] = q[i], d = dist.get(key(x, z));
+    for (const [dx, dz] of N4) {
+      const nx = x + dx, nz = z + dz;
+      if (!G.in(nx, nz) || dist.has(key(nx, nz))) continue;
+      dist.set(key(nx, nz), d + 1);
+      q.push([nx, nz]);
+    }
+  }
+  return dist;
+}
+
+function sightCells(plan, things) {
+  const [fx, fz] = plan.core.figure, centre = [fx + 0.5, fz + 0.5], out = new Set();
+  const fire = things.find((t) => t.kind === "bonfire"), chest = things.find((t) => t.kind === "chest"), gate = things.find((t) => t.open === "watcher:w1");
+  for (const v of [[fire.x, fire.z], [chest.x, chest.z], gate.threshold[0]]) {
+    const n = Math.max(Math.abs(centre[0] - v[0]), Math.abs(centre[1] - v[1])) * 2;
+    for (let i = 0; i <= n; i++) out.add(key(Math.round(v[0] + ((centre[0] - v[0]) * i) / n), Math.round(v[1] + ((centre[1] - v[1]) * i) / n)));
+  }
+  return out;
+}
+
+function growFeatures(G, plan, things, recipe, rng) {
+  const placed = [];
+  if (!recipe.length) return placed;
+  const avoid = new Set(), mark = (x, z, r) => { for (let dz = -r; dz <= r; dz++) for (let dx = -r; dx <= r; dx++) avoid.add(key(x + dx, z + dz)); };
+  for (const t of things) if (t.kind !== "watcher") { mark(t.x, t.z, 2); for (const c of [...(t.edge || []), ...(t.threshold || [])]) mark(c[0], c[1], 2); }
+  for (const l of plan.locks) for (const c of l) mark(c[0], c[1], 2);
+  const [tx0, tz0, tx1, tz1] = plan.core.terrace;
+  for (let z = tz0 - 1; z <= tz1 + 1; z++) for (let x = tx0 - 1; x <= tx1 + 1; x++) avoid.add(key(x, z));
+  const [px0, pz0, px1, pz1] = plan.plaza;
+  for (let z = pz0 - 1; z <= pz1 + 1; z++) for (let x = px0 - 1; x <= px1 + 1; x++) avoid.add(key(x, z));
+  G.each((c, x, z) => { if (c.s === "lift" || c.s === "ramp") mark(x, z, 2); });
+  for (const k of sightCells(plan, things)) avoid.add(k);
+  const dist = pathDist(G);
+  for (const [kind, opts] of recipe) {
+    const spec = FEATURES[kind];
+    const options = rng.shuffle(spec.site(G, { avoid, dist }, opts)).sort((a, b) => b.score - a.score);
+    for (const o of options.slice(0, 40)) {
+      const snap = G.cells.map((r) => r.slice()), own = G.owner.map((r) => r.slice());
+      const name = `${kind}-${placed.length + 1}`;
+      const piece = stamp(G, name, kind, o.params, o.owner);
+      if (piece.problems.length) {
+        G.cells.forEach((r, z) => r.splice(0, r.length, ...snap[z]));
+        G.owner.forEach((r, z) => r.splice(0, r.length, ...own[z]));
+        continue;
+      }
+      placed.push(piece);
+      for (const c of piece.cells) mark(c.x, c.z, 1);
+      break;
+    }
+  }
+  return placed;
 }
 
 function pickThings(G, plan, rng, o) {
@@ -158,6 +225,7 @@ function mirrorLevel(L) {
     for (const s of r.shortcuts) { s.far = fc(s.far); s.near = fc(s.near); }
     r.vistas = r.vistas.map(fc);
     r.trapSlots = r.trapSlots.map((t) => ({ ...t, cells: t.cells.map(fc) }));
+    if (r.features) r.features = r.features.map((f) => ({ ...f, cells: f.cells.map(fc), ...(f.ramp ? { ramp: { at: fc(f.ramp.at), d: md[f.ramp.d] } } : {}), ...(f.from ? { from: fc(f.from), neck: f.neck.map(fc) } : {}) }));
   }
   return L;
 }
@@ -189,7 +257,8 @@ function routeMeta(G, plan, things) {
     }
     flush();
   }
-  return { grammar: "hub-and-ring", segments, shortcuts, bonfire: [t("b1").x, t("b1").z], vistas: [], trapSlots };
+  const features = (plan.features || []).map((p) => ({ kind: p.kind, name: p.name, cells: p.cells.filter((c) => c.s !== "ramp").map((c) => [c.x, c.z]), ...(p.ramp ? { ramp: p.ramp } : {}), ...(p.from ? { from: p.from, neck: p.neck } : {}) }));
+  return { grammar: "hub-and-ring", segments, shortcuts, bonfire: [t("b1").x, t("b1").z], vistas: [], trapSlots, features };
 }
 
 export function generateLayout(base, opts = {}) {
@@ -209,6 +278,9 @@ export function generateLayout(base, opts = {}) {
     fillHoles(G);
     for (const p of plan.pieces) p.problems = [...p.problems.filter((m) => /already path/.test(m)), ...FEATURES[p.kind].valid(G, p)];
     const { things, spawn } = pickThings(G, plan, rng, o);
+    const recipe = Array.isArray(opts.features) ? opts.features : RECIPES[opts.features || "ring"] || [];
+    plan.features = growFeatures(G, plan, things, recipe, rng);
+    plan.pieces.push(...plan.features);
     const cells = G.cells.map((row) => row.map((c) => {
       const out = { h: c.h, s: c.s };
       if (c.d) out.d = c.d;
@@ -221,9 +293,9 @@ export function generateLayout(base, opts = {}) {
       name: opts.name || `${base.name}-r${seed}`,
       concept: "route-first",
       size: [W, D], cells, decor: [], spawn,
-      bg: base.bg, palette: base.palette, materials: base.materials, light: base.light,
-      pieces: base.pieces, things, route,
-      layout: { seed, attempt, grammar: "hub-and-ring", mirror: !!opts.mirror, picks: plan.picks },
+      bg: base.bg, palette: { ...base.palette, kitTheme: opts.kitTheme || base.name.split("-")[0] }, materials: base.materials, light: base.light,
+      pieces: [...new Set([...(base.pieces || []), ...(opts.kits === false ? [] : ["pieces/kits.js"])])], things, route,
+      layout: { seed, attempt, grammar: "hub-and-ring", mirror: !!opts.mirror, picks: plan.picks, features: recipe.map(([k]) => k) },
     };
     level.decor = placeDecor(level, base, plan, rng, noise);
     settle(level, rng);
