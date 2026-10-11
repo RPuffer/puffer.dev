@@ -227,4 +227,8 @@ Total: $2.835
 
 2026-10-09 | gemini-3.1-flash-image | 1 | 0.045 | space backdrop: 21:9 painterly nebula panorama, kept as 3d/assets/sky/nebula.webp
 
-Running total: $34.615
+## Decor kits
+
+2026-10-11 | fal-ai/nano-banana/edit | 1 | 0.039 | decor kit sheet: six wizard kits on one image (star shrine, camp, supply landing, scroll cart, rune ring, waymark), kept first try as pipeline/multitile/kits-sheet.png
+
+Running total: $34.654
