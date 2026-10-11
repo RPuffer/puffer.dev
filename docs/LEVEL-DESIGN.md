@@ -2,7 +2,7 @@
 
 An island is a trip, not a scatter. The generator draws the route, then grows land and decor out from it. The numbered practices (P1 to P7) refer to `docs/procgen-research.md`.
 
-Code: `core/layout/` (browser-safe generator), `tools/bake-layout.mjs` (writes `levels/*.json`), `tools/qa-route.mjs` (proof).
+Code: `core/layout/` (browser-safe generator), `3d/pieces/kits.js` (decor kits), `tools/bake-layout.mjs` (writes `levels/*.json`), `tools/qa-route.mjs` (proof).
 
 ## Route grammar
 
@@ -30,23 +30,62 @@ A module is a hand-made piece the plan stamps onto the grid. `core/layout/featur
 | height rule | Heights change only through a ramp with a flat landing on each side |
 | `valid(G, piece)` | The module's own checks, re-run after the whole island is built |
 
-Modules shipped: `road`, `plaza`, `dock`, `causeway`, `spur`, `peninsula`, `hill` (the hub-and-ring plan does not place hills yet). Rules worth knowing: a dock or causeway ends on the lift tile and nothing else may touch that tile at its height; a spur needs a cliff of two tiers under its tip; a hill sits one tier above the land around it and may not sit level with any path cell.
+Modules shipped: `road`, `plaza`, `dock`, `causeway`, `spur`, `peninsula`, `hill`, `lookout`, `alcove`, `inlet`. Rules worth knowing: a dock or causeway ends on the lift tile and nothing else may touch that tile at its height; a spur needs a cliff of two tiers under its tip.
+
+The last four are late modules. They grow onto the island after the flanks, the separation pass and the things, and each one has a `site(G, ctx, opts)` that lists every legal placement. The generator shuffles the list, tries the best scores first, stamps one, re-runs its `valid` and rolls the grid back on any problem. `ctx` carries the walking distance from the path and an avoid set: two cells around every thing, lock and lift, one cell around the core terrace and the plaza, every sightline cell and every cell of an earlier feature.
+
+| Module | Shape | Rule |
+| --- | --- | --- |
+| `hill` | a box, 3x2 by default, grown out over the drop | one tier above the land it leans on, no ramp, level with no land or path; at least two cells from the path so a tall landmark fits; the decor pass covers every cell |
+| `lookout` | a 4x3 pad over the drop plus one ramp | one tier above the land it leans on, reached by a ramp whose foot sits on that land; a dead end that holds a reward |
+| `alcove` | a one-wide neck and a 3x3 room off a road's flank | the room hangs over the drop at the road's height; only the neck touches the island, so the room reads as its own place |
+| `inlet` | a 2x3 bay of water cut from the rim | never on a path cell, never beside a ramp or lift; it breaks a straight shore and gives the decor pass a bank |
+
+A seed names its features as a recipe in `tools/bake-layout.mjs` (`features: "showpiece"` or a list of `[module, opts]`). `RECIPES` in `core/layout/index.js` holds the named ones. Every wizard seed places a hill; r1 places all four.
 
 ## Land grows from the route
 
 Flanks grow outward from each path cell, one to three cells deep, at the owner's height. Two flanks may touch only when their segments link without a lock. Where they would touch across a lock, the generator cuts the cell to air or a pond (P5). Small enclosed holes become ponds.
 
-## Decor yields to the route
+## Decor reads the route
 
-`core/layout/decor.js`, rules in `YIELD`:
+`core/layout/decor.js` places decor in a fixed order of rules, `MACHINES`, each a small Brogue-style machine: a context the route defines, a choice from a pool of kits, a budget. The kit pool works like Spelunky's room templates and Dead Cells' hand-made chunks (P3): each kit is built by hand once, and the rule only decides where it goes.
 
-1. No decor on a path cell, passable or not.
-2. No decor on a ramp landing or at either end of a door, gate or ladder.
-3. A cell beside the path takes only low decor (height 1.2 or less), and only now and then.
-4. Tall decor stays two cells or more from the path and off every sightline.
-5. The plaza stays open ground.
+1. **Anchors.** The core figure, its tower and spires, and the core's own decor copied from the artwork level.
+2. **Locks.** One lamp beside every lock and the bonfire.
+3. **Features.** Each late module gets the kit it was grown for. A landmark kit covers a hill. A reward kit sits on a lookout and in an alcove, clear of the ramp landing and the neck. A landing kit stands on an inlet's bank, facing the water. Waymarks flank the foot of a lookout's ramp and the entry to an alcove.
+4. **Shortcuts.** A landmark within four cells of each shortcut's far end, so the player remembers where it opened; a waymark beside the near end.
+5. **Approach.** An avenue of waymarks on both shoulders of the road into the core gate, every second cell. Waymarks are 1.2 tall, so the view of the core stays open.
+6. **Turns.** A kit on the outside of a route turn: a tall landmark when there is room two cells back, low set dressing on the shoulder otherwise. At most five, six cells apart.
+7. **Gateways and rhythm.** A pair of waymarks where a spine road leaves a junction, and one waymark on alternating shoulders every third cell of a straight run.
+8. **Pockets.** Off-path land two or more cells from the path splits into pockets. The two largest get a camp; the rest get groves: one tall piece, mid pieces in the ring around it, low rocks at the edge. Groves sit five cells apart and stay three cells from any landmark.
+9. **Rim.** At most six tall spires, on convex corners of the rim only, five cells apart.
+10. **Shoulder.** Now and then a rock or star on a cell beside the path, where noise is high.
 
-Decor lands in three intentional places: a lamp beside each lock and the bonfire, a handful of one-family groves at least six cells apart, and spires along the rim. Cells the route can never reach get filled with rock.
+Every rule yields to the route (`YIELD`):
+
+- No decor on a path cell, passable or not.
+- No decor on a ramp landing, at either end of a door, gate or ladder, on an alcove's neck, or on the lane from a feature's entry back to the path.
+- A cell beside the path takes only low decor (height 1.2 or less).
+- Tall decor stays two cells or more from the path, off every sightline, and two cells from a feature's entry.
+- The plaza stays open ground, and no multi-cell kit stands within two cells of a lift.
+- Two lights (waymark, lamp) never stand on neighbouring cells, so pairs read as pairs.
+
+Cells the route can never reach get filled with rock, unless a kit already covers them.
+
+## Decor kits
+
+A kit is one multi-cell prop with a cell mask, built once on `3d/prims.js` and placed as a unit. `3d/pieces/kits.js` holds the library; `?level=kits-showcase` lays it out. Each catalog entry carries a `kit` block the layout reads:
+
+| Field | Meaning |
+| --- | --- |
+| `slots` | where it may go: `hill`, `turn`, `shortcut-far`, `reward`, `pocket`, `rest`, `bank`, `rim`, `approach`, `frame` |
+| `dist` | nearest path distance, min and max, over its footprint |
+| `face` | `path`: rotate so the front (local +z) faces the nearest path cell or the feature's entry |
+| `max` | per-island budget, so no kit becomes the new scatter |
+| `theme` | the island set it belongs to; `palette.kitTheme` picks the colour table in `THEMES` |
+
+Shipped, from one generated sheet (`pipeline/multitile/kits-sheet.png`): `star-shrine` 3x2 (landmark), `wizard-camp` 2x2 (rest), `supply-landing` 2x1 (bank, rim), `scroll-cart` 2x1 (turn, rest, approach), `rune-ring` 3x3 (reward, walk-in edges and centre) and `waymark` 1x1 (frame). Adding a kit means one entry in `KITS` with a build function, a mask and a `kit` block; the machines pick it up by slot without code changes. A later asset pass can add a theme per island and many kits per slot.
 
 ## The path tile
 
