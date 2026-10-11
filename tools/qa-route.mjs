@@ -16,9 +16,9 @@ const results = [];
 const record = (name, ok, detail = "") => { results.push({ name, ok }); console.log(`${ok ? "PASS" : "FAIL"} ${name}${detail ? " " + detail : ""}`); };
 
 const raws = Object.fromEntries(LEVELS.map((n) => [n, JSON.parse(fs.readFileSync(path.join(root, "levels", `${n}.json`), "utf8"))]));
-for (const p of new Set(Object.values(raws).flatMap((r) => r.pieces || []))) {
+for (const raw of Object.values(raws)) for (const p of raw.pieces || []) {
   const mod = await import(path.join(root, "3d", p));
-  if (mod.register) registerCatalog((await mod.register({ palette: Object.values(raws)[0].palette || {} })).catalog || {});
+  if (mod.register) registerCatalog((await mod.register({ palette: raw.palette || {} })).catalog || {});
 }
 
 const CHECKS = [
