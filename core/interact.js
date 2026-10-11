@@ -1,9 +1,16 @@
-import { isWalkable } from "./level.js";
+import { isWalkable, DIRS } from "./level.js";
 import { pathToward } from "./path.js";
 
-export const THING_KINDS = ["bonfire", "chest", "gate", "elevator", "watcher"];
-const START = { bonfire: "unlit", chest: "closed", gate: "closed", elevator: "idle", watcher: "idle" };
-const VERB = { bonfire: ["Light the bonfire", "Rest"], chest: ["Open the chest"], elevator: ["Ride the lift"] };
+export const THING_KINDS = ["bonfire", "chest", "gate", "elevator", "watcher", "door", "ladder", "lever"];
+const START = { bonfire: "unlit", chest: "closed", gate: "closed", elevator: "idle", watcher: "idle", door: "closed", ladder: "up", lever: "up" };
+const VERB = { bonfire: ["Light the bonfire", "Rest"], chest: ["Open the chest"], elevator: ["Ride the lift"], lever: ["Pull the lever"] };
+const SAY = {
+  doorShut: "It will not open from this side.",
+  doorOpen: "The door swings open. A shortcut.",
+  ladderHigh: "The ladder is drawn up. Someone above could kick it down.",
+  ladderDown: "Kicked the ladder down. A shortcut.",
+  lever: "Somewhere, a gate grinds open.",
+};
 const key = (x, z) => x + "," + z;
 const N8 = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
 
@@ -24,7 +31,24 @@ export function gateEdge(t) {
   return b ? [th.slice(), b.slice()] : null;
 }
 
-export function thingEdge(t) { return t.kind === "gate" ? t.edge || null : null; }
+export function thingEdge(t) { return t.kind === "gate" || t.kind === "door" ? t.edge || null : null; }
+
+export const linkKey = (a, b) => a[0] + "," + a[1] + ">" + b[0] + "," + b[1];
+
+export function ladderEnds(t) {
+  const d = DIRS[t.d];
+  return d ? [[t.x, t.z], [t.x + d[0], t.z + d[1]]] : null;
+}
+
+export function thingLinks(t) {
+  if (t.kind !== "ladder") return [];
+  const e = ladderEnds(t);
+  if (!e) return [];
+  if (t.mode === "drop") return [e];
+  return t.state === "down" ? [e, [e[1], e[0]]] : [];
+}
+
+export const isShortcutGate = (t) => t.kind === "gate" && /^lever:/.test(String(t.open || ""));
 
 export function normalizeThing(t) {
   const kind = t.kind || t.t;
@@ -34,7 +58,14 @@ export function normalizeThing(t) {
     const e = gateEdge(out);
     if (e) { out.edge = e; out.threshold = [e[0]]; if (!Array.isArray(t.edge)) out.migrated = true; } else delete out.edge;
   }
-  else if (kind === "bonfire" || kind === "chest") out.blocks = [[t.x, t.z]];
+  else if (kind === "door") {
+    const ok = Array.isArray(t.edge) && adjacent(t.edge[0], t.edge[1]);
+    out.edge = ok ? [t.edge[0].slice(), t.edge[1].slice()] : null;
+    out.blocks = [];
+    if (out.edge) { out.x = out.edge[1][0]; out.z = out.edge[1][1]; }
+  }
+  else if (kind === "ladder") { out.mode = t.mode === "drop" ? "drop" : "kick"; if (out.mode === "drop") out.state = "drop"; out.blocks = []; }
+  else if (kind === "bonfire" || kind === "chest" || kind === "lever") out.blocks = [[t.x, t.z]];
   else out.blocks = [];
   if (kind === "watcher") { out.size = t.size || [1, 1]; out.radius = t.radius || 3.5; }
   return out;
@@ -68,7 +99,19 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     if (g.edge) level.edges?.delete(edgeKey(g.edge[0], g.edge[1]));
     if (!g.edge || g.hold) for (const [x, z] of g.blocks) level.blocked.delete(key(x, z));
   };
-  for (const t of things) if (t.kind === "gate" && t.state === "open") openGate(t);
+  const setLinks = (t) => {
+    level.links ||= new Map();
+    const e = ladderEnds(t);
+    if (!e) return;
+    level.links.delete(linkKey(e[0], e[1]));
+    level.links.delete(linkKey(e[1], e[0]));
+    for (const [p, q] of thingLinks(t)) level.links.set(linkKey(p, q), t.id);
+  };
+  for (const t of things) {
+    if (t.kind === "gate" && t.state === "open") openGate(t);
+    if (t.kind === "door" && t.state === "open" && t.edge) level.edges?.delete(edgeKey(t.edge[0], t.edge[1]));
+    if (t.kind === "ladder") setLinks(t);
+  }
 
   const listeners = new Set();
   const emit = (e) => { for (const f of listeners) f(e); };
@@ -81,14 +124,23 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
   const toast = (text) => { toastText = text; toastT = 2.6; log.push({ toast: text }); ui?.toast(text); emit({ type: "toast", text }); };
 
   const center = (t) => t.kind === "watcher" ? [t.x + t.size[0] / 2, t.z + t.size[1] / 2] : [t.x + 0.5, t.z + 0.5];
+  const at = (c, p) => !!p && c[0] === p[0] && c[1] === p[1];
   const inRange = (t, c = actor.cell) => {
     if (t.kind === "elevator") return c[0] === t.x && c[1] === t.z;
-    if (t.kind !== "bonfire" && t.kind !== "chest") return false;
+    if (t.kind === "door") return !!t.edge && (at(c, t.edge[0]) || at(c, t.edge[1]));
+    if (t.kind === "ladder") { const e = ladderEnds(t); return !!e && (at(c, e[0]) || at(c, e[1])); }
+    if (t.kind !== "bonfire" && t.kind !== "chest" && t.kind !== "lever") return false;
     const dx = Math.abs(c[0] - t.x), dz = Math.abs(c[1] - t.z);
     return Math.max(dx, dz) === 1;
   };
-  const usable = (t) => (t.kind === "bonfire") || (t.kind === "chest" && t.state === "closed") || (t.kind === "elevator" && t.state === "idle");
-  const verb = (t) => t.kind === "bonfire" ? VERB.bonfire[t.state === "lit" ? 1 : 0] : VERB[t.kind]?.[0] || "Use";
+  const usable = (t) => (t.kind === "bonfire") || (t.kind === "chest" && t.state === "closed") || (t.kind === "elevator" && t.state === "idle") || (t.kind === "door" && t.state === "closed") || (t.kind === "ladder" && t.state === "up") || (t.kind === "lever" && t.state === "up");
+  const farSide = (t, c = actor.cell) => t.kind === "door" ? at(c, t.edge?.[1]) : t.kind === "ladder" ? at(c, [t.x, t.z]) : true;
+  const verb = (t) => {
+    if (t.kind === "bonfire") return VERB.bonfire[t.state === "lit" ? 1 : 0];
+    if (t.kind === "door") return farSide(t) ? "Open the door" : "Try the door";
+    if (t.kind === "ladder") return farSide(t) ? "Kick the ladder down" : "Reach for the ladder";
+    return VERB[t.kind]?.[0] || "Use";
+  };
 
   const act = (t) => {
     if (!t || !usable(t) || !actor || actor.locked) return false;
@@ -104,6 +156,25 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       save();
       emit({ type: "open", thing: t });
       toast(t.text || "Found something");
+    } else if (t.kind === "door") {
+      if (!farSide(t)) { emit({ type: "locked", thing: t }); toast(t.text || SAY.doorShut); return true; }
+      t.state = "open";
+      level.edges?.delete(edgeKey(t.edge[0], t.edge[1]));
+      save();
+      emit({ type: "door", thing: t });
+      toast(SAY.doorOpen);
+    } else if (t.kind === "ladder") {
+      if (!farSide(t)) { emit({ type: "locked", thing: t }); toast(t.text || SAY.ladderHigh); return true; }
+      t.state = "down";
+      setLinks(t);
+      save();
+      emit({ type: "ladder", thing: t });
+      toast(SAY.ladderDown);
+    } else if (t.kind === "lever") {
+      t.state = "pulled";
+      save();
+      emit({ type: "lever", thing: t });
+      toast(t.text || SAY.lever);
     } else if (t.kind === "elevator") {
       const run = t.run || level.runOrder || [], i = run.indexOf(level.name), back = t.role === "entry";
       t.next = t.to || (i >= 0 ? run[back ? i - 1 : i + 1] : null) || null;
@@ -128,6 +199,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     if (!o) return false;
     if (kind === "chest") return o.state === "open";
     if (kind === "bonfire") return o.state === "lit";
+    if (kind === "lever") return o.state === "pulled";
     if (kind === "watcher") {
       const th = Array.isArray(g.threshold) && g.threshold.length ? g.threshold : null;
       const on = !th || th.some(([x, z]) => x === actor.cell[0] && z === actor.cell[1]);
@@ -158,7 +230,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     say(text) { if (text) toast(text); },
     tap(cell) {
       if (!actor || !cell) return false;
-      const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator") && q.x === cell[0] && q.z === cell[1]);
+      const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator" || q.kind === "lever" || q.kind === "door" || q.kind === "ladder") && (q.kind !== "door" && q.kind !== "ladder" || usable(q)) && q.x === cell[0] && q.z === cell[1]);
       if (!t) return false;
       if (inRange(t)) { act(t); return true; }
       const from = actor.path[0] || actor.cell;
@@ -173,7 +245,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
         }
         return best;
       };
-      const best = t.kind === "elevator" ? shortest([[t.x, t.z]]) : shortest(side) || shortest(near);
+      const best = t.kind === "elevator" || t.kind === "door" || t.kind === "ladder" ? shortest([[t.x, t.z]]) : shortest(side) || shortest(near);
       if (!best) return false;
       actor.setPath(best);
       pending = t.id;

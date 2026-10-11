@@ -66,7 +66,17 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
     a.moving = wasMoving || a.path.length > 0;
     if (a.moving) a.walkPhase += dt * a.speed * Math.PI * 1.6;
     else a.walkPhase = 0;
-    a.y = surfaceHeight(L, a.pos.x, a.pos.z);
+    a.y = heightOf();
+  };
+
+  const heightOf = () => {
+    const t = a.path[0];
+    if (t && L.links?.size && L.links.has(a.cell[0] + "," + a.cell[1] + ">" + t[0] + "," + t[1])) {
+      const h0 = surfaceHeight(L, a.cell[0] + 0.5, a.cell[1] + 0.5), h1 = surfaceHeight(L, t[0] + 0.5, t[1] + 0.5);
+      const u = 1 - Math.min(1, Math.hypot(t[0] + 0.5 - a.pos.x, t[1] + 0.5 - a.pos.z));
+      return h0 + (h1 - h0) * u;
+    }
+    return surfaceHeight(L, a.pos.x, a.pos.z);
   };
 
   return a;

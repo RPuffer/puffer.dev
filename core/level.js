@@ -1,6 +1,6 @@
 import { CATALOG, SURFACES, WALKABLE, blockedCells, maskCells } from "./catalog.js";
 import { takeLevel } from "./warm.js";
-import { THING_KINDS, normalizeThing, thingBlocks, thingEdge, edgeKey } from "./interact.js";
+import { THING_KINDS, normalizeThing, thingBlocks, thingEdge, thingLinks, edgeKey, linkKey, isShortcutGate } from "./interact.js";
 
 export const DIRS = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
 export const OPPOSITE = { n: "s", s: "n", e: "w", w: "e" };
@@ -86,13 +86,15 @@ export function prepareLevel(raw) {
   }
   L.things = (Array.isArray(raw.things) ? raw.things : []).filter((t) => THING_KINDS.includes(t?.kind || t?.t) && t.x >= 0 && t.x < W && t.z >= 0 && t.z < D).map((t, i) => normalizeThing({ id: "t" + i, ...t }));
   L.edges = new Set();
+  L.links = new Map();
   for (const t of L.things) {
     for (const [x, z] of thingBlocks(t)) L.blocked.add(x + "," + z);
     const e = thingEdge(t);
     if (e && t.state !== "open") L.edges.add(edgeKey(e[0], e[1]));
+    for (const [a, b] of thingLinks(t)) L.links.set(linkKey(a, b), t.id);
   }
   for (const t of L.things) {
-    if (!t.edge || t.state === "open" || !bypassed(L, t.edge)) continue;
+    if (t.kind !== "gate" || isShortcutGate(t) || !t.edge || t.state === "open" || !bypassed(L, t.edge)) continue;
     if (t.migrated) { t.hold = true; for (const [x, z] of t.blocks) L.blocked.add(x + "," + z); (L.notes ||= []).push(`gate ${t.id}: edge ${t.edge.join(" ")} has a way around, so its cell ${t.blocks.join(" ")} stays blocked while shut`); }
     else warnings.push(`gate ${t.id}: edge ${t.edge.join(" ")} has a way around it`);
   }
@@ -156,6 +158,7 @@ export function canStep(L, x, z, dir) {
   const [dx, dz] = DIRS[dir];
   if (!isWalkable(L, x + dx, z + dz)) return false;
   if (edgeClosed(L, [x, z], [x + dx, z + dz])) return false;
+  if (L.links?.size && L.links.has(x + "," + z + ">" + (x + dx) + "," + (z + dz))) return true;
   const a = edgeHeight(cellAt(L, x, z), dir), b = edgeHeight(cellAt(L, x + dx, z + dz), OPPOSITE[dir]);
   return a != null && b != null && a === b;
 }
