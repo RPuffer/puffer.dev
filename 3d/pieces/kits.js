@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Baker, bakedMaterial } from "../baker.js";
-import { lockedKit } from "../prims.js";
+import { lockedKit, mixHex } from "../prims.js";
 import { stamp } from "../../core/catalog.js";
 
 export const THEMES = {
@@ -25,6 +25,23 @@ export const THEMES = {
     stoneLight: "#c9c3b8",
   },
 };
+
+const first = (v, k = 0) => (Array.isArray(v) ? v[Math.min(k, v.length - 1)] : v && typeof v === "object" ? v.top || v.left || Object.values(v)[0] : v);
+
+export function themeFrom(pal = {}) {
+  const t = { ...THEMES.wizard };
+  const set = (k, v) => { if (typeof v === "string" && /^#[0-9a-f]{6}$/i.test(v)) t[k] = v; };
+  set("indigo", pal.cliffUpper?.left); set("indigoDark", pal.cliffUpper?.right);
+  set("parch", first(pal.stone)); set("parchDark", first(pal.rock, 1));
+  t.indigoLight = mixHex(t.indigo, t.parch, 0.25);
+  set("rust", first(pal.flowerOrange)); set("rustDark", first(pal.berry, 1));
+  set("gold", first(pal.gold)); set("goldLight", first(pal.gold, 2));
+  set("cyan", first(pal.ember, 1)); set("cyanLight", first(pal.flame));
+  set("wood", pal.wood?.mid); set("woodLight", pal.wood?.light); set("woodDark", pal.wood?.dark);
+  set("iron", first(pal.rock, 3)); set("ironLight", first(pal.rock, 2));
+  set("stone", first(pal.rock, 2)); set("stoneLight", first(pal.rock, 1));
+  return t;
+}
 
 const mesh = (B) => new THREE.Mesh(B.geometry(), bakedMaterial());
 const tilt = (B, x, y, z, axis, a, fn) => { B.push(x, y, z, 0); B.rot(axis, a); fn(); B.pop(); B.pop(); };
@@ -243,7 +260,7 @@ export function register(style = {}) {
     if (w * d === 1) Object.assign(catalog[t], { rotates: false, stamp: false });
     builders[t] = (v, rot, st) => {
       const pal = (st || style)?.palette || {};
-      const look = { ...THEMES.wizard, ...(THEMES[pal.kitTheme] || {}), ...(pal.kits || {}), rot: rot || 0 };
+      const look = { ...(THEMES[pal.kitTheme] || themeFrom(pal)), ...(pal.kits || {}), rot: rot || 0 };
       const B = new Baker();
       const K = lockedKit(B, st || style, rot || 0);
       p.build(K, look);

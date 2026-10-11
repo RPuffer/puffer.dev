@@ -19,10 +19,28 @@ export const BAKES = {
   ],
 };
 
-const base = JSON.parse(fs.readFileSync(path.join(root, "levels", `${baseName}.json`), "utf8"));
-for (const p of [...new Set([...(base.pieces || []), "pieces/kits.js"])]) {
-  const mod = await import(path.join(root, "3d", p));
-  if (mod.register) registerCatalog((await mod.register({ palette: base.palette || {} })).catalog || {});
+const H = (size) => ["hill", { size }];
+const RUN_RECIPES = [
+  "showpiece",
+  [H([3, 2]), ["alcove", { size: [3, 3] }], ["inlet", { size: [2, 3] }]],
+  [H([3, 2]), ["lookout", { size: [4, 3] }], ["inlet", { size: [2, 2] }]],
+  [H([3, 2]), ["alcove", { size: [3, 3] }], ["lookout", { size: [4, 3] }]],
+];
+const runOrder = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
+BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, mirror: i % 2 === 1, drop: i % 3 === 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
+
+const readBase = (name) => {
+  const b = path.join(root, "levels/base", `${name}.json`);
+  return JSON.parse(fs.readFileSync(fs.existsSync(b) ? b : path.join(root, "levels", `${name}.json`), "utf8"));
+};
+const registered = new Set();
+async function register(base) {
+  for (const p of [...new Set([...(base.pieces || []), "pieces/kits.js"])]) {
+    if (registered.has(p)) continue;
+    registered.add(p);
+    const mod = await import(path.join(root, "3d", p));
+    if (mod.register) registerCatalog((await mod.register({ palette: base.palette || {} })).catalog || {});
+  }
 }
 
 const only = flag("--only", null);
@@ -30,10 +48,12 @@ const list = (BAKES[baseName] || []).filter((b) => !only || only.split(",").incl
 const names = list.map((b) => b.name);
 let failed = 0;
 for (const [i, b] of list.entries()) {
+  const base = readBase(b.base || baseName);
+  await register(base);
   const { level, problems, attempt, history } = generateLayout(base, b);
-  for (const t of level.things) if (t.kind === "elevator") t.to = names[(i + (t.role === "exit" ? 1 : names.length - 1)) % names.length];
+  if (!b.run) for (const t of level.things) if (t.kind === "elevator") t.to = names[(i + (t.role === "exit" ? 1 : names.length - 1)) % names.length];
   const dist = routeDistances(level).map((s) => `${s.id} ${s.locked}->${s.unlocked}`).join(", ");
-  console.log(`${b.name}: seed ${b.seed} attempt ${attempt}${b.mirror ? " mirrored" : ""}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells; shortcuts ${dist}`);
+  console.log(`${b.name}: seed ${b.seed} attempt ${attempt}${b.mirror ? " mirrored" : ""}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}`);
   if (args.includes("--why")) for (const [k, h] of (history || []).entries()) console.log(`  attempt ${k}: ${h.join(" | ")}`);
   if (problems.length) { failed++; console.log("  FAIL\n  " + problems.slice(0, 12).join("\n  ")); }
   if (ascii) fs.writeFileSync(path.join(flag("--ascii-dir", "out/layout"), `${b.name}.txt`), draw(level) + "\n" + problems.join("\n") + "\n");

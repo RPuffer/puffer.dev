@@ -26,6 +26,39 @@ export const MACHINES = [
 
 const SIDE_ROT = { s: 0, w: 1, n: 2, e: 3 };
 
+const GENERIC = /^(market-row|watchtower|canopy-tree|canopy|shrine|arch|road-run|fence-run|windmill|gatehouse|shipwreck|waterfall-cliff|bridge-span)/;
+const LAMPISH = /lamp|lantern|pillar|torch|candle|vent|urn|beacon|flame|ember/;
+
+export const PROFILES = {
+  wizard: { landmark: "wizard-scroll-tower", spire: "brush-flick-spire", lamp: "cyan-ember-pillar", tall: ["brush-flick-spire", "gnarled-staff-perch"], mid: ["star-doodle-totem", "rock-big"], short: ["rock", "rock-big"], accent: ["rock", "star"] },
+};
+
+export function profileFor(base) {
+  const fixed = PROFILES[String(base.name || "").split("-")[0]];
+  if (fixed && fixed.landmark && CATALOG[fixed.landmark]) return fixed;
+  const lead = base.decor.find((d) => d.watch)?.t;
+  const types = [...new Set(base.decor.map((d) => d.t))].filter((t) => CATALOG[t] && t !== lead && !CATALOG[t].kit);
+  const h = (t) => CATALOG[t].height || 1;
+  const area = (t) => CATALOG[t].footprint[0] * CATALOG[t].footprint[1];
+  const big = types.filter((t) => area(t) > 1 && !CATALOG[t].passable);
+  const landmark = big.filter((t) => !GENERIC.test(t)).sort((a, b) => area(b) - area(a))[0] || big[0] || null;
+  const one = types.filter((t) => area(t) === 1 && !CATALOG[t].passable && !CATALOG[t].attach && CATALOG[t].mask == null);
+  const tall = one.filter((t) => h(t) >= 1.4 && h(t) <= 2.4).sort((a, b) => h(b) - h(a));
+  const mid = one.filter((t) => h(t) >= 0.6 && h(t) < 1.4 && !/^rock/.test(t));
+  const lamps = one.filter((t) => h(t) >= 0.8 && h(t) <= 1.3).sort((a, b) => (LAMPISH.test(b) ? 1 : 0) - (LAMPISH.test(a) ? 1 : 0) || Math.abs(h(a) - 1.1) - Math.abs(h(b) - 1.1));
+  const short = ["rock", "rock-big"].filter((t) => CATALOG[t]);
+  const accent = types.filter((t) => area(t) === 1 && CATALOG[t].passable && h(t) >= 0.08 && h(t) <= 0.6).slice(0, 2);
+  return {
+    landmark,
+    spire: tall[0] || "rock-big",
+    lamp: lamps.find((t) => LAMPISH.test(t)) || (CATALOG.waymark ? "waymark" : lamps[0] || null),
+    tall: tall.slice(0, 3).length ? tall.slice(0, 3) : ["rock-big"],
+    mid: mid.length ? mid.slice(0, 3) : short,
+    short,
+    accent: accent.length ? ["rock", ...accent] : ["rock"],
+  };
+}
+
 function line(a, b) {
   const out = [];
   const n = Math.max(Math.abs(b[0] - a[0]), Math.abs(b[1] - a[1])) * 2;
@@ -67,7 +100,7 @@ function pathDistance(level) {
   return dist;
 }
 
-export const kitsFor = (slot, theme) => Object.keys(CATALOG).filter((t) => CATALOG[t].kit?.slots?.includes(slot) && (!theme || !CATALOG[t].kit.theme || CATALOG[t].kit.theme === theme));
+export const kitsFor = (slot, theme) => Object.keys(CATALOG).filter((t) => CATALOG[t].kit?.slots?.includes(slot) && (!theme || theme === "auto" || !CATALOG[t].kit.theme || CATALOG[t].kit.theme === theme));
 
 function faceRot(cells, target) {
   const cx = cells.reduce((s, c) => s + c[0], 0) / cells.length, cz = cells.reduce((s, c) => s + c[1], 0) / cells.length;
@@ -149,7 +182,8 @@ export function placeDecor(level, base, plan, rng, noise) {
     }
     return foot;
   };
-  const LIGHTS = new Set(["waymark", "cyan-ember-pillar"]);
+  const P = plan.profile || profileFor(base);
+  const LIGHTS = new Set(["waymark", P.lamp].filter(Boolean));
   const put = (d, o = {}) => {
     const foot = fits(d.t, d.x, d.z, d.rot || 0, o);
     if (!foot) return false;
@@ -199,8 +233,11 @@ export function placeDecor(level, base, plan, rng, noise) {
 
   const lead = base.decor.find((d) => d.watch);
   if (lead) put({ ...lead, x: fx, z: fz, watch: "w1" }, { core: true });
-  put({ t: "wizard-scroll-tower", x: core.blocks.tower[0], z: core.blocks.tower[1] }, { core: true });
-  for (const [x, z] of core.blocks.spires) put({ t: "brush-flick-spire", x, z, v: (x + z) % 2 }, { core: true });
+  const lm = P.landmark && CATALOG[P.landmark];
+  const towerFits = lm && lm.footprint[0] === 2 && lm.footprint[1] === 2;
+  if (towerFits) put({ t: P.landmark, x: core.blocks.tower[0], z: core.blocks.tower[1] }, { core: true });
+  else { const [tx, tz] = core.blocks.tower; for (const [x, z] of [[tx, tz], [tx + 1, tz], [tx, tz + 1], [tx + 1, tz + 1]]) put({ t: P.spire, x, z, v: (x + z) % 2 }, { core: true }); }
+  for (const [x, z] of core.blocks.spires) put({ t: P.spire, x, z, v: (x + z) % 2 }, { core: true });
   if (lead) {
     const dx = fx - lead.x, dz = fz - lead.z;
     for (const d of base.decor) {
@@ -212,7 +249,7 @@ export function placeDecor(level, base, plan, rng, noise) {
     }
   }
 
-  const LAMP = CATALOG["cyan-ember-pillar"] ? "cyan-ember-pillar" : null;
+  const LAMP = P.lamp && CATALOG[P.lamp] ? P.lamp : null;
   const free = (x, z) => { const c = cellAt(x, z), k = key(x, z); return !!c && c.h >= 1 && !c.p && c.s !== "water" && c.s !== "none" && c.s !== "ramp" && c.s !== "lift" && !res.has(k) && !used.has(k) && !inCore(x, z) && !room(x, z) && !featureAt.has(k); };
   const marks = level.things.filter((t) => ["gate", "door", "ladder", "lever", "bonfire"].includes(t.kind)).map((t) => (t.edge ? t.edge[0] : [t.x, t.z]));
   if (LAMP) for (const [mx, mz] of marks) {
@@ -227,9 +264,9 @@ export function placeDecor(level, base, plan, rng, noise) {
     const cx = cells.reduce((s, c) => s + c[0], 0) / cells.length, cz = cells.reduce((s, c) => s + c[1], 0) / cells.length;
     const nearPath = [...dist.entries()].filter(([, d]) => d === 0).map(([k]) => k.split(",").map(Number)).sort((a, b) => Math.hypot(a[0] - cx, a[1] - cz) - Math.hypot(b[0] - cx, b[1] - cz))[0] || centre;
     if (f.kind === "hill") {
-      const b = placeKit(kitsFor("hill", theme), cells, nearPath, { feature: true });
+      const b = (!towerFits && lm && !out.some((d) => d.t === P.landmark) ? placeKit([P.landmark], cells, nearPath, { feature: true }) : null) || placeKit(kitsFor("hill", theme), cells, nearPath, { feature: true });
       if (b) landmarks.push([cx, cz]);
-      for (const [x, z] of cells) if (!used.has(key(x, z))) put({ t: rng.pick(["brush-flick-spire", "gnarled-staff-perch"].filter((t) => CATALOG[t])), x, z, v: 0, ...jitter() }, { feature: true });
+      for (const [x, z] of cells) if (!used.has(key(x, z))) put({ t: rng.pick(P.tall), x, z, v: 0, ...jitter() }, { feature: true });
     }
     if (f.kind === "lookout" || f.kind === "alcove") {
       const entry = f.ramp ? f.ramp.at : f.from;
@@ -245,6 +282,13 @@ export function placeDecor(level, base, plan, rng, noise) {
       const region = bank.flatMap((c) => around(c, 1));
       placeKit(kitsFor("bank", theme), region, [cx, cz]);
     }
+  }
+
+  if (lm && !out.some((d) => d.t === P.landmark)) {
+    const region = [];
+    for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) if (free(x, z) && dOf(x, z) >= 2) region.push([x, z]);
+    const b = placeKit([P.landmark], region, centre, { dist: [2, 5] });
+    if (b) landmarks.push([b.x, b.z]);
   }
 
   for (const s of level.route?.shortcuts || []) {
@@ -299,9 +343,7 @@ export function placeDecor(level, base, plan, rng, noise) {
     shoulderPair([x, z], Math.abs(nx[0] - x) ? "e" : "s");
   }
 
-  const TALL = ["brush-flick-spire", "gnarled-staff-perch"].filter((t) => CATALOG[t]);
-  const MID = ["star-doodle-totem", "rock-big"].filter((t) => CATALOG[t]);
-  const SHORT = ["rock", "rock-big"].filter((t) => CATALOG[t]);
+  const TALL = P.tall.filter((t) => CATALOG[t]), MID = P.mid.filter((t) => CATALOG[t]), SHORT = P.short.filter((t) => CATALOG[t]);
   const seen = new Set(), pockets = [];
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
     if (seen.has(key(x, z)) || !free(x, z) || dOf(x, z) < 2) continue;
@@ -370,11 +412,11 @@ export function placeDecor(level, base, plan, rng, noise) {
   const spires = [];
   for (const [x, z] of rims) {
     if (spires.length >= 6 || spires.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) continue;
-    if (put({ t: "brush-flick-spire", x, z, v: variant("brush-flick-spire"), ...jitter() })) spires.push([x, z]);
+    if (put({ t: P.spire, x, z, v: variant(P.spire), ...jitter() })) spires.push([x, z]);
   }
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
     if (!free(x, z) || dOf(x, z) !== 1 || noise(x / 1.3 + 2, z / 1.3 - 4) < 0.82) continue;
-    const t = rng.pick(["rock", "star"].filter((q) => CATALOG[q]));
+    const t = rng.pick(P.accent.filter((q) => CATALOG[q]));
     if (t) put({ t, x, z, v: variant(t), ...jitter() });
   }
   return out;

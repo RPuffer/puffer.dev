@@ -1,9 +1,9 @@
 import { createRng, hashSeed, valueNoise } from "../rng.js";
-import { maskCells } from "../catalog.js";
 import { createGrid, N4, DIR, key } from "./grid.js";
 import { planIsland } from "./plan.js";
 import { FEATURES, stamp } from "./features.js";
-import { placeDecor } from "./decor.js";
+import { placeDecor, profileFor, PROFILES } from "./decor.js";
+import { CATALOG, maskCells } from "../catalog.js";
 import { checkRoute, unreachableCells } from "./check.js";
 
 export { FEATURES } from "./features.js";
@@ -111,6 +111,16 @@ export const RECIPES = {
   showpiece: [["hill", { size: [3, 2] }], ["lookout", { size: [4, 3] }], ["alcove", { size: [3, 3] }], ["inlet", { size: [2, 3] }]],
   hill: [["hill", { size: [3, 2] }]],
 };
+
+export const LAYOUT_SIZE = [26, 34];
+
+function withLandmark(recipe, profile) {
+  const lm = profile.landmark && CATALOG[profile.landmark];
+  if (!lm || (lm.footprint[0] === 2 && lm.footprint[1] === 2)) return recipe;
+  const size = lm.footprint.slice();
+  const out = recipe.filter(([k]) => k !== "hill");
+  return [["hill", { size }], ...out];
+}
 
 function pathDist(G) {
   const dist = new Map(), q = [];
@@ -269,16 +279,17 @@ export function generateLayout(base, opts = {}) {
   for (let attempt = 0; attempt < tries; attempt++) {
     const rng = createRng(hashSeed(`${base.name}:${seed}:${attempt}`));
     const noise = valueNoise(hashSeed(`${seed}:${attempt}:n`));
-    const [W, D] = base.size;
+    const [W, D] = LAYOUT_SIZE;
     const G = createGrid(W, D);
-    const o = { drop: !!opts.drop };
+    const o = { drop: !!opts.drop, chestText: opts.chestText || base.things?.find((t) => t.kind === "chest")?.text };
     const plan = planIsland(G, rng, o);
     growFlanks(G, plan, rng, noise);
     const clashes = separate(G, plan);
     fillHoles(G);
     for (const p of plan.pieces) p.problems = [...p.problems.filter((m) => /already path/.test(m)), ...FEATURES[p.kind].valid(G, p)];
     const { things, spawn } = pickThings(G, plan, rng, o);
-    const recipe = Array.isArray(opts.features) ? opts.features : RECIPES[opts.features || "ring"] || [];
+    plan.profile = profileFor(base);
+    const recipe = withLandmark(Array.isArray(opts.features) ? opts.features : RECIPES[opts.features || "ring"] || [], plan.profile);
     plan.features = growFeatures(G, plan, things, recipe, rng);
     plan.pieces.push(...plan.features);
     const cells = G.cells.map((row) => row.map((c) => {
@@ -293,7 +304,7 @@ export function generateLayout(base, opts = {}) {
       name: opts.name || `${base.name}-r${seed}`,
       concept: "route-first",
       size: [W, D], cells, decor: [], spawn,
-      bg: base.bg, palette: { ...base.palette, kitTheme: opts.kitTheme || base.name.split("-")[0] }, materials: base.materials, light: base.light,
+      bg: base.bg, palette: { ...base.palette, kitTheme: opts.kitTheme || (PROFILES[base.name.split("-")[0]] ? base.name.split("-")[0] : "auto") }, materials: base.materials, light: base.light,
       pieces: [...new Set([...(base.pieces || []), ...(opts.kits === false ? [] : ["pieces/kits.js"])])], things, route,
       layout: { seed, attempt, grammar: "hub-and-ring", mirror: !!opts.mirror, picks: plan.picks, features: recipe.map(([k]) => k) },
     };
