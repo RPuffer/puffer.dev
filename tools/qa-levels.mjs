@@ -156,11 +156,12 @@ async function gateSeal(page) {
     const { edgeKey } = await import("/core/interact.js");
     const S = window.__game.state, things = S.things?.things || [];
     const entry = things.find((t) => t.kind === "elevator" && t.role === "entry");
-    const gates = things.filter((t) => t.kind === "gate" && t.edge);
+    const shut = things.filter((t) => (t.kind === "gate" || t.kind === "door") && t.edge);
+    const gates = shut.filter((t) => t.kind === "gate" && !/^lever:/.test(String(t.open || "")));
     if (!entry || !gates.length) return null;
     const blocked = new Set(S.level.blocked);
     for (const g of gates) if (g.hold) for (const [x, z] of g.blocks || []) blocked.add(x + "," + z);
-    const L = { ...S.level, blocked, edges: new Set(gates.map((g) => edgeKey(g.edge[0], g.edge[1]))) };
+    const L = { ...S.level, blocked, links: new Map([...(S.level.links || [])].filter(([, id]) => things.find((t) => t.id === id)?.mode === "drop")), edges: new Set(shut.map((g) => edgeKey(g.edge[0], g.edge[1]))) };
     const from = [entry.x, entry.z], seen = new Set(reachable(L, from).map((c) => c.join()));
     const out = [];
     const { CATALOG } = await import("/core/catalog.js");
