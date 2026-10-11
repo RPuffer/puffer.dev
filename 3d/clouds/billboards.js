@@ -126,8 +126,52 @@ export function buildSprites(I, atlas, list, gain) {
   return mesh;
 }
 
+const HAZE_FRAG = `
+uniform float uHaze;
+varying vec2 vQ;
+varying vec3 vWorld;
+varying vec3 vCenter;
+varying float vAlpha;
+void main() {
+  float a = exp(-dot(vQ, vQ) * 2.2) * uHaze * vAlpha;
+  float mask = islandAt(vWorld.xz).b;
+  a *= 1.0 - smoothstep(0.3, 0.5, mask) * smoothstep(uBase - 0.6, uBase, vWorld.y);
+  a *= fadeAt(vCenter.xz);
+  if (a < 0.003) discard;
+  vec3 col = mix(uBg, mix(uBg * 1.5 + 0.02, uHue * 0.32, 0.55), 0.6);
+  gl_FragColor = vec4(col, a);
+  #include <colorspace_fragment>
+}`;
+
+export function buildHaze(I, atlas, list, scale = 1.7, strength = 0.4) {
+  const geo = new THREE.PlaneGeometry(1, 1);
+  const data = new Float32Array(list.length * 4);
+  const mesh = new THREE.InstancedMesh(geo, null, list.length);
+  const m = new THREE.Matrix4();
+  list.forEach((p, i) => {
+    m.makeScale(p.s * scale, p.s * scale, p.s * scale).setPosition(p.x, p.y - p.s * 0.15, p.z);
+    mesh.setMatrixAt(i, m);
+    data.set([0, p.ph || 0, 0, p.alpha], i * 4);
+  });
+  geo.setAttribute("aData", new THREE.InstancedBufferAttribute(data, 4));
+  mesh.material = new THREE.ShaderMaterial({
+    uniforms: { ...uniformsFor(I), uAtlas: { value: new THREE.Vector2(...atlas.meta.grid) }, uFlip: { value: 0 }, uHaze: { value: strength } },
+    vertexShader: GLSL_COMMON + VERT,
+    fragmentShader: GLSL_COMMON + HAZE_FRAG,
+    transparent: true,
+    depthWrite: false,
+  });
+  mesh.frustumCulled = false;
+  mesh.renderOrder = 1;
+  mesh.name = "clouds-haze";
+  return mesh;
+}
+
 export function build(I, atlas) {
-  return [buildSprites(I, atlas, layout(I, atlas.meta), I.gain)];
+  const list = layout(I, atlas.meta), sprites = buildSprites(I, atlas, list, I.gain);
+  const q = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
+  const haze = +(q.get("haze") ?? 0.4);
+  return haze > 0 ? [buildHaze(I, atlas, list, 1.7, haze), sprites] : [sprites];
 }
 
 export const COLUMN = { count: 24, span: 18, speed: 7, radius: [2.6, 6.5], size: [1.1, 2.2], alpha: 0.55 };

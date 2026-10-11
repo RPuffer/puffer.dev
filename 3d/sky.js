@@ -5,7 +5,7 @@ import { rideUniforms } from "../core/sequence.js";
 export const SKY_BG = "#0d0b1f";
 export function skyMode(search = typeof location !== "undefined" ? location.search : "") {
   const v = new URLSearchParams(search).get("sky");
-  return v === "procedural" || v === "image" ? v : "none";
+  return v === "none" || v === "0" ? "none" : v === "image" ? v : "procedural";
 }
 export const SKY = skyMode();
 
