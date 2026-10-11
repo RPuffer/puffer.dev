@@ -44,6 +44,10 @@ Interactive tiles fill one grid cell each and carry the walk: grass, sand, dirt,
 
 `core/procgen.js` keeps the checks every island goes through: `reachability` (flood fill from spawn), `checkLevel` (schema, decor overlap, ramp and bridge rules, reachability), `levelStats`, and `frameView` (fits the camera to the silhouette). Pipeline A and the pieces modules import them. The seed-driven island generator that produced the MVP's generic islands was removed on 2026-10-08 (commit history has it); variation of the artwork islands runs through pipeline A's shapers (`build-level.mjs --seed N`), and `docs/PROCGEN.md` keeps the research for a later per-island generator.
 
+## Route-first layouts
+
+`core/layout/` generates an island from its route: spine, loops, and one-way shortcuts (door, kicked ladder or drop, lever gate) back to the bonfire, with land and decor grown outward and path cells drawn as darker worn flagstones. `node tools/bake-layout.mjs` bakes `wizard-medium-r1`, `-r2` and `-r3`; `node tools/qa-route.mjs` proves them. `docs/LEVEL-DESIGN.md` holds the rules and `docs/procgen-research.md` the practices they build on.
+
 ## Pipeline
 
 Pipeline A turns one artwork into a 3d level: `pipeline/analyze.mjs` writes the world brief, `pipeline/a-transcribe/` measures the drawing as a map and builds the level and its props in code, and `pipeline/critic.mjs` scores the render. The bake-off's two losing routes, B (concept repaint, `pipeline/b-concept/`) and C (generated meshes and procgen layout, `pipeline/c-meshes/`), moved to `archive/bakeoff/` on 2026-10-08 with their levels, pieces and GLBs; they are inert there.
