@@ -92,6 +92,40 @@ function gateBars(B, k, span, width = 0.78, height = 1.62) {
   return height + 0.18;
 }
 
+function doorPanel(B, k, width = 0.8, height = 1.62) {
+  const n = 4, pw = width / n;
+  for (let i = 0; i < n; i++) B.box(pw - 0.02, height, 0.1, t3(k.wood), pw * (i + 0.5), 0, 0);
+  for (const y of [height * 0.22, height * 0.78]) B.box(width, 0.1, 0.13, t3(k.metal), width / 2, y, 0);
+  B.box(0.09, 0.09, 0.16, t3(k.metal), width - 0.14, height * 0.5, 0);
+}
+
+function ladderBody(B, k, height) {
+  for (const x of [-0.22, 0.22]) B.box(0.07, height, 0.07, t3(k.wood), x, 0, 0);
+  for (let y = 0.2; y < height - 0.05; y += 0.3) B.box(0.44, 0.05, 0.06, t3(k.wood), 0, y, 0);
+}
+
+function dropLip(B, k) {
+  B.box(0.8, 0.08, 0.22, t3(k.stone), 0, 0, 0.06);
+  for (const x of [-0.26, 0.26]) B.box(0.1, 0.18, 0.1, t3(k.post), x, 0.06, -0.02);
+}
+
+function leverBase(B, k) {
+  B.rbox(0.42, 0.22, 0.32, 0.04, t3(k.stone), 0, 0, 0);
+  B.box(0.16, 0.12, 0.24, t3(k.metal), 0, 0.2, 0);
+}
+
+function leverArm(B, k) {
+  B.box(0.06, 0.62, 0.06, t3(k.wood), 0, 0, 0);
+  B.rbox(0.14, 0.14, 0.14, 0.04, t3(k.metal), 0, 0.6, 0);
+}
+
+export function ladderPlace(LL, view, t) {
+  const d = DIRS[t.d] || [0, 1];
+  const bx = t.x + d[0], bz = t.z + d[1];
+  const yTop = surfaceY(LL, view, t.x, t.z), yBot = surfaceY(LL, view, bx, bz);
+  return { x: t.x + 0.5 + d[0] * 0.5 + d[0] * 0.07, z: t.z + 0.5 + d[1] * 0.5 + d[1] * 0.07, yTop, yBot, height: yTop - yBot + 0.35, rot: Math.atan2(d[0], d[1]) };
+}
+
 export function gatePlace(LL, view, t) {
   if (!t.edge) return { x: t.x + 0.5, y: surfaceY(LL, view, t.x, t.z), z: t.z + 0.5, span: t.span || "x", width: t.width, height: t.height, frame: t.frame !== false, half: 0.44 };
   const [[ax, az], [bx, bz]] = t.edge;
@@ -120,7 +154,9 @@ export function bakeThingBases(S, L, view, style, P = S) {
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
-    else if (t.kind === "gate") { const g = gatePlace(LL, view, t); if (g.frame) P.at(g.x, g.y, g.z, 0, () => gateFrame(P, k, g.span, g.half)); }
+    else if (t.kind === "gate" || (t.kind === "door" && t.edge)) { const g = gatePlace(LL, view, t); if (g.frame) P.at(g.x, g.y, g.z, 0, () => gateFrame(P, k, g.span, g.half)); }
+    else if (t.kind === "lever") S.at(x, y, z, r, () => leverBase(S, k));
+    else if (t.kind === "ladder" && t.mode === "drop") { const g = ladderPlace(LL, view, t); S.at(g.x, g.yTop - 0.04, g.z, g.rot, () => dropLip(S, k)); }
   }
 }
 
@@ -160,6 +196,31 @@ export function buildThings(L, view, style, decorGroup, live = null) {
       m.userData.thing = t.id;
       m.userData.lift = st === "open" ? 1 : 0;
       m.userData.y0 = g.y + top;
+      group.add(m);
+      parts[t.id] = m;
+    } else if (t.kind === "door" && t.edge) {
+      const g = gatePlace(LL, view, t), base = g.span === "z" ? Math.PI / 2 : 0, w = 0.84;
+      const hinge = new THREE.Vector3(-w / 2, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), base);
+      const m = partMesh((B) => doorPanel(B, k, w, 1.62), light, k, new THREE.Vector3(g.x + hinge.x, g.y + 0.05, g.z + hinge.z), base, true);
+      m.userData.thing = t.id;
+      m.userData.base = base;
+      m.userData.open = st === "open" ? 1 : 0;
+      group.add(m);
+      parts[t.id] = m;
+    } else if (t.kind === "ladder" && t.mode !== "drop") {
+      const g = ladderPlace(LL, view, t);
+      const m = partMesh((B) => ladderBody(B, k, g.height), light, k, new THREE.Vector3(g.x, g.yBot, g.z), g.rot, true);
+      m.userData.thing = t.id;
+      m.userData.y0 = g.yBot;
+      m.userData.stow = g.height - 0.55;
+      m.userData.down = st === "down" ? 1 : 0;
+      group.add(m);
+      parts[t.id] = m;
+    } else if (t.kind === "lever") {
+      const m = partMesh(leverArm, light, k, new THREE.Vector3(x, y + 0.26, z), r);
+      m.rotation.order = "YXZ";
+      m.userData.thing = t.id;
+      m.userData.pull = st === "pulled" ? 1 : 0;
       group.add(m);
       parts[t.id] = m;
     } else if (t.kind === "elevator") {
@@ -229,6 +290,9 @@ export function buildThings(L, view, style, decorGroup, live = null) {
     if (e.type === "lit") { m.visible = true; m.userData.scale = 0; tweens.to(m.userData, "scale", 1, { duration: 0.7 }); }
     if (e.type === "open") tweens.to(m.userData, "open", 1, { duration: 0.6 });
     if (e.type === "gate") tweens.to(m.userData, "lift", 1, { duration: GATE_LIFT });
+    if (e.type === "door") tweens.to(m.userData, "open", 1, { duration: 0.9 });
+    if (e.type === "ladder") tweens.to(m.userData, "down", 1, { duration: 0.45 });
+    if (e.type === "lever") tweens.to(m.userData, "pull", 1, { duration: 0.35 });
     if (e.type === "faced") tweens.to(m.userData, "glow", 1, { duration: 0.5 });
     if (e.type === "unwatch") tweens.to(m.userData, "glow", 0, { duration: 0.8, easing: ease.inOut });
   };
@@ -252,6 +316,9 @@ export function buildThings(L, view, style, decorGroup, live = null) {
         if (!m) continue;
         if (t.kind === "bonfire") m.scale.setScalar(Math.max(0.001, m.userData.scale));
         else if (t.kind === "chest") m.rotation.x = -1.95 * m.userData.open;
+        else if (t.kind === "door") m.rotation.y = m.userData.base - 1.75 * m.userData.open;
+        else if (t.kind === "ladder") m.position.y = m.userData.y0 + m.userData.stow * (1 - m.userData.down);
+        else if (t.kind === "lever") m.rotation.x = -0.65 + 1.3 * m.userData.pull;
         else if (t.kind === "gate") { m.scale.y = Math.max(0.06, 1 - 0.86 * m.userData.lift); m.position.y = m.userData.y0 + 0.12 * m.userData.lift; }
         else if (t.kind === "elevator") {
           const pin = t.id === kept ? -group.position.y : 0;
