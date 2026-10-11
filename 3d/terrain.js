@@ -117,11 +117,45 @@ function bottomOf(top, h, F, T) {
   return top - DEPTH - Math.max(0, h - F) * T;
 }
 
+export function wornShade(hex, k) {
+  const n = parseInt(String(hex).slice(1, 7), 16);
+  const ch = (v) => Math.max(0, Math.min(255, Math.round(v * k)));
+  const r = ch((n >> 16) & 255), g = ch((n >> 8) & 255), bl = ch((n & 255) * 0.97);
+  return "#" + ((r << 16) | (g << 8) | bl).toString(16).padStart(6, "0");
+}
+
+export const WORN = { grout: 0.62, stone: 0.8, side: 0.52 };
+
+function groundOf(P, s) {
+  if (s === "grass") return P.grass.top;
+  if (s === "stone") return P.stone.top;
+  if (s === "dirt") return P.dirt.top;
+  return P.sand.top;
+}
+
+function wornCell(B, L, x, z, c, top, bot, upper, rnd) {
+  const g = groundOf(B.pal, c.s);
+  const sh = (k) => wornShade(g, k);
+  column(B, x, z, bot, top - LIP, upper);
+  const joined = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return !!n && !!n.p && n.s !== "ramp" && n.s !== "lift" && n.h === c.h; };
+  const e = (dx, dz) => (joined(dx, dz) ? 0 : GAP);
+  B.prism([[x + 1 - e(1, 0), z + 1 - e(0, 1)], [x + 1 - e(1, 0), z + e(0, -1)], [x + e(-1, 0), z + e(0, -1)], [x + e(-1, 0), z + 1 - e(0, 1)]], top - LIP, top, tone(sh(WORN.grout), sh(WORN.side), sh(WORN.side * 0.9)));
+  const cut = 0.47 + (rnd() - 0.5) * 0.12, cutZ = 0.5 + (rnd() - 0.5) * 0.12, gap = 0.035, lift = 0.022;
+  const slabs = rnd() < 0.5
+    ? [[0.06, 0.06, cut, cutZ], [cut, 0.06, 0.94, 0.5], [0.06, cutZ, 0.55, 0.94], [0.55, 0.5, 0.94, 0.94]]
+    : [[0.06, 0.06, 0.5, cutZ], [0.5, 0.06, 0.94, 0.42], [0.06, cutZ, cut, 0.94], [cut, 0.42, 0.94, 0.94]];
+  for (const [u0, v0, u1, v1] of slabs) {
+    const k = WORN.stone + (rnd() - 0.5) * 0.06;
+    B.prism(roundRect(x + u0 + gap / 2, z + v0 + gap / 2, x + u1 - gap / 2, z + v1 - gap / 2, 0.05), top, top + lift, tone(sh(k), sh(k * 0.82), sh(k * 0.74)));
+  }
+}
+
 function landCell(B, L, x, z, c, T, F, rnd, far) {
   const P = B.pal;
   const top = c.h * T;
   const upper = c.h > F;
   const bot = bottomOf(top, c.h, F, T);
+  if (c.p) { wornCell(B, L, x, z, c, top, bot, upper, rnd); return; }
   const kind = c.s === "dirt" ? contextOf(L, x, z) === "grass" ? "patch" : "plaza" : c.s;
   if (kind === "grass" || kind === "patch") {
     const GL = 0.2;
@@ -204,6 +238,12 @@ function rampCell(B, L, x, z, c, T, F, rnd) {
   const lowY = (c.h - 1) * T, topY = c.h * T;
   const bot = bottomOf(lowY, c.h - 1, F, T);
   const m = c.m || "stone";
+  if (c.p) {
+    const g = wornShade(groundOf(B.pal, "sand"), WORN.stone);
+    column(B, x, z, bot, lowY, c.h - 1 > F);
+    B.wedgeRamp(x, z, lowY, topY, c.d, tone(g, wornShade(g, 0.82), wornShade(g, 0.74)), cliffPal(B.pal, c.h - 1 > F));
+    return;
+  }
   if (m === "stone") {
     const mid = lowY + 0.45;
     column(B, x, z, bot, mid - 0.14, c.h - 1 > F);
