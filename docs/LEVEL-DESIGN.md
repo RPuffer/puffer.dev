@@ -106,6 +106,21 @@ Each baked level carries `route` metadata: `segments` (id, role, path cells, lin
 - path cells form one connected route and carry no decor;
 - `checkLevel` and `prepareLevel` run clean, including ramp landings and the lift-on-the-rim rule.
 
+## The run islands
+
+All twelve islands of `levels/run.json` are route-first. `node tools/bake-layout.mjs --base run` reads each island's artwork level from `levels/base/<name>.json` and writes `levels/<name>.json`, with fixed seeds 101 to 112 so every bake is the same. Four feature recipes rotate down the run, and every third uses a one-way drop in place of the kicked ladder.
+
+An island keeps its identity through the base level: palette, light and background, its pieces modules, its focal creature (the decor marked `watch`) as the core figure and watcher, and its chest text. `profileFor(base)` in `core/layout/decor.js` reads the rest from the island's own decor:
+
+| Role | Pick |
+| --- | --- |
+| landmark | the largest themed multi-cell prop; a 2x2 one seals the terrace corner, any other size stands on a hill grown to its footprint |
+| spire | the tallest one-cell piece up to 2.4, used for the terrace seals and the rim |
+| lamp | a one-cell piece 0.8 to 1.3 tall whose name reads as a light, else the waymark kit |
+| tall, mid, accent | grove centres, grove rings and shoulder scatter |
+
+Kits outside the wizard set take their colours from the island palette (`themeFrom` in `3d/pieces/kits.js`). Elevators carry no `to`; the run order chains them at runtime. To rebuild an island from its artwork, run pipeline A into `levels/base/` and bake again.
+
 ## Live regeneration boundary
 
 `core/layout/*` is pure ES modules with a seeded RNG (`core/rng.js`) and no node imports. A page can call `generateLayout(base, { seed, mirror, drop })` after `loadPieces` has registered the island's catalog, then hand the result to `prepareLevel`. The node wrapper `tools/bake-layout.mjs` only registers pieces, writes JSON and prints the shortcut distances. The fixed frame (core figure, lift edges, bonfire role) stays the same across seeds (P7).

@@ -27,7 +27,7 @@ const RUN_RECIPES = [
   [H([3, 2]), ["alcove", { size: [3, 3] }], ["lookout", { size: [4, 3] }]],
 ];
 const runOrder = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
-BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, mirror: i % 2 === 1, drop: i % 3 === 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
+BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, drop: i % 3 === 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
 
 const readBase = (name) => {
   const b = path.join(root, "levels/base", `${name}.json`);

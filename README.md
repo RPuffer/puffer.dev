@@ -46,7 +46,7 @@ Interactive tiles fill one grid cell each and carry the walk: grass, sand, dirt,
 
 ## Route-first layouts
 
-`core/layout/` generates an island from its route: spine, loops, and one-way shortcuts (door, kicked ladder or drop, lever gate) back to the bonfire, with land grown outward and path cells drawn as darker worn flagstones. Late feature modules (hill, lookout, alcove, inlet) then grow onto the land, and a rule-ordered decor pass places multi-cell decor kits (`3d/pieces/kits.js`, `?level=kits-showcase`) where the route calls for them: landmarks at turns and on hills, rewards in pockets, waymarks along the approach. `node tools/bake-layout.mjs` bakes `wizard-medium-r1`, `-r2` and `-r3`; `node tools/qa-route.mjs` proves them. `docs/LEVEL-DESIGN.md` holds the rules and `docs/procgen-research.md` the practices they build on.
+`core/layout/` generates an island from its route: spine, loops, and one-way shortcuts (door, kicked ladder or drop, lever gate) back to the bonfire, with land grown outward and path cells drawn as darker worn flagstones. Late feature modules (hill, lookout, alcove, inlet) then grow onto the land, and a rule-ordered decor pass places multi-cell decor kits (`3d/pieces/kits.js`, `?level=kits-showcase`) where the route calls for them: landmarks at turns and on hills, rewards in pockets, waymarks along the approach. `node tools/bake-layout.mjs --base run` bakes the twelve run islands from their artwork levels in `levels/base/`, and `node tools/bake-layout.mjs` bakes `wizard-medium-r1`, `-r2` and `-r3`; `node tools/qa-route.mjs` proves them. `docs/LEVEL-DESIGN.md` holds the rules and `docs/procgen-research.md` the practices they build on.
 
 ## Pipeline
 
