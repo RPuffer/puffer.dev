@@ -1,5 +1,6 @@
 import { DANCES } from "../3d/clips.js";
 import puppeteer from "puppeteer-core";
+import { watchdog } from "./qa-lib.mjs";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -14,11 +15,13 @@ const run = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8
 const ORDER = orderArg ? orderArg.split(",") : Array.isArray(run) ? run : run.order;
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const results = [];
-const record = (status, name, detail = "") => { results.push({ status, name, detail }); console.log(`${status.padEnd(4)} ${name}${detail ? "  " + detail : ""}`); };
+const alive = watchdog();
+const record = (status, name, detail = "") => { alive(status); results.push({ status, name, detail }); console.log(`${status.padEnd(4)} ${name}${detail ? "  " + detail : ""}`); };
 
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   headless: true,
+  protocolTimeout: 120000,
   userDataDir: path.join(root, process.env.PP_PROFILE || ".pp-profile-ridekeys"),
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars", "--disable-cache"],
 });

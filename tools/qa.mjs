@@ -2,6 +2,7 @@ import puppeteer from "puppeteer-core";
 import path from "node:path";
 import fs from "node:fs";
 import sharp from "sharp";
+import { screenOf as screenTo, watchdog } from "./qa-lib.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const BASE = (process.argv[2] || "http://localhost:8765").replace(/\/$/, "");
@@ -9,11 +10,13 @@ const OUT = path.join(root, "out/qa");
 fs.mkdirSync(OUT, { recursive: true });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const results = [];
-const record = (name, ok, detail = "") => { results.push({ name, ok, detail }); console.log(`${ok ? "PASS" : "FAIL"}  ${name}${detail ? "  " + detail : ""}`); };
+const alive = watchdog();
+const record = (name, ok, detail = "") => { alive(name); results.push({ name, ok, detail }); console.log(`${ok ? "PASS" : "FAIL"}  ${name}${detail ? "  " + detail : ""}`); };
 
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   headless: true,
+  protocolTimeout: 120000,
   userDataDir: path.join(root, process.env.PP_PROFILE || ".pp-profile-qa"),
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars", "--disable-cache"],
 });
@@ -45,18 +48,7 @@ const camStill = (page) => page.waitForFunction(() => {
 
 async function settle(page, ms = 1500) { await idle(page); await wait(ms); }
 
-async function screenOf(page, [cx, cz]) {
-  return page.evaluate(([cx, cz]) => {
-    const r = window.__game.renderer, el = r.element || document.body;
-    const w = el.clientWidth || innerWidth, h = el.clientHeight || innerHeight;
-    let sx = 0, sy = 0, n = 0;
-    for (let y = 2; y < h; y += 4) for (let x = 2; x < w; x += 4) {
-      const c = document.elementFromPoint(x, y) === el && r.pick(x, y, w, h);
-      if (c && c[0] === cx && c[1] === cz) { sx += x; sy += y; n++; }
-    }
-    return n ? [sx / n, sy / n, n] : null;
-  }, [cx, cz]);
-}
+const screenOf = (page, cell) => screenTo(page, cell, { topmost: true });
 
 async function tap(page, cell) {
   const p = await screenOf(page, cell);

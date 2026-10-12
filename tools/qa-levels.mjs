@@ -2,6 +2,7 @@ import puppeteer from "puppeteer-core";
 import path from "node:path";
 import fs from "node:fs";
 import sharp from "sharp";
+import { screenOf, watchdog } from "./qa-lib.mjs";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const BASE = (process.argv[2] || "http://localhost:8765").replace(/\/$/, "");
@@ -11,11 +12,13 @@ fs.mkdirSync(OUT, { recursive: true });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const results = [];
 const EXPECTED = { "hooks-test": /missing\.glb|File not found/ };
-const record = (name, ok, detail = "") => { results.push({ name, ok, detail }); console.log(`${ok === "skip" ? "SKIP" : ok ? "PASS" : "FAIL"}  ${name}${detail ? "  " + detail : ""}`); };
+const alive = watchdog();
+const record = (name, ok, detail = "") => { alive(name); results.push({ name, ok, detail }); console.log(`${ok === "skip" ? "SKIP" : ok ? "PASS" : "FAIL"}  ${name}${detail ? "  " + detail : ""}`); };
 
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   headless: true,
+  protocolTimeout: 120000,
   userDataDir: path.join(root, process.env.PP_PROFILE || ".pp-profile-qa"),
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars", "--disable-cache"],
 });
@@ -38,24 +41,6 @@ async function open(url, { width = 1200, height = 800, touch = false } = {}) {
 
 const cellOf = (page) => page.evaluate(() => window.__game.state.actor.cell.slice());
 const idle = (page) => page.waitForFunction(() => { const a = window.__game.state.actor; return !a.path.length && !a.held; }, { timeout: 8000, polling: 100 });
-
-async function screenOf(page, [cx, cz]) {
-  return page.evaluate(([cx, cz]) => {
-    const r = window.__game.renderer, el = r.element || document.body;
-    const w = el.clientWidth || innerWidth, h = el.clientHeight || innerHeight;
-    let sx = 0, sy = 0, n = 0;
-    const hits = [];
-    for (let y = 2; y < h; y += 4) for (let x = 2; x < w; x += 4) {
-      const c = r.pick(x, y, w, h);
-      if (c && c[0] === cx && c[1] === cz) { sx += x; sy += y; n++; hits.push([x, y]); }
-    }
-    if (!n) return null;
-    const mx = sx / n, my = sy / n, c = r.pick(mx, my, w, h);
-    if (c && c[0] === cx && c[1] === cz) return [mx, my, n];
-    const [bx, by] = hits.reduce((b, q) => (Math.hypot(q[0] - mx, q[1] - my) < Math.hypot(b[0] - mx, b[1] - my) ? q : b));
-    return [bx, by, n];
-  }, [cx, cz]);
-}
 
 async function keyStep(page, code) {
   const before = await cellOf(page);

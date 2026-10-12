@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer-core";
+import { screenOf, watchdog } from "./qa-lib.mjs";
 import path from "node:path";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -16,11 +17,13 @@ const OUT = path.join(root, "out/qa");
 fs.mkdirSync(OUT, { recursive: true });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const results = [];
-const record = (name, ok, detail = "") => { results.push({ name, ok, detail }); console.log(`${ok ? "PASS" : "FAIL"} ${name}${detail ? " " + detail : ""}`); };
+const alive = watchdog();
+const record = (name, ok, detail = "") => { alive(name); results.push({ name, ok, detail }); console.log(`${ok ? "PASS" : "FAIL"} ${name}${detail ? " " + detail : ""}`); };
 
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   headless: true,
+  protocolTimeout: 120000,
   userDataDir: path.join(root, process.env.PP_PROFILE || ".pp-profile-things"),
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars", "--disable-cache"],
 });
@@ -264,12 +267,7 @@ async function suite() {
   }, by.bonfire);
   await wait(1200);
   await t.page.waitForFunction((b) => { const g = window.__game, c = g.renderer.three.camera, h = g.state.level.cells[b.z][b.x].h * g.state.view.tileH; const v = new c.position.constructor(b.x + 0.5, h, b.z + 0.5).project(c); return Math.abs(v.x) < 0.8 && Math.abs(v.y) < 0.8; }, { timeout: 8000, polling: 200 }, by.bonfire).catch(() => {});
-  const target = await t.page.evaluate((b) => {
-    const r = window.__game.renderer, el = r.element, w = el.clientWidth, h = el.clientHeight;
-    let sx = 0, sy = 0, n = 0;
-    for (let y = 0; y < h; y += 3) for (let x = 0; x < w; x += 3) { const c = r.pick(x, y, w, h); if (c && c[0] === b.x && c[1] === b.z) { sx += x; sy += y; n++; } }
-    return n ? [sx / n, sy / n] : null;
-  }, by.bonfire);
+  const target = await screenOf(t.page, [by.bonfire.x, by.bonfire.z]);
   if (!target) record("tap on the bonfire", false, "bonfire cell not on screen");
   else {
     await t.page.mouse.click(target[0], target[1]);

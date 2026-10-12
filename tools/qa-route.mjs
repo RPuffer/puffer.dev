@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
+import { watchdog } from "./qa-lib.mjs";
 import { registerCatalog } from "../core/catalog.js";
 import { prepareLevel, canStep, DIRS } from "../core/level.js";
 import { createInteract, GATE_LIFT, ladderEnds } from "../core/interact.js";
@@ -14,7 +15,8 @@ const BASE = (args.find((a) => /^https?:/.test(a)) || "http://localhost:8765").r
 const LEVELS = (args.find((a) => !/^https?:/.test(a) && !a.startsWith("--")) || "wizard-medium-r1,wizard-medium-r2,wizard-medium-r3").split(",");
 const live = !args.includes("--no-browser");
 const results = [];
-const record = (name, ok, detail = "") => { results.push({ name, ok }); console.log(`${ok ? "PASS" : "FAIL"} ${name}${detail ? " " + detail : ""}`); };
+const alive = watchdog();
+const record = (name, ok, detail = "") => { alive(name); results.push({ name, ok }); console.log(`${ok ? "PASS" : "FAIL"} ${name}${detail ? " " + detail : ""}`); };
 
 const raws = Object.fromEntries(LEVELS.map((n) => [n, JSON.parse(fs.readFileSync(path.join(root, "levels", `${n}.json`), "utf8"))]));
 for (const raw of Object.values(raws)) for (const p of raw.pieces || []) {
@@ -138,6 +140,7 @@ if (live) {
   const browser = await puppeteer.launch({
     executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
     headless: true,
+  protocolTimeout: 120000,
     userDataDir: path.join(root, process.env.PP_PROFILE || ".pp-profile-route"),
     args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--no-first-run", "--disable-background-networking", "--hide-scrollbars", "--disable-cache"],
   });
