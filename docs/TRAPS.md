@@ -2,7 +2,7 @@
 
 Design catalog for the booby-trapped islands. Nothing here is built yet. Each entry carries the tags procgen needs to mix traps without breaking an island: footprint, trigger, the rule it teaches or bends, visibility, pull, and exclusions. The machine-readable copy sits at the end of this file. Fortress card `puffer-isoworld-trap-concepts` holds the same set for review.
 
-Fifty entries: 22 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzles. Visibility: 19 obvious, 16 telegraphed, 15 hidden.
+53 entries: 25 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzles. Visibility: 19 obvious, 19 telegraphed, 15 hidden.
 
 ## Game rules every trap respects
 
@@ -10,14 +10,22 @@ Fifty entries: 22 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzle
 - The camera turns in 90 degree steps (Q and E, or a sideways swipe). An island remembers its angle.
 - The watcher is the island's focal creature. It turns to watch you while you are inside its radius (3.5 cells) and opens the core gate when you stand on the gate threshold while it watches. It never punishes movement, never patrols, and no trap may make it do either. A trap may read whether it is watching (trigger `look`).
 - The island has one bonfire, in the plaza near spawn, one real chest on a stone pad past a dead end, and two lifts on the rim that ride to the previous and next island. Traps never imitate these in a way that changes what the real ones do.
+- Interactables glow when you come within a few cells: bonfire, chest, gate, lever, door, ladder and elevator. Traps never glow, except a trap whose joke is the glow (the mimic chest, the prop decoys). Those glow on purpose.
 - Shortcuts are doors, kicked ladders or drops, and lever gates (`docs/LEVEL-DESIGN.md`). They open one way from the far side. No trap sits on a shortcut cell, opens one from the near side, or changes the one-way rule.
 
-## Failure is a pratfall
+## Health and respawn
 
-- **Flop.** A fall: the hero windmills, drops into the cloud bed with a slide whistle and respawns at the bonfire (the entry lift before the bonfire is lit). Opened shortcuts, the chest and the gate stay as they were. Traps reset to their starting state, hidden ones hidden again.
-- **Bonk.** A knock: the hero loses one or two beats or a few cells, then carries on. No respawn.
-- **Puzzle reset.** A puzzle failure resets the puzzle only, with a raspberry or a cushion bounce. It never sends you to the bonfire.
-- Nothing takes items, coins or progress. A hidden trap that flops you twice on one visit shows a faint chalk outline until the next rest.
+- The hero starts each life with 3 hearts. A trap does not have to throw you off the island to matter: a spike, an arrow or a bonk costs one heart.
+- **Knock-off.** Leave the island by any edge and the hero windmills into the cloud bed with a slide whistle, then respawns at the last lit bonfire with 3 hearts. Losing the last heart does the same with a flop and a puff.
+- **Last lit bonfire.** Each island's bonfire sits within three cells of spawn. Before you light it, you respawn at the entry lift. The walk back from the bonfire is why shortcuts are worth opening.
+- **What survives a respawn.** Opened shortcuts, the chest and the gate stay as they were. Traps reset to their starting state, and hidden ones hide again. A hidden trap that gets you twice before you rest shows a faint chalk outline until the next rest.
+- **Refills.** Resting at a bonfire refills all 3 hearts. A heart pickup is rare: at most one per island, on a reward spot (a lookout, an alcove or a puzzle prize), and it restores one heart up to 3. Nothing raises the cap.
+- **Puzzles do not cost hearts.** A puzzle failure resets the puzzle with a raspberry or a cushion bounce and leaves your hearts alone.
+- **Health tags.** `none`, `-1 heart`, `-2 hearts`, `all hearts` (empties the hearts, so you respawn) or `knock-off` (respawn at the last lit bonfire). Only the slow, shadow-telegraphed pancake stone takes two; the rest cost one and stack up across an island.
+
+### Health budget
+
+An island may hold at most three heart-costing traps on its spine, so a careful first walk to the core gate never ends in a respawn from hearts alone. Knock-off traps follow the hidden budget below when they are hidden.
 
 ## Tags
 
@@ -28,6 +36,7 @@ Fifty entries: 22 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzle
 | trigger | `step` (entering a cell), `timer` (a beat clock), `look` (the watcher watching), `interact` (F or the use button), `camera` (the camera angle), `arrival` (debuffs: on for the whole island) |
 | visibility | `obvious` (you see it and know what it does), `telegraphed` (a tell you can learn: a crack, a shadow, a sound), `hidden` (nothing shows until it fires; you remember where it was) |
 | pull | `onto the path` (the trap makes path cells the safe choice), `off the path` (it makes you leave the path), `neutral` |
+| health | `none`, `-1 heart`, `-2 hearts`, `all hearts`, `knock-off` |
 | exclusions | traps that may not share an island with it. The list is symmetric. |
 
 ## Composition rules
@@ -45,7 +54,7 @@ Procgen applies these after `checkRoute` passes and before decor, and rejects th
 
 ### Exclusions
 
-Two traps that list each other never share an island. The cap: no trap may exclude more than a quarter of the set (12 of 50). The widest list in this set holds 6 entries, and most hold 0 to 3. A new trap that needs more than 12 gets cut or reworked, and so does one whose exclusions grow past 12 as the set grows.
+Two traps that list each other never share an island. The cap: no trap may exclude more than a quarter of the set (13 of 53). The widest list in this set holds 8 entries, and most hold 0 to 3. A new trap that needs more gets cut or reworked, and so does one whose exclusions grow past the cap as the set grows.
 
 ### Budget by run position
 
@@ -71,408 +80,437 @@ One puzzle per island at most. A puzzle sits on a branch, an alcove, a lookout o
 
 ## Catalog
 
-| Id | Name | Tier | Footprint | Trigger | Visibility | Pull | Rule it teaches or bends | Excludes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| t01 | Four-tile vanish, then the gate | sequence | pocket or shoulder patch, r3; then a later slot | step | hidden | onto the path, then off it | Teaches that the path is the safe ground, then makes you leave it. | t26, t32 |
-| t02 | Worn-through flagstones | local | loop arc, 3 to 5 path cells | step | telegraphed | neutral | Bends free backtracking: a loop is one way per visit, so you come home by the other arc. | t20, t25, t40 |
-| t03 | Beat spikes | local | slot, every cell | timer | obvious | onto the path | Teaches tap rhythm against hold-to-repeat. | t19 |
-| t04 | Goose plates | local | shoulder cells beside one slot, r1 | step | obvious | onto the path | Teaches that the shoulder is noisy and the path is quiet. | t06 |
-| t05 | Banana scuff | local | slot end at a turn, 1 cell plus the cell straight on | step | telegraphed | off the path | Bends one-cell steps: this cell carries you two. | t18, t32 |
-| t06 | Sneeze dust | local | shoulder cells, r1 | step | obvious | onto the path | Teaches that the shoulder pushes back. | t04 |
-| t07 | Mimic chest | local | dead end or pocket, 1 cell plus r2 chase | interact | hidden | off the path | Bends the chest: the island's real chest sits on its stone pad, and this one is extra. | t08 |
-| t08 | Trapdoor chest | local | chest pad over a lower tier, 1 cell | interact | hidden | off the path | Bends the chest reward: you keep the loot and lose the floor. | t07, t27 |
-| t09 | Prop decoys | local | pocket or spur tip, 1 cell | interact | hidden | off the path | Teaches the fixed frame: the real bonfire sits in the plaza and the real lift on the rim. | t12 |
-| t10 | The hole that scoots | local | slot, 2 adjacent cells | step | hidden | off the path | Bends memory: you remember the hole, and it moves once. | none |
-| t11 | Painted hole | local | slot or shoulder, 1 cell | camera | hidden | off the path | Teaches the 90 degree camera: one angle out of four shows the seam. | t28, t30, t35 |
-| t12 | Fake spur | local | 3-cell spur off a turn, stone surface, not route | step | telegraphed | onto the path | Bends the darker path tile: these flagstones are mossy and crooked, and they lead nowhere. | t09 |
-| t13 | Long-stride plate | local | slot, trap cell plus the cell two past it | step | telegraphed | onto the path | Class trap: bends Ink Step, Sprint and Wing Hop, which skip a cell. Class: Wretch (Ink Step), Courier (Sprint, Wing Hop). | none |
-| t14 | Painted decoy | local | slot, 2 adjacent cells | step | hidden | onto the path | Class trap: bends the reveal powers once per island. Class: Wretch (Paint the Path, Star Scout), Modernizer (Lantern). | none |
-| t15 | Faith tiles | local | 2 to 4 cell gap between two path runs at one height | step | obvious | onto the path | Bends solid ground: the path builds itself under your foot. | t21, t26, t32, t33 |
-| t16 | Nothing here | local | slot of 5 or more cells | step | obvious | onto the path | Teaches nothing, on purpose: the island earns your trust back. | none |
-| t17 | Stone twin | local | gate approach, 1 decor cell beside the path | look | telegraphed | onto the path | Teaches the watcher rule: the real one turns to face you. | t41 |
-| t18 | Spring tile | local | slot, 1 cell plus 2 cells behind | step | telegraphed | onto the path | Bends forward progress: this cell sends you back. | t05 |
-| t19 | Barrel lane | local | slot of 4 or more cells plus 1 shoulder dodge cell | timer | obvious | off the path | Teaches that the shoulder is a safe pocket on a timer. | t03, t22 |
-| t20 | Rewind tile | local | slot, 1 cell | step | hidden | neutral | Bends the step count: three of your steps play backwards. | t02 |
-| t21 | Invisible block | local | path cell plus a walkable shoulder detour | step | hidden | off the path | Bends the open path: one path cell is solid. | t15 |
-| t22 | Pancake stone | local | slot cell under an overhang, r1 | timer | telegraphed | onto the path | Teaches reading shadows on a step grid. | t19 |
-| t23 | Turntable | local | slot cell at a junction, 1 cell | step | telegraphed | neutral | Bends the camera: the island turns 90 degrees for you. | t29, t35 |
-| t24 | Kind bridge, still bridge | sequence | two bridge segments on the spine, in route order | step | hidden | onto the path | Teaches that wobble means safe, then breaks it. | t33 |
-| t25 | Sign, then sign again | sequence | two slots in route order, 3 cells each | step | hidden | off the path | Teaches a warning, then plays it late. | t02, t40 |
-| t26 | Empty hall, then the bonk | sequence | Nothing here, then Invisible block on the next slot | step | hidden | off the path | Teaches trust, then spends it. | t01, t15 |
-| t27 | Real chest, then the mimic | sequence | two dead ends on the lattice rim | interact | hidden | off the path | Teaches that chests pay, then makes you check. | t08 |
-| t28 | Coin trail to a painted hole | sequence | slot plus shoulder staircase, r3 | step | hidden | off the path | Teaches that coins mark the route, then leads you off it. | t11, t30, t35 |
-| t29 | Mirror controls | debuff | whole island | arrival | obvious | neutral | Bends input: up is down and left is right. | t23, t46 |
-| t30 | Fog | debuff | whole island, sight r3 | arrival | obvious | onto the path | Bends the vista: you see three cells around you, and the core figure and lamps glow through. | t11, t28, t43, t44 |
-| t31 | Nap timer | debuff | whole island | arrival | obvious | onto the path | Adds a clock to an island with no clock. | t38, t39, t42, t48 |
-| t32 | Slick soles | debuff | whole island except path cells | arrival | obvious | onto the path | Bends one-cell steps off the path: you slide one extra cell. | t01, t05, t15, t38, t49, t50 |
-| t33 | Gusts | debuff | whole island | arrival | telegraphed | onto the path | Adds a push you can see coming. | t15, t24, t38, t45, t46 |
-| t34 | Sticky soles | debuff | whole island | arrival | obvious | neutral | Bends hold-to-repeat: every step needs its own tap. | none |
-| t35 | Stuck camera | debuff | whole island | arrival | obvious | neutral | Bends rotation: Q, E and swipe do nothing. | t11, t23, t28, t43 |
-| t36 | Hiccups | debuff | whole island | arrival | telegraphed | neutral | Bends one-cell steps on a counter. | t38, t39, t40, t44, t45, t50 |
-| t37 | Order plates | puzzle | alcove room 3x3 | step | telegraphed | off the path | Plate-and-gate: a reward gate opens on the right order. | none |
-| t38 | Crate push | puzzle | room up to 4x4 on a lookout or alcove | step | obvious | off the path | Sokoban: walking into a crate pushes it one cell. | t31, t32, t33, t36 |
-| t39 | Lights-out floor | puzzle | 3x3 tile grid plus 1 entry cell | step | obvious | off the path | Tile-flip: each cell you enter flips itself and its four neighbours. | t31, t36 |
-| t40 | One-visit floor | puzzle | 3x4 tile grid | step | obvious | off the path | Each tile crumbles when you leave it: visit every tile once and end on the exit. | t02, t25, t36 |
-| t41 | Gaze bridge | puzzle | glass cells inside the watcher's radius, off the gate threshold | look | telegraphed | onto the path | Watcher-gaze routing: the watcher turns to watch you inside its radius, and glass goes solid while it does. | t17 |
-| t42 | Valve swap | puzzle | loop arc with two gates and two levers, apart from the shortcut lever | interact | telegraphed | off the path | Shortcut state: each lever swaps which of two gates is open. | t31 |
-| t43 | One-angle bridge | puzzle | 4-cell broken bridge to a lookout | camera | telegraphed | onto the path | Rotation: the bridge is whole from one camera angle. | t30, t35 |
-| t44 | Flash path | puzzle | 4x4 wobble grid | step | hidden | off the path | Memory path: the safe cells glow once. | t30, t36 |
-| t45 | Counting gate | puzzle | branch run of 4 to 7 path cells ending at a reward gate | step | obvious | onto the path | Step counting: the gate shows a tally. | t33, t36 |
-| t46 | Mirror twin | puzzle | two parallel 2x4 strips | step | obvious | off the path | Mirror room: a ghost copies your moves left for right. | t29, t33 |
-| t47 | Pictogram gates | puzzle | three waymarks on the spine plus a 3-gate branch | step | telegraphed | off the path | Memory: the gate that opens matches the last pictogram you passed. | none |
-| t48 | Fuse run | puzzle | branch lever plus a drawbridge of up to 6 cells | timer | obvious | off the path | A visible fuse gives you ten beats. | t31 |
-| t49 | Ice rink | puzzle | 5x5 ice room with a low rail | step | obvious | off the path | Ice slide: one input slides you until you hit something. | t32 |
-| t50 | Conveyor knot | puzzle | 4x4 belt grid plus a switch | timer | telegraphed | off the path | Belts carry you one cell per beat; a switch flips half the arrows. | t32, t36 |
+| Id | Name | Tier | Footprint | Trigger | Visibility | Pull | Health | Rule it teaches or bends | Excludes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| t01 | Four-tile vanish, then the gate | sequence | pocket or shoulder patch, r3; then a later slot | step | hidden | onto the path, then off it | knock-off | Teaches that the path is the safe ground, then makes you leave it. | t29, t35 |
+| t02 | Worn-through flagstones | local | loop arc, 3 to 5 path cells | step | telegraphed | neutral | knock-off | Bends free backtracking: a loop is one way per visit, so you come home by the other arc. | t20, t28, t43 |
+| t03 | Beat spikes | local | slot, every cell | timer | obvious | onto the path | -1 heart | Teaches tap rhythm against hold-to-repeat. | t19, t26 |
+| t04 | Goose plates | local | shoulder cells beside one slot, r1 | step | obvious | onto the path | none | Teaches that the shoulder is noisy and the path is quiet. | t06 |
+| t05 | Banana scuff | local | slot end at a turn, 1 cell plus the cell straight on | step | telegraphed | off the path | knock-off | Bends one-cell steps: this cell carries you two. | t18, t35 |
+| t06 | Sneeze dust | local | shoulder cells, r1 | step | obvious | onto the path | none | Teaches that the shoulder pushes back. | t04 |
+| t07 | Mimic chest | local | dead end or pocket, 1 cell plus r2 chase | interact | hidden | off the path | -1 heart | Bends the chest: the island's real chest sits on its stone pad, and this one is extra. | t08 |
+| t08 | Trapdoor chest | local | chest pad over a lower tier, 1 cell | interact | hidden | off the path | -1 heart | Bends the chest reward: you keep the loot and lose the floor. | t07, t30 |
+| t09 | Prop decoys | local | pocket or spur tip, 1 cell | interact | hidden | off the path | none | Teaches the fixed frame: the real bonfire sits in the plaza and the real lift on the rim. | t12 |
+| t10 | The hole that scoots | local | slot, 2 adjacent cells | step | hidden | off the path | knock-off | Bends memory: you remember the hole, and it moves once. | none |
+| t11 | Painted hole | local | slot or shoulder, 1 cell | camera | hidden | off the path | knock-off | Teaches the 90 degree camera: one angle out of four shows the seam. | t31, t33, t38 |
+| t12 | Fake spur | local | 3-cell spur off a turn, stone surface, not route | step | telegraphed | onto the path | none | Bends the darker path tile: these flagstones are mossy and crooked, and they lead nowhere. | t09 |
+| t13 | Long-stride plate | local | slot, trap cell plus the cell two past it | step | telegraphed | onto the path | -1 heart | Class trap: bends Ink Step, Sprint and Wing Hop, which skip a cell. Class: Wretch (Ink Step), Courier (Sprint, Wing Hop). | none |
+| t14 | Painted decoy | local | slot, 2 adjacent cells | step | hidden | onto the path | -1 heart | Class trap: bends the reveal powers once per island. Class: Wretch (Paint the Path, Star Scout), Modernizer (Lantern). | none |
+| t15 | Faith tiles | local | 2 to 4 cell gap between two path runs at one height | step | obvious | onto the path | none | Bends solid ground: the path builds itself under your foot. | t21, t24, t29, t35, t36 |
+| t16 | Nothing here | local | slot of 5 or more cells | step | obvious | onto the path | none | Teaches nothing, on purpose: the island earns your trust back. | none |
+| t17 | Stone twin | local | gate approach, 1 decor cell beside the path | look | telegraphed | onto the path | none | Teaches the watcher rule: the real one turns to face you. | t44 |
+| t18 | Spring tile | local | slot, 1 cell plus 2 cells behind | step | telegraphed | onto the path | none | Bends forward progress: this cell sends you back. | t05 |
+| t19 | Barrel lane | local | slot of 4 or more cells plus 1 shoulder dodge cell | timer | obvious | off the path | -1 heart | Teaches that the shoulder is a safe pocket on a timer. | t03, t22, t26 |
+| t20 | Rewind tile | local | slot, 1 cell | step | hidden | neutral | none | Bends the step count: three of your steps play backwards. | t02 |
+| t21 | Invisible block | local | path cell plus a walkable shoulder detour | step | hidden | off the path | -1 heart | Bends the open path: one path cell is solid. | t15 |
+| t22 | Pancake stone | local | slot cell under an overhang, r1 | timer | telegraphed | onto the path | -2 hearts | Teaches reading shadows on a step grid. | t19 |
+| t23 | Turntable | local | slot cell at a junction, 1 cell | step | telegraphed | neutral | none | Bends the camera: the island turns 90 degrees for you. | t32, t38 |
+| t24 | Boss kick | local | rim slot of 3 or more cells, boss on a shoulder cell, r1 | step | telegraphed | onto the path | knock-off | Teaches reading a wind-up: the kick follows a beat you can see. | t15, t26, t35, t36 |
+| t25 | Arrow plate | local | slot plus wall slits on one side, r2 | step | telegraphed | onto the path | -1 heart | Teaches the Souls pressure plate: a raised flagstone fires the slits. | none |
+| t26 | Chariot | local | straight slot of 5 or more cells with a shoulder notch every 3 cells | step | telegraphed | off the path | knock-off | Teaches the notch: the run is a lane, and the safe cells sit beside it. | t03, t19, t24, t35, t36 |
+| t27 | Kind bridge, still bridge | sequence | two bridge segments on the spine, in route order | step | hidden | onto the path | knock-off | Teaches that wobble means safe, then breaks it. | t36 |
+| t28 | Sign, then sign again | sequence | two slots in route order, 3 cells each | step | hidden | off the path | knock-off | Teaches a warning, then plays it late. | t02, t43 |
+| t29 | Empty hall, then the bonk | sequence | Nothing here, then Invisible block on the next slot | step | hidden | off the path | -1 heart | Teaches trust, then spends it. | t01, t15 |
+| t30 | Real chest, then the mimic | sequence | two dead ends on the lattice rim | interact | hidden | off the path | -1 heart | Teaches that chests pay, then makes you check. | t08 |
+| t31 | Coin trail to a painted hole | sequence | slot plus shoulder staircase, r3 | step | hidden | off the path | knock-off | Teaches that coins mark the route, then leads you off it. | t11, t33, t38 |
+| t32 | Mirror controls | debuff | whole island | arrival | obvious | neutral | none | Bends input: up is down and left is right. | t23, t49 |
+| t33 | Fog | debuff | whole island, sight r3 | arrival | obvious | onto the path | none | Bends the vista: you see three cells around you, and the core figure and lamps glow through. | t11, t31, t46, t47 |
+| t34 | Nap timer | debuff | whole island | arrival | obvious | onto the path | all hearts | Adds a clock to an island with no clock. | t41, t42, t45, t51 |
+| t35 | Slick soles | debuff | whole island except path cells | arrival | obvious | onto the path | none | Bends one-cell steps off the path: you slide one extra cell. | t01, t05, t15, t24, t26, t41, t52, t53 |
+| t36 | Gusts | debuff | whole island | arrival | telegraphed | onto the path | none | Adds a push you can see coming. | t15, t24, t26, t27, t41, t48, t49 |
+| t37 | Sticky soles | debuff | whole island | arrival | obvious | neutral | none | Bends hold-to-repeat: every step needs its own tap. | none |
+| t38 | Stuck camera | debuff | whole island | arrival | obvious | neutral | none | Bends rotation: Q, E and swipe do nothing. | t11, t23, t31, t46 |
+| t39 | Hiccups | debuff | whole island | arrival | telegraphed | neutral | none | Bends one-cell steps on a counter. | t41, t42, t43, t47, t48, t53 |
+| t40 | Order plates | puzzle | alcove room 3x3 | step | telegraphed | off the path | none | Plate-and-gate: a reward gate opens on the right order. | none |
+| t41 | Crate push | puzzle | room up to 4x4 on a lookout or alcove | step | obvious | off the path | none | Sokoban: walking into a crate pushes it one cell. | t34, t35, t36, t39 |
+| t42 | Lights-out floor | puzzle | 3x3 tile grid plus 1 entry cell | step | obvious | off the path | none | Tile-flip: each cell you enter flips itself and its four neighbours. | t34, t39 |
+| t43 | One-visit floor | puzzle | 3x4 tile grid | step | obvious | off the path | none | Each tile crumbles when you leave it: visit every tile once and end on the exit. | t02, t28, t39 |
+| t44 | Gaze bridge | puzzle | glass cells inside the watcher's radius, off the gate threshold | look | telegraphed | onto the path | none | Watcher-gaze routing: the watcher turns to watch you inside its radius, and glass goes solid while it does. | t17 |
+| t45 | Valve swap | puzzle | loop arc with two gates and two levers, apart from the shortcut lever | interact | telegraphed | off the path | none | Shortcut state: each lever swaps which of two gates is open. | t34 |
+| t46 | One-angle bridge | puzzle | 4-cell broken bridge to a lookout | camera | telegraphed | onto the path | none | Rotation: the bridge is whole from one camera angle. | t33, t38 |
+| t47 | Flash path | puzzle | 4x4 wobble grid | step | hidden | off the path | none | Memory path: the safe cells glow once. | t33, t39 |
+| t48 | Counting gate | puzzle | branch run of 4 to 7 path cells ending at a reward gate | step | obvious | onto the path | none | Step counting: the gate shows a tally. | t36, t39 |
+| t49 | Mirror twin | puzzle | two parallel 2x4 strips | step | obvious | off the path | none | Mirror room: a ghost copies your moves left for right. | t32, t36 |
+| t50 | Pictogram gates | puzzle | three waymarks on the spine plus a 3-gate branch | step | telegraphed | off the path | none | Memory: the gate that opens matches the last pictogram you passed. | none |
+| t51 | Fuse run | puzzle | branch lever plus a drawbridge of up to 6 cells | timer | obvious | off the path | none | A visible fuse gives you ten beats. | t34 |
+| t52 | Ice rink | puzzle | 5x5 ice room with a low rail | step | obvious | off the path | none | Ice slide: one input slides you until you hit something. | t35 |
+| t53 | Conveyor knot | puzzle | 4x4 belt grid plus a switch | timer | telegraphed | off the path | none | Belts carry you one cell per beat; a switch flips half the arrows. | t35, t39 |
 
 ## Exclusion pairs
 
-- t01 Four-tile vanish, then the gate / t26 Empty hall, then the bonk
-- t01 Four-tile vanish, then the gate / t32 Slick soles
+- t01 Four-tile vanish, then the gate / t29 Empty hall, then the bonk
+- t01 Four-tile vanish, then the gate / t35 Slick soles
 - t02 Worn-through flagstones / t20 Rewind tile
-- t02 Worn-through flagstones / t25 Sign, then sign again
-- t02 Worn-through flagstones / t40 One-visit floor
+- t02 Worn-through flagstones / t28 Sign, then sign again
+- t02 Worn-through flagstones / t43 One-visit floor
 - t03 Beat spikes / t19 Barrel lane
+- t03 Beat spikes / t26 Chariot
 - t04 Goose plates / t06 Sneeze dust
 - t05 Banana scuff / t18 Spring tile
-- t05 Banana scuff / t32 Slick soles
+- t05 Banana scuff / t35 Slick soles
 - t07 Mimic chest / t08 Trapdoor chest
-- t08 Trapdoor chest / t27 Real chest, then the mimic
+- t08 Trapdoor chest / t30 Real chest, then the mimic
 - t09 Prop decoys / t12 Fake spur
-- t11 Painted hole / t28 Coin trail to a painted hole
-- t11 Painted hole / t30 Fog
-- t11 Painted hole / t35 Stuck camera
+- t11 Painted hole / t31 Coin trail to a painted hole
+- t11 Painted hole / t33 Fog
+- t11 Painted hole / t38 Stuck camera
 - t15 Faith tiles / t21 Invisible block
-- t15 Faith tiles / t26 Empty hall, then the bonk
-- t15 Faith tiles / t32 Slick soles
-- t15 Faith tiles / t33 Gusts
-- t17 Stone twin / t41 Gaze bridge
+- t15 Faith tiles / t24 Boss kick
+- t15 Faith tiles / t29 Empty hall, then the bonk
+- t15 Faith tiles / t35 Slick soles
+- t15 Faith tiles / t36 Gusts
+- t17 Stone twin / t44 Gaze bridge
 - t19 Barrel lane / t22 Pancake stone
-- t23 Turntable / t29 Mirror controls
-- t23 Turntable / t35 Stuck camera
-- t24 Kind bridge, still bridge / t33 Gusts
-- t25 Sign, then sign again / t40 One-visit floor
-- t28 Coin trail to a painted hole / t30 Fog
-- t28 Coin trail to a painted hole / t35 Stuck camera
-- t29 Mirror controls / t46 Mirror twin
-- t30 Fog / t43 One-angle bridge
-- t30 Fog / t44 Flash path
-- t31 Nap timer / t38 Crate push
-- t31 Nap timer / t39 Lights-out floor
-- t31 Nap timer / t42 Valve swap
-- t31 Nap timer / t48 Fuse run
-- t32 Slick soles / t38 Crate push
-- t32 Slick soles / t49 Ice rink
-- t32 Slick soles / t50 Conveyor knot
-- t33 Gusts / t38 Crate push
-- t33 Gusts / t45 Counting gate
-- t33 Gusts / t46 Mirror twin
-- t35 Stuck camera / t43 One-angle bridge
-- t36 Hiccups / t38 Crate push
-- t36 Hiccups / t39 Lights-out floor
-- t36 Hiccups / t40 One-visit floor
-- t36 Hiccups / t44 Flash path
-- t36 Hiccups / t45 Counting gate
-- t36 Hiccups / t50 Conveyor knot
+- t19 Barrel lane / t26 Chariot
+- t23 Turntable / t32 Mirror controls
+- t23 Turntable / t38 Stuck camera
+- t24 Boss kick / t26 Chariot
+- t24 Boss kick / t35 Slick soles
+- t24 Boss kick / t36 Gusts
+- t26 Chariot / t35 Slick soles
+- t26 Chariot / t36 Gusts
+- t27 Kind bridge, still bridge / t36 Gusts
+- t28 Sign, then sign again / t43 One-visit floor
+- t31 Coin trail to a painted hole / t33 Fog
+- t31 Coin trail to a painted hole / t38 Stuck camera
+- t32 Mirror controls / t49 Mirror twin
+- t33 Fog / t46 One-angle bridge
+- t33 Fog / t47 Flash path
+- t34 Nap timer / t41 Crate push
+- t34 Nap timer / t42 Lights-out floor
+- t34 Nap timer / t45 Valve swap
+- t34 Nap timer / t51 Fuse run
+- t35 Slick soles / t41 Crate push
+- t35 Slick soles / t52 Ice rink
+- t35 Slick soles / t53 Conveyor knot
+- t36 Gusts / t41 Crate push
+- t36 Gusts / t48 Counting gate
+- t36 Gusts / t49 Mirror twin
+- t38 Stuck camera / t46 One-angle bridge
+- t39 Hiccups / t41 Crate push
+- t39 Hiccups / t42 Lights-out floor
+- t39 Hiccups / t43 One-visit floor
+- t39 Hiccups / t47 Flash path
+- t39 Hiccups / t48 Counting gate
+- t39 Hiccups / t53 Conveyor knot
 
 ## Entries
 
 ### t01 Four-tile vanish, then the gate
 
-Sequence | pulls onto the path, then pushes off it | hidden | excludes t26, t32
+Sequence | pulls onto the path, then pushes off it | hidden | health: knock-off | excludes t29, t35
 
 Step on four off-path cells in a row inside a three-cell patch and all four drop away; the hero windmills and flops into the clouds. Later, on the safe path, a pop-up gate springs across your way. The only way around is a three-cell detour off the path that skirts the old patch, so you have to remember which cells dropped.
 
 ### t02 Worn-through flagstones
 
-Local trap | neutral | telegraphed | excludes t20, t25, t40
+Local trap | neutral | telegraphed | health: knock-off | excludes t20, t28, t43
 
 Flagstones on a loop arc crack a little each time you cross them, and the third crossing drops you into the clouds with a slide whistle. The cracks show from the first crossing. You walk back to the bonfire by the loop's other arc, which is the route the island wanted anyway.
 
 ### t03 Beat spikes
 
-Local trap | pulls onto the path | obvious | excludes t19
+Local trap | pulls onto the path | obvious | health: -1 heart | excludes t19, t26
 
-Spikes rise out of a straight run on the third beat of every four, with a drum tick on each beat. Holding a direction walks you onto a raised spike, which pokes you back one cell with a yelp. Tapping in time gets you through.
+Spikes rise out of a straight run on the third beat of every four, with a drum tick on each beat. Hold a direction and you walk onto a raised spike: one heart, a yelp, and a poke back one cell. Tapping in time gets you through untouched.
 
 ### t04 Goose plates
 
-Local trap | pulls onto the path | obvious | excludes t06
+Local trap | pulls onto the path | obvious | health: none | excludes t06
 
 The off-path cells beside a straight run hide plates that honk and puff feathers. The third honk on the island calls a goose, which waddles onto the next path cell and sits there for four beats. It is a goose; you wait.
 
 ### t05 Banana scuff
 
-Local trap | pushes off the path | telegraphed | excludes t18, t32
+Local trap | pushes off the path | telegraphed | health: knock-off | excludes t18, t35
 
 The last flagstone before a turn has a faint scuff mark. Step on it and you slide one extra cell straight ahead, over the rim and into the clouds with a long cartoon whistle. Cut the corner one cell early and you skip it.
 
 ### t06 Sneeze dust
 
-Local trap | pulls onto the path | obvious | excludes t04
+Local trap | pulls onto the path | obvious | health: none | excludes t04
 
 Dusty off-path cells puff a visible cloud when you step on them. The hero sneezes and the sneeze knocks them one cell back to where they came from. It costs a step and a tissue, nothing else.
 
 ### t07 Mimic chest
 
-Local trap | pushes off the path | hidden | excludes t08
+Local trap | pushes off the path | hidden | health: -1 heart | excludes t08
 
-A second chest sits at a dead end, identical to the real one. Open it and it grows teeth and hops after you, one hop per step, for five hops before it gets bored and coughs up a coin. Rotate the camera to its back first and you catch its tail wagging.
+A second chest sits at a dead end, identical to the real one. It glows like the real chest as you approach, because that is the joke. Open it and it grows teeth and hops after you for five hops; if it lands on you it bites one heart, then gets bored and coughs up a coin. Rotate the camera to its back first and you catch its tail wagging.
 
 ### t08 Trapdoor chest
 
-Local trap | pushes off the path | hidden | excludes t07, t27
+Local trap | pushes off the path | hidden | health: -1 heart | excludes t07, t30
 
-Open the real chest and its stone pad drops one tier with you on it. You land on a ledge with a ramp back to the low road, loot in hand. The ledge never touches a shortcut's far side.
+Open the real chest and its stone pad drops one tier with you on it. You land on your bottom for one heart, on a ledge with a ramp back to the low road, loot in hand. The ledge never touches a shortcut's far side.
 
 ### t09 Prop decoys
 
-Local trap | pushes off the path | hidden | excludes t12
+Local trap | pushes off the path | hidden | health: none | excludes t12
 
-A campfire in a far pocket looks like the bonfire, and pressing F on it gets a puff of smoke and a cough. On other islands the decoy is a lift pad at a spur tip that hums and plays two seconds of the ride dance before it plops you back down. One decoy per island.
+A prop glows like an interactable as you come near, on purpose. It is a campfire in a far pocket that answers F with a puff of smoke and a cough, a lever that comes off in your hand, or a lift pad at a spur tip that plays two seconds of the ride dance and plops you back down. One decoy per island, and none of them hurt.
 
 ### t10 The hole that scoots
 
-Local trap | pushes off the path | hidden | excludes none
+Local trap | pushes off the path | hidden | health: knock-off | excludes none
 
 A path cell gives way and you flop. Come back and the hole has scooted one cell along the run, so the cell you avoided is now the hole. It only moves once.
 
 ### t11 Painted hole
 
-Local trap | pushes off the path | hidden | excludes t28, t30, t35
+Local trap | pushes off the path | hidden | health: knock-off | excludes t31, t33, t38
 
 A canvas painted to look like ground stretches over a hole. From three camera angles it matches the floor; from the fourth you see the seam and the painter's signature. Walk on it and you tear through like a paper banner.
 
 ### t12 Fake spur
 
-Local trap | pulls onto the path | telegraphed | excludes t09
+Local trap | pulls onto the path | telegraphed | health: none | excludes t09
 
 Three mossy flagstones branch off a turn and look like route. They end at a smug sign that reads "made you look" and a single coin. Nothing bad happens beyond the walk back.
 
 ### t13 Long-stride plate
 
-Local trap | pulls onto the path | telegraphed | excludes none | class: Wretch (Ink Step), Courier (Sprint, Wing Hop)
+Local trap | pulls onto the path | telegraphed | health: -1 heart | excludes none | class: Wretch (Ink Step), Courier (Sprint, Wing Hop)
 
-A plate sits two cells past an obvious trap cell, right where a skip lands. Land on it and a boxing glove pops out and bonks you back to where you started the skip. Walking, Ward or Unjam gets through.
+A plate sits two cells past an obvious trap cell, right where a skip lands. Land on it and a boxing glove pops out, takes one heart and bonks you back to where you started the skip. Walking, Ward or Unjam gets through.
 
 ### t14 Painted decoy
 
-Local trap | pulls onto the path | hidden | excludes none | class: Wretch (Paint the Path, Star Scout), Modernizer (Lantern)
+Local trap | pulls onto the path | hidden | health: -1 heart | excludes none | class: Wretch (Paint the Path, Star Scout), Modernizer (Lantern)
 
-Paint the Path, Lantern or Star Scout outlines a cell in magenta, and that cell is only a honk plate. The real trap sits on the next cell and skips the reveal. Each island lies to a reveal power once at most.
+Paint the Path, Lantern or Star Scout outlines a cell in magenta, and that cell is only a honk plate. The real trap, a spike plate worth one heart, sits on the next cell and skips the reveal. Each island lies to a reveal power once at most.
 
 ### t15 Faith tiles
 
-Local trap | pulls onto the path | obvious | excludes t21, t26, t32, t33
+Local trap | pulls onto the path | obvious | health: none | excludes t21, t24, t29, t35, t36
 
 The path runs to the edge and stops over open sky. Step forward and a flagstone rises to meet your foot, one per step, until you reach the far side. Step back and they sink again; nothing falls but your stomach.
 
 ### t16 Nothing here
 
-Local trap | pulls onto the path | obvious | excludes none
+Local trap | pulls onto the path | obvious | health: none | excludes none
 
 A long straight run dressed like a trap, with scorch marks and a warning sign. Nothing happens on any cell. The last cell holds a sign that says "thanks for being careful".
 
 ### t17 Stone twin
 
-Local trap | pulls onto the path | telegraphed | excludes t41
+Local trap | pulls onto the path | telegraphed | health: none | excludes t44
 
 A statue of the island's focal creature stands beside the gate approach, nearer the path than the real watcher. It never turns, so players stand in front of it and wait. The real watcher stands three cells on and turns the moment you reach its threshold.
 
 ### t18 Spring tile
 
-Local trap | pulls onto the path | telegraphed | excludes t05
+Local trap | pulls onto the path | telegraphed | health: none | excludes t05
 
 A coil peeks from under one flagstone. Step on it and you boing two cells back the way you came and land in a pose. Step around it on the shoulder and it sulks.
 
 ### t19 Barrel lane
 
-Local trap | pushes off the path | obvious | excludes t03, t22
+Local trap | pushes off the path | obvious | health: -1 heart | excludes t03, t22, t26
 
-A barrel rolls down a straight run every six beats. Step onto the shoulder cell beside the run to let it pass. If it catches you, you roll back to the start of the run with it, dizzy.
+A barrel rolls down a straight run every six beats. Step onto the shoulder cell beside the run to let it pass. If it catches you, it takes one heart and you roll back to the start of the run with it, dizzy.
 
 ### t20 Rewind tile
 
-Local trap | neutral | hidden | excludes t02
+Local trap | neutral | hidden | health: none | excludes t02
 
 One flagstone plays a VHS rewind squeal and walks you three cells back along your own trail, backwards. You lose three steps and keep everything else.
 
 ### t21 Invisible block
 
-Local trap | pushes off the path | hidden | excludes t15
+Local trap | pushes off the path | hidden | health: -1 heart | excludes t15
 
-An invisible block sits on a path cell. You bonk into it, a star pops, and the block shows as a cyan outline from then on. You step around it on the shoulder.
+An invisible block sits on a path cell. You bonk into it for one heart, a star pops, and the block shows as a cyan outline from then on. You step around it on the shoulder.
 
 ### t22 Pancake stone
 
-Local trap | pulls onto the path | telegraphed | excludes t19
+Local trap | pulls onto the path | telegraphed | health: -2 hearts | excludes t19
 
-A stone face hangs over one cell and slams down on every fourth beat when you stand under it or beside it. Its shadow grows before each slam. A hit flattens the hero into a pancake for two beats; they peel off and carry on.
+A stone face hangs over one cell and slams down on every fourth beat when you stand under it or beside it. Its shadow grows before each slam. A hit costs two hearts and flattens the hero into a pancake for two beats; they peel off and carry on.
 
 ### t23 Turntable
 
-Local trap | neutral | telegraphed | excludes t29, t35
+Local trap | neutral | telegraphed | health: none | excludes t32, t38
 
 A painted turntable spins you and the camera a quarter turn when you step on it. Screen-up now points a different way down the route, and you reorient. Turn the camera back with Q or E whenever you like.
 
-### t24 Kind bridge, still bridge
+### t24 Boss kick
 
-Sequence | pulls onto the path | hidden | excludes t33
+Local trap | pulls onto the path | telegraphed | health: knock-off | excludes t15, t26, t35, t36
+
+A big brute stands on the shoulder of a run along the rim and lifts one foot as you come level with it, then kicks on the next beat and punts you off the island with a satisfied grunt. Wait a beat or step back, let it whiff, and walk past while it hops to regain its balance.
+
+### t25 Arrow plate
+
+Local trap | pulls onto the path | telegraphed | health: -1 heart | excludes none
+
+One flagstone in a run sits a hair higher than the rest. Step on it and the wall slits beside the run fire a volley along it; an arrow in the hat costs one heart. Step over the plate, or step on it and duck onto the far shoulder before the volley lands.
+
+### t26 Chariot
+
+Local trap | pushes off the path | telegraphed | health: knock-off | excludes t03, t19, t24, t35, t36
+
+Wheel ruts score a long straight run, and a plate at its top end wakes a skeleton chariot that rumbles down the lane. It runs anything on the run off the end of the map. Duck into a notch beside the lane, let it thunder past, and keep walking before it turns for another pass.
+
+### t27 Kind bridge, still bridge
+
+Sequence | pulls onto the path | hidden | health: knock-off | excludes t36
 
 The first plank bridge shakes on every step and holds, so you learn that wobble is fine. The next bridge stays still, and its third plank drops you into the clouds. On the way back, the still one is the one you test.
 
-### t25 Sign, then sign again
+### t28 Sign, then sign again
 
-Sequence | pushes off the path | hidden | excludes t02, t40
+Sequence | pushes off the path | hidden | health: knock-off | excludes t02, t43
 
 A big sign and a creak warn that the first run drops each tile one beat after you leave it, and it does. The second run has the same sign, but it drops the tile in front of you, and the creak plays half a beat late. Wait for the creak, then step.
 
-### t26 Empty hall, then the bonk
+### t29 Empty hall, then the bonk
 
-Sequence | pushes off the path | hidden | excludes t01, t15
+Sequence | pushes off the path | hidden | health: -1 heart | excludes t01, t15
 
-You walk the long, scorched, signposted hallway of Nothing here and nothing happens. The very next run holds an invisible block on its second cell. You walk into it at full confidence.
+You walk the long, scorched, signposted hallway of Nothing here and nothing happens. The very next run holds an invisible block on its second cell. You walk into it at full confidence and lose a heart.
 
-### t27 Real chest, then the mimic
+### t30 Real chest, then the mimic
 
-Sequence | pushes off the path | hidden | excludes t08
+Sequence | pushes off the path | hidden | health: -1 heart | excludes t08
 
-The first dead end holds the real chest, and it pays. A later dead end holds an identical chest, and it is a mimic. The tail wag from the reverse angle gives it away if you think to look.
+The first dead end holds the real chest, and it pays. A later dead end holds an identical chest that glows just the same, and it is a mimic worth one heart if it catches you. The tail wag from the reverse angle gives it away if you think to look.
 
-### t28 Coin trail to a painted hole
+### t31 Coin trail to a painted hole
 
-Sequence | pushes off the path | hidden | excludes t11, t30, t35
+Sequence | pushes off the path | hidden | health: knock-off | excludes t11, t33, t38
 
 Four coins sit on path cells and you collect them. Each coin after that drifts one cell off the path as you grab the one before, in a staircase. The last coin sits on a painted hole.
 
-### t29 Mirror controls
+### t32 Mirror controls
 
-Whole-island debuff | neutral | obvious | excludes t23, t46
+Whole-island debuff | neutral | obvious | health: none | excludes t23, t49
 
 A banner and a swirl announce it on arrival: every direction is reversed for the island. Touch petals swap too. Resting at the bonfire clears it for ten steps.
 
-### t30 Fog
+### t33 Fog
 
-Whole-island debuff | pulls onto the path | obvious | excludes t11, t28, t43, t44
+Whole-island debuff | pulls onto the path | obvious | health: none | excludes t11, t31, t46, t47
 
 Fog rolls in on arrival and you see three cells around the hero. Lamps, waymarks and the core figure glow through it, so the route still reads. The fog lifts within three cells of a lit bonfire.
 
-### t31 Nap timer
+### t34 Nap timer
 
-Whole-island debuff | pulls onto the path | obvious | excludes t38, t39, t42, t48
+Whole-island debuff | pulls onto the path | obvious | health: all hearts | excludes t41, t42, t45, t51
 
-A sleepy sun counts down three minutes from arrival. At zero the hero yawns, curls up and wakes at the bonfire with every opened shortcut still open. Lighting or resting at the bonfire resets the sun.
+A sleepy sun counts down three minutes from arrival. At zero the hero yawns, drops every heart and wakes at the last lit bonfire with every opened shortcut still open. Resting at the bonfire resets the sun.
 
-### t32 Slick soles
+### t35 Slick soles
 
-Whole-island debuff | pulls onto the path | obvious | excludes t01, t05, t15, t38, t49, t50
+Whole-island debuff | pulls onto the path | obvious | health: none | excludes t01, t05, t15, t24, t26, t41, t52, t53
 
 Every off-path cell is glazed with ice for the island. Step onto one and you slide one cell further, and the path flagstones are the only grip. Sliding into a rock or decor stops you with a bonk.
 
-### t33 Gusts
+### t36 Gusts
 
-Whole-island debuff | pulls onto the path | telegraphed | excludes t15, t24, t38, t45, t46
+Whole-island debuff | pulls onto the path | telegraphed | health: none | excludes t15, t24, t26, t27, t41, t48, t49
 
 Every sixth beat a gust shoves you one cell downwind, and the flags on the island flap a beat before. The gust never pushes you off an edge; you crouch instead. Path flagstones and the plaza sit out of the wind.
 
-### t34 Sticky soles
+### t37 Sticky soles
 
-Whole-island debuff | neutral | obvious | excludes none
+Whole-island debuff | neutral | obvious | health: none | excludes none
 
 Your boots squelch and holding a direction stops repeating. Each step needs its own tap. Everything else on the island plays as normal.
 
-### t35 Stuck camera
+### t38 Stuck camera
 
-Whole-island debuff | neutral | obvious | excludes t11, t23, t28, t43
+Whole-island debuff | neutral | obvious | health: none | excludes t11, t23, t31, t46
 
 The camera arrives jammed at one of its four angles, and Q, E and the rotate swipe do nothing. The see-through window still keeps the hero visible. The bonfire cannot fix it; the next island can.
 
-### t36 Hiccups
+### t39 Hiccups
 
-Whole-island debuff | neutral | telegraphed | excludes t38, t39, t40, t44, t45, t50
+Whole-island debuff | neutral | telegraphed | health: none | excludes t41, t42, t43, t47, t48, t53
 
 The hero has the hiccups, and every seventh step carries them one extra cell. A counter by the hero shows the next one coming. A hiccup into an edge or a wall becomes a bonk instead.
 
-### t37 Order plates
+### t40 Order plates
 
-Puzzle | pushes off the path | telegraphed | excludes none
+Puzzle | pushes off the path | telegraphed | health: none | excludes none
 
 Four plates sit in a small room with a lamp beside each. Step in and the lamps flash an order; press the plates in that order to open the reward gate. A wrong plate blows a raspberry and all four reset.
 
-### t38 Crate push
+### t41 Crate push
 
-Puzzle | pushes off the path | obvious | excludes t31, t32, t33, t36
+Puzzle | pushes off the path | obvious | health: none | excludes t34, t35, t36, t39
 
 Walking into a crate pushes it one cell if the cell beyond is clear. Push a crate onto the plate and the reward gate stays open. A bell in the corner poofs the crates back to the start.
 
-### t39 Lights-out floor
+### t42 Lights-out floor
 
-Puzzle | pushes off the path | obvious | excludes t31, t36
+Puzzle | pushes off the path | obvious | health: none | excludes t34, t39
 
 Each cell you enter flips itself and its four neighbours between lit and dark. Light all nine and a bridge to the reward rises. The bake only seeds starting patterns its solver can clear in a few moves, and a bell resets the floor.
 
-### t40 One-visit floor
+### t43 One-visit floor
 
-Puzzle | pushes off the path | obvious | excludes t02, t25, t36
+Puzzle | pushes off the path | obvious | health: none | excludes t02, t28, t39
 
 Each tile crumbles behind you. Visit all twelve once and finish on the exit tile to open the reward. A wrong move drops you onto a cloud cushion that bounces you back to the start of the grid.
 
-### t41 Gaze bridge
+### t44 Gaze bridge
 
-Puzzle | pulls onto the path | telegraphed | excludes t17
+Puzzle | pulls onto the path | telegraphed | health: none | excludes t17
 
 Glass cells near the watcher shimmer and go solid while the watcher is turned to watch you. Leave its radius and the glass fades. Plan a route that stays inside the radius all the way across, or drop to the ledge below and walk back.
 
-### t42 Valve swap
+### t45 Valve swap
 
-Puzzle | pushes off the path | telegraphed | excludes t31
+Puzzle | pushes off the path | telegraphed | health: none | excludes t34
 
 Two coloured gates sit on a loop, one open and one shut, and a lever at each end swaps them. The reward needs you through both, so you pull, walk, and pull again from the far side. The island's real shortcut lever stays one way.
 
-### t43 One-angle bridge
+### t46 One-angle bridge
 
-Puzzle | pulls onto the path | telegraphed | excludes t30, t35
+Puzzle | pulls onto the path | telegraphed | health: none | excludes t33, t38
 
 A broken bridge lines up into one walkable span from only one of the four camera angles. Rotate until it reads whole, then walk it. Rotate away mid-span and the pieces drift apart and drop you onto a cushion below.
 
-### t44 Flash path
+### t47 Flash path
 
-Puzzle | pushes off the path | hidden | excludes t30, t36
+Puzzle | pushes off the path | hidden | health: none | excludes t33, t39
 
 Step on the start cell and a safe line across a wobbly 4x4 grid glows for two seconds. Walk it from memory. A wrong cell dunks you in a puddle and sends you back to the start cell, where it glows again.
 
-### t45 Counting gate
+### t48 Counting gate
 
-Puzzle | pulls onto the path | obvious | excludes t33, t36
+Puzzle | pulls onto the path | obvious | health: none | excludes t36, t39
 
 A reward gate carries a tally of N marks and opens after N steps in a row on its approach. A step off the path resets the tally with a raspberry. A later gate wants a different N.
 
-### t46 Mirror twin
+### t49 Mirror twin
 
-Puzzle | pushes off the path | obvious | excludes t29, t33
+Puzzle | pushes off the path | obvious | health: none | excludes t32, t36
 
 A ghost on a parallel strip copies each step you take, left for right. When the ghost walks into a wall it stays put, so you use walls to line it up. Put you and the ghost on your two plates together to open the reward.
 
-### t47 Pictogram gates
+### t50 Pictogram gates
 
-Puzzle | pushes off the path | telegraphed | excludes none
+Puzzle | pushes off the path | telegraphed | health: none | excludes none
 
 Three waymarks along the route carry pictograms. At a branch, three gates carry pictograms too, and only the one that matches the last waymark opens to the reward. The wrong two tip you onto a lower ledge with a coin and a ramp back.
 
-### t48 Fuse run
+### t51 Fuse run
 
-Puzzle | pushes off the path | obvious | excludes t31
+Puzzle | pushes off the path | obvious | health: none | excludes t34
 
 A lever off the route lights a fuse and lowers a drawbridge to a reward for ten beats. Run it. If the bridge rises under you, you ride it up and slide off backwards onto the near side.
 
-### t49 Ice rink
+### t52 Ice rink
 
-Puzzle | pushes off the path | obvious | excludes t32
+Puzzle | pushes off the path | obvious | health: none | excludes t35
 
 One tap slides you across the ice until a rock or the rail stops you. Reach the exit cell to claim the reward. The rail means you cannot fall, only bump.
 
-### t50 Conveyor knot
+### t53 Conveyor knot
 
-Puzzle | pushes off the path | telegraphed | excludes t32, t36
+Puzzle | pushes off the path | telegraphed | health: none | excludes t35, t39
 
 Belt cells carry you one cell per beat in the direction of their arrows. A switch at the edge flips half the arrows. Find the switch state that delivers you to the reward.
 
@@ -487,11 +525,12 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "pocket or shoulder patch, r3; then a later slot",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "knock-off",
   "pull": "onto the path, then off it",
   "rule": "Teaches that the path is the safe ground, then makes you leave it.",
   "excludes": [
-   "t26",
-   "t32"
+   "t29",
+   "t35"
   ],
   "members": [
    "pop-up gate (inline)"
@@ -504,12 +543,13 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "loop arc, 3 to 5 path cells",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "knock-off",
   "pull": "neutral",
   "rule": "Bends free backtracking: a loop is one way per visit, so you come home by the other arc.",
   "excludes": [
    "t20",
-   "t25",
-   "t40"
+   "t28",
+   "t43"
   ]
  },
  {
@@ -519,10 +559,12 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot, every cell",
   "trigger": "timer",
   "visibility": "obvious",
+  "health": "-1 heart",
   "pull": "onto the path",
   "rule": "Teaches tap rhythm against hold-to-repeat.",
   "excludes": [
-   "t19"
+   "t19",
+   "t26"
   ]
  },
  {
@@ -532,6 +574,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "shoulder cells beside one slot, r1",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Teaches that the shoulder is noisy and the path is quiet.",
   "excludes": [
@@ -545,11 +588,12 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot end at a turn, 1 cell plus the cell straight on",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "knock-off",
   "pull": "off the path",
   "rule": "Bends one-cell steps: this cell carries you two.",
   "excludes": [
    "t18",
-   "t32"
+   "t35"
   ]
  },
  {
@@ -559,6 +603,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "shoulder cells, r1",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Teaches that the shoulder pushes back.",
   "excludes": [
@@ -572,6 +617,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "dead end or pocket, 1 cell plus r2 chase",
   "trigger": "interact",
   "visibility": "hidden",
+  "health": "-1 heart",
   "pull": "off the path",
   "rule": "Bends the chest: the island's real chest sits on its stone pad, and this one is extra.",
   "excludes": [
@@ -585,11 +631,12 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "chest pad over a lower tier, 1 cell",
   "trigger": "interact",
   "visibility": "hidden",
+  "health": "-1 heart",
   "pull": "off the path",
   "rule": "Bends the chest reward: you keep the loot and lose the floor.",
   "excludes": [
    "t07",
-   "t27"
+   "t30"
   ]
  },
  {
@@ -599,6 +646,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "pocket or spur tip, 1 cell",
   "trigger": "interact",
   "visibility": "hidden",
+  "health": "none",
   "pull": "off the path",
   "rule": "Teaches the fixed frame: the real bonfire sits in the plaza and the real lift on the rim.",
   "excludes": [
@@ -612,6 +660,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot, 2 adjacent cells",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "knock-off",
   "pull": "off the path",
   "rule": "Bends memory: you remember the hole, and it moves once.",
   "excludes": []
@@ -623,12 +672,13 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot or shoulder, 1 cell",
   "trigger": "camera",
   "visibility": "hidden",
+  "health": "knock-off",
   "pull": "off the path",
   "rule": "Teaches the 90 degree camera: one angle out of four shows the seam.",
   "excludes": [
-   "t28",
-   "t30",
-   "t35"
+   "t31",
+   "t33",
+   "t38"
   ]
  },
  {
@@ -638,6 +688,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "3-cell spur off a turn, stone surface, not route",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Bends the darker path tile: these flagstones are mossy and crooked, and they lead nowhere.",
   "excludes": [
@@ -651,6 +702,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot, trap cell plus the cell two past it",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "-1 heart",
   "pull": "onto the path",
   "rule": "Class trap: bends Ink Step, Sprint and Wing Hop, which skip a cell.",
   "excludes": [],
@@ -663,6 +715,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot, 2 adjacent cells",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "-1 heart",
   "pull": "onto the path",
   "rule": "Class trap: bends the reveal powers once per island.",
   "excludes": [],
@@ -675,13 +728,15 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "2 to 4 cell gap between two path runs at one height",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Bends solid ground: the path builds itself under your foot.",
   "excludes": [
    "t21",
-   "t26",
-   "t32",
-   "t33"
+   "t24",
+   "t29",
+   "t35",
+   "t36"
   ]
  },
  {
@@ -691,6 +746,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot of 5 or more cells",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Teaches nothing, on purpose: the island earns your trust back.",
   "excludes": []
@@ -702,10 +758,11 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "gate approach, 1 decor cell beside the path",
   "trigger": "look",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Teaches the watcher rule: the real one turns to face you.",
   "excludes": [
-   "t41"
+   "t44"
   ]
  },
  {
@@ -715,6 +772,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot, 1 cell plus 2 cells behind",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Bends forward progress: this cell sends you back.",
   "excludes": [
@@ -728,11 +786,13 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot of 4 or more cells plus 1 shoulder dodge cell",
   "trigger": "timer",
   "visibility": "obvious",
+  "health": "-1 heart",
   "pull": "off the path",
   "rule": "Teaches that the shoulder is a safe pocket on a timer.",
   "excludes": [
    "t03",
-   "t22"
+   "t22",
+   "t26"
   ]
  },
  {
@@ -742,6 +802,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot, 1 cell",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "none",
   "pull": "neutral",
   "rule": "Bends the step count: three of your steps play backwards.",
   "excludes": [
@@ -755,6 +816,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "path cell plus a walkable shoulder detour",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "-1 heart",
   "pull": "off the path",
   "rule": "Bends the open path: one path cell is solid.",
   "excludes": [
@@ -768,6 +830,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot cell under an overhang, r1",
   "trigger": "timer",
   "visibility": "telegraphed",
+  "health": "-2 hearts",
   "pull": "onto the path",
   "rule": "Teaches reading shadows on a step grid.",
   "excludes": [
@@ -781,47 +844,98 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   "footprint": "slot cell at a junction, 1 cell",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "neutral",
   "rule": "Bends the camera: the island turns 90 degrees for you.",
   "excludes": [
-   "t29",
-   "t35"
+   "t32",
+   "t38"
   ]
  },
  {
   "id": "t24",
+  "name": "Boss kick",
+  "tier": "local",
+  "footprint": "rim slot of 3 or more cells, boss on a shoulder cell, r1",
+  "trigger": "step",
+  "visibility": "telegraphed",
+  "health": "knock-off",
+  "pull": "onto the path",
+  "rule": "Teaches reading a wind-up: the kick follows a beat you can see.",
+  "excludes": [
+   "t15",
+   "t26",
+   "t35",
+   "t36"
+  ]
+ },
+ {
+  "id": "t25",
+  "name": "Arrow plate",
+  "tier": "local",
+  "footprint": "slot plus wall slits on one side, r2",
+  "trigger": "step",
+  "visibility": "telegraphed",
+  "health": "-1 heart",
+  "pull": "onto the path",
+  "rule": "Teaches the Souls pressure plate: a raised flagstone fires the slits.",
+  "excludes": []
+ },
+ {
+  "id": "t26",
+  "name": "Chariot",
+  "tier": "local",
+  "footprint": "straight slot of 5 or more cells with a shoulder notch every 3 cells",
+  "trigger": "step",
+  "visibility": "telegraphed",
+  "health": "knock-off",
+  "pull": "off the path",
+  "rule": "Teaches the notch: the run is a lane, and the safe cells sit beside it.",
+  "excludes": [
+   "t03",
+   "t19",
+   "t24",
+   "t35",
+   "t36"
+  ]
+ },
+ {
+  "id": "t27",
   "name": "Kind bridge, still bridge",
   "tier": "sequence",
   "footprint": "two bridge segments on the spine, in route order",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "knock-off",
   "pull": "onto the path",
   "rule": "Teaches that wobble means safe, then breaks it.",
   "excludes": [
-   "t33"
+   "t36"
   ]
  },
  {
-  "id": "t25",
+  "id": "t28",
   "name": "Sign, then sign again",
   "tier": "sequence",
   "footprint": "two slots in route order, 3 cells each",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "knock-off",
   "pull": "off the path",
   "rule": "Teaches a warning, then plays it late.",
   "excludes": [
    "t02",
-   "t40"
+   "t43"
   ]
  },
  {
-  "id": "t26",
+  "id": "t29",
   "name": "Empty hall, then the bonk",
   "tier": "sequence",
   "footprint": "Nothing here, then Invisible block on the next slot",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "-1 heart",
   "pull": "off the path",
   "rule": "Teaches trust, then spends it.",
   "excludes": [
@@ -834,12 +948,13 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   ]
  },
  {
-  "id": "t27",
+  "id": "t30",
   "name": "Real chest, then the mimic",
   "tier": "sequence",
   "footprint": "two dead ends on the lattice rim",
   "trigger": "interact",
   "visibility": "hidden",
+  "health": "-1 heart",
   "pull": "off the path",
   "rule": "Teaches that chests pay, then makes you check.",
   "excludes": [
@@ -850,212 +965,230 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   ]
  },
  {
-  "id": "t28",
+  "id": "t31",
   "name": "Coin trail to a painted hole",
   "tier": "sequence",
   "footprint": "slot plus shoulder staircase, r3",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "knock-off",
   "pull": "off the path",
   "rule": "Teaches that coins mark the route, then leads you off it.",
   "excludes": [
    "t11",
-   "t30",
-   "t35"
+   "t33",
+   "t38"
   ],
   "members": [
    "t11"
   ]
  },
  {
-  "id": "t29",
+  "id": "t32",
   "name": "Mirror controls",
   "tier": "debuff",
   "footprint": "whole island",
   "trigger": "arrival",
   "visibility": "obvious",
+  "health": "none",
   "pull": "neutral",
   "rule": "Bends input: up is down and left is right.",
   "excludes": [
    "t23",
-   "t46"
+   "t49"
   ]
  },
  {
-  "id": "t30",
+  "id": "t33",
   "name": "Fog",
   "tier": "debuff",
   "footprint": "whole island, sight r3",
   "trigger": "arrival",
   "visibility": "obvious",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Bends the vista: you see three cells around you, and the core figure and lamps glow through.",
   "excludes": [
    "t11",
-   "t28",
-   "t43",
-   "t44"
+   "t31",
+   "t46",
+   "t47"
   ]
  },
  {
-  "id": "t31",
+  "id": "t34",
   "name": "Nap timer",
   "tier": "debuff",
   "footprint": "whole island",
   "trigger": "arrival",
   "visibility": "obvious",
+  "health": "all hearts",
   "pull": "onto the path",
   "rule": "Adds a clock to an island with no clock.",
   "excludes": [
-   "t38",
-   "t39",
+   "t41",
    "t42",
-   "t48"
+   "t45",
+   "t51"
   ]
  },
  {
-  "id": "t32",
+  "id": "t35",
   "name": "Slick soles",
   "tier": "debuff",
   "footprint": "whole island except path cells",
   "trigger": "arrival",
   "visibility": "obvious",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Bends one-cell steps off the path: you slide one extra cell.",
   "excludes": [
    "t01",
    "t05",
    "t15",
-   "t38",
-   "t49",
-   "t50"
+   "t24",
+   "t26",
+   "t41",
+   "t52",
+   "t53"
   ]
  },
  {
-  "id": "t33",
+  "id": "t36",
   "name": "Gusts",
   "tier": "debuff",
   "footprint": "whole island",
   "trigger": "arrival",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Adds a push you can see coming.",
   "excludes": [
    "t15",
    "t24",
-   "t38",
-   "t45",
-   "t46"
+   "t26",
+   "t27",
+   "t41",
+   "t48",
+   "t49"
   ]
  },
  {
-  "id": "t34",
+  "id": "t37",
   "name": "Sticky soles",
   "tier": "debuff",
   "footprint": "whole island",
   "trigger": "arrival",
   "visibility": "obvious",
+  "health": "none",
   "pull": "neutral",
   "rule": "Bends hold-to-repeat: every step needs its own tap.",
   "excludes": []
  },
  {
-  "id": "t35",
+  "id": "t38",
   "name": "Stuck camera",
   "tier": "debuff",
   "footprint": "whole island",
   "trigger": "arrival",
   "visibility": "obvious",
+  "health": "none",
   "pull": "neutral",
   "rule": "Bends rotation: Q, E and swipe do nothing.",
   "excludes": [
    "t11",
    "t23",
-   "t28",
-   "t43"
+   "t31",
+   "t46"
   ]
  },
  {
-  "id": "t36",
+  "id": "t39",
   "name": "Hiccups",
   "tier": "debuff",
   "footprint": "whole island",
   "trigger": "arrival",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "neutral",
   "rule": "Bends one-cell steps on a counter.",
   "excludes": [
-   "t38",
-   "t39",
-   "t40",
-   "t44",
-   "t45",
-   "t50"
+   "t41",
+   "t42",
+   "t43",
+   "t47",
+   "t48",
+   "t53"
   ]
  },
  {
-  "id": "t37",
+  "id": "t40",
   "name": "Order plates",
   "tier": "puzzle",
   "footprint": "alcove room 3x3",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "off the path",
   "rule": "Plate-and-gate: a reward gate opens on the right order.",
   "excludes": []
  },
  {
-  "id": "t38",
+  "id": "t41",
   "name": "Crate push",
   "tier": "puzzle",
   "footprint": "room up to 4x4 on a lookout or alcove",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "off the path",
   "rule": "Sokoban: walking into a crate pushes it one cell.",
   "excludes": [
-   "t31",
-   "t32",
-   "t33",
-   "t36"
+   "t34",
+   "t35",
+   "t36",
+   "t39"
   ]
  },
  {
-  "id": "t39",
+  "id": "t42",
   "name": "Lights-out floor",
   "tier": "puzzle",
   "footprint": "3x3 tile grid plus 1 entry cell",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "off the path",
   "rule": "Tile-flip: each cell you enter flips itself and its four neighbours.",
   "excludes": [
-   "t31",
-   "t36"
+   "t34",
+   "t39"
   ]
  },
  {
-  "id": "t40",
+  "id": "t43",
   "name": "One-visit floor",
   "tier": "puzzle",
   "footprint": "3x4 tile grid",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "off the path",
   "rule": "Each tile crumbles when you leave it: visit every tile once and end on the exit.",
   "excludes": [
    "t02",
-   "t25",
-   "t36"
+   "t28",
+   "t39"
   ]
  },
  {
-  "id": "t41",
+  "id": "t44",
   "name": "Gaze bridge",
   "tier": "puzzle",
   "footprint": "glass cells inside the watcher's radius, off the gate threshold",
   "trigger": "look",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Watcher-gaze routing: the watcher turns to watch you inside its radius, and glass goes solid while it does.",
   "excludes": [
@@ -1063,123 +1196,132 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
   ]
  },
  {
-  "id": "t42",
+  "id": "t45",
   "name": "Valve swap",
   "tier": "puzzle",
   "footprint": "loop arc with two gates and two levers, apart from the shortcut lever",
   "trigger": "interact",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "off the path",
   "rule": "Shortcut state: each lever swaps which of two gates is open.",
   "excludes": [
-   "t31"
+   "t34"
   ]
  },
  {
-  "id": "t43",
+  "id": "t46",
   "name": "One-angle bridge",
   "tier": "puzzle",
   "footprint": "4-cell broken bridge to a lookout",
   "trigger": "camera",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Rotation: the bridge is whole from one camera angle.",
   "excludes": [
-   "t30",
-   "t35"
+   "t33",
+   "t38"
   ]
  },
  {
-  "id": "t44",
+  "id": "t47",
   "name": "Flash path",
   "tier": "puzzle",
   "footprint": "4x4 wobble grid",
   "trigger": "step",
   "visibility": "hidden",
+  "health": "none",
   "pull": "off the path",
   "rule": "Memory path: the safe cells glow once.",
   "excludes": [
-   "t30",
-   "t36"
+   "t33",
+   "t39"
   ]
  },
  {
-  "id": "t45",
+  "id": "t48",
   "name": "Counting gate",
   "tier": "puzzle",
   "footprint": "branch run of 4 to 7 path cells ending at a reward gate",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "onto the path",
   "rule": "Step counting: the gate shows a tally.",
   "excludes": [
-   "t33",
-   "t36"
+   "t36",
+   "t39"
   ]
  },
  {
-  "id": "t46",
+  "id": "t49",
   "name": "Mirror twin",
   "tier": "puzzle",
   "footprint": "two parallel 2x4 strips",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "off the path",
   "rule": "Mirror room: a ghost copies your moves left for right.",
   "excludes": [
-   "t29",
-   "t33"
+   "t32",
+   "t36"
   ]
  },
  {
-  "id": "t47",
+  "id": "t50",
   "name": "Pictogram gates",
   "tier": "puzzle",
   "footprint": "three waymarks on the spine plus a 3-gate branch",
   "trigger": "step",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "off the path",
   "rule": "Memory: the gate that opens matches the last pictogram you passed.",
   "excludes": []
  },
  {
-  "id": "t48",
+  "id": "t51",
   "name": "Fuse run",
   "tier": "puzzle",
   "footprint": "branch lever plus a drawbridge of up to 6 cells",
   "trigger": "timer",
   "visibility": "obvious",
+  "health": "none",
   "pull": "off the path",
   "rule": "A visible fuse gives you ten beats.",
   "excludes": [
-   "t31"
+   "t34"
   ]
  },
  {
-  "id": "t49",
+  "id": "t52",
   "name": "Ice rink",
   "tier": "puzzle",
   "footprint": "5x5 ice room with a low rail",
   "trigger": "step",
   "visibility": "obvious",
+  "health": "none",
   "pull": "off the path",
   "rule": "Ice slide: one input slides you until you hit something.",
   "excludes": [
-   "t32"
+   "t35"
   ]
  },
  {
-  "id": "t50",
+  "id": "t53",
   "name": "Conveyor knot",
   "tier": "puzzle",
   "footprint": "4x4 belt grid plus a switch",
   "trigger": "timer",
   "visibility": "telegraphed",
+  "health": "none",
   "pull": "off the path",
   "rule": "Belts carry you one cell per beat; a switch flips half the arrows.",
   "excludes": [
-   "t32",
-   "t36"
+   "t35",
+   "t39"
   ]
  }
 ]
