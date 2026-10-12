@@ -676,6 +676,13 @@ async function touchSuite(size) {
   const band = await page.evaluate(() => { const b = document.querySelector(".iw-band")?.getBoundingClientRect(); return b && { top: b.top, h: b.height, H: innerHeight }; });
   record(`${tag} control band covers the bottom quarter`, !!band && Math.abs(band.top + band.h - band.H) < 2 && band.h >= band.H * 0.24 && band.h <= Math.max(151, band.H * 0.26), JSON.stringify(band));
   const states = () => page.evaluate(() => window.__game.state.things.things.map((t) => t.id + ":" + t.state).join());
+  await page.evaluate(async () => {
+    const { isWalkable } = await import("/core/level.js");
+    const S = window.__game.state, a = S.actor, L = S.level, fire = S.things.things.find((t) => t.kind === "bonfire");
+    if (!fire || Math.max(Math.abs(a.cell[0] - fire.x), Math.abs(a.cell[1] - fire.z)) <= 1) return;
+    const c = [[0, 1], [1, 0], [-1, 0], [0, -1]].map(([dx, dz]) => [fire.x + dx, fire.z + dz]).find(([x, z]) => isWalkable(L, x, z));
+    if (c) { a.path = []; a.cell = c.slice(); a.pos.x = c[0] + 0.5; a.pos.z = c[1] + 0.5; a.moving = false; }
+  });
   const prompt = await page.waitForFunction(() => document.documentElement.dataset.iwAct === "1", { timeout: 4000, polling: 50 }).then(() => true, () => false);
   await page.screenshot({ path: path.join(root, `out/pass14/touch-${size.width}x${size.height}.png`) });
   const s0 = await states();

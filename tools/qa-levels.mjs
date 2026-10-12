@@ -66,7 +66,9 @@ async function keyStep(page, code) {
     const S = window.__game.state, a = S.actor, d = screenToWorldDir(S.proj, map[code]);
     return canStep(S.level, a.cell[0], a.cell[1], d) ? [a.cell[0] + DIRS[d][0], a.cell[1] + DIRS[d][1]] : a.cell.slice();
   }, code);
-  await page.keyboard.down(code); await wait(90); await page.keyboard.up(code);
+  await page.keyboard.down(code); await wait(90);
+  await page.waitForFunction((b) => { const a = window.__game.state.actor; return a.moving || a.cell.join() !== b.join(); }, { timeout: 1000, polling: 16 }, before).catch(() => {});
+  await page.keyboard.up(code);
   await wait(200); await idle(page);
   const after = await cellOf(page);
   return { before, after, expect, moved: after.join() !== before.join() };

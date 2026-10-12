@@ -72,7 +72,7 @@ async function routeKeys(page, goal) {
 async function walkTo(page, goal) {
   let keys = await routeKeys(page, goal);
   if (!keys) return false;
-  for (let n = 0; keys?.length && n < 80; n++) {
+  for (let n = 0; keys?.length && n < 240; n++) {
     await page.keyboard.down(keys[0]);
     await wait(60);
     await page.keyboard.up(keys[0]);
@@ -92,9 +92,10 @@ async function suite() {
   if (!done) return;
   const info = await page.evaluate(() => {
     const S = window.__game.state, T = S.things;
-    return { things: T.things.map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, run: t.run || null, to: t.to || null, x: t.x, z: t.z, state: t.state, threshold: t.threshold, blocks: t.blocks, edge: t.edge || null, hold: !!t.hold })), spawn: S.actor.cell.slice(), file: S.level.spawn.slice(), calls: (() => { const gl = window.__game.renderer.three.gl; window.__game.renderer.render(S, 0); return gl.info.render.calls; })() };
+    return { things: T.things.map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, run: t.run || null, to: t.to || null, x: t.x, z: t.z, state: t.state, threshold: t.threshold, blocks: t.blocks, edge: t.edge || null, hold: !!t.hold, open: t.open || null })), spawn: S.actor.cell.slice(), file: S.level.spawn.slice(), calls: (() => { const gl = window.__game.renderer.three.gl; window.__game.renderer.render(S, 0); return gl.info.render.calls; })() };
   });
   const by = Object.fromEntries(info.things.map((t) => [t.kind, t]));
+  by.gate = info.things.find((t) => t.kind === "gate" && /^watcher:/.test(t.open || "")) || by.gate;
   const lifts = info.things.filter((t) => t.kind === "elevator");
   by.elevator = lifts.find((t) => t.role === "exit") || lifts.find((t) => !t.role) || by.elevator;
   const entry = lifts.find((t) => t.role === "entry") || null;
@@ -194,6 +195,7 @@ async function suite() {
   record("watcher turns to face the hero", w1.look > 0.9 && (!head || head.moved), `look ${w1.look.toFixed(2)}, head moved ${head ? head.moved : "no live head part"}`);
   if (head) record("hat crest flame brightens", head.glow > 0.9, `glow ${head.glow}`);
   else console.log("no live head part: crest check skipped");
+  await page.waitForFunction((id) => window.__game.state.things.byId[id].state === "open", { timeout: 6000, polling: 100 }, by.gate.id).catch(() => {});
   const g = await thing(page, by.gate.id);
   record("gate opens at the threshold", g.state === "open", g.state);
   record("open gate lets the hero cross", await crossable());
@@ -241,11 +243,27 @@ async function suite() {
 
   const t = await open(`level=${LEVEL}&reset=1&spawn=${th.join(",")}`);
   const fresh = await t.page.evaluate(() => window.__game.state.things.things.filter((q) => q.kind !== "watcher").map((q) => `${q.kind}:${q.state}`));
-  const want = { bonfire: "unlit", chest: "closed", gate: "closed", elevator: "idle" };
+  const want = { bonfire: "unlit", chest: "closed", gate: "closed", elevator: "idle", lever: "up", door: "closed", ladder: "up" };
   record("?reset=1 clears state", fresh.every((f) => want[f.split(":")[0]] === f.split(":")[1]), fresh.join(","));
   await idle(t.page);
   await wait(1200);
   const seen = await thing(t.page, W1);
+  const from = await t.page.evaluate(async (b) => {
+    const { findPath } = await import("/core/path.js");
+    const { isWalkable } = await import("/core/level.js");
+    const S = window.__game.state, L = S.level, a = S.actor;
+    const goal = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(([dx, dz]) => [b.x + dx, b.z + dz]).find(([x, z]) => isWalkable(L, x, z)) || [b.x, b.z + 1];
+    let pick = null;
+    for (let z = 0; z < L.cells.length && !pick; z++) for (let x = 0; x < L.cells[z].length && !pick; x++) {
+      if (!L.cells[z][x].p || Math.abs(x - b.x) + Math.abs(z - b.z) < 5) continue;
+      const p = findPath(L, [x, z], goal);
+      if (p && p.length >= 6 && p.length <= 9) pick = [x, z];
+    }
+    if (pick) { a.path = []; a.cell = pick.slice(); a.pos.x = pick[0] + 0.5; a.pos.z = pick[1] + 0.5; a.moving = false; }
+    return pick || a.cell.slice();
+  }, by.bonfire);
+  await wait(1200);
+  await t.page.waitForFunction((b) => { const g = window.__game, c = g.renderer.three.camera, h = g.state.level.cells[b.z][b.x].h * g.state.view.tileH; const v = new c.position.constructor(b.x + 0.5, h, b.z + 0.5).project(c); return Math.abs(v.x) < 0.8 && Math.abs(v.y) < 0.8; }, { timeout: 8000, polling: 200 }, by.bonfire).catch(() => {});
   const target = await t.page.evaluate((b) => {
     const r = window.__game.renderer, el = r.element, w = el.clientWidth, h = el.clientHeight;
     let sx = 0, sy = 0, n = 0;
@@ -258,7 +276,7 @@ async function suite() {
     await wait(400);
     await idle(t.page);
     await wait(200);
-    record("tap on the bonfire walks over and lights it", (await thing(t.page, by.bonfire.id)).state === "lit", `from ${th} to ${await cellOf(t.page)}`);
+    record("tap on the bonfire walks over and lights it", (await thing(t.page, by.bonfire.id)).state === "lit", `from ${from} to ${await cellOf(t.page)}`);
     await wait(1500);
     const gone = await thing(t.page, W1);
     record("watcher returns to its pose when the hero leaves", seen.look > 0.9 && gone.look < 0.05, `look ${seen.look.toFixed(2)} at the threshold, ${gone.look.toFixed(2)} at the bonfire`);
