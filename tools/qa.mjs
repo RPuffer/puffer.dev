@@ -229,8 +229,8 @@ async function buildSuite(build, size) {
   if (size.touch) {
     const band = await page.evaluate(() => { const b = document.querySelector(".iw-band"), u = document.querySelector(".iw-ui"); return { band: !!b && !b.classList.contains("off"), ui: !!u && getComputedStyle(u).display !== "none", old: !!document.querySelector(".iso-dpad,.iw-use") }; });
     record(`${tag} touch band shown, desktop buttons and d-pad gone`, band.band && !band.ui && !band.old, JSON.stringify(band));
-    const back = await page.evaluate(() => { const a = document.querySelector(".iw-band .iw-back"), k = document.querySelector(".iw-band .iw-stick"), h = document.querySelector(".iw-home"); if (!a || !k) return null; const r = a.getBoundingClientRect(), q = k.getBoundingClientRect(); return { href: a.getAttribute("href"), label: a.getAttribute("aria-label"), w: Math.round(r.width), left: r.right <= q.left, inView: r.left >= 0, desk: !!h && getComputedStyle(h).display !== "none" }; });
-    record(`${tag} back button left of the joystick`, !!back && /landing\/index\.html$/.test(back.href) && !!back.label && back.w > 20 && back.left && back.inView && !back.desk, JSON.stringify(back));
+    const back = await page.evaluate(() => { const a = document.querySelector(".iw-band .iw-back"), k = document.querySelector(".iw-band .iw-rose"), h = document.querySelector(".iw-home"); if (!a || !k) return null; const r = a.getBoundingClientRect(), q = k.getBoundingClientRect(); return { href: a.getAttribute("href"), label: a.getAttribute("aria-label"), w: Math.round(r.width), left: r.right <= q.left, inView: r.left >= 0, desk: !!h && getComputedStyle(h).display !== "none" }; });
+    record(`${tag} back button left of the compass rose`, !!back && /landing\/index\.html$/.test(back.href) && !!back.label && back.w > 20 && back.left && back.inView && !back.desk, JSON.stringify(back));
   }
   await page.screenshot({ path: path.join(OUT, `${tag}-play.png`) });
   await uiChecks(page, tag, size.touch);
@@ -311,12 +311,12 @@ async function rotationSuite(size) {
   record(`${tag} tap-to-walk at yaw ${await yawOf(page)}`, !!got && got.join() === wt.join(), `target ${wt} got ${got}`);
   if (size.touch) {
     await settle(page, 400);
-    const st = await page.$(".iw-stick");
-    record(`${tag} joystick shown`, !!st);
-    if (st) {
-      const b = await st.boundingBox(), cx = b.x + b.width / 2, cy = b.y + b.height / 2, d = b.width * 0.3;
-      const r = await screenUp(page, async () => { await page.touchscreen.touchStart(cx + d, cy - d); await wait(120); await page.touchscreen.touchEnd(); });
-      record(`${tag} joystick up-right moves up on screen at yaw ${await yawOf(page)}`, r.moved ? r.up : true, `${r.before} -> ${r.after} screen d(${r.dx},${r.dy})`);
+    const rose = await page.$(".iw-rose");
+    record(`${tag} compass rose shown`, !!rose && !(await page.$(".iw-stick")));
+    if (rose) {
+      const p = await petalPoint(page, 0);
+      const r = await screenUp(page, async () => { await page.touchscreen.touchStart(p[0], p[1]); await wait(120); await page.touchscreen.touchEnd(); });
+      record(`${tag} rose up-right petal moves up on screen at yaw ${await yawOf(page)}`, r.moved ? r.up : true, `${r.before} -> ${r.after} screen d(${r.dx},${r.dy})`);
     }
   }
   const kept = await yawOf(page);
@@ -517,22 +517,128 @@ const slide = (from, to, n = 8) => {
   return out;
 };
 
-async function touchSuite(size) {
-  const tag = `touch@${size.width}t`;
-  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1`, size);
+const PETAL_SIGN = [[1, -1], [1, 1], [-1, 1], [-1, -1]];
+async function petalPoint(page, i) {
+  return page.$eval(".iw-rose", (e, i, S) => { const r = e.getBoundingClientRect(); return [r.left + r.width / 2 + S[i][0] * r.width * 39 / 252, r.top + r.height / 2 + S[i][1] * r.height * 22.5 / 160]; }, i, PETAL_SIGN);
+}
+const glyphMap = (page) => page.evaluate((S) => {
+  const r = document.querySelector(".iw-rose").getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, out = [];
+  for (const g of document.querySelectorAll(".iw-rose .iw-glyph")) {
+    const b = g.getBoundingClientRect(), sx = Math.sign(b.left + b.width / 2 - cx), sy = Math.sign(b.top + b.height / 2 - cy);
+    out[S.findIndex((s) => s[0] === sx && s[1] === sy)] = g.dataset.dir;
+  }
+  return out;
+}, PETAL_SIGN);
+const projMap = (page) => page.evaluate(async (S) => {
+  const { DIRS } = await import("/core/level.js");
+  const P = window.__game.state.proj, out = [];
+  for (const [d, [dx, dz]] of Object.entries(DIRS)) { const s = P.project(dx, 0, dz); out[S.findIndex((q) => q[0] === Math.sign(s.sx) && q[1] === Math.sign(s.sy))] = d; }
+  return out;
+}, PETAL_SIGN);
+async function roseCell(page) {
+  return page.evaluate(async () => {
+    const { DIRS, canStep } = await import("/core/level.js");
+    const { reachable } = await import("/core/path.js");
+    const L = window.__game.state.level, a = window.__game.state.actor;
+    const near = (x, z) => (L.things || []).some((t) => Math.abs(t.x - x) + Math.abs(t.z - z) <= 3);
+    const back = { n: "s", s: "n", e: "w", w: "e" };
+    const free = (x, z) => !near(x, z) && Object.keys(DIRS).every((d) => canStep(L, x, z, d) && canStep(L, x + DIRS[d][0], z + DIRS[d][1], back[d]));
+    const run = (x, z, d) => { let n = 0; while (n < 6 && canStep(L, x, z, d) && !near(x + DIRS[d][0], z + DIRS[d][1])) { x += DIRS[d][0]; z += DIRS[d][1]; n++; } return n; };
+    let best = null;
+    for (const [x, z] of reachable(L, a.cell)) {
+      if (!free(x, z)) continue;
+      const [d, n] = Object.keys(DIRS).map((d) => [d, run(x, z, d)]).sort((p, q) => q[1] - p[1])[0];
+      const dist = Math.abs(x - a.cell[0]) + Math.abs(z - a.cell[1]);
+      if (n >= 4 && (!best || dist < best.dist)) best = { cell: [x, z], dir: d, run: n, dist };
+    }
+    return best;
+  });
+}
+async function petalTap(page, i, ms = 120) {
+  const p = await petalPoint(page, i);
+  const c0 = await cellOf(page), h0 = await heroScreen(page);
+  await page.evaluate((i) => {
+    const g = window.__game;
+    window.__petal = { on: false, t: [] };
+    window.__petalOff?.();
+    window.__petalOff = g.input.on((it) => { if (it.kind !== "petal") return; window.__petal.t.push(g.state.time); if (it.i === i) window.__petal.on = document.querySelector(`.iw-petal[data-i="${i}"]`).classList.contains("on"); });
+  }, i);
+  await page.evaluate(() => window.__game.pause());
+  await page.touchscreen.touchStart(p[0], p[1]);
+  await page.evaluate((s) => window.__game.advance(s), ms / 1000);
+  await page.touchscreen.touchEnd();
+  await page.evaluate(() => { window.__game.advance(1); window.__game.resume(); });
+  await idle(page);
+  const pr = await page.evaluate(() => window.__petal), held = pr.t.length === 2 ? pr.t[1] - pr.t[0] : null;
+  const c1 = await cellOf(page), h1 = await heroScreen(page);
+  return { c0, c1, on: pr.on, held, d: [c1[0] - c0[0], c1[1] - c0[1]], sx: h1[0] - h0[0], sy: h1[1] - h0[1] };
+}
+const GRID = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
+
+async function roseSuite(size) {
+  const tag = `rose@${size.width}x${size.height}t`;
+  let o = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1`, size);
+  record(`${tag} page loads`, o.done);
+  if (!o.done) { await o.page.close(); return; }
+  await settle(o.page, 600);
+  const spot = await roseCell(o.page);
+  record(`${tag} open cell for petal steps`, !!spot, JSON.stringify(spot));
+  await o.page.close();
+  if (!spot) return;
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1&spawn=${spot.cell.join(",")}`, size);
+  if (!done) { record(`${tag} spawn page loads`, false); await page.close(); return; }
+  await settle(page, 1200);
+  const ui = await page.evaluate(() => { const r = document.querySelector(".iw-rose")?.getBoundingClientRect(), a = document.querySelector(".iw-act").getBoundingClientRect(), b = document.querySelector(".iw-back").getBoundingClientRect(), band = document.querySelector(".iw-band").getBoundingClientRect(); return r && { w: Math.round(r.width), h: Math.round(r.height), clear: r.right < a.left && r.left > b.right, inBand: r.top > band.top && r.bottom < band.bottom, stick: !!document.querySelector(".iw-stick"), petals: document.querySelectorAll(".iw-petal").length, glyphs: document.querySelectorAll(".iw-glyph").length }; });
+  record(`${tag} rose replaces the joystick between back and action`, !!ui && !ui.stick && ui.petals === 4 && ui.glyphs === 4 && ui.clear && ui.inBand && ui.w >= 160, JSON.stringify(ui));
+  await page.screenshot({ path: path.join(OUT, `${tag}-rose.png`) });
+  const yaws = [];
+  for (let k = 0; k < 4; k++) {
+    if (k) { await page.evaluate(() => window.__game.rotate(1)); await wait(60); await turning(page); await wait(900); }
+    const yaw = await yawOf(page);
+    yaws.push(yaw);
+    const gm = await glyphMap(page), pm = await projMap(page);
+    record(`${tag} yaw ${yaw} rim glyphs follow the camera onto their grid direction`, gm.join() === pm.join() && new Set(gm).size === 4, `glyphs ${gm} grid ${pm}`);
+    const bad = [];
+    for (const i of [0, 1, 2, 3]) {
+      for (const j of [i, (i + 2) % 4]) {
+        const r = await petalTap(page, j);
+        const want = GRID[pm[j]], S = PETAL_SIGN[j];
+        const ok = r.on && r.d[0] === want[0] && r.d[1] === want[1] && Math.sign(r.sx) === S[0] && Math.sign(r.sy) === S[1];
+        if (!ok) bad.push(`petal ${j} ${pm[j]} ${r.c0}->${r.c1} on ${r.on} held ${r.held?.toFixed(2)} s screen ${r.sx.toFixed(2)},${r.sy.toFixed(2)}`);
+      }
+    }
+    record(`${tag} yaw ${yaw} each petal tap is one step along its grid direction`, !bad.length, bad.join(" | ") || "8 taps");
+  }
+  record(`${tag} camera turned through all four yaws`, new Set(yaws).size === 4, yaws.join(","));
+  const hp = (await projMap(page)).indexOf(spot.dir);
+  const slow = await petalTap(page, hp, 300);
+  record(`${tag} a 300 ms press is still one step`, Math.abs(slow.d[0]) + Math.abs(slow.d[1]) === 1, `${slow.c0} -> ${slow.c1} held ${slow.held?.toFixed(2)} s`);
+  await petalTap(page, (hp + 2) % 4);
+  const p = await petalPoint(page, hp), c0 = await cellOf(page);
+  await page.evaluate(() => window.__game.pause());
+  await page.touchscreen.touchStart(p[0], p[1]);
+  const early = await page.evaluate((i) => { window.__game.advance(0.25); return { held: window.__game.state.actor.held, rep: document.querySelector(`.iw-petal[data-i="${i}"]`).classList.contains("rep") }; }, hp);
+  const late = await page.evaluate((i) => { window.__game.advance(1.15); return { held: typeof window.__game.state.actor.held === "function", rep: document.querySelector(`.iw-petal[data-i="${i}"]`).classList.contains("rep") }; }, hp);
+  await page.touchscreen.touchEnd();
+  await page.evaluate(() => { window.__game.advance(1.5); window.__game.resume(); });
+  await idle(page);
+  const c1 = await cellOf(page), n = Math.abs(c1[0] - c0[0]) + Math.abs(c1[1] - c0[1]);
+  record(`${tag} holding a petal repeats steps after the charge`, early.held == null && !early.rep && late.held && late.rep && n >= 3, `${c0} -> ${c1} (${n} steps, run ${spot.run})`);
+  record(`${tag} releasing the petal stops the hero`, (await page.evaluate(() => window.__game.state.actor.held)) == null && !(await page.$(".iw-petal.on")));
+  record(`${tag} no console errors`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.close();
+  const f = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1&dpad=1`, { width: 1200, height: 800 });
+  record(`${tag} dpad=1 forces the rose on desktop`, f.done && !!(await f.page.$(".iw-band .iw-rose")));
+  await f.page.close();
+}
+
+async function stickSuite(size) {
+  const tag = `stick@${size.width}x${size.height}t`;
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1&controls=stick`, size);
   record(`${tag} page loads`, done);
   if (!done) { await page.close(); return; }
   await settle(page, 1500);
-  const band = await page.evaluate(() => { const b = document.querySelector(".iw-band")?.getBoundingClientRect(); return b && { top: b.top, h: b.height, H: innerHeight }; });
-  record(`${tag} control band covers the bottom quarter`, !!band && Math.abs(band.top + band.h - band.H) < 2 && band.h >= band.H * 0.24 && band.h <= Math.max(151, band.H * 0.26), JSON.stringify(band));
-  const states = () => page.evaluate(() => window.__game.state.things.things.map((t) => t.id + ":" + t.state).join());
-  const prompt = await page.waitForFunction(() => document.documentElement.dataset.iwAct === "1", { timeout: 4000, polling: 50 }).then(() => true, () => false);
-  await page.screenshot({ path: path.join(root, "out/pass14/touch-400x800.png") });
-  const s0 = await states();
-  await tapEl(page, ".iw-act", true);
-  await wait(600);
-  record(`${tag} action button interacts like F`, prompt && (await states()) !== s0, `prompt ${prompt}`);
-  await settle(page, 1500);
+  record(`${tag} controls=stick keeps the joystick for A/B`, !!(await page.$(".iw-stick")) && !(await page.$(".iw-rose")));
   const st = await (await page.$(".iw-stick")).boundingBox(), cx = st.x + st.width / 2, cy = st.y + st.height / 2, R = st.width * 0.32;
   for (const [name, dx, dy] of [["down-left", -R, R], ["up-right", R, -R]]) {
     await idle(page);
@@ -544,10 +650,9 @@ async function touchSuite(size) {
     await wait(150); await idle(page);
     const c1 = await cellOf(page), h1 = await heroScreen(page);
     const sx = h1[0] - h0[0], sy = h1[1] - h0[1], steps = Math.abs(c1[0] - c0[0]) + Math.abs(c1[1] - c0[1]);
-    const ok = name === "right" ? sx > 0.3 && Math.abs(sy) < sx : (dx > 0 ? sx > 0 : sx < 0) && (dy > 0 ? sy > 0 : sy < 0);
+    const ok = (dx > 0 ? sx > 0 : sx < 0) && (dy > 0 ? sy > 0 : sy < 0);
     record(`${tag} joystick ${name} held walks that way`, mid && steps >= 1 && ok, `${c0} -> ${c1} (${steps} steps) screen d(${sx.toFixed(2)},${sy.toFixed(2)})`);
   }
-  const held = await page.evaluate(() => window.__game.state.actor.held);
   for (const [name, dx, dy] of [["right (cross dead band)", R * 1.4, 0], ["up (cross dead band)", 0, -R * 1.4], ["light touch (center dead zone)", st.width * 0.08, -st.width * 0.08]]) {
     await idle(page);
     const c0 = await cellOf(page);
@@ -557,7 +662,27 @@ async function touchSuite(size) {
     const c1 = await cellOf(page);
     record(`${tag} joystick ${name} does not move`, !held && c1.join() === c0.join(), `${c0} -> ${c1} held ${held}`);
   }
-  record(`${tag} releasing the joystick stops the hero`, held == null);
+  record(`${tag} releasing the joystick stops the hero`, (await page.evaluate(() => window.__game.state.actor.held)) == null);
+  record(`${tag} no console errors`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.close();
+}
+
+async function touchSuite(size) {
+  const tag = `touch@${size.width}x${size.height}t`;
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1`, size);
+  record(`${tag} page loads`, done);
+  if (!done) { await page.close(); return; }
+  await settle(page, 1500);
+  const band = await page.evaluate(() => { const b = document.querySelector(".iw-band")?.getBoundingClientRect(); return b && { top: b.top, h: b.height, H: innerHeight }; });
+  record(`${tag} control band covers the bottom quarter`, !!band && Math.abs(band.top + band.h - band.H) < 2 && band.h >= band.H * 0.24 && band.h <= Math.max(151, band.H * 0.26), JSON.stringify(band));
+  const states = () => page.evaluate(() => window.__game.state.things.things.map((t) => t.id + ":" + t.state).join());
+  const prompt = await page.waitForFunction(() => document.documentElement.dataset.iwAct === "1", { timeout: 4000, polling: 50 }).then(() => true, () => false);
+  await page.screenshot({ path: path.join(root, `out/pass14/touch-${size.width}x${size.height}.png`) });
+  const s0 = await states();
+  await tapEl(page, ".iw-act", true);
+  await wait(600);
+  record(`${tag} action button interacts like F`, prompt && (await states()) !== s0, `prompt ${prompt}`);
+  await settle(page, 1500);
   const y0 = await yawOf(page);
   await touchPoints(page, slide([[320, 300]], [[110, 310]]));
   await wait(60); await turning(page);
@@ -744,7 +869,7 @@ async function camSuite(size) {
 }
 
 try {
-  for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }]) {
+  for (const size of [{ width: 1200, height: 800 }, { width: 400, height: 800 }, { width: 400, height: 800, touch: true }, { width: 390, height: 844, touch: true, phone: true }]) {
     const only = process.env.QA_ONLY;
     const run = async (name, fn) => {
       try { await fn(size); } catch (e) {
@@ -754,7 +879,11 @@ try {
     };
     if (only === "click") { if (size.width === 1200 || size.touch) await run("click", clickSuite); continue; }
     if (only === "nav") { await run("nav", navSuite); continue; }
-    if (only === "touch") { if (size.touch) await run("touch", touchSuite); continue; }
+    if (only === "touch") { if (size.touch) { await run("touch", touchSuite); await run("rose", roseSuite); } continue; }
+    if (only === "rose") { if (size.touch) await run("rose", roseSuite); continue; }
+    if (only === "rotation") { if (size.width === 1200 || size.touch) await run("rotation", rotationSuite); continue; }
+    if (only === "stick") { if (size.touch) await run("stick", stickSuite); continue; }
+    if (size.phone) { await run("touch", touchSuite); await run("rose", roseSuite); await run("stick", stickSuite); continue; }
     if (only === "cam") { await run("cam", camSuite); continue; }
     if (only === "landing") { if (size.width === 1200) await run("landing", landingSuite); continue; }
     for (const build of ["3d", "2d"]) await run(build, (s) => buildSuite(build, s));
@@ -762,7 +891,7 @@ try {
     if (size.width === 1200 || size.touch) await run("click", clickSuite);
     if (!size.touch) { await run("compare", compareSuite); await run("start", startSuite); }
     if (size.width === 1200) await run("landing", landingSuite);
-    if (size.touch) await run("touch", touchSuite);
+    if (size.touch) { await run("touch", touchSuite); await run("rose", roseSuite); await run("stick", stickSuite); }
     await run("nav", navSuite);
     await run("cam", camSuite);
   }
