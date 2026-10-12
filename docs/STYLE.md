@@ -69,7 +69,18 @@ The hero (`3d/character.js`, `heroSpec()`) runs through `audit()` like any creat
 
 Each part bakes into its own mesh under a named joint group, so `THREE.AnimationMixer` can pose it from the clips in `3d/clips/`.
 
-Each landing class plays as its own body, built in `3d/heroes.js`: the Ink Wraith (`wanderer`), the Gate Sentinel (`aws`), the Comet Runner (`dutchie`) and the Mainframe Golem (`nm`). The game reads the class from `?class=` or from `localStorage["isoworld:class"]`, which the souls landing writes on every class change, and falls back to the hero above. A class spec keeps the shared joint names, so land, brace and the dances still play; it moves the joint pivots, brings its own idle and walk, and sets `armSpread` to shrink the shared clips' sideways arm swing for wide bodies. It may set its own `head` band, because the Sentinel's helmet is 0.24 of a 1.38 tile body and the Runner's comet tail lifts its height. A part can hang on another joint with `joint`, and `blink: [hz, phase, duty]` toggles it on the motion clock (the Golem's screen pixels and LEDs). Every body stays inside one cell, x and z within 0.5 at rest; only the Sentinel grows taller.
+Each landing class plays as its own body, built in `3d/heroes.js`: the Ink Wraith (`wanderer`), the Gate Sentinel (`aws`), the Delivery Rover (`dutchie`) and the Mainframe Golem (`nm`). The game reads the class from `?class=` or from `localStorage["isoworld:class"]`, which the souls landing writes on every class change, and falls back to the hero above. A class spec keeps the shared joint names, so land, brace and the dances still play; it moves the joint pivots, brings its own idle and walk, and sets `armSpread` to shrink the shared clips' sideways arm swing for wide bodies. It may add joints of its own (the Wraith's `hem` and hood `tip`, the Rover's three `axle` joints and `mast`) and animate them in its own clips; the shared clips leave them at rest. It may set its own `head` band and its own part `budget`, because the Sentinel's helmet is 0.22 of a 1.43 tile body, the Rover's head is a flat cargo lid, and the Sentinel's plated limbs all clear 0.15 tile. A part can hang on another joint with `joint`, and `blink: [hz, phase, duty]` toggles it on the motion clock (the Golem's screen pixels and LEDs, the Sentinel's portal shimmer, the Wraith's falling ink, every class's eye blink). A link takes `rx`, `ry` and `rz` in radians, and a `base` given as five equal hexes (`glow()` in heroes.js) skips the ramp and reads as emissive. Every body stays inside one cell, x and z within 0.5 at rest; a body may grow taller, never wider.
+
+### Character budget
+
+Heroes get the biggest share of the polygon budget, because the player watches one of them for the whole run. Props and creatures stay inside the 12-part silhouette budget and a few hundred triangles; a hero may spend up to:
+
+| Limit | Budget |
+| --- | --- |
+| Triangles per hero, all parts and blink states | 4,000 |
+| Meshes (draw calls) per hero | 20 |
+
+`buildCharacter()` merges every part that rides the same animated joint and shares a blink state into one mesh, so detail costs triangles and never draw calls. A joint no clip animates folds into its parent. The lift ride glow and the occlusion outline add a pass per mesh, so the mesh cap also caps that cost. `tools/class-sheet.mjs` prints each hero's triangles, meshes and frame time on a run island at phone size, and draws the concept, turnaround, phone, ride and x-ray shots into `out/class-models/v2/compare-sheet.png`; `tools/turnaround.mjs` prints the same counts without a game load.
 
 ## Scale bands
 
