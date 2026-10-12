@@ -51,6 +51,60 @@ body.t-souls .bed{display:none}
 .sc-go{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:10px 12px max(10px,env(safe-area-inset-bottom,0px));background:#160f15f2;border-top:2px solid var(--edge)}
 .sc-go a{flex:1;min-width:0;padding:12px 8px}
 .sc-keys{display:none}}
+.sc-cosmos{display:none}
+@property --sc-hue{syntax:"<angle>";inherits:true;initial-value:0deg}
+@keyframes sc-spin{to{--sc-hue:360deg}}
+@keyframes sc-pop{from{transform:translateY(34px) scale(.82) rotate(var(--tw,0deg));opacity:0}}
+@keyframes sc-drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(4vw,-3vh) scale(1.12)}66%{transform:translate(-3vw,2vh) scale(.94)}}
+@keyframes sc-jelly{0%{transform:scale(1)}30%{transform:scale(1.14,.88) rotate(-2deg)}50%{transform:scale(.93,1.08) rotate(1deg)}70%{transform:scale(1.04,.97)}100%{transform:scale(1)}}
+@keyframes sc-swap{0%{transform:scale(.4) rotate(-8deg);opacity:0}60%{transform:scale(1.15) rotate(3deg);opacity:1}100%{transform:scale(1)}}
+@keyframes sc-twinkle{50%{opacity:.25}}
+@keyframes sc-wave{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg) scale(1.08)}75%{transform:rotate(8deg)}}
+@media (min-width:821px) and (hover:hover){
+body.t-souls{--sky1:#26193a;--sky2:#120c1c}
+.sc{position:relative;z-index:1;max-width:1320px;min-height:100vh;align-content:center;padding:40px 40px 44px;gap:26px 34px;animation:sc-spin 12s linear infinite;--rim:conic-gradient(from var(--sc-hue),#12c4f0,#9a7ae0,#e86aa0,#f5c243,#7cc56a,#12c4f0)}
+.sc-cosmos{display:block;position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.sc-cosmos i{position:absolute;border-radius:50%;filter:blur(48px);opacity:.5;animation:sc-drift 22s ease-in-out infinite}
+.sc-cosmos i:nth-child(1){left:-10vw;top:-16vh;width:52vw;height:52vw;background:radial-gradient(circle,#9a7ae0,#9a7ae000 68%)}
+.sc-cosmos i:nth-child(2){right:-14vw;top:10vh;width:46vw;height:46vw;background:radial-gradient(circle,#e86aa0,#e86aa000 68%);animation-delay:-7s}
+.sc-cosmos i:nth-child(3){left:24vw;bottom:-34vh;width:58vw;height:58vw;background:radial-gradient(circle,#12c4f0bb,#12c4f000 68%);animation-delay:-14s}
+.sc-cosmos i:nth-child(4){left:62vw;bottom:4vh;width:22vw;height:22vw;background:radial-gradient(circle,#f5c243aa,#f5c24300 68%);animation-duration:15s}
+.sc-cosmos b{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 8% 18%,#fff9 50%,transparent),radial-gradient(1px 1px at 22% 74%,#fff8 50%,transparent),radial-gradient(2px 2px at 46% 9%,#f5c243 50%,transparent),radial-gradient(1px 1px at 63% 41%,#fff8 50%,transparent),radial-gradient(1.5px 1.5px at 81% 86%,#e86aa0 50%,transparent),radial-gradient(1px 1px at 92% 27%,#fff8 50%,transparent),radial-gradient(2px 2px at 35% 55%,#12c4f0 50%,transparent),radial-gradient(1px 1px at 72% 64%,#fff7 50%,transparent);animation:sc-twinkle 3.4s ease-in-out infinite}
+.sc-cosmos b+b{transform:rotate(180deg) scale(1.3);animation-delay:-1.7s}
+.sc-p{border-radius:28px;border:3px solid transparent;background:linear-gradient(var(--pan),var(--pan)) padding-box,linear-gradient(#ffffff14,#ffffff14) border-box;box-shadow:inset 0 -6px 0 var(--pan2),0 12px 0 #0a0612aa;animation:sc-pop .8s cubic-bezier(.3,1.55,.5,1) both;transition:transform .6s cubic-bezier(.34,1.8,.5,1),box-shadow .2s}
+.sc-info{--tw:-3deg;animation-delay:.08s}.sc-att{--tw:3deg;animation-delay:.18s}.sc-hero{--tw:4deg;animation-delay:.28s}
+.sc-info:hover,.sc-att:hover{background:linear-gradient(var(--pan),var(--pan)) padding-box,var(--rim) border-box}
+.sc-head{animation:sc-pop .7s cubic-bezier(.3,1.6,.5,1) both}
+.sc-head img{width:76px;height:76px;border-radius:24px;transition:transform .55s cubic-bezier(.34,1.9,.5,1)}
+.sc-head img:hover{animation:sc-wave .7s ease-in-out}
+.sc-head h1{font-size:40px;background:linear-gradient(100deg,#fff3e0 0 35%,#f5c243 50%,#e86aa0 65%,#9a7ae0 80%,#12c4f0);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sc-shine 6s ease-in-out infinite alternate}
+@keyframes sc-shine{to{background-position:100% 0}}
+.sc-hero{min-height:560px;perspective:900px;background:linear-gradient(var(--pan),var(--pan)) padding-box,var(--rim) border-box;box-shadow:inset 0 -6px 0 var(--pan2),0 12px 0 #0a0612aa,0 0 60px #e86aa044}
+.sc-hero img{transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg)) scale(1.06);transition:transform .7s cubic-bezier(.34,1.6,.5,1);animation:none}
+.sc-hero:hover img{transition-duration:.25s}
+.sc-links a{border-radius:14px;transition:transform .5s cubic-bezier(.34,1.9,.5,1),color .12s,border-color .12s,background .12s}
+.sc-links a:hover,.sc-links a:focus-visible{transform:translateY(-6px) rotate(-10deg) scale(1.15)}
+.sc-links a:nth-child(even):hover,.sc-links a:nth-child(even):focus-visible{transform:translateY(-6px) rotate(10deg) scale(1.15)}
+.sc-rows .sc-class{background:linear-gradient(#2a2036,#2a2036) padding-box,var(--rim) border-box;border:2px solid transparent;box-shadow:0 0 24px #12c4f033}
+.sc-arw{transition:transform .45s cubic-bezier(.34,1.9,.5,1)}
+.sc-arw:hover{transform:scale(1.18)}
+.sc-arw[data-d="-1"]:hover{transform:translateX(-3px) scale(1.18)}.sc-arw[data-d="1"]:hover{transform:translateX(3px) scale(1.18)}
+.sc-arw:active,.sc-arw.hit{transform:scale(.85);transition-duration:.06s}
+.sc-class output.swap{animation:sc-swap .5s cubic-bezier(.3,1.6,.5,1)}
+.sc-go a{border-radius:18px;transition:transform .55s cubic-bezier(.34,1.9,.5,1),box-shadow .15s}
+.sc-go a:hover,.sc-go a:focus-visible{transform:translateY(-5px) rotate(-2deg) scale(1.05);outline:none;box-shadow:inset 0 -4px 0 var(--b2),0 8px 0 #0008,0 0 0 3px #fff3e0,0 0 30px #12c4f088}
+.sc-go a.alt:hover,.sc-go a.alt:focus-visible{transform:translateY(-5px) rotate(2deg) scale(1.05);box-shadow:inset 0 -4px 0 #d9c7ae,0 8px 0 #0008,0 0 0 3px #f5c243,0 0 30px #f5c24388}
+.sc-go a.go{animation:sc-jelly .55s}
+.sc-bar{height:16px}
+.sc-bar b{background:linear-gradient(90deg,#12c4f0,#9a7ae0 50%,#e86aa0);box-shadow:inset 0 -4px 0 #0003,0 0 12px #12c4f066;transition:width .9s cubic-bezier(.3,1.5,.5,1)}
+.sc-att li:nth-child(2) .sc-bar b{transition-delay:.04s}.sc-att li:nth-child(3) .sc-bar b{transition-delay:.08s}.sc-att li:nth-child(4) .sc-bar b{transition-delay:.12s}.sc-att li:nth-child(5) .sc-bar b{transition-delay:.16s}.sc-att li:nth-child(6) .sc-bar b{transition-delay:.2s}
+.sc-att em{font:900 18px/1 var(--round)}
+.sc-keys{gap:28px;font-size:14px;animation:sc-pop .8s .4s cubic-bezier(.3,1.6,.5,1) both}
+.sc-keys kbd{display:inline-block;padding:6px 9px;border-radius:9px;box-shadow:inset 0 -3px 0 #d9c7ae,0 3px 0 #0007;transition:transform .35s cubic-bezier(.34,1.9,.5,1),background .1s}
+.sc-keys kbd.on{transform:translateY(3px) scale(.92);background:#12c4f0;color:#10202a;transition-duration:.05s}
+}
+@media (min-width:1600px) and (hover:hover){.sc{max-width:1480px;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}.sc-hero{min-height:640px}}
+@media (prefers-reduced-motion:reduce){.sc-cosmos i,.sc-cosmos b,.sc,.sc-p,.sc-head,.sc-keys{animation:none!important}}
 `;
 
 const GLYPHS = {
@@ -64,7 +118,7 @@ function mount(root, k) {
   const P = data.person, C = data.classes;
   const years = new Date().getFullYear() - P.since;
   const links = P.links.map((l) => `<a href="${l.url}" target="_blank" rel="noopener" aria-label="${l.label}" title="${l.label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${GLYPHS[l.icon] || ""}"/></svg></a>`).join("");
-  root.innerHTML = `<div class="sc">
+  root.innerHTML = `<div class="sc-cosmos" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b><b></b></div><div class="sc">
 <header class="sc-head"><img src="${k.bust}" alt="" width="480" height="540"><div><small>Create Character</small><h1>${P.name}</h1></div></header>
 <section class="sc-info sc-p" aria-label="Details">
 <dl class="sc-rows">
@@ -91,6 +145,8 @@ ${links ? `<div><dt>Links</dt><dd class="sc-links">${links}</dd></div>` : ""}
     at = (i + C.length) % C.length;
     const c = C[at];
     cls.textContent = c.name;
+    try { localStorage.setItem("isoworld:class", c.id); } catch {}
+    if (!first) { cls.classList.remove("swap"); void cls.offsetWidth; cls.classList.add("swap"); }
     rows.forEach((r, j) => {
       const [n, v] = c.stats[j];
       r.children[0].textContent = n;
@@ -100,13 +156,25 @@ ${links ? `<div><dt>Links</dt><dd class="sc-links">${links}</dd></div>` : ""}
     });
   };
   root.querySelectorAll(".sc-arw").forEach((b) => k.on(b, "click", () => show(at + +b.dataset.d)));
+  const caps = [...root.querySelectorAll(".sc-keys kbd")], arw = [...root.querySelectorAll(".sc-arw")];
+  const CAP = { ArrowLeft: 0, ArrowUp: 0, ArrowRight: 1, ArrowDown: 1, f: 2, F: 2, Enter: 3, Tab: 4 };
+  const press = (el) => { if (!el) return; el.classList.add("on", "hit"); setTimeout(() => el.classList.remove("on", "hit"), 140); };
   k.on(document, "keydown", (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
+    press(caps[CAP[e.key]]);
+    if (CAP[e.key] === 0) press(arw[0]); else if (CAP[e.key] === 1) press(arw[1]);
     const d = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 }[e.key];
     if (d) { e.preventDefault(); show(at + d); return; }
     const onLink = e.target instanceof HTMLAnchorElement || e.target instanceof HTMLButtonElement;
-    if (e.key === "f" || e.key === "F" || (e.key === "Enter" && !onLink)) { e.preventDefault(); begin.click(); }
+    if (e.key === "f" || e.key === "F" || (e.key === "Enter" && !onLink)) { e.preventDefault(); begin.classList.add("go"); begin.click(); }
   });
+  const hero = $(".sc-hero");
+  k.on(hero, "pointermove", (e) => {
+    const r = hero.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    hero.style.setProperty("--rx", (x * 14).toFixed(2) + "deg");
+    hero.style.setProperty("--ry", (y * -12).toFixed(2) + "deg");
+  });
+  k.on(hero, "pointerleave", () => { hero.style.removeProperty("--rx"); hero.style.removeProperty("--ry"); });
   show(at, true);
   return { begin, cont: $("#sc-cont"), label: $("#sc-where") };
 }
