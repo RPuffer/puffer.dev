@@ -8,6 +8,7 @@ import { createInteract, storageKey } from "./interact.js";
 import { createHealth } from "./health.js";
 import { createLife } from "./life.js";
 import { createTraps } from "./traps/index.js";
+import { createPowers } from "./powers.js";
 
 export const STEP = 1 / 60;
 
@@ -75,6 +76,7 @@ export function createGame(renderer, params = readParams()) {
     if (it.kind === "rotate") { game.rotate(it.step); return; }
     if (it.kind === "zoom") { game.zoom(it.step); return; }
     if (it.kind === "act") { things?.act(); return; }
+    if (it.kind === "power") { powers.fire(); return; }
     if (it.kind === "petal") {
       if (actor.held === petalHeld) actor.held = null;
       petal = it.i;
@@ -96,8 +98,9 @@ export function createGame(renderer, params = readParams()) {
     if (it.kind === "tap") {
       const cell = renderer.pick?.(it.x, it.y, it.w, it.h);
       if (!cell || actor.locked) return;
+      if (!powers.canRoute()) { things?.tap(cell, { walk: false }); return; }
       if (things?.tap(cell)) { if (actor.path.length) { state.route.follow(cell); markAt(cell, true); } return; }
-      const r = routeTo(level, actor.path[0] || actor.cell, cell);
+      const r = routeTo(level, actor.path[0] || actor.cell, cell, { cost: powers.avoid });
       markAt(cell, !!r?.reached);
       if (r) state.route.set(r.cells, cell, r.reached);
     }
@@ -128,6 +131,7 @@ export function createGame(renderer, params = readParams()) {
     state.things?.update(STEP);
     state.traps?.update(STEP);
     state.life?.update(STEP);
+    powers.update(STEP);
     for (const f of tickers) f(STEP);
     input.setBusy(!!state.actor.locked);
     renderer.update?.(state, STEP);
@@ -193,6 +197,7 @@ export function createGame(renderer, params = readParams()) {
       traps = level.traps?.length && p.traps !== "0" ? createTraps(level, { actor, life, health, things, params: p, rotate: (step) => game.rotate(step) }) : null;
       things?.on((e) => { if (e.type === "lit" || e.type === "rest") { health.refill(e.type); traps?.rest(); } });
       Object.assign(state, { level, view, proj, actor, params: p, things, life, traps });
+      powers.bind();
       if (renderer.mount) renderer.mount(state); else renderer.init?.(state);
       renderer.update?.(state, 0);
       if (!started) { started = running = true; acc = 0; last = performance.now(); raf = requestAnimationFrame(frame); }
@@ -207,6 +212,9 @@ export function createGame(renderer, params = readParams()) {
       state.frame++;
     },
   };
+  const powers = createPowers(game);
+  state.powers = powers;
+  game.powers = powers;
   window.__game = game;
   return game;
 }
