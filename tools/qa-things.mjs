@@ -244,7 +244,7 @@ async function suite() {
   record("open gate stays passable after reload", await crossable(r.page));
   await r.page.close();
 
-  const t = await open(`level=${LEVEL}&reset=1&spawn=${th.join(",")}`);
+  const t = await open(`level=${LEVEL}&reset=1&class=dutchie&spawn=${th.join(",")}`);
   const fresh = await t.page.evaluate(() => window.__game.state.things.things.filter((q) => q.kind !== "watcher").map((q) => `${q.kind}:${q.state}`));
   const want = { bonfire: "unlit", chest: "closed", gate: "closed", elevator: "idle", lever: "up", door: "closed", ladder: "up" };
   record("?reset=1 clears state", fresh.every((f) => want[f.split(":")[0]] === f.split(":")[1]), fresh.join(","));

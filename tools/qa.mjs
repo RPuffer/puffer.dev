@@ -255,7 +255,7 @@ async function landingSuite(size) {
 
 async function buildSuite(build, size) {
   const tag = `${build}@${size.width}${size.touch ? "t" : ""}`;
-  const { page, problems, done, ms } = await open(`${BASE}/${build}/index.html?level=home&reset=1`, size);
+  const { page, problems, done, ms } = await open(`${BASE}/${build}/index.html?level=home&reset=1&class=dutchie`, size);
   record(`${tag} __done within 10 s`, done, `${ms} ms`);
   if (!done) { await page.close(); return; }
   await settle(page, 800);
@@ -312,7 +312,7 @@ async function screenUp(page, press) {
 
 async function rotationSuite(size) {
   const tag = `rotate@${size.width}${size.touch ? "t" : ""}`;
-  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1`, size);
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1&class=dutchie`, size);
   record(`${tag} page loads`, done);
   if (!done) { await page.close(); return; }
   await settle(page, 600);
@@ -388,19 +388,22 @@ async function rotationSuite(size) {
 }
 
 async function pickMap(page) {
-  return page.evaluate(() => {
-    const r = window.__game.renderer, el = r.element, w = el.clientWidth, h = el.clientHeight, m = {};
-    for (let y = 2; y < h; y += 6) for (let x = 2; x < w; x += 6) {
-      const c = document.elementFromPoint(x, y) === el && r.pick(x, y, w, h);
-      if (!c) continue;
-      const k = c.join(","), e = m[k] || (m[k] = [0, 0, 0, []]);
-      e[0] += x; e[1] += y; e[2]++; e[3].push([x, y]);
-    }
-    for (const k in m) {
-      const e = m[k], cx = e[0] / e[2], cy = e[1] / e[2];
-      let best = e[3][0], bd = Infinity;
-      for (const q of e[3]) { const d = (q[0] - cx) ** 2 + (q[1] - cy) ** 2; if (d < bd) { bd = d; best = q; } }
-      m[k] = [best[0], best[1], e[2]];
+  return page.evaluate(async () => {
+    const THREE = await import("three");
+    const { surfaceY, liftLevel } = await import("/3d/terrain.js");
+    const g = window.__game, S = g.state, r = g.renderer, el = r.element, w = el.clientWidth, h = el.clientHeight, m = {};
+    const cam = r.three.camera, LL = liftLevel(S.level), v = new THREE.Vector3();
+    for (let z = 0; z < S.level.size[1]; z++) for (let x = 0; x < S.level.size[0]; x++) {
+      const y = surfaceY(LL, S.view, x, z);
+      let hits = 0, at = null;
+      for (const [ox, oz] of [[0.5, 0.5], [0.3, 0.3], [0.7, 0.7], [0.3, 0.7], [0.7, 0.3]]) {
+        v.set(x + ox, y, z + oz).project(cam);
+        const px = (v.x + 1) / 2 * w, py = (1 - v.y) / 2 * h;
+        if (px < 0 || py < 0 || px >= w || py >= h || document.elementFromPoint(px, py) !== el) continue;
+        const c = r.pick(px, py, w, h);
+        if (c && c[0] === x && c[1] === z) { hits++; at ||= [px, py]; }
+      }
+      if (hits >= 3) m[x + "," + z] = [at[0], at[1], hits * 2];
     }
     return m;
   });
@@ -440,7 +443,7 @@ async function clickAt(page, p, touch) {
 async function clickSuite(size) {
   const tag = `click@${size.width}${size.touch ? "t" : ""}`;
   for (const yaw of [45, 225]) {
-    const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1&yaw=${yaw}${size.touch ? "&cam=3" : ""}`, size);
+    const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1&yaw=${yaw}&class=dutchie${size.touch ? "&cam=3" : ""}`, size);
     record(`${tag} yaw ${yaw} page loads`, done);
     if (!done) { await page.close(); continue; }
     await settle(page, 800);
@@ -877,7 +880,7 @@ async function camSuite(size) {
   await settle(d.page, 300);
   const def = await span(d.page);
   await d.page.close();
-  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1&cam=close`, size);
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1&cam=close&class=dutchie`, size);
   record(`${tag} page loads`, done);
   if (!done) { await page.close(); return; }
   await settle(page, 600);
