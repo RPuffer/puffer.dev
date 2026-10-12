@@ -1,6 +1,6 @@
 # Layout variety: shape first, then route
 
-Status: proposal. Ryne approves it before anyone touches `core/layout/`.
+Status: approved (commit 1655c57). Phase 0 and phase 1 have landed; phase 2 onward waits for Ryne.
 
 Ryne's read of the run: the islands path differently, but they share a centre section and their shortcuts look identical. The numbers agree. This doc names the cause in code, then proposes a shape-first pipeline with a shape library, teleporters, a shortcut deck that pays for detours, and QA that fails a run of look-alikes.
 
@@ -314,3 +314,77 @@ The sheet generator behind `out/layout-variety/` becomes a QA artifact the bake 
 | `core/layout/decor.js` `inCore`, `core.blocks` | relative to the sanctum slot |
 | `tools/bake-layout.mjs` `RUN_TOPOLOGY` | replace with a run sequencer over shape and archetype pairs |
 | `docs/LEVEL-DESIGN.md` "Frame" and "Lattice" bullets | rewrite once phase 2 lands |
+
+## 12. Phase 0 baseline
+
+`node tools/qa-variety.mjs` runs the section 10 checks on the run in `levels/run.json` (or a comma list of level names) without a browser, and exits 1 on any failure. `--json` prints thresholds, metrics and results; the baseline lives in `out/layout-variety/variety-baseline.json`. Every comparison takes the best of the eight rotations and mirrors, with each footprint moved to its bounding-box corner. The centre window is an 18 by 21 cell box on each island's bounding-box centre.
+
+All twelve checks fail on the current bake:
+
+| Check | Threshold | Baseline |
+| --- | --- | --- |
+| Route fingerprint, best of eight transforms | under 0.8 every pair | 4 pairs over: swallow/chimera 0.977, mindbloom/eagle 0.975, wizard/ember 0.906, gremlin/dragon 0.831; mean 0.575 |
+| Footprint Jaccard, best transform | max 0.55, mean 0.40 | max 0.857, mean 0.634 |
+| Centre window land Jaccard, best transform | max 0.60, mean 0.45 | max 0.954, mean 0.723 |
+| Land in every island | 15 percent of mean area | 261 cells, 45.7 percent of 571.7 |
+| Path in every island | 10 percent of mean route | 58 cells, 34.1 percent of 169.9 |
+| Centrepieces per bounding-box ninth | 3 or fewer | 12 in the centre ninth |
+| Door far ends | 10 distinct cells, 3 ninths | 2 cells, 1 ninth (12 doors) |
+| Ladder far ends | 8 distinct cells, 3 ninths | 3 cells, 2 ninths (8 ladders) |
+| Drop far ends | 4 distinct cells, 3 ninths | 4 cells, 1 ninth (4 drops) |
+| Lever far ends | 10 distinct cells, 3 ninths | 7 cells, 3 ninths (12 levers) |
+| Distinct shapes | 8 | 1 |
+| Multi-landmass islands | 4 | 0 |
+
+## 13. Phase 1: the shape library
+
+The library is `core/layout/shapes/`, pure ES modules so the browser can load it next to the generator. It holds 36 shapes in eleven families; section 14 lists them. `node tools/shape-sheet.mjs` validates every shape and draws `out/layout-variety/shape-sheet.png` plus one panel per shape in `out/layout-variety/shapes/`. It exits 1 if any shape or the library fails.
+
+A shape is a map of characters, one per shape unit (3 by 3 cells):
+
+| Char | Meaning |
+| --- | --- |
+| `#` | land at the default height |
+| `1` to `4` | land in a height zone (tier) |
+| `.` | void |
+| `S` | entry lift; it must sit on the rim |
+| `E` | exit lift; it must sit on the rim |
+| `C` | centrepiece slot; one to three |
+| `B` | bonfire |
+| `$` | reward slot |
+| `p`/`P`, `q`/`Q`, `r`/`R` | a teleporter pair, lower case at the end nearer the bonfire |
+
+Landmasses are the four-connected pieces of land. Each pair needs an entry in `links` with a role: `connector` (live both ways, on the critical path), `shortcut` (dark until you reach the upper-case pad) or `reward` (out to a reward islet and back). `heights` maps a zone digit to a tier range, `archetypes` lists the route archetypes the shape pairs with, best first, and `transforms` lists the allowed members of r0, r90, r180, r270, m0, m90, m180 and m270.
+
+`validateShape` in `core/layout/shapes/index.js` rejects a shape when:
+
+- rows differ in length, a character is unknown, or the map exceeds 12 units a side;
+- it lacks exactly one `S`, `E` and `B`, or has no `C` or more than three;
+- a pad has no partner, or a pair has no link;
+- `S` or `E` does not touch void or the map edge, or `B` is more than two units' walk from `S`;
+- any key point, pad or reward cannot be reached from `S` through land and links (dark shortcut pads open only once the far pad is reached), or the exit or a centrepiece needs a shortcut or reward link to reach;
+- a shortcut's near pad is more than three units from the bonfire, or the pair saves fewer than two units of walk;
+- a landmass has fewer than two units, the land totals under 30 units, or the walk from `S` through the first centrepiece to `E` runs under 8 units;
+- an allowed transform puts `S` off the camera's near rims (south or east, since the camera looks from +x, +z), or two allowed transforms give the same map.
+
+The library check wants at least 30 shapes, at least 10 with more than one landmass, at least 8 families, centrepieces in at least 7 of the 9 bounding-box ninths, and no more than a quarter of them in the centre ninth.
+
+The generator does not read the library yet. Phase 2 places a shape, embeds the route in it and rebakes the run, and waits for Ryne.
+
+## 14. Library contents
+
+`out/layout-variety/shape-sheet.png` draws all 36. Each shape yields 4 to 8 variants under its allowed transforms, 194 in all. Centrepieces per bounding-box ninth, reading rows from the top: 7, 4, 5, 5, 5, 6, 2, 0, 2.
+
+| Family | Shapes | Landmasses | Archetypes |
+| --- | --- | --- | --- |
+| blob | `blob-pebble`, `blob-kidney`, `blob-pear` | 1, 1, 1 | maze, ring, figure8, switchback, comb |
+| ridge | `ridge-diagonal`, `ridge-peninsula`, `ridge-zigzag`, `ridge-tongue` | 1, 1, 1, 1 | switchback, spiral, comb |
+| ring | `atoll-islet`, `atoll-open`, `atoll-reef`, `atoll-eight` | 2, 1, 2, 1 | ring, twin, figure8 |
+| crescent | `crescent-horn`, `crescent-moon`, `crescent-bay` | 1, 1, 2 | ring, switchback, comb |
+| archipelago | `arch-stepping`, `arch-chain`, `arch-scatter`, `arch-delta` | 3, 4, 3, 3 | comb, maze, switchback, twin |
+| tiers | `tier-mesa`, `tier-ziggurat`, `tier-sky-shelf` | 1, 1, 2 | switchback, maze, spiral |
+| hub | `hub-trefoil`, `hub-isles`, `hub-cross` | 1, 4, 1 | figure8, comb, maze |
+| bridge | `bridge-span`, `bridge-split-ring`, `bridge-snapped` | 2, 2, 3 | switchback, comb, ring, twin |
+| spiral | `spiral-fishhook`, `spiral-snail`, `spiral-coil` | 1, 1, 1 | spiral, comb, maze, switchback |
+| twin | `twin-dumbbell`, `twin-tiered`, `twin-rings` | 2, 2, 2 | figure8, twin, switchback, ring |
+| satellite | `sat-ring`, `sat-cluster`, `sat-moons` | 2, 3, 3 | maze, comb, ring, figure8 |

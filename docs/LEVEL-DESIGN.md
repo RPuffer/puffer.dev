@@ -126,6 +126,8 @@ All twelve islands of `levels/run.json` are route-first. `node tools/bake-layout
 
 `tools/qa-route.mjs` fingerprints each run island: path cells reduce to corridor edges on the three-cell lattice, and two islands that match on 80 percent of their edges, with one cell of slack, fail as duplicates. It also wants six archetypes or more and no two neighbours in run order with the same archetype and orientation.
 
+`tools/qa-variety.mjs` measures the run as a set: route fingerprints and footprints under all eight rotations and mirrors, centre-window overlap, land and path shared by every island, where the centrepieces sit, and how far the shortcut ends spread. The thresholds and the baseline it fails today are in `docs/LAYOUT-VARIETY.md` section 12. `tools/shape-sheet.mjs` validates the shape library in `core/layout/shapes/` and draws it.
+
 An island keeps its identity through the base level: palette, light and background, its pieces modules, its focal creature (the decor marked `watch`) as the core figure and watcher, and its chest text. `profileFor(base)` in `core/layout/decor.js` reads the rest from the island's own decor:
 
 | Role | Pick |
