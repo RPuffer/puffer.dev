@@ -1,4 +1,5 @@
 import { HOME, BUST } from "./input.js";
+import { startArt } from "./art.js";
 const CSS = `
 .iw-ui{position:fixed;right:max(10px,env(safe-area-inset-right,0px));bottom:max(10px,env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:7px;align-items:center;padding:7px;border-radius:14px;background:rgba(20,24,31,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .iw-ui:empty,.iw-touch .iw-ui:not(.iw-inline){display:none}
@@ -45,10 +46,72 @@ const CSS = `
 .iw-veil{position:fixed;inset:0;z-index:29;pointer-events:none;opacity:0;transition:opacity .18s ease-in}
 .iw-veil.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.iw-nav .node,.iw-orb{transition-duration:.01s}.iw-panel{animation:none}}
+@property --iw-spin{syntax:"<angle>";inherits:true;initial-value:0deg}
+@property --iw-flow{syntax:"<length>";inherits:true;initial-value:0px}
+@keyframes iw-spin{to{--iw-spin:360deg}}
+@keyframes iw-flow{to{--iw-flow:-24px}}
+@keyframes iw-jelly{0%{transform:scale(1)}30%{transform:scale(1.18,.86)}50%{transform:scale(.9,1.12)}70%{transform:scale(1.06,.96)}100%{transform:scale(1)}}
+@keyframes iw-gulp{0%{transform:scale(1)}35%{transform:scale(1.28)}60%{transform:scale(.9)}80%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes iw-drop{from{transform:translateY(-8px) scale(.4);opacity:0}}
+.iw-navkeys{display:none}
+@media (hover:hover){
+html:not(.iw-touch) .iw-ui{gap:10px;padding:10px 12px 22px;border-radius:22px;border:2px solid transparent;background:linear-gradient(rgba(22,18,34,.78),rgba(22,18,34,.78)) padding-box,conic-gradient(from var(--iw-spin),#12c4f0,#9a7ae0,#e86aa0,#f5c243,#7cc56a,#12c4f0) border-box;animation:iw-spin 9s linear infinite;box-shadow:0 8px 0 rgba(10,8,18,.45),0 0 26px rgba(154,122,224,.35)}
+html:not(.iw-touch) .iw-ui.iw-inline{padding:0;border:0;background:none;box-shadow:none;animation:none}
+html:not(.iw-touch) .iw-ui button{position:relative;min-width:42px;height:40px;border-radius:14px;font-size:19px;background:linear-gradient(160deg,#4a4170 0 48%,#3a3358 48%);box-shadow:0 4px 0 #1a1530;transition:transform .45s cubic-bezier(.34,1.9,.5,1),box-shadow .12s}
+html:not(.iw-touch) .iw-ui button:nth-child(odd):hover{transform:translateY(-4px) rotate(-7deg) scale(1.08)}
+html:not(.iw-touch) .iw-ui button:nth-child(even):hover{transform:translateY(-4px) rotate(7deg) scale(1.08)}
+html:not(.iw-touch) .iw-ui button:hover{box-shadow:0 7px 0 #1a1530,0 0 0 2px #f5c243}
+html:not(.iw-touch) .iw-ui button:active,html:not(.iw-touch) .iw-ui button.hit{transform:translateY(3px) scale(.94);box-shadow:0 1px 0 #1a1530,0 0 0 2px #12c4f0;transition-duration:.08s}
+html:not(.iw-touch) .iw-ui button[data-key]::after{content:attr(data-key);position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);min-width:15px;padding:1px 4px;border-radius:5px;background:#fff3e0;color:#1a1530;font:800 10px/13px ui-rounded,"SF Pro Rounded",system-ui,sans-serif;box-shadow:0 2px 0 #c9b8a0}
+html:not(.iw-touch) .iw-orb{box-shadow:0 0 0 4px #1d1830,0 7px 0 6px rgba(14,10,24,.55),0 0 34px 6px rgba(232,106,160,.35);animation:iw-spin 7s linear infinite}
+html:not(.iw-touch) .iw-orb::before{content:"";position:absolute;inset:-10px;border-radius:50%;background:conic-gradient(from var(--iw-spin),#12c4f0,#9a7ae0,#e86aa0,#f5c243,#7cc56a,#12c4f0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 6px),#000 calc(100% - 5px));mask:radial-gradient(farthest-side,transparent calc(100% - 6px),#000 calc(100% - 5px));pointer-events:none}
+html:not(.iw-touch) .iw-orb::after{content:"I";position:absolute;right:-12px;bottom:-8px;min-width:18px;padding:2px 4px;border-radius:6px;background:#fff3e0;color:#1a1530;font:800 11px/14px ui-rounded,"SF Pro Rounded",system-ui,sans-serif;box-shadow:0 2px 0 #c9b8a0;transition:transform .4s cubic-bezier(.34,1.9,.5,1)}
+html:not(.iw-touch) .iw-orb:hover{transform:scale(1.12) rotate(-6deg);animation-duration:1.6s}
+html:not(.iw-touch) .iw-orb:hover::after{transform:translateY(-3px) rotate(10deg) scale(1.15)}
+html:not(.iw-touch) .iw-orb.gulp{animation:iw-spin 7s linear infinite,iw-gulp .6s cubic-bezier(.3,1.6,.5,1)}
+html:not(.iw-touch) .iw-home{width:42px;height:42px;background:linear-gradient(160deg,#ffd76a 0 48%,#f5c243 48%);color:#2a1f33;box-shadow:0 4px 0 #9a6b18,0 0 0 3px #1d1830;transition:transform .45s cubic-bezier(.34,1.9,.5,1),box-shadow .12s}
+html:not(.iw-touch) .iw-home:hover,html:not(.iw-touch) .iw-home:focus-visible{transform:translateY(-4px) rotate(-12deg) scale(1.1);box-shadow:0 7px 0 #9a6b18,0 0 0 3px #1d1830,0 0 18px #f5c243}
+html:not(.iw-touch) .iw-nav::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .45s;background:radial-gradient(ellipse 70% 55% at 50% 8%,rgba(154,122,224,.42),transparent 70%),radial-gradient(circle at 18% 70%,rgba(232,106,160,.18),transparent 40%),radial-gradient(circle at 84% 64%,rgba(18,196,240,.18),transparent 42%);pointer-events:none}
+html:not(.iw-touch) .iw-nav.open::before{opacity:1}
+html:not(.iw-touch) .iw-nav svg{animation:iw-flow .9s linear infinite;filter:drop-shadow(0 0 6px rgba(18,196,240,.8))}
+html:not(.iw-touch) .iw-nav line{stroke:#bdf2ff;stroke-dasharray:1 11;stroke-dashoffset:var(--iw-flow)}
+html:not(.iw-touch) .iw-nav{animation:iw-spin 5s linear infinite}
+html:not(.iw-touch) .iw-nav .node::before{content:"";position:absolute;inset:-9px;border-radius:50%;background:conic-gradient(from var(--iw-spin),#12c4f0,#9a7ae0,#e86aa0,#f5c243,#7cc56a,#12c4f0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));opacity:0;transition:opacity .25s;pointer-events:none}
+html:not(.iw-touch) .iw-nav .node.mid::before,html:not(.iw-touch) .iw-nav .node:hover:not(.locked)::before,html:not(.iw-touch) .iw-nav .node:focus-visible::before{opacity:1}
+html:not(.iw-touch) .iw-nav .node:hover:not(.locked){filter:brightness(1.15) saturate(1.25)}
+html:not(.iw-touch) .iw-nav .name{top:calc(100% + 14px);padding:5px 12px;border-radius:12px;background:#fff3e0;color:#1a1530;font:800 13px/1.2 ui-rounded,"SF Pro Rounded",system-ui,sans-serif;box-shadow:0 3px 0 #c9b8a0;transition:opacity .2s,transform .4s cubic-bezier(.34,1.9,.5,1);transform:translateX(-50%) translateY(-6px) scale(.7)}
+html:not(.iw-touch) .iw-nav .node:hover .name,html:not(.iw-touch) .iw-nav .node:focus-visible .name,html:not(.iw-touch) .iw-nav .node.mid .name{transform:translateX(-50%)}
+html:not(.iw-touch) .iw-navkeys{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:14px;align-items:center;pointer-events:none;color:rgba(255,243,224,.75);font:700 12px/1 ui-rounded,"SF Pro Rounded",system-ui,sans-serif}
+.iw-navkeys span{display:flex;gap:4px;align-items:center;animation:iw-drop .5s cubic-bezier(.34,1.9,.5,1) both}
+.iw-navkeys span:nth-child(2){animation-delay:.08s}.iw-navkeys span:nth-child(3){animation-delay:.16s}.iw-navkeys span:nth-child(4){animation-delay:.24s}
+.iw-navkeys kbd{min-width:22px;padding:4px 6px;border-radius:7px;background:#fff3e0;color:#1a1530;font:800 12px/1 ui-rounded,"SF Pro Rounded",system-ui,sans-serif;text-align:center;box-shadow:0 3px 0 #c9b8a0}
+.iw-arrive{position:fixed;left:50%;top:calc(max(12px,env(safe-area-inset-top,0px)) + 104px);z-index:21;display:grid;justify-items:center;gap:10px;pointer-events:none;transform:translateX(-50%)}
+.iw-arrive .disc{position:relative;width:132px;height:132px;border-radius:50%;background:#1d1830 center/cover no-repeat;box-shadow:0 0 0 5px #1d1830,0 10px 0 5px rgba(14,10,24,.5),0 0 50px 10px rgba(232,106,160,.35);animation:iw-spin 3s linear infinite}
+.iw-arrive .disc::before{content:"";position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(from var(--iw-spin),#12c4f0,#9a7ae0,#e86aa0,#f5c243,#7cc56a,#12c4f0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px));mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px))}
+.iw-arrive .rays{position:absolute;left:50%;top:66px;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:repeating-conic-gradient(from var(--iw-spin),rgba(245,194,67,.32) 0 6deg,transparent 6deg 18deg,rgba(232,106,160,.26) 18deg 24deg,transparent 24deg 36deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 66%);mask:radial-gradient(circle,#000 18%,transparent 66%);animation:iw-spin 14s linear infinite reverse;z-index:-1}
+.iw-arrive .tag{display:flex;gap:10px;align-items:center;padding:8px 18px 8px 8px;border-radius:999px;background:#fff3e0;color:#1a1530;font:800 22px/1 ui-rounded,"SF Pro Rounded",system-ui,sans-serif;box-shadow:0 5px 0 #c9b8a0,0 0 0 3px #1d1830}
+.iw-arrive .tag b{display:grid;place-items:center;min-width:34px;height:34px;padding:0 6px;border-radius:999px;background:#1d1830;color:#f5c243;font-size:18px}
+.iw-arrive .disc,.iw-arrive .tag{transform:scale(0)}
+.iw-arrive.in .disc{transform:scale(1);transition:transform .7s cubic-bezier(.3,1.75,.5,1)}
+.iw-arrive.in .tag{transform:scale(1) rotate(-3deg);transition:transform .7s .14s cubic-bezier(.3,1.75,.5,1)}
+.iw-arrive.in .rays{animation:iw-spin 14s linear infinite reverse,iw-drop .8s cubic-bezier(.3,1.6,.5,1) both}
+.iw-arrive.out{transition:transform .55s cubic-bezier(.6,-0.4,.7,.6),opacity .5s .1s;transform:translate(-50%,var(--fly,-110px)) scale(.28);opacity:0}
+.iw-finale{position:fixed;inset:0;z-index:28;display:grid;place-items:center;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(29,24,48,.2),rgba(29,24,48,.72));opacity:0;transition:opacity .5s}
+.iw-finale.in{opacity:1}
+.iw-finale .ring{position:relative;width:min(70vmin,620px);height:min(70vmin,620px);animation:iw-spin 40s linear infinite}
+.iw-finale .ring::before{content:"";position:absolute;inset:-12%;border-radius:50%;background:repeating-conic-gradient(from var(--iw-spin),rgba(245,194,67,.28) 0 5deg,transparent 5deg 15deg,rgba(18,196,240,.22) 15deg 20deg,transparent 20deg 30deg);-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%)}
+.iw-finale .moon{position:absolute;left:50%;top:50%;width:var(--m);height:var(--m);margin:calc(var(--m) / -2) 0 0 calc(var(--m) / -2);border-radius:50%;background:#1d1830 center/cover no-repeat;box-shadow:0 0 0 4px #fff3e0,0 6px 0 4px rgba(14,10,24,.5);transform:rotate(var(--a)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1)) scale(0);transition:transform .8s cubic-bezier(.3,1.75,.5,1)}
+.iw-finale.in .moon{transform:rotate(calc(var(--a) - var(--iw-spin) * 2)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1 + var(--iw-spin) * 2)) scale(1)}
+.iw-finale .core{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:30%;height:30%;margin:-15% 0 0 -15%;border-radius:50%;background:linear-gradient(160deg,#ffd76a 0 48%,#f5c243 48%);color:#2a1f33;box-shadow:0 0 0 6px #1d1830,0 10px 0 6px rgba(14,10,24,.5),0 0 60px 18px rgba(245,194,67,.5);pointer-events:auto;transform:scale(0);transition:transform .9s .5s cubic-bezier(.3,1.75,.5,1)}
+.iw-finale .core svg{width:46%;height:46%;fill:currentColor}
+.iw-finale.in .core{transform:scale(1)}
+.iw-finale .core:hover,.iw-finale .core:focus-visible{animation:iw-jelly .6s;outline:none}
+}
+@media (prefers-reduced-motion:reduce){.iw-ui,.iw-orb,.iw-nav,.iw-nav svg,.iw-arrive .disc,.iw-arrive .rays,.iw-finale .ring{animation:none!important}.iw-arrive .disc,.iw-arrive .tag,.iw-finale .moon,.iw-finale .core{transition-duration:.01s!important}}
 `;
 
 const RUN_URL = new URL("../levels/run.json", import.meta.url);
-const thumb = (n) => new URL(`../assets/start/${n}.jpg`, import.meta.url).href;
+const thumb = startArt;
 const label = (n) => n.split("-")[0].replace(/^./, (c) => c.toUpperCase());
 const reachedIn = (n) => { try { return !!JSON.parse(localStorage.getItem("isoworld:things:" + n) || "null"); } catch { return false; } };
 const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
@@ -58,6 +121,10 @@ const SLOT_SCALE = [1, 1, 0.8, 0.14];
 
 export const startHref = () => new URL("../islands.html", import.meta.url).href;
 
+const desk = () => !document.documentElement.classList.contains("iw-touch") && typeof matchMedia === "function" && matchMedia("(hover:hover)").matches;
+const params = () => new URLSearchParams(location.search);
+// Pixel-diffing QA tools load run islands under webdriver; the arrival and finale cards stay out of their frames unless fx=1 asks for them.
+const fxOn = () => params().get("fx") === "1" || (params().get("fx") !== "0" && !navigator.webdriver);
 const urlLevel = () => new URLSearchParams(location.search).get("level") || "home";
 const hop = (n) => { const q = new URLSearchParams(location.search); q.set("level", n); q.delete("reset"); q.delete("spawn"); location.search = q.toString(); return new Promise(() => {}); };
 
@@ -71,7 +138,7 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
   orb.setAttribute("aria-haspopup", "dialog");
   orb.hidden = true;
   document.body.appendChild(orb);
-  let order = [], loaded = false, layer = null, closing = null, going = false, sheet = null, shown = null;
+  let order = [], loaded = false, layer = null, closing = null, going = false, sheet = null, shown = null, landed = null, card = null, party = null;
   let center = 0, step = 80, size = 62, nodes = new Map(), raf = 0, drag = null, dragged = false, wheelAcc = 0;
   fetch(RUN_URL).then((r) => r.json()).then((j) => { order = Array.isArray(j.order) ? j.order : []; loaded = true; sync(); }).catch(() => {});
   const list = () => ["@islands", ...order];
@@ -86,11 +153,71 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
       orb.innerHTML = known ? "" : MARK;
       orb.style.backgroundImage = known ? `url("${thumb(cur)}")` : "";
       orb.setAttribute("aria-label", known ? `islands (here: ${label(cur)})` : "islands");
+      const first = landed === null;
+      if (known && cur !== landed && fxOn() && desk() && (!first || (order.indexOf(cur) === 0 && params().get("reset") === "1"))) arrive(cur, order.indexOf(cur) === 0);
+      landed = cur;
     }
     if (!show && layer && !going) close(false);
     if (!show && sheet) closePanel(false);
   };
   const timer = setInterval(sync, 200);
+
+  function arrive(n, start) {
+    card?.remove();
+    const el = document.createElement("div");
+    el.className = "iw-arrive" + (start ? " start" : "");
+    el.setAttribute("aria-hidden", "true");
+    el.innerHTML = `${start ? '<i class="rays"></i>' : ""}<i class="disc"></i><span class="tag"><b>${order.indexOf(n) + 1}</b>${label(n)}</span>`;
+    el.querySelector(".disc").style.backgroundImage = `url("${thumb(n)}")`;
+    document.body.appendChild(el);
+    card = el;
+    el.getBoundingClientRect();
+    requestAnimationFrame(() => el.classList.add("in"));
+    setTimeout(() => {
+      if (card !== el) return;
+      const o = orb.getBoundingClientRect(), d = el.querySelector(".disc").getBoundingClientRect();
+      el.style.setProperty("--fly", Math.round(o.top + o.height / 2 - (d.top + d.height / 2)) + "px");
+      el.classList.add("out");
+      setTimeout(() => { orb.classList.remove("gulp"); void orb.offsetWidth; orb.classList.add("gulp"); }, 420);
+      setTimeout(() => { el.remove(); if (card === el) card = null; }, 700);
+    }, start ? 2600 : 1900);
+  }
+
+  function finale() {
+    if (party || !fxOn() || !desk() || !order.length) return;
+    const el = document.createElement("div");
+    el.className = "iw-finale";
+    const ring = document.createElement("div");
+    ring.className = "ring";
+    order.forEach((n, i) => {
+      const m = document.createElement("i");
+      m.className = "moon";
+      m.style.cssText = `--a:${(360 / order.length) * i}deg;--r:calc(min(70vmin,620px) * .42);--m:calc(min(70vmin,620px) * .15);background-image:url("${thumb(n)}");transition-delay:${i * 70}ms`;
+      ring.appendChild(m);
+    });
+    const core = document.createElement("a");
+    core.className = "core";
+    core.href = HOME;
+    core.setAttribute("aria-label", "character select");
+    core.innerHTML = BUST;
+    ring.appendChild(core);
+    el.appendChild(ring);
+    document.body.appendChild(el);
+    party = el;
+    el.getBoundingClientRect();
+    requestAnimationFrame(() => el.classList.add("in"));
+    const end = () => {
+      if (party !== el) return;
+      party = null;
+      removeEventListener("keydown", onAny, true);
+      removeEventListener("pointerdown", onAny, true);
+      el.classList.remove("in");
+      setTimeout(() => el.remove(), 600);
+    };
+    const onAny = (e) => { if (e.target?.closest?.(".iw-finale .core")) return; end(); };
+    setTimeout(() => { addEventListener("keydown", onAny, true); addEventListener("pointerdown", onAny, true); }, 900);
+    setTimeout(end, 12000);
+  }
 
   const slot = (k) => {
     const a = Math.abs(k), sx = Math.sign(k);
@@ -206,17 +333,20 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
   function open() {
     if (layer || orb.hidden) return;
     const cur = current(), L = list();
-    step = Math.max(60, Math.min(116, (innerWidth - 24) / 4.7));
-    size = Math.round(Math.min(78, step * 0.78));
+    const big = desk() && innerWidth >= 1000;
+    step = Math.max(60, Math.min(big ? 150 : 116, (innerWidth - 24) / 4.7));
+    size = Math.round(Math.min(big ? 104 : 78, step * (big ? 0.7 : 0.78)));
     center = Math.max(0, L.indexOf(cur));
     const lay = document.createElement("div");
     lay.className = "iw-nav";
     lay.setAttribute("role", "dialog");
     lay.setAttribute("aria-label", "island selector");
-    lay.innerHTML = '<svg aria-hidden="true"></svg><div class="mol"></div>';
+    lay.innerHTML = '<svg aria-hidden="true"></svg><div class="mol"></div><div class="iw-navkeys" aria-hidden="true"><span><kbd>&larr;</kbd><kbd>&rarr;</kbd></span><span><kbd>1</kbd><kbd>9</kbd></span><span><kbd>&crarr;</kbd></span><span><kbd>Esc</kbd></span></div>';
     const r = orb.getBoundingClientRect(), mol = lay.querySelector(".mol");
     mol.style.left = r.left + r.width / 2 + "px";
-    mol.style.top = r.top + r.height / 2 + "px";
+    const my = Math.max(r.top + r.height / 2, size / 2 + 18);
+    mol.style.top = my + "px";
+    lay.querySelector(".iw-navkeys").style.top = Math.round(my + step * 0.45 + size / 2 + 62) + "px";
     layer = lay;
     nodes = new Map();
     document.body.appendChild(lay);
@@ -267,6 +397,9 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
       if (e.key === "Escape") { e.preventDefault(); close(); return; }
       if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); setCenter(center - 1); focusMid(); return; }
       if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); setCenter(center + 1); focusMid(); return; }
+      if (e.key === "Home" || e.key === "End") { e.preventDefault(); setCenter(e.key === "Home" ? 0 : list().length - 1); focusMid(); return; }
+      if (/^[1-9]$/.test(e.key) && !e.metaKey && !e.ctrlKey && !e.altKey) { e.preventDefault(); setCenter(+e.key); focusMid(); return; }
+      if (e.key === "i" || e.key === "I") { e.preventDefault(); close(); return; }
       if (e.key === "Tab") {
         const vis = visibleNodes(), at = vis.indexOf(document.activeElement);
         e.preventDefault();
@@ -363,7 +496,10 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
   for (const ev of ["pointerdown", "pointerup"]) orb.addEventListener(ev, (e) => e.stopPropagation());
   orb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") e.stopPropagation(); });
   orb.addEventListener("click", (e) => { e.preventDefault(); if (layer && !closing) close(); else open(); });
-  const onKey = (e) => { if (e.key !== "Escape") return; if (sheet) closePanel(); else if (layer) close(); };
+  const onKey = (e) => {
+    if ((e.key === "i" || e.key === "I") && !e.metaKey && !e.ctrlKey && !e.altKey && !e.repeat && !sheet && !(e.target instanceof HTMLInputElement)) { if (layer && !closing) close(); else if (!orb.hidden) open(); return; }
+    if (e.key !== "Escape") return; if (sheet) closePanel(); else if (layer) close();
+  };
   addEventListener("keydown", onKey);
   return {
     button: orb,
@@ -378,7 +514,9 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
     get center() { return center; },
     get isOpen() { return !!layer && !closing; },
     get panelOpen() { return !!sheet; },
-    dispose() { clearInterval(timer); cancelAnimationFrame(raf); removeEventListener("keydown", onKey); removeEventListener("message", onMessage); layer?.remove(); sheet?.remove(); orb.remove(); },
+    arrive,
+    finale,
+    dispose() { party?.remove(); card?.remove(); clearInterval(timer); cancelAnimationFrame(raf); removeEventListener("keydown", onKey); removeEventListener("message", onMessage); layer?.remove(); sheet?.remove(); orb.remove(); },
   };
 }
 
@@ -406,8 +544,18 @@ export function mountUI({ container, rotate = null, zoom = null, nav = {} } = {}
     b.addEventListener("click", (e) => { e.preventDefault(); act(); });
     return b;
   };
-  const zooms = zoom ? [[-1, "−", "zoom out (-)"], [1, "+", "zoom in (+)"]].map(([step, label, title]) => button(label, title, { zoom: String(step) }, () => zoom(step))) : [];
-  const turns = rotate ? [[-1, "⟲", "rotate left (Q)"], [1, "⟳", "rotate right (E)"]].map(([step, label, title]) => button(label, title, { rotate: String(step) }, () => rotate(step))) : [];
+  const zooms = zoom ? [[-1, "−", "zoom out (-)", "-"], [1, "+", "zoom in (+)", "+"]].map(([step, label, title, key]) => button(label, title, { zoom: String(step), key }, () => zoom(step))) : [];
+  const turns = rotate ? [[-1, "⟲", "rotate left (Q)", "Q"], [1, "⟳", "rotate right (E)", "E"]].map(([step, label, title, key]) => button(label, title, { rotate: String(step), key }, () => rotate(step))) : [];
+  const KEYED = { Minus: zooms[0], NumpadSubtract: zooms[0], Equal: zooms[1], NumpadAdd: zooms[1], KeyQ: turns[0], KeyE: turns[1] };
+  const flash = (e) => {
+    const b = KEYED[e.code];
+    if (!b || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    b.classList.remove("hit");
+    void b.offsetWidth;
+    b.classList.add("hit");
+    setTimeout(() => b.classList.remove("hit"), 160);
+  };
+  if (!container) addEventListener("keydown", flash);
   const navigator = nav && !container ? mountNavigator(nav) : null;
   if (!container && !document.querySelector(".iw-home")) {
     const home = document.createElement("a");
@@ -421,5 +569,5 @@ export function mountUI({ container, rotate = null, zoom = null, nav = {} } = {}
   }
   box.append(...zooms, ...turns);
   (container || document.body).appendChild(box);
-  return { element: box, turns, zooms, navigator };
+  return { element: box, turns, zooms, navigator, finale: () => navigator?.finale() };
 }

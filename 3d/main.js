@@ -97,6 +97,7 @@ try {
   renderer.onOrient((state) => clouds?.orient(state));
   run.boot(first);
   run.onLoad((state) => {
+    state.things?.on((e) => { if (e.type === "stub" && e.thing.role === "exit") window.__ui?.finale(); });
     if (params.nav === "0") return;
     const exit = state.things?.things.find((t) => t.kind === "elevator" && t.role === "exit");
     const order = state.level.runOrder || [], i = order.indexOf(state.level.name);

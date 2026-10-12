@@ -361,6 +361,15 @@ const CSS = `
 @keyframes iw-rollup{from{width:var(--pw)}to{width:0}}
 @keyframes iw-ink{from{opacity:0}to{opacity:1}}
 @keyframes iw-fade{to{opacity:0}}
+@keyframes iw-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) rotate(-6deg)}}
+@keyframes iw-boing{0%{transform:translateX(-50%) translateY(14px) scale(.4)}55%{transform:translateX(-50%) translateY(-6px) scale(1.08,.94)}78%{transform:translateX(-50%) translateY(1px) scale(.97,1.03)}100%{transform:translateX(-50%)}}
+@media (hover:hover){
+html:not(.iw-touch) .iw-prompt{bottom:max(30px,env(safe-area-inset-bottom,0px));gap:12px;padding:9px 20px 9px 9px;border:3px solid transparent;border-radius:999px;background:linear-gradient(#211a33,#211a33) padding-box,conic-gradient(from var(--iw-spin,0deg),#12c4f0,#9a7ae0,#e86aa0,#f5c243,#7cc56a,#12c4f0) border-box;color:#fff3e0;font:800 16px/1.2 ui-rounded,"SF Pro Rounded",system-ui,sans-serif;box-shadow:0 7px 0 rgba(10,8,18,.5),0 0 28px rgba(232,106,160,.35);animation:iw-spin 6s linear infinite;transition:filter .15s}
+html:not(.iw-touch) .iw-prompt.pop{animation:iw-spin 6s linear infinite,iw-boing .55s cubic-bezier(.3,1.4,.5,1)}
+html:not(.iw-touch) .iw-prompt:hover{filter:brightness(1.12)}
+html:not(.iw-touch) .iw-prompt kbd{min-width:30px;padding:5px 8px;border-radius:10px;background:linear-gradient(160deg,#ffd76a 0 48%,#f5c243 48%);color:#2a1f33;font:900 15px/20px ui-rounded,"SF Pro Rounded",system-ui,sans-serif;box-shadow:0 3px 0 #9a6b18;animation:iw-bob 1.4s ease-in-out infinite}
+}
+@media (prefers-reduced-motion:reduce){html:not(.iw-touch) .iw-prompt,html:not(.iw-touch) .iw-prompt kbd{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.iw-toast.unfurl .paper,.iw-toast.unfurl .msg,.iw-scroll-ghost,.iw-scroll-ghost .paper{animation-duration:.01s}}
 `;
 
@@ -413,6 +422,9 @@ function mountThingsUI() {
       const k = document.createElement("kbd");
       k.textContent = "F";
       prompt.append(k, document.createTextNode(text));
+      prompt.classList.remove("pop");
+      void prompt.offsetWidth;
+      prompt.classList.add("pop");
     },
     toast(text) {
       if (!text) { rollUp(); toastEl.hidden = true; msg.textContent = ""; return; }
