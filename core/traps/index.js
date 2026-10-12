@@ -1,5 +1,6 @@
 import { TRAP_BY_ID } from "./catalog.js";
 import { KINDS } from "./kinds.js";
+import { surfaceHeight } from "../level.js";
 
 export { TRAP_CATALOG, TRAP_BY_ID } from "./catalog.js";
 export { KINDS } from "./kinds.js";
@@ -20,7 +21,7 @@ export function normalizeTrap(t, i = 0) {
   return { ...t, id: t.id || `${t.kind}-${i}`, meta };
 }
 
-export function createTraps(level, { actor, life = null, health = null, things = null, storage = globalThis.localStorage, params = {}, say = null } = {}) {
+export function createTraps(level, { actor, life = null, health = null, things = null, storage = globalThis.localStorage, params = {}, say = null, rotate = null } = {}) {
   const list = (level.traps || []).map(normalizeTrap).filter(Boolean);
   const byId = Object.fromEntries(list.map((t) => [t.id, t]));
   const skey = trapStorageKey(level.name);
@@ -49,16 +50,44 @@ export function createTraps(level, { actor, life = null, health = null, things =
     emit: (t, type, extra = {}) => emit({ type, trap: t, ...extra }),
     say: (text) => { if (text) (say || things?.say)?.(text); },
     reveal: (t) => api.reveal(t.id),
+    rotate: (step) => rotate?.(step),
+    solve: (t) => things?.solve?.(t.id),
+    fling: (to, dur = 0.5) => {
+      actor.path = [];
+      actor.tapDir = null;
+      actor.moving = false;
+      actor.locked = true;
+      actor.fx = { kind: "hop", t: 0, dur, from: [actor.pos.x, actor.pos.z], to: [to[0], to[1]] };
+      hop = actor.fx;
+    },
+  };
+  let hop = null;
+  const stepHop = (dt) => {
+    if (!hop) return;
+    if (actor.fx !== hop) { hop = null; return; }
+    hop.t = Math.min(hop.dur, hop.t + dt);
+    const u = hop.t / hop.dur;
+    actor.pos.x = hop.from[0] + (hop.to[0] + 0.5 - hop.from[0]) * u;
+    actor.pos.z = hop.from[1] + (hop.to[1] + 0.5 - hop.from[1]) * u;
+    hop.lift = Math.sin(Math.PI * u) * 0.9;
+    actor.y = surfaceHeight(level, actor.pos.x, actor.pos.z);
+    if (hop.t >= hop.dur) {
+      actor.cell = [hop.to[0], hop.to[1]];
+      actor.fx = null;
+      actor.locked = false;
+      hop = null;
+    }
   };
   const hydrate = (t) => {
     t.disarmed = disarmed.has(t.id);
     t.revealed = t.meta.visibility !== "hidden";
     t.impl = KINDS[t.kind] || null;
-    t.cells = trapCells(t);
+    t.cells = t.cells || [];
+    t.foot = trapCells(t);
   };
   for (const t of list) {
     hydrate(t);
-    for (const [x, z] of t.cells) {
+    for (const [x, z] of t.foot) {
       const k = key(x, z);
       if (!index.has(k)) index.set(k, []);
       index.get(k).push(t);
@@ -71,7 +100,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
     const c = cellOf(ref);
     return c ? (index.get(key(c[0], c[1])) || [])[0] || null : null;
   };
-  const view = (t) => t && { id: t.id, kind: t.kind, name: t.meta.name, tier: t.meta.tier, trigger: t.meta.trigger, visibility: t.meta.visibility, health: t.meta.health, cells: t.cells.map((c) => c.slice()), revealed: !!t.revealed, disarmed: !!t.disarmed, live: !!t.impl };
+  const view = (t) => t && { id: t.id, kind: t.kind, name: t.meta.name, tier: t.meta.tier, trigger: t.meta.trigger, visibility: t.meta.visibility, health: t.meta.health, cells: t.foot.map((c) => c.slice()), revealed: !!t.revealed, disarmed: !!t.disarmed, live: !!t.impl };
   const api = {
     list,
     byId,
@@ -111,8 +140,13 @@ export function createTraps(level, { actor, life = null, health = null, things =
       }
       emit({ type: "reset" });
     },
+    rest() {
+      for (const t of list) t.impl?.rest?.(t, ctx);
+      emit({ type: "rest" });
+    },
     update(dt) {
       time += dt;
+      stepHop(dt);
       for (const [k, e] of skips) if (e <= time) skips.delete(k);
       const f = floorCell();
       if (!floor || f[0] !== floor[0] || f[1] !== floor[1]) {

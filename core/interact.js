@@ -226,9 +226,11 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     return true;
   };
 
+  const solved = new Set();
   const gateReady = (g) => {
     const cond = String(g.open || "");
     const [kind, id] = cond.split(":");
+    if (kind === "trap") return solved.has(id);
     const o = byId[id];
     if (!o) return false;
     if (kind === "chest") return o.state === "open";
@@ -258,6 +260,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       const e = things.find((t) => t.kind === "elevator" && t.role === role);
       return e && isWalkable(level, e.x, e.z) ? [e.x, e.z] : null;
     },
+    solve(id) { if (id) solved.add(String(id)); },
     get focus() { return focus; },
     get toastText() { return toastT > 0 ? toastText : ""; },
     get navigated() { return nav; },
