@@ -350,9 +350,63 @@ async function clip(out) {
   console.log(`${out}: ${n} frames, ${(n / fps).toFixed(1)} s`);
 }
 
+async function shortcutSay(level, id, kind, re, label) {
+  const probe = await open(`level=${level}&reset=1`);
+  const t = probe.done && await probe.page.evaluate(async (id) => {
+    const { ladderEnds } = await import("/core/interact.js");
+    const q = window.__game.state.things.byId[id];
+    if (!q) return null;
+    if (q.kind === "ladder") { const e = ladderEnds(q); return { from: e[1], to: e[0], kind: q.kind }; }
+    return { from: q.edge[0], to: q.edge[1], kind: q.kind };
+  }, id);
+  await probe.page.close();
+  if (!t) { record(`${label} on ${level}`, false, `no ${kind} ${id}`); return; }
+  const { page, problems, done } = await open(`level=${level}&reset=1&spawn=${t.from.join(",")}`);
+  if (!done) { record(`${label} on ${level}`, false, "page did not load"); await page.close(); return; }
+  await idle(page);
+  await wait(400);
+  const key = await page.evaluate(async (t) => {
+    const { screenToWorldDir } = await import("/core/game.js");
+    const { DIRS } = await import("/core/level.js");
+    const S = window.__game.state, d = [t.to[0] - t.from[0], t.to[1] - t.from[1]];
+    const dir = Object.keys(DIRS).find((k) => DIRS[k][0] === d[0] && DIRS[k][1] === d[1]);
+    for (const [code, sd] of [["KeyW", "up"], ["KeyD", "right"], ["KeyS", "down"], ["KeyA", "left"]]) if (screenToWorldDir(S.proj, sd) === dir) return code;
+    return null;
+  }, t);
+  const at = await cellOf(page);
+  if (kind !== "drop") {
+    const u = await ui(page);
+    await page.keyboard.press("KeyF");
+    await wait(300);
+    const said = await page.evaluate(() => window.__game.state.things.toastText);
+    record(`${label}: F says so`, at.join() === t.from.join() && !!u.prompt && re.test(said), `"${u.prompt}" -> "${said}" at ${at}`);
+  }
+  const n0 = await page.evaluate(() => window.__game.state.things.log.filter((l) => l.toast).length);
+  await page.keyboard.down(key);
+  await wait(500);
+  await page.keyboard.up(key);
+  await idle(page);
+  const log = await page.evaluate(() => window.__game.state.things.log.filter((l) => l.toast).map((l) => l.toast));
+  const after = await cellOf(page);
+  const bumps = log.slice(n0);
+  record(`${label}: walking into it says so once`, after.join() === t.from.join() && bumps.length === 1 && re.test(bumps[0]), `${key} from ${t.from} to ${after}: ${JSON.stringify(bumps)}`);
+  record(`${label}: page clean`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.evaluate((k) => localStorage.removeItem(k), `isoworld:things:${level}`);
+  await page.close();
+}
+
+async function shortcutSuite() {
+  const lv = await open(`level=${LEVEL}&reset=1`);
+  const ids = lv.done ? await lv.page.evaluate(() => window.__game.state.things.things.filter((t) => t.kind === "door" || t.kind === "ladder" || (t.kind === "gate" && /^lever:/.test(t.open || ""))).map((t) => ({ id: t.id, kind: t.kind === "ladder" && t.mode === "drop" ? "drop" : t.kind }))) : [];
+  await lv.page.close();
+  const SAY = { gate: [/won't budge/i, "lever gate before its lever"], door: [/not open from this side/i, "one-way door from the wrong side"], ladder: [/drawn up/i, "kick ladder from below"], drop: [/too high/i, "drop from below"] };
+  for (const { id, kind } of ids) await shortcutSay(LEVEL, id, kind, SAY[kind][0], SAY[kind][1]);
+  if (!ids.some((t) => t.kind === "drop")) await shortcutSay("wizard-medium-r2", "k1", "drop", SAY.drop[0], SAY.drop[1]);
+}
+
 try {
   if (clipOut) await clip(clipOut);
-  else await suite();
+  else { await suite(); await shortcutSuite(); }
 } finally {
   await browser.close();
 }

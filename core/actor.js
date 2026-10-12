@@ -39,8 +39,8 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
     if (a.path.length) return;
     const d = a.held || a.tapDir;
     a.tapDir = null;
-    if (typeof d === "function") { for (const x of d() || []) if (a.stepDir(x)) break; }
-    else if (d) a.stepDir(d);
+    const dirs = typeof d === "function" ? d() || [] : d ? [d] : [];
+    if (dirs.length && !dirs.some((x) => a.stepDir(x))) a.blocked?.(dirs[0]);
   };
 
   a.update = (dt) => {
