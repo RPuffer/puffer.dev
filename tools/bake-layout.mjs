@@ -13,9 +13,9 @@ if (ascii) fs.mkdirSync(path.join(root, flag("--ascii-dir", "out/layout")), { re
 
 export const BAKES = {
   "wizard-medium": [
-    { seed: 1, name: "wizard-medium-r1", features: "showpiece" },
-    { seed: 2, name: "wizard-medium-r2", mirror: true, drop: true, features: [["hill", { size: [3, 2] }], ["alcove", { size: [3, 3] }]] },
-    { seed: 3, name: "wizard-medium-r3", features: [["hill", { size: [3, 2] }], ["lookout", { size: [4, 3] }], ["inlet", { size: [2, 2] }]] },
+    { seed: 1, name: "wizard-medium-r1", archetype: "figure8", features: "showpiece" },
+    { seed: 2, name: "wizard-medium-r2", archetype: "comb", mirror: true, drop: true, features: [["hill", { size: [3, 2] }], ["alcove", { size: [3, 3] }]] },
+    { seed: 3, name: "wizard-medium-r3", archetype: "maze", features: [["hill", { size: [3, 2] }], ["lookout", { size: [4, 3] }], ["inlet", { size: [2, 2] }]] },
   ],
 };
 
@@ -26,8 +26,12 @@ const RUN_RECIPES = [
   [H([3, 2]), ["lookout", { size: [4, 3] }], ["inlet", { size: [2, 2] }]],
   [H([3, 2]), ["alcove", { size: [3, 3] }], ["lookout", { size: [4, 3] }]],
 ];
+export const RUN_TOPOLOGY = [
+  ["ring", false], ["switchback", false], ["spiral", false], ["maze", false], ["twin", false], ["figure8", false],
+  ["comb", false], ["twin", true], ["ring", true], ["maze", true], ["spiral", true], ["switchback", true],
+];
 const runOrder = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
-BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, drop: i % 3 === 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
+BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, archetype: RUN_TOPOLOGY[i % RUN_TOPOLOGY.length][0], mirror: RUN_TOPOLOGY[i % RUN_TOPOLOGY.length][1], drop: i % 3 === 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
 
 const readBase = (name) => {
   const b = path.join(root, "levels/base", `${name}.json`);
@@ -53,7 +57,7 @@ for (const [i, b] of list.entries()) {
   const { level, problems, attempt, history } = generateLayout(base, b);
   if (!b.run) for (const t of level.things) if (t.kind === "elevator") t.to = names[(i + (t.role === "exit" ? 1 : names.length - 1)) % names.length];
   const dist = routeDistances(level).map((s) => `${s.id} ${s.locked}->${s.unlocked}`).join(", ");
-  console.log(`${b.name}: seed ${b.seed} attempt ${attempt}${b.mirror ? " mirrored" : ""}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}`);
+  console.log(`${b.name}: ${b.archetype}${b.mirror ? " mirrored" : ""}, seed ${b.seed} attempt ${attempt}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}`);
   if (args.includes("--why")) for (const [k, h] of (history || []).entries()) console.log(`  attempt ${k}: ${h.join(" | ")}`);
   if (problems.length) { failed++; console.log("  FAIL\n  " + problems.slice(0, 12).join("\n  ")); }
   if (ascii) fs.writeFileSync(path.join(flag("--ascii-dir", "out/layout"), `${b.name}.txt`), draw(level) + "\n" + problems.join("\n") + "\n");
