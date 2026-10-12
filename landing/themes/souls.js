@@ -1,5 +1,5 @@
 const data = await (await fetch(new URL("../classes.json", import.meta.url))).json();
-const HERO_V = "1";
+const HERO_V = "2";
 const heroArt = (id) => new URL(`../hero-${id}.jpg?v=${HERO_V}`, import.meta.url).href;
 
 const css = `
