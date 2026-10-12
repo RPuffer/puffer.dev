@@ -49,7 +49,7 @@ body.t-souls .bed{display:none}
 .sc-head img{width:52px;height:52px}.sc-head h1{font-size:23px}
 .sc-hero{min-height:0;aspect-ratio:16/10}
 .sc-rows{grid-template-columns:1fr}.sc-rows div:first-child{display:none}.sc-rows div{padding:0 10px}
-.sc-class output{min-width:0;flex:1;font-size:16px}.sc-class dd{flex:1;justify-content:flex-end}.sc-rows .sc-class{gap:8px}
+.sc-class output{min-width:0;flex:1;font-size:16px}.sc-class dd{flex:1;justify-content:flex-end}.sc-rows .sc-class{gap:8px;margin-top:14px}
 .sc-att li{grid-template-columns:1fr 2ch;gap:6px 10px}.sc-bar{grid-column:1/-1;grid-row:2}
 .sc-go{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:10px 12px max(10px,env(safe-area-inset-bottom,0px));background:#160f15f2;border-top:2px solid var(--edge)}
 .sc-go a{flex:1;min-width:0;padding:12px 8px}

@@ -40,8 +40,8 @@ export async function wire({ begin, cont, label }) {
     begin.parentNode.append(begin);
     let armed = 0;
     begin.addEventListener("click", (e) => {
-      if (armed) return;
       e.preventDefault();
+      if (armed) { for (const n of order) try { localStorage.removeItem(KEY(n)); } catch {} location.reload(); return; }
       e.stopImmediatePropagation();
       begin.textContent = "Tap again to reset";
       armed = setTimeout(() => { armed = 0; begin.textContent = "Reset"; }, 3000);

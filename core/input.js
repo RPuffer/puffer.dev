@@ -5,7 +5,7 @@ const KEYS = {
 const TURNS = { KeyQ: -1, KeyE: 1 };
 const ZOOM_KEYS = { Equal: 1, NumpadAdd: 1, Minus: -1, NumpadSubtract: -1 };
 export const SWIPE = 64, PINCH = 1.3;
-export const HOLD = 0.42;
+export const HOLD = 0.28;
 export const ROSE_TILT = Math.sin(35.264 * Math.PI / 180);
 export const ROSE_DIRS = ["n", "e", "s", "w"];
 
@@ -31,7 +31,7 @@ const BAND_CSS = `
 .iw-act.on{transform:translateY(5px);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 3px 0 5px rgba(20,24,31,.8)}
 html[data-iw-act="1"] .iw-act{animation:iw-glow 1.1s ease-in-out infinite alternate}
 @keyframes iw-glow{from{box-shadow:0 0 0 5px #12c4f0,0 8px 0 5px rgba(20,24,31,.8),0 0 6px 6px rgba(18,196,240,.25)}to{box-shadow:0 0 0 5px #5fe3ff,0 8px 0 5px rgba(20,24,31,.8),0 0 18px 10px rgba(18,196,240,.45)}}
-.iw-rose{--r:min(calc(var(--g) * 1.5),44vw);position:absolute;left:50%;top:50%;width:var(--r);height:calc(var(--r) * .64);margin:calc(var(--r) * -.32) 0 0 calc(var(--r) / -2);pointer-events:none}
+.iw-rose{--r:min(calc(var(--g) * 1.67),47vw);position:absolute;left:50%;top:50%;width:var(--r);height:calc(var(--r) * .636);margin:calc(var(--r) * -.318) 0 0 calc(var(--r) / -2);pointer-events:none}
 .iw-rose svg{display:block;width:100%;height:100%;overflow:visible}
 .iw-rose .hit-r{position:absolute;inset:-14% -8%;pointer-events:auto;touch-action:none}
 .iw-rose .ring{transition:transform .62s cubic-bezier(.34,1.56,.64,1)}
@@ -171,9 +171,9 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
       s: '<path d="M0 -13L3.6 -3.6L13 0L3.6 3.6L0 13L-3.6 3.6L-13 0L-3.6 -3.6Z" fill="#ff4fa8"/>',
       w: '<path d="M-13 0Q0 -11 13 0Q0 11 -13 0Z" fill="#a6f04b"/><circle r="4.2" fill="#1a1230"/>',
     };
-    const ring = ROSE_DIRS.map((d, j) => `<g class="iw-glyph" data-dir="${d}" transform="rotate(${j * 90}) translate(0 -105) scale(1.3)"><g stroke="#1a1230" stroke-width="2.5" stroke-linejoin="round" paint-order="stroke">${glyphs[d]}</g></g>`).join("");
+    const ring = ROSE_DIRS.map((d, j) => `<g class="iw-glyph" data-dir="${d}" transform="rotate(${j * 90}) translate(0 -117) scale(1.2)"><g stroke="#1a1230" stroke-width="2.5" stroke-linejoin="round" paint-order="stroke">${glyphs[d]}</g></g>`).join("");
     const pets = [0, 1, 2, 3].map((i) => `<g class="iw-petal" data-i="${i}"><path class="side" transform="translate(0 8) ${plane(45 + 90 * i)}" d="${leaf}"/><g class="lift"><path class="pet" transform="${plane(45 + 90 * i)}" d="${leaf}"/><path class="chg" pathLength="100" transform="${plane(45 + 90 * i)}" d="${leaf}"/></g></g>`).join("");
-    return `<div class="iw-rose" style="--hold:${HOLD}s"><svg viewBox="-126 -74 252 160" aria-hidden="true"><defs><linearGradient id="iw-pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fa8"/><stop offset=".5" stop-color="#7a4dff"/><stop offset="1" stop-color="#12c4f0"/></linearGradient><radialGradient id="iw-rg"><stop offset="0" stop-color="#2a1c5a"/><stop offset="1" stop-color="#120a30"/></radialGradient></defs><ellipse cx="0" cy="9" rx="121" ry="${(121 * ROSE_TILT).toFixed(1)}" fill="rgba(6,4,20,.7)"/><g transform="${plane(45)}"><circle r="118" fill="url(#iw-rg)" stroke="#1a1230" stroke-width="5"/><circle r="106" fill="none" stroke="#5fe3ff" stroke-width="2" stroke-dasharray="3 8" opacity=".8"/><circle r="62" fill="none" stroke="#ffd76a" stroke-width="2" opacity=".55"/><g class="ring">${ring}</g></g>${pets}<ellipse rx="13" ry="${(13 * ROSE_TILT).toFixed(1)}" fill="#1a1230"/><ellipse rx="6" ry="${(6 * ROSE_TILT).toFixed(1)}" fill="#fff"/></svg><div class="hit-r" role="group" aria-label="compass rose"></div></div>`;
+    return `<div class="iw-rose" style="--hold:${HOLD}s"><svg viewBox="-140 -84 280 178" aria-hidden="true"><defs><linearGradient id="iw-pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fa8"/><stop offset=".5" stop-color="#7a4dff"/><stop offset="1" stop-color="#12c4f0"/></linearGradient><radialGradient id="iw-rg"><stop offset="0" stop-color="#2a1c5a"/><stop offset="1" stop-color="#120a30"/></radialGradient></defs><ellipse cx="0" cy="9" rx="137" ry="${(137 * ROSE_TILT).toFixed(1)}" fill="rgba(6,4,20,.7)"/><g transform="${plane(45)}"><circle r="134" fill="url(#iw-rg)" stroke="#1a1230" stroke-width="5"/><circle r="104" fill="none" stroke="#5fe3ff" stroke-width="2" stroke-dasharray="3 8" opacity=".8"/><circle r="62" fill="none" stroke="#ffd76a" stroke-width="2" opacity=".55"/><g class="ring">${ring}</g></g>${pets}<ellipse rx="13" ry="${(13 * ROSE_TILT).toFixed(1)}" fill="#1a1230"/><ellipse rx="6" ry="${(6 * ROSE_TILT).toFixed(1)}" fill="#fff"/></svg><div class="hit-r" role="group" aria-label="compass rose"></div></div>`;
   };
   const showBand = () => {
     if (band) return;
