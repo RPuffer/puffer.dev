@@ -6,18 +6,32 @@ Code: `core/layout/` (browser-safe generator), `3d/pieces/kits.js` (decor kits),
 
 ## Route grammar
 
-The current grammar is `hub-and-ring`: the artwork core sits in the middle, the route runs a ring around it, and shortcuts cut back across the ring (P2).
+The grammar is a fixed frame plus a route topology (P2, P7, and practice 8 in the research). The artwork core sits right of centre, the bonfire plaza below it, the exit causeway east. The journey from the plaza to the core gate comes from one of seven archetypes in `core/layout/topology.js`.
 
-- **Spine.** Entry lift, bonfire plaza, outer road, north road, the core gate, the core terrace, the dais climb, the exit causeway, exit lift. Drawn first (P1). Every other piece must leave it intact.
-- **Core.** The transcribed drawing keeps its figure, tower and spires as the landmark. The spine approaches it, passes the watcher gate, circles it on the terrace (a C, sealed at one corner by the tower and at another by two spires), climbs to the dais and circles the figure three quarters of the way before it leaves.
-- **Loops.** Each loop is two arcs between the same two nodes. The outer road and the chord form one; the terrace and the dais form another; each shortcut closes a third through the core.
+- **Frame.** Entry lift, bonfire plaza, low road, core gate, core terrace, dais climb, exit causeway, exit lift. The terrace is a C, sealed at one corner by the tower and at another by two spires; the dais circles the figure three quarters of the way before it leaves. The grid is 29x37 so the journey has a west band three corridors wide and a north band three corridors deep.
+- **Lattice.** Journey corridors run on nodes three cells apart: columns at x 1, 4, 7 in the west band, rows at z 2, 5, 8 across the north band. The low road meets the lattice at node S (7,26); the approach leaves it at node E (16,8). Each lattice edge stamps as its own owner, so two corridors that share no node part with a water channel or a cliff, never a strip of grass you can cut across.
+- **Archetypes.** A seed picks one, then the archetype rolls its parameters.
+
+| Archetype | Shape | Lever chord |
+| --- | --- | --- |
+| `ring` | south row, up the west column, across the north row | the inner column straight down to S |
+| `figure8` | two lobes crossing at one node on the west column | the bonfire lobe's short arc |
+| `spiral` | up the west column, east along the top row, back west one row lower into E; climbs h1 to h3 | a column inside the west band from the top row to S |
+| `switchback` | a tight zigzag between two west columns, one tier up every few turns | the free column from the top row to S |
+| `comb` | straight west, up the west column, east to E, with dead-end teeth off the spine | the inner column to S |
+| `twin` | two parallel climbs that split near S and rejoin under the north row, each with its ramp at a different height | the third column to S |
+| `maze` | randomised Prim's over the whole lattice, rooted away from the bonfire, then braided | the unused edge near S with the longest walk between its ends |
+
+- **Loops.** Every archetype closes at least one loop through the lever chord. Twin and figure8 add a loop whose two arcs both stay open; the maze adds braids.
 - **Shortcuts** (Dormans' valves, P2). Each one joins a late cell (far side) to a cell near the bonfire (near side) and works one way until the player opens it from the far side:
   - *Door*: shuts an edge; only the far cell can open it. From the near side the prompt reads "Try the door".
   - *Ladder*: links a cliff top to the cell two or more tiers below once kicked from the top. A *drop* links top to bottom only, for good.
-  - *Lever*: a gate elsewhere whose `open` is `lever:<id>`. The existing gate code lifts it.
-- **Gates.** The watcher gate is the only way onto the core before any shortcut opens. Lever gates sit on a chord near the bonfire.
-- **Bonfire.** In the plaza, within three cells of spawn and at least three from any lock, so the walk home always ends somewhere you can see.
-- **Vistas.** The bonfire, the north peninsula pad and the gate threshold each keep a clear sightline to the core figure: no decor taller than 1.2 on that line.
+  - *Lever*: the lever stands by the chord's top node; its gate sits on the chord's last cell before the node nearest the bonfire. All three valves end at the plaza or the low road.
+- **Gates.** The watcher gate is the only way onto the core before any shortcut opens.
+- **Bonfire.** In the plaza, within three cells of spawn, at least three from any lock, and never on a cell in front of spawn from the camera, so a tap beside spawn lands on ground.
+- **Chest.** On a stone pad past a dead end on the lattice rim, facing the dead end.
+- **Vistas.** The bonfire, the chest and the gate threshold each keep a clear sightline to the core figure: no decor taller than 1.2 on that line.
+- **Mirror.** A mirrored bake flips the finished level in x, including decor and thing rotations. The bonfire rule above keeps spawn taps clear in both orientations.
 
 ## Feature modules (P3)
 
@@ -41,7 +55,7 @@ The last four are late modules. They grow onto the island after the flanks, the 
 | `alcove` | a one-wide neck and a 3x3 room off a road's flank | the room hangs over the drop at the road's height; only the neck touches the island, so the room reads as its own place |
 | `inlet` | a 2x3 bay of water cut from the rim | never on a path cell, never beside a ramp or lift; it breaks a straight shore and gives the decor pass a bank |
 
-A seed names its features as a recipe in `tools/bake-layout.mjs` (`features: "showpiece"` or a list of `[module, opts]`). `RECIPES` in `core/layout/index.js` holds the named ones. Every wizard seed places a hill; r1 places all four.
+A seed names its features as a recipe in `tools/bake-layout.mjs` (`features: "showpiece"` or a list of `[module, opts]`). `RECIPES` in `core/layout/index.js` holds the named ones. Every wizard seed places a hill. A module drops out when no legal site is left, so r1 asks for all four and gets hill, alcove and inlet.
 
 ## Land grows from the route
 
@@ -108,7 +122,9 @@ Each baked level carries `route` metadata: `segments` (id, role, path cells, lin
 
 ## The run islands
 
-All twelve islands of `levels/run.json` are route-first. `node tools/bake-layout.mjs --base run` reads each island's artwork level from `levels/base/<name>.json` and writes `levels/<name>.json`, with fixed seeds 101 to 112 so every bake is the same. Four feature recipes rotate down the run, and every third uses a one-way drop in place of the kicked ladder.
+All twelve islands of `levels/run.json` are route-first. `node tools/bake-layout.mjs --base run` reads each island's artwork level from `levels/base/<name>.json` and writes `levels/<name>.json`, with fixed seeds 101 to 112 so every bake is the same. `RUN_TOPOLOGY` in the bake tool gives each island an archetype and orientation: ring, switchback, spiral, maze, twin, figure8, comb, then twin, ring, maze, spiral and switchback mirrored. Four feature recipes rotate down the run, and every third uses a one-way drop in place of the kicked ladder. wizard-medium-r1 to r3 take figure8, comb mirrored and maze.
+
+`tools/qa-route.mjs` fingerprints each run island: path cells reduce to corridor edges on the three-cell lattice, and two islands that match on 80 percent of their edges, with one cell of slack, fail as duplicates. It also wants six archetypes or more and no two neighbours in run order with the same archetype and orientation.
 
 An island keeps its identity through the base level: palette, light and background, its pieces modules, its focal creature (the decor marked `watch`) as the core figure and watcher, and its chest text. `profileFor(base)` in `core/layout/decor.js` reads the rest from the island's own decor:
 
@@ -123,4 +139,4 @@ Kits outside the wizard set take their colours from the island palette (`themeFr
 
 ## Live regeneration boundary
 
-`core/layout/*` is pure ES modules with a seeded RNG (`core/rng.js`) and no node imports. A page can call `generateLayout(base, { seed, mirror, drop })` after `loadPieces` has registered the island's catalog, then hand the result to `prepareLevel`. The node wrapper `tools/bake-layout.mjs` only registers pieces, writes JSON and prints the shortcut distances. The fixed frame (core figure, lift edges, bonfire role) stays the same across seeds (P7).
+`core/layout/*` is pure ES modules with a seeded RNG (`core/rng.js`) and no node imports. A page can call `generateLayout(base, { seed, archetype, mirror, drop })` after `loadPieces` has registered the island's catalog, then hand the result to `prepareLevel`. The node wrapper `tools/bake-layout.mjs` only registers pieces, writes JSON and prints the shortcut distances. The fixed frame (core figure, lift edges, bonfire role) stays the same across seeds (P7); the archetype and its rolls change the journey.
