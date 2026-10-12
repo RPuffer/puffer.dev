@@ -7,6 +7,7 @@ import { createTweens, ease } from "./tween.js";
 import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
 import { liftDeck, beamGeometry, beamMaterial } from "./lift.js";
 import { GATE_LIFT } from "../core/interact.js";
+import { buildBeckon } from "./beckon.js";
 
 export const RISE = 2.4;
 const t3 =(c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
@@ -297,10 +298,14 @@ export function buildThings(L, view, style, decorGroup, live = null) {
     if (e.type === "unwatch") tweens.to(m.userData, "glow", 0, { duration: 0.8, easing: ease.inOut });
   };
 
+  const beckon = buildBeckon(L, view, parts);
+  group.add(beckon.group);
+
   return {
     group,
     parts,
     shafts,
+    beckon,
     onEvent,
     rideOffset(state) {
       for (const t of state.things?.things || []) if (t.kind === "elevator" && t.lift != null) return t.lift;
@@ -327,6 +332,7 @@ export function buildThings(L, view, style, decorGroup, live = null) {
         }
         else if (t.kind === "watcher") applyWatcher(t, m);
       }
+      beckon.update(state, dt);
     },
   };
 }
