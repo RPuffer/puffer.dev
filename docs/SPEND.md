@@ -231,4 +231,8 @@ Total: $2.835
 
 2026-10-11 | fal-ai/nano-banana/edit | 1 | 0.039 | decor kit sheet: six wizard kits on one image (star shrine, camp, supply landing, scroll cart, rune ring, waymark), kept first try as pipeline/multitile/kits-sheet.png
 
-Running total: $34.654
+## Class models
+
+2026-10-11 | fal-ai/nano-banana/edit | 4 | 0.156 | class concept sheets: four options per class (wretch, aws, dutchie, nm) on one image each, kept first try, out/class-models/concepts/
+
+Running total: $34.810
