@@ -39,11 +39,15 @@ export function disposeTree(root, keep = new Set()) {
 }
 
 export const ZOOMS = [1, 1.5, 2, 3, 4], ZOOM_DEFAULT = 3, ZOOM_KEY = "isoworld:zoom";
-export function savedZoom(storage = globalThis.localStorage) {
-  try { const v = Number(storage?.getItem(ZOOM_KEY)); return ZOOMS.includes(v) ? v : ZOOM_DEFAULT; } catch { return ZOOM_DEFAULT; }
+export const TOUCH_ZOOMS = [1, 1.5, 2, 3, 4, 5, 6, 7], TOUCH_ZOOM_DEFAULT = 5, TOUCH_ZOOM_KEY = "isoworld:zoom:touch";
+export const touchView = (params = {}) => params.touch === "1" || params.dpad === "1" || (params.touch !== "0" && typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches);
+const zoomSet = (touch) => touch ? [TOUCH_ZOOMS, TOUCH_ZOOM_DEFAULT, TOUCH_ZOOM_KEY] : [ZOOMS, ZOOM_DEFAULT, ZOOM_KEY];
+export function savedZoom(storage = globalThis.localStorage, touch = false) {
+  const [Z, D, K] = zoomSet(touch);
+  try { const v = Number(storage?.getItem(K)); return Z.includes(v) ? v : D; } catch { return D; }
 }
-export function saveZoom(v, storage = globalThis.localStorage) {
-  try { storage?.setItem(ZOOM_KEY, String(v)); } catch {}
+export function saveZoom(v, storage = globalThis.localStorage, touch = false) {
+  try { storage?.setItem(zoomSet(touch)[2], String(v)); } catch {}
 }
 
 export function createRenderer(container = document.body) {
@@ -158,7 +162,7 @@ export function createRenderer(container = document.body) {
     mount(state, st = makeStyle(state.level)) {
       const style = st;
       S = state;
-      setCam(state.params.cam != null && state.params.cam !== "" ? state.params.cam : state.params.hero === "0" ? 1 : savedZoom());
+      setCam(state.params.cam != null && state.params.cam !== "" ? state.params.cam : state.params.hero === "0" ? 1 : savedZoom(undefined, touchView(state.params)));
       initMotion(state.params);
       const L = state.level, seed = state.params.seed;
       scene.background = new THREE.Color(style.bg);
@@ -262,14 +266,15 @@ export function createRenderer(container = document.body) {
     setCam(v) { setCam(v); resize(); },
     zoomStep(step) {
       if (!step || !S) return false;
+      const touch = touchView(S.params), Z = zoomSet(touch)[0];
       const cur = Number(cam) > 0 ? mulTo : 1;
-      let i = ZOOMS.findIndex((z) => z >= cur - 1e-6);
-      if (i < 0) i = ZOOMS.length - 1;
-      else if (step < 0 && ZOOMS[i] > cur + 1e-6) i--;
-      const to = ZOOMS[Math.max(0, Math.min(ZOOMS.length - 1, i + Math.sign(step)))];
+      let i = Z.findIndex((z) => z >= cur - 1e-6);
+      if (i < 0) i = Z.length - 1;
+      else if (step < 0 && Z[i] > cur + 1e-6) i--;
+      const to = Z[Math.max(0, Math.min(Z.length - 1, i + Math.sign(step)))];
       if (to === cur && cam !== "close") return false;
       setCam(to, true);
-      saveZoom(to);
+      saveZoom(to, undefined, touch);
       return true;
     },
     get drop() { return drop; },
