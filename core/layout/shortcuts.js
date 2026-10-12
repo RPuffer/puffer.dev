@@ -158,7 +158,7 @@ export function drawShortcuts(SH, M, rng, { kinds = ["door", "lever"], windows =
 
   const padPair = SH.pads.find((p) => p.role === "shortcut");
   const synthPad = () => {
-    if (M.noPads || out.some((q) => q.kind === "pad")) return false;
+    if (M.noPads || out.some((q) => q.kind === "pad") || SH.pads.length + (M.exitPad ? 1 : 0) >= 3) return false;
     const busy = new Set(SH.pads.flatMap((p) => [SH.uk(p.near), SH.uk(p.far)]));
     const win = windows ? windows[Math.min(out.length, windows.length - 1)] : [0.5, 0.95];
     const cands = M.main.filter((u, i) => {
@@ -175,7 +175,7 @@ export function drawShortcuts(SH, M, rng, { kinds = ["door", "lever"], windows =
   for (const kind of kinds) {
     if (out.length >= count) break;
     if (kind === "pad") {
-      if (M.noPads) continue;
+      if (M.noPads || SH.pads.filter((p) => p.role !== "shortcut").length + (M.exitPad ? 1 : 0) >= 3) continue;
       if (!padPair) { synthPad(); continue; }
       const nearU = SH.uk(padPair.near), farU = SH.uk(padPair.far);
       const nearLink = connectPad(M, rng, nearU);
