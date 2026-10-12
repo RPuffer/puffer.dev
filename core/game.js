@@ -5,6 +5,9 @@ import { createRoute } from "./route.js";
 import { DIRS, isWalkable } from "./level.js";
 import { makeProjection, viewFrom } from "./iso.js";
 import { createInteract, storageKey } from "./interact.js";
+import { createHealth } from "./health.js";
+import { createLife } from "./life.js";
+import { createTraps } from "./traps/index.js";
 
 export const STEP = 1 / 60;
 
@@ -48,7 +51,7 @@ export function saveYaw(name, yaw, storage = globalThis.localStorage) {
 }
 
 export function createGame(renderer, params = readParams()) {
-  const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null, route: createRoute(), mark: null };
+  const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null, route: createRoute(), mark: null, health: createHealth(), life: null, traps: null };
   let screenHeld = null;
 
   const input = createInput(renderer.element || document.body, { touch: params.dpad === "1" || params.touch === "1" ? true : "auto", controls: params.controls === "stick" ? "stick" : "rose" });
@@ -123,6 +126,8 @@ export function createGame(renderer, params = readParams()) {
     state.actor.update(STEP);
     state.route.update();
     state.things?.update(STEP);
+    state.traps?.update(STEP);
+    state.life?.update(STEP);
     for (const f of tickers) f(STEP);
     input.setBusy(!!state.actor.locked);
     renderer.update?.(state, STEP);
@@ -160,6 +165,7 @@ export function createGame(renderer, params = readParams()) {
     get yaw() { return wrapYaw(state.turn ? state.turn.to : state.view?.yaw ?? 45); },
     load(level, { arrive = params.arrive, spawn = params.spawn, reset = params.reset, from = params.from, at = null, navigate, keep = false } = {}) {
       state.things?.dispose();
+      state.traps?.dispose();
       if (state.level && !keep) renderer.unmount?.(state);
       const p = { ...params, level: level.name, arrive, spawn, reset, from };
       for (const k of ["arrive", "spawn", "reset", "from"]) if (p[k] == null) delete p[k];
@@ -181,13 +187,18 @@ export function createGame(renderer, params = readParams()) {
       things?.bind(actor);
       state.route.bind(actor);
       state.mark = null;
-      Object.assign(state, { level, view, proj, actor, params: p, things });
+      const health = state.health;
+      let traps = null;
+      const life = createLife({ level, actor, things, health, onRespawn: () => { state.route.clear(); traps?.reset(); } });
+      traps = level.traps?.length ? createTraps(level, { actor, life, health, things, params: p }) : null;
+      things?.on((e) => { if (e.type === "lit" || e.type === "rest") health.refill(e.type); });
+      Object.assign(state, { level, view, proj, actor, params: p, things, life, traps });
       if (renderer.mount) renderer.mount(state); else renderer.init?.(state);
       renderer.update?.(state, 0);
       if (!started) { started = running = true; acc = 0; last = performance.now(); raf = requestAnimationFrame(frame); }
       return state;
     },
-    stop() { running = false; cancelAnimationFrame(raf); input.dispose(); state.things?.dispose(); },
+    stop() { running = false; cancelAnimationFrame(raf); input.dispose(); state.things?.dispose(); state.traps?.dispose(); },
     pause() { running = false; cancelAnimationFrame(raf); },
     resume() { if (running || !started) return; running = true; acc = 0; last = performance.now(); raf = requestAnimationFrame(frame); },
     advance(seconds) {
