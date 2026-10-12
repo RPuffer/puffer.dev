@@ -1,0 +1,207 @@
+{
+ "thresholds": {
+  "footprintMax": 0.55,
+  "footprintMean": 0.4,
+  "centreMax": 0.6,
+  "centreMean": 0.45,
+  "commonLand": 0.15,
+  "commonPath": 0.1,
+  "centrepiecePerNinth": 3,
+  "shapesDistinct": 8,
+  "multiLandmass": 4,
+  "farDistinct": 10,
+  "farNinths": 3
+ },
+ "metrics": {
+  "islands": [
+   "cat-medium",
+   "wizard-medium",
+   "swallow-medium",
+   "forest-volute",
+   "mindbloom-medium",
+   "cosmos-frisket",
+   "gremlin-subject",
+   "eagle-composition",
+   "dragon-medium",
+   "sharkbear-medium",
+   "chimera-medium",
+   "ember-subject"
+  ],
+  "fingerprint": {
+   "mean": 0.575,
+   "min": 0.347,
+   "max": 0.977
+  },
+  "footprint": {
+   "mean": 0.634,
+   "min": 0.454,
+   "max": 0.857
+  },
+  "centre": {
+   "mean": 0.723,
+   "min": 0.561,
+   "max": 0.954
+  },
+  "commonLand": {
+   "cells": 261,
+   "meanLand": 571.7,
+   "share": 0.457
+  },
+  "commonPath": {
+   "cells": 58,
+   "meanPath": 169.9,
+   "share": 0.341
+  },
+  "centrepieceNinths": [
+   0,
+   0,
+   0,
+   0,
+   12,
+   0,
+   0,
+   0,
+   0
+  ],
+  "centrepieces": [
+   [
+    15,
+    16
+   ],
+   [
+    15,
+    16
+   ],
+   [
+    15,
+    16
+   ],
+   [
+    15,
+    16
+   ],
+   [
+    15,
+    16
+   ],
+   [
+    15,
+    16
+   ],
+   [
+    15,
+    16
+   ],
+   [
+    16,
+    16
+   ],
+   [
+    16,
+    16
+   ],
+   [
+    16,
+    16
+   ],
+   [
+    16,
+    16
+   ],
+   [
+    16,
+    16
+   ]
+  ],
+  "shortcutSpread": {
+   "door": {
+    "count": 12,
+    "distinctFar": 2,
+    "distinctNear": 2,
+    "farNinths": 1
+   },
+   "ladder": {
+    "count": 8,
+    "distinctFar": 3,
+    "distinctNear": 3,
+    "farNinths": 2
+   },
+   "lever": {
+    "count": 12,
+    "distinctFar": 7,
+    "distinctNear": 3,
+    "farNinths": 3
+   },
+   "drop": {
+    "count": 4,
+    "distinctFar": 4,
+    "distinctNear": 4,
+    "farNinths": 1
+   }
+  },
+  "shapes": 1,
+  "multiLandmass": 0
+ },
+ "results": [
+  {
+   "name": "variety route fingerprints differ under all eight rotations and mirrors",
+   "ok": false,
+   "detail": "4 pairs at 0.8+: swallow-medium/chimera-medium 0.977 | mindbloom-medium/eagle-composition 0.975 | wizard-medium/ember-subject 0.906 | gremlin-subject/dragon-medium 0.831"
+  },
+  {
+   "name": "variety footprint Jaccard (best transform) stays low",
+   "ok": false,
+   "detail": "max 0.857 (limit 0.55), mean 0.634 (limit 0.4)"
+  },
+  {
+   "name": "variety centre windows differ",
+   "ok": false,
+   "detail": "18x21 window on the bbox centre: max 0.954 (limit 0.6), mean 0.723 (limit 0.45)"
+  },
+  {
+   "name": "variety land common to every island stays small",
+   "ok": false,
+   "detail": "261 cells, 45.7% of mean 571.7 (limit 15%)"
+  },
+  {
+   "name": "variety path common to every island stays small",
+   "ok": false,
+   "detail": "58 cells, 34.1% of mean 169.9 (limit 10%)"
+  },
+  {
+   "name": "variety centrepieces spread over the bounding-box ninths",
+   "ok": false,
+   "detail": "per ninth 0 0 0 0 12 0 0 0 0 (limit 3)"
+  },
+  {
+   "name": "variety door shortcut far ends spread",
+   "ok": false,
+   "detail": "12 doors, 2 distinct far cells (want 10), 1 ninths (want 3), 2 distinct near cells"
+  },
+  {
+   "name": "variety ladder shortcut far ends spread",
+   "ok": false,
+   "detail": "8 ladders, 3 distinct far cells (want 8), 2 ninths (want 3), 3 distinct near cells"
+  },
+  {
+   "name": "variety lever shortcut far ends spread",
+   "ok": false,
+   "detail": "12 levers, 7 distinct far cells (want 10), 3 ninths (want 3), 3 distinct near cells"
+  },
+  {
+   "name": "variety drop shortcut far ends spread",
+   "ok": false,
+   "detail": "4 drops, 4 distinct far cells (want 4), 1 ninths (want 3), 4 distinct near cells"
+  },
+  {
+   "name": "variety run uses enough distinct shapes",
+   "ok": false,
+   "detail": "1 (want 8)"
+  },
+  {
+   "name": "variety run has multi-landmass islands",
+   "ok": false,
+   "detail": "0 (want 4)"
+  }
+ ]
+}
