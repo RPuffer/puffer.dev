@@ -20,8 +20,8 @@ export const MACHINES = [
   ["approach", "an avenue of waymarks on both shoulders of the road into the core gate, low enough to keep the view"],
   ["turns", "a kit on the outside of a route turn, tall when there is room two cells back, low set dressing when only the shoulder is free"],
   ["gateways", "a pair of waymarks where a road leaves a junction"],
-  ["pockets", "a camp or a one-family grove in each off-path pocket, at least six cells apart"],
-  ["rim", "a few tall spires on convex corners of the rim"],
+  ["pockets", "a camp or a one-family grove in each off-path pocket, at least six cells apart, the largest pocket of each landmass first"],
+  ["rim", "a few tall spires on convex corners of the rim, at least one on every landmass"],
 ];
 
 const SIDE_ROT = { s: 0, w: 1, n: 2, e: 3 };
@@ -85,6 +85,23 @@ export function reservedCells(level) {
   return res;
 }
 
+export function landmassMap(level) {
+  const [W, D] = level.size, out = new Map();
+  const land = (x, z) => x >= 0 && z >= 0 && x < W && z < D && level.cells[z][x].s !== "none" && level.cells[z][x].s !== "water";
+  let id = 0;
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
+    if (!land(x, z) || out.has(key(x, z))) continue;
+    const q = [[x, z]];
+    out.set(key(x, z), id);
+    for (let i = 0; i < q.length; i++) for (const [dx, dz] of N4) {
+      const a = q[i][0] + dx, b = q[i][1] + dz;
+      if (land(a, b) && !out.has(key(a, b))) { out.set(key(a, b), id); q.push([a, b]); }
+    }
+    id++;
+  }
+  return out;
+}
+
 function pathDistance(level) {
   const [W, D] = level.size, dist = new Map(), q = [];
   level.cells.forEach((row, z) => row.forEach((c, x) => { if (c.p) { dist.set(key(x, z), 0); q.push([x, z]); } }));
@@ -139,7 +156,7 @@ export function placeDecor(level, base, plan, rng, noise) {
   const fire = level.things.find((t) => t.kind === "bonfire"), chest = level.things.find((t) => t.kind === "chest"), gate = level.things.find((t) => t.open === "watcher:w1");
   const vistas = [[fire.x, fire.z], [chest.x, chest.z], gate.threshold[0]];
   plan.vistas = vistas.map((v) => v.slice());
-  const sight = new Set(vistas.flatMap((v) => line(v, centre)).map(([x, z]) => key(x, z)));
+  const sight = new Set([...vistas.flatMap((v) => line(v, centre)), ...(plan.rewardLines || []).flatMap(([a, b]) => line(a, b))].map(([x, z]) => key(x, z)));
 
   const lane = (start) => {
     const h = cellAt(...start)?.h, prev = new Map([[key(...start), null]]), q = [start];
@@ -234,9 +251,9 @@ export function placeDecor(level, base, plan, rng, noise) {
   const lead = base.decor.find((d) => d.watch);
   if (lead) put({ ...lead, x: fx, z: fz, watch: "w1" }, { core: true });
   const lm = P.landmark && CATALOG[P.landmark];
-  const towerFits = lm && lm.footprint[0] === 2 && lm.footprint[1] === 2;
+  const towerFits = !!core.blocks.tower && lm && lm.footprint[0] === 2 && lm.footprint[1] === 2;
   if (towerFits) put({ t: P.landmark, x: core.blocks.tower[0], z: core.blocks.tower[1] }, { core: true });
-  else { const [tx, tz] = core.blocks.tower; for (const [x, z] of [[tx, tz], [tx + 1, tz], [tx, tz + 1], [tx + 1, tz + 1]]) put({ t: P.spire, x, z, v: (x + z) % 2 }, { core: true }); }
+  else if (core.blocks.tower) { const [tx, tz] = core.blocks.tower; for (const [x, z] of [[tx, tz], [tx + 1, tz], [tx, tz + 1], [tx + 1, tz + 1]]) put({ t: P.spire, x, z, v: (x + z) % 2 }, { core: true }); }
   for (const [x, z] of core.blocks.spires) put({ t: P.spire, x, z, v: (x + z) % 2 }, { core: true });
   if (lead) {
     const dx = fx - lead.x, dz = fz - lead.z;
@@ -356,7 +373,14 @@ export function placeDecor(level, base, plan, rng, noise) {
     }
     if (comp.length >= 3) pockets.push(comp);
   }
+  const massOf = landmassMap(level);
   pockets.sort((a, b) => b.length - a.length);
+  const seenMass = new Set();
+  pockets.sort((a, b) => {
+    const ma = massOf.get(key(...a[0])), mb = massOf.get(key(...b[0]));
+    const fa = seenMass.has(ma) ? 1 : (seenMass.add(ma), 0), fb = seenMass.has(mb) ? 1 : 0;
+    return fa - fb;
+  });
   let camps = 0;
   const groves = [];
   const grove = (comp, centre) => {
@@ -410,9 +434,13 @@ export function placeDecor(level, base, plan, rng, noise) {
   }
   rng.shuffle(rims);
   const spires = [];
-  for (const [x, z] of rims) {
-    if (spires.length >= 6 || spires.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) continue;
-    if (put({ t: P.spire, x, z, v: variant(P.spire), ...jitter() })) spires.push([x, z]);
+  const masses = [...new Set(rims.map(([x, z]) => massOf.get(key(x, z))))];
+  const cap = Math.max(6, masses.length + 3);
+  for (const pass of [0, 1]) for (const [x, z] of rims) {
+    const m = massOf.get(key(x, z));
+    if (pass === 0 && spires.some((q) => q[2] === m)) continue;
+    if (spires.length >= cap || spires.some(([a, b]) => Math.abs(a - x) + Math.abs(b - z) < 5)) continue;
+    if (put({ t: P.spire, x, z, v: variant(P.spire), ...jitter() })) spires.push([x, z, m]);
   }
   for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
     if (!free(x, z) || dOf(x, z) !== 1 || noise(x / 1.3 + 2, z / 1.3 - 4) < 0.82) continue;

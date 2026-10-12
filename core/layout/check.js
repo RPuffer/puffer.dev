@@ -1,5 +1,5 @@
 import { prepareLevel, canStep, isWalkable, DIRS } from "../level.js";
-import { edgeKey, linkKey, ladderEnds } from "../interact.js";
+import { edgeKey, linkKey, ladderEnds, padLinks, PAD_COST } from "../interact.js";
 import { checkLevel } from "../procgen.js";
 import { maskCells } from "../catalog.js";
 
@@ -26,19 +26,27 @@ export function world(P, open = new Set(), o = {}) {
   }
   const blocked = new Set(P.blocked);
   for (const t of P.things) if (t.kind === "gate" && t.hold && !open.has(t.id)) for (const [x, z] of t.blocks) blocked.add(key(x, z));
-  return { ...P, edges, links, blocked };
+  return { ...P, edges, links, blocked, pads: padLinks(P.things, open) };
 }
 
 export function distances(L, from) {
-  const d = new Map([[key(...from), 0]]), q = [from];
-  for (let i = 0; i < q.length; i++) {
-    const [x, z] = q[i];
-    for (const dir of Object.keys(DIRS)) {
-      if (!canStep(L, x, z, dir)) continue;
-      const n = [x + DIRS[dir][0], z + DIRS[dir][1]], k = key(...n);
-      if (d.has(k)) continue;
-      d.set(k, d.get(key(x, z)) + 1);
-      q.push(n);
+  const d = new Map([[key(...from), 0]]);
+  const buckets = [[from]];
+  for (let g = 0; g < buckets.length; g++) {
+    const list = buckets[g];
+    if (!list) continue;
+    for (const [x, z] of list) {
+      if (d.get(key(x, z)) !== g) continue;
+      const next = [];
+      for (const dir of Object.keys(DIRS)) if (canStep(L, x, z, dir)) next.push([[x + DIRS[dir][0], z + DIRS[dir][1]], 1]);
+      const jump = L.pads?.get(key(x, z));
+      if (jump) next.push([jump, PAD_COST]);
+      for (const [n, w] of next) {
+        const k = key(...n), nd = g + w;
+        if (d.has(k) && d.get(k) <= nd) continue;
+        d.set(k, nd);
+        (buckets[nd] ||= []).push(n);
+      }
     }
   }
   return d;
@@ -59,6 +67,7 @@ const toBonfire = (L, from, fire) => {
 
 function standOf(L, t) {
   if (t.kind === "door") return t.edge[1];
+  if (t.kind === "pad") return [t.x, t.z];
   if (t.kind === "ladder") return [t.x, t.z];
   for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]]) if (isWalkable(L, t.x + dx, t.z + dz) && L.cells[t.z + dz][t.x + dx].p) return [t.x + dx, t.z + dz];
   return null;
@@ -102,16 +111,16 @@ export function checkRoute(raw) {
 
   const shut = distances(world(P), at(entry));
   if (shut.has(key(...coreGate.edge[1]))) problems.push(`seal: core gate far side ${coreGate.edge[1]} reachable with everything shut`);
-  for (const t of P.things.filter((q) => q.kind === "door" || q.kind === "ladder")) {
-    const far = t.kind === "door" ? t.edge[1] : [t.x, t.z];
-    if (shut.has(key(...far))) problems.push(`seal: ${t.id} far side ${far} reachable before the core gate`);
-  }
   const lever = P.things.find((t) => t.kind === "lever");
   if (lever && !ringOf(world(P), lever).some((k) => shut.has(k))) problems.push(`lever ${lever.id} not reachable before the core gate`);
   if (!ringOf(world(P), fire).some((k) => shut.has(k))) problems.push("bonfire not reachable from the entry lift");
 
   const gateOpen = distances(world(P, new Set([coreGate.id])), at(entry));
   if (!gateOpen.has(key(...at(exit)))) problems.push("lift to lift: exit not reachable from entry with only the core gate open");
+  for (const t of P.things.filter((q) => q.kind === "door" || q.kind === "ladder")) {
+    const far = t.kind === "door" ? t.edge[1] : [t.x, t.z];
+    if (!gateOpen.has(key(...far))) problems.push(`shortcut ${t.id}: far side ${far} never reachable`);
+  }
 
   for (const s of routeDistances(raw)) {
     if (!(s.unlocked < Infinity)) problems.push(`shortcut ${s.id}: no way back to the bonfire once unlocked`);
@@ -162,9 +171,12 @@ export function checkRoute(raw) {
     const seen = new Set([key(...path[0])]), q = [path[0]];
     for (let i = 0; i < q.length; i++) {
       const [x, z] = q[i];
-      for (const dir of Object.keys(DIRS)) {
-        const n = [x + DIRS[dir][0], z + DIRS[dir][1]], k = key(...n);
-        if (!pathSet.has(k) || seen.has(k) || !canStep(Lall, x, z, dir)) continue;
+      const next = Object.keys(DIRS).filter((dir) => canStep(Lall, x, z, dir)).map((dir) => [x + DIRS[dir][0], z + DIRS[dir][1]]);
+      const jump = Lall.pads?.get(key(x, z));
+      if (jump) next.push(jump);
+      for (const n of next) {
+        const k = key(...n);
+        if (!pathSet.has(k) || seen.has(k)) continue;
         seen.add(k); q.push(n);
       }
     }
@@ -173,4 +185,18 @@ export function checkRoute(raw) {
   for (const [x, z] of path) if (!everywhere.has(key(x, z))) problems.push(`path cell ${x},${z} unreachable`);
   if (Math.max(Math.abs(fire.x - raw.spawn[0]), Math.abs(fire.z - raw.spawn[1])) > 3) problems.push(`bonfire ${fire.x},${fire.z} more than three cells from spawn ${raw.spawn}`);
   return problems;
+}
+
+export function padSafeSlots(raw) {
+  const P = prepared(raw), entry = P.things.find((t) => t.kind === "elevator" && t.role === "entry");
+  const pads = P.things.filter((t) => t.kind === "pad" && t.role !== "shortcut" && t.role !== "reward");
+  const slots = raw.route?.trapSlots || [];
+  if (!entry || !pads.length) return slots;
+  const all = new Set(P.things.map((t) => t.id));
+  return slots.filter((slot) => {
+    const L = world(P, all);
+    for (const [x, z] of slot.cells) L.blocked.add(key(x, z));
+    const d = distances(L, [entry.x, entry.z]);
+    return pads.every((t) => d.has(key(t.x, t.z)));
+  });
 }

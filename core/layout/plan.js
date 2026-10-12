@@ -1,143 +1,256 @@
 import { stamp } from "./features.js";
-import { key, walk, DIR } from "./grid.js";
-import { buildTopology, nodeCell, nk } from "./topology.js";
+import { key, DIR } from "./grid.js";
+import { edgeKey } from "./topology.js";
 
-export const FRAME = { X: 3, Z: 3 };
+const unuk = (s) => s.split(",").map(Number);
+const sgn = (a, b) => [Math.sign(b[0] - a[0]), Math.sign(b[1] - a[1])];
+const add = (c, d, k = 1) => [c[0] + d[0] * k, c[1] + d[1] * k];
+const dirName = (d) => Object.keys(DIR).find((n) => DIR[n][0] === d[0] && DIR[n][1] === d[1]);
+const RIM_PREF = { entry: ["s", "e", "w", "n"], exit: ["n", "w", "e", "s"] };
 
 export function coreBands(fx, fz) {
   const cheb = (x, z) => Math.max(fx - x, x - (fx + 1), fz - z, z - (fz + 1), 0);
-  return { cheb, figure: [fx, fz], dais: [fx - 2, fz - 2, fx + 3, fz + 3], terrace: [fx - 4, fz - 4, fx + 5, fz + 5] };
+  return { cheb, figure: [fx, fz], dais: [fx - 1, fz - 1, fx + 2, fz + 2], terrace: [fx - 3, fz - 3, fx + 4, fz + 4] };
 }
 
-const dirTo = (a, b) => Object.keys(DIR).find((d) => DIR[d][0] === Math.sign(b[0] - a[0]) && DIR[d][1] === Math.sign(b[1] - a[1]));
-
-export function planIsland(G, rng, o = {}) {
-  const pieces = [], segs = {}, extraLinks = [];
-  const seg = (id, role, extra = {}) => (segs[id] = { id, role, cells: [], links: [], ...extra });
-  const put = (id, kind, params, segId = id) => {
-    const p = stamp(G, id, kind, params, segId);
+export function planIsland(G, SH, M, rng, o = {}) {
+  const pieces = [], segs = {}, links = [], locks = [];
+  const owners = new Map();
+  const cellOf = (u) => SH.centre(unuk(u));
+  const h = M.h;
+  const seg = (id, role) => (segs[id] ||= { id, role, cells: [], links: [] });
+  const segLink = (a, b, via = null) => { seg(a); seg(b); segs[a].links.push({ to: b, via }); segs[b].links.push({ to: a, via }); };
+  const touch = (u, owner, lock = false) => { if (!owners.has(u)) owners.set(u, []); owners.get(u).push({ owner, lock }); };
+  const link = (a, b) => links.push([a, b]);
+  const put = (segId, name, kind, params, owner = name) => {
+    const p = stamp(G, name, kind, params, owner);
     pieces.push(p);
-    const s = segs[segId];
-    if (s) for (const c of p.cells) if (G.in(c.x, c.z)) s.cells.push([c.x, c.z]);
+    for (const c of p.cells) if (G.in(c.x, c.z)) seg(segId).cells.push([c.x, c.z]);
     return p;
   };
-  const link = (a, b, via = null) => { segs[a].links.push({ to: b, via }); segs[b].links.push({ to: a, via }); };
+  const isPad = (a, b) => !M.graph.land(a).includes(b);
+  const hops = [];
 
-  const { X, Z } = FRAME;
-  const fx = 12 + X, fz = 13 + Z, HC = 3, HD = 4;
-  const B = coreBands(fx, fz);
-  const topo = buildTopology(o.archetype || "ring", rng);
-  const [gx, gz] = nodeCell(topo.E);
-  const sx = rng.pick([11, 12]) + X;
-  const ey = rng.pick([12, 13]) + Z;
-  const dy = ey + rng.pick([3, 4]);
-  const px = rng.pick([8, 9]) + X;
-  const lx = rng.pick([...Array(4)].map((_, i) => px + i).filter((x) => x >= 9 + X && x <= sx + 1));
-  const ex = rng.pick([px, px + 1, px + 2].filter((x) => x !== lx));
-  const PZ = 22 + Z;
+  const B = M.B, Bc = cellOf(B);
+  const plaza = [Bc[0] - 1, Bc[1] - 1, Bc[0] + 1, Bc[1] + 1];
+  seg("rest", "bonfire");
+  put("rest", "rest", "plaza", { box: plaza, h: h.get(B), doors: [], flank: 1 }, "rest");
+  const restDoors = [];
+  const restPath = (d) => {
+    const door = add(Bc, d);
+    for (const c of [door, Bc]) { G.set(c[0], c[1], { ...G.at(c[0], c[1]), p: 1 }, "rest"); seg("rest").cells.push(c); }
+    restDoors.push(door);
+    return door;
+  };
+  restPath([0, 0]);
 
-  seg("core", "core");
-  const [tx0, tz0, tx1, tz1] = B.terrace;
-  for (let z = tz0; z <= tz1; z++) for (let x = tx0; x <= tx1; x++) {
-    const d = B.cheb(x, z);
-    G.set(x, z, { h: d <= 2 ? HD : HC, s: d <= 2 ? "stone" : d === 3 ? "sand" : "grass" }, "core");
-  }
-  const ringN = tz0 + 1, ringS = tz1 - 1, ringW = tx0 + 1, ringE = tx1 - 1;
-  const daisRing = [fx - 1, fz - 1, fx + 2, fz + 2];
-
-  for (const [id, role] of [["approach", "spine"], ["terrace", "spine"], ["dais", "spine"], ["exit", "spine"], ["plaza", "bonfire"], ["lowroad", "spine"], ["doorway", "shortcut"], ["spur", "shortcut"]]) seg(id, role);
-
-  put("terrace", "road", { points: [[gx, ringN], [ringW, ringN], [ringW, ringS], [sx, ringS]], h: HC, flank: 0 });
-  put("dais-climb", "road", { points: [[sx, ringS], [sx, ringS - 1], [sx, daisRing[3]]], h: HC, steps: [[sx, ringS - 1, "up"]], flank: 0 }, "dais");
-  put("dais", "road", { points: [[sx, daisRing[3]], [daisRing[0], daisRing[3]], [daisRing[0], daisRing[1]], [daisRing[2], daisRing[1]], [daisRing[2], ey]], h: HD, flank: 0 });
-  put("dais-descent", "road", { points: [[daisRing[2], ey], [ringE, ey], [tx1, ey]], h: HD, steps: [[daisRing[2] + 1, ey, "down"]], flank: 0 }, "exit");
-  put("east-ring", "road", { points: [[ringE, ey], [ringE, dy], [tx1, dy]], h: HC, flank: 0 }, "exit");
-  put("exit", "causeway", { from: [tx1, ey], dir: "e", len: 6, h: HC });
-  link("terrace", "dais"); link("dais", "exit");
-
-  const hE = topo.h(topo.E);
-  put("approach", "road", { points: [[gx, gz], [gx, tz0 - 1], [gx, ringN]], h: hE, steps: hE < HC ? [[gx, tz0 - 1, "up"]] : [], flank: hE < HC ? 1 : 0 });
-  link("approach", "terrace");
-
-  put("plaza", "plaza", { box: [px, PZ, px + 3, PZ + 3], h: 1, doors: [[px, PZ + 1], [ex, PZ + 3], [lx, PZ], [px + 3, PZ + 1]], flank: 1 });
-  put("entry", "dock", { from: [ex, PZ + 3], dir: "s", len: 2, h: 1 }, "plaza");
-  const hub = [ex, PZ + 1];
-  for (const door of [[px, PZ + 1], [ex, PZ + 3], [lx, PZ], [px + 3, PZ + 1]]) for (const [x, z] of walk([door, [door[0], hub[1]], hub])) {
-    G.set(x, z, { ...G.at(x, z), p: 1 }, "plaza");
-    segs.plaza.cells.push([x, z]);
-  }
-
-  const [sxC, szC] = nodeCell(topo.S);
-  put("lowroad", "road", { points: [[px - 1, PZ + 1], [sxC, szC]], h: 1, flank: 1 });
-  link("plaza", "lowroad");
-
-  const unitOwner = (a, b) => `u${nk(a)}-${nk(b)}`;
-  const atNode = new Map();
-  const chordLast = topo.lines.find((l) => l.id === "chord").steps.slice(-1)[0];
-  const lastOwner = unitOwner(...chordLast);
-  const chests = [];
-  for (const l of topo.lines) {
-    seg(l.id, l.role);
-    for (const [a, b] of l.steps) {
-      const owner = unitOwner(a, b);
-      const A = nodeCell(a), Bc = nodeCell(b), ha = topo.h(a), hb = topo.h(b);
-      const first = [A[0] + Math.sign(Bc[0] - A[0]), A[1] + Math.sign(Bc[1] - A[1])];
-      const p = stamp(G, owner, "road", { points: [A, Bc], h: ha, steps: hb !== ha ? [[first[0], first[1], hb > ha ? "up" : "down"]] : [], flank: 1 }, owner);
-      pieces.push(p);
-      for (const c of p.cells) segs[l.id].cells.push([c.x, c.z]);
-      for (const n of [a, b]) { if (!atNode.has(nk(n))) atNode.set(nk(n), []); atNode.get(nk(n)).push(owner); }
+  const road = (segId, a, b, { lock = null, ownerName = null, hFrom = null, hTo = null } = {}) => {
+    const owner = ownerName || `u${a}-${b}`.replace(/,/g, ":");
+    const A = cellOf(a), Bb = cellOf(b), d = sgn(A, Bb);
+    const ha = hFrom ?? h.get(a), hb = hTo ?? h.get(b);
+    let pa = A, pb = Bb;
+    if (a === B) pa = add(Bc, d, 2);
+    if (b === B) pb = add(Bc, d, -2);
+    if ((a === B || b === B) && ha !== hb) throw new Error(`road ${a}-${b} into the rest is not flat`);
+    if (Math.abs(ha - hb) > 1) throw new Error(`road ${a}-${b} climbs ${Math.abs(ha - hb)} tiers`);
+    const first = add(pa, d);
+    const overVoid = !SH.landUnit(unuk(a)) || !SH.landUnit(unuk(b));
+    const p = put(segId, owner, "road", { points: [pa, pb], h: ha, steps: ha !== hb ? [[first[0], first[1], hb > ha ? "up" : "down"]] : [], flank: overVoid ? 0 : 1 }, owner);
+    for (const [u, end, other] of [[a, "a", b], [b, "b", a]]) {
+      const locked = lock && lock.at === u;
+      if (u === B) {
+        const door = restPath(sgn(Bc, cellOf(other)));
+        if (locked) locks.push([door, end === "a" ? pa : pb]);
+        else link(owner, "rest");
+        if (locked) lock.cells = [door, end === "a" ? pa : pb];
+      } else {
+        touch(u, owner, locked);
+        if (locked) { const c = cellOf(u), dd = sgn(c, cellOf(other)); lock.cells = [c, add(c, dd)]; locks.push(lock.cells); }
+      }
     }
-    if (l.chest) chests.push({ line: l, tip: l.nodes[l.nodes.length - 1], from: l.nodes[l.nodes.length - 2] });
+    return p;
+  };
+
+  const drawLine = (l) => {
+    seg(l.id, l.role);
+    for (let i = 1; i < l.units.length; i++) {
+      const a = l.units[i - 1], b = l.units[i];
+      if (isPad(a, b)) { hops.push({ line: l.id, a, b, pad: M.graph.padBetween(a, b) }); continue; }
+      road(l.id, a, b);
+    }
+  };
+
+  const entryLine = M.lines.find((l) => l.id === "entry");
+  drawLine(entryLine);
+  for (const l of M.lines) if (l.id !== "entry") drawLine(l);
+
+  const Sc = cellOf(M.S);
+  const inIsland = o.inIsland || ((x, z) => SH.landUnit(SH.unitOf(x, z)));
+  const dockFrom = (c, dName, hh, role, owner) => {
+    const d = DIR[dName];
+    let len = 0;
+    for (let p = add(c, d); len < 14 && inIsland(p[0], p[1]); p = add(p, d)) len++;
+    len = Math.max(1, len);
+    const lift = add(c, d, len + 1);
+    if (!G.in(lift[0], lift[1])) throw new Error(`${role} lift ${lift} off the grid`);
+    put(role === "entry" ? "entry" : "exit", owner, "dock", { from: c, dir: dName, len, h: hh }, owner);
+    return { lift, dir: dName };
+  };
+  const dock = (u, role) => {
+    const dirs = SH.rimDirs(unuk(u));
+    const pref = RIM_PREF[role].filter((d) => dirs.includes(d));
+    const dName = pref[0] || dirs[0];
+    if (!dName) throw new Error(`${role} unit ${u} has no rim`);
+    const name = role === "entry" ? "entry-dock" : "exit-dock";
+    const out = dockFrom(cellOf(u), dName, h.get(u), role, name);
+    touch(u, name);
+    return out;
+  };
+
+  const HD = Math.max(...[...M.used].filter((u) => !M.exit.includes(u)).map((u) => h.get(u) ?? 1)) + 1;
+  M.HD = HD;
+  const exit = M.exit;
+  h.set(M.C, HD);
+  for (let i = 1; i < exit.length; i++) h.set(exit[i], i === 1 ? HD : Math.max(1, h.get(exit[i - 1]) - 1));
+  if (h.get(M.G) !== HD - 1) throw new Error(`approach ${M.G} at ${h.get(M.G)}, sanctum at ${HD}`);
+
+  const Cc = cellOf(M.C);
+  const nbC = (dx, dz) => { const u = unuk(M.C); return SH.landUnit([u[0] + dx, u[1] + dz]) ? cellOf(`${u[0] + dx},${u[1] + dz}`) : null; };
+  const W = nbC(-1, 0), E = nbC(1, 0), N = nbC(0, -1), S = nbC(0, 1);
+  const exitMode = M.exitDock ? "dock" : isPad(M.C, exit[1]) ? "pad" : "leg";
+  const gDir = sgn(Cc, cellOf(M.G));
+  const dockDir = exitMode === "dock" ? (RIM_PREF.exit.filter((d) => M.exitDock.includes(d) && (DIR[d][0] !== gDir[0] || DIR[d][1] !== gDir[1]))[0] || null) : null;
+  if (exitMode === "dock" && !dockDir) throw new Error("sanctum has no rim apart from its approach");
+  const xDir = exitMode === "leg" ? sgn(Cc, cellOf(exit[1])) : exitMode === "dock" ? DIR[dockDir] : [0, 0];
+  const lo = (n, c) => (n ? n + 1 : c - 3), hi = (n, c) => (n ? n - 1 : c + 3);
+  const span = (loN, hiN, c, approachLo, approachHi) => {
+    const out = [];
+    for (let r0 = lo(loN, c); r0 + 3 <= hi(hiN, c); r0++) {
+      if (approachLo && r0 < loN + 2) continue;
+      if (approachHi && r0 + 3 > hiN - 2) continue;
+      out.push(r0);
+    }
+    return out;
+  };
+  const along = (d) => (d[0] ? "x" : d[1] ? "z" : "none");
+  const colsC = span(W?.[0], E?.[0], Cc[0], gDir[0] < 0, gDir[0] > 0).filter((r0) => (gDir[0] || xDir[0] ? true : true) && ((along(gDir) === "z" ? r0 <= Cc[0] && Cc[0] <= r0 + 3 : true) && (along(xDir) === "z" ? r0 <= Cc[0] && Cc[0] <= r0 + 3 : true)));
+  const rowsC = span(N?.[1], S?.[1], Cc[1], gDir[1] < 0, gDir[1] > 0).filter((q0) => (along(gDir) === "x" ? q0 <= Cc[1] && Cc[1] <= q0 + 3 : true) && (along(xDir) === "x" ? q0 <= Cc[1] && Cc[1] <= q0 + 3 : true));
+  if (!colsC.length || !rowsC.length) throw new Error(`sanctum at ${M.C} does not fit between its neighbours`);
+  const pickMid = (arr, c) => arr.slice().sort((a, b) => Math.abs(a + 1.5 - c) - Math.abs(b + 1.5 - c) + rng.float(-0.3, 0.3))[0];
+  const r0 = pickMid(colsC, Cc[0]), q0 = pickMid(rowsC, Cc[1]);
+  const ring = [r0, q0, r0 + 3, q0 + 3];
+  const fx = r0 + 1, fz = q0 + 1;
+  seg("dais", "spine");
+  put("dais", "sanctum", "road", { points: [[r0, q0], [r0 + 3, q0], [r0 + 3, q0 + 3], [r0, q0 + 3], [r0, q0 + 1]], h: HD, flank: 0 }, "sanctum");
+  for (const [x, z] of [[fx, fz], [fx + 1, fz], [fx, fz + 1], [fx + 1, fz + 1]]) G.set(x, z, { h: HD, s: "stone" }, "sanctum");
+
+  const ringHit = (from, d) => {
+    let c = from;
+    for (let k = 0; k < 16; k++) { c = add(c, d); if (c[0] >= ring[0] && c[0] <= ring[2] && c[1] >= ring[1] && c[1] <= ring[3]) return c; }
+    throw new Error("road misses the ring");
+  };
+  const Gc = cellOf(M.G);
+  const gIn = ringHit(Gc, sgn(Gc, Cc));
+  const ramp = add(gIn, gDir, 1);
+  const threshold = add(gIn, gDir, 2);
+  seg("approach", "spine");
+  put("approach", "approach", "road", { points: [Gc, gIn], h: HD - 1, steps: [[ramp[0], ramp[1], "up"]], flank: 1 }, "approach");
+  touch(M.G, "approach");
+  locks.push([threshold, ramp], [ramp, gIn]);
+  let exitLiftSanctum = null;
+  if (exitMode === "dock") {
+    const d = DIR[dockDir];
+    const mid = [d[0] > 0 ? ring[2] : d[0] < 0 ? ring[0] : r0 + 1 + (rng.chance(0.5) ? 1 : 0), d[1] > 0 ? ring[3] : d[1] < 0 ? ring[1] : q0 + 1 + (rng.chance(0.5) ? 1 : 0)];
+    exitLiftSanctum = dockFrom(mid, dockDir, HD, "exit", "exit-dock");
+    link("exit-dock", "sanctum");
+  } else if (exitMode === "pad") {
+    const border = [];
+    for (let z = ring[1]; z <= ring[3]; z++) for (let x = ring[0]; x <= ring[2]; x++) if (x === ring[0] || x === ring[2] || z === ring[1] || z === ring[3]) border.push([x, z]);
+    const padCell = border.sort((a, b) => Math.abs(b[0] - gIn[0]) + Math.abs(b[1] - gIn[1]) - (Math.abs(a[0] - gIn[0]) + Math.abs(a[1] - gIn[1])))[0];
+    const Ec = cellOf(exit[1]);
+    seg("exitleg", "spine");
+    put("exitleg", "exit-node", "road", { points: [Ec, Ec], h: h.get(exit[1]), flank: 1 }, "exit-node");
+    touch(exit[1], "exit-node");
+    hops.push({ line: "exitleg", a: M.C, b: exit[1], pad: M.exitPad, cells: { near: padCell, far: Ec } });
+  } else {
+    const X1 = cellOf(exit[1]);
+    const xOut = ringHit(X1, sgn(X1, Cc));
+    seg("exit", "spine");
+    put("exit", "exit-road", "road", { points: [xOut, X1], h: HD, flank: 1 }, "exit-road");
+    link("exit-road", "sanctum");
+    touch(exit[1], "exit-road");
   }
-  for (const [n, owners] of atNode) for (let i = 0; i < owners.length; i++) for (let j = i + 1; j < owners.length; j++) {
-    if ((owners[i] === lastOwner || owners[j] === lastOwner) && n === nk(topo.u)) continue;
-    extraLinks.push([owners[i], owners[j]]);
+  const exitLine = { id: "exitleg", role: "spine", units: exit.slice(1) };
+  seg("exitleg", "spine");
+  for (let i = 1; i < exitLine.units.length; i++) {
+    const a = exitLine.units[i - 1], b = exitLine.units[i];
+    if (isPad(a, b)) { hops.push({ line: "exitleg", a, b, pad: M.graph.padBetween(a, b) }); continue; }
+    road("exitleg", a, b);
   }
-  for (const own of atNode.get(nk(topo.S)) || []) if (!(own === lastOwner && nk(topo.u) === nk(topo.S))) extraLinks.push(["lowroad", own]);
-  for (const own of atNode.get(nk(topo.E)) || []) extraLinks.push(["approach", own]);
 
-  const main = topo.lines.find((l) => l.id === "main");
-  link("lowroad", "main"); link("main", "approach");
-  for (const l of topo.lines) if (l.id !== "main" && l.id !== "chord") link(l.id, "main");
-  link("chord", "main"); link("chord", "lowroad", { kind: "lever" });
+  const shortcuts = [];
+  for (const sc of M.shortcuts || []) {
+    const id = sc.id;
+    seg(id, "shortcut");
+    const P = sc.units;
+    if (sc.kind === "pad") { shortcuts.push({ ...sc }); continue; }
+    if (sc.kind === "ladder" || sc.kind === "drop") {
+      for (let i = 1; i < P.length - 1; i++) road(id, P[i - 1], P[i], { hFrom: sc.hf, hTo: sc.hf });
+      const last = P[P.length - 2], N0 = P[P.length - 1];
+      const A = cellOf(last), Nc = N0 === B ? Bc : cellOf(N0), d = sgn(A, Nc);
+      const bottom = N0 === B ? add(Bc, d, -1) : Nc;
+      const top = add(bottom, d, -1);
+      const owner = `s-${id}`;
+      put(id, owner, "road", { points: [A, top], h: sc.hf, flank: 1 }, owner);
+      touch(last, owner);
+      if (P.length > 2) link(owner, `u${P[P.length - 3]}-${last}`.replace(/,/g, ":"));
+      if (N0 === B) restPath(sgn(Bc, A));
+      locks.push([top, bottom]);
+      shortcuts.push({ ...sc, top, bottom, dir: dirName(d) });
+      continue;
+    }
+    const lock = { at: P[P.length - 1] };
+    for (let i = 1; i < P.length; i++) road(id, P[i - 1], P[i], { lock: i === P.length - 1 ? lock : null, hFrom: sc.heights[i - 1], hTo: sc.heights[i] });
+    shortcuts.push({ ...sc, edge: lock.cells });
+  }
 
-  const chordCells = segs.chord.cells.filter((c, i, arr) => i === arr.findIndex((q) => q[0] === c[0] && q[1] === c[1]));
-  const uCell = nodeCell(topo.u);
-  const block = chordCells[chordCells.length - 2];
-  const leverGate = { threshold: uCell, block };
+  const entry = dock(M.S, "entry");
+  const exitLift = exitLiftSanctum || dock(M.E, "exit");
 
-  put("doorway", "road", { points: [[tx1 + 1, dy], [tx1 + 3, dy], [tx1 + 3, PZ + 1], [px + 4, PZ + 1]], h: HC, steps: [[tx1 + 2, dy, "down"], [tx1 + 3, PZ - 1, "down"]], flank: 1 });
-  link("doorway", "exit"); link("doorway", "plaza", { kind: "door", edge: [[px + 3, PZ + 1], [px + 4, PZ + 1]] });
+  for (const [u, list] of owners) {
+    for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length; j++) if (!list[i].lock && !list[j].lock) link(list[i].owner, list[j].owner);
+  }
 
-  put("spur", "spur", { from: [lx, tz1], dir: "s", len: 3, h: HC });
-  link("spur", "terrace"); link("spur", "plaza", { kind: o.drop ? "drop" : "ladder", top: [lx, tz1 + 3], dir: "s" });
-  G.set(lx, tz1, { ...G.at(lx, tz1), p: 1 }, "core");
-  G.set(lx, ringS, { ...G.at(lx, ringS), p: 1 }, "core");
+
+  const spawnDoor = add(Bc, sgn(Bc, cellOf(entryLine.units[entryLine.units.length - 2] || M.S)));
 
   let chest = null;
-  for (const c of chests) {
-    const tip = nodeCell(c.tip), back = nodeCell(c.from), d0 = dirTo(back, tip);
-    const out = [d0, ...(c.tip[0] === 0 ? ["w"] : []), ...(c.tip[1] === 0 ? ["n"] : []), ...(c.tip[1] === 10 ? ["s"] : []), ...Object.keys(DIR)];
-    for (const d of out) {
-      const cx = tip[0] + DIR[d][0], cz = tip[1] + DIR[d][1], cur = G.at(cx, cz);
-      if (!cur || cur.s !== "none") continue;
-      G.set(cx, cz, { h: topo.h(c.tip), s: "stone", room: true }, unitOwner(...c.line.steps.slice(-1)[0]));
-      chest = { x: cx, z: cz, rot: { n: 0, s: 2, w: 3, e: 1 }[d], tip };
+  const tips = [];
+  for (const l of M.lines) if (l.role === "branch" && l.units.length >= 2) tips.push({ tip: l.units[l.units.length - 1], from: l.units[l.units.length - 2], line: l.id });
+  if (M.chestAt) tips.unshift(M.chestAt);
+  for (const t of tips) {
+    const tc = cellOf(t.tip), d0 = t.from ? sgn(cellOf(t.from), tc) : [0, 1];
+    const tries = [d0, [d0[1], d0[0]], [-d0[1], -d0[0]]];
+    for (const d of tries) {
+      const c = add(tc, d);
+      const cur = G.at(c[0], c[1]);
+      if (!cur || cur.p) continue;
+      G.set(c[0], c[1], { h: h.get(t.tip), s: "stone", room: true }, G.who(tc[0], tc[1]));
+      chest = { x: c[0], z: c[1], rot: { n: 0, s: 2, w: 3, e: 1 }[dirName([-d[0], -d[1]])] ?? 0, tip: tc, line: t.line, unit: t.tip };
       break;
     }
     if (chest) break;
   }
 
-  const blocks = { tower: [ringE, tz0], spires: [[sx + 2, ringS], [sx + 2, tz1]] };
-  const sealed = [[ringE, tz0], [ringE + 1, tz0], [ringE, tz0 + 1], [ringE + 1, tz0 + 1], ...blocks.spires];
-  const locks = [[[gx, tz0 - 2], [gx, tz0 - 1]], [leverGate.threshold, leverGate.block], [[px + 3, PZ + 1], [px + 4, PZ + 1]], [[lx, tz1 + 3], [lx, tz1 + 4]]];
   return {
-    pieces, segs, extraLinks, topology: topo, chest, leverGate,
-    lever: { node: nodeCell(topo.v), h: topo.h(topo.v), first: chordCells[1] },
-    core: { ...B, HC, HD, blocks, sealed, gx, sx, ey },
-    locks,
-    picks: { archetype: topo.archetype, gx, sx, ey, dy, px, lx, ex, PZ, exitX: tx1 + 7 },
-    plaza: [px, PZ, px + 3, PZ + 3],
+    pieces, segs, links, locks, hops, shortcuts, chest,
+    topology: M,
+    entry, exitLift,
+    rest: { centre: Bc, box: plaza, doors: restDoors, spawn: spawnDoor },
+    core: { ...coreBands(fx, fz), HD, ring, blocks: { tower: null, spires: [] }, sealed: [], threshold, ramp, approachDir: gDir },
+    plaza,
+    picks: { archetype: M.archetype, shape: SH.id, transform: SH.transform, scale: SH.scale, C: M.C, G: M.G, B: M.B, S: M.S, E: M.E },
+    lever: null,
   };
 }
 
