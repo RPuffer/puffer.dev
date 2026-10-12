@@ -25,7 +25,7 @@ Design catalog for the booby-trapped islands. Nothing here is built yet. Each en
 
 ### Health budget
 
-An island may hold at most three heart-costing traps on its spine, so a careful first walk to the core gate never ends in a respawn from hearts alone. Knock-off traps follow the hidden budget below when they are hidden.
+The heart-costing traps on an island spine may add up to 2 hearts at most when each hits once, so a careful first walk to the core gate never ends in a respawn from hearts alone. Knock-off traps follow the hidden budget below when they are hidden.
 
 ## Tags
 

@@ -21,6 +21,8 @@ h1{margin:0;font-size:clamp(44px,9vw,84px);line-height:.95;font-weight:800;lette
 .go{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 12px}
 .go a{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 26px;border-radius:8px;font-weight:800;font-size:18px;text-decoration:none;color:var(--ink)}
 .go a[hidden]{display:none}
+#reset{min-height:52px;padding:0 18px;border:2px solid var(--dim);border-radius:8px;background:none;color:var(--dim);font:700 15px system-ui,sans-serif;cursor:pointer;touch-action:manipulation}
+#reset.arm{border-color:var(--ember);color:var(--ember)}
 #begin{background:var(--sun)}
 #continue{background:var(--moss)}
 #continue small{font-weight:600;font-size:14px;opacity:.75}
@@ -101,13 +103,21 @@ li a.lit::after{top:14px;right:14px;width:26px;height:26px;border-radius:50%;bac
 <div class="go">
 <a id="begin" href="3d/index.html?level=cat-medium&amp;reset=1">Begin</a>
 <a id="continue" href="#" hidden>Continue <small></small></a>
+<button id="reset" type="button">Reset progress</button>
 </div>
-<p class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrows to walk, <kbd>F</kbd> to use, <kbd>Q</kbd> <kbd>E</kbd> to turn the island. On a phone: joystick or tap to walk, the gold button to use, swipe to turn, pinch to zoom.</p>
+<p class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrows to walk, <kbd>F</kbd> to use, <kbd>Q</kbd> <kbd>E</kbd> to turn the island. On a phone: compass petals or tap to walk, the gold button to use, swipe to turn, pinch to zoom.</p>
 <h2>Islands</h2>
 <ol id="islands"></ol>
 </main>
 <script type="module">
 import { startArt } from "./core/art.js";
+import { resetAll } from "./core/dev.js";
+const rs = document.getElementById("reset");
+let armed = 0;
+rs.addEventListener("click", () => {
+  if (!armed) { armed = setTimeout(() => { armed = 0; rs.classList.remove("arm"); rs.textContent = "Reset progress"; }, 3000); rs.classList.add("arm"); rs.textContent = "Tap again to wipe"; return; }
+  resetAll(); location.reload();
+});
 if (new URLSearchParams(location.search).has("embed")) {
   document.documentElement.classList.add("embed");
   const base = document.createElement("base");

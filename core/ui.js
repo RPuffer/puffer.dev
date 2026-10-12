@@ -1,5 +1,6 @@
 import { HOME, BUST } from "./input.js";
 import { startArt } from "./art.js";
+import { unlocked } from "./dev.js";
 const CSS = `
 .iw-ui{position:fixed;right:max(10px,env(safe-area-inset-right,0px));bottom:max(10px,env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:7px;align-items:center;padding:7px;border-radius:14px;background:rgba(20,24,31,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .iw-ui:empty,.iw-touch .iw-ui:not(.iw-inline){display:none}
@@ -128,7 +129,7 @@ const fxOn = () => params().get("fx") === "1" || (params().get("fx") !== "0" && 
 const urlLevel = () => new URLSearchParams(location.search).get("level") || "home";
 const hop = (n) => { const q = new URLSearchParams(location.search); q.set("level", n); q.delete("reset"); q.delete("spawn"); location.search = q.toString(); return new Promise(() => {}); };
 
-function mountNavigator({ current = urlLevel, go = hop, busy = () => false, preload = null, reached = reachedIn } = {}) {
+function mountNavigator({ current = urlLevel, go = hop, busy = () => false, preload = null, reached = (n) => unlocked() || reachedIn(n) } = {}) {
   const orb = document.createElement("button");
   orb.type = "button";
   orb.className = "iw-orb";
