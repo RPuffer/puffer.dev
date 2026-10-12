@@ -35,4 +35,4 @@ export const CLUSTERS = [
 
 export const TOP = ["AI agent orchestration and guardrails", "Reliability engineering and alarm design", "Edge security and DDoS resilience", "Platform engineering and developer experience", "Creative technology: art, music and code", "Legacy modernization and full-stack delivery", "Root cause analysis under thin data", "Multi-region and multi-partition launches", "Fast ramp in unfamiliar stacks", "Product sense on greenfield builds"];
 
-export const thumb = (id) => `../assets/start/${id}.jpg`;
+export { startArt as thumb } from "../core/art.js";

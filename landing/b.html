@@ -59,7 +59,7 @@ h1{margin:0;font-size:clamp(22px,4.4vw,44px);font-weight:900;font-style:italic;l
 <header><h1>Select your fighter</h1><div class="timer" aria-hidden="true">99</div></header>
 <div class="stage">
 <section class="p1" aria-live="polite">
-<img class="bg" id="bg" src="../assets/start/wizard-medium.jpg" alt="">
+<img class="bg" id="bg" src="../assets/start/wizard-medium.jpg?v=2" alt="">
 <img class="hero" src="hero.jpg" alt="The hero, a blocky figure with brown hair and a red shirt, mid-dance">
 <div class="tag">PLAYER 1</div>
 <div class="info"><h2 id="name"></h2><div class="style" id="style"></div><ul class="moves" id="moves"></ul></div>
@@ -76,6 +76,7 @@ h1{margin:0;font-size:clamp(22px,4.4vw,44px);font-weight:900;font-style:italic;l
 </div>
 <script type="module">
 import { wire, settle } from "./run.js";
+import { startArt } from "../core/art.js";
 const F = [
   ["Gatekeeper", "wizard-medium", "API ingress, WebSockets", [["Frame Throttle", "Closed a denial-of-service hole open in the WebSocket service since it shipped. No real customer got cut off."], ["Consistent Hash", "Moved service-to-service traffic onto network load balancers with consistent hashing and zone-aligned DNS."], ["Open Port", "Found every port on the termination fleet reachable from the internet and spelled out the attack path."]]],
   ["Pager Tamer", "cat-medium", "Alarm design, on-call", [["Minus 43", "Cut operator load across the ingress stack by about 43 percent of critical tickets a week."], ["Slow Burn", "Every relaxed alarm shipped beside a new slow-burn alarm, so sensitivity moved instead of vanishing."], ["Missing Data", "Root-caused false pages from a deregistration loop that ran for hours without metrics."]]],
@@ -91,7 +92,7 @@ const grid = document.getElementById("grid"), bg = document.getElementById("bg")
 F.forEach(([n, img], i) => {
   const b = document.createElement("button");
   b.type = "button"; b.setAttribute("role", "radio"); b.dataset.i = i;
-  b.innerHTML = `<img src="../assets/start/${img}.jpg" alt="" width="300" height="267"><span>${n}</span>`;
+  b.innerHTML = `<img src="${startArt(img)}" alt="" width="300" height="267"><span>${n}</span>`;
   grid.append(b);
 });
 const btns = [...grid.children];
@@ -101,7 +102,7 @@ const pick = (i, focus) => {
   document.getElementById("name").textContent = n;
   document.getElementById("style").textContent = style;
   document.getElementById("moves").innerHTML = moves.map(([m, d]) => `<li><b>${m}</b>${d}</li>`).join("");
-  bg.src = `../assets/start/${img}.jpg`;
+  bg.src = startArt(img);
   if (focus) btns[i].focus();
 };
 grid.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) pick(+b.dataset.i, true); });

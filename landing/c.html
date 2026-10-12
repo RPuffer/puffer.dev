@@ -79,6 +79,7 @@ header b{color:var(--sun)}
 </div>
 <script type="module">
 import { wire, settle } from "./run.js";
+import { startArt } from "../core/art.js";
 const R = { rare: "var(--rare)", epic: "var(--epic)", leg: "var(--leg)" };
 const slots = [
   ["Main hand", "Rust Canary", "leg", "Caught several launch-critical bugs before a fixed conference deadline."],
@@ -126,7 +127,7 @@ slots.forEach(([where, name, r, d], i) => {
 const cols = tree.map(([h, img, color, nodes], c) => {
   const s = document.createElement("div");
   s.className = "branch"; s.style.setProperty("--b", color);
-  s.innerHTML = `<h2><img src="../assets/start/${img}.jpg" alt="" width="34" height="34">${h}</h2><ol></ol>`;
+  s.innerHTML = `<h2><img src="${startArt(img)}" alt="" width="34" height="34">${h}</h2><ol></ol>`;
   const ol = s.querySelector("ol");
   const btns = nodes.map(([g, t, d]) => {
     const li = document.createElement("li"), b = document.createElement("button");
