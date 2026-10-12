@@ -124,3 +124,28 @@ export function gateToward(L, from, to) {
 export function pathToward(L, from, to) {
   return routeTo(L, from, to)?.cells || null;
 }
+
+export function nextPad(L, from, to, { open = true } = {}) {
+  const pads = L.pads;
+  if (!pads?.size) return null;
+  const view = open ? { ...L, edges: new Set() } : L;
+  const prev = new Map([[key(from[0], from[1]), null]]), q = [from];
+  const goal = key(to[0], to[1]);
+  for (let i = 0; i < q.length; i++) {
+    const [x, z] = q[i], k = key(x, z);
+    if (k === goal) break;
+    const next = neighbours(view, x, z).map(([nx, nz]) => [nx, nz, false]);
+    const jump = pads.get(k);
+    if (jump) next.push([jump[0], jump[1], true]);
+    for (const [nx, nz, hop] of next) {
+      const nk = key(nx, nz);
+      if (prev.has(nk)) continue;
+      prev.set(nk, { from: k, hop });
+      q.push([nx, nz]);
+    }
+  }
+  if (!prev.has(goal)) return null;
+  let first = null;
+  for (let k = goal; prev.get(k); k = prev.get(k).from) if (prev.get(k).hop) first = prev.get(k).from;
+  return first ? first.split(",").map(Number) : null;
+}

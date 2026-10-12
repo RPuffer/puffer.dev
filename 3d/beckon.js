@@ -17,7 +17,7 @@ export const BECKON = {
   glyph: ["#ffe58a", "#f5c243", "#c98a1c"],
   ink: "#2a1f33",
   lift: 0.035,
-  rise: { bonfire: 1.6, chest: 1.15, lever: 1.35, door: 2.3, gate: 2.55, ladder: 1.5, elevator: 1.25, watcher: 2 },
+  rise: { bonfire: 1.6, chest: 1.15, lever: 1.35, door: 2.3, gate: 2.55, ladder: 1.5, elevator: 1.25, watcher: 2, pad: 1.3 },
   size: { gate: 0.6, door: 0.6, elevator: 0.6, watcher: 0.75 },
 };
 

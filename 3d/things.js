@@ -8,6 +8,7 @@ import { DIRS, OPPOSITE, cellAt, edgeHeight } from "../core/level.js";
 import { liftDeck, beamGeometry, beamMaterial } from "./lift.js";
 import { GATE_LIFT } from "../core/interact.js";
 import { buildBeckon } from "./beckon.js";
+import { motion } from "./motion.js";
 
 export const RISE = 2.4;
 const t3 =(c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
@@ -115,6 +116,33 @@ function leverBase(B, k) {
   B.box(0.16, 0.12, 0.24, t3(k.metal), 0, 0.2, 0);
 }
 
+function padBase(B, k) {
+  B.cyl(0.44, 0.07, t3(k.stone), 0, 0, 0, 12);
+  B.cyl(0.32, 0.03, t3(k.ash), 0, 0.07, 0, 12);
+  for (let i = 0; i < 6; i++) {
+    const a = (i / 6) * Math.PI * 2;
+    B.at(Math.sin(a) * 0.4, 0.05, Math.cos(a) * 0.4, a, () => B.rbox(0.1, 0.12, 0.08, 0.03, t3(k.cap), 0, 0, 0));
+  }
+}
+
+export const PAD_GLOW = { live: "#8ff3ff", core: "#e9fdff", dark: "#3a4a63", exit: "#ffd98a" };
+
+function padGlow(t) {
+  const group = new THREE.Group();
+  const col = t.role === "exit" ? PAD_GLOW.exit : PAD_GLOW.live;
+  const mat = (c, o) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: o, depthWrite: false, side: THREE.DoubleSide });
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.3, 24).rotateX(-Math.PI / 2), mat(col, 0.8));
+  const core = new THREE.Mesh(new THREE.CircleGeometry(0.17, 18).rotateX(-Math.PI / 2), mat(PAD_GLOW.core, 0.55));
+  const rune = new THREE.Mesh(new THREE.RingGeometry(0.06, 0.1, 3).rotateX(-Math.PI / 2), mat(col, 0.9));
+  core.position.y = 0.004; rune.position.y = 0.008;
+  const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.3, 0.9, 16, 1, true), mat(col, 0.18));
+  beam.position.y = 0.45;
+  group.add(ring, core, rune, beam);
+  for (const m of group.children) { m.userData.noMerge = true; m.renderOrder = 3; }
+  group.userData = { ring, core, rune, beam, col: new THREE.Color(col), dark: new THREE.Color(PAD_GLOW.dark), live: t.state === "live" ? 1 : 0 };
+  return group;
+}
+
 function leverArm(B, k) {
   B.box(0.06, 0.62, 0.06, t3(k.wood), 0, 0, 0);
   B.rbox(0.14, 0.14, 0.14, 0.04, t3(k.metal), 0, 0.6, 0);
@@ -157,6 +185,7 @@ export function bakeThingBases(S, L, view, style, P = S) {
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
     else if (t.kind === "gate" || (t.kind === "door" && t.edge)) { const g = gatePlace(LL, view, t); if (g.frame) P.at(g.x, g.y, g.z, 0, () => gateFrame(P, k, g.span, g.half)); }
     else if (t.kind === "lever") S.at(x, y, z, r, () => leverBase(S, k));
+    else if (t.kind === "pad") S.at(x, y, z, 0, () => padBase(S, k));
     else if (t.kind === "ladder" && t.mode === "drop") { const g = ladderPlace(LL, view, t); S.at(g.x, g.yTop - 0.04, g.z, g.rot, () => dropLip(S, k)); }
   }
 }
@@ -222,6 +251,13 @@ export function buildThings(L, view, style, decorGroup, live = null) {
       m.rotation.order = "YXZ";
       m.userData.thing = t.id;
       m.userData.pull = st === "pulled" ? 1 : 0;
+      group.add(m);
+      parts[t.id] = m;
+    } else if (t.kind === "pad") {
+      const m = padGlow({ ...t, state: st });
+      m.position.set(x, y + 0.105, z);
+      m.userData.thing = t.id;
+      m.userData.noMerge = true;
       group.add(m);
       parts[t.id] = m;
     } else if (t.kind === "elevator") {
@@ -296,6 +332,8 @@ export function buildThings(L, view, style, decorGroup, live = null) {
     if (e.type === "lever") tweens.to(m.userData, "pull", 1, { duration: 0.35 });
     if (e.type === "faced") tweens.to(m.userData, "glow", 1, { duration: 0.5 });
     if (e.type === "unwatch") tweens.to(m.userData, "glow", 0, { duration: 0.8, easing: ease.inOut });
+    if (e.type === "pad") for (const id of [e.thing.id, e.thing.to]) if (parts[id]) tweens.to(parts[id].userData, "live", 1, { duration: 0.8 });
+    if (e.type === "teleport") for (const id of [e.thing.id, e.to?.id]) if (parts[id]) { parts[id].userData.flash = 1; tweens.to(parts[id].userData, "flash", 0, { duration: 0.7 }); }
   };
 
   const beckon = buildBeckon(L, view, parts);
@@ -331,6 +369,18 @@ export function buildThings(L, view, style, decorGroup, live = null) {
           if (shafts[t.id]) { const sh = shafts[t.id]; sh.position.y = m.userData.y0 + pin; sh.material.userData.on.value = t.id === kept ? 1 : 0; if (sh.material.userData.top) { const up = m.position.y - sh.position.y; sh.material.userData.top.value = up + Math.min(Math.max(up, 0), 1) * 0.18 - 0.06; } }
         }
         else if (t.kind === "watcher") applyWatcher(t, m);
+        else if (t.kind === "pad") {
+          const u = m.userData, time = motion.uTime.value || 0, beat = 0.5 + 0.5 * Math.sin(time * 3 + t.x);
+          const on = u.live, f = u.flash || 0;
+          u.ring.material.color.copy(u.dark).lerp(u.col, on);
+          u.rune.material.color.copy(u.dark).lerp(u.col, on);
+          u.ring.material.opacity = 0.35 + on * (0.45 + 0.2 * beat) + f * 0.3;
+          u.core.material.opacity = on * (0.3 + 0.35 * beat) + f * 0.5;
+          u.beam.material.opacity = on * (0.08 + 0.12 * beat) + f * 0.35;
+          u.beam.visible = on > 0.02 || f > 0.02;
+          u.rune.rotation.y = time * 1.6;
+          u.ring.scale.setScalar(1 + 0.06 * beat * on + 0.25 * f);
+        }
       }
       beckon.update(state, dt);
     },

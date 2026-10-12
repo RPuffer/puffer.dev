@@ -9,6 +9,7 @@ const LIVE = {
   door: (s) => s === "closed",
   ladder: (s) => s !== "down",
   lever: (s) => s === "up",
+  pad: (s) => s === "live",
 };
 
 export function beckons(t) {

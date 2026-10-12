@@ -1,7 +1,7 @@
 import { CATALOG, maskCells } from "./catalog.js";
 import { DIRS, cellAt, isWalkable, canStep, validateLevel } from "./level.js";
 import { makeProjection } from "./iso.js";
-import { normalizeThing, thingBlocks } from "./interact.js";
+import { normalizeThing, thingBlocks, padLinks } from "./interact.js";
 import { findPath } from "./path.js";
 
 export const VIEW = { pitch: 35.264, yaw: 45, tileH: 1.5 };
@@ -17,9 +17,11 @@ function bfs(L, start, extra) {
   const seen = new Map([[key(...start), null]]), q = [start];
   for (let i = 0; i < q.length; i++) {
     const [x, z] = q[i];
-    for (const d of DK) {
-      if (!canStep(L, x, z, d)) continue;
-      const nx = x + DIRS[d][0], nz = z + DIRS[d][1], k = key(nx, nz);
+    const next = DK.filter((d) => canStep(L, x, z, d)).map((d) => [x + DIRS[d][0], z + DIRS[d][1]]);
+    const jump = L.pads?.get(key(x, z));
+    if (jump) next.push(jump);
+    for (const [nx, nz] of next) {
+      const k = key(nx, nz);
       if (seen.has(k) || (extra && !extra(nx, nz))) continue;
       seen.set(k, key(x, z));
       q.push([nx, nz]);
@@ -107,7 +109,7 @@ export function checkLevel(raw) {
   const { errors } = validateLevel(raw);
   if (errors.length) return errors;
   const grown = new Set((raw.outgrowths || []).flatMap((g) => g.cells.map(([x, z]) => x + "," + z)));
-  const L = { ...raw, blocked: new Set() };
+  const L = { ...raw, blocked: new Set(), pads: padLinks((raw.things || []).map((t) => normalizeThing(t)), new Set((raw.things || []).map((t) => t.id))) };
   const occ = new Map();
   for (const d of L.decor) {
     const spec = CATALOG[d.t];
@@ -140,7 +142,7 @@ export function checkLevel(raw) {
   if (lift("entry") && lift("exit")) {
     const open = { ...L, blocked: new Set(L.blocked), edges: new Set() };
     for (const t of raw.things) if (t.kind === "bonfire" || t.kind === "chest") open.blocked.add(key(t.x, t.z));
-    if (!findPath(open, [lift("entry").x, lift("entry").z], [lift("exit").x, lift("exit").z])) problems.push(`lift to lift: no path from entry ${lift("entry").x},${lift("entry").z} to exit ${lift("exit").x},${lift("exit").z} with gates open`);
+    if (!(L.pads.size ? bfs(open, [lift("entry").x, lift("entry").z]).has(key(lift("exit").x, lift("exit").z)) : findPath(open, [lift("entry").x, lift("entry").z], [lift("exit").x, lift("exit").z]))) problems.push(`lift to lift: no path from entry ${lift("entry").x},${lift("entry").z} to exit ${lift("exit").x},${lift("exit").z} with gates open`);
   }
   const inRun = new Set();
   for (const [dx, dz] of [[1, 0], [0, 1]]) {

@@ -1,9 +1,10 @@
 import { isWalkable, DIRS } from "./level.js";
 import { pathToward } from "./path.js";
 
-export const THING_KINDS = ["bonfire", "chest", "gate", "elevator", "watcher", "door", "ladder", "lever"];
-const START = { bonfire: "unlit", chest: "closed", gate: "closed", elevator: "idle", watcher: "idle", door: "closed", ladder: "up", lever: "up" };
-const VERB = { bonfire: ["Light the bonfire", "Rest"], chest: ["Open the chest"], elevator: ["Ride the lift"], lever: ["Pull the lever"] };
+export const THING_KINDS = ["bonfire", "chest", "gate", "elevator", "watcher", "door", "ladder", "lever", "pad"];
+const START = { bonfire: "unlit", chest: "closed", gate: "closed", elevator: "idle", watcher: "idle", door: "closed", ladder: "up", lever: "up", pad: "live" };
+const VERB = { bonfire: ["Light the bonfire", "Rest"], chest: ["Open the chest"], elevator: ["Ride the lift"], lever: ["Pull the lever"], pad: ["Step through the pad"] };
+export const PAD_COST = 4;
 const SAY = {
   doorShut: "It does not open from this side.",
   gateShut: "It won't budge. A lever works it.",
@@ -12,6 +13,8 @@ const SAY = {
   ladderHigh: "The ladder is drawn up. Someone above could kick it down.",
   ladderDown: "Kicked the ladder down. A shortcut.",
   lever: "Somewhere, a gate grinds open.",
+  padDark: "The pad is dark.",
+  padWake: "The pad hums awake. A shortcut.",
 };
 const key = (x, z) => x + "," + z;
 const N8 = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
@@ -52,6 +55,20 @@ export function thingLinks(t) {
 
 export const isShortcutGate = (t) => t.kind === "gate" && /^lever:/.test(String(t.open || ""));
 
+export const padLive = (t) => t.kind === "pad" && t.state === "live";
+
+export function padLinks(things, open = null) {
+  const byId = Object.fromEntries((things || []).map((t) => [t.id, t]));
+  const out = new Map();
+  for (const t of things || []) {
+    if (t.kind !== "pad" || !byId[t.to]) continue;
+    const o = byId[t.to];
+    const live = open ? (t.role !== "shortcut" || open.has(t.id) || open.has(o.id)) : padLive(t);
+    if (live) out.set(key(t.x, t.z), [o.x, o.z]);
+  }
+  return out;
+}
+
 export function normalizeThing(t) {
   const kind = t.kind || t.t;
   const out = { ...t, kind, rot: t.rot || 0, state: t.state || START[kind] };
@@ -68,6 +85,7 @@ export function normalizeThing(t) {
   }
   else if (kind === "ladder") { out.mode = t.mode === "drop" ? "drop" : "kick"; if (out.mode === "drop") out.state = "drop"; out.blocks = []; }
   else if (kind === "bonfire" || kind === "chest" || kind === "lever") out.blocks = [[t.x, t.z]];
+  else if (kind === "pad") { out.blocks = []; if (!t.state) out.state = t.role === "shortcut" ? "dark" : "live"; }
   else out.blocks = [];
   if (kind === "watcher") { out.size = t.size || [1, 1]; out.radius = t.radius || 3.5; }
   return out;
@@ -114,12 +132,14 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     if (t.kind === "door" && t.state === "open" && t.edge) level.edges?.delete(edgeKey(t.edge[0], t.edge[1]));
     if (t.kind === "ladder") setLinks(t);
   }
+  const syncPads = () => { level.pads = padLinks(things); };
+  syncPads();
 
   const listeners = new Set();
   const emit = (e) => { for (const f of listeners) f(e); };
   const save = () => write({ ...(read() || {}), v: 1, respawn, things: Object.fromEntries(things.map((t) => [t.id, { state: t.state }])) });
 
-  let actor = null, pending = null, focus = null, toastText = "", toastT = 0, nav = null, stalled = false, bumped = "";
+  let actor = null, pending = null, focus = null, toastText = "", toastT = 0, nav = null, stalled = false, bumped = "", padCell = "";
   const log = [];
 
   const ui = dom && params.hero !== "0" ? mountThingsUI() : null;
@@ -128,7 +148,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
   const center = (t) => t.kind === "watcher" ? [t.x + t.size[0] / 2, t.z + t.size[1] / 2] : [t.x + 0.5, t.z + 0.5];
   const at = (c, p) => !!p && c[0] === p[0] && c[1] === p[1];
   const inRange = (t, c = actor.cell) => {
-    if (t.kind === "elevator") return c[0] === t.x && c[1] === t.z;
+    if (t.kind === "elevator" || t.kind === "pad") return c[0] === t.x && c[1] === t.z;
     if (t.kind === "door") return !!t.edge && (at(c, t.edge[0]) || at(c, t.edge[1]));
     if (t.kind === "ladder") { const e = ladderEnds(t); return !!e && (at(c, e[0]) || at(c, e[1])); }
     if (t.kind === "gate") return leverGate(t) && !!t.edge && (at(c, t.edge[0]) || at(c, t.edge[1]));
@@ -137,7 +157,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     return Math.max(dx, dz) === 1;
   };
   const leverGate = (t) => isShortcutGate(t) && t.state !== "open" && t.lifting == null && byId[String(t.open).split(":")[1]]?.state !== "pulled";
-  const usable = (t) => (t.kind === "gate" && leverGate(t)) || (t.kind === "bonfire") || (t.kind === "chest" && t.state === "closed") || (t.kind === "elevator" && t.state === "idle") || (t.kind === "door" && t.state === "closed") || (t.kind === "ladder" && t.state === "up") || (t.kind === "lever" && t.state === "up");
+  const usable = (t) => (t.kind === "gate" && leverGate(t)) || (t.kind === "bonfire") || (t.kind === "chest" && t.state === "closed") || (t.kind === "elevator" && t.state === "idle") || (t.kind === "door" && t.state === "closed") || (t.kind === "ladder" && t.state === "up") || (t.kind === "lever" && t.state === "up") || (t.kind === "pad" && t.state === "live" && !!byId[t.to]);
   const farSide = (t, c = actor.cell) => t.kind === "door" ? at(c, t.edge?.[1]) : t.kind === "ladder" ? at(c, [t.x, t.z]) : true;
   const verb = (t) => {
     if (t.kind === "bonfire") return VERB.bonfire[t.state === "lit" ? 1 : 0];
@@ -183,6 +203,12 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       save();
       emit({ type: "lever", thing: t });
       toast(t.text || SAY.lever);
+    } else if (t.kind === "pad") {
+      const o = byId[t.to];
+      actor.path = []; actor.held = null; actor.tapDir = null; actor.moving = false;
+      actor.cell = [o.x, o.z];
+      actor.pos.x = o.x + 0.5; actor.pos.z = o.z + 0.5;
+      emit({ type: "teleport", thing: t, to: o });
     } else if (t.kind === "elevator") {
       const run = t.run || level.runOrder || [], i = run.indexOf(level.name), back = t.role === "entry";
       t.next = t.to || (i >= 0 ? run[back ? i - 1 : i + 1] : null) || null;
@@ -262,7 +288,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     },
     tap(cell) {
       if (!actor || !cell) return false;
-      const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator" || q.kind === "lever" || q.kind === "door" || q.kind === "ladder") && (q.kind !== "door" && q.kind !== "ladder" || usable(q)) && q.x === cell[0] && q.z === cell[1]);
+      const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator" || q.kind === "lever" || q.kind === "door" || q.kind === "ladder" || q.kind === "pad") && (q.kind !== "door" && q.kind !== "ladder" || usable(q)) && q.x === cell[0] && q.z === cell[1]);
       if (!t) return false;
       if (inRange(t)) { act(t); return true; }
       const from = actor.path[0] || actor.cell;
@@ -277,7 +303,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
         }
         return best;
       };
-      const best = t.kind === "elevator" || t.kind === "door" || t.kind === "ladder" ? shortest([[t.x, t.z]]) : shortest(side) || shortest(near);
+      const best = t.kind === "elevator" || t.kind === "door" || t.kind === "ladder" || t.kind === "pad" ? shortest([[t.x, t.z]]) : shortest(side) || shortest(near);
       if (!best) return false;
       actor.setPath(best);
       pending = t.id;
@@ -328,6 +354,20 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
         if (!gateReady(g)) continue;
         g.lifting = GATE_LIFT;
         emit({ type: "gate", thing: g });
+      }
+      const here = actor.cell[0] + "," + actor.cell[1];
+      if (here !== padCell) {
+        padCell = here;
+        const p = things.find((q) => q.kind === "pad" && q.x === actor.cell[0] && q.z === actor.cell[1]);
+        if (p && p.state === "dark") {
+          if (p.end === "far") {
+            for (const q of [p, byId[p.to]]) if (q) q.state = "live";
+            syncPads();
+            save();
+            emit({ type: "pad", thing: p });
+            toast(p.text || SAY.padWake);
+          } else toast(p.text || SAY.padDark);
+        }
       }
       if (pending) {
         const t = byId[pending];

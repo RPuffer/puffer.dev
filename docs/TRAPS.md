@@ -45,8 +45,8 @@ Procgen applies these after `checkRoute` passes and before decor, and rejects th
 
 ### Placement, every tier
 
-1. No trap cell on a shortcut cell, ramp landing, lock cell, gate threshold, lift tile or the plaza, and none within two cells of spawn or the bonfire.
-2. Each trap declares a worst state (holes open, blocks solid, gates up). `checkRoute` runs again with every trap in its worst state, and lift to lift must still pass with only the core gate open.
+1. No trap cell on a shortcut cell, ramp landing, lock cell, gate threshold, lift tile or the plaza, and none within two cells of spawn or the bonfire. No trap cell on a teleporter pad or within two cells of an arrival pad, and no trap whose worst state blocks the only walk to a connector pad. A trap may guard the walk to a shortcut or reward pad; the risk is the price of the shortcut.
+2. Each trap declares a worst state (holes open, blocks solid, gates up). `checkRoute` runs again with every trap in its worst state, and lift to lift must still pass with only the core gate open. A dark shortcut pad counts as shut in that check.
 3. Two trap footprints keep two clear cells between them unless a sequence binds them.
 4. Each trap kind appears at most once per island.
 5. A hidden trap gets a landmark within four cells (decor rule 4 in LEVEL-DESIGN), so you can remember the spot.
