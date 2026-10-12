@@ -13,7 +13,10 @@ const CSS = `
 .iw-home{position:fixed;left:calc(50% - 82px);top:calc(max(12px,env(safe-area-inset-top,0px)) + 11px);z-index:22;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#363e4d;color:#f0ede6;box-shadow:0 3px 0 #1a1f28;transition:transform .12s}
 .iw-home:hover,.iw-home:focus-visible{transform:translateY(-1px);box-shadow:0 3px 0 #1a1f28,0 0 0 2px #12c4f0;outline:none}
 .iw-home svg{width:20px;height:20px;fill:currentColor}
-.iw-touch .iw-home{display:none}
+.iw-touch .iw-home{left:max(14px,env(safe-area-inset-left,0px));top:calc(max(12px,env(safe-area-inset-top,0px)) + 5px);width:48px;height:48px;background:#262c37;color:#ffd76a;box-shadow:0 0 0 3px #f5c243,0 5px 0 3px rgba(20,24,31,.55);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.iw-touch .iw-home svg{width:24px;height:24px}
+.iw-touch .iw-home:active{transform:translateY(3px);box-shadow:0 0 0 3px #f5c243,0 2px 0 3px rgba(20,24,31,.55)}
+.iw-panel.iw-cs{top:max(10px,calc(env(safe-area-inset-top,0px) + 10px));bottom:max(10px,env(safe-area-inset-bottom,0px));left:max(10px,calc(50vw - 640px),env(safe-area-inset-left,0px));right:max(10px,calc(50vw - 640px),env(safe-area-inset-right,0px));transform-origin:0 0;background:#1f161d}
 @media (min-width:700px){.iw-home{left:calc(50% - 88px);top:calc(max(12px,env(safe-area-inset-top,0px)) + 14px)}}
 .iw-orb.open{transform:scale(.5);opacity:0;pointer-events:none}
 .iw-orb[hidden]{display:none}
@@ -521,9 +524,64 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
   };
 }
 
+export const characterHref = (cls) => HOME + "?embed=1&theme=souls" + (cls ? "&class=" + encodeURIComponent(cls) : "");
+
+function mountCharacter(button, { pick, current = () => null, busy = () => false, onOpen = () => {}, onClose = () => {} }) {
+  let sheet = null;
+  const open = () => {
+    if (sheet || busy()) return false;
+    sheet = document.createElement("div");
+    sheet.className = "iw-sheet";
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-label", "character select");
+    const panel = document.createElement("div");
+    panel.className = "iw-panel iw-cs";
+    const frameEl = document.createElement("iframe");
+    frameEl.title = "character select";
+    frameEl.src = characterHref(current());
+    const x = document.createElement("button");
+    x.type = "button";
+    x.className = "x";
+    x.textContent = "\u00d7";
+    x.setAttribute("aria-label", "close");
+    panel.append(frameEl, x);
+    sheet.appendChild(panel);
+    for (const ev of ["pointerdown", "pointerup", "touchstart", "touchend", "wheel"]) sheet.addEventListener(ev, (e) => e.stopPropagation(), { passive: true });
+    sheet.addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Escape") close(); });
+    sheet.addEventListener("click", (e) => { e.stopPropagation(); if (e.target === sheet || e.target === x) close(); });
+    document.body.appendChild(sheet);
+    button.setAttribute("aria-expanded", "true");
+    onOpen();
+    frameEl.addEventListener("load", () => { try { frameEl.contentWindow.focus(); } catch {} }, { once: true });
+    return true;
+  };
+  const close = (refocus = true) => {
+    if (!sheet) return;
+    sheet.remove();
+    sheet = null;
+    button.setAttribute("aria-expanded", "false");
+    onClose();
+    if (refocus) button.focus({ preventScroll: true });
+  };
+  const onMessage = (e) => {
+    if (!sheet || e.origin !== location.origin) return;
+    if (e.data?.iw === "class" && typeof e.data.id === "string") { pick(e.data.id); close(); }
+    else if (e.data?.iw === "cs-close") close();
+  };
+  addEventListener("message", onMessage);
+  button.setAttribute("aria-haspopup", "dialog");
+  button.setAttribute("aria-expanded", "false");
+  button.addEventListener("click", (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    open();
+  });
+  return { open, close, get isOpen() { return !!sheet; }, get frame() { return sheet?.querySelector("iframe") || null; }, dispose() { removeEventListener("message", onMessage); sheet?.remove(); } };
+}
+
 const framed = () => { try { return window.top !== window; } catch { return true; } };
 
-export function mountUI({ container, rotate = null, zoom = null, nav = {} } = {}) {
+export function mountUI({ container, rotate = null, zoom = null, nav = {}, character = null } = {}) {
   const q = new URLSearchParams(location.search);
   if (!container && (framed() || q.get("ui") === "0" || q.get("hero") === "0")) return null;
   if (!document.getElementById("iw-ui-css")) {
@@ -558,6 +616,7 @@ export function mountUI({ container, rotate = null, zoom = null, nav = {} } = {}
   };
   if (!container) addEventListener("keydown", flash);
   const navigator = nav && !container ? mountNavigator(nav) : null;
+  let chars = null;
   if (!container && !document.querySelector(".iw-home")) {
     const home = document.createElement("a");
     home.className = "iw-home";
@@ -567,8 +626,9 @@ export function mountUI({ container, rotate = null, zoom = null, nav = {} } = {}
     home.innerHTML = BUST;
     home.addEventListener("pointerdown", (e) => e.stopPropagation());
     document.body.appendChild(home);
+    if (character?.pick) chars = mountCharacter(home, character);
   }
   box.append(...zooms, ...turns);
   (container || document.body).appendChild(box);
-  return { element: box, turns, zooms, navigator, finale: () => navigator?.finale() };
+  return { element: box, turns, zooms, navigator, chars, finale: () => navigator?.finale() };
 }

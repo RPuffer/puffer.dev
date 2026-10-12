@@ -4,6 +4,7 @@ import { createGame, readParams } from "../core/game.js";
 import { createRun } from "../core/run.js";
 import { CATALOG } from "../core/catalog.js";
 import { createRenderer } from "./renderer.js";
+import { heroClass, CLASS_KEY } from "./heroes.js";
 import { loadPieces, loadGlbs, BUILDERS } from "./hooks.js";
 import { makeStyle } from "./style.js";
 import { mountUI } from "../core/ui.js";
@@ -112,6 +113,21 @@ try {
       busy: () => sequence.active || !!game.state.actor?.locked,
       preload: (name) => run.preload(name).catch(() => {}),
       go: (name) => run.swap(name, { from: game.state.level.name }),
+    },
+    character: {
+      busy: () => sequence.active || !!game.state.actor?.locked,
+      current: () => renderer.hero?.userData.heroClass || heroClass(params),
+      onOpen: () => game.pause(),
+      onClose: () => game.resume(),
+      pick: (id) => {
+        try { localStorage.setItem(CLASS_KEY, id); } catch {}
+        const cls = heroClass({ class: id });
+        if (!cls) return;
+        game.state.params.class = cls;
+        params.class = cls;
+        renderer.swapHero(cls);
+        window.__classSwaps = (window.__classSwaps || 0) + 1;
+      },
     },
   });
   if (params.seq === "hold") holdAtExit(game, sequence);

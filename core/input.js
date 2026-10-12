@@ -13,10 +13,7 @@ export const HOME = new URL("../landing/index.html", import.meta.url).href;
 export const BUST = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0z"/></svg>';
 
 const BAND_CSS = `
-.iw-back{--k:calc(var(--g) * .38);position:absolute;left:calc(25% - var(--g) / 4);top:52%;width:var(--k);height:var(--k);margin:calc(var(--k) / -2) 0 0 calc(var(--k) / -2);display:grid;place-items:center;border-radius:50%;background:linear-gradient(160deg,#ffd76a 0 46%,#f5c243 46%);box-shadow:0 0 0 4px rgba(38,44,55,.85),0 6px 0 4px rgba(20,24,31,.8);color:rgba(31,29,26,.6);-webkit-tap-highlight-color:transparent}
-.iw-back:active{transform:translateY(4px);box-shadow:0 0 0 4px rgba(38,44,55,.85),0 2px 0 4px rgba(20,24,31,.8)}
-.iw-back svg{width:52%;height:52%;fill:currentColor}
-.iw-band{--g:min(132px,19vh);position:fixed;left:0;right:0;bottom:0;height:max(25vh,150px);z-index:12;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;background:linear-gradient(to top,rgba(8,14,24,.52),rgba(8,14,24,.2) 72%,rgba(8,14,24,0));box-shadow:inset 0 2px 0 rgba(18,196,240,.22);transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s}
+.iw-band{--g:min(132px,19vh);--a:calc(var(--g) * .56);--m:max(16px,env(safe-area-inset-right,0px));position:fixed;left:0;right:0;bottom:0;height:max(25vh,150px);z-index:12;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;background:linear-gradient(to top,rgba(8,14,24,.52),rgba(8,14,24,.2) 72%,rgba(8,14,24,0));box-shadow:inset 0 2px 0 rgba(18,196,240,.22);transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s}
 @supports ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{-webkit-backdrop-filter:brightness(.62) saturate(1.7);backdrop-filter:brightness(.62) saturate(1.7);border-top:2px solid rgba(18,196,240,.35)}}
 @supports not ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{background:rgba(10,16,30,.6);border-top:2px solid rgba(18,196,240,.35)}}
 .iw-band.off{transform:translateY(110%);opacity:0;pointer-events:none}
@@ -27,11 +24,11 @@ const BAND_CSS = `
 .iw-knob{position:absolute;left:50%;top:50%;width:46%;height:46%;margin:-23% 0 0 -23%;border-radius:50%;background:linear-gradient(160deg,#5fe3ff 0 46%,#12c4f0 46%);box-shadow:0 7px 0 #0a7c9c,0 9px 10px rgba(0,0,0,.35);transform:translate(0,0);transition:transform .32s cubic-bezier(.34,1.8,.64,1)}
 .iw-knob::after{content:"";position:absolute;left:22%;top:16%;width:30%;height:18%;border-radius:50%;background:rgba(255,255,255,.75);transform:rotate(-24deg)}
 .iw-band.held .iw-knob{transition:transform .07s ease-out}
-.iw-act{--a:calc(var(--g) * .56);position:absolute;left:calc(75% + var(--g) / 4);top:52%;width:var(--a);height:var(--a);margin:calc(var(--a) / -2) 0 0 calc(var(--a) / -2);padding:0;border:0;border-radius:50%;background:linear-gradient(160deg,#ffd76a 0 46%,#f5c243 46%);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 8px 0 5px rgba(20,24,31,.8);color:rgba(31,29,26,.55);font:800 calc(var(--a) * .3)/1 system-ui,sans-serif;touch-action:none;transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.iw-act{position:absolute;left:calc(100% - var(--m) - var(--a) / 2);top:52%;width:var(--a);height:var(--a);margin:calc(var(--a) / -2) 0 0 calc(var(--a) / -2);padding:0;border:0;border-radius:50%;background:linear-gradient(160deg,#ffd76a 0 46%,#f5c243 46%);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 8px 0 5px rgba(20,24,31,.8);color:rgba(31,29,26,.55);font:800 calc(var(--a) * .3)/1 system-ui,sans-serif;touch-action:none;transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
 .iw-act.on{transform:translateY(5px);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 3px 0 5px rgba(20,24,31,.8)}
 html[data-iw-act="1"] .iw-act{animation:iw-glow 1.1s ease-in-out infinite alternate}
 @keyframes iw-glow{from{box-shadow:0 0 0 5px #12c4f0,0 8px 0 5px rgba(20,24,31,.8),0 0 6px 6px rgba(18,196,240,.25)}to{box-shadow:0 0 0 5px #5fe3ff,0 8px 0 5px rgba(20,24,31,.8),0 0 18px 10px rgba(18,196,240,.45)}}
-.iw-rose{--r:min(calc(var(--g) * 1.67),47vw);position:absolute;left:50%;top:50%;width:var(--r);height:calc(var(--r) * .636);margin:calc(var(--r) * -.318) 0 0 calc(var(--r) / -2);pointer-events:none}
+.iw-rose{--r:min(calc(var(--g) * 1.67),47vw);position:absolute;left:clamp(calc(var(--r) / 2 + 12px),calc(100% - var(--m) - var(--a) - 40px - var(--r) / 2),50%);top:50%;width:var(--r);height:calc(var(--r) * .636);margin:calc(var(--r) * -.318) 0 0 calc(var(--r) / -2);pointer-events:none}
 .iw-rose svg{display:block;width:100%;height:100%;overflow:visible}
 .iw-rose .hit-r{position:absolute;inset:-14% -8%;pointer-events:auto;touch-action:none}
 .iw-rose .ring{transition:transform .62s cubic-bezier(.34,1.56,.64,1)}
@@ -184,7 +181,7 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
     band = document.createElement("div");
     band.className = "iw-band" + (busy ? " off" : "") + (useStick ? " stick" : " rose");
     const pad = useStick ? `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div>` : roseMarkup();
-    band.innerHTML = `${pad}<button type="button" class="iw-act" aria-label="use">✦</button><a class="iw-back" href="${HOME}" aria-label="character select" title="character select">${BUST}</a>`;
+    band.innerHTML = `${pad}<button type="button" class="iw-act" aria-label="use">✦</button>`;
     const act = band.querySelector(".iw-act");
     if (useStick) {
       knob = band.querySelector(".iw-knob");

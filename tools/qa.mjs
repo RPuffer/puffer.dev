@@ -192,13 +192,67 @@ async function uiChecks(page, tag, touch) {
   record(`${tag} Escape closes the panel`, !(await page.$(".iw-panel")));
 }
 
+async function charSuite(size) {
+  const tag = `chars@${size.width}${size.touch ? "t" : ""}`;
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1`, size);
+  record(`${tag} page loads`, done);
+  if (!done) { await page.close(); return; }
+  await settle(page, 800);
+  for (const k of ["KeyW", "KeyD"]) { await page.keyboard.press(k); await idle(page).catch(() => {}); }
+  await page.evaluate(() => window.__game.state.things.act());
+  await settle(page, 400);
+  await page.waitForFunction(() => !window.__game.state.actor.moving, { timeout: 5000, polling: 50 }).catch(() => {});
+  const snap = () => page.evaluate(() => { const g = window.__game, a = g.state.actor; return { level: g.state.level.name, cell: a.cell.join(), facing: +a.facing.toFixed(3), things: g.state.things.things.map((t) => t.id + ":" + t.state).join(), cls: g.renderer.hero.userData.heroClass, url: location.pathname }; });
+  const s0 = await snap();
+  await tapEl(page, ".iw-home", size.touch);
+  const shown = await page.waitForSelector(".iw-cs iframe", { timeout: 4000 }).then(() => true, () => false);
+  record(`${tag} character select opens as an overlay over the island`, shown && (await snap()).url === s0.url);
+  if (!shown) { await page.close(); return; }
+  const f = await (await page.$(".iw-cs iframe")).contentFrame();
+  await f.waitForFunction(() => window.__done === true && !!document.querySelector("#sc-cls")?.textContent, { timeout: 10000, polling: 100 }).catch(() => {});
+  const ui0 = await f.evaluate(() => ({ cls: localStorage.getItem("isoworld:class"), choose: document.querySelector("#sc-begin")?.textContent, cont: !document.querySelector("#sc-cont")?.hidden }));
+  record(`${tag} overlay offers Choose without Begin or Continue`, ui0.choose === "Choose" && !ui0.cont, JSON.stringify(ui0));
+  await page.screenshot({ path: path.join(OUT, `${tag}-overlay.png`) });
+  await page.click(".iw-cs .x");
+  await wait(300);
+  const s1 = await snap();
+  record(`${tag} closing without a pick returns to play unchanged`, !(await page.$(".iw-cs")) && JSON.stringify(s1) === JSON.stringify(s0), JSON.stringify(s1));
+  await tapEl(page, ".iw-home", size.touch);
+  await page.waitForSelector(".iw-cs iframe", { timeout: 4000 });
+  const f2 = await (await page.$(".iw-cs iframe")).contentFrame();
+  await f2.waitForFunction(() => window.__done === true && !!document.querySelector("#sc-cls")?.textContent, { timeout: 10000, polling: 100 }).catch(() => {});
+  await wait(600);
+  await f2.click('.sc-arw[data-d="1"]');
+  await wait(200);
+  const want = await f2.evaluate(() => localStorage.getItem("isoworld:class"));
+  await f2.$eval("#sc-begin", (b) => setTimeout(() => b.click(), 0));
+  await page.waitForFunction(() => !document.querySelector(".iw-cs"), { timeout: 4000 }).catch(() => {});
+  await wait(300);
+  const s2 = await snap();
+  record(`${tag} picking a class swaps the hero in place`, s2.cls === want && s2.cls !== s0.cls, `${s0.cls} -> ${s2.cls} want ${want}`);
+  record(`${tag} class swap keeps island, cell, facing and things`, s2.level === s0.level && s2.cell === s0.cell && s2.facing === s0.facing && s2.things === s0.things && s2.url === s0.url, `${JSON.stringify(s0)} vs ${JSON.stringify(s2)}`);
+  const c0 = s2.cell;
+  let moved = false;
+  for (const k of ["KeyS", "KeyA", "KeyW", "KeyD"]) {
+    if (moved) break;
+    await page.keyboard.press(k);
+    await wait(150);
+    await idle(page).catch(() => {});
+    moved = (await snap()).cell !== c0;
+  }
+  record(`${tag} play resumes after the swap`, moved, c0);
+  record(`${tag} no console errors`, problems.length === 0, problems.slice(0, 3).join(" | "));
+  await page.evaluate(() => { localStorage.removeItem("isoworld:class"); localStorage.removeItem("isoworld:things:wizard-medium"); });
+  await page.close();
+}
+
 async function landingSuite(size) {
   const g = await open(`${BASE}/3d/index.html?level=cat-medium&reset=1`, size);
   await g.page.evaluate(() => localStorage.setItem("isoworld:things:cat-medium", JSON.stringify({ respawn: [1, 1], things: { t0: { state: "lit" } } })));
-  await Promise.all([g.page.waitForNavigation({ waitUntil: "load" }), g.page.click(".iw-home")]);
+  await g.page.goto(await g.page.$eval(".iw-home", (a) => a.href), { waitUntil: "load" });
   await g.page.waitForFunction(() => window.__done === true, { timeout: 10000, polling: 100 }).catch(() => {});
   const land = await g.page.evaluate(() => ({ path: location.pathname, cont: !!document.querySelector("#sc-cont:not([hidden])"), where: document.querySelector("#sc-where")?.textContent || "" }));
-  record("character select button returns to the landing with Continue", /\/landing\//.test(land.path) && land.cont, JSON.stringify(land));
+  record("character select link still opens the standalone landing with Continue", /\/landing\//.test(land.path) && land.cont, JSON.stringify(land));
   const links = await g.page.$$eval(".sc-links a", (as) => as.map((a) => ({ href: a.href, label: a.getAttribute("aria-label"), title: a.title, target: a.target, rel: a.rel, svg: !!a.querySelector("svg"), text: a.textContent.trim() })));
   const want = ["behance.net/SyntheticFlow", "github.com/RPuffer", "linkedin.com/in/ryne-puffer-2199303a", "soundcloud.com/orva-music"];
   record("landing icon links", links.length === 4 && want.every((u, i) => links[i].href.includes(u)) && links.every((l) => l.label && l.title === l.label && l.target === "_blank" && /noopener/.test(l.rel) && l.svg && !l.text), JSON.stringify(links.map((l) => [l.label, l.target, l.rel, l.svg])));
@@ -229,8 +283,8 @@ async function buildSuite(build, size) {
   if (size.touch) {
     const band = await page.evaluate(() => { const b = document.querySelector(".iw-band"), u = document.querySelector(".iw-ui"); return { band: !!b && !b.classList.contains("off"), ui: !!u && getComputedStyle(u).display !== "none", old: !!document.querySelector(".iso-dpad,.iw-use") }; });
     record(`${tag} touch band shown, desktop buttons and d-pad gone`, band.band && !band.ui && !band.old, JSON.stringify(band));
-    const back = await page.evaluate(() => { const a = document.querySelector(".iw-band .iw-back"), k = document.querySelector(".iw-band .iw-rose"), h = document.querySelector(".iw-home"); if (!a || !k) return null; const r = a.getBoundingClientRect(), q = k.getBoundingClientRect(); return { href: a.getAttribute("href"), label: a.getAttribute("aria-label"), w: Math.round(r.width), left: r.right <= q.left, inView: r.left >= 0, desk: !!h && getComputedStyle(h).display !== "none" }; });
-    record(`${tag} back button left of the compass rose`, !!back && /landing\/index\.html$/.test(back.href) && !!back.label && back.w > 20 && back.left && back.inView && !back.desk, JSON.stringify(back));
+    const back = await page.evaluate(() => { const a = document.querySelector(".iw-home"), o = document.querySelector(".iw-orb"); if (!a || !o) return null; const r = a.getBoundingClientRect(), q = o.getBoundingClientRect(); return { href: a.getAttribute("href"), label: a.getAttribute("aria-label"), w: Math.round(r.width), left: Math.round(r.left), top: Math.round(r.top), gap: Math.round(q.left - r.right), band: !!document.querySelector(".iw-band .iw-back"), shown: getComputedStyle(a).display !== "none" }; });
+    record(`${tag} character select sits top left, clear of the orb and out of the band`, !!back && /landing\/index\.html$/.test(back.href) && !!back.label && back.w >= 44 && back.left >= 0 && back.left < 30 && back.top < 40 && back.gap >= 40 && !back.band && back.shown, JSON.stringify(back));
   }
   await page.screenshot({ path: path.join(OUT, `${tag}-play.png`) });
   await uiChecks(page, tag, size.touch);
@@ -394,7 +448,7 @@ async function clickAt(page, p, touch) {
 async function clickSuite(size) {
   const tag = `click@${size.width}${size.touch ? "t" : ""}`;
   for (const yaw of [45, 225]) {
-    const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1&yaw=${yaw}`, size);
+    const { page, problems, done } = await open(`${BASE}/3d/index.html?level=home&reset=1&yaw=${yaw}${size.touch ? "&cam=3" : ""}`, size);
     record(`${tag} yaw ${yaw} page loads`, done);
     if (!done) { await page.close(); continue; }
     await settle(page, 800);
@@ -588,8 +642,8 @@ async function roseSuite(size) {
   const { page, problems, done } = await open(`${BASE}/3d/index.html?level=wizard-medium&reset=1&spawn=${spot.cell.join(",")}`, size);
   if (!done) { record(`${tag} spawn page loads`, false); await page.close(); return; }
   await settle(page, 1200);
-  const ui = await page.evaluate(() => { const r = document.querySelector(".iw-rose")?.getBoundingClientRect(), a = document.querySelector(".iw-act").getBoundingClientRect(), b = document.querySelector(".iw-back").getBoundingClientRect(), band = document.querySelector(".iw-band").getBoundingClientRect(); return r && { w: Math.round(r.width), h: Math.round(r.height), clear: r.right < a.left && r.left > b.right, inBand: r.top > band.top && r.bottom < band.bottom, stick: !!document.querySelector(".iw-stick"), petals: document.querySelectorAll(".iw-petal").length, glyphs: document.querySelectorAll(".iw-glyph").length }; });
-  record(`${tag} rose replaces the joystick between back and action`, !!ui && !ui.stick && ui.petals === 4 && ui.glyphs === 4 && ui.clear && ui.inBand && ui.w >= 160, JSON.stringify(ui));
+  const ui = await page.evaluate(() => { const r = document.querySelector(".iw-rose")?.getBoundingClientRect(), hr = document.querySelector(".iw-rose .hit-r").getBoundingClientRect(), a = document.querySelector(".iw-act").getBoundingClientRect(), band = document.querySelector(".iw-band").getBoundingClientRect(); return r && { w: Math.round(r.width), h: Math.round(r.height), gap: Math.round(a.left - hr.right), clear: r.right < a.left && hr.right + 20 <= a.left && hr.left >= 0 && a.right <= innerWidth - 12, inBand: r.top > band.top && r.bottom < band.bottom, stick: !!document.querySelector(".iw-stick"), petals: document.querySelectorAll(".iw-petal").length, glyphs: document.querySelectorAll(".iw-glyph").length }; });
+  record(`${tag} rose replaces the joystick with room before the action button`, !!ui && !ui.stick && ui.petals === 4 && ui.glyphs === 4 && ui.clear && ui.inBand && ui.w >= 160, JSON.stringify(ui));
   await page.screenshot({ path: path.join(OUT, `${tag}-rose.png`) });
   const yaws = [];
   for (let k = 0; k < 4; k++) {
@@ -884,20 +938,21 @@ try {
         for (const pg of await browser.pages()) await pg.close().catch(() => {});
       }
     };
+    if (only === "chars") { if (size.width === 1200 || size.phone) await run("chars", charSuite); continue; }
     if (only === "click") { if (size.width === 1200 || size.touch) await run("click", clickSuite); continue; }
     if (only === "nav") { await run("nav", navSuite); continue; }
     if (only === "touch") { if (size.touch) { await run("touch", touchSuite); await run("rose", roseSuite); } continue; }
     if (only === "rose") { if (size.touch) await run("rose", roseSuite); continue; }
     if (only === "rotation") { if (size.width === 1200 || size.touch) await run("rotation", rotationSuite); continue; }
     if (only === "stick") { if (size.touch) await run("stick", stickSuite); continue; }
-    if (size.phone) { await run("touch", touchSuite); await run("rose", roseSuite); await run("stick", stickSuite); continue; }
+    if (size.phone) { await run("touch", touchSuite); await run("rose", roseSuite); await run("stick", stickSuite); await run("chars", charSuite); continue; }
     if (only === "cam") { await run("cam", camSuite); continue; }
     if (only === "landing") { if (size.width === 1200) await run("landing", landingSuite); continue; }
     for (const build of ["3d", "2d"]) await run(build, (s) => buildSuite(build, s));
     if (size.width === 1200 || size.touch) await run("rotation", rotationSuite);
     if (size.width === 1200 || size.touch) await run("click", clickSuite);
     if (!size.touch) { await run("compare", compareSuite); await run("start", startSuite); }
-    if (size.width === 1200) await run("landing", landingSuite);
+    if (size.width === 1200) { await run("landing", landingSuite); await run("chars", charSuite); }
     if (size.touch) { await run("touch", touchSuite); await run("rose", roseSuite); await run("stick", stickSuite); }
     await run("nav", navSuite);
     await run("cam", camSuite);

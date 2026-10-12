@@ -62,7 +62,7 @@ export function createRenderer(container = document.body) {
   const sky = createSky();
   if (sky) scene.add(sky.mesh);
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
-  let glowing = false;
+  let glowing = false, heroStyle = null;
   const heroHl = () => {
     if (!hero) return;
     if (glowing) highlight(hero, RIDE_GLOW);
@@ -161,6 +161,7 @@ export function createRenderer(container = document.body) {
     sky,
     mount(state, st = makeStyle(state.level)) {
       const style = st;
+      heroStyle = style;
       S = state;
       setCam(state.params.cam != null && state.params.cam !== "" ? state.params.cam : state.params.hero === "0" ? 1 : savedZoom(undefined, touchView(state.params)));
       initMotion(state.params);
@@ -259,6 +260,21 @@ export function createRenderer(container = document.body) {
       applyDrop();
     },
     get hero() { return hero; },
+    swapHero(cls) {
+      if (!hero || !S) return null;
+      const old = hero, next = buildCharacter(1, heroStyle, cls);
+      next.visible = old.visible;
+      next.position.copy(old.position);
+      next.rotation.copy(old.rotation);
+      scene.remove(old);
+      unhighlight(old);
+      old.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+      hero = next;
+      heroHl();
+      scene.add(hero);
+      hero.userData.animate(S.actor, 0);
+      return hero;
+    },
     get pathLine() { return line.mesh; },
     get things() { return things; },
     get zoomScale() { return zoom / base; },

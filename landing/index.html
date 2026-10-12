@@ -31,11 +31,12 @@ import { guardPageZoom } from "../core/nozoom.js";
 guardPageZoom();
 import { THEMES, ROTATION } from "./themes/registry.js";
 import * as data from "./skills.js";
-import { wire, rolesList, settle } from "./run.js";
+import { wire, embedWire, rolesList, settle } from "./run.js";
+const embed = new URLSearchParams(location.search).get("embed") === "1" && window.parent !== window;
 const names = ROTATION.filter((n) => THEMES[n]);
 const stage = document.getElementById("stage"), css = document.getElementById("theme-css");
 let off = [], current = null;
-const kit = { ...data, wire, rolesList, hero: "hero.jpg", bust: "hero-bust.jpg", on(t, e, f, o) { t.addEventListener(e, f, o); off.push(() => t.removeEventListener(e, f, o)); } };
+const kit = { ...data, wire: embed ? embedWire : wire, rolesList, hero: "hero.jpg", bust: "hero-bust.jpg", on(t, e, f, o) { t.addEventListener(e, f, o); off.push(() => t.removeEventListener(e, f, o)); } };
 const pick = () => {
   const q = new URLSearchParams(location.search).get("theme");
   if (q && THEMES[q]) return q;
@@ -54,7 +55,7 @@ async function show(name) {
   stage.innerHTML = "";
   const refs = mod.mount(stage, kit);
   document.getElementById("tname").textContent = name;
-  await wire(refs);
+  await kit.wire(refs);
   await settle();
 }
 const next = () => {
@@ -64,8 +65,8 @@ const next = () => {
   show(n);
 };
 document.getElementById("swap").addEventListener("click", next);
-if (names.length < 2) document.getElementById("swap").hidden = true;
-document.addEventListener("keydown", (e) => { if ((e.key === "t" || e.key === "T") && !e.metaKey && !e.ctrlKey && !(e.target instanceof HTMLInputElement)) next(); });
+if (names.length < 2 || embed) document.getElementById("swap").hidden = true;
+document.addEventListener("keydown", (e) => { if (!embed && (e.key === "t" || e.key === "T") && !e.metaKey && !e.ctrlKey && !(e.target instanceof HTMLInputElement)) next(); });
 show(pick());
 </script>
 </body>

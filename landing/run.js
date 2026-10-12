@@ -50,6 +50,20 @@ export async function wire({ begin, cont, label }) {
   return order;
 }
 
+export function embedWire({ begin, cont }) {
+  if (cont) cont.hidden = true;
+  begin.textContent = "Choose";
+  begin.href = "#";
+  begin.addEventListener("click", (e) => {
+    e.preventDefault();
+    let id = null;
+    try { id = localStorage.getItem("isoworld:class"); } catch {}
+    parent.postMessage({ iw: "class", id }, location.origin);
+  });
+  addEventListener("keydown", (e) => { if (e.key === "Escape") parent.postMessage({ iw: "cs-close" }, location.origin); });
+  return [];
+}
+
 export function rolesList(el) {
   el.innerHTML = ROLES.map(([who, what, when]) => `<li><b>${who}</b><span>${what}</span><i>${when}</i></li>`).join("");
 }
