@@ -635,6 +635,7 @@ async function navSuite(size) {
   if (size.touch) await touchPoints(page, slide([[200, 300]], [[200 - step * 1.05, 302]], 6));
   else await page.mouse.wheel({ deltaY: 120 });
   await wait(700);
+  await navSettled(page);
   await tapEl(page, `.iw-nav .node[data-slot="1"]`, size.touch);
   await wait(700);
   const afterLock = await page.evaluate(() => ({ level: window.__game.state.level.name, swaps: window.__swapCount, open: !!document.querySelector(".iw-nav.open") }));
@@ -657,6 +658,7 @@ async function navSuite(size) {
     await tapEl(page, ".iw-orb", true);
     await wait(900);
   }
+  await navSettled(page);
   await tapEl(page, `.iw-nav .node[data-slot="-1"]`, size.touch);
   const jumped = await page.waitForFunction((back) => window.__game.state.level.name === back && !document.querySelector(".iw-veil"), { timeout: 15000, polling: 100 }, back).then(() => true, () => false);
   const after = await page.evaluate(() => ({ level: window.__game.state.level.name, url: new URL(location.href).searchParams.get("level"), swaps: window.__swapCount }));
