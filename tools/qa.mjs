@@ -148,6 +148,17 @@ const navNodes = (page) => page.evaluate(() => [...document.querySelectorAll(".i
   const r = n.getBoundingClientRect();
   return { i: +n.dataset.index, slot: +n.dataset.slot, level: n.dataset.level, w: r.width, x: r.left + r.width / 2, y: r.top + r.height / 2, locked: n.classList.contains("locked"), inView: r.left >= -1 && r.right <= innerWidth + 1 && r.top >= -1, leaving: !!n.dataset.leaving };
 }));
+const navSettled = (page, timeout = 4000) => page.evaluate((timeout) => new Promise((res) => {
+  const t0 = performance.now();
+  let last = "", same = 0;
+  const f = () => {
+    const key = [...document.querySelectorAll(".iw-nav .node")].map((n) => { const r = n.getBoundingClientRect(); return `${n.dataset.index}:${r.width.toFixed(1)}:${r.left.toFixed(1)}:${r.top.toFixed(1)}`; }).join();
+    same = key && key === last ? same + 1 : 0;
+    last = key;
+    if (same >= 6 || performance.now() - t0 > timeout) res(same >= 6); else requestAnimationFrame(f);
+  };
+  f();
+}), timeout);
 async function panelOpens(page) {
   const ok = await page.waitForSelector(".iw-panel iframe", { timeout: 4000 }).then(() => true, () => false);
   if (!ok) return false;
@@ -589,7 +600,8 @@ async function navSuite(size) {
   record(`${tag} orb shows the current island`, shown && bg.includes(`/assets/start/${here}.jpg`), bg);
   if (!shown) { await page.close(); return; }
   await tapEl(page, ".iw-orb", size.touch);
-  await wait(900);
+  await wait(300);
+  await navSettled(page);
   let nodes = await navNodes(page);
   const mid = nodes.find((n) => n.slot === 0), full = nodes.filter((n) => n.w > mid.w * 0.5), outer = nodes.filter((n) => Math.abs(n.slot) === 2);
   record(`${tag} tap morphs into 5 circles centred on here`, full.length === 5 && mid.level === here && full.every((n) => n.inView), nodes.map((n) => `${n.slot}:${n.i}:${Math.round(n.w)}`).join(" "));
@@ -603,7 +615,8 @@ async function navSuite(size) {
     const f = () => {
       const c = document.querySelector(`.iw-nav .node[data-index="${ci}"]`), m = document.querySelector(`.iw-nav .node[data-index="${mi}"]`);
       if (c && m) { const a = c.getBoundingClientRect(), b = m.getBoundingClientRect(); out.push([a.width, +getComputedStyle(c).opacity, b.top + b.height / 2]); }
-      if (performance.now() - t0 < 1600) requestAnimationFrame(f); else res(out);
+      const n = out.length, still = n > 8 && out[0][0] !== out[n - 1][0] && out.slice(-6).every((s) => Math.abs(s[0] - out[n - 1][0]) < 0.2 && Math.abs(s[2] - out[n - 1][2]) < 0.2);
+      if (!still && performance.now() - t0 < 8000) requestAnimationFrame(f); else res(out);
     };
     f();
   }), comer.i, mover.i);
