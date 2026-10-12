@@ -13,6 +13,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
     held: null,
     tapDir: null,
     locked: false,
+    pause: false,
   };
   a.y = surfaceHeight(L, a.pos.x, a.pos.z);
 
@@ -36,7 +37,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
   };
 
   const pull = () => {
-    if (a.path.length) return;
+    if (a.path.length || a.pause) return;
     const d = a.held || a.tapDir;
     a.tapDir = null;
     const dirs = typeof d === "function" ? d() || [] : d ? [d] : [];

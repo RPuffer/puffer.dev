@@ -35,7 +35,7 @@ function pop(heap) {
 
 const less = (a, b) => a.f < b.f || (a.f === b.f && a.g > b.g);
 
-export function findPath(L, from, to) {
+export function findPath(L, from, to, { cost = null } = {}) {
   const [sx, sz] = from, [tx, tz] = to;
   if (sx === tx && sz === tz) return [[sx, sz]];
   if (!isWalkable(L, tx, tz)) return null;
@@ -53,7 +53,7 @@ export function findPath(L, from, to) {
     }
     if (cur.g > gScore.get(key(cur.x, cur.z))) continue;
     for (const [nx, nz, dir] of neighbours(L, cur.x, cur.z)) {
-      const g = cur.g + 1 + (cur.d && cur.d !== dir ? TURN_COST : 0), k = key(nx, nz);
+      const g = cur.g + 1 + (cur.d && cur.d !== dir ? TURN_COST : 0) + (cost ? cost(nx, nz) : 0), k = key(nx, nz);
       if (g < (gScore.get(k) ?? Infinity)) {
         gScore.set(k, g);
         came.set(k, [cur.x, cur.z]);
@@ -76,8 +76,8 @@ export function reachable(L, from) {
   return out;
 }
 
-export function routeTo(L, from, to) {
-  const direct = findPath(L, from, to);
+export function routeTo(L, from, to, opts = {}) {
+  const direct = findPath(L, from, to, opts);
   if (direct) return { cells: direct, reached: true };
   const target = L.cells[to[1]]?.[to[0]];
   if (target && !isWalkable(L, to[0], to[1])) {
@@ -85,7 +85,7 @@ export function routeTo(L, from, to) {
     for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
       const x = to[0] + dx, z = to[1] + dz, c = L.cells[z]?.[x];
       if (!c || c.h !== target.h || !isWalkable(L, x, z)) continue;
-      const p = findPath(L, from, [x, z]);
+      const p = findPath(L, from, [x, z], opts);
       if (p && (!side || p.length < side.length)) side = p;
     }
     if (side) return { cells: side, reached: false, beside: true };
@@ -97,7 +97,7 @@ export function routeTo(L, from, to) {
     const d = Math.hypot(c[0] - to[0], c[1] - to[1]);
     if (d < bd) { bd = d; best = c; }
   }
-  const cells = best && findPath(L, from, best);
+  const cells = best && findPath(L, from, best, opts);
   return cells ? { cells, reached: false } : null;
 }
 

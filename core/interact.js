@@ -290,11 +290,12 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       toast(text);
       return text;
     },
-    tap(cell) {
+    tap(cell, { walk = true } = {}) {
       if (!actor || !cell) return false;
       const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator" || q.kind === "lever" || q.kind === "door" || q.kind === "ladder" || q.kind === "pad") && (q.kind !== "door" && q.kind !== "ladder" && q.kind !== "pad" || usable(q)) && q.x === cell[0] && q.z === cell[1]);
       if (!t) return false;
       if (inRange(t)) { act(t); return true; }
+      if (!walk) return false;
       const from = actor.path[0] || actor.cell;
       const h = level.cells[t.z]?.[t.x]?.h;
       const near = N8.map(([dx, dz]) => [t.x + dx, t.z + dz]).filter(([x, z]) => isWalkable(level, x, z));
