@@ -45,7 +45,7 @@ const snap = () => page.evaluate(() => {
     cell: S.actor.cell.slice(),
     spawn: S.level.spawn.slice(),
     url: location.search,
-    things: (T?.things || []).map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, x: t.x, z: t.z, state: t.state, open: t.open || null, threshold: t.threshold || null, edge: t.edge || null, blocks: t.blocks })),
+    things: (T?.things || []).map((t) => ({ id: t.id, kind: t.kind, role: t.role || null, x: t.x, z: t.z, state: t.state, open: t.open || null, threshold: t.threshold || null, edge: t.edge || null, back: t.back || null, blocks: t.blocks })),
   };
 });
 
@@ -81,11 +81,31 @@ const gateOpen = (id) => page.waitForFunction((id) => window.__game.state.things
 async function reachExit(s, exit) {
   let steps = 0;
   const via = [];
-  for (let tries = 0; tries < 4; tries++) {
+  for (let tries = 0; tries < 10; tries++) {
     const n = await walk([[exit.x, exit.z]]);
     if (n != null) { steps += n; return { ok: at(await snap(), exit), steps, via }; }
+    const pad = await page.evaluate(async (to) => {
+      const { nextPad } = await import("/core/path.js");
+      const S = window.__game.state;
+      return nextPad(S.level, S.actor.cell, to);
+    }, [exit.x, exit.z]);
+    if (pad) {
+      const m = await walk([pad]);
+      if (m != null) {
+        steps += m;
+        const before = (await snap()).cell.join();
+        const ready = await page.waitForFunction(() => window.__game.state.things.focus?.kind === "pad", { timeout: 3000, polling: 50 }).then(() => true, () => false);
+        if (!ready) return { ok: false, steps, via, why: `stood at ${pad} but no pad took focus` };
+        await page.keyboard.press("KeyF");
+        const moved = await page.waitForFunction((b) => window.__game.state.actor.cell.join() !== b, { timeout: 3000, polling: 50 }, before).then(() => true, () => false);
+        if (!moved) return { ok: false, steps, via, why: `pad at ${pad} did not carry the hero` };
+        via.push(`pad@${pad}`);
+        steps += 4;
+        continue;
+      }
+    }
     const cur = await snap();
-    const gate = cur.things.find((t) => t.kind === "gate" && t.state !== "open" && !via.includes(t.id));
+    const gate = cur.things.find((t) => t.kind === "gate" && t.state !== "open" && !via.includes(t.id) && /^watcher:|^chest:|^bonfire:/.test(String(t.open || "")));
     if (!gate) return { ok: false, steps, via, why: "no path to the exit and no closed gate left" };
     via.push(gate.id);
     const [kind, id] = String(gate.open || "").split(":");
@@ -93,7 +113,7 @@ async function reachExit(s, exit) {
     if (!o) return { ok: false, steps, via, why: `gate ${gate.id} opens on unknown ${gate.open}` };
     if (kind === "watcher") {
       const goals = gate.edge ? [gate.edge[0]] : gate.threshold?.length ? gate.threshold : around(gate.blocks[0] ? { x: gate.blocks[0][0], z: gate.blocks[0][1] } : gate);
-      const m = await walk(goals);
+      const m = (await walk(goals)) ?? (gate.back ? await walk([gate.back]) : null);
       if (m == null) return { ok: false, steps, via, why: `no path to gate ${gate.id} threshold` };
       steps += m;
     } else if (kind === "chest" || kind === "bonfire") {
@@ -183,7 +203,7 @@ try {
     const en = elevator(s, "entry");
     if (!en) record("SKIP", backLabel, `${s.name} has no entry elevator yet`);
     else {
-      const n = at(s, en) ? 0 : await walk([[en.x, en.z]]);
+      const n = at(s, en) ? 0 : (await reachExit(s, en)).ok ? 0 : null;
       if (n == null || !at(await snap(), en)) record("FAIL", backLabel, `no path to the entry at ${en.x},${en.z}`);
       else if (!(await ride(ORDER[last.i - 1]))) record("FAIL", backLabel, `ride from ${en.x},${en.z} did not swap to ${ORDER[last.i - 1]}`);
       else {

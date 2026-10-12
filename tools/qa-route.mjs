@@ -71,6 +71,23 @@ function interactProbe(raw) {
       it.act();
       out.push([`ladder ${t.id}: out of reach from below, kicked down from above`, held && t.state === "down" && canStep(L, ...top, down) && canStep(L, ...bot, up), `top ${top} bottom ${bot}`]);
     }
+    if (t.kind === "pad" && t.end === "near") {
+      const o = it.byId[t.to];
+      if (t.role === "shortcut") {
+        const a = fakeActor([t.x, t.z]); tick(a);
+        it.act();
+        const dark = t.state === "dark" && a.cell.join() === [t.x, t.z].join();
+        const b = fakeActor([o.x, o.z]); tick(b);
+        const woke = t.state === "live" && o.state === "live";
+        const c = fakeActor([o.x, o.z]); tick(c); it.act();
+        out.push([`pad ${t.id}: dark from the near side, wakes at ${o.id}, then carries ${o.id} to ${t.id}`, dark && woke && c.cell.join() === [t.x, t.z].join(), `near ${t.x},${t.z} far ${o.x},${o.z}`]);
+      } else {
+        const a = fakeActor([t.x, t.z]); tick(a); it.act();
+        const there = a.cell.join() === [o.x, o.z].join();
+        const b = fakeActor([o.x, o.z]); tick(b); it.act();
+        out.push([`pad ${t.id} (${t.role}): carries both ways between ${t.x},${t.z} and ${o.x},${o.z}`, there && b.cell.join() === [t.x, t.z].join(), ""]);
+      }
+    }
     if (t.kind === "lever") {
       const g = it.things.find((q) => q.kind === "gate" && q.open === `lever:${t.id}`);
       const d = dirTo(g.edge[0], g.edge[1]);
@@ -150,6 +167,17 @@ if (live) {
       L.edges.delete(edgeKey(core.edge[0], core.edge[1]));
       const wait = (ms) => new Promise((r) => setTimeout(r, ms));
       const out = [];
+      for (const t of it.things.filter((q) => q.kind === "pad" && q.end === "near")) {
+        const o = it.byId[t.to];
+        const wake = t.state === "dark";
+        if (wake) { place([o.x, o.z]); a.locked = false; await wait(400); }
+        place([t.x, t.z]);
+        for (let i = 0; i < 40 && it.focus !== t; i++) { place([t.x, t.z]); a.locked = false; await wait(60); }
+        const prompt = document.querySelector(".iw-prompt")?.textContent || "";
+        it.act();
+        await wait(300);
+        out.push({ id: t.id, kind: `pad (${t.role}${wake ? ", woken at " + o.id : ""})`, stand: [t.x, t.z], pad: true, arrived: a.cell.join() === [o.x, o.z].join(), to: [o.x, o.z], at: a.cell.slice(), state: t.state, prompt });
+      }
       for (const t of it.things) {
         let stand = null;
         if (t.kind === "door") stand = t.edge[1];
@@ -173,7 +201,10 @@ if (live) {
       }
       return out;
     });
-    for (const r of res) record(`${tag} ${r.kind} ${r.id} unlocked in the game shortens the walk home`, r.after < r.before, `${r.before} -> ${r.after} steps from ${r.stand}, state ${r.state}${r.prompt ? `, prompt "${r.prompt}"` : ""}`);
+    for (const r of res) {
+      if (r.pad) record(`${tag} ${r.kind} ${r.id} carries the hero across in the game`, r.arrived, `${r.stand} -> ${r.at}, wanted ${r.to}, state ${r.state}${r.prompt ? `, prompt "${r.prompt}"` : ""}`);
+      else record(`${tag} ${r.kind} ${r.id} unlocked in the game shortens the walk home`, r.after < r.before, `${r.before} -> ${r.after} steps from ${r.stand}, state ${r.state}${r.prompt ? `, prompt "${r.prompt}"` : ""}`);
+    }
     await page.screenshot({ path: path.join(root, "out/qa", `${tag.replace(/ /g, "-")}.png`) });
     record(`${tag} no console errors`, !errs.length, errs.slice(0, 2).join(" | "));
     await page.close();

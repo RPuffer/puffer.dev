@@ -141,7 +141,34 @@ async function liftToLift(name) {
   let ok = info.start.join() === info.from.join(), now = { cell: info.start, th: "" };
   if (!ok) trail.push(`arrived at ${info.start} not entry lift`);
   if (ok && info.fire) { await click(info.fire, true); now = await settle(); trail.push(`bonfire -> ${now.cell} [${now.th}]`); }
-  for (let i = 0; ok && i < 4 && now.cell.join() !== info.to.join(); i++) {
+  const padToward = () => page.evaluate(async (to) => {
+    const { nextPad, findPath, gateToward } = await import("/core/path.js");
+    const S = window.__game.state;
+    if (findPath(S.level, S.actor.cell, to)) return null;
+    const pad = nextPad(S.level, S.actor.cell, to);
+    if (!pad) return null;
+    if (findPath(S.level, S.actor.cell, pad)) return { pad };
+    const g = gateToward(S.level, S.actor.cell, pad);
+    return g ? { walk: g.cells[g.cells.length - 1] } : null;
+  }, info.to);
+  for (let i = 0, hops = 0; ok && i < 14 && now.cell.join() !== info.to.join(); i++) {
+    const step = await padToward();
+    if (step?.walk && hops < 8) {
+      hops++;
+      await click(step.walk, false);
+      now = await settle();
+      trail.push(`gate ${step.walk} -> ${now.cell}`);
+      continue;
+    }
+    const pad = step?.pad;
+    if (pad && hops < 8) {
+      hops++;
+      await click(pad, true);
+      now = await settle();
+      if (now.cell.join() === pad.join()) { await click(pad, true); now = await settle(); }
+      trail.push(`pad ${pad} -> ${now.cell}`);
+      if (now.cell.join() !== pad.join()) continue;
+    }
     if (!(await click(info.to, false))) { trail.push("no route"); break; }
     now = await settle();
     trail.push(`click exit -> ${now.cell} [${now.th}]`);
@@ -384,13 +411,17 @@ async function shaftSuite(name) {
         if (!m.userData?.shaft) return;
         m.geometry.computeBoundingBox();
         const b = m.geometry.boundingBox;
-        let y = Infinity;
-        for (const x of [b.min.x, b.max.x]) for (const z of [b.min.z, b.max.z]) y = Math.min(y, new THREE.Vector3(x, b.max.y, z).applyMatrix4(m.matrixWorld).project(cam).y);
-        out.push({ id: m.userData.thing, ndcY: +y.toFixed(3), beam: m.userData.beam || null, gap: +Math.abs(b.max.y + m.position.y - decks[m.userData.thing]).toFixed(3) });
+        let y = Infinity, seen = false;
+        for (const x of [b.min.x, b.max.x]) for (const z of [b.min.z, b.max.z]) {
+          y = Math.min(y, new THREE.Vector3(x, b.max.y, z).applyMatrix4(m.matrixWorld).project(cam).y);
+          const foot = new THREE.Vector3(x, b.min.y, z).applyMatrix4(m.matrixWorld).project(cam);
+          if (Math.abs(foot.x) <= 1 && Math.abs(foot.y) <= 1) seen = true;
+        }
+        out.push({ id: m.userData.thing, ndcY: +y.toFixed(3), beam: m.userData.beam || null, seen, gap: +Math.abs(b.max.y + m.position.y - decks[m.userData.thing]).toFixed(3) });
       });
       return out;
     });
-    record(label, tops.length === lifts.length && tops.every((t) => (t.beam === "arrival" ? t.ndcY < 1 && t.gap < 0.01 : t.ndcY > 1)), tops.map((t) => `${t.id}${t.beam === "arrival" ? ` (arrival, top ${t.gap} off its tile)` : ""} ndc y ${t.ndcY}`).join(" ") || "no shaft meshes");
+    record(label, tops.length === lifts.length && tops.every((t) => (t.beam === "arrival" ? (t.ndcY < 1 || !t.seen) && t.gap < 0.01 : t.ndcY > 1)), tops.map((t) => `${t.id}${t.beam === "arrival" ? ` (arrival, top ${t.gap} off its tile${t.seen ? "" : ", lift off screen"})` : ""} ndc y ${t.ndcY}`).join(" ") || "no shaft meshes");
     await o.page.close();
   }
 }
