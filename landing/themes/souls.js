@@ -1,4 +1,6 @@
 const data = await (await fetch(new URL("../classes.json", import.meta.url))).json();
+const HERO_V = "1";
+const heroArt = (id) => new URL(`../hero-${id}.jpg?v=${HERO_V}`, import.meta.url).href;
 
 const css = `
 body.t-souls{--sky1:#2e2129;--sky2:#160f15;color:#fff3e0}
@@ -39,6 +41,7 @@ body.t-souls .bed{display:none}
 .sc-hero{grid-area:hero;margin:0;overflow:hidden;min-height:420px;position:relative}
 .sc-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;animation:sc-idle 3.2s ease-in-out infinite}
 @keyframes sc-idle{50%{transform:scale(1.025) translateY(-4px)}}
+.sc-hero img.swap{animation:sc-hero .62s cubic-bezier(.3,1.6,.5,1)}
 .sc-keys{grid-area:keys;display:flex;gap:22px;justify-content:flex-start;font-size:13px;color:var(--dim)}
 .sc-keys kbd{font:700 12px/1 var(--round);padding:4px 7px;margin-right:6px;border-radius:7px;background:#fff3e0;color:var(--edge);box-shadow:inset 0 -2px 0 #d9c7ae}
 @media (max-width:820px){
@@ -57,6 +60,7 @@ body.t-souls .bed{display:none}
 @keyframes sc-pop{from{transform:translateY(34px) scale(.82) rotate(var(--tw,0deg));opacity:0}}
 @keyframes sc-drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(4vw,-3vh) scale(1.12)}66%{transform:translate(-3vw,2vh) scale(.94)}}
 @keyframes sc-jelly{0%{transform:scale(1)}30%{transform:scale(1.14,.88) rotate(-2deg)}50%{transform:scale(.93,1.08) rotate(1deg)}70%{transform:scale(1.04,.97)}100%{transform:scale(1)}}
+@keyframes sc-hero{0%{transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg)) translateY(5%) scale(calc(var(--hs,1)*.84));opacity:.2}60%{transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg)) translateY(-1%) scale(calc(var(--hs,1)*1.05));opacity:1}100%{transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg)) scale(var(--hs,1))}}
 @keyframes sc-swap{0%{transform:scale(.4) rotate(-8deg);opacity:0}60%{transform:scale(1.15) rotate(3deg);opacity:1}100%{transform:scale(1)}}
 @keyframes sc-twinkle{50%{opacity:.25}}
 @keyframes sc-wave{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg) scale(1.08)}75%{transform:rotate(8deg)}}
@@ -80,7 +84,7 @@ body.t-souls{--sky1:#26193a;--sky2:#120c1c}
 .sc-head h1{font-size:40px;background:linear-gradient(100deg,#fff3e0 0 35%,#f5c243 50%,#e86aa0 65%,#9a7ae0 80%,#12c4f0);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sc-shine 6s ease-in-out infinite alternate}
 @keyframes sc-shine{to{background-position:100% 0}}
 .sc-hero{min-height:560px;perspective:900px;background:linear-gradient(var(--pan),var(--pan)) padding-box,var(--rim) border-box;box-shadow:inset 0 -6px 0 var(--pan2),0 12px 0 #0a0612aa,0 0 60px #e86aa044}
-.sc-hero img{transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg)) scale(1.06);transition:transform .7s cubic-bezier(.34,1.6,.5,1);animation:none}
+.sc-hero img{--hs:1.06;transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg)) scale(var(--hs));transition:transform .7s cubic-bezier(.34,1.6,.5,1);animation:none}
 .sc-hero:hover img{transition-duration:.25s}
 .sc-links a{border-radius:14px;transition:transform .5s cubic-bezier(.34,1.9,.5,1),color .12s,border-color .12s,background .12s}
 .sc-links a:hover,.sc-links a:focus-visible{transform:translateY(-6px) rotate(-10deg) scale(1.15)}
@@ -104,7 +108,7 @@ body.t-souls{--sky1:#26193a;--sky2:#120c1c}
 .sc-keys kbd.on{transform:translateY(3px) scale(.92);background:#12c4f0;color:#10202a;transition-duration:.05s}
 }
 @media (min-width:1600px) and (hover:hover){.sc{max-width:1480px;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}.sc-hero{min-height:640px}}
-@media (prefers-reduced-motion:reduce){.sc-cosmos i,.sc-cosmos b,.sc,.sc-p,.sc-head,.sc-keys{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.sc-cosmos i,.sc-cosmos b,.sc,.sc-p,.sc-head,.sc-keys,.sc-hero img{animation:none!important}}
 `;
 
 const GLYPHS = {
@@ -132,7 +136,7 @@ ${links ? `<div><dt>Links</dt><dd class="sc-links">${links}</dd></div>` : ""}
 <div class="sc-go"><a id="sc-begin" href="#">Begin</a><a id="sc-cont" class="alt" href="#" hidden>Continue<small id="sc-where"></small></a></div>
 </section>
 <section class="sc-att sc-p" aria-label="Attributes"><ul id="sc-stats">${"<li><span></span><i class=\"sc-bar\"><b></b></i><em></em></li>".repeat(6)}</ul></section>
-<figure class="sc-hero sc-p"><img src="${k.hero}" alt="Ryne's character standing on a golden island" width="900" height="1000"></figure>
+<figure class="sc-hero sc-p"><img id="sc-hero" alt="" width="900" height="1000"></figure>
 <footer class="sc-keys"><span><kbd>&larr;</kbd><kbd>&rarr;</kbd>Class</span><span><kbd>F</kbd><kbd>Enter</kbd>Begin</span><span><kbd>Tab</kbd>Move</span></footer>
 </div>`;
   const $ = (s) => root.querySelector(s);
@@ -141,12 +145,16 @@ ${links ? `<div><dt>Links</dt><dd class="sc-links">${links}</dd></div>` : ""}
   const cls = $("#sc-cls"), rows = [...$("#sc-stats").children], begin = $("#sc-begin");
   const q = new URLSearchParams(location.search).get("class");
   let at = Math.max(0, C.findIndex((c) => c.id === (q || data.default)));
+  const heroImg = $("#sc-hero");
+  const art = Object.fromEntries(C.map((c) => { const im = new Image(); im.src = heroArt(c.id); im.decode?.().catch(() => {}); return [c.id, im]; }));
   const show = (i, first) => {
     at = (i + C.length) % C.length;
     const c = C[at];
     cls.textContent = c.name;
     try { localStorage.setItem("isoworld:class", c.id); } catch {}
-    if (!first) { cls.classList.remove("swap"); void cls.offsetWidth; cls.classList.add("swap"); }
+    heroImg.src = art[c.id].src;
+    heroImg.alt = `${c.name} class hero on a golden island`;
+    if (!first) { cls.classList.remove("swap"); heroImg.classList.remove("swap"); void cls.offsetWidth; cls.classList.add("swap"); heroImg.classList.add("swap"); }
     rows.forEach((r, j) => {
       const [n, v] = c.stats[j];
       r.children[0].textContent = n;
