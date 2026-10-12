@@ -6,10 +6,12 @@ Code: `core/layout/` (browser-safe generator), `3d/pieces/kits.js` (decor kits),
 
 ## Route grammar
 
-The grammar is a fixed frame plus a route topology (P2, P7, and practice 8 in the research). The artwork core sits right of centre, the bonfire plaza below it, the exit causeway east. The journey from the plaza to the core gate comes from one of seven archetypes in `core/layout/topology.js`.
+The grammar is shape first, then route (`docs/LAYOUT-VARIETY.md`). A shape from `core/layout/shapes/` fixes the landmasses, the coast and the key points; the archetype becomes a mission graph laid on the shape's corridor graph; height and decor follow.
 
-- **Frame.** Entry lift, bonfire plaza, low road, core gate, core terrace, dais climb, exit causeway, exit lift. The terrace is a C, sealed at one corner by the tower and at another by two spires; the dais circles the figure three quarters of the way before it leaves. The grid is 29x37 so the journey has a west band three corridors wide and a north band three corridors deep.
-- **Lattice.** Journey corridors run on nodes three cells apart: columns at x 1, 4, 7 in the west band, rows at z 2, 5, 8 across the north band. The low road meets the lattice at node S (7,26); the approach leaves it at node E (16,8). Each lattice edge stamps as its own owner, so two corridors that share no node part with a water channel or a cliff, never a strip of grass you can cut across.
+- **Shape.** `placeShape` in `core/layout/shape.js` applies a transform and a per-island scale of 3 to 4.8 cells per shape unit, so the grid size follows the island. The bake raises the target area with run position, so later islands tend to be larger. Edge noise then erodes and accretes up to two cells inside a margin, never across a gap between two arms and never on a road line or a key point, and one smoothing pass rounds the stair steps.
+- **Corridors.** Roads run between the centres of neighbouring shape units, one owner per unit edge, so two corridors that share no node part with a water channel or a cliff, never a strip of grass you can cut across.
+- **Mission.** `buildMission` in `core/layout/topology.js` walks entry, bonfire, journey, approach, sanctum and exit. The exit leg from the sanctum to the shape's exit lift takes units the journey never touches. When no short leg exists, the sanctum gets an exit pad to an isolated exit unit, or, when the sanctum sits on the rim, the exit lift docks straight onto its dais.
+- **Sanctum.** The watcher figure stands on a 2x2 block inside a 4x4 dais ring one tier above everything before the gate; the approach climbs a ramp into the ring and the core gate sits on that ramp.
 - **Archetypes.** A seed picks one, then the archetype rolls its parameters.
 
 | Archetype | Shape | Lever chord |
@@ -31,7 +33,7 @@ The grammar is a fixed frame plus a route topology (P2, P7, and practice 8 in th
 - **Bonfire.** In the plaza, within three cells of spawn, at least three from any lock, and never on a cell in front of spawn from the camera, so a tap beside spawn lands on ground.
 - **Chest.** On a stone pad past a dead end on the lattice rim, facing the dead end.
 - **Vistas.** The bonfire, the chest and the gate threshold each keep a clear sightline to the core figure: no decor taller than 1.2 on that line.
-- **Mirror.** A mirrored bake flips the finished level in x, including decor and thing rotations. The bonfire rule above keeps spawn taps clear in both orientations.
+- **Transforms.** Mirroring is part of the shape transform; the finished level is never flipped.
 
 ## Feature modules (P3)
 
@@ -122,7 +124,7 @@ Each baked level carries `route` metadata: `segments` (id, role, path cells, lin
 
 ## The run islands
 
-All twelve islands of `levels/run.json` are route-first. `node tools/bake-layout.mjs --base run` reads each island's artwork level from `levels/base/<name>.json` and writes `levels/<name>.json`, with fixed seeds 101 to 112 so every bake is the same. `RUN_TOPOLOGY` in the bake tool gives each island an archetype and orientation: ring, switchback, spiral, maze, twin, figure8, comb, then twin, ring, maze, spiral and switchback mirrored. Four feature recipes rotate down the run, and every third uses a one-way drop in place of the kicked ladder. wizard-medium-r1 to r3 take figure8, comb mirrored and maze.
+All twelve islands of `levels/run.json` are shape-first. `node tools/bake-layout.mjs --base run` reads each island's artwork level from `levels/base/<name>.json` and writes `levels/<name>.json`. `RUN_PLAN` in the bake tool gives each island a shape, an archetype, a target area and a shortcut deck; no shape family repeats in neighbouring islands, and teleporters first appear on the third island. The bake tries up to ten seed and transform variants per island (`--variants 10`) and keeps the set that passes the most `qa-variety` checks (`tools/variety-lib.mjs`); wizard-medium also needs a start that opens far enough for the close camera to travel. wizard-medium-r1 to r3 take blob-pear figure8, ridge-zigzag switchback with a drop, and hub-cross maze. `node tools/layout-sheet.mjs --shots` draws the route sheet and the desktop and phone contact sheets into `out/layout-variety/`.
 
 `tools/qa-route.mjs` fingerprints each run island: path cells reduce to corridor edges on the three-cell lattice, and two islands that match on 80 percent of their edges, with one cell of slack, fail as duplicates. It also wants six archetypes or more and no two neighbours in run order with the same archetype and orientation.
 
@@ -141,4 +143,4 @@ Kits outside the wizard set take their colours from the island palette (`themeFr
 
 ## Live regeneration boundary
 
-`core/layout/*` is pure ES modules with a seeded RNG (`core/rng.js`) and no node imports. A page can call `generateLayout(base, { seed, archetype, mirror, drop })` after `loadPieces` has registered the island's catalog, then hand the result to `prepareLevel`. The node wrapper `tools/bake-layout.mjs` only registers pieces, writes JSON and prints the shortcut distances. The fixed frame (core figure, lift edges, bonfire role) stays the same across seeds (P7); the archetype and its rolls change the journey.
+`core/layout/*` is pure ES modules with a seeded RNG (`core/rng.js`) and no node imports. A page can call `generateLayout(base, { seed, archetype, shape, transform, area, shortcuts, mask: true })` after `loadPieces` has registered the island's catalog, then hand the result to `prepareLevel`. The node wrapper `tools/bake-layout.mjs` only registers pieces, writes JSON and prints the shortcut distances. The shape's key points fix the lifts, bonfire and sanctum slot (P7); the archetype and its rolls change the journey.

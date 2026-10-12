@@ -1,6 +1,6 @@
 # Layout variety: shape first, then route
 
-Status: approved (commit 1655c57). Phase 0 and phase 1 have landed; phase 2 onward waits for Ryne.
+Status: approved (commit 1655c57). Phases 0 to 5 have landed; section 15 records what the generator does and what changed from the plan.
 
 Ryne's read of the run: the islands path differently, but they share a centre section and their shortcuts look identical. The numbers agree. This doc names the cause in code, then proposes a shape-first pipeline with a shape library, teleporters, a shortcut deck that pays for detours, and QA that fails a run of look-alikes.
 
@@ -388,3 +388,17 @@ The generator does not read the library yet. Phase 2 places a shape, embeds the 
 | spiral | `spiral-fishhook`, `spiral-snail`, `spiral-coil` | 1, 1, 1 | spiral, comb, maze, switchback |
 | twin | `twin-dumbbell`, `twin-tiered`, `twin-rings` | 2, 2, 2 | figure8, twin, switchback, ring |
 | satellite | `sat-ring`, `sat-cluster`, `sat-moons` | 2, 3, 3 | maze, comb, ring, figure8 |
+
+## 15. Phases 2 to 5 as built
+
+**Scale.** Each island scales its shape by its own factor, 3 to 4.8 cells per unit, from a target area the bake raises down the run (360 cells on the first island, 960 on the last). Coast noise erodes and accretes inside a two-cell margin, guarded so it never bridges two arms or two landmasses.
+
+**Route in shape.** `buildMission` (`core/layout/topology.js`) embeds each archetype on the unit graph: ring, figure8 and twin add loops through unused units, comb adds teeth, spiral and switchback score walks for turning, maze grows a braided Prim tree. `planIsland` (`core/layout/plan.js`) stamps one road per unit edge, a 3x3 rest at the bonfire unit and a 4x4 dais ring at the centrepiece. The fixed frame, `LATTICE`, `allowed()` and the forced centrepiece cell are gone. Shapes whose sanctum is a cul-de-sac exit by a sanctum pad (role `exit`) to an isolated exit unit, or dock the exit lift on the dais when the sanctum sits on the rim.
+
+**Shortcut deck.** `drawShortcuts` (`core/layout/shortcuts.js`) draws door, lever, ladder, drop and pad from the island's deck. Far ends prefer 40 to 60 and 75 to 95 percent of the walk; near ends sit within six steps of the bonfire; a shortcut may cross up to five void units on a causeway but never joins two landmasses. A far end six or more steps off the critical path takes the chest, kept in view of the junction.
+
+**Teleporters.** `pad` is a thing in `core/interact.js`: act on a live pad to cross; a shortcut pad stays dark until you step on its far end. `checkRoute` and `routeDistances` treat a live pad as an edge of four steps, `checkLevel` reaches across pads, `nextPad` in `core/path.js` lets QA plan a hop, and `3d/things.js` draws a glowing ring and beam. Trap slots skip pads, arrival zones and any slot that would cut off a connector pad (`docs/TRAPS.md`).
+
+**Height and decor.** Zone digits clamp unit tiers. Flanks grow only inside the mask, then the rest of the mask fills from the nearest road, with lakes in interior pockets. Rim spires and pocket groves reach every landmass.
+
+**Cut.** The lowered plank kind, the three dais forms and the third shortcut past the core gate. Some thin shapes draw one shortcut instead of two.
