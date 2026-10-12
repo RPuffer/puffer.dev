@@ -8,6 +8,7 @@ import { heroClass, CLASS_KEY } from "./heroes.js";
 import { loadPieces, loadGlbs, BUILDERS } from "./hooks.js";
 import { makeStyle } from "./style.js";
 import { mountUI } from "../core/ui.js";
+import { mountHearts } from "../core/hearts.js";
 import { loadClouds } from "./clouds/index.js";
 import { createSequence } from "../core/sequence.js";
 import { CLIP_DATA, DANCES } from "./clips.js";
@@ -130,6 +131,7 @@ try {
       },
     },
   });
+  if (window.__ui) window.__hearts = mountHearts(game.state.health);
   if (params.seq === "hold") holdAtExit(game, sequence);
   if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;
 } catch (e) {

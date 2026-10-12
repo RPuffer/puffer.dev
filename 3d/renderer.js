@@ -15,6 +15,7 @@ import { beamClear } from "./lift.js";
 import { CLEAR } from "./speedlines.js";
 import { GLBS } from "./hooks.js";
 import { createPathLine } from "./pathline.js";
+import { buildTraps, heroFx } from "./traps.js";
 
 const FRAME = [351, 390];
 
@@ -61,7 +62,7 @@ export function createRenderer(container = document.body) {
   scene.add(line.mesh);
   const sky = createSky();
   if (sky) scene.add(sky.mesh);
-  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [];
+  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [], traps = null;
   let glowing = false, heroStyle = null;
   const heroHl = () => {
     if (!hero) return;
@@ -182,6 +183,12 @@ export function createRenderer(container = document.body) {
         mounted.push(things.group);
         state.things?.on(things.onEvent);
       }
+      traps = null;
+      if (state.traps) {
+        traps = buildTraps(state, style);
+        scene.add(traps.group);
+        mounted.push(traps.group);
+      }
       hero = buildCharacter(1, style, heroClass(state.params));
       hero.visible = state.params.hero !== "0";
       occ = occludeModes(state.params.occlude);
@@ -217,6 +224,8 @@ export function createRenderer(container = document.body) {
       adopted = [];
       pickables = [];
       things = null;
+      traps?.dispose();
+      traps = null;
       hero = null;
       return old;
     },
@@ -277,6 +286,7 @@ export function createRenderer(container = document.body) {
     },
     get pathLine() { return line.mesh; },
     get things() { return things; },
+    get traps() { return traps; },
     get zoomScale() { return zoom / base; },
     get cam() { return cam; },
     setCam(v) { setCam(v); resize(); },
@@ -334,6 +344,9 @@ export function createRenderer(container = document.body) {
         }
       }
       hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH + ride, a.pos.z);
+      if (traps) traps.update(state, dt);
+      heroFx(hero, a, state.view, hero.userData.baseScale ??= hero.scale.x);
+      if (state.params.hero !== "0") hero.visible = !(a.blink > 0 && Math.floor(a.blink * 14) % 2);
       if (jitter > 0) hero.position.x += (Math.random() - 0.5) * 2 * jitter, hero.position.z += (Math.random() - 0.5) * 2 * jitter;
       hero.userData.animate(a, dt);
       line.update(state, dt, { clear: beamClear.value, drop, show: hero.visible && !a.locked && seqK === 0 });
@@ -379,6 +392,7 @@ export function createRenderer(container = document.body) {
         sky.update({ w: gl.domElement.width, h: gl.domElement.height, yaw: S.view.yaw, panX: p.sx * zoom / ch, panY: -p.sy * zoom / ch, bg: scene.background });
       }
       gl.render(scene, camera);
+      traps?.render(camera, container.clientWidth || innerWidth, container.clientHeight || innerHeight);
     },
     pick(x, y, w, h) {
       raycaster.setFromCamera(new THREE.Vector2((x / w) * 2 - 1, -(y / h) * 2 + 1), camera);

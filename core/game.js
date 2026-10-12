@@ -190,8 +190,8 @@ export function createGame(renderer, params = readParams()) {
       const health = state.health;
       let traps = null;
       const life = createLife({ level, actor, things, health, onRespawn: () => { state.route.clear(); traps?.reset(); } });
-      traps = level.traps?.length ? createTraps(level, { actor, life, health, things, params: p }) : null;
-      things?.on((e) => { if (e.type === "lit" || e.type === "rest") health.refill(e.type); });
+      traps = level.traps?.length ? createTraps(level, { actor, life, health, things, params: p, rotate: (step) => game.rotate(step) }) : null;
+      things?.on((e) => { if (e.type === "lit" || e.type === "rest") { health.refill(e.type); traps?.rest(); } });
       Object.assign(state, { level, view, proj, actor, params: p, things, life, traps });
       if (renderer.mount) renderer.mount(state); else renderer.init?.(state);
       renderer.update?.(state, 0);
