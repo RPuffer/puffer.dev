@@ -24,8 +24,18 @@ const BAND_CSS = `
 .iw-knob{position:absolute;left:50%;top:50%;width:46%;height:46%;margin:-23% 0 0 -23%;border-radius:50%;background:linear-gradient(160deg,#5fe3ff 0 46%,#12c4f0 46%);box-shadow:0 7px 0 #0a7c9c,0 9px 10px rgba(0,0,0,.35);transform:translate(0,0);transition:transform .32s cubic-bezier(.34,1.8,.64,1)}
 .iw-knob::after{content:"";position:absolute;left:22%;top:16%;width:30%;height:18%;border-radius:50%;background:rgba(255,255,255,.75);transform:rotate(-24deg)}
 .iw-band.held .iw-knob{transition:transform .07s ease-out}
-.iw-act{position:absolute;left:calc(100% - var(--m) - var(--a) / 2);top:52%;width:var(--a);height:var(--a);margin:calc(var(--a) / -2) 0 0 calc(var(--a) / -2);padding:0;border:0;border-radius:50%;background:linear-gradient(160deg,#ffd76a 0 46%,#f5c243 46%);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 8px 0 5px rgba(20,24,31,.8);color:rgba(31,29,26,.55);font:800 calc(var(--a) * .3)/1 system-ui,sans-serif;touch-action:none;transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.iw-act{position:absolute;left:calc(100% - var(--m) - var(--a) / 2);top:67%;width:var(--a);height:var(--a);margin:calc(var(--a) / -2) 0 0 calc(var(--a) / -2);padding:0;border:0;border-radius:50%;background:linear-gradient(160deg,#ffd76a 0 46%,#f5c243 46%);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 8px 0 5px rgba(20,24,31,.8);color:rgba(31,29,26,.55);font:800 calc(var(--a) * .3)/1 system-ui,sans-serif;touch-action:none;transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
 .iw-act.on{transform:translateY(5px);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 3px 0 5px rgba(20,24,31,.8)}
+.iw-pow{--p:calc(var(--a) * .8);--c:0;position:absolute;left:calc(100% - var(--m) - var(--a) / 2);top:23%;width:var(--p);height:var(--p);margin:calc(var(--p) / -2) 0 0 calc(var(--p) / -2);padding:4px;border:0;border-radius:50%;background:conic-gradient(#ff4fa8 calc(var(--c) * 1turn),rgba(38,44,55,.9) 0);box-shadow:0 6px 0 rgba(20,24,31,.8);touch-action:none;transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.iw-pow i{display:block;width:100%;height:100%;border-radius:50%;background:linear-gradient(160deg,#c59bff 0 46%,#9a7ae0 46%) center/62% no-repeat;transition:filter .2s}
+.iw-pow i svg{display:block;width:62%;height:62%;margin:19%}
+.iw-pow b{position:absolute;right:-4px;top:-4px;min-width:20px;height:20px;padding:0 4px;border-radius:10px;background:#262c37;color:#fff3e0;font:800 12px/20px system-ui,sans-serif;box-shadow:0 0 0 2px #ff4fa8}
+.iw-pow b:empty{display:none}
+.iw-pow.wait i{filter:grayscale(.75) brightness(.7)}
+.iw-pow.up{box-shadow:0 6px 0 rgba(20,24,31,.8),0 0 14px 4px rgba(255,79,168,.55)}
+.iw-pow.on{transform:translateY(4px);box-shadow:0 2px 0 rgba(20,24,31,.8)}
+.iw-pow.no{animation:iw-no .3s}
+@keyframes iw-no{25%{margin-left:calc(var(--p) / -2 - 5px)}75%{margin-left:calc(var(--p) / -2 + 5px)}}
 html[data-iw-act="1"] .iw-act{animation:iw-glow 1.1s ease-in-out infinite alternate}
 @keyframes iw-glow{from{box-shadow:0 0 0 5px #12c4f0,0 8px 0 5px rgba(20,24,31,.8),0 0 6px 6px rgba(18,196,240,.25)}to{box-shadow:0 0 0 5px #5fe3ff,0 8px 0 5px rgba(20,24,31,.8),0 0 18px 10px rgba(18,196,240,.45)}}
 .iw-rose{--r:min(calc(var(--g) * 1.67),47vw);position:absolute;left:clamp(calc(var(--r) / 2 + 12px),calc(100% - var(--m) - var(--a) - 40px - var(--r) / 2),50%);top:50%;width:var(--r);height:calc(var(--r) * .636);margin:calc(var(--r) * -.318) 0 0 calc(var(--r) / -2);pointer-events:none}
@@ -54,6 +64,7 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
   const release = (d) => { const i = held.indexOf(d); if (i >= 0) { held.splice(i, 1); setHeld(); } };
 
   const onKeyDown = (e) => {
+    if (e.code === "KeyR" && !e.metaKey && !e.ctrlKey && !e.altKey) { e.preventDefault(); if (!e.repeat) emit({ kind: "power" }); return; }
     const r = TURNS[e.code];
     if (r && !e.metaKey && !e.ctrlKey && !e.altKey) { if (!e.repeat) setTimeout(() => { if (!e.defaultPrevented) emit({ kind: "rotate", step: r }); }, 0); return; }
     const z = ZOOM_KEYS[e.code];
@@ -181,7 +192,7 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
     band = document.createElement("div");
     band.className = "iw-band" + (busy ? " off" : "") + (useStick ? " stick" : " rose");
     const pad = useStick ? `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div>` : roseMarkup();
-    band.innerHTML = `${pad}<button type="button" class="iw-act" aria-label="use">✦</button>`;
+    band.innerHTML = `${pad}<button type="button" class="iw-pow" aria-label="power"><i></i><b></b></button><button type="button" class="iw-act" aria-label="use">✦</button>`;
     const act = band.querySelector(".iw-act");
     if (useStick) {
       knob = band.querySelector(".iw-knob");
@@ -216,6 +227,9 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
       hit.addEventListener("pointercancel", letGo);
     }
     act.addEventListener("pointerdown", (e) => { e.preventDefault(); act.classList.add("on"); emit({ kind: "act" }); });
+    const pow = band.querySelector(".iw-pow");
+    pow.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); pow.classList.add("on"); emit({ kind: "power" }); });
+    for (const ev of ["pointerup", "pointercancel", "pointerleave"]) pow.addEventListener(ev, () => pow.classList.remove("on"));
     for (const ev of ["pointerup", "pointercancel", "pointerleave"]) act.addEventListener(ev, () => act.classList.remove("on"));
     band.addEventListener("contextmenu", (e) => e.preventDefault());
     document.body.appendChild(band);

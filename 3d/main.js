@@ -15,6 +15,8 @@ import { CLIP_DATA, DANCES } from "./clips.js";
 import { RISE } from "./things.js";
 import { motion } from "./motion.js";
 import { createRideFx } from "./speedlines.js";
+import { createPowerFx } from "./powerfx.js";
+import { mountPowerHud } from "../core/powers-ui.js";
 import { SKY, SKY_BG } from "./sky.js";
 import { idle, warmIsland } from "../core/warm.js";
 
@@ -71,6 +73,7 @@ try {
   const game = createGame(renderer, params);
   renderer.addFx(clouds?.column());
   renderer.addFx(createRideFx());
+  renderer.addFx(createPowerFx(game, renderer));
   const run = createRun(game, {
     prepare,
     unmount: () => clouds?.unmount(renderer),
@@ -132,6 +135,7 @@ try {
     },
   });
   if (window.__ui) window.__hearts = mountHearts(game.state.health);
+  window.__powerHud = mountPowerHud(game);
   if (params.seq === "hold") holdAtExit(game, sequence);
   if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;
 } catch (e) {
