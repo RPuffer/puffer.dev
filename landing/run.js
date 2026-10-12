@@ -35,6 +35,17 @@ export async function wire({ begin, cont, label }) {
     cont.href = play(order[at]);
     if (label) label.textContent = "island " + (at + 1) + ", " + order[at].split("-")[0];
     cont.hidden = false;
+    begin.textContent = "Reset";
+    begin.classList.add("reset");
+    begin.parentNode.append(begin);
+    let armed = 0;
+    begin.addEventListener("click", (e) => {
+      if (armed) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      begin.textContent = "Tap again to reset";
+      armed = setTimeout(() => { armed = 0; begin.textContent = "Reset"; }, 3000);
+    }, { capture: true });
   }
   return order;
 }

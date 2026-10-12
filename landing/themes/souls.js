@@ -99,6 +99,7 @@ body.t-souls{--sky1:#26193a;--sky2:#120c1c}
 .sc-go a:hover,.sc-go a:focus-visible{transform:translateY(-5px) rotate(-2deg) scale(1.05);outline:none;box-shadow:inset 0 -4px 0 var(--b2),0 8px 0 #0008,0 0 0 3px #fff3e0,0 0 30px #12c4f088}
 .sc-go a.alt:hover,.sc-go a.alt:focus-visible{transform:translateY(-5px) rotate(2deg) scale(1.05);box-shadow:inset 0 -4px 0 #d9c7ae,0 8px 0 #0008,0 0 0 3px #f5c243,0 0 30px #f5c24388}
 .sc-go a.go{animation:sc-jelly .55s}
+.sc-go a.reset,.sc-go a.reset:hover,.sc-go a.reset:focus-visible{flex:0 0 auto;align-self:center;min-width:0;padding:7px 12px;border-radius:10px;border:2px solid #fff3e033;background:none;color:var(--dim);box-shadow:none;font-size:11px;letter-spacing:.1em;transform:none}
 .sc-bar{height:16px}
 .sc-bar b{background:linear-gradient(90deg,#12c4f0,#9a7ae0 50%,#e86aa0);box-shadow:inset 0 -4px 0 #0003,0 0 12px #12c4f066;transition:width .9s cubic-bezier(.3,1.5,.5,1)}
 .sc-att li:nth-child(2) .sc-bar b{transition-delay:.04s}.sc-att li:nth-child(3) .sc-bar b{transition-delay:.08s}.sc-att li:nth-child(4) .sc-bar b{transition-delay:.12s}.sc-att li:nth-child(5) .sc-bar b{transition-delay:.16s}.sc-att li:nth-child(6) .sc-bar b{transition-delay:.2s}
@@ -144,7 +145,8 @@ ${links ? `<div><dt>Links</dt><dd class="sc-links">${links}</dd></div>` : ""}
   if (mailEl && P.mail) { const m = atob(P.mail).split("").reverse().join(""); mailEl.textContent = m; mailEl.href = "mailto:" + m; }
   const cls = $("#sc-cls"), rows = [...$("#sc-stats").children], begin = $("#sc-begin");
   const q = new URLSearchParams(location.search).get("class");
-  let at = Math.max(0, C.findIndex((c) => c.id === (q || data.default)));
+  const stored = () => { try { return localStorage.getItem("isoworld:class"); } catch { return null; } };
+  let at = Math.max(0, C.findIndex((c) => c.id === (q || stored() || data.default)));
   const heroImg = $("#sc-hero");
   const art = Object.fromEntries(C.map((c) => { const im = new Image(); im.src = heroArt(c.id); im.decode?.().catch(() => {}); return [c.id, im]; }));
   const show = (i, first) => {
@@ -174,7 +176,7 @@ ${links ? `<div><dt>Links</dt><dd class="sc-links">${links}</dd></div>` : ""}
     const d = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 }[e.key];
     if (d) { e.preventDefault(); show(at + d); return; }
     const onLink = e.target instanceof HTMLAnchorElement || e.target instanceof HTMLButtonElement;
-    if (e.key === "f" || e.key === "F" || (e.key === "Enter" && !onLink)) { e.preventDefault(); begin.classList.add("go"); begin.click(); }
+    if (e.key === "f" || e.key === "F" || (e.key === "Enter" && !onLink)) { e.preventDefault(); const t = $("#sc-cont").hidden ? begin : $("#sc-cont"); t.classList.add("go"); t.click(); }
   });
   const hero = $(".sc-hero");
   k.on(hero, "pointermove", (e) => {
