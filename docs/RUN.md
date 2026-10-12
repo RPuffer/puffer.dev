@@ -835,11 +835,15 @@ Greedy walk steps to the figure (shortest in brackets): cat 14, dragon 15, chime
 - **Continue** appears when localStorage holds `isoworld:things:<island>` for any island in the run. It opens `3d/index.html?level=<island>` for the last island in run order with a lit bonfire and a saved `respawn`, else the last island with any saved state. `createInteract` then spawns the hero at the respawn cell through `spawnCell()`; the start page passes no `spawn`.
 - **Tiles** link to `3d/index.html?level=<island>` with saved state kept. A tile with a lit bonfire carries an orange corner square.
 
-Thumbnails are 300x267 JPEGs in `assets/start/`, cut from the 900x800 pass-6 cloud renders (`out/pass6/clouds-<island>.png`, hero shown) with sharp, since `out/` is git-ignored. Rebuild them after a re-render:
+Thumbnails are 300x267 JPEGs in `assets/start/`, one portrait per island. Each frames only the island's focal piece (the decor entry with `watch`, from its `3d/pieces/<slug>.js` module) on a disc in the island's grass colour over its `bg`, with a soft pale rim glow and an ink outline. The portrait never reads the terrain, so baking or regenerating a layout leaves it valid. The island navigator in `core/ui.js` crops the same files to its 58px orb and nav circles.
+
+`3d/index.html?level=<island>&portrait=1` renders one portrait in the page (`3d/portrait.js`) and sets `window.__portrait` and `window.__done`. To rewrite all of them for the islands in `levels/run.json`:
 
 ```sh
-node -e 'const sharp=require("sharp");for(const n of require("./levels/run.json").order){sharp("out/pass6/clouds-"+n+".png").resize(300,267,{fit:"cover"}).jpeg({quality:82,mozjpeg:true}).toFile("assets/start/"+n+".jpg")}'
+node tools/portraits.mjs http://localhost:8765
 ```
+
+It drives system Chrome with swiftshader, as `tools/qa.mjs` does, writes `assets/start/<island>.jpg` (about 15 KB each), and lays all of them out at orb size in `out/portraits/sheet.png`. `ONLY=a,b` limits the islands; `OUT_DIR` and `SHEET` move the outputs. Re-run it when a pieces module changes its focal figure or a palette changes.
 
 The page sets `window.__done` once the tiles decode:
 
@@ -983,7 +987,7 @@ One draw call (244 sprites on home, 212 on ember), no JavaScript per frame, no a
 
 QA: `PP_PROFILE=.pp-profile-cloudsdef node tools/qa.mjs http://localhost:8765` 132 pass, 0 fail (clouds on in every 3d page it opens; the home silhouette compare runs with `clouds=none`); `PP_PROFILE=.pp-profile-cloudsdef node tools/qa-ride-keys.mjs http://localhost:8765` 13 pass, 0 fail, so the elevator hops ride through the cloud bed unchanged.
 
-Stills: `out/pass6/clouds-<island>.png` (900x800, hero shown) for the twelve run islands, `clouds-cat-medium-phone.png` and `clouds-ember-subject-phone.png` at 400x800, and `node out/pass6/clouds-sheet.mjs` lays them out as `out/pass6/clouds-sheet.jpg`. The start page tiles in `assets/start/` are cut from these renders (see Start page).
+Stills: `out/pass6/clouds-<island>.png` (900x800, hero shown) for the twelve run islands, `clouds-cat-medium-phone.png` and `clouds-ember-subject-phone.png` at 400x800, and `node out/pass6/clouds-sheet.mjs` lays them out as `out/pass6/clouds-sheet.jpg`.
 
 ## Route visibility
 

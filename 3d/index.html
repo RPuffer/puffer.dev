@@ -17,6 +17,6 @@ canvas{display:block;width:100%;height:100%}
 </head>
 <body>
 <div id="msg"></div>
-<script type="module" src="./main.js"></script>
+<script type="module">import(new URLSearchParams(location.search).has("portrait") ? "./portrait.js" : "./main.js");</script>
 </body>
 </html>
