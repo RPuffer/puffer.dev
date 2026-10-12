@@ -1,6 +1,7 @@
 import { createRng, hashSeed, valueNoise } from "../rng.js";
 import { createGrid, N4, DIR, key } from "./grid.js";
 import { planIsland } from "./plan.js";
+import { ARCHETYPES } from "./topology.js";
 import { FEATURES, stamp } from "./features.js";
 import { placeDecor, profileFor, PROFILES } from "./decor.js";
 import { CATALOG, maskCells } from "../catalog.js";
@@ -8,14 +9,16 @@ import { checkRoute, unreachableCells } from "./check.js";
 
 export { FEATURES } from "./features.js";
 export { checkRoute, routeDistances } from "./check.js";
+export { ARCHETYPES, routeFingerprint, fingerprintClash } from "./topology.js";
 
 const OPP = { n: "s", s: "n", e: "w", w: "e" };
 
-function openLinks(segs) {
+function openLinks(segs, extra = []) {
   const m = new Map();
   const add = (a, b) => { if (!m.has(a)) m.set(a, new Set()); m.get(a).add(b); };
   for (const s of Object.values(segs)) for (const l of s.links) if (!l.via) { add(s.id, l.to); add(l.to, s.id); }
   for (const id of ["terrace", "dais", "exit", "doorway", "spur"]) { add("core", id); add(id, "core"); }
+  for (const [a, b] of extra) { add(a, b); add(b, a); }
   return (a, b) => a === b || !!m.get(a)?.has(b);
 }
 
@@ -69,7 +72,7 @@ function fillHoles(G, maxSize = 8) {
 }
 
 function separate(G, plan) {
-  const ok = openLinks(plan.segs), clashes = [];
+  const ok = openLinks(plan.segs, plan.extraLinks), clashes = [];
   const lock = new Set(plan.locks.flatMap(([p, q]) => [key(...p) + "|" + key(...q), key(...q) + "|" + key(...p)]));
   for (let pass = 0; pass < 4; pass++) {
     let changed = 0;
@@ -98,6 +101,9 @@ function settle(level, rng) {
     const lost = unreachableCells(level);
     if (!lost.length) return;
     const covered = new Set(level.decor.filter((d) => (d.fw || 1) * (d.fd || 1) > 1).flatMap((d) => maskCells(d.t, d.x, d.z, d.rot || 0).map((m) => key(m.x, m.z))));
+    const lostSet = new Set(lost.map(([x, z]) => key(x, z)));
+    const arches = level.decor.filter((d) => (d.fw || 1) * (d.fd || 1) > 1 && maskCells(d.t, d.x, d.z, d.rot || 0).some((m) => m.pass && lostSet.has(key(m.x, m.z))));
+    if (arches.length) { level.decor = level.decor.filter((d) => !arches.includes(d)); continue; }
     for (const [x, z] of lost) {
       if (covered.has(key(x, z))) continue;
       level.decor = level.decor.filter((d) => !(d.x === x && d.z === z && (d.fw || 1) === 1 && (d.fd || 1) === 1));
@@ -112,7 +118,7 @@ export const RECIPES = {
   hill: [["hill", { size: [3, 2] }]],
 };
 
-export const LAYOUT_SIZE = [26, 34];
+export const LAYOUT_SIZE = [29, 37];
 
 function withLandmark(recipe, profile) {
   const lm = profile.landmark && CATALOG[profile.landmark];
@@ -184,14 +190,16 @@ function pickThings(G, plan, rng, o) {
   const { picks: P, core } = plan;
   const [fx, fz] = core.figure;
   const things = [];
-  const spawn = [P.ex, 25];
+  const spawn = [P.ex, P.PZ + 3];
+  const facing = o.mirror ? -1 : 1;
+  const front = (x, z) => facing * (x - spawn[0]) + (z - spawn[1]) > 0;
   const plazaFree = [];
-  for (let z = 22; z <= 25; z++) for (let x = P.px; x <= P.px + 3; x++) {
+  for (let z = P.PZ; z <= P.PZ + 3; z++) for (let x = P.px; x <= P.px + 3; x++) {
     const c = G.at(x, z);
-    if (c.p || (x === P.lx && z === 22)) continue;
+    if (c.p || (x === P.lx && z === P.PZ)) continue;
     const near = Math.max(Math.abs(x - spawn[0]), Math.abs(z - spawn[1]));
     if (near < 1 || near > 3) continue;
-    plazaFree.push([x, z, near]);
+    plazaFree.push([x, z, near + (front(x, z) ? 4 : 0)]);
   }
   const avoid = plan.locks.flat();
   const clear = plazaFree.filter(([x, z]) => avoid.every(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) > 2));
@@ -199,18 +207,28 @@ function pickThings(G, plan, rng, o) {
   if (clear.length) plazaFree.splice(0, plazaFree.length, ...clear);
   const fire = plazaFree[0];
   things.push({ id: "b1", kind: "bonfire", x: fire[0], z: fire[1], rot: 0 });
-  things.push({ id: "e0", kind: "elevator", role: "entry", x: P.ex, z: 28, rot: 0 });
-  things.push({ id: "e1", kind: "elevator", role: "exit", x: 24, z: P.ey, rot: 1 });
-  const th = [P.gx, 7];
+  things.push({ id: "e0", kind: "elevator", role: "entry", x: P.ex, z: P.PZ + 6, rot: 0 });
+  things.push({ id: "e1", kind: "elevator", role: "exit", x: P.exitX, z: P.ey, rot: 1 });
+  const gz = core.terrace[1] - 1, th = [P.gx, gz - 1];
   const radius = +(Math.hypot(th[0] + 0.5 - (fx + 1), th[1] + 0.5 - (fz + 1)) + 0.9).toFixed(1);
   things.push({ id: "w1", kind: "watcher", x: fx, z: fz, size: [2, 2], radius });
-  things.push({ id: "g1", kind: "gate", x: P.gx, z: 8, span: "x", blocks: [[P.gx, 8]], open: "watcher:w1", threshold: [th], edge: [th, [P.gx, 8]] });
-  const leverAt = [[P.cx + 1, 9], [P.cx - 1, 8], [P.cx + 1, 8]].find(([x, z]) => G.land(x, z) && !G.at(x, z).p && G.at(x, z).h === 2) || [P.cx + 1, 9];
+  things.push({ id: "g1", kind: "gate", x: P.gx, z: gz, span: "x", blocks: [[P.gx, gz]], open: "watcher:w1", threshold: [th], edge: [th, [P.gx, gz]] });
+  const lv = plan.lever, locked = new Set(plan.locks.flat().map((c) => key(...c)));
+  const leverOpts = [];
+  for (const base of [lv.node, lv.first]) for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) {
+    const x = base[0] + dx, z = base[1] + dz, c = G.at(x, z);
+    if (!G.land(x, z) || c.p || c.room || c.s === "ramp" || c.s === "lift" || c.h !== lv.h || locked.has(key(x, z))) continue;
+    leverOpts.push([x, z, Math.abs(x - lv.node[0]) + Math.abs(z - lv.node[1]) + (dx && dz ? 0.5 : 0)]);
+  }
+  leverOpts.sort((a, b) => a[2] - b[2]);
+  const leverAt = leverOpts[0] || [lv.node[0] + 1, lv.node[1] + 1];
   things.push({ id: "l1", kind: "lever", x: leverAt[0], z: leverAt[1], opens: "g2" });
-  things.push({ id: "g2", kind: "gate", x: P.cx, z: 22, span: "x", blocks: [[P.cx, 22]], open: "lever:l1", threshold: [[P.cx, 23]], edge: [[P.cx, 23], [P.cx, 22]] });
-  things.push({ id: "d1", kind: "door", edge: [[P.px + 3, 23], [P.px + 4, 23]], x: P.px + 4, z: 23 });
-  things.push({ id: "k1", kind: "ladder", x: P.lx, z: 21, d: "s", mode: o.drop ? "drop" : "kick" });
-  things.push({ id: "c1", kind: "chest", x: P.vx + 1, z: 2, rot: 2, text: o.chestText || "A curl of dried ink, peeled off the lookout rail." });
+  const { threshold: gt, block: gb } = plan.leverGate;
+  things.push({ id: "g2", kind: "gate", x: gb[0], z: gb[1], span: gt[0] === gb[0] ? "x" : "z", blocks: [gb.slice()], open: "lever:l1", threshold: [gt.slice()], edge: [gt.slice(), gb.slice()] });
+  things.push({ id: "d1", kind: "door", edge: [[P.px + 3, P.PZ + 1], [P.px + 4, P.PZ + 1]], x: P.px + 4, z: P.PZ + 1 });
+  things.push({ id: "k1", kind: "ladder", x: P.lx, z: P.PZ - 1, d: "s", mode: o.drop ? "drop" : "kick" });
+  const ch = plan.chest || { x: 1, z: 1, rot: 0 };
+  things.push({ id: "c1", kind: "chest", x: ch.x, z: ch.z, rot: ch.rot, text: o.chestText || "A curl of dried ink, peeled off the lookout rail." });
   return { things, spawn };
 }
 
@@ -218,7 +236,7 @@ function mirrorLevel(L) {
   const W = L.size[0], fl = (x) => W - 1 - x, md = { e: "w", w: "e", n: "n", s: "s" };
   L.cells = L.cells.map((row) => row.slice().reverse().map((c) => (c.d ? { ...c, d: md[c.d] } : c)));
   const fc = ([x, z]) => [fl(x), z];
-  for (const d of L.decor) { const w = (d.rot || 0) % 2 ? d.fd || 1 : d.fw || 1; d.x = fl(d.x) - (w - 1); delete d.fw; delete d.fd; if (d.ox) d.ox = -d.ox; }
+  for (const d of L.decor) { const w = (d.rot || 0) % 2 ? d.fd || 1 : d.fw || 1; d.x = fl(d.x) - (w - 1); delete d.fw; delete d.fd; if (d.ox) d.ox = -d.ox; if (d.rot) d.rot = [0, 3, 2, 1][d.rot]; }
   for (const t of L.things) {
     const w = t.size ? t.size[0] : 1;
     t.x = fl(t.x) - (w - 1);
@@ -226,13 +244,14 @@ function mirrorLevel(L) {
     if (t.threshold) t.threshold = t.threshold.map(fc);
     if (t.blocks) t.blocks = t.blocks.map(fc);
     if (t.d) t.d = md[t.d];
-    if (t.kind === "elevator") t.rot = [0, 3, 2, 1][t.rot || 0];
+    if (t.rot) t.rot = [0, 3, 2, 1][t.rot];
   }
   L.spawn = fc(L.spawn);
   const r = L.route;
   if (r) {
     for (const s of r.segments) s.cells = s.cells.map(fc);
     for (const s of r.shortcuts) { s.far = fc(s.far); s.near = fc(s.near); }
+    if (r.bonfire) r.bonfire = fc(r.bonfire);
     r.vistas = r.vistas.map(fc);
     r.trapSlots = r.trapSlots.map((t) => ({ ...t, cells: t.cells.map(fc) }));
     if (r.features) r.features = r.features.map((f) => ({ ...f, cells: f.cells.map(fc), ...(f.ramp ? { ramp: { at: fc(f.ramp.at), d: md[f.ramp.d] } } : {}), ...(f.from ? { from: fc(f.from), neck: f.neck.map(fc) } : {}) }));
@@ -268,7 +287,7 @@ function routeMeta(G, plan, things) {
     flush();
   }
   const features = (plan.features || []).map((p) => ({ kind: p.kind, name: p.name, cells: p.cells.filter((c) => c.s !== "ramp").map((c) => [c.x, c.z]), ...(p.ramp ? { ramp: p.ramp } : {}), ...(p.from ? { from: p.from, neck: p.neck } : {}) }));
-  return { grammar: "hub-and-ring", segments, shortcuts, bonfire: [t("b1").x, t("b1").z], vistas: [], trapSlots, features };
+  return { grammar: plan.topology.archetype, segments, shortcuts, bonfire: [t("b1").x, t("b1").z], vistas: [], trapSlots, features };
 }
 
 export function generateLayout(base, opts = {}) {
@@ -281,8 +300,9 @@ export function generateLayout(base, opts = {}) {
     const noise = valueNoise(hashSeed(`${seed}:${attempt}:n`));
     const [W, D] = LAYOUT_SIZE;
     const G = createGrid(W, D);
-    const o = { drop: !!opts.drop, chestText: opts.chestText || base.things?.find((t) => t.kind === "chest")?.text };
-    const plan = planIsland(G, rng, o);
+    const o = { drop: !!opts.drop, mirror: !!opts.mirror, archetype: opts.archetype, chestText: opts.chestText || base.things?.find((t) => t.kind === "chest")?.text };
+    let plan;
+    try { plan = planIsland(G, rng, o); } catch (e) { history.push([e.message]); last = last || { level: null, problems: [e.message], attempt, history }; continue; }
     growFlanks(G, plan, rng, noise);
     const clashes = separate(G, plan);
     fillHoles(G);
@@ -306,7 +326,7 @@ export function generateLayout(base, opts = {}) {
       size: [W, D], cells, decor: [], spawn,
       bg: base.bg, palette: { ...base.palette, kitTheme: opts.kitTheme || (PROFILES[base.name.split("-")[0]] ? base.name.split("-")[0] : "auto") }, materials: base.materials, light: base.light,
       pieces: [...new Set([...(base.pieces || []), ...(opts.kits === false ? [] : ["pieces/kits.js"])])], things, route,
-      layout: { seed, attempt, grammar: "hub-and-ring", mirror: !!opts.mirror, picks: plan.picks, features: recipe.map(([k]) => k) },
+      layout: { seed, attempt, grammar: "route-lattice", archetype: plan.topology.archetype, mirror: !!opts.mirror, picks: plan.picks, features: recipe.map(([k]) => k) },
     };
     level.decor = placeDecor(level, base, plan, rng, noise);
     settle(level, rng);
