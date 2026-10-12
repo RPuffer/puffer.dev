@@ -199,7 +199,7 @@ function pickThings(G, plan, rng, o) {
     if (c.p || (x === P.lx && z === P.PZ)) continue;
     const near = Math.max(Math.abs(x - spawn[0]), Math.abs(z - spawn[1]));
     if (near < 1 || near > 3) continue;
-    plazaFree.push([x, z, near + (front(x, z) ? 4 : 0)]);
+    plazaFree.push([x, z, (near === 1 ? 3 : near) + (front(x, z) ? 4 : 0)]);
   }
   const avoid = plan.locks.flat();
   const clear = plazaFree.filter(([x, z]) => avoid.every(([a, b]) => Math.max(Math.abs(a - x), Math.abs(b - z)) > 2));
