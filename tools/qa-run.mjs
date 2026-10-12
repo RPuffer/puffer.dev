@@ -34,7 +34,7 @@ page.on("requestfailed", (r) => problems.push("failed " + r.url()));
 const loaded = () => page.waitForFunction(() => window.__done === true || !!window.__error, { timeout: 30000, polling: 100 }).then(() => page.evaluate(() => window.__done === true && !window.__error), () => false);
 
 async function go(query) {
-  await page.goto(`${BASE}/3d/index.html?${query}`, { waitUntil: "load" });
+  await page.goto(`${BASE}/3d/index.html?${query}${process.env.QA_CLASS ? `&class=${process.env.QA_CLASS}` : ""}`, { waitUntil: "load" });
   return loaded();
 }
 
@@ -139,7 +139,11 @@ async function arrival(name, role, label) {
 
 try {
   if (!(await go(`level=${ORDER[0]}&reset=1`))) throw new Error(`${ORDER[0]} did not load`);
-  await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.startsWith("isoworld:things:")) localStorage.removeItem(k); });
+  await page.evaluate((c) => { for (const k of Object.keys(localStorage)) if (k.startsWith("isoworld:things:")) localStorage.removeItem(k); if (c) localStorage.setItem("isoworld:class", c); else localStorage.removeItem("isoworld:class"); }, process.env.QA_CLASS || null);
+  if (process.env.QA_CLASS) {
+    const got = await page.evaluate(() => window.__game.renderer.three.scene.children.find((o) => o.userData?.animate)?.userData.heroClass || null);
+    record(got === process.env.QA_CLASS ? "PASS" : "FAIL", `hero body is ${process.env.QA_CLASS}`, `got ${got}`);
+  }
   let rode = false, last = null;
   for (let i = 0; i < ORDER.length; i++) {
     const name = ORDER[i], next = ORDER[i + 1] || null;
