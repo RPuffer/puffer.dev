@@ -248,7 +248,8 @@ export function audit(spec) {
   const errors = [];
   if (big.length > B.max) errors.push(`${big.length} parts over ${B.min} tile, budget ${B.max}`);
   if (stray.length) errors.push(`parts under ${B.face} tile off the face: ${stray.map((p) => p.id).join(", ")}`);
-  if (headRatio != null && (headRatio < BIBLE.head[0] - 1e-6 || headRatio > BIBLE.head[1] + 1e-6)) errors.push(`head ${headRatio.toFixed(2)} of height, rule ${BIBLE.head.join(" to ")}`);
+  const band = spec.head || BIBLE.head;
+  if (headRatio != null && (headRatio < band[0] - 1e-6 || headRatio > band[1] + 1e-6)) errors.push(`head ${headRatio.toFixed(2)} of height, rule ${band.join(" to ")}`);
   return { name: spec.name, parts: big.length, ids: big.map((p) => p.id), face: placed.length - big.length, height, headRatio, width: Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...zs) - Math.min(...zs)), ok: !errors.length, errors };
 }
 

@@ -3,6 +3,7 @@ import { createSky } from "./sky.js";
 import { buildTerrain } from "./terrain.js";
 import { buildDecor } from "./decor.js";
 import { buildCharacter } from "./character.js";
+import { heroClass } from "./heroes.js";
 import { levelScreenBounds } from "../core/iso.js";
 import { xray } from "./xray.js";
 import { highlight, unhighlight } from "./highlight.js";
@@ -176,7 +177,7 @@ export function createRenderer(container = document.body) {
         mounted.push(things.group);
         state.things?.on(things.onEvent);
       }
-      hero = buildCharacter(1, style);
+      hero = buildCharacter(1, style, heroClass(state.params));
       hero.visible = state.params.hero !== "0";
       occ = occludeModes(state.params.occlude);
       heroHl();

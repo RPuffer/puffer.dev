@@ -69,6 +69,8 @@ The hero (`3d/character.js`, `heroSpec()`) runs through `audit()` like any creat
 
 Each part bakes into its own mesh under a named joint group, so `THREE.AnimationMixer` can pose it from the clips in `3d/clips/`.
 
+Each landing class plays as its own body, built in `3d/heroes.js`: the Ink Wraith (`wanderer`), the Gate Sentinel (`aws`), the Comet Runner (`dutchie`) and the Mainframe Golem (`nm`). The game reads the class from `?class=` or from `localStorage["isoworld:class"]`, which the souls landing writes on every class change, and falls back to the hero above. A class spec keeps the shared joint names, so land, brace and the dances still play; it moves the joint pivots, brings its own idle and walk, and sets `armSpread` to shrink the shared clips' sideways arm swing for wide bodies. It may set its own `head` band, because the Sentinel's helmet is 0.24 of a 1.38 tile body and the Runner's comet tail lifts its height. A part can hang on another joint with `joint`, and `blink: [hz, phase, duty]` toggles it on the motion clock (the Golem's screen pixels and LEDs). Every body stays inside one cell, x and z within 0.5 at rest; only the Sentinel grows taller.
+
 ## Scale bands
 
 | Class | Height in tiles |

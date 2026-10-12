@@ -2,7 +2,8 @@ import * as THREE from "three";
 import { Baker, bakedMaterial } from "./baker.js";
 import { HERO } from "./palette.js";
 import { kit, audit } from "./prims.js";
-import { buildClips, REST } from "./clips.js";
+import { buildClips, toClip, CLIP_DATA, REST } from "./clips.js";
+import { HEROES } from "./heroes.js";
 import { motion } from "./motion.js";
 
 const baseOf = (v) => (Array.isArray(v) ? v[0] : v?.top || v);
@@ -62,40 +63,58 @@ export function heroSpec(style = null) {
 function bakePart(p, light) {
   const B = new Baker(light);
   const K = kit(B, { light });
-  const draw = (prim, dims, base, x, y, z) => { B.push(x, y, z, 0); K[prim](...dims, base, 0, 0, 0); B.pop(); };
-  if (p.prim === "chain") for (const l of p.links) draw(l.prim, l.dims, l.base || p.base, p.at[0] + l.at[0], p.at[1] + l.at[1], p.at[2] + l.at[2]);
-  else draw(p.prim, p.dims, p.base, ...p.at);
+  const draw = (prim, dims, base, x, y, z, ry = 0) => { B.push(x, y, z, ry); K[prim](...dims.slice(0, 3), base, 0, 0, 0, ...(prim === "spike" ? [dims[3] || 0] : [])); B.pop(); };
+  if (p.prim === "chain") for (const l of p.links) draw(l.prim, l.dims, l.base || p.base, p.at[0] + l.at[0], p.at[1] + l.at[1], p.at[2] + l.at[2], l.ry || 0);
+  else draw(p.prim, p.dims, p.base, ...p.at, p.ry || 0);
   return B.geometry();
 }
 
-export function buildCharacter(scale = 1, style = null) {
-  const spec = heroSpec(style);
+export function classSpec(cls) {
+  const make = HEROES[cls];
+  return make ? make() : null;
+}
+
+export function buildCharacter(scale = 1, style = null, cls = null) {
+  const custom = classSpec(cls);
+  const spec = custom || heroSpec(style);
+  const tree = { ...JOINT_TREE, ...(custom?.tree || {}) };
   const report = audit(spec);
-  if (!report.ok) throw new Error(`hero: ${report.errors.join("; ")}`);
+  if (!report.ok) throw new Error(`hero ${spec.name}: ${report.errors.join("; ")}`);
   const root = new THREE.Group();
   root.name = "hero";
+  root.userData.heroClass = custom ? cls : null;
   const joints = {};
-  for (const [id, [parent, pivot]] of Object.entries(JOINT_TREE)) {
+  for (const [id, [parent, pivot]] of Object.entries(tree)) {
     const g = new THREE.Group();
     g.name = id;
-    const pp = parent ? JOINT_TREE[parent][1] : [0, 0, 0];
+    const pp = parent ? tree[parent][1] : [0, 0, 0];
     g.position.set(pivot[0] - pp[0], pivot[1] - pp[1], pivot[2] - pp[2]);
     const r = REST[id];
     if (r) g.rotation.set(r[0] * D, r[1] * D, r[2] * D);
     (parent ? joints[parent] : root).add(g);
     joints[id] = g;
   }
+  const blinks = [];
   for (const p of spec.parts) {
     const m = new THREE.Mesh(bakePart(p, style?.light || null), mat);
     m.renderOrder = 2;
-    const pivot = JOINT_TREE[p.id][1];
+    const j = p.joint || p.id, pivot = tree[j][1];
     m.position.set(-pivot[0], -pivot[1], -pivot[2]);
-    joints[p.id].add(m);
+    joints[j].add(m);
+    if (p.blink) blinks.push([m, ...p.blink]);
   }
+  const blink = () => { const t = motion.uTime.value; for (const [m, hz, ph, duty] of blinks) m.visible = (((t * hz + ph) % 1) + 1) % 1 < duty; };
   root.scale.setScalar(scale);
 
   const mixer = new THREE.AnimationMixer(root);
-  const clips = buildClips({ hips: joints.hips.position.toArray() });
+  const rest = { hips: joints.hips.position.toArray() };
+  const clips = buildClips(rest);
+  const k = custom?.armSpread;
+  if (k) for (const [n, c] of Object.entries(CLIP_DATA)) {
+    const tracks = Object.fromEntries(Object.entries(c.tracks).map(([key, keys]) => [key, /^upperArm[LR]\.quaternion$/.test(key) ? keys.map(([t, x, y, z]) => [t, x, y, z * k]) : keys]));
+    clips[n] = toClip({ ...c, tracks }, rest);
+  }
+  for (const [n, c] of Object.entries(custom?.clips || {})) clips[n] = toClip(c, rest);
   const actions = {};
   for (const [name, clip] of Object.entries(clips)) {
     const a = mixer.clipAction(clip);
@@ -121,6 +140,7 @@ export function buildCharacter(scale = 1, style = null) {
   };
   go(forced || "idle", 0);
   mixer.update(0);
+  blink();
 
   root.userData.mixer = mixer;
   root.userData.actions = actions;
@@ -140,6 +160,7 @@ export function buildCharacter(scale = 1, style = null) {
     go(name, 0);
     actions[name].time = t;
     mixer.update(0);
+    blink();
   };
   root.userData.animate = (actor, dt) => {
     let diff = actor.facing - yaw;
@@ -156,6 +177,7 @@ export function buildCharacter(scale = 1, style = null) {
       cur.time = cur.loop === THREE.LoopOnce ? Math.min(t, d) : t % d;
       mixer.update(0);
     } else mixer.update(dt);
+    blink();
   };
   return root;
 }
