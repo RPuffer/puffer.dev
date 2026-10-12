@@ -235,6 +235,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     if (kind === "bonfire") return o.state === "lit";
     if (kind === "lever") return o.state === "pulled";
     if (kind === "watcher") {
+      if (Array.isArray(g.back) && at(actor.cell, g.back)) return true;
       const th = Array.isArray(g.threshold) && g.threshold.length ? g.threshold : null;
       const on = !th || th.some(([x, z]) => x === actor.cell[0] && z === actor.cell[1]);
       if (o.state !== "watching") g.primed = false;
@@ -288,7 +289,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
     },
     tap(cell) {
       if (!actor || !cell) return false;
-      const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator" || q.kind === "lever" || q.kind === "door" || q.kind === "ladder" || q.kind === "pad") && (q.kind !== "door" && q.kind !== "ladder" || usable(q)) && q.x === cell[0] && q.z === cell[1]);
+      const t = things.find((q) => (q.kind === "bonfire" || q.kind === "chest" || q.kind === "elevator" || q.kind === "lever" || q.kind === "door" || q.kind === "ladder" || q.kind === "pad") && (q.kind !== "door" && q.kind !== "ladder" && q.kind !== "pad" || usable(q)) && q.x === cell[0] && q.z === cell[1]);
       if (!t) return false;
       if (inRange(t)) { act(t); return true; }
       const from = actor.path[0] || actor.cell;
@@ -306,7 +307,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
       const best = t.kind === "elevator" || t.kind === "door" || t.kind === "ladder" || t.kind === "pad" ? shortest([[t.x, t.z]]) : shortest(side) || shortest(near);
       if (!best) return false;
       actor.setPath(best);
-      pending = t.id;
+      pending = t.kind === "pad" ? null : t.id;
       return true;
     },
     update(dt) {

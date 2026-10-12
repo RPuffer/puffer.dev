@@ -258,7 +258,7 @@ function pickThings(G, plan, rng, o) {
   const [fx, fz] = plan.core.figure, th = plan.core.threshold, rp = plan.core.ramp;
   const radius = +(Math.hypot(th[0] + 0.5 - (fx + 1), th[1] + 0.5 - (fz + 1)) + 0.9).toFixed(1);
   things.push({ id: "w1", kind: "watcher", x: fx, z: fz, size: [2, 2], radius });
-  things.push({ id: "g1", kind: "gate", x: rp[0], z: rp[1], span: th[0] !== rp[0] ? "z" : "x", blocks: [rp.slice()], open: "watcher:w1", threshold: [th.slice()], edge: [th.slice(), rp.slice()] });
+  things.push({ id: "g1", kind: "gate", x: rp[0], z: rp[1], span: th[0] !== rp[0] ? "z" : "x", blocks: [rp.slice()], open: "watcher:w1", threshold: [th.slice()], edge: [th.slice(), rp.slice()], back: plan.core.back.slice() });
   const cellOf = (u) => plan.unitCell(u);
   const locked = new Set(locks.map((c) => key(...c)));
   const meta = [];

@@ -247,7 +247,7 @@ export function planIsland(G, SH, M, rng, o = {}) {
     topology: M,
     entry, exitLift,
     rest: { centre: Bc, box: plaza, doors: restDoors, spawn: spawnDoor },
-    core: { ...coreBands(fx, fz), HD, ring, blocks: { tower: null, spires: [] }, sealed: [], threshold, ramp, approachDir: gDir },
+    core: { ...coreBands(fx, fz), HD, ring, blocks: { tower: null, spires: [] }, sealed: [], threshold, ramp, back: gIn, approachDir: gDir },
     plaza,
     picks: { archetype: M.archetype, shape: SH.id, transform: SH.transform, scale: SH.scale, C: M.C, G: M.G, B: M.B, S: M.S, E: M.E },
     lever: null,
