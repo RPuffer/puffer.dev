@@ -1,0 +1,2477 @@
+{
+ "note": "Mirrored islands are flipped back to canonical x before comparison. centre window x 10..27, z 11..31 covers core, plaza, door, ladder, exit causeway. Run pairs only in summary (66 pairs).",
+ "centreWindow": {
+  "x0": 10,
+  "z0": 11,
+  "x1": 27,
+  "z1": 31
+ },
+ "summary": {
+  "footprint": {
+   "mean": 0.665,
+   "min": 0.501,
+   "median": 0.677,
+   "max": 0.86
+  },
+  "centreLand": {
+   "mean": 0.816,
+   "min": 0.732,
+   "median": 0.823,
+   "max": 0.935
+  },
+  "centrePath": {
+   "mean": 0.65,
+   "min": 0.475,
+   "median": 0.64,
+   "max": 1
+  },
+  "centreCellsIdentical": {
+   "mean": 0.717,
+   "min": 0.608,
+   "median": 0.714,
+   "max": 0.828
+  },
+  "framePath": {
+   "mean": 0.68,
+   "min": 0.515,
+   "median": 0.66,
+   "max": 1
+  },
+  "westPath": {
+   "mean": 0.436,
+   "min": 0.209,
+   "median": 0.411,
+   "max": 1
+  },
+  "fingerprint": {
+   "mean": 0.349,
+   "min": 0.12,
+   "median": 0.237,
+   "max": 0.725
+  },
+  "fingerprintUnflipped": {
+   "mean": 0.574,
+   "min": 0.347,
+   "median": 0.571,
+   "max": 0.977
+  }
+ },
+ "fixed": {
+  "figureDistinct": 2,
+  "bonfireDistinct": 6,
+  "entryLiftDistinct": 4,
+  "exitLiftDistinct": 2,
+  "constLandCells": 261,
+  "meanLand": 571.7,
+  "constLandShare": 0.457,
+  "constPathCells": 58,
+  "meanPath": 169.9,
+  "constPathShare": 0.341,
+  "meanFrameShareOfPath": 0.464
+ },
+ "shortcutSpread": {
+  "door": {
+   "count": 12,
+   "distinctFarCells": 2,
+   "farX": [
+    15,
+    16
+   ],
+   "farZ": [
+    26,
+    26
+   ],
+   "nearDistinct": 2
+  },
+  "ladder": {
+   "count": 8,
+   "distinctFarCells": 3,
+   "farX": [
+    12,
+    15
+   ],
+   "farZ": [
+    24,
+    24
+   ],
+   "nearDistinct": 3
+  },
+  "drop": {
+   "count": 4,
+   "distinctFarCells": 4,
+   "farX": [
+    12,
+    15
+   ],
+   "farZ": [
+    24,
+    24
+   ],
+   "nearDistinct": 4
+  },
+  "lever": {
+   "count": 12,
+   "distinctFarCells": 7,
+   "farX": [
+    3,
+    8
+   ],
+   "farZ": [
+    1,
+    32
+   ],
+   "nearDistinct": 3
+  }
+ },
+ "perLevel": [
+  {
+   "name": "cat-medium",
+   "intended": "ring",
+   "realised": "ring",
+   "mirror": false,
+   "land": 586,
+   "path": 162,
+   "frameShareOfPath": 0.485,
+   "latticePathCells": 84,
+   "cycles": 3,
+   "junctions": 7,
+   "ends": 3,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    11,
+    25
+   ],
+   "lifts": [
+    [
+     "entry",
+     11,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      15,
+      26
+     ],
+     "near": [
+      14,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      14,
+      24
+     ],
+     "near": [
+      14,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      4,
+      4
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "lookout",
+    "alcove",
+    "inlet"
+   ]
+  },
+  {
+   "name": "wizard-medium",
+   "intended": "switchback",
+   "realised": "switchback",
+   "mirror": false,
+   "land": 501,
+   "path": 150,
+   "frameShareOfPath": 0.523,
+   "latticePathCells": 72,
+   "cycles": 3,
+   "junctions": 7,
+   "ends": 3,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    12,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     14,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      12,
+      24
+     ],
+     "near": [
+      12,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      7,
+      7
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove",
+    "inlet"
+   ]
+  },
+  {
+   "name": "swallow-medium",
+   "intended": "spiral",
+   "realised": "spiral",
+   "mirror": false,
+   "land": 625,
+   "path": 187,
+   "frameShareOfPath": 0.41,
+   "latticePathCells": 111,
+   "cycles": 3,
+   "junctions": 7,
+   "ends": 3,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    13,
+    27
+   ],
+   "lifts": [
+    [
+     "entry",
+     12,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "drop",
+     "far": [
+      14,
+      24
+     ],
+     "near": [
+      14,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      4,
+      1
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "inlet"
+   ]
+  },
+  {
+   "name": "forest-volute",
+   "intended": "maze",
+   "realised": "maze",
+   "mirror": false,
+   "land": 630,
+   "path": 205,
+   "frameShareOfPath": 0.376,
+   "latticePathCells": 128,
+   "cycles": 7,
+   "junctions": 15,
+   "ends": 5,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    12,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     14,
+     31
+    ],
+    [
+     "exit",
+     27,
+     15
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      15,
+      24
+     ],
+     "near": [
+      15,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      3,
+      25
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove"
+   ]
+  },
+  {
+   "name": "mindbloom-medium",
+   "intended": "twin",
+   "realised": "twin",
+   "mirror": false,
+   "land": 553,
+   "path": 173,
+   "frameShareOfPath": 0.454,
+   "latticePathCells": 95,
+   "cycles": 4,
+   "junctions": 9,
+   "ends": 3,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    12,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     13,
+     31
+    ],
+    [
+     "exit",
+     27,
+     15
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      12,
+      24
+     ],
+     "near": [
+      12,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      7,
+      7
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove"
+   ]
+  },
+  {
+   "name": "cosmos-frisket",
+   "intended": "figure8",
+   "realised": "figure8",
+   "mirror": false,
+   "land": 510,
+   "path": 146,
+   "frameShareOfPath": 0.537,
+   "latticePathCells": 68,
+   "cycles": 4,
+   "junctions": 8,
+   "ends": 3,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    11,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     13,
+     31
+    ],
+    [
+     "exit",
+     27,
+     15
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      15,
+      26
+     ],
+     "near": [
+      14,
+      26
+     ]
+    },
+    {
+     "kind": "drop",
+     "far": [
+      12,
+      24
+     ],
+     "near": [
+      12,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      3,
+      15
+     ],
+     "near": [
+      4,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove",
+    "inlet"
+   ]
+  },
+  {
+   "name": "gremlin-subject",
+   "intended": "comb",
+   "realised": "comb",
+   "mirror": false,
+   "land": 550,
+   "path": 154,
+   "frameShareOfPath": 0.497,
+   "latticePathCells": 78,
+   "cycles": 3,
+   "junctions": 10,
+   "ends": 6,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    11,
+    25
+   ],
+   "lifts": [
+    [
+     "entry",
+     11,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      15,
+      26
+     ],
+     "near": [
+      14,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      14,
+      24
+     ],
+     "near": [
+      14,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      7,
+      4
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "inlet"
+   ]
+  },
+  {
+   "name": "eagle-composition",
+   "intended": "twin mirrored",
+   "realised": "twin",
+   "mirror": true,
+   "land": 563,
+   "path": 171,
+   "frameShareOfPath": 0.448,
+   "latticePathCells": 95,
+   "cycles": 4,
+   "junctions": 9,
+   "ends": 3,
+   "figure": [
+    16,
+    16
+   ],
+   "bonfire": [
+    12,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     13,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      12,
+      24
+     ],
+     "near": [
+      12,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      7,
+      7
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove"
+   ]
+  },
+  {
+   "name": "dragon-medium",
+   "intended": "ring mirrored",
+   "realised": "ring",
+   "mirror": true,
+   "land": 590,
+   "path": 152,
+   "frameShareOfPath": 0.507,
+   "latticePathCells": 75,
+   "cycles": 3,
+   "junctions": 7,
+   "ends": 3,
+   "figure": [
+    16,
+    16
+   ],
+   "bonfire": [
+    12,
+    25
+   ],
+   "lifts": [
+    [
+     "entry",
+     12,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "drop",
+     "far": [
+      15,
+      24
+     ],
+     "near": [
+      15,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      7,
+      4
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove",
+    "inlet"
+   ]
+  },
+  {
+   "name": "sharkbear-medium",
+   "intended": "maze mirrored",
+   "realised": "maze",
+   "mirror": true,
+   "land": 599,
+   "path": 200,
+   "frameShareOfPath": 0.393,
+   "latticePathCells": 122,
+   "cycles": 4,
+   "junctions": 14,
+   "ends": 9,
+   "figure": [
+    16,
+    16
+   ],
+   "bonfire": [
+    12,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     13,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      14,
+      24
+     ],
+     "near": [
+      14,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      8,
+      32
+     ],
+     "near": [
+      7,
+      29
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove",
+    "inlet"
+   ]
+  },
+  {
+   "name": "chimera-medium",
+   "intended": "spiral mirrored",
+   "realised": "spiral",
+   "mirror": true,
+   "land": 638,
+   "path": 189,
+   "frameShareOfPath": 0.416,
+   "latticePathCells": 111,
+   "cycles": 3,
+   "junctions": 7,
+   "ends": 3,
+   "figure": [
+    16,
+    16
+   ],
+   "bonfire": [
+    13,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     11,
+     31
+    ],
+    [
+     "exit",
+     27,
+     15
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      15,
+      26
+     ],
+     "near": [
+      14,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      12,
+      24
+     ],
+     "near": [
+      12,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      4,
+      1
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "inlet"
+   ]
+  },
+  {
+   "name": "ember-subject",
+   "intended": "switchback mirrored",
+   "realised": "switchback",
+   "mirror": true,
+   "land": 515,
+   "path": 150,
+   "frameShareOfPath": 0.523,
+   "latticePathCells": 72,
+   "cycles": 3,
+   "junctions": 7,
+   "ends": 3,
+   "figure": [
+    16,
+    16
+   ],
+   "bonfire": [
+    13,
+    27
+   ],
+   "lifts": [
+    [
+     "entry",
+     11,
+     31
+    ],
+    [
+     "exit",
+     27,
+     15
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      15,
+      26
+     ],
+     "near": [
+      14,
+      26
+     ]
+    },
+    {
+     "kind": "drop",
+     "far": [
+      13,
+      24
+     ],
+     "near": [
+      13,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      7,
+      7
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove"
+   ]
+  },
+  {
+   "name": "wizard-medium-r1",
+   "intended": "figure8",
+   "realised": "figure8",
+   "mirror": false,
+   "land": 520,
+   "path": 151,
+   "frameShareOfPath": 0.51,
+   "latticePathCells": 74,
+   "cycles": 4,
+   "junctions": 8,
+   "ends": 3,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    12,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     14,
+     31
+    ],
+    [
+     "exit",
+     27,
+     15
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      16,
+      26
+     ],
+     "near": [
+      15,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      15,
+      24
+     ],
+     "near": [
+      15,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      3,
+      15
+     ],
+     "near": [
+      4,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove",
+    "inlet"
+   ]
+  },
+  {
+   "name": "wizard-medium-r2",
+   "intended": "comb mirrored",
+   "realised": "comb",
+   "mirror": true,
+   "land": 569,
+   "path": 156,
+   "frameShareOfPath": 0.503,
+   "latticePathCells": 78,
+   "cycles": 3,
+   "junctions": 10,
+   "ends": 6,
+   "figure": [
+    16,
+    16
+   ],
+   "bonfire": [
+    11,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     12,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      15,
+      26
+     ],
+     "near": [
+      14,
+      26
+     ]
+    },
+    {
+     "kind": "drop",
+     "far": [
+      13,
+      24
+     ],
+     "near": [
+      13,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      7,
+      4
+     ],
+     "near": [
+      7,
+      26
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "alcove"
+   ]
+  },
+  {
+   "name": "wizard-medium-r3",
+   "intended": "maze",
+   "realised": "maze",
+   "mirror": false,
+   "land": 610,
+   "path": 204,
+   "frameShareOfPath": 0.376,
+   "latticePathCells": 128,
+   "cycles": 7,
+   "junctions": 18,
+   "ends": 8,
+   "figure": [
+    15,
+    16
+   ],
+   "bonfire": [
+    11,
+    28
+   ],
+   "lifts": [
+    [
+     "entry",
+     12,
+     31
+    ],
+    [
+     "exit",
+     27,
+     16
+    ]
+   ],
+   "shortcuts": [
+    {
+     "kind": "door",
+     "far": [
+      15,
+      26
+     ],
+     "near": [
+      14,
+      26
+     ]
+    },
+    {
+     "kind": "ladder",
+     "far": [
+      13,
+      24
+     ],
+     "near": [
+      13,
+      25
+     ]
+    },
+    {
+     "kind": "lever",
+     "far": [
+      8,
+      17
+     ],
+     "near": [
+      7,
+      20
+     ]
+    }
+   ],
+   "features": [
+    "hill",
+    "inlet"
+   ]
+  }
+ ],
+ "pairs": [
+  {
+   "a": "cat-medium",
+   "b": "wizard-medium",
+   "footprint": 0.6199701937406855,
+   "centreLand": 0.8549019607843137,
+   "centrePath": 0.7619047619047619,
+   "centreCellsIdentical": 0.7248677248677249,
+   "framePath": 0.7954545454545454,
+   "westPath": 0.26153846153846155,
+   "fingerprint": 0.4411764705882353,
+   "fingerprintUnflipped": 0.4411764705882353
+  },
+  {
+   "a": "cat-medium",
+   "b": "swallow-medium",
+   "footprint": 0.6937062937062937,
+   "centreLand": 0.8196078431372549,
+   "centrePath": 0.7380952380952381,
+   "centreCellsIdentical": 0.753968253968254,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.5615384615384615,
+   "fingerprint": 0.7088607594936709,
+   "fingerprintUnflipped": 0.7088607594936709
+  },
+  {
+   "a": "cat-medium",
+   "b": "forest-volute",
+   "footprint": 0.6772413793103448,
+   "centreLand": 0.7490909090909091,
+   "centrePath": 0.48484848484848486,
+   "centreCellsIdentical": 0.6798941798941799,
+   "framePath": 0.5145631067961165,
+   "westPath": 0.47651006711409394,
+   "fingerprint": 0.6046511627906976,
+   "fingerprintUnflipped": 0.6046511627906976
+  },
+  {
+   "a": "cat-medium",
+   "b": "mindbloom-medium",
+   "footprint": 0.6774668630338734,
+   "centreLand": 0.7798507462686567,
+   "centrePath": 0.5102040816326531,
+   "centreCellsIdentical": 0.6878306878306878,
+   "framePath": 0.5490196078431373,
+   "westPath": 0.496,
+   "fingerprint": 0.64,
+   "fingerprintUnflipped": 0.64
+  },
+  {
+   "a": "cat-medium",
+   "b": "cosmos-frisket",
+   "footprint": 0.6555891238670695,
+   "centreLand": 0.8446969696969697,
+   "centrePath": 0.5102040816326531,
+   "centreCellsIdentical": 0.7222222222222222,
+   "framePath": 0.5490196078431373,
+   "westPath": 0.3793103448275862,
+   "fingerprint": 0.5454545454545454,
+   "fingerprintUnflipped": 0.5454545454545454
+  },
+  {
+   "a": "cat-medium",
+   "b": "gremlin-subject",
+   "footprint": 0.6929955290611028,
+   "centreLand": 0.9176470588235294,
+   "centrePath": 0.9466666666666667,
+   "centreCellsIdentical": 0.7857142857142857,
+   "framePath": 0.95,
+   "westPath": 0.42857142857142855,
+   "fingerprint": 0.6285714285714286,
+   "fingerprintUnflipped": 0.6285714285714286
+  },
+  {
+   "a": "cat-medium",
+   "b": "eagle-composition",
+   "footprint": 0.7149253731343284,
+   "centreLand": 0.8571428571428571,
+   "centrePath": 0.7176470588235294,
+   "centreCellsIdentical": 0.7671957671957672,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.496,
+   "fingerprint": 0.15584415584415584,
+   "fingerprintUnflipped": 0.6753246753246753
+  },
+  {
+   "a": "cat-medium",
+   "b": "dragon-medium",
+   "footprint": 0.6776034236804565,
+   "centreLand": 0.7672727272727272,
+   "centrePath": 0.651685393258427,
+   "centreCellsIdentical": 0.6957671957671958,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.4396551724137931,
+   "fingerprint": 0.1791044776119403,
+   "fingerprintUnflipped": 0.6268656716417911
+  },
+  {
+   "a": "cat-medium",
+   "b": "sharkbear-medium",
+   "footprint": 0.6977077363896849,
+   "centreLand": 0.8333333333333334,
+   "centrePath": 0.8734177215189873,
+   "centreCellsIdentical": 0.7301587301587301,
+   "framePath": 0.8809523809523809,
+   "westPath": 0.41721854304635764,
+   "fingerprint": 0.13953488372093023,
+   "fingerprintUnflipped": 0.5581395348837209
+  },
+  {
+   "a": "cat-medium",
+   "b": "chimera-medium",
+   "footprint": 0.6929460580912863,
+   "centreLand": 0.8,
+   "centrePath": 0.5913978494623656,
+   "centreCellsIdentical": 0.7486772486772487,
+   "framePath": 0.6288659793814433,
+   "westPath": 0.5615384615384615,
+   "fingerprint": 0.20253164556962025,
+   "fingerprintUnflipped": 0.7088607594936709
+  },
+  {
+   "a": "cat-medium",
+   "b": "ember-subject",
+   "footprint": 0.6191176470588236,
+   "centreLand": 0.8037735849056604,
+   "centrePath": 0.5913978494623656,
+   "centreCellsIdentical": 0.6825396825396826,
+   "framePath": 0.6288659793814433,
+   "westPath": 0.26153846153846155,
+   "fingerprint": 0.14705882352941177,
+   "fingerprintUnflipped": 0.38235294117647056
+  },
+  {
+   "a": "cat-medium",
+   "b": "wizard-medium-r1",
+   "footprint": 0.636094674556213,
+   "centreLand": 0.7610294117647058,
+   "centrePath": 0.47,
+   "centreCellsIdentical": 0.6507936507936508,
+   "framePath": 0.5,
+   "westPath": 0.43103448275862066,
+   "fingerprint": 0.5970149253731343,
+   "fingerprintUnflipped": 0.5970149253731343
+  },
+  {
+   "a": "cat-medium",
+   "b": "wizard-medium-r2",
+   "footprint": 0.6836734693877551,
+   "centreLand": 0.8097014925373134,
+   "centrePath": 0.6818181818181818,
+   "centreCellsIdentical": 0.7671957671957672,
+   "framePath": 0.717391304347826,
+   "westPath": 0.42857142857142855,
+   "fingerprint": 0.17142857142857143,
+   "fingerprintUnflipped": 0.5714285714285714
+  },
+  {
+   "a": "cat-medium",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6916548797736917,
+   "centreLand": 0.8185185185185185,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.7063492063492064,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.41935483870967744,
+   "fingerprint": 0.5227272727272727,
+   "fingerprintUnflipped": 0.5227272727272727
+  },
+  {
+   "a": "wizard-medium",
+   "b": "swallow-medium",
+   "footprint": 0.5033377837116155,
+   "centreLand": 0.844,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.7037037037037037,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.2088607594936709,
+   "fingerprint": 0.3466666666666667,
+   "fingerprintUnflipped": 0.3466666666666667
+  },
+  {
+   "a": "wizard-medium",
+   "b": "forest-volute",
+   "footprint": 0.6273381294964029,
+   "centreLand": 0.7835820895522388,
+   "centrePath": 0.5638297872340425,
+   "centreCellsIdentical": 0.6931216931216931,
+   "framePath": 0.5918367346938775,
+   "westPath": 0.4246575342465753,
+   "fingerprint": 0.5609756097560976,
+   "fingerprintUnflipped": 0.5609756097560976
+  },
+  {
+   "a": "wizard-medium",
+   "b": "mindbloom-medium",
+   "footprint": 0.7166123778501629,
+   "centreLand": 0.823076923076923,
+   "centrePath": 0.5913978494623656,
+   "centreCellsIdentical": 0.7301587301587301,
+   "framePath": 0.6122448979591837,
+   "westPath": 0.5486725663716814,
+   "fingerprint": 0.647887323943662,
+   "fingerprintUnflipped": 0.647887323943662
+  },
+  {
+   "a": "wizard-medium",
+   "b": "cosmos-frisket",
+   "footprint": 0.7106598984771574,
+   "centreLand": 0.7728937728937729,
+   "centrePath": 0.5913978494623656,
+   "centreCellsIdentical": 0.6375661375661376,
+   "framePath": 0.6122448979591837,
+   "westPath": 0.494949494949495,
+   "fingerprint": 0.6129032258064516,
+   "fingerprintUnflipped": 0.6129032258064516
+  },
+  {
+   "a": "wizard-medium",
+   "b": "gremlin-subject",
+   "footprint": 0.7516666666666667,
+   "centreLand": 0.8270676691729323,
+   "centrePath": 0.7176470588235294,
+   "centreCellsIdentical": 0.6957671957671958,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.4766355140186916,
+   "fingerprint": 0.6666666666666666,
+   "fingerprintUnflipped": 0.6666666666666666
+  },
+  {
+   "a": "wizard-medium",
+   "b": "eagle-composition",
+   "footprint": 0.7822445561139029,
+   "centreLand": 0.9352226720647774,
+   "centrePath": 0.825,
+   "centreCellsIdentical": 0.828042328042328,
+   "framePath": 0.8352941176470589,
+   "westPath": 0.5486725663716814,
+   "fingerprint": 0.1643835616438356,
+   "fingerprintUnflipped": 0.684931506849315
+  },
+  {
+   "a": "wizard-medium",
+   "b": "dragon-medium",
+   "footprint": 0.6967340590979783,
+   "centreLand": 0.8157894736842105,
+   "centrePath": 0.651685393258427,
+   "centreCellsIdentical": 0.7407407407407407,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.3135593220338983,
+   "fingerprint": 0.19047619047619047,
+   "fingerprintUnflipped": 0.47619047619047616
+  },
+  {
+   "a": "wizard-medium",
+   "b": "sharkbear-medium",
+   "footprint": 0.6616314199395771,
+   "centreLand": 0.8643410852713178,
+   "centrePath": 0.7619047619047619,
+   "centreCellsIdentical": 0.7513227513227513,
+   "framePath": 0.7954545454545454,
+   "westPath": 0.3835616438356164,
+   "fingerprint": 0.14634146341463414,
+   "fingerprintUnflipped": 0.5365853658536586
+  },
+  {
+   "a": "wizard-medium",
+   "b": "chimera-medium",
+   "footprint": 0.5006587615283268,
+   "centreLand": 0.8023255813953488,
+   "centrePath": 0.5913978494623656,
+   "centreCellsIdentical": 0.701058201058201,
+   "framePath": 0.6122448979591837,
+   "westPath": 0.2088607594936709,
+   "fingerprint": 0.16,
+   "fingerprintUnflipped": 0.3466666666666667
+  },
+  {
+   "a": "wizard-medium",
+   "b": "ember-subject",
+   "footprint": 0.8014184397163121,
+   "centreLand": 0.7790262172284644,
+   "centrePath": 0.5102040816326531,
+   "centreCellsIdentical": 0.6904761904761905,
+   "framePath": 0.5490196078431373,
+   "westPath": 0.9240506329113924,
+   "fingerprint": 0.1875,
+   "fingerprintUnflipped": 0.90625
+  },
+  {
+   "a": "wizard-medium",
+   "b": "wizard-medium-r1",
+   "footprint": 0.693200663349917,
+   "centreLand": 0.7962264150943397,
+   "centrePath": 0.5473684210526316,
+   "centreCellsIdentical": 0.6957671957671958,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.5098039215686274,
+   "fingerprint": 0.6349206349206349,
+   "fingerprintUnflipped": 0.6349206349206349
+  },
+  {
+   "a": "wizard-medium",
+   "b": "wizard-medium-r2",
+   "footprint": 0.7174959871589085,
+   "centreLand": 0.7851851851851852,
+   "centrePath": 0.6818181818181818,
+   "centreCellsIdentical": 0.6878306878306878,
+   "framePath": 0.717391304347826,
+   "westPath": 0.44954128440366975,
+   "fingerprint": 0.18181818181818182,
+   "fingerprintUnflipped": 0.5757575757575758
+  },
+  {
+   "a": "wizard-medium",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6681681681681682,
+   "centreLand": 0.8141263940520446,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.7222222222222222,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.4246575342465753,
+   "fingerprint": 0.5476190476190477,
+   "fingerprintUnflipped": 0.5476190476190477
+  },
+  {
+   "a": "swallow-medium",
+   "b": "forest-volute",
+   "footprint": 0.6534914361001317,
+   "centreLand": 0.8108108108108109,
+   "centrePath": 0.5591397849462365,
+   "centreCellsIdentical": 0.7195767195767195,
+   "framePath": 0.6041666666666666,
+   "westPath": 0.4114285714285714,
+   "fingerprint": 0.5591397849462365,
+   "fingerprintUnflipped": 0.5591397849462365
+  },
+  {
+   "a": "swallow-medium",
+   "b": "mindbloom-medium",
+   "footprint": 0.585464333781965,
+   "centreLand": 0.8452380952380952,
+   "centrePath": 0.5368421052631579,
+   "centreCellsIdentical": 0.708994708994709,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.39869281045751637,
+   "fingerprint": 0.5853658536585366,
+   "fingerprintUnflipped": 0.5853658536585366
+  },
+  {
+   "a": "swallow-medium",
+   "b": "cosmos-frisket",
+   "footprint": 0.537940379403794,
+   "centreLand": 0.7723880597014925,
+   "centrePath": 0.5368421052631579,
+   "centreCellsIdentical": 0.6878306878306878,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.2986111111111111,
+   "fingerprint": 0.4931506849315068,
+   "fingerprintUnflipped": 0.4931506849315068
+  },
+  {
+   "a": "swallow-medium",
+   "b": "gremlin-subject",
+   "footprint": 0.5521796565389696,
+   "centreLand": 0.8136882129277566,
+   "centrePath": 0.7777777777777778,
+   "centreCellsIdentical": 0.6984126984126984,
+   "framePath": 0.7906976744186046,
+   "westPath": 0.2468354430379747,
+   "fingerprint": 0.38961038961038963,
+   "fingerprintUnflipped": 0.38961038961038963
+  },
+  {
+   "a": "swallow-medium",
+   "b": "eagle-composition",
+   "footprint": 0.5652173913043478,
+   "centreLand": 0.8249027237354085,
+   "centrePath": 0.6744186046511628,
+   "centreCellsIdentical": 0.7142857142857143,
+   "framePath": 0.7111111111111111,
+   "westPath": 0.39869281045751637,
+   "fingerprint": 0.14285714285714285,
+   "fingerprintUnflipped": 0.5714285714285714
+  },
+  {
+   "a": "swallow-medium",
+   "b": "dragon-medium",
+   "footprint": 0.6007905138339921,
+   "centreLand": 0.8515625,
+   "centrePath": 0.8589743589743589,
+   "centreCellsIdentical": 0.7671957671957672,
+   "framePath": 0.9012345679012346,
+   "westPath": 0.25161290322580643,
+   "fingerprint": 0.21621621621621623,
+   "fingerprintUnflipped": 0.43243243243243246
+  },
+  {
+   "a": "swallow-medium",
+   "b": "sharkbear-medium",
+   "footprint": 0.6363636363636364,
+   "centreLand": 0.8365758754863813,
+   "centrePath": 0.7380952380952381,
+   "centreCellsIdentical": 0.716931216931217,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.3930635838150289,
+   "fingerprint": 0.23655913978494625,
+   "fingerprintUnflipped": 0.5161290322580645
+  },
+  {
+   "a": "swallow-medium",
+   "b": "chimera-medium",
+   "footprint": 0.8573529411764705,
+   "centreLand": 0.8387096774193549,
+   "centrePath": 0.5368421052631579,
+   "centreCellsIdentical": 0.7883597883597884,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.9491525423728814,
+   "fingerprint": 0.32558139534883723,
+   "fingerprintUnflipped": 0.9767441860465116
+  },
+  {
+   "a": "swallow-medium",
+   "b": "ember-subject",
+   "footprint": 0.5119363395225465,
+   "centreLand": 0.8274509803921568,
+   "centrePath": 0.5368421052631579,
+   "centreCellsIdentical": 0.6878306878306878,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.2088607594936709,
+   "fingerprint": 0.16,
+   "fingerprintUnflipped": 0.3466666666666667
+  },
+  {
+   "a": "swallow-medium",
+   "b": "wizard-medium-r1",
+   "footprint": 0.5663474692202463,
+   "centreLand": 0.8313725490196079,
+   "centrePath": 0.4948453608247423,
+   "centreCellsIdentical": 0.7063492063492064,
+   "framePath": 0.54,
+   "westPath": 0.3402777777777778,
+   "fingerprint": 0.5405405405405406,
+   "fingerprintUnflipped": 0.5405405405405406
+  },
+  {
+   "a": "swallow-medium",
+   "b": "wizard-medium-r2",
+   "footprint": 0.5877659574468085,
+   "centreLand": 0.8695652173913043,
+   "centrePath": 0.825,
+   "centreCellsIdentical": 0.7936507936507936,
+   "framePath": 0.8571428571428571,
+   "westPath": 0.2468354430379747,
+   "fingerprint": 0.2077922077922078,
+   "fingerprintUnflipped": 0.38961038961038963
+  },
+  {
+   "a": "swallow-medium",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6379310344827587,
+   "centreLand": 0.8494208494208494,
+   "centrePath": 0.8701298701298701,
+   "centreCellsIdentical": 0.7619047619047619,
+   "framePath": 0.9012345679012346,
+   "westPath": 0.36464088397790057,
+   "fingerprint": 0.4842105263157895,
+   "fingerprintUnflipped": 0.4842105263157895
+  },
+  {
+   "a": "forest-volute",
+   "b": "mindbloom-medium",
+   "footprint": 0.72953216374269,
+   "centreLand": 0.8396946564885496,
+   "centrePath": 0.7294117647058823,
+   "centreCellsIdentical": 0.753968253968254,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.5197368421052632,
+   "fingerprint": 0.6292134831460674,
+   "fingerprintUnflipped": 0.6292134831460674
+  },
+  {
+   "a": "forest-volute",
+   "b": "cosmos-frisket",
+   "footprint": 0.6332378223495702,
+   "centreLand": 0.828996282527881,
+   "centrePath": 0.7294117647058823,
+   "centreCellsIdentical": 0.716931216931217,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.3972602739726027,
+   "fingerprint": 0.55,
+   "fingerprintUnflipped": 0.55
+  },
+  {
+   "a": "forest-volute",
+   "b": "gremlin-subject",
+   "footprint": 0.659634317862166,
+   "centreLand": 0.7642857142857142,
+   "centrePath": 0.4948453608247423,
+   "centreCellsIdentical": 0.6349206349206349,
+   "framePath": 0.54,
+   "westPath": 0.436241610738255,
+   "fingerprint": 0.5714285714285714,
+   "fingerprintUnflipped": 0.5714285714285714
+  },
+  {
+   "a": "forest-volute",
+   "b": "eagle-composition",
+   "footprint": 0.7165467625899281,
+   "centreLand": 0.8066914498141264,
+   "centrePath": 0.4948453608247423,
+   "centreCellsIdentical": 0.716931216931217,
+   "framePath": 0.54,
+   "westPath": 0.5197368421052632,
+   "fingerprint": 0.13186813186813187,
+   "fingerprintUnflipped": 0.6153846153846154
+  },
+  {
+   "a": "forest-volute",
+   "b": "dragon-medium",
+   "footprint": 0.6991643454038997,
+   "centreLand": 0.8389513108614233,
+   "centrePath": 0.6590909090909091,
+   "centreCellsIdentical": 0.798941798941799,
+   "framePath": 0.6739130434782609,
+   "westPath": 0.43537414965986393,
+   "fingerprint": 0.14814814814814814,
+   "fingerprintUnflipped": 0.5925925925925926
+  },
+  {
+   "a": "forest-volute",
+   "b": "sharkbear-medium",
+   "footprint": 0.7432624113475177,
+   "centreLand": 0.8178438661710037,
+   "centrePath": 0.48484848484848486,
+   "centreCellsIdentical": 0.6931216931216931,
+   "framePath": 0.5145631067961165,
+   "westPath": 0.5542168674698795,
+   "fingerprint": 0.12,
+   "fingerprintUnflipped": 0.6
+  },
+  {
+   "a": "forest-volute",
+   "b": "chimera-medium",
+   "footprint": 0.6531942633637549,
+   "centreLand": 0.8333333333333334,
+   "centrePath": 0.7294117647058823,
+   "centreCellsIdentical": 0.791005291005291,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.4114285714285714,
+   "fingerprint": 0.23655913978494625,
+   "fingerprintUnflipped": 0.5591397849462365
+  },
+  {
+   "a": "forest-volute",
+   "b": "ember-subject",
+   "footprint": 0.6498559077809798,
+   "centreLand": 0.8022388059701493,
+   "centrePath": 0.7294117647058823,
+   "centreCellsIdentical": 0.701058201058201,
+   "framePath": 0.7528089887640449,
+   "westPath": 0.4246575342465753,
+   "fingerprint": 0.14634146341463414,
+   "fingerprintUnflipped": 0.5609756097560976
+  },
+  {
+   "a": "forest-volute",
+   "b": "wizard-medium-r1",
+   "footprint": 0.6570605187319885,
+   "centreLand": 0.8403041825095057,
+   "centrePath": 0.8961038961038961,
+   "centreCellsIdentical": 0.783068783068783,
+   "framePath": 0.9012345679012346,
+   "westPath": 0.4189189189189189,
+   "fingerprint": 0.5679012345679012,
+   "fingerprintUnflipped": 0.5679012345679012
+  },
+  {
+   "a": "forest-volute",
+   "b": "wizard-medium-r2",
+   "footprint": 0.6675938803894298,
+   "centreLand": 0.7883211678832117,
+   "centrePath": 0.5473684210526316,
+   "centreCellsIdentical": 0.708994708994709,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.436241610738255,
+   "fingerprint": 0.14285714285714285,
+   "fingerprintUnflipped": 0.5714285714285714
+  },
+  {
+   "a": "forest-volute",
+   "b": "wizard-medium-r3",
+   "footprint": 0.7613636363636364,
+   "centreLand": 0.7906137184115524,
+   "centrePath": 0.5591397849462365,
+   "centreCellsIdentical": 0.6984126984126984,
+   "framePath": 0.6041666666666666,
+   "westPath": 0.6708860759493671,
+   "fingerprint": 0.7254901960784313,
+   "fingerprintUnflipped": 0.7254901960784313
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "cosmos-frisket",
+   "footprint": 0.6926751592356688,
+   "centreLand": 0.8345864661654135,
+   "centrePath": 1,
+   "centreCellsIdentical": 0.7804232804232805,
+   "framePath": 1,
+   "westPath": 0.5545454545454546,
+   "fingerprint": 0.7246376811594203,
+   "fingerprintUnflipped": 0.7246376811594203
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "gremlin-subject",
+   "footprint": 0.6561561561561562,
+   "centreLand": 0.7753623188405797,
+   "centrePath": 0.47474747474747475,
+   "centreCellsIdentical": 0.6402116402116402,
+   "framePath": 0.5145631067961165,
+   "westPath": 0.3609022556390977,
+   "fingerprint": 0.4931506849315068,
+   "fingerprintUnflipped": 0.4931506849315068
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "eagle-composition",
+   "footprint": 0.86,
+   "centreLand": 0.8467432950191571,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.7936507936507936,
+   "framePath": 0.6595744680851063,
+   "westPath": 1,
+   "fingerprint": 0.15,
+   "fingerprintUnflipped": 0.975
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "dragon-medium",
+   "footprint": 0.6661807580174927,
+   "centreLand": 0.8104089219330854,
+   "centrePath": 0.5473684210526316,
+   "centreCellsIdentical": 0.7248677248677249,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.4015748031496063,
+   "fingerprint": 0.17142857142857143,
+   "fingerprintUnflipped": 0.5714285714285714
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "sharkbear-medium",
+   "footprint": 0.7091988130563798,
+   "centreLand": 0.8097014925373134,
+   "centrePath": 0.5913978494623656,
+   "centreCellsIdentical": 0.701058201058201,
+   "framePath": 0.6288659793814433,
+   "westPath": 0.5845070422535211,
+   "fingerprint": 0.1348314606741573,
+   "fingerprintUnflipped": 0.6966292134831461
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "chimera-medium",
+   "footprint": 0.588,
+   "centreLand": 0.8464566929133859,
+   "centrePath": 0.8734177215189873,
+   "centreCellsIdentical": 0.7883597883597884,
+   "framePath": 0.8809523809523809,
+   "westPath": 0.39869281045751637,
+   "fingerprint": 0.14634146341463414,
+   "fingerprintUnflipped": 0.5853658536585366
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "ember-subject",
+   "footprint": 0.7365853658536585,
+   "centreLand": 0.8282442748091603,
+   "centrePath": 0.7619047619047619,
+   "centreCellsIdentical": 0.8042328042328042,
+   "framePath": 0.7954545454545454,
+   "westPath": 0.5086206896551724,
+   "fingerprint": 0.16901408450704225,
+   "fingerprintUnflipped": 0.6197183098591549
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "wizard-medium-r1",
+   "footprint": 0.7532679738562091,
+   "centreLand": 0.889763779527559,
+   "centrePath": 0.651685393258427,
+   "centreCellsIdentical": 0.7513227513227513,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.6857142857142857,
+   "fingerprint": 0.8,
+   "fingerprintUnflipped": 0.8
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "wizard-medium-r2",
+   "footprint": 0.6475770925110133,
+   "centreLand": 0.8066914498141264,
+   "centrePath": 0.574468085106383,
+   "centreCellsIdentical": 0.716931216931217,
+   "framePath": 0.6122448979591837,
+   "westPath": 0.3816793893129771,
+   "fingerprint": 0.1643835616438356,
+   "fingerprintUnflipped": 0.5205479452054794
+  },
+  {
+   "a": "mindbloom-medium",
+   "b": "wizard-medium-r3",
+   "footprint": 0.7178729689807977,
+   "centreLand": 0.8021978021978022,
+   "centrePath": 0.5368421052631579,
+   "centreCellsIdentical": 0.7275132275132276,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.5197368421052632,
+   "fingerprint": 0.6153846153846154,
+   "fingerprintUnflipped": 0.6153846153846154
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "gremlin-subject",
+   "footprint": 0.7014446227929374,
+   "centreLand": 0.8726591760299626,
+   "centrePath": 0.47474747474747475,
+   "centreCellsIdentical": 0.708994708994709,
+   "framePath": 0.5145631067961165,
+   "westPath": 0.2727272727272727,
+   "fingerprint": 0.40625,
+   "fingerprintUnflipped": 0.40625
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "eagle-composition",
+   "footprint": 0.6739469578783152,
+   "centreLand": 0.7890909090909091,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.6613756613756614,
+   "framePath": 0.6595744680851063,
+   "westPath": 0.5545454545454546,
+   "fingerprint": 0.16901408450704225,
+   "fingerprintUnflipped": 0.704225352112676
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "dragon-medium",
+   "footprint": 0.639344262295082,
+   "centreLand": 0.7317073170731707,
+   "centrePath": 0.5473684210526316,
+   "centreCellsIdentical": 0.6481481481481481,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.2796610169491525,
+   "fingerprint": 0.16393442622950818,
+   "fingerprintUnflipped": 0.45901639344262296
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "sharkbear-medium",
+   "footprint": 0.6142649199417758,
+   "centreLand": 0.7870036101083032,
+   "centrePath": 0.5913978494623656,
+   "centreCellsIdentical": 0.6534391534391535,
+   "framePath": 0.6288659793814433,
+   "westPath": 0.39436619718309857,
+   "fingerprint": 0.15,
+   "fingerprintUnflipped": 0.55
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "chimera-medium",
+   "footprint": 0.5492577597840755,
+   "centreLand": 0.8352490421455939,
+   "centrePath": 0.8734177215189873,
+   "centreCellsIdentical": 0.7645502645502645,
+   "framePath": 0.8809523809523809,
+   "westPath": 0.2986111111111111,
+   "fingerprint": 0.136986301369863,
+   "fingerprintUnflipped": 0.4931506849315068
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "ember-subject",
+   "footprint": 0.758147512864494,
+   "centreLand": 0.8246268656716418,
+   "centrePath": 0.7619047619047619,
+   "centreCellsIdentical": 0.7063492063492064,
+   "framePath": 0.7954545454545454,
+   "westPath": 0.5416666666666666,
+   "fingerprint": 0.1935483870967742,
+   "fingerprintUnflipped": 0.6451612903225806
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "wizard-medium-r1",
+   "footprint": 0.7728055077452668,
+   "centreLand": 0.8014705882352942,
+   "centrePath": 0.651685393258427,
+   "centreCellsIdentical": 0.7116402116402116,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.8072289156626506,
+   "fingerprint": 0.8852459016393442,
+   "fingerprintUnflipped": 0.8852459016393442
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "wizard-medium-r2",
+   "footprint": 0.6728682170542636,
+   "centreLand": 0.8102189781021898,
+   "centrePath": 0.574468085106383,
+   "centreCellsIdentical": 0.708994708994709,
+   "framePath": 0.6122448979591837,
+   "westPath": 0.29411764705882354,
+   "fingerprint": 0.15625,
+   "fingerprintUnflipped": 0.4375
+  },
+  {
+   "a": "cosmos-frisket",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6470588235294118,
+   "centreLand": 0.8057553956834532,
+   "centrePath": 0.5368421052631579,
+   "centreCellsIdentical": 0.6481481481481481,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.3783783783783784,
+   "fingerprint": 0.5121951219512195,
+   "fingerprintUnflipped": 0.5121951219512195
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "eagle-composition",
+   "footprint": 0.6992366412213741,
+   "centreLand": 0.8296296296296296,
+   "centrePath": 0.7560975609756098,
+   "centreCellsIdentical": 0.7328042328042328,
+   "framePath": 0.7906976744186046,
+   "westPath": 0.3609022556390977,
+   "fingerprint": 0.16,
+   "fingerprintUnflipped": 0.5333333333333333
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "dragon-medium",
+   "footprint": 0.7757009345794392,
+   "centreLand": 0.7821428571428571,
+   "centrePath": 0.6666666666666666,
+   "centreCellsIdentical": 0.6746031746031746,
+   "framePath": 0.7111111111111111,
+   "westPath": 0.7311827956989247,
+   "fingerprint": 0.18461538461538463,
+   "fingerprintUnflipped": 0.8307692307692308
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "sharkbear-medium",
+   "footprint": 0.662807525325615,
+   "centreLand": 0.8138686131386861,
+   "centrePath": 0.825,
+   "centreCellsIdentical": 0.6640211640211641,
+   "framePath": 0.8352941176470589,
+   "westPath": 0.37748344370860926,
+   "fingerprint": 0.14285714285714285,
+   "fingerprintUnflipped": 0.5238095238095238
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "chimera-medium",
+   "footprint": 0.5408560311284046,
+   "centreLand": 0.7749077490774908,
+   "centrePath": 0.5531914893617021,
+   "centreCellsIdentical": 0.656084656084656,
+   "framePath": 0.5918367346938775,
+   "westPath": 0.2468354430379747,
+   "fingerprint": 0.23376623376623376,
+   "fingerprintUnflipped": 0.38961038961038963
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "ember-subject",
+   "footprint": 0.7430441898527005,
+   "centreLand": 0.8252788104089219,
+   "centrePath": 0.5531914893617021,
+   "centreCellsIdentical": 0.7142857142857143,
+   "framePath": 0.5918367346938775,
+   "westPath": 0.4766355140186916,
+   "fingerprint": 0.15151515151515152,
+   "fingerprintUnflipped": 0.6060606060606061
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "wizard-medium-r1",
+   "footprint": 0.6187594553706506,
+   "centreLand": 0.7634408602150538,
+   "centrePath": 0.47959183673469385,
+   "centreCellsIdentical": 0.6481481481481481,
+   "framePath": 0.5247524752475248,
+   "westPath": 0.25984251968503935,
+   "fingerprint": 0.4,
+   "fingerprintUnflipped": 0.4
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "wizard-medium-r2",
+   "footprint": 0.8314238952536824,
+   "centreLand": 0.8376383763837638,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.7037037037037037,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.8636363636363636,
+   "fingerprint": 0.17647058823529413,
+   "fingerprintUnflipped": 0.8823529411764706
+  },
+  {
+   "a": "gremlin-subject",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6885007278020379,
+   "centreLand": 0.8327272727272728,
+   "centrePath": 0.6744186046511628,
+   "centreCellsIdentical": 0.7116402116402116,
+   "framePath": 0.7111111111111111,
+   "westPath": 0.39869281045751637,
+   "fingerprint": 0.5116279069767442,
+   "fingerprintUnflipped": 0.5116279069767442
+  },
+  {
+   "a": "eagle-composition",
+   "b": "dragon-medium",
+   "footprint": 0.6881405563689604,
+   "centreLand": 0.8252788104089219,
+   "centrePath": 0.6666666666666666,
+   "centreCellsIdentical": 0.7433862433862434,
+   "framePath": 0.7111111111111111,
+   "westPath": 0.4015748031496063,
+   "fingerprint": 0.5555555555555556,
+   "fingerprintUnflipped": 0.5555555555555556
+  },
+  {
+   "a": "eagle-composition",
+   "b": "sharkbear-medium",
+   "footprint": 0.7421289355322339,
+   "centreLand": 0.8664122137404581,
+   "centrePath": 0.825,
+   "centreCellsIdentical": 0.7619047619047619,
+   "framePath": 0.8571428571428571,
+   "westPath": 0.5845070422535211,
+   "fingerprint": 0.7252747252747253,
+   "fingerprintUnflipped": 0.7252747252747253
+  },
+  {
+   "a": "eagle-composition",
+   "b": "chimera-medium",
+   "footprint": 0.5577172503242542,
+   "centreLand": 0.7849056603773585,
+   "centrePath": 0.5531914893617021,
+   "centreCellsIdentical": 0.6984126984126984,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.39869281045751637,
+   "fingerprint": 0.5714285714285714,
+   "fingerprintUnflipped": 0.5714285714285714
+  },
+  {
+   "a": "eagle-composition",
+   "b": "ember-subject",
+   "footprint": 0.7192982456140351,
+   "centreLand": 0.7627737226277372,
+   "centrePath": 0.47474747474747475,
+   "centreCellsIdentical": 0.6878306878306878,
+   "framePath": 0.5145631067961165,
+   "westPath": 0.5086206896551724,
+   "fingerprint": 0.6027397260273972,
+   "fingerprintUnflipped": 0.6027397260273972
+  },
+  {
+   "a": "eagle-composition",
+   "b": "wizard-medium-r1",
+   "footprint": 0.7082018927444795,
+   "centreLand": 0.7794117647058824,
+   "centrePath": 0.47959183673469385,
+   "centreCellsIdentical": 0.6666666666666666,
+   "framePath": 0.5247524752475248,
+   "westPath": 0.6857142857142857,
+   "fingerprint": 0.16666666666666666,
+   "fingerprintUnflipped": 0.7777777777777778
+  },
+  {
+   "a": "eagle-composition",
+   "b": "wizard-medium-r2",
+   "footprint": 0.6696165191740413,
+   "centreLand": 0.8081180811808119,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.7037037037037037,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.3816793893129771,
+   "fingerprint": 0.5066666666666667,
+   "fingerprintUnflipped": 0.5066666666666667
+  },
+  {
+   "a": "eagle-composition",
+   "b": "wizard-medium-r3",
+   "footprint": 0.7429420505200595,
+   "centreLand": 0.837037037037037,
+   "centrePath": 0.6744186046511628,
+   "centreCellsIdentical": 0.7724867724867724,
+   "framePath": 0.7111111111111111,
+   "westPath": 0.5197368421052632,
+   "fingerprint": 0.12903225806451613,
+   "fingerprintUnflipped": 0.6021505376344086
+  },
+  {
+   "a": "dragon-medium",
+   "b": "sharkbear-medium",
+   "footprint": 0.6913229018492176,
+   "centreLand": 0.8364312267657993,
+   "centrePath": 0.651685393258427,
+   "centreCellsIdentical": 0.7275132275132276,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.3945578231292517,
+   "fingerprint": 0.5185185185185185,
+   "fingerprintUnflipped": 0.5185185185185185
+  },
+  {
+   "a": "dragon-medium",
+   "b": "chimera-medium",
+   "footprint": 0.5784061696658098,
+   "centreLand": 0.7573529411764706,
+   "centrePath": 0.5473684210526316,
+   "centreCellsIdentical": 0.6931216931216931,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.25161290322580643,
+   "fingerprint": 0.43243243243243246,
+   "fingerprintUnflipped": 0.43243243243243246
+  },
+  {
+   "a": "dragon-medium",
+   "b": "ember-subject",
+   "footprint": 0.6947852760736196,
+   "centreLand": 0.7875457875457875,
+   "centrePath": 0.5473684210526316,
+   "centreCellsIdentical": 0.671957671957672,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.3135593220338983,
+   "fingerprint": 0.47619047619047616,
+   "fingerprintUnflipped": 0.47619047619047616
+  },
+  {
+   "a": "dragon-medium",
+   "b": "wizard-medium-r1",
+   "footprint": 0.664167916041979,
+   "centreLand": 0.8452830188679246,
+   "centrePath": 0.5869565217391305,
+   "centreCellsIdentical": 0.7486772486772487,
+   "framePath": 0.6041666666666666,
+   "westPath": 0.24603174603174602,
+   "fingerprint": 0.1935483870967742,
+   "fingerprintUnflipped": 0.41935483870967744
+  },
+  {
+   "a": "dragon-medium",
+   "b": "wizard-medium-r2",
+   "footprint": 0.80248833592535,
+   "centreLand": 0.8333333333333334,
+   "centrePath": 0.8375,
+   "centreCellsIdentical": 0.7857142857142857,
+   "framePath": 0.8571428571428571,
+   "westPath": 0.7311827956989247,
+   "fingerprint": 0.8307692307692308,
+   "fingerprintUnflipped": 0.8307692307692308
+  },
+  {
+   "a": "dragon-medium",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6949152542372882,
+   "centreLand": 0.8351648351648352,
+   "centrePath": 0.8589743589743589,
+   "centreCellsIdentical": 0.7857142857142857,
+   "framePath": 0.9012345679012346,
+   "westPath": 0.3973509933774834,
+   "fingerprint": 0.12048192771084337,
+   "fingerprintUnflipped": 0.5301204819277109
+  },
+  {
+   "a": "sharkbear-medium",
+   "b": "chimera-medium",
+   "footprint": 0.6254927726675427,
+   "centreLand": 0.762962962962963,
+   "centrePath": 0.5102040816326531,
+   "centreCellsIdentical": 0.6428571428571429,
+   "framePath": 0.5490196078431373,
+   "westPath": 0.3930635838150289,
+   "fingerprint": 0.5161290322580645,
+   "fingerprintUnflipped": 0.5161290322580645
+  },
+  {
+   "a": "sharkbear-medium",
+   "b": "ember-subject",
+   "footprint": 0.6215429403202329,
+   "centreLand": 0.7482014388489209,
+   "centrePath": 0.5102040816326531,
+   "centreCellsIdentical": 0.6084656084656085,
+   "framePath": 0.5490196078431373,
+   "westPath": 0.3835616438356164,
+   "fingerprint": 0.4878048780487805,
+   "fingerprintUnflipped": 0.4878048780487805
+  },
+  {
+   "a": "sharkbear-medium",
+   "b": "wizard-medium-r1",
+   "footprint": 0.6431718061674009,
+   "centreLand": 0.7838827838827839,
+   "centrePath": 0.47,
+   "centreCellsIdentical": 0.6349206349206349,
+   "framePath": 0.5,
+   "westPath": 0.4166666666666667,
+   "fingerprint": 0.14814814814814814,
+   "fingerprintUnflipped": 0.5432098765432098
+  },
+  {
+   "a": "sharkbear-medium",
+   "b": "wizard-medium-r2",
+   "footprint": 0.673352435530086,
+   "centreLand": 0.8191881918819188,
+   "centrePath": 0.6818181818181818,
+   "centreCellsIdentical": 0.708994708994709,
+   "framePath": 0.717391304347826,
+   "westPath": 0.37748344370860926,
+   "fingerprint": 0.47619047619047616,
+   "fingerprintUnflipped": 0.47619047619047616
+  },
+  {
+   "a": "sharkbear-medium",
+   "b": "wizard-medium-r3",
+   "footprint": 0.7675438596491229,
+   "centreLand": 0.8550185873605948,
+   "centrePath": 0.6404494382022472,
+   "centreCellsIdentical": 0.7433862433862434,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.6538461538461539,
+   "fingerprint": 0.11764705882352941,
+   "fingerprintUnflipped": 0.6862745098039216
+  },
+  {
+   "a": "chimera-medium",
+   "b": "ember-subject",
+   "footprint": 0.5312084993359893,
+   "centreLand": 0.88,
+   "centrePath": 0.8734177215189873,
+   "centreCellsIdentical": 0.8121693121693122,
+   "framePath": 0.9036144578313253,
+   "westPath": 0.2088607594936709,
+   "fingerprint": 0.3466666666666667,
+   "fingerprintUnflipped": 0.3466666666666667
+  },
+  {
+   "a": "chimera-medium",
+   "b": "wizard-medium-r1",
+   "footprint": 0.5712347354138398,
+   "centreLand": 0.8185328185328186,
+   "centrePath": 0.651685393258427,
+   "centreCellsIdentical": 0.7354497354497355,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.3402777777777778,
+   "fingerprint": 0.16216216216216217,
+   "fingerprintUnflipped": 0.5405405405405406
+  },
+  {
+   "a": "chimera-medium",
+   "b": "wizard-medium-r2",
+   "footprint": 0.5881578947368421,
+   "centreLand": 0.8416988416988417,
+   "centrePath": 0.574468085106383,
+   "centreCellsIdentical": 0.7619047619047619,
+   "framePath": 0.6122448979591837,
+   "westPath": 0.2468354430379747,
+   "fingerprint": 0.38961038961038963,
+   "fingerprintUnflipped": 0.38961038961038963
+  },
+  {
+   "a": "chimera-medium",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6186770428015564,
+   "centreLand": 0.8157894736842105,
+   "centrePath": 0.5368421052631579,
+   "centreCellsIdentical": 0.7116402116402116,
+   "framePath": 0.5757575757575758,
+   "westPath": 0.36464088397790057,
+   "fingerprint": 0.21052631578947367,
+   "fingerprintUnflipped": 0.4842105263157895
+  },
+  {
+   "a": "ember-subject",
+   "b": "wizard-medium-r1",
+   "footprint": 0.7023026315789473,
+   "centreLand": 0.8150943396226416,
+   "centrePath": 0.651685393258427,
+   "centreCellsIdentical": 0.7063492063492064,
+   "framePath": 0.6774193548387096,
+   "westPath": 0.4666666666666667,
+   "fingerprint": 0.19047619047619047,
+   "fingerprintUnflipped": 0.6031746031746031
+  },
+  {
+   "a": "ember-subject",
+   "b": "wizard-medium-r2",
+   "footprint": 0.731629392971246,
+   "centreLand": 0.8308270676691729,
+   "centrePath": 0.6629213483146067,
+   "centreCellsIdentical": 0.7248677248677249,
+   "framePath": 0.6808510638297872,
+   "westPath": 0.44954128440366975,
+   "fingerprint": 0.6363636363636364,
+   "fingerprintUnflipped": 0.6363636363636364
+  },
+  {
+   "a": "ember-subject",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6691394658753709,
+   "centreLand": 0.8058608058608059,
+   "centrePath": 0.6222222222222222,
+   "centreCellsIdentical": 0.7407407407407407,
+   "framePath": 0.6421052631578947,
+   "westPath": 0.4444444444444444,
+   "fingerprint": 0.14285714285714285,
+   "fingerprintUnflipped": 0.6190476190476191
+  },
+  {
+   "a": "wizard-medium-r1",
+   "b": "wizard-medium-r2",
+   "footprint": 0.6253731343283582,
+   "centreLand": 0.7941176470588235,
+   "centrePath": 0.48484848484848486,
+   "centreCellsIdentical": 0.6666666666666666,
+   "framePath": 0.5145631067961165,
+   "westPath": 0.28,
+   "fingerprint": 0.18461538461538463,
+   "fingerprintUnflipped": 0.4307692307692308
+  },
+  {
+   "a": "wizard-medium-r1",
+   "b": "wizard-medium-r3",
+   "footprint": 0.6691285081240768,
+   "centreLand": 0.7963636363636364,
+   "centrePath": 0.4948453608247423,
+   "centreCellsIdentical": 0.6851851851851852,
+   "framePath": 0.54,
+   "westPath": 0.3815789473684211,
+   "fingerprint": 0.5060240963855421,
+   "fingerprintUnflipped": 0.5060240963855421
+  },
+  {
+   "a": "wizard-medium-r2",
+   "b": "wizard-medium-r3",
+   "footprint": 0.7186588921282799,
+   "centreLand": 0.9455252918287937,
+   "centrePath": 0.9466666666666667,
+   "centreCellsIdentical": 0.8333333333333334,
+   "framePath": 0.95,
+   "westPath": 0.39869281045751637,
+   "fingerprint": 0.11627906976744186,
+   "fingerprintUnflipped": 0.5581395348837209
+  }
+ ]
+}
