@@ -6,6 +6,7 @@ import { prepareLevel, canStep, DIRS } from "../core/level.js";
 import { createInteract, GATE_LIFT, ladderEnds } from "../core/interact.js";
 import { rampLandings } from "../core/procgen.js";
 import { checkRoute, routeDistances } from "../core/layout/check.js";
+import { routeFingerprint, fingerprintClash } from "../core/layout/topology.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const args = process.argv.slice(2);
@@ -99,6 +100,23 @@ for (const name of LEVELS) {
   for (const [label, ok, detail] of interactProbe(raw)) record(`${tag} ${label}`, ok, detail);
 }
 
+{
+  const order = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
+  const fp = order.map((n) => [n, routeFingerprint(JSON.parse(fs.readFileSync(path.join(root, "levels", `${n}.json`), "utf8")))]);
+  const clashes = [];
+  let closest = [0, ""];
+  for (let i = 0; i < fp.length; i++) for (let j = i + 1; j < fp.length; j++) {
+    const c = fingerprintClash(fp[i][1], fp[j][1]);
+    if (c.jaccard > closest[0]) closest = [c.jaccard, `${fp[i][0]}/${fp[j][0]}`];
+    if (c.same) clashes.push(`${fp[i][0]} = ${fp[j][0]} (${c.jaccard.toFixed(2)})`);
+  }
+  record(`run-set no two islands share a route graph`, !clashes.length, clashes.length ? clashes.slice(0, 4).join(" | ") : `closest ${closest[1]} ${closest[0].toFixed(2)}`);
+  const kinds = new Set(fp.map(([, f]) => f.archetype));
+  record(`run-set uses at least six route archetypes`, kinds.size >= 6, [...kinds].join(", "));
+  const twins = fp.filter(([, f], i) => i && f.archetype === fp[i - 1][1].archetype && f.mirror === fp[i - 1][1].mirror).map(([n], i) => n);
+  record(`run-set neighbours differ in archetype or orientation`, !twins.length, twins.join(", "));
+}
+
 if (live) {
   const browser = await puppeteer.launch({
     executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -147,6 +165,8 @@ if (live) {
         const prompt = document.querySelector(".iw-prompt")?.textContent || "";
         if (t.kind !== "ladder" || t.mode !== "drop") it.act();
         await wait(1500);
+        const opens = t.kind === "lever" ? it.things.find((g) => g.open === `lever:${t.id}`) : null;
+        for (let i = 0; opens && opens.state !== "open" && i < 40; i++) await wait(100);
         place(stand);
         const after = home(stand);
         out.push({ id: t.id, kind: t.kind + (t.mode === "drop" ? " (drop)" : ""), stand, before, after, state: t.state, prompt });
