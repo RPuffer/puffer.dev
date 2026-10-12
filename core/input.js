@@ -5,6 +5,9 @@ const KEYS = {
 const TURNS = { KeyQ: -1, KeyE: 1 };
 const ZOOM_KEYS = { Equal: 1, NumpadAdd: 1, Minus: -1, NumpadSubtract: -1 };
 export const SWIPE = 64, PINCH = 1.3;
+export const HOLD = 0.42;
+export const ROSE_TILT = Math.sin(35.264 * Math.PI / 180);
+export const ROSE_DIRS = ["n", "e", "s", "w"];
 
 export const HOME = new URL("../landing/index.html", import.meta.url).href;
 export const BUST = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0z"/></svg>';
@@ -28,10 +31,24 @@ const BAND_CSS = `
 .iw-act.on{transform:translateY(5px);box-shadow:0 0 0 5px rgba(38,44,55,.85),0 3px 0 5px rgba(20,24,31,.8)}
 html[data-iw-act="1"] .iw-act{animation:iw-glow 1.1s ease-in-out infinite alternate}
 @keyframes iw-glow{from{box-shadow:0 0 0 5px #12c4f0,0 8px 0 5px rgba(20,24,31,.8),0 0 6px 6px rgba(18,196,240,.25)}to{box-shadow:0 0 0 5px #5fe3ff,0 8px 0 5px rgba(20,24,31,.8),0 0 18px 10px rgba(18,196,240,.45)}}
+.iw-rose{--r:min(calc(var(--g) * 1.5),44vw);position:absolute;left:50%;top:50%;width:var(--r);height:calc(var(--r) * .64);margin:calc(var(--r) * -.32) 0 0 calc(var(--r) / -2);pointer-events:none}
+.iw-rose svg{display:block;width:100%;height:100%;overflow:visible}
+.iw-rose .hit-r{position:absolute;inset:-14% -8%;pointer-events:auto;touch-action:none}
+.iw-rose .ring{transition:transform .62s cubic-bezier(.34,1.56,.64,1)}
+.iw-rose .pet{fill:url(#iw-pg);stroke:#1a1230;stroke-width:5;stroke-linejoin:round;transition:fill .12s}
+.iw-rose .side{fill:#0b0820;stroke:#0b0820;stroke-width:5;stroke-linejoin:round}
+.iw-rose .lift{transition:transform .34s cubic-bezier(.34,1.9,.64,1)}
+.iw-rose .chg{fill:none;stroke:#ffd76a;stroke-width:6;stroke-linecap:round;stroke-dasharray:100 100;stroke-dashoffset:100;opacity:0}
+.iw-rose .on .lift{transform:translateY(5px);transition:transform .07s ease-out}
+.iw-rose .on .pet{fill:#f5c243;filter:drop-shadow(0 0 6px rgba(255,215,106,.85))}
+.iw-rose .on .chg{opacity:1;animation:iw-chg var(--hold) linear forwards}
+.iw-rose .on.rep .chg{stroke:#fff6c8}
+@keyframes iw-chg{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.iw-rose .ring,.iw-rose .lift{transition-duration:.01s}}
 @media (prefers-reduced-motion:reduce){.iw-knob,.iw-band{transition-duration:.01s}html[data-iw-act="1"] .iw-act{animation:none;box-shadow:0 0 0 5px #12c4f0,0 8px 0 5px rgba(20,24,31,.8)}}
 `;
 
-export function createInput(el, { touch = "auto" } = {}) {
+export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
   const listeners = new Set();
   const emit = (intent) => { for (const f of listeners) f(intent); };
   const held = [];
@@ -50,7 +67,7 @@ export function createInput(el, { touch = "auto" } = {}) {
     if (!e.repeat) press(d);
   };
   const onKeyUp = (e) => { const d = KEYS[e.code]; if (d) release(d); };
-  const onBlur = () => { held.length = 0; setHeld(); stickTo(null); };
+  const onBlur = () => { held.length = 0; setHeld(); stickId = petalId = null; stickTo(null); };
   addEventListener("keydown", onKeyDown);
   addEventListener("keyup", onKeyUp);
   addEventListener("blur", onBlur);
@@ -110,13 +127,53 @@ export function createInput(el, { touch = "auto" } = {}) {
   el.addEventListener("pointercancel", onPointerCancel);
 
   const STICK_DEAD = 0.22, STICK_CROSS = 14 * Math.PI / 180;
+  const useStick = controls === "stick";
   let band = null, knob = null, sector = null, stickId = null, busy = false;
+  let petals = null, ringEl = null, petal = null, petalId = null;
   const stickTo = (s) => {
+    if (!useStick) return petalTo(null);
     if (s === sector) return;
     sector = s;
     const v = s == null ? null : [Math.cos(s * Math.PI / 4), Math.sin(s * Math.PI / 4)];
     if (knob) knob.style.transform = v ? `translate(${(v[0] * 62).toFixed(1)}%,${(v[1] * 62).toFixed(1)}%)` : "";
     emit({ kind: "stick", vec: v });
+  };
+  const petalTo = (i) => {
+    if (i === petal) return;
+    petal = i;
+    petals?.forEach((p, k) => { p.classList.toggle("on", k === i); p.classList.remove("rep"); });
+    emit({ kind: "petal", i });
+  };
+  let ringYaw = null, ringAt = 0, ringV = 0, ringTo = 0, ringRaf = 0, ringLast = 0;
+  const drawRing = () => ringEl?.setAttribute("transform", `rotate(${ringAt.toFixed(2)})`);
+  const springRing = (now) => {
+    const dt = Math.min(0.05, (now - ringLast) / 1000 || 0.016);
+    ringLast = now;
+    ringV += (170 * (ringTo - ringAt) - 15 * ringV) * dt;
+    ringAt += ringV * dt;
+    if (Math.abs(ringTo - ringAt) < 0.05 && Math.abs(ringV) < 0.5) { ringAt = ringTo; ringV = 0; ringRaf = 0; drawRing(); return; }
+    drawRing();
+    ringRaf = requestAnimationFrame(springRing);
+  };
+  const setYaw = (yaw) => {
+    if (yaw == null || yaw === ringYaw) return;
+    if (ringYaw == null) { ringTo = ringAt = yaw - 45; ringYaw = yaw; drawRing(); return; }
+    ringTo += ((yaw - ringYaw + 540) % 360) - 180;
+    ringYaw = yaw;
+    if (!ringRaf) { ringLast = performance.now(); ringRaf = requestAnimationFrame(springRing); }
+  };
+  const roseMarkup = () => {
+    const k = ROSE_TILT.toFixed(4), plane = (r) => `scale(1 ${k}) rotate(${r})`;
+    const leaf = "M0 -96 Q32 -34 0 0 Q-32 -34 0 -96 Z";
+    const glyphs = {
+      n: '<circle r="6.5" fill="#ffd76a"/><path d="M0 -15V-10M0 10V15M-15 0H-10M10 0H15M-10.6 -10.6L-7 -7M7 7L10.6 10.6M-10.6 10.6L-7 7M7 -7L10.6 -10.6" stroke="#ffd76a" stroke-width="3.2" stroke-linecap="round"/>',
+      e: '<path d="M4 -10.2A11 11 0 1 0 4 10.2A12 12 0 0 1 4 -10.2Z" fill="#5fe3ff"/>',
+      s: '<path d="M0 -13L3.6 -3.6L13 0L3.6 3.6L0 13L-3.6 3.6L-13 0L-3.6 -3.6Z" fill="#ff4fa8"/>',
+      w: '<path d="M-13 0Q0 -11 13 0Q0 11 -13 0Z" fill="#a6f04b"/><circle r="4.2" fill="#1a1230"/>',
+    };
+    const ring = ROSE_DIRS.map((d, j) => `<g class="iw-glyph" data-dir="${d}" transform="rotate(${j * 90}) translate(0 -105) scale(1.3)"><g stroke="#1a1230" stroke-width="2.5" stroke-linejoin="round" paint-order="stroke">${glyphs[d]}</g></g>`).join("");
+    const pets = [0, 1, 2, 3].map((i) => `<g class="iw-petal" data-i="${i}"><path class="side" transform="translate(0 8) ${plane(45 + 90 * i)}" d="${leaf}"/><g class="lift"><path class="pet" transform="${plane(45 + 90 * i)}" d="${leaf}"/><path class="chg" pathLength="100" transform="${plane(45 + 90 * i)}" d="${leaf}"/></g></g>`).join("");
+    return `<div class="iw-rose" style="--hold:${HOLD}s"><svg viewBox="-126 -74 252 160" aria-hidden="true"><defs><linearGradient id="iw-pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fa8"/><stop offset=".5" stop-color="#7a4dff"/><stop offset="1" stop-color="#12c4f0"/></linearGradient><radialGradient id="iw-rg"><stop offset="0" stop-color="#2a1c5a"/><stop offset="1" stop-color="#120a30"/></radialGradient></defs><ellipse cx="0" cy="9" rx="121" ry="${(121 * ROSE_TILT).toFixed(1)}" fill="rgba(6,4,20,.7)"/><g transform="${plane(45)}"><circle r="118" fill="url(#iw-rg)" stroke="#1a1230" stroke-width="5"/><circle r="106" fill="none" stroke="#5fe3ff" stroke-width="2" stroke-dasharray="3 8" opacity=".8"/><circle r="62" fill="none" stroke="#ffd76a" stroke-width="2" opacity=".55"/><g class="ring">${ring}</g></g>${pets}<ellipse rx="13" ry="${(13 * ROSE_TILT).toFixed(1)}" fill="#1a1230"/><ellipse rx="6" ry="${(6 * ROSE_TILT).toFixed(1)}" fill="#fff"/></svg><div class="hit-r" role="group" aria-label="compass rose"></div></div>`;
   };
   const showBand = () => {
     if (band) return;
@@ -125,21 +182,42 @@ export function createInput(el, { touch = "auto" } = {}) {
     style.textContent = BAND_CSS;
     document.head.appendChild(style);
     band = document.createElement("div");
-    band.className = "iw-band" + (busy ? " off" : "");
-    band.innerHTML = `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div><button type="button" class="iw-act" aria-label="use">✦</button><a class="iw-back" href="${HOME}" aria-label="character select" title="character select">${BUST}</a>`;
-    knob = band.querySelector(".iw-knob");
-    const stick = band.querySelector(".iw-stick"), hit = band.querySelector(".hit"), act = band.querySelector(".iw-act");
-    const aim = (e) => {
-      const r = stick.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
-      const a = Math.atan2(dy, dx), k = Math.round((a - Math.PI / 4) / (Math.PI / 2));
-      const off = Math.abs(a - (Math.PI / 4 + k * Math.PI / 2));
-      stickTo(Math.hypot(dx, dy) < r.width * STICK_DEAD || off > Math.PI / 4 - STICK_CROSS ? null : (((2 * k + 1) % 8) + 8) % 8);
-    };
-    hit.addEventListener("pointerdown", (e) => { e.preventDefault(); stickId = e.pointerId; hit.setPointerCapture?.(e.pointerId); band.classList.add("held"); aim(e); });
-    hit.addEventListener("pointermove", (e) => { if (e.pointerId === stickId) aim(e); });
-    const letGo = (e) => { if (e.pointerId !== stickId) return; stickId = null; band.classList.remove("held"); stickTo(null); };
-    hit.addEventListener("pointerup", letGo);
-    hit.addEventListener("pointercancel", letGo);
+    band.className = "iw-band" + (busy ? " off" : "") + (useStick ? " stick" : " rose");
+    const pad = useStick ? `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div>` : roseMarkup();
+    band.innerHTML = `${pad}<button type="button" class="iw-act" aria-label="use">✦</button><a class="iw-back" href="${HOME}" aria-label="character select" title="character select">${BUST}</a>`;
+    const act = band.querySelector(".iw-act");
+    if (useStick) {
+      knob = band.querySelector(".iw-knob");
+      const stick = band.querySelector(".iw-stick"), hit = band.querySelector(".hit");
+      const aim = (e) => {
+        const r = stick.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        const a = Math.atan2(dy, dx), k = Math.round((a - Math.PI / 4) / (Math.PI / 2));
+        const off = Math.abs(a - (Math.PI / 4 + k * Math.PI / 2));
+        stickTo(Math.hypot(dx, dy) < r.width * STICK_DEAD || off > Math.PI / 4 - STICK_CROSS ? null : (((2 * k + 1) % 8) + 8) % 8);
+      };
+      hit.addEventListener("pointerdown", (e) => { e.preventDefault(); stickId = e.pointerId; hit.setPointerCapture?.(e.pointerId); band.classList.add("held"); aim(e); });
+      hit.addEventListener("pointermove", (e) => { if (e.pointerId === stickId) aim(e); });
+      const letGo = (e) => { if (e.pointerId !== stickId) return; stickId = null; band.classList.remove("held"); stickTo(null); };
+      hit.addEventListener("pointerup", letGo);
+      hit.addEventListener("pointercancel", letGo);
+    } else {
+      const rose = band.querySelector(".iw-rose"), hit = rose.querySelector(".hit-r");
+      petals = [...rose.querySelectorAll(".iw-petal")];
+      ringEl = rose.querySelector(".ring");
+      drawRing();
+      const aim = (e) => {
+        const r = rose.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = (e.clientY - (r.top + r.height / 2)) / ROSE_TILT;
+        if (Math.hypot(dx, dy) < r.width * 0.07) return petalTo(petal);
+        const a = Math.atan2(dy, dx) * 180 / Math.PI, i = Math.floor((((a + 90) % 360) + 360) % 360 / 90);
+        if (petal != null && i !== petal) { const off = Math.abs(((a - (-45 + 90 * petal)) % 360 + 540) % 360 - 180); if (off < 55) return; }
+        petalTo(i);
+      };
+      hit.addEventListener("pointerdown", (e) => { e.preventDefault(); if (petalId != null) return; petalId = e.pointerId; hit.setPointerCapture?.(e.pointerId); aim(e); });
+      hit.addEventListener("pointermove", (e) => { if (e.pointerId === petalId) aim(e); });
+      const letGo = (e) => { if (e.pointerId !== petalId) return; petalId = null; petalTo(null); };
+      hit.addEventListener("pointerup", letGo);
+      hit.addEventListener("pointercancel", letGo);
+    }
     act.addEventListener("pointerdown", (e) => { e.preventDefault(); act.classList.add("on"); emit({ kind: "act" }); });
     for (const ev of ["pointerup", "pointercancel", "pointerleave"]) act.addEventListener(ev, () => act.classList.remove("on"));
     band.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -154,12 +232,15 @@ export function createInput(el, { touch = "auto" } = {}) {
     on(f) { listeners.add(f); return () => listeners.delete(f); },
     showBand,
     get band() { return band; },
+    controls: useStick ? "stick" : "rose",
+    setYaw,
+    repeating(on) { if (petal != null) petals?.[petal]?.classList.toggle("rep", !!on); },
     setBusy(b) {
       b = !!b;
       if (b === busy) return;
       busy = b;
       band?.classList.toggle("off", b);
-      if (b) { stickId = null; band?.classList.remove("held"); stickTo(null); }
+      if (b) { stickId = petalId = null; band?.classList.remove("held"); stickTo(null); }
     },
     dispose() {
       removeEventListener("keydown", onKeyDown);
@@ -172,6 +253,7 @@ export function createInput(el, { touch = "auto" } = {}) {
       el.removeEventListener("pointermove", onPointerMove);
       el.removeEventListener("pointerup", onPointerUp);
       el.removeEventListener("pointercancel", onPointerCancel);
+      cancelAnimationFrame(ringRaf);
       band?.remove();
     },
   };

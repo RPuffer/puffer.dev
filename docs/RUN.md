@@ -35,7 +35,8 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `spawn` | `x,z` start cell override |
 | `hero` | `0` hides the hero, for reference comparisons; the camera then centres on `center` |
 | `center` | `x,y,z` world point the camera centres on when `hero=0`, else the level's `view.center` |
-| `dpad` | `1` forces the on-screen d-pad |
+| `dpad` | `1` forces the touch band and compass rose |
+| `controls` | `stick` swaps the compass rose for the old joystick |
 | `xray` | `0` switches off the see-through window around the hero (both builds) |
 | `t` | Freezes the wind clock at `t` seconds (3d); `hero=0` and `prefers-reduced-motion` freeze it at 0 |
 | `ui` | `0` hides the seed overlay |
@@ -44,7 +45,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 
 ## Controls
 
-W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S down-left, A up-left. Click or tap a cell to path there. Touch devices get a d-pad. Q and E turn the island 90 degrees left and right (3d only); F (or Enter) interacts. The overlay's two arrow buttons turn it on touch.
+W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S down-left, A up-left. Click or tap a cell to path there. Touch devices get a compass rose: four petals fixed on the screen diagonals, one per grid direction, with sun, moon, star and eye glyphs on the rim that spring round with each camera turn. A tap on a petal takes one step; holding past the 0.42 s gold charge rim walks on. Q and E turn the island 90 degrees left and right (3d only); F (or Enter) interacts. The overlay's two arrow buttons turn it on touch.
 
 ## Render and compare
 

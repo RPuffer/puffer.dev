@@ -19,7 +19,7 @@ Then open:
 - `http://localhost:8765/3d/index.html?level=cat-medium` for one island in the 3d build
 - `http://localhost:8765/compare.html` for the old 3d and 2d side by side
 
-W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch screens get a d-pad. The overlay holds one link, "islands", back to the start page. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
+W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch screens get a compass rose. The overlay holds one link, "islands", back to the start page. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
 
 ## Query contract
 
@@ -29,7 +29,8 @@ W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch s
 | `seed` | Colour jitter |
 | `spawn` | `x,z` start cell |
 | `hero` | `0` hides the hero and frames the level for reference shots |
-| `dpad` | `1` forces the d-pad |
+| `dpad` | `1` forces the touch band and compass rose |
+| `controls` | `stick` swaps the compass rose for the old joystick |
 | `xray` | `0` turns off the see-through window around the hero |
 | `clouds` | `none` (or `0`) turns off the cloud bed every island floats on; reference shots use it |
 | `view` | Root page: `both`, `3d` or `2d` |

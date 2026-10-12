@@ -1,4 +1,4 @@
-import { createInput } from "./input.js";
+import { createInput, HOLD, ROSE_DIRS } from "./input.js";
 import { createActor } from "./actor.js";
 import { routeTo } from "./path.js";
 import { createRoute } from "./route.js";
@@ -51,7 +51,10 @@ export function createGame(renderer, params = readParams()) {
   const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null, route: createRoute(), mark: null };
   let screenHeld = null;
 
-  const input = createInput(renderer.element || document.body, { touch: params.dpad === "1" || params.touch === "1" ? true : "auto" });
+  const input = createInput(renderer.element || document.body, { touch: params.dpad === "1" || params.touch === "1" ? true : "auto", controls: params.controls === "stick" ? "stick" : "rose" });
+  let petal = null, petalAt = 0;
+  const petalDir = (i) => ROSE_DIRS[(((i - Math.round((game.yaw - 45) / 90)) % 4) + 4) % 4];
+  const petalHeld = () => (petal == null ? null : [petalDir(petal)]);
   let stick = null, lastStick = null;
   const stickDirs = () => {
     if (!stick || !state.proj) return null;
@@ -69,6 +72,13 @@ export function createGame(renderer, params = readParams()) {
     if (it.kind === "rotate") { game.rotate(it.step); return; }
     if (it.kind === "zoom") { game.zoom(it.step); return; }
     if (it.kind === "act") { things?.act(); return; }
+    if (it.kind === "petal") {
+      if (actor.held === petalHeld) actor.held = null;
+      petal = it.i;
+      input.repeating(false);
+      if (petal != null) { petalAt = state.time; if (!actor.locked) { state.route.cancel(); actor.tapDir = petalDir(petal); } }
+      return;
+    }
     if (it.kind === "stick") {
       stick = it.vec;
       if (stick) { if (!actor.locked) state.route.cancel(); actor.held = stickDirs; }
@@ -108,6 +118,8 @@ export function createGame(renderer, params = readParams()) {
   };
   const tick = () => {
     stepTurn(STEP);
+    input.setYaw(game.yaw);
+    if (petal != null && state.actor.held !== petalHeld && state.time - petalAt >= HOLD - 1e-9 && !state.actor.locked) { state.actor.held = petalHeld; input.repeating(true); }
     state.actor.update(STEP);
     state.route.update();
     state.things?.update(STEP);
@@ -177,6 +189,7 @@ export function createGame(renderer, params = readParams()) {
     },
     stop() { running = false; cancelAnimationFrame(raf); input.dispose(); state.things?.dispose(); },
     pause() { running = false; cancelAnimationFrame(raf); },
+    resume() { if (running || !started) return; running = true; acc = 0; last = performance.now(); raf = requestAnimationFrame(frame); },
     advance(seconds) {
       for (let n = Math.round(seconds / STEP); n > 0; n--) tick();
       renderer.render(state, 0);
