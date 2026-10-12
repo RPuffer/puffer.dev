@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { Baker, bakedMaterial } from "./baker.js";
 import { HERO } from "./palette.js";
 import { kit, audit } from "./prims.js";
-import { buildClips, toClip, CLIP_DATA, REST } from "./clips.js";
+import { buildClips, toClip, CLIP_DATA, REST, JOINTS } from "./clips.js";
 import { HEROES } from "./heroes.js";
 import { motion } from "./motion.js";
 
@@ -60,13 +60,19 @@ export function heroSpec(style = null) {
   };
 }
 
-function bakePart(p, light) {
-  const B = new Baker(light);
-  const K = kit(B, { light });
-  const draw = (prim, dims, base, x, y, z, ry = 0) => { B.push(x, y, z, ry); K[prim](...dims.slice(0, 3), base, 0, 0, 0, ...(prim === "spike" ? [dims[3] || 0] : [])); B.pop(); };
-  if (p.prim === "chain") for (const l of p.links) draw(l.prim, l.dims, l.base || p.base, p.at[0] + l.at[0], p.at[1] + l.at[1], p.at[2] + l.at[2], l.ry || 0);
-  else draw(p.prim, p.dims, p.base, ...p.at, p.ry || 0);
-  return B.geometry();
+const ARGC = { rbox: 3, box: 3, wedge: 3, spike: 3, cyl: 2, disc: 2, cone: 3, taper: 5 };
+const E = new THREE.Euler(), Q = new THREE.Quaternion(), P = new THREE.Vector3(), ONE = new THREE.Vector3(1, 1, 1);
+
+function drawPart(K, p) {
+  const B = K.B;
+  const draw = (l, base, x, y, z) => {
+    const n = ARGC[l.prim];
+    B.pushMatrix(new THREE.Matrix4().compose(P.set(x, y, z), Q.setFromEuler(E.set(l.rx || 0, l.ry || 0, l.rz || 0, "YXZ")), ONE));
+    K[l.prim](...l.dims.slice(0, n), base, 0, 0, 0, ...l.dims.slice(n));
+    B.pop();
+  };
+  if (p.prim === "chain") for (const l of p.links) draw({ prim: "rbox", ...l }, l.base || p.base, p.at[0] + l.at[0], p.at[1] + l.at[1], p.at[2] + l.at[2]);
+  else draw(p, p.base, ...p.at);
 }
 
 export function classSpec(cls) {
@@ -94,14 +100,26 @@ export function buildCharacter(scale = 1, style = null, cls = null) {
     (parent ? joints[parent] : root).add(g);
     joints[id] = g;
   }
-  const blinks = [];
+  const moving = new Set([...JOINTS, ...Object.keys(REST), ...Object.values(custom?.clips || {}).flatMap((c) => Object.keys(c.tracks).map((k) => k.split(".")[0]))]);
+  const host = (j) => { while (j && !moving.has(j)) j = tree[j][0]; return j; };
+  const groups = new Map();
   for (const p of spec.parts) {
-    const m = new THREE.Mesh(bakePart(p, style?.light || null), mat);
+    const j = host(p.joint || p.id), key = `${j}|${p.blink || ""}`;
+    if (!groups.has(key)) groups.set(key, { j, blink: p.blink, parts: [] });
+    groups.get(key).parts.push(p);
+  }
+  const blinks = [];
+  for (const { j, blink: bl, parts } of groups.values()) {
+    const B = new Baker(style?.light || null);
+    const K = kit(B, { light: style?.light || null });
+    for (const p of parts) drawPart(K, p);
+    const m = new THREE.Mesh(B.geometry(), mat);
     m.renderOrder = 2;
-    const j = p.joint || p.id, pivot = tree[j][1];
+    m.name = j || "root";
+    const pivot = j ? tree[j][1] : [0, 0, 0];
     m.position.set(-pivot[0], -pivot[1], -pivot[2]);
-    joints[j].add(m);
-    if (p.blink) blinks.push([m, ...p.blink]);
+    (j ? joints[j] : root).add(m);
+    if (bl) blinks.push([m, ...bl]);
   }
   const blink = () => { const t = motion.uTime.value; for (const [m, hz, ph, duty] of blinks) m.visible = (((t * hz + ph) % 1) + 1) % 1 < duty; };
   root.scale.setScalar(scale);
@@ -114,7 +132,7 @@ export function buildCharacter(scale = 1, style = null, cls = null) {
     const tracks = Object.fromEntries(Object.entries(c.tracks).map(([key, keys]) => [key, /^upperArm[LR]\.quaternion$/.test(key) ? keys.map(([t, x, y, z]) => [t, x, y, z * k]) : keys]));
     clips[n] = toClip({ ...c, tracks }, rest);
   }
-  for (const [n, c] of Object.entries(custom?.clips || {})) clips[n] = toClip(c, rest);
+  for (const [n, c] of Object.entries(custom?.clips || {})) clips[n] = toClip(c, rest, Object.keys(tree));
   const actions = {};
   for (const [name, clip] of Object.entries(clips)) {
     const a = mixer.clipAction(clip);

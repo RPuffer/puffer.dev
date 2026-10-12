@@ -183,6 +183,10 @@ export function kit(B, { light = null, rot = 0 } = {}) {
         solid(faces, base, isTwo(2 * r0, h));
       } else solid(prismFaces([[a, y], [ngon(x, z, r1, n), y + h]]), base, isTwo(2 * r0, h));
     },
+    taper(w0, d0, w1, d1, h, base, x = 0, y = 0, z = 0, dx = 0, dz = 0) {
+      const q = (w, d, ox, oz) => [[x + ox + w / 2, z + oz + d / 2], [x + ox + w / 2, z + oz - d / 2], [x + ox - w / 2, z + oz - d / 2], [x + ox - w / 2, z + oz + d / 2]];
+      solid(prismFaces([[q(w0, d0, 0, 0), y], [q(w1, d1, dx, dz), y + h]]), base, isTwo(Math.max(w0, w1), h, Math.max(d0, d1)));
+    },
     wedge(w, h, d, base, x = 0, y = 0, z = 0) {
       const x0 = x - w / 2, x1 = x + w / 2, zb = z - d / 2, zf = z + d / 2;
       solid([
@@ -213,6 +217,7 @@ const EXTENT = {
   cyl: ([r, h]) => [2 * r, h, 2 * r],
   disc: ([r, h]) => [2 * r, h, 2 * r],
   cone: ([r0, r1, h]) => [2 * Math.max(r0, r1), h, 2 * Math.max(r0, r1)],
+  taper: ([w0, d0, w1, d1, h, dx = 0, dz = 0]) => [Math.max(w0, w1) + Math.abs(dx), h, Math.max(d0, d1) + Math.abs(dz)],
 };
 
 const extentOf = (p) => (p.prim === "chain" ? p.links.reduce((m, l) => EXTENT[l.prim || "rbox"](l.dims).map((v, i) => Math.max(m[i], v)), [0, 0, 0]) : EXTENT[p.prim](p.dims));
@@ -246,7 +251,8 @@ export function audit(spec) {
   }
   const headRatio = head ? head.size[1] / height : null;
   const errors = [];
-  if (big.length > B.max) errors.push(`${big.length} parts over ${B.min} tile, budget ${B.max}`);
+  const max = spec.budget || B.max;
+  if (big.length > max) errors.push(`${big.length} parts over ${B.min} tile, budget ${max}`);
   if (stray.length) errors.push(`parts under ${B.face} tile off the face: ${stray.map((p) => p.id).join(", ")}`);
   const band = spec.head || BIBLE.head;
   if (headRatio != null && (headRatio < band[0] - 1e-6 || headRatio > band[1] + 1e-6)) errors.push(`head ${headRatio.toFixed(2)} of height, rule ${band.join(" to ")}`);

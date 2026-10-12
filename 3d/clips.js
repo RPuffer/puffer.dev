@@ -20,11 +20,11 @@ const D = Math.PI / 180;
 const q = new THREE.Quaternion(), e = new THREE.Euler();
 const quat = ([x, y, z]) => q.setFromEuler(e.set(x * D, y * D, z * D));
 
-export function toClip(json, restPos = {}) {
+export function toClip(json, restPos = {}, extra = []) {
   const tracks = [], seen = new Set();
   for (const [key, keys] of Object.entries(json.tracks)) {
     const [part, prop] = key.split(".");
-    if (!JOINTS.includes(part)) throw new Error(`clip ${json.name}: unknown part ${part}`);
+    if (!JOINTS.includes(part) && !extra.includes(part)) throw new Error(`clip ${json.name}: unknown part ${part}`);
     const times = keys.map((k) => k[0]);
     if (prop === "quaternion") tracks.push(new THREE.QuaternionKeyframeTrack(key, times, keys.flatMap((k) => { quat(k.slice(1)); return [q.x, q.y, q.z, q.w]; })));
     else if (prop === "position") {
