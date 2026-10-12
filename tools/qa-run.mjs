@@ -71,11 +71,24 @@ async function pathTo(goals) {
   }, goals);
 }
 
-async function walk(goals) {
+async function walkOnce(goals) {
   const n = await pathTo(goals);
   if (n == null) return null;
   await page.waitForFunction(() => { const a = window.__game.state.actor; return !a.path.length && !a.moving; }, { timeout: 4000 + n * 800, polling: 50 }).catch(() => {});
   return n;
+}
+
+async function walk(goals) {
+  let total = null;
+  for (let k = 0; k < 6; k++) {
+    await page.waitForFunction(() => { const S = window.__game.state; return !S.actor.locked && !S.life?.busy; }, { timeout: 8000, polling: 50 }).catch(() => {});
+    const n = await walkOnce(goals);
+    if (n == null) return total;
+    total = (total || 0) + n;
+    const s = await page.evaluate(() => ({ cell: window.__game.state.actor.cell.slice(), traps: !!window.__game.state.traps }));
+    if (!s.traps || goals.some((g) => g[0] === s.cell[0] && g[1] === s.cell[1])) return total;
+  }
+  return total;
 }
 
 const around = (t) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]].map(([a, b]) => [t.x + a, t.z + b]);
