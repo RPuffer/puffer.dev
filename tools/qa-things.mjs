@@ -84,6 +84,8 @@ async function walkTo(page, goal) {
 
 const around = (t) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]].map(([a, b]) => [t.x + a, t.z + b]);
 
+const beckonOf = (page, id) => page.evaluate((i) => window.__game.renderer.things?.beckon?.state()[i] || null, id);
+
 async function suite() {
   const { page, problems, done } = await open(`level=${LEVEL}&reset=1`);
   record("loads with reset", done);
@@ -145,6 +147,9 @@ async function suite() {
   await walkTo(page, around(by.bonfire).filter((c) => c.join() !== info.file.join()));
   let u = await ui(page);
   record("prompt beside the bonfire", /bonfire/i.test(u.prompt), `"${u.prompt}" at ${await cellOf(page)}`);
+  await wait(700);
+  const hl = await beckonOf(page, by.bonfire.id);
+  record("bonfire highlight on and in reach beside it", !!hl && hl.near > 0.9 && hl.reach > 0.9, JSON.stringify(hl));
   await page.keyboard.press("KeyF");
   await wait(250);
   u = await ui(page);
@@ -258,9 +263,27 @@ async function suite() {
     const gone = await thing(t.page, W1);
     record("watcher returns to its pose when the hero leaves", seen.look > 0.9 && gone.look < 0.05, `look ${seen.look.toFixed(2)} at the threshold, ${gone.look.toFixed(2)} at the bonfire`);
   }
+  const away = await t.page.evaluate(async (b) => {
+    const { isWalkable } = await import("/core/level.js");
+    const L = window.__game.state.level;
+    let best = null, bd = 0;
+    for (let z = 0; z < L.cells.length; z++) for (let x = 0; x < L.cells[z].length; x++) {
+      const d = Math.hypot(x - b.x, z - b.z);
+      if (isWalkable(L, x, z) && d > 6 && d < 10 && d > bd) { bd = d; best = [x, z]; }
+    }
+    return best;
+  }, by.bonfire);
   record("page clean after reset", t.problems.length === 0, t.problems.slice(0, 3).join(" | "));
   await t.page.evaluate((k) => localStorage.removeItem(k), `isoworld:things:${LEVEL}`);
   await t.page.close();
+  if (away) {
+    const f = await open(`level=${LEVEL}&reset=1&spawn=${away.join(",")}`);
+    await wait(700);
+    const hl = await beckonOf(f.page, by.bonfire.id);
+    record("bonfire highlight off away from it", !!hl && hl.near === 0 && hl.reach === 0, `${JSON.stringify(hl)} at ${away}`);
+    await f.page.evaluate((k) => localStorage.removeItem(k), `isoworld:things:${LEVEL}`);
+    await f.page.close();
+  } else record("bonfire highlight off away from it", false, "no walkable cell 6 to 10 tiles from the bonfire");
 }
 
 async function clip(out) {
