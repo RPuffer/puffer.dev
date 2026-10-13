@@ -1,6 +1,6 @@
 # Class powers
 
-Design ideas only. Nothing here is built. Each class gets one power key, and the four class model options on fortress card `puffer-isoworld-class-models` belong to the same character as the powers below.
+The starter set at the end is built (`core/powers.js`); the other powers stay design ideas. Each class gets one power key, and the four class model options on fortress card `puffer-isoworld-class-models` belong to the same character as the powers below.
 
 ## Shared ground rules
 
@@ -63,3 +63,22 @@ One power per class, chosen so the four play differently on the same trap slot:
 | Gatekeeper | Ward | absorbs it | S |
 | Courier | Waypoint Run | routes around known ones | S |
 | Modernizer | Unjam | removes it | S |
+
+### Built
+
+The four starters shipped on 2026-10-12. `core/powers.js` reads the class from `?class=` or `isoworld:class` (no class plays as the Wretch), `core/powers-ui.js` draws the HUD, `3d/powerfx.js` the effects, and `node tools/qa-powers.mjs` proves each one.
+
+| Power | Key | Recharge | What it does |
+| --- | --- | --- | --- |
+| Ink Step | `R`, touch power button | 6 steps | Hops 0.42 s two cells along the facing onto a non-ramp cell of the same tier or one down. The skipped cell may hold a trap (`traps.skip`) or be a one-cell gap. Ink puddles mark both ends. |
+| Ward | `R`, touch power button | 10 steps after it cracks | Raises `health.ward()`; the next trap hit or knock-off does nothing. Three shield plates orbit the hero while it holds and fly apart when it cracks. |
+| Waypoint Run | tap or click a cell | none | The only class that walks by tap. The router adds 40 to each revealed, live trap cell, so it walks around known traps when a detour exists and through unrevealed ones. `R` shows the hint. |
+| Unjam | `R`, touch power button | 5 steps | Disarms the trap on the facing cell for good (`traps.disarm`) and bolts a brass plate on its cells. A clean cell keeps the charge. |
+
+Rule changes from the ideas above:
+
+- Every power refills when you light or rest at a bonfire, not only Ward.
+- Ink Step lands only on a cell you could already walk to from where you stand. That one check keeps it off every shortcut's far side, so closed doors, lever gates and unkicked ladders block it with no special cases. The QA sweep runs it over every cell and facing of `wizard-medium-r1` to `-r3`.
+- A refused power (no landing, nothing to unjam, still recharging) keeps its charge and says why in a toast.
+- Touch stacks the power button above the use button in the right column, so the compass rose keeps its clearance.
+- A power pressed mid-step waits for the hero to reach the cell centre (`actor.pause`).

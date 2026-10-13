@@ -19,7 +19,7 @@ Then open:
 - `http://localhost:8765/3d/index.html?level=cat-medium` for one island in the 3d build
 - `http://localhost:8765/compare.html` for the old 3d and 2d side by side
 
-W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch screens get a compass rose. The overlay holds one link, "islands", back to the start page. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
+W/A/S/D or the arrow keys step one cell; touch screens get a compass rose. `R` (or the round power button on touch) fires the class power: Ink Step for the Wretch, Ward for the Gatekeeper, Unjam for the Modernizer. Only the Courier (`?class=dutchie`) walks to a clicked or tapped cell. `docs/CLASS-POWERS.md` lists the rules. The overlay holds one link, "islands", back to the start page. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
 
 ## Query contract
 
@@ -31,6 +31,7 @@ W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch s
 | `hero` | `0` hides the hero and frames the level for reference shots |
 | `dpad` | `1` forces the touch band and compass rose |
 | `controls` | `stick` swaps the compass rose for the old joystick |
+| `class` | `wanderer`, `aws`, `dutchie` or `nm` picks the hero and its power; it falls back to `isoworld:class`, then the Wretch |
 | `xray` | `0` turns off the see-through window around the hero |
 | `clouds` | `none` (or `0`) turns off the cloud bed every island floats on; reference shots use it |
 | `traps` | `0` loads the level without its traps; the ramp-climb check in `tools/qa-levels.mjs` uses it |

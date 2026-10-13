@@ -45,7 +45,7 @@ export function createPowerFx(game, view) {
   const shields = [];
   for (let i = 0; i < WARD.n; i++) { const s = shield(); s.visible = false; group.add(s); shields.push(s); }
   group.add(plates);
-  let plateKey = "", burst = null;
+  let plateKey = "", burst = null, seen = undefined;
   const now = () => S.time;
   const cellY = (c) => surfaceY(liftLevel(S.level), S.view, c[0], c[1]);
   const spawn = (obj, life, step) => { group.add(obj); live.push({ obj, t0: now(), life, step }); };
@@ -93,7 +93,7 @@ export function createPowerFx(game, view) {
       if (!S.level || !S.actor) return;
       const t = now(), dy = view.drop || 0;
       group.position.y = dy;
-      syncPlates();
+      if (S.traps !== seen) { seen = S.traps; plateKey = ""; syncPlates(); }
       for (const p of plates.children) {
         const a = p.userData.drop != null ? Math.min(1, (t - p.userData.drop) / 0.35) : 1;
         p.position.y = cellY(p.userData.cell) + 0.012 + 0.6 * (1 - a) * (1 - a);

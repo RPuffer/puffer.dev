@@ -26,9 +26,12 @@ try {
   await page.setViewport({ width: +w, height: +h, deviceScaleFactor: 1 });
   await page.goto(target, { waitUntil: "load" });
   await page.waitForFunction(() => window.__done === true || !!window.__error, { timeout: 120000, polling: 200 });
+  const script = process.env.CLIP_SCRIPT ? JSON.parse(fs.readFileSync(process.env.CLIP_SCRIPT, "utf8")) : null;
+  if (script) { await new Promise((r) => setTimeout(r, 1500)); await page.evaluate((js) => { window.__game.pause(); return (0, eval)(js); }, script.setup || "0"); }
   const n = Math.round(+secs * +fps);
   for (let i = 0; i < n; i++) {
-    await page.evaluate((t) => new Promise((r) => { window.__setTime(t); requestAnimationFrame(() => requestAnimationFrame(r)); }), +t0 + i / +fps);
+    if (script) await page.evaluate((js, dt, t) => new Promise((r) => { if (js) (0, eval)(js); window.__setTime(t); window.__game.advance(dt); requestAnimationFrame(() => r()); }), script.at?.[i] || "", 1 / +fps, +t0 + i / +fps);
+    else await page.evaluate((t) => new Promise((r) => { window.__setTime(t); requestAnimationFrame(() => requestAnimationFrame(r)); }), +t0 + i / +fps);
     await page.screenshot({ path: path.join(frames, `f${String(i).padStart(4, "0")}.png`) });
   }
 } finally {
