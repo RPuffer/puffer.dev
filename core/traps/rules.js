@@ -2,7 +2,7 @@ import { TRAP_BY_ID } from "./catalog.js";
 import { KINDS } from "./kinds.js";
 import { trapCells } from "./index.js";
 import { world, distances } from "../layout/check.js";
-import { prepareLevel } from "../level.js";
+import { prepareLevel, isWalkable } from "../level.js";
 
 const key = (x, z) => x + "," + z;
 const cheb = (a, b) => Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1]));
@@ -66,6 +66,43 @@ export function forbiddenCells(raw) {
   return out;
 }
 
+export const mustGuard = (kind) => { const m = TRAP_BY_ID[kind]; return !!m && m.tier === "local" && m.visibility !== "hidden"; };
+
+export function dangerCells(t) {
+  const k = KINDS[t.kind];
+  return k?.danger ? k.danger(t) : trapCells(t);
+}
+
+export function rewardCells(raw, guards, P) {
+  if (!guards) return null;
+  const N4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  if (guards.chest) {
+    const c = (raw.things || []).find((q) => q.id === guards.chest && (q.kind || q.t) === "chest");
+    return c ? N4.map(([dx, dz]) => [c.x + dx, c.z + dz]).filter(([x, z]) => P.cells[z]?.[x] && isWalkable(P, x, z)) : null;
+  }
+  if (guards.charge) {
+    const c = (raw.charges || []).find((q) => q.id === guards.charge);
+    return c ? [[c.x, c.z]] : null;
+  }
+  if (Array.isArray(guards.at)) return [guards.at.slice()];
+  return null;
+}
+
+export function guardProblems(raw, t, P = quiet(raw)) {
+  const r = rewardCells(raw, t.guards, P);
+  if (!t.guards) return ["a visible or telegraphed trap must guard a reward (set guards to a chest, a charge or a cell)"];
+  if (!r || !r.length) return [`guards ${JSON.stringify(t.guards)} names no reward on this level`];
+  const all = new Set(P.things.map((q) => q.id));
+  const start = raw.spawn;
+  const open = world(P, all);
+  if (!r.some((c) => distances(open, start).has(key(c[0], c[1])))) return ["its reward cannot be reached at all"];
+  const cut = world(P, all);
+  for (const [x, z] of dangerCells(t)) cut.blocked.add(key(x, z));
+  const d = distances(cut, start);
+  if (r.some((c) => d.has(key(c[0], c[1])))) return ["you can walk around it to its reward; it must sit on the only approach"];
+  return [];
+}
+
 export function worstState(raw, traps = raw.traps || []) {
   const blocked = [];
   for (const t of traps) {
@@ -107,6 +144,8 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [] } 
     const cells = trapCells(t);
     const own = (raw.things || []).find((q) => q.id && q.id === t.gate);
     const ownCells = new Set(own ? [...(own.edge || []), ...(own.threshold || []), ...(own.blocks || [])].map((c) => key(c[0], c[1])) : []);
+    const prize = t.guards?.chest && (raw.things || []).find((q) => q.id === t.guards.chest);
+    if (prize) for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) if (dx || dz) ownCells.add(key(prize.x + dx, prize.z + dz));
     for (const c of cells) {
       if (ownCells.has(key(c[0], c[1]))) continue;
       const why = forbidden.get(key(c[0], c[1]));
@@ -114,6 +153,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [] } 
     }
     const k = KINDS[t.kind];
     if (k?.check) for (const p of k.check(t, P) || []) problems.push(`${name}: ${p}`);
+    if (mustGuard(t.kind)) for (const p of guardProblems(raw, t, P)) problems.push(`${name}: ${p}`);
     if (m.visibility === "hidden" && cells.length) {
       const marks = [...(raw.decor || []).map((d) => [d.x, d.z]), ...(raw.things || []).map((q) => [q.x, q.z])];
       if (!cells.some((c) => marks.some((d) => cheb(c, d) <= 4))) problems.push(`${name}: hidden trap has no landmark within 4 cells`);
@@ -138,5 +178,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [] } 
   const worst = worstState(raw, traps);
   const lifts = liftToLift(raw, worst.blocked);
   if (lifts === false) problems.push("worst state cuts the walk from lift to lift");
+  const guarded = traps.filter((t) => mustGuard(t.kind)).flatMap(dangerCells);
+  if (guarded.length && liftToLift(raw, [...worst.blocked, ...guarded]) === false) problems.push("a guarded reward is not optional: its trap sits on the walk from lift to lift");
   return problems;
 }

@@ -59,9 +59,28 @@ defineTrap("t25", {
       t.fireAt = null;
       t.volley = 0;
       ctx.emit(t, "volley");
-      if (ctx.onAny(t.cells)) ctx.hurt(t, 1);
+      if (ctx.onAny(t.cells.filter((c) => !same(c, t.plate)))) ctx.hurt(t, 1);
     }
     if (!t.armed && t.fireAt == null && t.volley < 0 && !ctx.on(t.plate)) { t.armed = true; t.pressed = 0; }
+  },
+});
+
+defineTrap("t22", {
+  hang: 1.5, fall: 0.12, rest: 0.45, rise: 0.8,
+  check(t) { return t.cells.length !== 1 ? ["the pancake stone covers one cell"] : []; },
+  init(t) { t.phase = 0; t.drop = 0; t.slam = -1; },
+  reset(t) { t.phase = 0; t.drop = 0; t.slam = -1; },
+  disarm(t) { t.drop = 0; t.slam = -1; },
+  update(t, dt, ctx) {
+    const cycle = this.hang + this.fall + this.rest + this.rise;
+    const was = t.phase;
+    t.phase = (t.phase + dt) % cycle;
+    const p = t.phase;
+    t.drop = p < this.hang ? 0 : p < this.hang + this.fall ? (p - this.hang) / this.fall : p < this.hang + this.fall + this.rest ? 1 : 1 - (p - this.hang - this.fall - this.rest) / this.rise;
+    t.shadow = p < this.hang ? p / this.hang : t.drop;
+    if (was < this.hang + this.fall && p >= this.hang + this.fall) { t.slam = 0; ctx.emit(t, "slam"); if (ctx.on(t.cells[0])) ctx.hurt(t, 2, { back: ctx.prev() }); }
+    if (t.slam >= 0) { t.slam += dt; if (t.slam > 0.5) t.slam = -1; }
+    if (t.drop > 0.95 && ctx.on(t.cells[0])) ctx.hurt(t, 2, { back: ctx.prev() });
   },
 });
 
@@ -91,6 +110,7 @@ defineTrap("t24", {
   windup: 0.7, kick: 0.25, recover: 1.4, reach: 2,
   cells(t) { return [...t.cells, t.boss]; },
   extra(t) { return [t.boss]; },
+  danger(t) { return t.cells; },
   worst(t) { return { blocked: [t.boss] }; },
   check(t, P) {
     const out = [];
@@ -130,6 +150,7 @@ defineTrap("t26", {
   speed: 5.5, rumble: 0.9, gap: 1.5,
   cells(t) { return [...t.cells, ...(t.plate && indexOf(t.cells, t.plate) < 0 ? [t.plate] : [])]; },
   extra(t) { return t.notches || []; },
+  danger(t) { return [...t.cells, ...(t.plate && indexOf(t.cells, t.plate) < 0 ? [t.plate] : [])]; },
   check(t, P) {
     const out = [];
     if (t.cells.length < 5) out.push("the chariot lane needs five or more cells");
@@ -213,7 +234,7 @@ defineTrap("t33", {
 });
 
 defineTrap("t40", {
-  cells(t) { return t.cells; },
+  cells(t) { return t.plates || []; },
   check(t, P) {
     const out = [];
     if ((t.plates || []).length !== 4) out.push("order plates need four plates");
@@ -232,9 +253,7 @@ defineTrap("t40", {
   reset(t) { if (!t.solved) { t.step = 0; t.show = null; t.wrong = -1; t.inside = false; t.lit = [0, 0, 0, 0]; } },
   enter(t, c, prev, ctx) {
     if (t.solved) return;
-    const was = t.inside;
-    t.inside = true;
-    if (!was && (!prev || indexOf(t.cells, prev) < 0)) { t.step = 0; t.show = 0; ctx.emit(t, "show"); return; }
+    if (!t.inside) { t.inside = true; t.step = 0; t.show = 0; ctx.emit(t, "show"); return; }
     if (t.show != null) return;
     const p = indexOf(t.plates, c);
     if (p < 0) return;
@@ -257,7 +276,9 @@ defineTrap("t40", {
   },
   update(t, dt, ctx) {
     const f = ctx.floor();
-    if (t.inside && f && indexOf(t.cells, f) < 0) { t.inside = false; if (!t.solved) { t.step = 0; t.show = null; } }
+    const here = !!f && indexOf(t.cells, f) >= 0 && !ctx.actor.fx;
+    if (t.inside && !here) { t.inside = false; if (!t.solved) { t.step = 0; t.show = null; } }
+    else if (!t.inside && here && !t.solved) { t.inside = true; t.step = 0; t.show = 0; ctx.emit(t, "show"); }
     if (t.wrong >= 0) { t.wrong += dt; if (t.wrong > 0.6) t.wrong = -1; }
     const lit = [0, 0, 0, 0];
     if (t.solved) lit.fill(1);

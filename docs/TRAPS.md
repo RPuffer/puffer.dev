@@ -10,12 +10,12 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 
 | Id | Name | Tier | Trigger | Visibility | Health | Showcase spoke |
 | --- | --- | --- | --- | --- | --- | --- |
-| t02 | Worn-through flagstones | local | step | telegraphed | knock-off | north loop, east arc |
-| t03 | Beat spikes | local | timer | obvious | -1 heart | west road |
+| t02 | Worn-through flagstones | local | step | telegraphed | knock-off | north spoke, guards a chest |
+| t03 | Beat spikes | local | timer | obvious | -1 heart | west spoke, guards a chest |
 | t21 | Invisible block | local | step | hidden | -1 heart | north-east road, cell 22,9 |
-| t24 | Boss kick | local | step | telegraphed | knock-off | south-west rim road |
-| t25 | Arrow plate | local | step | telegraphed | -1 heart | east road, plate at 23,12 |
-| t26 | Chariot | local | step | telegraphed | knock-off | south-east lane, notches at 20,18 and 20,21 |
+| t24 | Boss kick | local | step | telegraphed | knock-off | south-west rim spoke, guards a chest |
+| t25 | Arrow plate | local | step | telegraphed | -1 heart | east spoke, plate at 22,12, guards a chest |
+| t26 | Chariot | local | step | telegraphed | knock-off | south-east lane, notches at 20,18 and 20,21, guards a chest |
 | t33 | Fog | debuff | arrival | obvious | none | the garden past the block |
 | t40 | Order plates | puzzle | step | telegraphed | none | north-west room, gate and chest behind it |
 
@@ -34,7 +34,9 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 - Worn-through flagstones count a crossing each time you step onto the arc from off it. They heal on respawn with every other trap.
 - The boss winds up for 0.7 s when you come within two cells of the kick cell, kicks for 0.25 s, then hops for 1.4 s. Walk past during the hop.
 - The chariot charges 0.9 s after the plate and runs the lane at 5.5 cells a second, faster than the hero's 3.2. It keeps making passes until you are three cells clear of the lane for two seconds.
-- The arrow wall sits on one edge of the run and fires across it 0.55 s after the plate. The far shoulder is safe.
+- The arrow plate sits at the near end of the run. The wall fires across the run 0.55 s after you step on it, and the volley misses the plate itself, so you wait on the plate and walk on after the arrows pass.
+- The boss kick shows a red "!" over the brute for the whole wind-up, a white swoosh on the kick, and a bouncing hop while it recovers.
+- Worn-through flagstones guarding a dead end let you in and out once. A second visit drops you.
 - A level may set `"trapRules": "showcase"` to skip exclusions, spacing and the one-kind rule. Only the showcase uses it.
 - Fog takes an optional `zone` rectangle. The showcase uses it so fog covers the garden and leaves the other spokes readable. On a run island fog covers the whole island.
 - Sound is not built yet: no drum tick, slide whistle or raspberry audio.
@@ -79,6 +81,8 @@ The heart-costing traps on an island spine may add up to 2 hearts at most when e
 Procgen applies these after `checkRoute` passes and before decor, and rejects the island on any violation.
 
 ### Placement, every tier
+
+0. **Guard a reward.** An obvious or telegraphed local trap sits on the only approach to a chest, a charge pickup or an item, in a pocket or a dead end with no shoulder to step around it. You get the reward by timing the trap or by disarming it (order plates, a lever, a power). The reward stays optional: lift to lift still passes with the trap's cells blocked. Hidden traps may still sit on routes. `core/traps/rules.js` (`guardProblems`) enforces this, and a trap names its reward with `"guards": { "chest": id }`, `{ "charge": id }` or `{ "at": [x, z] }`.
 
 1. No trap cell on a shortcut cell, ramp landing, lock cell, gate threshold, lift tile or the plaza, and none within two cells of spawn or the bonfire. No trap cell on a teleporter pad or within two cells of an arrival pad, and no trap whose worst state blocks the only walk to a connector pad. A trap may guard the walk to a shortcut or reward pad; the risk is the price of the shortcut.
 2. Each trap declares a worst state (holes open, blocks solid, gates up). `checkRoute` runs again with every trap in its worst state, and lift to lift must still pass with only the core gate open. A dark shortcut pad counts as shut in that check.
@@ -551,15 +555,15 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
 
 ## Run placements (spoilers)
 
-The operator meets these blind. Keep them out of cards, commit subjects, README and notifications. `tools/bake-layout.mjs` `TRAP_PLAN` sets them and `placeTraps` picks the cells.
+The operator meets these blind. Keep them out of cards, commit subjects, README and notifications. `tools/bake-layout.mjs` `TRAP_PLAN` sets the kinds; `placeTraps` puts each one on the only approach to a reward and pins a charge pickup when the reward is a pickup.
 
 | Island | Level | Traps |
 | --- | --- | --- |
-| 1 | cat-medium | t03 Beat spikes on 23,9 to 23,12; t18 Spring tile on 15,23 |
-| 2 | wizard-medium | t25 Arrow plate on 23,9 to 26,9, plate 24,9, wall south; t23 Turntable on 9,37 |
-| 3 | swallow-medium | t23 Turntable on 15,17; t03 Beat spikes on 26,9 to 26,12 |
+| 1 | cat-medium | t18 Spring tile on 20,13 guards the island chest c1; t03 Beat spikes on 16,24 to 16,27 guard charge kg2 at 16,28 |
+| 2 | wizard-medium | t22 Pancake stone on 12,39 guards charge kg1 at 12,40; t25 Arrow plate on 26,9 to 26,7, plate 26,9, guards charge kg2 at 25,7 |
+| 3 | swallow-medium | t03 Beat spikes on 35,10 to 37,10 guard charge kg1 at 38,10; t02 Worn-through flagstones on 37,20 to 39,20 guard charge kg2 at 40,20 |
 
-Spring tile fires once per life and flings you two cells back the way you came. Turntable turns the camera 90 degrees each time you step on it. t02 found no free three-cell loop arc on swallow-medium, so no run island carries it yet.
+Spring tile fires once per life and flings you two cells back the way you came. Pancake stone hangs over its cell on two posts; its shadow grows for 1.5 s, it slams for 2 hearts, rests and lifts. Every guarded reward is optional: lift to lift passes with the trap cells blocked.
 
 ## Machine-readable
 
