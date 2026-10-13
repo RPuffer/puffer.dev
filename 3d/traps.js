@@ -11,7 +11,7 @@ const pal = (hex) => { const r = ramp(hex); return tone(r[2], r[1], r[0]); };
 const C = {
   iron: "#5a5866", ironDark: "#34323c", steel: "#c9cfd8", stone: "#b9b1a6", stoneDark: "#857c72", slab: "#d6cbb8",
   bone: "#ece2c8", boneDark: "#b8aa86", wood: "#9a6436", rust: "#a8532c", brute: "#7f8f5a", bruteDark: "#55603c", hide: "#8a5a3a",
-  plate: "#cfc3ad", gold: "#f0c438", ember: "#ff8a3d", crack: "#3a3036", void: "#14121a", coil: "#c46a2c", disc: "#8fa0b8", ink: "#2a1f33",
+  plate: "#cfc3ad", gold: "#f0c438", ember: "#ff8a3d", crack: "#3a3036", void: "#14121a", coil: "#c46a2c", disc: "#8fa0b8", ink: "#2a1f33", ice: "#cdeeff", iceDeep: "#8fd0f0", iceLine: "#ffffff",
 };
 
 const mat = () => applyMotion(applyXray(bakedMaterial(), false));
@@ -94,6 +94,12 @@ function turntable(B) {
   B.cyl(0.46, 0.05, pal(C.disc), 0, 0, 0, 16);
   B.cyl(0.08, 0.02, pal(C.ink), 0, 0.05, 0, 8);
   for (let i = 0; i < 4; i++) B.at(0, 0.05, 0, (i * Math.PI) / 2, () => { B.box(0.06, 0.012, 0.22, pal(C.gold), 0.28, 0, 0); B.cone(0.08, 0, 0.1, pal(C.gold), 0.28, 0, 0.14, 3); });
+}
+function iceTile(B, seed) {
+  B.rbox(0.98, 0.05, 0.98, 0.03, pal(C.iceDeep), 0, 0, 0);
+  B.rbox(0.9, 0.03, 0.9, 0.03, pal(C.ice), 0, 0.05, 0);
+  const r = (k) => { const s = Math.sin((seed + 1) * 12.9898 + k * 78.233) * 43758.5453; return s - Math.floor(s); };
+  for (let k = 0; k < 2; k++) B.box(0.34 + r(k) * 0.3, 0.012, 0.03, pal(C.iceLine), (r(k + 3) - 0.5) * 0.5, 0.08, (r(k + 6) - 0.5) * 0.5);
 }
 function star(B) { for (let i = 0; i < 5; i++) B.at(0, 0, 0, (i * Math.PI * 2) / 5, () => B.cone(0.06, 0, 0.26, pal(C.gold), 0, 0, 0, 3)); }
 
@@ -272,6 +278,21 @@ export function buildTraps(state, style) {
       const c = t.cells[0];
       const disc = place(bake((B) => turntable(B), light), c, 0.004);
       it.update = () => { disc.rotation.y = -(t.spin || 0); };
+    } else if (t.kind === "t52") {
+      const tiles = t.cells.map((c, i) => place(bake((B) => iceTile(B, i + c[0] * 3 + c[1] * 7), light), c, 0.004));
+      const glints = t.cells.map((c, i) => {
+        const g = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.07).rotateX(-Math.PI / 2).rotateY(Math.PI / 4), glowMat("#ffffff", 0.8));
+        g.userData.k = i;
+        return place(g, c, 0.06);
+      });
+      it.update = () => {
+        for (const m of tiles) m.visible = !t.disarmed;
+        for (const g of glints) {
+          const u = ((t.glint || 0) * 1.4 - g.userData.k * 0.35) % 3;
+          g.visible = !t.disarmed && u >= 0 && u < 0.5;
+          if (g.visible) { g.material.opacity = 0.85 * Math.sin((u / 0.5) * Math.PI); g.scale.x = 0.6 + u; }
+        }
+      };
     }
     items.push(it);
   }

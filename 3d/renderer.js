@@ -16,6 +16,7 @@ import { CLEAR } from "./speedlines.js";
 import { GLBS } from "./hooks.js";
 import { createPathLine } from "./pathline.js";
 import { buildTraps, heroFx } from "./traps.js";
+import { buildFalls } from "./falls.js";
 
 const FRAME = [351, 390];
 
@@ -63,7 +64,7 @@ export function createRenderer(container = document.body) {
   scene.add(line.mesh);
   const sky = createSky();
   if (sky) scene.add(sky.mesh);
-  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [], traps = null;
+  let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [], traps = null, falls = null;
   let glowing = false, heroStyle = null, ghostMats = null;
   const heroHl = () => {
     if (!hero) return;
@@ -191,6 +192,10 @@ export function createRenderer(container = document.body) {
         scene.add(traps.group);
         mounted.push(traps.group);
       }
+      falls?.dispose();
+      falls = buildFalls(state);
+      scene.add(falls.group);
+      mounted.push(falls.group);
       hero = buildCharacter(1, style, heroClass(state.params));
       hero.visible = state.params.hero !== "0";
       occ = occludeModes(state.params.occlude);
@@ -362,9 +367,12 @@ export function createRenderer(container = document.body) {
       hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH + ride, a.pos.z);
       if (traps) traps.update(state, wdt);
       heroFx(hero, a, state.view, hero.userData.baseScale ??= hero.scale.x);
+      falls?.pose(hero, a, state.view, hero.userData.baseScale);
       if (state.params.hero !== "0") hero.visible = !(a.blink > 0 && Math.floor(a.blink * 14) % 2);
       if (jitter > 0) hero.position.x += (Math.random() - 0.5) * 2 * jitter, hero.position.z += (Math.random() - 0.5) * 2 * jitter;
       hero.userData.animate(a, dt);
+      falls?.limbs(hero, a);
+      falls?.update(dt);
       line.update(state, dt, { clear: beamClear.value, drop, show: hero.visible && !a.locked && seqK === 0 });
       stepMotion(wdt);
       if (mul !== mulTo) {
