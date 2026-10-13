@@ -22,6 +22,7 @@ export function createHealth({ storage = globalThis.localStorage, max = MAX_HEAR
       return true;
     },
     hit(n = 1, cause = null) {
+      if (!(n > 0)) return { absorbed: false, dead: false };
       if (this.absorb(cause)) return { absorbed: true, dead: false };
       hearts = Math.max(0, hearts - Math.max(0, n));
       save();

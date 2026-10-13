@@ -53,6 +53,7 @@ export function createLife({ level, actor, things = null, health, onRespawn = nu
     respawnCell,
     on(f) { listeners.add(f); return () => listeners.delete(f); },
     hurt(n = 1, { cause = null, back = null } = {}) {
+      if (!(n > 0)) return false;
       if (busy || invuln > 0) return false;
       const r = health.hit(n, cause);
       invuln = INVULN_S;
