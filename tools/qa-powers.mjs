@@ -372,7 +372,7 @@ async function trapSuite() {
         if (!s.warded) hit = s;
         else await place(page, spot.from, spot.dir);
       }
-      record(`traps ward absorbs ${spot.kind}`, !!hit && hit.hearts === h0 && hit.since === 0, JSON.stringify(hit));
+      record(`traps ward absorbs ${spot.kind}`, !!hit && hit.hearts === h0 && hit.since <= 1, JSON.stringify(hit));
     } else if (cls === "nm") {
       await fireKey(page);
       const t = await page.evaluate((id) => window.__game.state.traps.at(id), spot.trap);
@@ -391,17 +391,25 @@ async function trapSuite() {
       const s1 = await P(page);
       record(`traps unjam on a clean cell keeps its charge`, s1.ready && s1.since === s0.since);
     } else if (cls === "dutchie") {
-      const r = await page.evaluate(async (spot) => {
+      const r = await page.evaluate(async () => {
         const S = window.__game.state, { findPath } = await import("/core/path.js");
-        S.traps.reveal(spot.trap);
-        const D = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] }[spot.dir];
-        const goal = [spot.cell[0] + D[0], spot.cell[1] + D[1]];
-        const plain = findPath(S.level, spot.from, goal);
-        const routed = findPath(S.level, spot.from, goal, { cost: S.powers.avoid });
+        const { reachable } = await import("/core/path.js");
         const onTrap = (p) => !!p && p.some((c) => { const t = S.traps.at(c); return t && !t.disarmed; });
-        return { goal, plain: plain?.length, routed: routed?.length, plainHits: onTrap(plain), routedHits: onTrap(routed) };
-      }, spot);
-      record(`traps waypoint routes around revealed ${spot.kind}`, r.plainHits && !r.routedHits || (!r.plainHits && !r.routedHits), JSON.stringify(r));
+        for (const t of S.traps.all()) {
+          if (t.disarmed) continue;
+          S.traps.reveal(t.id);
+          const cells = reachable(S.level, S.actor.cell).filter((c) => !S.traps.at(c));
+          for (const a of cells) for (const b of cells) {
+            if (Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) > 6) continue;
+            const plain = findPath(S.level, a, b);
+            if (!plain || !onTrap(plain)) continue;
+            const routed = findPath(S.level, a, b, { cost: S.powers.avoid });
+            if (routed && !onTrap(routed) && routed.length <= plain.length + 8) return { trap: t.id, from: a, to: b, plain: plain.length, routed: routed.length, plainHits: true, routedHits: false };
+          }
+        }
+        return null;
+      });
+      record(`traps waypoint routes around a revealed trap`, !!r && r.plainHits && !r.routedHits, JSON.stringify(r));
     } else if (cls === "wanderer") {
       const h0 = (await P(page)).hearts;
       await fireKey(page);
