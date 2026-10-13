@@ -49,7 +49,7 @@ export const RUN_PLAN = [
   { shape: "sat-cluster", archetype: "maze", area: 960, shortcuts: ["lever", "drop"] },
 ];
 const runOrder = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
-const TRAP_PLAN = [["t03", "t18"], ["t25", "t23"], ["t23", "t03"]];
+const TRAP_PLAN = [["t18", "t03"], ["t22", "t25"], ["t03", "t02"]];
 BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, ...(TRAP_PLAN[i] ? { traps: TRAP_PLAN[i] } : {}), ninths: [(i * 4) % 9, (i * 4 + 6) % 9], ...RUN_PLAN[i % RUN_PLAN.length], pads: PHASE.pads && i >= 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
 for (const list of Object.values(BAKES)) for (const b of list) Object.assign(b, { windows: PHASE.deck ? undefined : false, reward: PHASE.deck, mask: PHASE.mask, ...(PHASE.pads ? {} : { pads: false }), ...b });
 
@@ -140,9 +140,10 @@ for (const [i, b] of list.entries()) {
   if (b.traps && level) {
     const r = placeTraps(level, b.traps, { position: i + 1 });
     level.traps = r.traps;
+    level.charges = r.charges;
     problems.push(...r.problems);
   }
-  if (level) { level.charges = placeCharges(level, { seed: level.layout?.seed ?? b.seed }); problems.push(...checkCharges(level)); }
+  if (level) { level.charges = placeCharges(level, { seed: level.layout?.seed ?? b.seed, count: 2 + (level.charges?.length || 0) }); problems.push(...checkCharges(level)); }
   const dist = routeDistances(level).map((s) => `${s.id} ${s.locked}->${s.unlocked}`).join(", ");
   const land = level.cells.flat().filter((c) => c.s !== "none" && c.s !== "water").length;
   console.log(`${b.name}: ${level.layout.shape} ${level.layout.transform} x${level.layout.scale} ${b.archetype}, seed ${b.seed}${best.variant ? ` variant ${best.variant}` : ""} attempt ${attempt}, size ${level.size.join("x")}, land ${land}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, pads ${level.things.filter((t) => t.kind === "pad").length / 2}, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}`);
