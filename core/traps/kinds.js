@@ -98,29 +98,29 @@ defineTrap("t24", {
     if (!t.boss || Math.abs(t.boss[0] - t.kick[0]) + Math.abs(t.boss[1] - t.kick[1]) !== 1) out.push("the boss stands on a shoulder cell beside the kick cell");
     return out;
   },
-  init(t, ctx) { t.state = "idle"; t.timer = 0; t.foot = 0; block(ctx.level, t.boss, true); },
-  reset(t) { t.state = "idle"; t.timer = 0; t.foot = 0; },
-  disarm(t) { t.state = "idle"; t.foot = 0; },
+  init(t, ctx) { t.state = "idle"; t.timer = 0; t.leg = 0; block(ctx.level, t.boss, true); },
+  reset(t) { t.state = "idle"; t.timer = 0; t.leg = 0; },
+  disarm(t) { t.state = "idle"; t.leg = 0; },
   update(t, dt, ctx) {
     const f = ctx.floor();
     const ki = indexOf(t.cells, t.kick), fi = indexOf(t.cells, f);
     const near = fi >= 0 && Math.abs(fi - ki) <= this.reach && !ctx.actor.fx;
     t.timer += dt;
     if (t.state === "idle") {
-      t.foot += (0 - t.foot) * Math.min(1, dt * 8);
+      t.leg += (0 - t.leg) * Math.min(1, dt * 8);
       if (near) { t.state = "windup"; t.timer = 0; ctx.emit(t, "windup"); }
     } else if (t.state === "windup") {
-      t.foot = Math.min(1, t.timer / this.windup);
+      t.leg = Math.min(1, t.timer / this.windup);
       if (t.timer >= this.windup) { t.state = "kick"; t.timer = 0; ctx.emit(t, "kick"); }
     } else if (t.state === "kick") {
-      t.foot = 1 + Math.min(1, t.timer / 0.08);
+      t.leg = 1 + Math.min(1, t.timer / 0.08);
       if (ctx.on(t.kick)) {
         ctx.knock(t, sub(t.kick, t.boss));
         ctx.emit(t, "punt");
         t.state = "recover"; t.timer = 0;
       } else if (t.timer >= this.kick) { t.state = "recover"; t.timer = 0; ctx.emit(t, "whiff"); }
     } else if (t.state === "recover") {
-      t.foot = Math.max(0, 1 - t.timer / 0.3);
+      t.leg = Math.max(0, 1 - t.timer / 0.3);
       if (t.timer >= this.recover) { t.state = "idle"; t.timer = 0; }
     }
   },

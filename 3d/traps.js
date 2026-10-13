@@ -169,7 +169,7 @@ export function buildTraps(state, style) {
       leg.position.set(0.15, 0.5, 0);
       body.add(leg);
       it.update = () => {
-        const f = t.foot || 0;
+        const f = t.leg || 0;
         leg.rotation.x = f <= 1 ? f * 0.9 : 0.9 - (f - 1) * 2.4;
         const hop = t.state === "recover" ? Math.abs(Math.sin(t.timer * 9)) * 0.12 * Math.max(0, 1 - t.timer / 1.4) : 0;
         body.position.y = Y(t.boss) + hop;
