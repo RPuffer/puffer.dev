@@ -4,7 +4,7 @@ import { kit } from "./prims.js";
 import { surfaceY, liftLevel } from "./terrain.js";
 
 export const INK = { puddle: "#3a2a5c", drop: "#5b3d8f", gloss: "#c59bff", life: 0.9 };
-export const WARD = { plate: "#4fc3e0", rim: "#ffd76a", n: 3, radius: 0.46, life: 0.7 };
+export const WARD = { plate: "#4fc3e0", rim: "#ffd76a", n: 3, radius: 0.55, life: 0.7 };
 export const BRASS = { plate: "#c9a24a", bolt: "#8a6a2a" };
 
 const mesh = (build) => {
@@ -24,9 +24,9 @@ const puddle = () => mesh((K) => {
 const drop = () => mesh((K) => { K.cone(0.09, 0, 0.16, INK.drop, 0, 0.08, 0, 5); K.cone(0.09, 0.05, 0.08, INK.drop, 0, 0, 0, 5); });
 
 const shield = () => mesh((K) => {
-  K.rbox(0.26, 0.36, 0.05, WARD.plate, 0, 0, 0);
-  K.box(0.05, 0.26, 0.02, WARD.rim, 0, 0.05, 0.035);
-  K.box(0.18, 0.05, 0.02, WARD.rim, 0, 0.2, 0.035);
+  K.rbox(0.34, 0.46, 0.06, WARD.plate, 0, 0, 0);
+  K.box(0.07, 0.34, 0.02, WARD.rim, 0, 0.06, 0.04);
+  K.box(0.24, 0.07, 0.02, WARD.rim, 0, 0.26, 0.04);
 });
 
 const plate = () => mesh((K) => {
