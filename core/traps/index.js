@@ -83,11 +83,11 @@ export function createTraps(level, { actor, life = null, health = null, things =
     t.revealed = t.meta.visibility !== "hidden";
     t.impl = KINDS[t.kind] || null;
     t.cells = t.cells || [];
-    t.foot = trapCells(t);
+    t.footprint = trapCells(t);
   };
   for (const t of list) {
     hydrate(t);
-    for (const [x, z] of t.foot) {
+    for (const [x, z] of t.footprint) {
       const k = key(x, z);
       if (!index.has(k)) index.set(k, []);
       index.get(k).push(t);
@@ -100,7 +100,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
     const c = cellOf(ref);
     return c ? (index.get(key(c[0], c[1])) || [])[0] || null : null;
   };
-  const view = (t) => t && { id: t.id, kind: t.kind, name: t.meta.name, tier: t.meta.tier, trigger: t.meta.trigger, visibility: t.meta.visibility, health: t.meta.health, cells: t.foot.map((c) => c.slice()), revealed: !!t.revealed, disarmed: !!t.disarmed, live: !!t.impl };
+  const view = (t) => t && { id: t.id, kind: t.kind, name: t.meta.name, tier: t.meta.tier, trigger: t.meta.trigger, visibility: t.meta.visibility, health: t.meta.health, cells: t.footprint.map((c) => c.slice()), revealed: !!t.revealed, disarmed: !!t.disarmed, live: !!t.impl };
   const api = {
     list,
     byId,

@@ -110,7 +110,7 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
     const { findPath } = await import("/core/path.js");
     const S = window.__game.state, bad = [];
     for (const t of S.traps.list) {
-      const cells = t.kind === "t33" ? [[24, 5]] : t.kind === "t24" ? t.cells : t.foot;
+      const cells = t.kind === "t33" ? [[24, 5]] : t.kind === "t24" ? t.cells : t.footprint;
       if (!cells.some((c) => findPath(S.level, S.level.spawn, c))) bad.push(t.kind);
     }
     return bad;
