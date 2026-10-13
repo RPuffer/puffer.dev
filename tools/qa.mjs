@@ -59,6 +59,13 @@ async function tap(page, cell) {
   return cellOf(page);
 }
 
+async function pressOneFrame(page, code) {
+  const f0 = await page.evaluate(() => window.__game.state.frame);
+  await page.keyboard.down(code);
+  await page.waitForFunction((f) => window.__game.state.frame > f, { timeout: 5000, polling: 10 }, f0).catch(() => {});
+  await page.keyboard.up(code);
+}
+
 async function keyStep(page, code) {
   const before = await cellOf(page);
   const expect = await page.evaluate(async (code) => {
@@ -68,7 +75,7 @@ async function keyStep(page, code) {
     const S = window.__game.state, a = S.actor, d = screenToWorldDir(S.proj, map[code]);
     return canStep(S.level, a.cell[0], a.cell[1], d) ? [a.cell[0] + DIRS[d][0], a.cell[1] + DIRS[d][1]] : a.cell.slice();
   }, code);
-  await page.keyboard.down(code); await wait(90); await page.keyboard.up(code);
+  await pressOneFrame(page, code);
   await wait(200); await idle(page);
   const after = await cellOf(page);
   return { before, after, expect, moved: after[0] !== before[0] || after[1] !== before[1] };
@@ -326,7 +333,7 @@ async function rotationSuite(size) {
     record(`${tag} ${code} turns to ${want}`, y === want, String(y));
     if (want === 45 && code === "KeyE") continue;
     await settle(page, 300);
-    const hit = (code) => async () => { await page.keyboard.down(code); await wait(90); await page.keyboard.up(code); };
+    const hit = (code) => async () => { await pressOneFrame(page, code); };
     const w = await screenUp(page, hit("KeyW"));
     if (w.moved) record(`${tag} yaw ${y} W moves up on screen`, w.up, `${w.before} -> ${w.after} screen d(${w.dx},${w.dy})`);
     const sd = await screenUp(page, hit("KeyS"));
