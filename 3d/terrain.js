@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Baker, roundRect, circle, tone, col, bakedMaterial } from "./baker.js";
+import { Baker, roundRect, circle, tone, col, bakedMaterial, shadeFor } from "./baker.js";
 import { makeStyle, BACK } from "./style.js";
 import { cellAt, isWalkable } from "../core/level.js";
 import { mulberry32, hashSeed } from "../core/rng.js";
@@ -104,6 +104,80 @@ function specks(B, x, z, y0, y1, hex, rnd) {
   }
 }
 
+export const TIER = { down: 0.8, cool: 0.95, warm: "#ffe6b8", up: 0.13, side: 0.5, lip: 0.55, lipW: 0.065, lipWarm: "#fff8e6", ao: 0.35, aoBand: 0.5 };
+
+const solidTop = (n, T) => {
+  if (!n || n.s === "none") return null;
+  if (n.s === "water" || n.h === 0) return n.h * T - WATER_DROP;
+  if (n.s === "ramp") return null;
+  return n.h * T;
+};
+
+const NEIGH = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+function segments(pts, cx, cz, fn) {
+  const n = pts.length;
+  for (let i = 0; i < n; i++) {
+    const p = pts[i], q = pts[(i + 1) % n];
+    const dx = q[0] - p[0], dz = q[1] - p[1], l = Math.hypot(dx, dz);
+    if (l < 1e-6) continue;
+    let nx = dz / l, nz = -dx / l;
+    if (nx * ((p[0] + q[0]) / 2 - cx) + nz * ((p[1] + q[1]) / 2 - cz) < 0) { nx = -nx; nz = -nz; }
+    const dirs = NEIGH.filter(([ax, az]) => ax * nx + az * nz > 0.38);
+    fn(p, q, nx, nz, dirs);
+  }
+}
+
+function lips(B, L, x, z, c, pts, y, hex) {
+  const rim = col(hex).clone().lerp(col(TIER.lipWarm), TIER.lip);
+  const drops = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return !n || n.s === "none" || n.s === "water" || n.h < c.h; };
+  const cx = x + 0.5, cz = z + 0.5;
+  const inner = (p) => { const dx = cx - p[0], dz = cz - p[1], k = TIER.lipW / Math.max(Math.abs(dx), Math.abs(dz), 1e-6); return [p[0] + dx * k, p[1] + dz * k]; };
+  segments(pts, cx, cz, (p, q, nx, nz, dirs) => {
+    if (!dirs.some(([dx, dz]) => drops(dx, dz))) return;
+    const a = inner(p), b = inner(q), up = (a[1] - p[1]) * (b[0] - p[0]) - (a[0] - p[0]) * (b[1] - p[1]) > 0;
+    const v = [[p[0], y, p[1]], [a[0], y, a[1]], [b[0], y, b[1]], [q[0], y, q[1]]];
+    if (up) B.quad(v[0], v[1], v[2], v[3], rim); else B.quad(v[3], v[2], v[1], v[0], rim);
+  });
+}
+
+function shade(B, L, x, z, wallTop, pal) {
+  const T = B.T, pts = roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), off = 0.003;
+  segments(pts, x + 0.5, z + 0.5, (p, q, nx, nz, dirs) => {
+    let base = null;
+    for (const [dx, dz] of dirs) { const y = solidTop(cellAt(L, x + dx, z + dz), T); if (y != null && y < wallTop - 0.05) base = base == null ? y : Math.max(base, y); }
+    if (base == null) return;
+    const top = Math.min(wallTop, base + TIER.aoBand * Math.min(1, T));
+    const n0 = shadeFor(pal, nx, 0, nz), dark = n0.clone().multiplyScalar(TIER.ao);
+    const P = [p[0] + nx * off, p[1] + nz * off], Q = [q[0] + nx * off, q[1] + nz * off];
+    const out = (Q[1] - P[1]) * nx - (Q[0] - P[0]) * nz < 0;
+    const [U, V] = out ? [P, Q] : [Q, P];
+    const a = [U[0], base, U[1]], b = [V[0], base, V[1]], cc = [V[0], top, V[1]], d = [U[0], top, U[1]];
+    B.ctri(a, b, cc, [dark, dark, n0]);
+    B.ctri(a, cc, d, [dark, n0, n0]);
+  });
+}
+
+function tierPass(B, T, lo, hi) {
+  const warm = col(TIER.warm), c = new THREE.Color();
+  const P = B.pos, N = B.nor, C = B.col, A = B.alt;
+  for (let i = 0; i < P.length; i += 3) {
+    const ny = N[i + 1];
+    let f = TIER.side, k = 0, b = 1;
+    if (ny > 0.45) {
+      const t = Math.max(lo, Math.min(hi, ny > 0.8 ? Math.round(P[i + 1] / T) : P[i + 1] / T));
+      const s = t - (lo + hi) / 2;
+      if (s < 0) { f = Math.pow(TIER.down, -s); b = Math.pow(TIER.cool, -s); } else { f = 1; k = TIER.up * s; }
+    }
+    for (const arr of A[i] || A[i + 1] || A[i + 2] ? [C, A] : [C]) {
+      c.setRGB(arr[i], arr[i + 1], arr[i + 2]);
+      if (k > 0) c.lerp(warm, k);
+      c.multiplyScalar(f); c.b *= b;
+      arr[i] = c.r; arr[i + 1] = c.g; arr[i + 2] = c.b;
+    }
+  }
+}
+
 function column(B, x, z, y0, y1, upper) {
   if (y1 - y0 < 0.01) return;
   B.prism(roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), y0, y1, cliffPal(B.pal, upper), { top: false });
@@ -137,9 +211,12 @@ function wornCell(B, L, x, z, c, top, bot, upper, rnd) {
   const g = groundOf(B.pal, c.s);
   const sh = (k) => wornShade(g, k);
   column(B, x, z, bot, top - LIP, upper);
+  shade(B, L, x, z, top - LIP, cliffPal(B.pal, upper));
   const joined = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return !!n && !!n.p && n.s !== "ramp" && n.s !== "lift" && n.h === c.h; };
   const e = (dx, dz) => (joined(dx, dz) ? 0 : GAP);
-  B.prism([[x + 1 - e(1, 0), z + 1 - e(0, 1)], [x + 1 - e(1, 0), z + e(0, -1)], [x + e(-1, 0), z + e(0, -1)], [x + e(-1, 0), z + 1 - e(0, 1)]], top - LIP, top, tone(sh(WORN.grout), sh(WORN.side), sh(WORN.side * 0.9)));
+  const outline = [[x + 1 - e(1, 0), z + 1 - e(0, 1)], [x + 1 - e(1, 0), z + e(0, -1)], [x + e(-1, 0), z + e(0, -1)], [x + e(-1, 0), z + 1 - e(0, 1)]];
+  B.prism(outline, top - LIP, top, tone(sh(WORN.grout), sh(WORN.side), sh(WORN.side * 0.9)));
+  lips(B, L, x, z, c, outline, top + 0.006, sh(WORN.stone));
   const cut = 0.47 + (rnd() - 0.5) * 0.12, cutZ = 0.5 + (rnd() - 0.5) * 0.12, gap = 0.035, lift = 0.022;
   const slabs = rnd() < 0.5
     ? [[0.06, 0.06, cut, cutZ], [cut, 0.06, 0.94, 0.5], [0.06, cutZ, 0.55, 0.94], [0.55, 0.5, 0.94, 0.94]]
@@ -160,7 +237,9 @@ function landCell(B, L, x, z, c, T, F, rnd, far) {
   if (kind === "grass" || kind === "patch") {
     const GL = 0.2;
     column(B, x, z, bot, top - GL, upper || kind === "grass");
+    shade(B, L, x, z, top - GL, cliffPal(P, upper || kind === "grass"));
     slab(B, x, z, top - GL, top, tone(P.grass.top, P.grass.fringe, P.grass.fringeDark));
+    lips(B, L, x, z, c, roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), top + 0.007, P.grass.top);
     const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
     if (!(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - GL, "z", P.grass.fringe, rnd);
     if (!(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - GL, "x", P.grass.fringeDark, rnd);
@@ -173,6 +252,7 @@ function landCell(B, L, x, z, c, T, F, rnd, far) {
   }
   if (kind === "plaza") {
     column(B, x, z, bot, top - LIP, upper);
+    shade(B, L, x, z, top - LIP, cliffPal(P, upper));
     const d = (dx, dz) => cellAt(L, x + dx, z + dz)?.s === "dirt";
     const e = (dx, dz) => (d(dx, dz) ? 0 : GAP);
     B.prism([[x + 1 - e(1, 0), z + 1 - e(0, 1)], [x + 1 - e(1, 0), z + e(0, -1)], [x + e(-1, 0), z + e(0, -1)], [x + e(-1, 0), z + 1 - e(0, 1)]], top - LIP, top, tone(P.sand.top, P.sand.edge, P.sand.lip));
@@ -185,6 +265,7 @@ function landCell(B, L, x, z, c, T, F, rnd, far) {
     if (!d(-1, 0)) B.prism([[x0, ez1], [x0, ez], [ex, ez], [ex, ez1]], top, top + rh, rim);
     if (!d(0, 1)) B.prism([[ex1, ez1], [ex1, z1], [ex, z1], [ex, ez1]], top, top + rh, rim);
     if (!d(0, -1)) B.prism([[ex1, z0], [ex1, ez], [ex, ez], [ex, z0]], top, top + rh, rim);
+    lips(B, L, x, z, c, [[ex1, ez1], [ex1, ez], [ex, ez], [ex, ez1]], top + rh + 0.004, P.sand.top);
     for (let i = 0; i < 6; i++) B.flat(circle(x + 0.15 + rnd() * 0.7, z + 0.15 + rnd() * 0.7, 0.09, 0.08, 8), top + 0.005, P.dirt.mottle);
     if (d(1, 0)) B.flat([[x + 1.008, z1], [x + 1.008, z0], [x + 0.992, z0], [x + 0.992, z1]], top + 0.006, P.dirt.mottle);
     if (d(0, 1)) B.flat([[x1, z + 1.008], [x1, z + 0.992], [x0, z + 0.992], [x0, z + 1.008]], top + 0.006, P.dirt.mottle);
@@ -192,11 +273,15 @@ function landCell(B, L, x, z, c, T, F, rnd, far) {
   }
   if (kind === "stone") {
     column(B, x, z, bot, top - 0.12, upper);
+    shade(B, L, x, z, top - 0.12, cliffPal(P, upper));
     stoneSlab(B, x, z, top - 0.12, top + 0.04, rnd);
+    lips(B, L, x, z, c, roundRect(x + 0.04, z + 0.04, x + 0.96, z + 0.96, 0.15), top + 0.044, P.stone.top);
     return;
   }
   column(B, x, z, bot, top - LIP, upper);
+  shade(B, L, x, z, top - LIP, cliffPal(P, upper));
   slab(B, x, z, top - LIP, top, tone(P.sand.top, P.sand.edge, P.sand.lip));
+  lips(B, L, x, z, c, roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), top + 0.007, P.sand.top);
   dots(B, x, z, top + 0.004, P.sand.dots, rnd, 3, 0.05);
   const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
   if (rnd() < 0.35 && !(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - LIP, "z", P.sand.edge, rnd, 2);
@@ -338,7 +423,10 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
   const T = view.tileH, F = floorLevel(L);
   const B = new Baker(style.light), Wb = new Baker(style.light);
   B.pal = Wb.pal = style.palette;
+  B.T = T;
   const [W, D] = L.size;
+  let lo = Infinity, hi = -Infinity;
+  for (const row of L.cells) for (const c of row) if (isLand(c)) { lo = Math.min(lo, c.h); hi = Math.max(hi, c.h); }
   const lowestWater = (x, z) => {
     let y = null;
     for (const [dx, dz] of [[0, 1], [1, 0], [0, -1], [-1, 0]]) {
@@ -363,6 +451,7 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
     if (c.s === "lift") { liftTile(B, L, x, z, c, T, bottomOf(c.h * T, c.h, F, T)); continue; }
     landCell(B, L, x, z, c, T, F, rnd, mulberry32(key ^ 0x5bd1e995));
   }
+  if (Number.isFinite(lo)) tierPass(B, T, lo, hi);
   const group = new THREE.Group();
   const landMesh = new THREE.Mesh(B.geometry(), applyXray(bakedMaterial()));
   const waterMesh = new THREE.Mesh(Wb.geometry(), applyMotion(bakedMaterial()));
