@@ -81,6 +81,10 @@ Twenty multi-tile props (eight generic, twelve themed) were standardised as gene
 
 The twelve picked islands form one run in the order of `levels/run.json`: each island has a bonfire near spawn, a chest, a gate that opens when the focal creature turns to watch you at its threshold, and entry and exit elevators that ride to the previous and next island. Open http://localhost:8765/ and press Begin (or start an island at 3d/index.html?level=cat-medium), walk with WASD or arrows, press F at things, ride the exit. `node tools/qa-run.mjs` rides it headless; `node tools/loops/pass.mjs <level>` is the standing per-island pass (rebuild, decor loop, layout loop, walks, overlay).
 
+## Hearts and traps
+
+The hero carries three hearts, shown top-left on desktop and top-right on touch. A trap can cost a heart or knock you off the island; losing the last heart or falling off respawns you beside the bonfire you last rested at, with hearts refilled. Resting at a bonfire refills them too. `docs/TRAPS.md` holds the 53 approved traps and marks the eight built so far; `http://localhost:8765/3d/index.html?level=traps-showcase` puts each of the eight on its own spoke, and `node tools/qa-traps.mjs` proves them.
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.

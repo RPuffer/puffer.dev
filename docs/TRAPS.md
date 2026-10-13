@@ -1,8 +1,43 @@
 # Traps
 
-Design catalog for the booby-trapped islands. Nothing here is built yet. Each entry carries the tags procgen needs to mix traps without breaking an island: footprint, trigger, the rule it teaches or bends, visibility, pull, and exclusions. The machine-readable copy sits at the end of this file. Fortress card `puffer-isoworld-trap-concepts` holds the same set for review.
+Design catalog for the booby-trapped islands. The operator approved all 53 entries. Eight of them run as a proof of concept (see Implemented). Each entry carries the tags procgen needs to mix traps without breaking an island: footprint, trigger, the rule it teaches or bends, visibility, pull, and exclusions. The machine-readable copy sits at the end of this file. Fortress card `puffer-isoworld-trap-concepts` holds the same set for review.
 
 53 entries: 25 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzles. Visibility: 19 obvious, 19 telegraphed, 15 hidden.
+
+## Implemented
+
+`?level=traps-showcase` puts one of each PoC trap on a spoke off a bonfire hub, and `node tools/qa-traps.mjs` proves them.
+
+| Id | Name | Tier | Trigger | Visibility | Health | Showcase spoke |
+| --- | --- | --- | --- | --- | --- | --- |
+| t02 | Worn-through flagstones | local | step | telegraphed | knock-off | north loop, east arc |
+| t03 | Beat spikes | local | timer | obvious | -1 heart | west road |
+| t21 | Invisible block | local | step | hidden | -1 heart | north-east road, cell 22,9 |
+| t24 | Boss kick | local | step | telegraphed | knock-off | south-west rim road |
+| t25 | Arrow plate | local | step | telegraphed | -1 heart | east road, plate at 23,12 |
+| t26 | Chariot | local | step | telegraphed | knock-off | south-east lane, notches at 20,18 and 20,21 |
+| t33 | Fog | debuff | arrival | obvious | none | the garden past the block |
+| t40 | Order plates | puzzle | step | telegraphed | none | north-west room, gate and chest behind it |
+
+### How traps run
+
+- A level lists traps beside its things: `"traps": [{ "id", "kind": "t03", "cells": [[x, z], ...], ...kind fields }]`. The kind is the catalog id. `core/traps/catalog.js` holds all 53 rows; `node tools/trap-catalog.mjs` regenerates it from the machine-readable block below.
+- `core/traps/kinds.js` holds one runtime per kind with optional `enter`, `update`, `reset`, `reveal`, `disarm`, `worst` and `check` hooks. A new trap adds one entry there and one builder in `3d/traps.js`.
+- `core/traps/rules.js` enforces the composition rules: exclusions (a sequence inherits its members' lists), one kind per island, one debuff and one puzzle, the budget by run position, forbidden cells, two clear cells between footprints, a landmark within four cells of a hidden trap, and lift to lift with every trap at its worst state. `core/traps/place.js` picks footprints and keeps the first that passes.
+- `state.traps` exposes `at(cell)`, `all()`, `reveal(ref)`, `disarm(ref)` (stored under `isoworld:traps:<level>`), `skip(cells, seconds)` for a hop over a cell, and `on(f)`. `state.health.ward()` absorbs the next hit or knock-off.
+- Hearts persist under `isoworld:hearts`. `core/dev.js` `resetAll()` clears both keys.
+
+### Rule changes from building it
+
+- Before you rest at any bonfire, you respawn beside the island bonfire, not at the entry lift. After a rest you respawn where you rested.
+- Beat spikes run on a 0.5 s beat. A continuous walk across four spike cells takes 1.4 s, so you clear them only by starting on the beat after they drop.
+- Worn-through flagstones count a crossing each time you step onto the arc from off it. They heal on respawn with every other trap.
+- The boss winds up for 0.7 s when you come within two cells of the kick cell, kicks for 0.25 s, then hops for 1.4 s. Walk past during the hop.
+- The chariot charges 0.9 s after the plate and runs the lane at 5.5 cells a second, faster than the hero's 3.2. It keeps making passes until you are three cells clear of the lane for two seconds.
+- The arrow wall sits on one edge of the run and fires across it 0.55 s after the plate. The far shoulder is safe.
+- A level may set `"trapRules": "showcase"` to skip exclusions, spacing and the one-kind rule. Only the showcase uses it.
+- Fog takes an optional `zone` rectangle. The showcase uses it so fog covers the garden and leaves the other spokes readable. On a run island fog covers the whole island.
+- Sound is not built yet: no drum tick, slide whistle or raspberry audio.
 
 ## Game rules every trap respects
 
@@ -17,7 +52,7 @@ Design catalog for the booby-trapped islands. Nothing here is built yet. Each en
 
 - The hero starts each life with 3 hearts. A trap does not have to throw you off the island to matter: a spike, an arrow or a bonk costs one heart.
 - **Knock-off.** Leave the island by any edge and the hero windmills into the cloud bed with a slide whistle, then respawns at the last lit bonfire with 3 hearts. Losing the last heart does the same with a flop and a puff.
-- **Last lit bonfire.** Each island's bonfire sits within three cells of spawn. Before you light it, you respawn at the entry lift. The walk back from the bonfire is why shortcuts are worth opening.
+- **Last lit bonfire.** Each island's bonfire sits within three cells of spawn. Before you rest at it, you respawn beside it anyway. The walk back from the bonfire is why shortcuts are worth opening.
 - **What survives a respawn.** Opened shortcuts, the chest and the gate stay as they were. Traps reset to their starting state, and hidden ones hide again. A hidden trap that gets you twice before you rest shows a faint chalk outline until the next rest.
 - **Refills.** Resting at a bonfire refills all 3 hearts. A heart pickup is rare: at most one per island, on a reward spot (a lookout, an alcove or a puzzle prize), and it restores one heart up to 3. Nothing raises the cap.
 - **Puzzles do not cost hearts.** A puzzle failure resets the puzzle with a raspberry or a cushion bounce and leaves your hearts alone.
@@ -513,6 +548,18 @@ One tap slides you across the ice until a rock or the rail stops you. Reach the 
 Puzzle | pushes off the path | telegraphed | health: none | excludes t35, t39
 
 Belt cells carry you one cell per beat in the direction of their arrows. A switch at the edge flips half the arrows. Find the switch state that delivers you to the reward.
+
+## Run placements (spoilers)
+
+The operator meets these blind. Keep them out of cards, commit subjects, README and notifications. `tools/bake-layout.mjs` `TRAP_PLAN` sets them and `placeTraps` picks the cells.
+
+| Island | Level | Traps |
+| --- | --- | --- |
+| 1 | cat-medium | t03 Beat spikes on 23,9 to 23,12; t18 Spring tile on 15,23 |
+| 2 | wizard-medium | t25 Arrow plate on 23,9 to 26,9, plate 24,9, wall south; t23 Turntable on 9,37 |
+| 3 | swallow-medium | t23 Turntable on 15,17; t03 Beat spikes on 26,9 to 26,12 |
+
+Spring tile fires once per life and flings you two cells back the way you came. Turntable turns the camera 90 degrees each time you step on it. t02 found no free three-cell loop arc on swallow-medium, so no run island carries it yet.
 
 ## Machine-readable
 
