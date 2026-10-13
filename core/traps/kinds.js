@@ -1,4 +1,4 @@
-import { isWalkable, DIRS } from "../level.js";
+import { isWalkable, isVoid, DIRS } from "../level.js";
 
 export const KINDS = {};
 
@@ -302,11 +302,12 @@ defineTrap("t18", {
     if (!d[0] && !d[1]) return;
     const one = sub(c, d), two = sub(one, d);
     const P = ctx.level;
-    const to = isWalkable(P, two[0], two[1]) && isWalkable(P, one[0], one[1]) ? two : isWalkable(P, one[0], one[1]) ? one : null;
+    const ok = (q) => isWalkable(P, q[0], q[1]), gone = (q) => !ok(q) && isVoid(P, q[0], q[1]);
+    const to = ok(one) ? (ok(two) || gone(two) ? two : one) : gone(one) ? one : null;
     if (!to) return;
     t.spent = true;
     t.boing = 0;
-    ctx.fling(to, 0.5);
+    ctx.fling(to, 0.5, t);
     ctx.emit(t, "boing");
   },
   update(t, dt) { if (t.boing >= 0) { t.boing += dt; if (t.boing > 0.6) t.boing = -1; } },
@@ -322,4 +323,11 @@ defineTrap("t23", {
     ctx.rotate(1);
   },
   update(t, dt) { t.turn = Math.max(0, t.turn - dt * 1.5); t.spin += dt * (0.6 + 4 * t.turn); },
+});
+
+defineTrap("t52", {
+  slick: true,
+  check(t) { return t.cells.length ? [] : ["the ice needs at least one cell"]; },
+  init(t) { t.glint = 0; },
+  update(t, dt) { t.glint = (t.glint + dt) % 3; },
 });

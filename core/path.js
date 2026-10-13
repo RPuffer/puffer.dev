@@ -53,6 +53,7 @@ export function findPath(L, from, to, { cost = null } = {}) {
     }
     if (cur.g > gScore.get(key(cur.x, cur.z))) continue;
     for (const [nx, nz, dir] of neighbours(L, cur.x, cur.z)) {
+      if (L.slick?.size && L.slick.has(key(nx, nz))) continue;
       const g = cur.g + 1 + (cur.d && cur.d !== dir ? TURN_COST : 0) + (cost ? cost(nx, nz) : 0), k = key(nx, nz);
       if (g < (gScore.get(k) ?? Infinity)) {
         gScore.set(k, g);

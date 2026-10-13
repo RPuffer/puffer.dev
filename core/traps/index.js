@@ -1,6 +1,6 @@
 import { TRAP_BY_ID } from "./catalog.js";
 import { KINDS } from "./kinds.js";
-import { surfaceHeight } from "../level.js";
+import { surfaceHeight, isWalkable, isVoid } from "../level.js";
 
 export { TRAP_CATALOG, TRAP_BY_ID } from "./catalog.js";
 export { KINDS } from "./kinds.js";
@@ -52,12 +52,13 @@ export function createTraps(level, { actor, life = null, health = null, things =
     reveal: (t) => api.reveal(t.id),
     rotate: (step) => rotate?.(step),
     solve: (t) => things?.solve?.(t.id),
-    fling: (to, dur = 0.5) => {
+    void: (c) => isVoid(level, c[0], c[1]),
+    fling: (to, dur = 0.5, t = null) => {
       actor.path = [];
       actor.tapDir = null;
       actor.moving = false;
       actor.locked = true;
-      actor.fx = { kind: "hop", t: 0, dur, from: [actor.pos.x, actor.pos.z], to: [to[0], to[1]] };
+      actor.fx = { kind: "hop", t: 0, dur, from: [actor.pos.x, actor.pos.z], to: [to[0], to[1]], cause: t?.kind || null };
       hop = actor.fx;
     },
   };
@@ -72,10 +73,16 @@ export function createTraps(level, { actor, life = null, health = null, things =
     hop.lift = Math.sin(Math.PI * u) * 0.9;
     actor.y = surfaceHeight(level, actor.pos.x, actor.pos.z);
     if (hop.t >= hop.dur) {
-      actor.cell = [hop.to[0], hop.to[1]];
+      const h = hop;
       actor.fx = null;
       actor.locked = false;
       hop = null;
+      if (!isWalkable(level, h.to[0], h.to[1]) && isVoid(level, h.to[0], h.to[1])) {
+        const d = [Math.sign(h.to[0] + 0.5 - h.from[0]), Math.sign(h.to[1] + 0.5 - h.from[1])];
+        const dir = d[0] ? (d[0] > 0 ? "e" : "w") : d[1] > 0 ? "s" : "n";
+        if (life?.fall) { life.fall(dir, { forced: true, cause: h.cause || "push" }); return; }
+      }
+      actor.cell = [h.to[0], h.to[1]];
     }
   };
   const hydrate = (t) => {
@@ -85,6 +92,12 @@ export function createTraps(level, { actor, life = null, health = null, things =
     t.cells = t.cells || [];
     t.footprint = trapCells(t);
   };
+  const slick = (level.slick = new Set());
+  const syncSlick = () => {
+    slick.clear();
+    for (const t of list) if (t.impl?.slick && !t.disarmed) for (const [x, z] of t.cells) slick.add(key(x, z));
+  };
+  actor.slick = (x, z) => slick.has(key(x, z));
   for (const t of list) {
     hydrate(t);
     for (const [x, z] of t.footprint) {
@@ -94,6 +107,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
     }
     t.impl?.init?.(t, ctx);
   }
+  syncSlick();
   const pick = (ref) => {
     if (ref && typeof ref === "object" && !Array.isArray(ref)) return byId[ref.id] || null;
     if (typeof ref === "string") return byId[ref] || null;
@@ -125,6 +139,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
       disarmed.add(t.id);
       write({ ...read(), disarmed: [...disarmed] });
       t.impl?.disarm?.(t, ctx);
+      syncSlick();
       emit({ type: "disarm", trap: t });
       return true;
     },
@@ -158,6 +173,8 @@ export function createTraps(level, { actor, life = null, health = null, things =
     },
     dispose() {
       for (const t of list) t.impl?.dispose?.(t, ctx);
+      slick.clear();
+      if (actor.slick) actor.slick = null;
       listeners.clear();
     },
   };
