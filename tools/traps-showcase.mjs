@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { registerCatalog } from "../core/catalog.js";
 import { placeCharges } from "../core/layout/pickups.js";
+import { placeFences } from "../core/layout/fences.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const W = 32, D = 26;
@@ -20,6 +21,12 @@ line([15, 10], [15, 14], road);
 
 line([11, 12], [4, 12], road);
 land(3, 12, "stone");
+line([6, 11], [11, 11], (x, z) => land(x, z));
+line([6, 13], [11, 13], (x, z) => land(x, z));
+
+line([15, 15], [15, 17], road);
+rect(14, 18, 16, 20, (x, z) => land(x, z, "stone"));
+land(16, 21);
 
 line([19, 12], [27, 12], road);
 land(28, 12, "stone");
@@ -62,6 +69,7 @@ const decor = [
   { t: "waymark", x: 29, z: 5, rot: 0, v: 0 },
   { t: "lantern", x: 27, z: 2, v: 0 },
   { t: "tree-orange", x: 30, z: 6, v: 0 },
+  { t: "rock-big", x: 16, z: 21, v: 0 },
 ];
 for (const d of decor) if (cells[d.z][d.x].s === "none") throw new Error(`decor ${d.t} at ${d.x},${d.z} over air`);
 
@@ -83,6 +91,7 @@ const traps = [
   { id: "kick", kind: "t24", cells: [[11, 16], [11, 17], [11, 18], [11, 19], [11, 20]], kick: [11, 18], boss: [10, 18], guards: { chest: "kick-chest" } },
   { id: "chariot", kind: "t26", cells: [[19, 16], [19, 17], [19, 18], [19, 19], [19, 20], [19, 21], [19, 22], [19, 23]], plate: [19, 15], notches: [[20, 18], [20, 21]], guards: { chest: "chariot-chest" } },
   { id: "block", kind: "t21", cells: [[22, 9]] },
+  { id: "ice", kind: "t52", cells: [[14, 18], [15, 18], [16, 18], [14, 19], [15, 19], [16, 19], [14, 20], [15, 20], [16, 20]] },
   { id: "fog", kind: "t33", zone: [23, 2, 30, 7], text: "Fog rolls in over the garden. You see three cells around you." },
   { id: "order", kind: "t40", cells: [[3, 3], [4, 3], [5, 3], [3, 4], [4, 4], [5, 4], [3, 5], [4, 5], [5, 5], [4, 6]], plates: [[3, 3], [5, 3], [3, 5], [5, 5]], lamps: [[-0.4, -0.4], [0.4, -0.4], [-0.4, 0.4], [0.4, 0.4]], order: [2, 0, 3, 1], gate: "plate-gate" },
 ];
@@ -102,9 +111,25 @@ const level = {
   things,
   traps,
 };
+const pathCells = [];
+cells.forEach((row, z) => row.forEach((c, x) => { if (c.p) pathCells.push([x, z]); }));
+const branchOf = (x, z) => (x === 15 && z >= 15) || (z >= 15 && (x === 11 || x === 12)) || (z >= 15 && (x === 18 || x === 19)) || z <= 9;
+level.route = {
+  segments: [
+    { id: "main", role: "spine", cells: pathCells.filter(([x, z]) => !branchOf(x, z)) },
+    { id: "spokes", role: "branch", cells: pathCells.filter(([x, z]) => branchOf(x, z)) },
+  ],
+  shortcuts: [],
+  trapSlots: [],
+  features: [],
+};
 for (const p of level.pieces) {
   const mod = await import(path.join(root, "3d", p));
   if (mod.register) registerCatalog((await mod.register({ palette: level.palette })).catalog || {});
+}
+if (!process.argv.includes("--no-fences")) {
+  const f = placeFences(level, { seed: 1 });
+  console.log(`fences ${f.material}: ${f.runs} runs, ${f.cells} cells, ${(f.share * 100).toFixed(1)}% of ${f.edges} edge cells, flank ${f.reasons.flank}, spine ${f.reasons.spine}, gaps ${f.gaps}${f.dropped.length ? ", dropped " + f.dropped.join("; ") : ""}`);
 }
 level.charges = placeCharges(level, { seed: 1 });
 fs.writeFileSync(path.join(root, "levels/traps-showcase.json"), JSON.stringify(level) + "\n");
