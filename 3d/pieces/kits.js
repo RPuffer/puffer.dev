@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { Baker, bakedMaterial } from "../baker.js";
 import { lockedKit, mixHex } from "../prims.js";
 import { stamp } from "../../core/catalog.js";
+import { railEntries, buildRail } from "./rails.js";
 
 export const THEMES = {
   wizard: {
@@ -267,6 +268,15 @@ export function register(style = {}) {
       const m = mesh(B);
       m.userData.parts = K.parts.filter((q) => !q.face).map((q) => q.id);
       return m;
+    };
+  }
+  for (const r of railEntries()) {
+    catalog[r.t] = { ...stamp([r.n, 1], Array.from({ length: r.n }, () => B_(r.h)), { multitile: r.n > 1 }), height: r.h, rotates: true, rail: r.mat };
+    builders[r.t] = (v, rot, st) => {
+      const B = new Baker();
+      const K = lockedKit(B, st || style, rot || 0);
+      buildRail(K, (st || style)?.palette || {}, r.mat, r.n);
+      return mesh(B);
     };
   }
   return { catalog, builders };
