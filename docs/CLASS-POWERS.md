@@ -48,7 +48,7 @@ The fast ramp who learns any stack in a week and ships it. Model options: the Co
 The bridgewright who turns legacy systems into new ones. Model options: the Mainframe Golem, the big wrench and goggles, the backpack crane with lantern, the navy and brass palette.
 
 1. **Unjam.** The wrench fixes what the island broke. Mechanic: disarm the trap on the facing cell for good; a bolted brass plate replaces it. Recharges after 5 steps. Traps: the slow, permanent answer, one cell at a time. Shortcuts: none. Desktop `R`; touch tap. Cost S.
-2. **Lantern.** The crane lantern lights the dark tiles. Mechanic: traps within 2 cells show while the lantern is out; the lantern toggles. Traps: constant short-range reveal on the darker path tiles. Shortcuts: none. Desktop `R` toggles; touch tap. Cost S.
+2. **Lantern.** (Built as the Modernizer's starter.) The crane lantern lights the dark tiles. Mechanic: traps within 2 cells show while the lantern is out; the lantern toggles. Traps: constant short-range reveal on the darker path tiles. Shortcuts: none. Desktop `R` toggles; touch tap. Cost S.
 3. **Bridge.** You bolt a plank across a gap. Mechanic: once per island, aim a one-cell gap between two cells on the same tier and lay a permanent plank. Both ends must already be reachable from the bonfire, so a bridge shortens a walk and never bypasses a lock. Traps: lets you route around a trap slot. Shortcuts: a player-built shortcut that lives by the same rule as the authored ones. Desktop aim mode; touch hold and drag. Cost L: a runtime edit to the level graph and a reachability check.
 4. **Remote Lever.** You rewire a lever from where you stand. Mechanic: pull a lever you can see within 4 cells. Traps: none. Shortcuts: a lever gate still only opens from its lever, just from a little further away, so the one-way rule holds. Desktop `R` when a lever is in range; touch tap. Cost S.
 5. **Heavy Frame.** The Mainframe body does not budge. Mechanic: immune to push and knockback traps, and a crumbling tile holds for one extra step under you. Traps: shrugs off the physical ones. Shortcuts: none. Passive. Cost S, once push traps exist.
@@ -62,23 +62,43 @@ One power per class, chosen so the four play differently on the same trap slot:
 | Wretch | Ink Step | jumps it | M |
 | Gatekeeper | Ward | absorbs it | S |
 | Courier | Waypoint Run | routes around known ones | S |
-| Modernizer | Unjam | removes it | S |
+| Modernizer | Lantern | reveals it | S |
 
 ### Built
 
-The four starters shipped on 2026-10-12. `core/powers.js` reads the class from `?class=` or `isoworld:class` (no class plays as the Wretch), `core/powers-ui.js` draws the HUD, `3d/powerfx.js` the effects, and `node tools/qa-powers.mjs` proves each one.
+The starters shipped on 2026-10-12; Ryne's review that evening turned Ink Step into a dash, set the Ward rule, swapped Unjam for Lantern and moved every power from step recharge to collected charges. `core/powers.js` reads the class from `?class=` or `isoworld:class` (no class plays as the Wretch), `core/powers-ui.js` draws the HUD, `3d/powerfx.js` the effects, and `node tools/qa-powers.mjs` proves each one.
 
-| Power | Key | Recharge | What it does |
+| Power | Key | Costs | What it does |
 | --- | --- | --- | --- |
-| Ink Step | `R`, touch power button | 6 steps | Hops 0.42 s two cells along the facing onto a non-ramp cell of the same tier or one down. The skipped cell may hold a trap (`traps.skip`) or be a one-cell gap. Ink puddles mark both ends. |
-| Ward | `R`, touch power button | 10 steps after it cracks | Raises `health.ward()`; the next trap hit or knock-off does nothing. Three shield plates orbit the hero while it holds and fly apart when it cracks. |
-| Waypoint Run | tap or click a cell | none | The only class that walks by tap. The router adds 40 to each revealed, live trap cell, so it walks around known traps when a detour exists and through unrevealed ones. `R` shows the hint. |
-| Unjam | `R`, touch power button | 5 steps | Disarms the trap on the facing cell for good (`traps.disarm`) and bolts a brass plate on its cells. A clean cell keeps the charge. |
+| Ink Step | `R`, touch power button | 1 charge | Dashes 0.2 s in a flat line two cells along the facing onto a non-ramp cell of the same tier or one down. The skipped cell may hold a trap (`traps.skip`) or be a one-cell gap. The body fades to 12% with a bright outline and a short smear along the path, then snaps back on landing. |
+| Ward | `R`, touch power button | 1 charge | Raises `health.ward()`. Three shield plates orbit the hero until the ward cracks. |
+| Waypoint Run | tap or click a cell | nothing | The only class that walks by tap. The router adds 40 to each revealed, live trap cell, so it walks around known traps when a detour exists and through unrevealed ones. `R` shows the hint. |
+| Lantern | `R` lights and douses | oil, 1 s per second lit | While lit it reveals every trap with a cell within 2 cells (Chebyshev) through `traps.reveal`. A brass lantern hangs at the hero's shoulder over a warm pool of light. It gutters out when the oil runs dry. |
 
-Rule changes from the ideas above:
+Unjam is retired.
 
-- Every power refills when you light or rest at a bonfire, not only Ward.
+#### Charges
+
+Powers no longer recharge on steps. You carry charges (oil for the Lantern) and refill them three ways:
+
+| Source | Charge classes | Lantern |
+| --- | --- | --- |
+| Start of a run, and every bonfire light or rest | tops up to 2 charges | tops up to 1 flask (20 s) |
+| Opening a chest | +1 charge | +1 flask |
+| Walking onto a glinting pickup | +1 charge | +1 flask |
+| Carry cap | 3 charges | 3 flasks (60 s) |
+
+A bonfire never takes away what you carry above the stock. A pickup stays on the ground when you are at the cap. Taken pickups stay gone per island (`isoworld:pickups:<level>`), and the satchel persists across islands (`isoworld:power`).
+
+`core/layout/pickups.js` places two pickups per island off the worn path, scoring lookouts, alcoves and hills, cells behind a shortcut, and dead-end pockets, and keeps at least one reachable before any shortcut opens. `tools/bake-layout.mjs` calls it after trap placement, so a rebake keeps them; `node tools/place-pickups.mjs` adds them to existing levels without rebaking.
+
+#### Ward rule
+
+Ward cracks only when it saves a heart. A trap that costs nothing (a debuff such as fog, a reveal, a zero-damage hit) leaves it up: `health.hit(n)` and `life.hurt(n)` ignore `n <= 0`. A knock-off still cracks it, because a fall costs more than a heart.
+
+Other rules:
+
 - Ink Step lands only on a cell you could already walk to from where you stand. That one check keeps it off every shortcut's far side, so closed doors, lever gates and unkicked ladders block it with no special cases. The QA sweep runs it over every cell and facing of `wizard-medium-r1` to `-r3`.
-- A refused power (no landing, nothing to unjam, still recharging) keeps its charge and says why in a toast.
-- Touch stacks the power button above the use button in the right column, so the compass rose keeps its clearance.
+- A refused power (no landing, no charges, dry lantern) keeps what you carry and says why in a toast.
+- Touch stacks the power button above the use button in the right column, so the compass rose keeps its clearance. The chip and the button show charges held (pips and a badge) or the seconds of oil left.
 - A power pressed mid-step waits for the hero to reach the cell centre (`actor.pause`).

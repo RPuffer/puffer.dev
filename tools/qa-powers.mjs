@@ -35,11 +35,11 @@ async function open(query, { width = 1200, height = 800, touch = false } = {}) {
   await page.setViewport({ width, height, deviceScaleFactor: 1, ...(touch ? { isMobile: true, hasTouch: true } : {}) });
   await page.goto(`${BASE}/3d/index.html?${query}&reset=1&clouds=none&seq=0${query.includes("traps-showcase") ? "" : "&traps=0"}`, { waitUntil: "load" });
   const done = await page.waitForFunction(() => window.__done === true || !!window.__error, { timeout: 30000, polling: 100 }).then(() => true, () => false);
-  if (done) await page.evaluate(() => { localStorage.removeItem("isoworld:hearts"); for (const k of Object.keys(localStorage)) if (k.startsWith("isoworld:traps:")) localStorage.removeItem(k); window.__game.state.health.refill?.("qa"); });
+  if (done) await page.evaluate(() => { localStorage.removeItem("isoworld:hearts"); for (const k of Object.keys(localStorage)) if (/^isoworld:(traps|pickups):|^isoworld:power$/.test(k)) localStorage.removeItem(k); window.__game.powers.reset(); window.__game.state.health.refill?.("qa"); });
   return { page, problems, done };
 }
 
-const P = (page) => page.evaluate(() => { const g = window.__game, W = g.powers; return { cls: W.cls, id: W.power.id, ready: W.ready, since: W.since, left: W.left, raised: W.raised, cell: g.state.actor.cell.slice(), hearts: g.state.health.hearts, warded: g.state.health.warded, route: g.state.route.active }; });
+const P = (page) => page.evaluate(() => { const g = window.__game, W = g.powers; return { cls: W.cls, id: W.power.id, ready: W.ready, charges: W.charges, oil: +W.oil.toFixed(2), lit: W.lit, pickups: W.pickups.length, raised: W.raised, cell: g.state.actor.cell.slice(), hearts: g.state.health.hearts, warded: g.state.health.warded, route: g.state.route.active }; });
 const advance = (page, s) => page.evaluate((s) => window.__game.advance(s), s);
 
 const place = (page, cell, dir) => page.evaluate(([c, dir]) => {
@@ -126,21 +126,59 @@ async function inkSuite() {
     record(`${tag} ${gap ? "gap" : "floor"} jump exists on wizard-medium`, !!j, JSON.stringify(j));
     if (!j) continue;
     await place(page, j.from, j.dir);
-    await page.evaluate(() => window.__game.powers.refill());
+    await page.evaluate(() => window.__game.powers.reset());
     const before = await P(page);
     await fireKey(page);
     const after = await P(page);
-    record(`${tag} R jumps two cells ${gap ? "over a gap" : "over floor"}`, before.ready && after.cell.join() === j.to.join() && after.since === 0 && !after.ready, `${j.from} ${j.dir} -> ${after.cell} want ${j.to}`);
+    record(`${tag} R dashes two cells ${gap ? "over a gap" : "over floor"}`, before.ready && after.cell.join() === j.to.join() && after.charges === before.charges - 1, `${j.from} ${j.dir} -> ${after.cell} want ${j.to}`);
   }
+  const dj = await findJump(page, { gap: true });
+  if (dj) {
+    await place(page, dj.from, dj.dir);
+    await page.evaluate(() => window.__game.powers.reset());
+    const trace = await page.evaluate(async () => {
+      const { DASH_S } = await import("/core/powers.js");
+      const g = window.__game, a = g.state.actor, y0 = a.y;
+      const opac = () => { const out = []; g.renderer.hero.traverse((o) => { if (o.isMesh && !o.userData.highlightPass) out.push(...[].concat(o.material).map((m) => m.opacity)); }); return out.join(); };
+      const before = opac();
+      g.pause();
+      g.powers.fire();
+      const ys = [], cells = [];
+      let ghost = 0, t = 0;
+      for (; t < 1 && (t === 0 || g.powers.hop); t += 1 / 60) {
+        g.advance(1 / 60);
+        ys.push(a.y);
+        cells.push([Math.floor(a.pos.x), Math.floor(a.pos.z)].join());
+        let faded = false;
+        g.renderer.hero.traverse((o) => { if (o.isMesh && !o.userData.highlightPass && [].concat(o.material).some((m) => m.opacity < 0.5)) faded = true; });
+        if (faded) ghost++;
+      }
+      g.advance(0.3);
+      const restored = opac() === before;
+      g.resume();
+      return { y0, y1: a.y, max: Math.max(...ys), min: Math.min(...ys), secs: +t.toFixed(3), want: DASH_S, cells: [...new Set(cells)], ghost, restored };
+    });
+    const flat = trace.max <= Math.max(trace.y0, trace.y1) + 1e-6 && trace.min >= Math.min(trace.y0, trace.y1) - 1e-6;
+    record(`${tag} dash runs flat with no arc and lands in ${"<"}0.3 s`, flat && trace.secs <= 0.3 && trace.cells.includes(dj.mid.join()), JSON.stringify(trace));
+    record(`${tag} dash ghosts the hero and restores it on landing`, trace.ghost > 0 && trace.restored, `ghost frames ${trace.ghost} restored ${trace.restored}`);
+  }
+  const fj = await findJump(page, {});
+  await place(page, fj.from, fj.dir);
+  await page.evaluate(() => { const W = window.__game.powers; W.reset(); W.fire(); });
+  await advance(page, 0.6);
+  await place(page, fj.from, fj.dir);
+  await page.evaluate(() => window.__game.powers.fire());
+  await advance(page, 0.6);
+  await place(page, fj.from, fj.dir);
   const s0 = await P(page);
   await fireKey(page);
   const s1 = await P(page);
-  record(`${tag} refuses while recharging`, s1.cell.join() === s0.cell.join() && s1.since === s0.since, JSON.stringify(s1));
-  const hud = await page.evaluate(() => document.querySelector(".iw-power")?.textContent);
-  record(`${tag} HUD counts steps left`, /6 steps/.test(hud || ""), hud);
-  const n = await walkSteps(page, 6);
-  const s2 = await P(page);
-  record(`${tag} recharges after 6 steps`, n === 6 && s2.ready && s2.since === 6, `walked ${n} since ${s2.since}`);
+  const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
+  record(`${tag} two charges spend, the third press is refused with a toast`, s0.charges === 0 && s1.cell.join() === s0.cell.join() && /No charges/.test(toast), `${JSON.stringify(s1)} toast "${toast}"`);
+  const hud = await page.evaluate(() => ({ chip: document.querySelector(".iw-power")?.textContent, pips: document.querySelectorAll(".iw-power .pips i").length, on: document.querySelectorAll(".iw-power .pips i.on").length }));
+  record(`${tag} HUD shows charges held`, /no charges/.test(hud.chip || "") && hud.pips === 3 && hud.on === 0, JSON.stringify(hud));
+  const cap = await page.evaluate(() => { const W = window.__game.powers; for (let i = 0; i < 6; i++) W.give("qa"); return W.charges; });
+  record(`${tag} carry cap holds at 3`, cap === 3, String(cap));
   const blocked = await page.evaluate(async () => {
     const { inkStep } = await import("/core/powers.js");
     const { isWalkable, cellAt } = await import("/core/level.js");
@@ -153,11 +191,11 @@ async function inkSuite() {
   });
   if (blocked) {
     await place(page, blocked.from, blocked.dir);
-    await page.evaluate(() => window.__game.powers.refill());
+    await page.evaluate(() => window.__game.powers.reset());
     await fireKey(page);
     const s3 = await P(page);
     const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
-    record(`${tag} refuses a climb and keeps its charge`, s3.cell.join() === blocked.from.join() && s3.ready && toast.length > 0, `${blocked.why} toast "${toast}"`);
+    record(`${tag} refuses a climb and keeps its charge`, s3.cell.join() === blocked.from.join() && s3.charges === 2 && toast.length > 0, `${blocked.why} toast "${toast}"`);
   } else record(`${tag} refuses a climb and keeps its charge`, false, "no blocked jump found");
   record(`${tag} no page errors`, o.problems.length === 0, o.problems.slice(0, 3).join(" | "));
   await page.close();
@@ -213,7 +251,7 @@ async function shortcutSuite() {
       const ok = await page.evaluate(async (c) => { const { isWalkable } = await import("/core/level.js"); return isWalkable(window.__game.state.level, c[0], c[1]); }, tr.from);
       if (!ok) continue;
       await place(page, tr.from, tr.dir);
-      await page.evaluate(() => window.__game.powers.refill());
+      await page.evaluate(() => window.__game.powers.reset());
       const before = await P(page);
       await fireKey(page);
       const after = await P(page);
@@ -241,11 +279,25 @@ async function wardSuite() {
   await page.evaluate(() => window.__game.state.life.hurt(1, { cause: "qa" }));
   await advance(page, 0.2);
   const b = await P(page);
-  record(`${tag} absorbs a hit, ward cracks`, b.hearts === hearts0 && !b.warded && b.since === 0 && !b.ready, JSON.stringify(b));
+  record(`${tag} absorbs a hit, ward cracks, one charge spent`, b.hearts === hearts0 && !b.warded && b.charges === 1, JSON.stringify(b));
   await advance(page, 1.5);
-  const n = await walkSteps(page, 10);
-  const c = await P(page);
-  record(`${tag} recharges after 10 steps`, n === 10 && c.ready, `walked ${n} since ${c.since}`);
+  await page.evaluate(() => { const W = window.__game.powers; while (W.charges) { W.fire(); window.__game.state.health.ward(false); } });
+  const c0 = await P(page);
+  const fire = await page.evaluate(() => window.__game.powers.fire());
+  const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
+  record(`${tag} with no charges R is refused with a toast`, c0.charges === 0 && !fire && /No charges/.test(toast) && !(await P(page)).warded, toast);
+  const fireAt = await page.evaluate(() => { const S = window.__game.state, b = S.things.things.find((t) => t.kind === "bonfire"); return [b.x, b.z]; });
+  const lit = await page.evaluate(async (b) => {
+    const { isWalkable } = await import("/core/level.js");
+    const S = window.__game.state, a = S.actor;
+    const c = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(([dx, dz]) => [b[0] + dx, b[1] + dz]).find(([x, z]) => isWalkable(S.level, x, z));
+    a.path = []; a.cell = c.slice(); a.pos.x = c[0] + 0.5; a.pos.z = c[1] + 0.5;
+    window.__game.advance(0.1);
+    S.things.act();
+    window.__game.advance(0.1);
+    return window.__game.powers.charges;
+  }, fireAt);
+  record(`${tag} resting at the bonfire refills to the stock of 2`, lit === 2, String(lit));
   record(`${tag} no page errors`, o.problems.length === 0, o.problems.slice(0, 3).join(" | "));
   await page.close();
 }
@@ -360,8 +412,28 @@ async function trapSuite() {
     record(`traps ${cls} a trap cell with an approach`, !!spot, JSON.stringify(spot));
     if (!spot) { await page.close(); continue; }
     await place(page, spot.from, spot.dir);
-    await page.evaluate(() => window.__game.powers.refill());
+    await page.evaluate(() => window.__game.powers.reset());
     if (cls === "aws") {
+      const fog = await page.evaluate(() => window.__game.state.traps.all().find((t) => t.kind === "t33")?.id || null);
+      if (fog) {
+        await place(page, [24, 8], "n");
+        await fireKey(page);
+        await page.evaluate(() => { const a = window.__game.state.actor; a.path = [[24, 7], [25, 7]]; });
+        await advance(page, 1.5);
+        await page.evaluate(() => { window.__game.state.life.hurt(0, { cause: "qa-zero" }); window.__game.state.health.hit(0, "qa-zero"); });
+        await advance(page, 0.2);
+        const f = await P(page);
+        const fogOn = await page.evaluate(() => window.__game.state.traps.list.find((t) => t.kind === "t33")?.on);
+        record(`traps ward survives the fog debuff and zero-damage hits`, f.warded && f.raised && fogOn === true && f.hearts === 3, JSON.stringify({ ...f, fogOn }));
+        await page.evaluate(() => { const a = window.__game.state.actor; a.path = [[24, 8], [23, 8], [22, 8]]; });
+        await advance(page, 1.5);
+        await page.evaluate(() => { const a = window.__game.state.actor; a.path = [[22, 9]]; });
+        await advance(page, 1.2);
+        const b = await P(page);
+        record(`traps ward cracks on the invisible block and saves the heart`, !b.warded && b.hearts === 3, JSON.stringify(b));
+        await advance(page, 1.5);
+        await page.evaluate(() => window.__game.powers.reset());
+      }
       await fireKey(page);
       const h0 = (await P(page)).hearts;
       let hit = null;
@@ -372,24 +444,39 @@ async function trapSuite() {
         if (!s.warded) hit = s;
         else await place(page, spot.from, spot.dir);
       }
-      record(`traps ward absorbs ${spot.kind}`, !!hit && hit.hearts === h0 && hit.since <= 1, JSON.stringify(hit));
+      record(`traps ward absorbs ${spot.kind}`, !!hit && hit.hearts === h0 && hit.charges === 1, JSON.stringify(hit));
     } else if (cls === "nm") {
-      await fireKey(page);
-      const t = await page.evaluate((id) => window.__game.state.traps.at(id), spot.trap);
-      const st = await P(page);
-      const plates = await page.evaluate(() => window.__game.renderer.three.scene.getObjectByName("unjam-plates")?.children.length || 0);
-      record(`traps unjam disarms ${spot.kind} on the facing cell`, t.disarmed && st.since === 0 && plates > 0, `disarmed ${t.disarmed} plates ${plates}`);
-      const h0 = st.hearts;
-      await page.evaluate((c) => { const a = window.__game.state.actor; a.path = [c.slice()]; }, spot.cell);
-      await advance(page, 2);
-      record(`traps disarmed ${spot.kind} no longer hurts`, (await P(page)).hearts === h0);
-      const n = await walkSteps(page, 5);
-      record(`traps unjam recharges after 5 steps`, n === 5 && (await P(page)).ready, `walked ${n}`);
-      await place(page, spot.from, spot.dir === "n" ? "s" : spot.dir === "s" ? "n" : spot.dir === "e" ? "w" : "e");
-      const s0 = await P(page);
-      await fireKey(page);
-      const s1 = await P(page);
-      record(`traps unjam on a clean cell keeps its charge`, s1.ready && s1.since === s0.since);
+      const block = await page.evaluate(() => window.__game.state.traps.all().find((t) => t.kind === "t21") || null);
+      const far = await page.evaluate(() => window.__game.state.traps.all().filter((t) => !t.revealed && t.kind !== "t21").map((t) => t.id));
+      if (block) {
+        await place(page, [block.cells[0][0] - 3, block.cells[0][1]], "e");
+        const o0 = await P(page);
+        await fireKey(page);
+        const o1 = await P(page);
+        const early = await page.evaluate((id) => window.__game.state.traps.at(id).revealed, block.id);
+        await place(page, [block.cells[0][0] - 2, block.cells[0][1]], "e");
+        await advance(page, 5);
+        const o2 = await P(page);
+        const seen = await page.evaluate((id) => window.__game.state.traps.at(id).revealed, block.id) && !early;
+        const still = await page.evaluate((ids) => ids.filter((id) => !window.__game.state.traps.at(id).revealed).length, far);
+        record(`traps lantern lights on R and drains oil by the clock`, o0.oil === 20 && o1.lit && o2.lit && o0.oil - o2.oil > 5 && o0.oil - o2.oil < 7.5 && o2.oil < o1.oil, `${o0.oil} -> ${o1.oil} -> ${o2.oil}`);
+        record(`traps lantern reveals the hidden ${block.kind} at two cells, not at three`, !block.revealed && seen && still === far.length, `revealed at 2 ${seen}, far hidden ${still}/${far.length}`);
+        const hud = await page.evaluate(() => document.querySelector(".iw-power")?.textContent || "");
+        record(`traps lantern HUD shows the oil left`, /lit, 1[45] s oil/.test(hud), hud);
+        await fireKey(page);
+        const d0 = await P(page);
+        await advance(page, 3);
+        const d1 = await P(page);
+        record(`traps R douses the lantern and the oil holds`, !d0.lit && d0.oil === d1.oil, `${d0.oil} -> ${d1.oil}`);
+        await fireKey(page);
+        await advance(page, 16);
+        const e = await P(page);
+        const ft = await page.evaluate(() => window.__game.powers.fire());
+        const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
+        record(`traps lantern gutters out when dry and refuses to light`, !e.lit && e.oil === 0 && !ft && /dry/.test(toast), `${JSON.stringify(e)} "${toast}"`);
+        const gained = await page.evaluate(() => { const W = window.__game.powers; W.give("qa"); W.give("qa"); W.give("qa"); W.give("qa"); return W.oil; });
+        record(`traps oil caps at three flasks`, gained === 60, String(gained));
+      } else record("traps lantern target exists", false);
     } else if (cls === "dutchie") {
       const r = await page.evaluate(async () => {
         const S = window.__game.state, { findPath } = await import("/core/path.js");
@@ -436,12 +523,73 @@ async function touchSuite() {
   record("touch power button fires Ink Step", s.cell.join() === j.to.join(), `${j.from} -> ${s.cell} want ${j.to}`);
   await advance(page, 0.2);
   const badge = await page.$eval(".iw-pow", (e) => ({ badge: e.querySelector("b").textContent, wait: e.classList.contains("wait"), c: e.style.getPropertyValue("--c") }));
-  record("touch button shows the recharge", badge.badge === "6" && badge.wait, JSON.stringify(badge));
+  record("touch button shows the charges left", badge.badge === "1" && !badge.wait, JSON.stringify(badge));
   await page.close();
 }
 
+async function pickupSuite() {
+  const levels = [...JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order, TRAPS];
+  const { registerCatalog } = await import("../core/catalog.js");
+  const { checkCharges } = await import("../core/layout/pickups.js");
+  for (const name of levels) {
+    const raw = JSON.parse(fs.readFileSync(path.join(root, "levels", `${name}.json`), "utf8"));
+    for (const p of raw.pieces || []) { const mod = await import(path.join(root, "3d", p)); if (mod.register) registerCatalog((await mod.register({ palette: raw.palette || {} })).catalog || {}); }
+    const problems = checkCharges(raw);
+    record(`pickups ${name} keeps a reachable charge pickup off the traps`, !problems.length, `${(raw.charges || []).length} pickups ${problems.join("; ")}`);
+  }
+  for (const cls of ["wanderer", "nm"]) {
+    const o = await open(`level=${TRAPS}&class=${cls}`);
+    if (!o.done) { record(`pickups ${cls} page loads`, false); await o.page.close(); continue; }
+    const page = o.page;
+    const k = await page.evaluate(async () => {
+      const { isWalkable, canStep, DIRS } = await import("/core/level.js");
+      const S = window.__game.state, k = S.level.charges[0];
+      const d = Object.keys(DIRS).find((d) => { const f = [k.x - DIRS[d][0], k.z - DIRS[d][1]]; return isWalkable(S.level, f[0], f[1]) && canStep(S.level, f[0], f[1], d); });
+      return { k, from: [k.x - DIRS[d][0], k.z - DIRS[d][1]], dir: d };
+    });
+    await place(page, k.from, k.dir);
+    const p0 = await P(page);
+    const gems0 = await page.evaluate(() => window.__game.renderer.three.scene.getObjectByName("charge-pickups")?.children.length || 0);
+    await page.evaluate((c) => { window.__game.state.actor.path = [[c.x, c.z]]; }, k.k);
+    await advance(page, 0.8);
+    const p1 = await P(page);
+    const gems1 = await page.evaluate(() => window.__game.renderer.three.scene.getObjectByName("charge-pickups")?.children.length || 0);
+    if (cls === "nm") record(`pickups an oil flask adds 20 s for the Lantern`, p1.oil === p0.oil + 20 && p1.pickups === p0.pickups - 1, `${p0.oil} -> ${p1.oil}`);
+    else record(`pickups walking onto a glint grants a charge and removes it`, p1.charges === p0.charges + 1 && p1.pickups === p0.pickups - 1 && gems1 === gems0 - 1, `${p0.charges} -> ${p1.charges}, gems ${gems0} -> ${gems1}`);
+    if (cls === "wanderer") {
+      await page.evaluate(() => { const W = window.__game.powers; W.give("qa"); });
+      const back = await page.evaluate((k) => { const S = window.__game.state; const c = S.level.charges[1]; return c; });
+      await place(page, [back.x, back.z - 1], "s");
+      const okFrom = await page.evaluate(async (c) => { const { canStep } = await import("/core/level.js"); return canStep(window.__game.state.level, c.x, c.z - 1, "s"); }, back);
+      if (okFrom) {
+        await page.evaluate((c) => { window.__game.state.actor.path = [[c.x, c.z]]; }, back);
+        await advance(page, 0.8);
+        const full = await P(page);
+        record(`pickups a full satchel leaves the glint on the ground`, full.charges === 3 && full.pickups === 1, JSON.stringify(full));
+      }
+    }
+    await page.close();
+  }
+  const c = await open("level=wizard-medium&class=aws");
+  if (c.done) {
+    const r = await c.page.evaluate(async () => {
+      const { isWalkable } = await import("/core/level.js");
+      const S = window.__game.state, ch = S.things.things.find((t) => t.kind === "chest"), a = S.actor;
+      const at = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(([dx, dz]) => [ch.x + dx, ch.z + dz]).find(([x, z]) => isWalkable(S.level, x, z));
+      a.path = []; a.cell = at.slice(); a.pos.x = at[0] + 0.5; a.pos.z = at[1] + 0.5;
+      window.__game.advance(0.1);
+      const before = window.__game.powers.charges;
+      S.things.act();
+      window.__game.advance(0.1);
+      return { before, after: window.__game.powers.charges, toast: document.querySelector(".iw-toast")?.textContent || "" };
+    });
+    record("pickups opening a chest grants a charge", r.after === r.before + 1 && /charge/.test(r.toast), JSON.stringify(r));
+  }
+  await c.page.close();
+}
+
 try {
-  for (const [cls, want] of [["wanderer", "Ink Step"], ["aws", "Ward"], ["dutchie", "Waypoint Run"], ["nm", "Unjam"]]) await hudSuite(cls, want);
+  for (const [cls, want] of [["wanderer", "Ink Step"], ["aws", "Ward"], ["dutchie", "Waypoint Run"], ["nm", "Lantern"]]) await hudSuite(cls, want);
   await inkSuite();
   await shortcutSuite();
   await wardSuite();
@@ -449,6 +597,7 @@ try {
   await avoidSuite();
   await touchSuite();
   await trapSuite();
+  await pickupSuite();
 } finally {
   await browser.close();
 }
