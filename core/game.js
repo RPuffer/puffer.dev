@@ -81,18 +81,19 @@ export function createGame(renderer, params = readParams()) {
       if (actor.held === petalHeld) actor.held = null;
       petal = it.i;
       input.repeating(false);
-      if (petal != null) { petalAt = state.time; if (!actor.locked) { state.route.cancel(); actor.tapDir = petalDir(petal); } }
+      if (petal != null) { petalAt = state.time; actor.presses++; if (!actor.locked) { state.route.cancel(); actor.tapDir = petalDir(petal); } }
       return;
     }
     if (it.kind === "stick") {
       stick = it.vec;
-      if (stick) { if (!actor.locked) state.route.cancel(); actor.held = stickDirs; }
+      if (stick) { if (actor.held !== stickDirs) actor.presses++; if (!actor.locked) state.route.cancel(); actor.held = stickDirs; }
       else if (actor.held === stickDirs) actor.held = null;
       return;
     }
     if (it.kind === "hold") {
       screenHeld = it.dir || null;
       actor.held = it.dir ? screenToWorldDir(proj, it.dir) : null;
+      if (it.press) actor.presses++;
       if (it.press && !actor.locked) { state.route.cancel(); actor.tapDir = screenToWorldDir(proj, it.press); }
     }
     if (it.kind === "tap") {
@@ -194,7 +195,7 @@ export function createGame(renderer, params = readParams()) {
       state.mark = null;
       const health = state.health;
       let traps = null;
-      const life = createLife({ level, actor, things, health, onRespawn: () => { state.route.clear(); traps?.reset(); } });
+      const life = createLife({ level, actor, things, health, variant: p.fall, onRespawn: () => { state.route.clear(); traps?.reset(); } });
       traps = level.traps?.length && p.traps !== "0" ? createTraps(level, { actor, life, health, things, params: p, rotate: (step) => game.rotate(step) }) : null;
       things?.on((e) => { if (e.type === "lit" || e.type === "rest") { health.refill(e.type); traps?.rest(); } });
       Object.assign(state, { level, view, proj, actor, params: p, things, life, traps });

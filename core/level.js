@@ -108,6 +108,7 @@ export function prepareLevel(raw) {
     if (t.rot == null) t.rot = rot;
     else if (((t.rot % 4) + 4) % 4 !== rot) warnings.push(`elevator ${t.id}: rot ${t.rot} faces the island; lift tile attaches on ${sides[0]}, so rot should be ${rot}`);
   }
+  L.void = voidCells(L);
   if (!isWalkable(L, L.spawn[0], L.spawn[1])) {
     const alt = firstWalkable(L);
     warnings.push(`spawn ${L.spawn} not walkable, using ${alt}`);
@@ -140,6 +141,33 @@ function bypassed(L, [a, b]) {
 function firstWalkable(L) {
   for (let z = 0; z < L.size[1]; z++) for (let x = 0; x < L.size[0]; x++) if (isWalkable(L, x, z)) return [x, z];
   return null;
+}
+
+export function voidCells(L) {
+  const [W, D] = L.size, out = new Set(), q = [];
+  const open = (c) => !!c && (c.s === "none" || !(c.h >= 1 && WALKABLE.has(c.s)));
+  for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) {
+    const c = L.cells[z][x];
+    if (c.s === "none" || (open(c) && (x === 0 || z === 0 || x === W - 1 || z === D - 1))) { out.add(x + "," + z); q.push([x, z]); }
+  }
+  for (let i = 0; i < q.length; i++) for (const [dx, dz] of Object.values(DIRS)) {
+    const x = q[i][0] + dx, z = q[i][1] + dz, k = x + "," + z;
+    if (out.has(k) || !open(cellAt(L, x, z))) continue;
+    out.add(k);
+    q.push([x, z]);
+  }
+  return out;
+}
+
+export function isVoid(L, x, z) {
+  if (!cellAt(L, x, z)) return true;
+  return (L.void || (L.void = voidCells(L))).has(x + "," + z);
+}
+
+export function edgeFall(L, x, z, dir) {
+  const c = cellAt(L, x, z), d = DIRS[dir];
+  if (!d || !c || c.s === "lift" || !isWalkable(L, x, z)) return false;
+  return isVoid(L, x + d[0], z + d[1]);
 }
 
 export function edgeHeight(c, dir) {
