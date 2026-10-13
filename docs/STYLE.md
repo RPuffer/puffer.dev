@@ -107,12 +107,3 @@ A creature builder reads its sheet in `pipeline/refsheets/` and its row in `mani
 ```sh
 node tools/cohesion.mjs out/refine/stage2-after.png cat-medium
 ```
-
-## Terrain tiers
-
-`TIER` in `3d/terrain.js` holds these, applied to the land mesh after the bake:
-
-- Tops: the island's middle tier keeps its palette colour. Each tier below multiplies by 0.8 (linear) with blue at 0.95; each tier above lerps 0.13 toward `#ffe6b8`.
-- Lip: a 0.065-tile strip on any top edge whose neighbour is lower, void or water, 55% toward `#fff8e6`, then tinted with its tier.
-- Wall shadow: a vertical gradient from 0.35 of the wall colour up to the wall colour, 0.5 tile tall (scaled by tileH under 1), where a lower top or water meets the wall.
-- Sides: every face with a normal under 0.45 up bakes at 0.5 of its lit colour.
