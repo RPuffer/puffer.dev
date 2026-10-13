@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { registerCatalog } from "../core/catalog.js";
+import { placeCharges } from "../core/layout/pickups.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const W = 32, D = 26;
@@ -110,5 +112,10 @@ const level = {
   things,
   traps,
 };
+for (const p of level.pieces) {
+  const mod = await import(path.join(root, "3d", p));
+  if (mod.register) registerCatalog((await mod.register({ palette: level.palette })).catalog || {});
+}
+level.charges = placeCharges(level, { seed: 1 });
 fs.writeFileSync(path.join(root, "levels/traps-showcase.json"), JSON.stringify(level) + "\n");
 console.log("wrote levels/traps-showcase.json");

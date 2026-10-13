@@ -7,6 +7,7 @@ import { prepareLevel } from "../core/level.js";
 import { SHAPES, resolveTransforms } from "../core/layout/shapes/index.js";
 import { measure, checks } from "./variety-lib.mjs";
 import { placeTraps } from "../core/traps/place.js";
+import { placeCharges, checkCharges } from "../core/layout/pickups.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const args = process.argv.slice(2);
@@ -141,6 +142,7 @@ for (const [i, b] of list.entries()) {
     level.traps = r.traps;
     problems.push(...r.problems);
   }
+  if (level) { level.charges = placeCharges(level, { seed: level.layout?.seed ?? b.seed }); problems.push(...checkCharges(level)); }
   const dist = routeDistances(level).map((s) => `${s.id} ${s.locked}->${s.unlocked}`).join(", ");
   const land = level.cells.flat().filter((c) => c.s !== "none" && c.s !== "water").length;
   console.log(`${b.name}: ${level.layout.shape} ${level.layout.transform} x${level.layout.scale} ${b.archetype}, seed ${b.seed}${best.variant ? ` variant ${best.variant}` : ""} attempt ${attempt}, size ${level.size.join("x")}, land ${land}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, pads ${level.things.filter((t) => t.kind === "pad").length / 2}, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}`);
