@@ -138,7 +138,7 @@ export function buildTraps(state, style) {
         for (const g of glow) g.visible = tell && Math.floor(T.time * 12) % 2 === 0;
         const v = t.volley;
         for (const [i, a] of arrows.entries()) {
-          a.visible = v >= 0 && v < 0.45;
+          a.visible = v >= 0 && v < 0.45 && !same(t.cells[i], t.plate);
           const u = Math.max(0, v) / 0.35, c = t.cells[i];
           a.position.x = c[0] + 0.5 + side[0] * (0.25 - u * 1.9);
           a.position.z = c[1] + 0.5 + side[1] * (0.25 - u * 1.9);
@@ -165,15 +165,28 @@ export function buildTraps(state, style) {
     } else if (t.kind === "t24") {
       const face = dirOf(t.boss, t.kick);
       const body = place(bake((B) => brute(B, "body"), light), t.boss, 0, yawOf(face));
+      body.scale.setScalar(1.35);
       const leg = bake((B) => brute(B, "leg"), light);
       leg.position.set(0.15, 0.5, 0);
       body.add(leg);
+      const bang = new THREE.Group();
+      const bar = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.3, 0.1), glowMat("#ff5a3d"));
+      const dot = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.1), glowMat("#ff5a3d"));
+      bar.position.y = 0.22;
+      bang.add(bar, dot);
+      place(bang, t.boss, 2.1);
+      const swoosh = new THREE.Mesh(new THREE.RingGeometry(0.35, 0.62, 16, 1, -Math.PI / 2, Math.PI).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false }));
+      place(swoosh, t.kick, 0.45, yawOf(face) - Math.PI / 2);
       it.update = () => {
-        const f = t.leg || 0;
-        leg.rotation.x = f <= 1 ? f * 0.9 : 0.9 - (f - 1) * 2.4;
-        const hop = t.state === "recover" ? Math.abs(Math.sin(t.timer * 9)) * 0.12 * Math.max(0, 1 - t.timer / 1.4) : 0;
-        body.position.y = Y(t.boss) + hop;
-        body.rotation.z = t.state === "recover" ? Math.sin(t.timer * 9) * 0.12 : t.state === "windup" ? -0.06 * f : 0;
+        const f = t.disarmed ? 0 : t.leg || 0;
+        leg.rotation.x = f <= 1 ? f * 1.3 : 1.3 - (f - 1) * 3;
+        const hop = t.state === "recover" ? Math.abs(Math.sin(t.timer * 8)) * 0.3 * Math.max(0, 1 - t.timer / 1.4) : 0;
+        body.position.y = Y(t.boss) + hop + (t.state === "windup" ? 0.08 * f : 0);
+        body.rotation.x = t.state === "windup" ? -0.25 * f : t.state === "kick" ? 0.2 : 0;
+        body.rotation.z = t.state === "recover" ? Math.sin(t.timer * 8) * 0.2 : 0;
+        bang.visible = t.state === "windup" && Math.floor(t.timer * 10) % 2 === 0;
+        bang.rotation.y = -body.rotation.y;
+        swoosh.material.opacity = t.state === "kick" ? 0.85 * (1 - t.timer / 0.25) : 0;
       };
     } else if (t.kind === "t26") {
       const d = dirOf(t.cells[0], t.cells[1]);
@@ -237,6 +250,23 @@ export function buildTraps(state, style) {
       it.update = () => {
         const b = t.boing;
         top.position.y = Y(c) + (t.spent && b < 0 ? 0.02 : b >= 0 ? 0.26 + Math.sin(Math.min(1, b / 0.25) * Math.PI) * 0.45 : 0.26);
+      };
+    } else if (t.kind === "t22") {
+      const c = t.cells[0];
+      const P = state.level, open = (dx, dz) => { const q = P.cells[c[1] + dz]?.[c[0] + dx]; return q && q.s !== "none" && q.h >= 1; };
+      const across = open(1, 0) || open(-1, 0) ? [0, 1] : [1, 0];
+      place(bake((B) => {
+        for (const s2 of [-1, 1]) B.rbox(0.14, 2.1, 0.14, 0.03, pal(C.stoneDark), across[0] * s2 * 0.43, 0, across[1] * s2 * 0.43);
+        B.rbox(across[0] ? 1.06 : 0.2, 0.16, across[0] ? 0.2 : 1.06, 0.03, pal(C.stone), 0, 2.1, 0);
+      }, light), c, 0);
+      const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.42, 16).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: C.ink, transparent: true, opacity: 0, depthWrite: false }));
+      place(shadow, c, 0.012);
+      const stone = place(bake((B) => { B.rbox(0.74, 0.5, 0.74, 0.08, pal(C.stone), 0, 0, 0); B.box(0.5, 0.02, 0.5, pal(C.stoneDark), 0, 0.5, 0); }, light), c, 1.55);
+      it.update = () => {
+        const d = t.disarmed ? 0 : t.drop || 0;
+        stone.position.y = Y(c) + 1.55 * (1 - d) + 0.01;
+        shadow.material.opacity = t.disarmed ? 0 : 0.15 + 0.5 * (t.shadow || 0);
+        shadow.scale.setScalar(0.6 + 0.4 * (t.shadow || 0));
       };
     } else if (t.kind === "t23") {
       const c = t.cells[0];
