@@ -87,8 +87,10 @@ function cracks(B, stage, seed) {
 function pressPlate(B, col) { B.rbox(0.66, 0.06, 0.66, 0.04, pal(col), 0, 0, 0); B.rbox(0.44, 0.02, 0.44, 0.03, pal(C.stoneDark), 0, 0.06, 0); }
 function lampPost(B) { B.rbox(0.12, 0.62, 0.12, 0.03, pal(C.iron), 0, 0, 0); B.box(0.22, 0.05, 0.22, pal(C.ironDark), 0, 0.62, 0); }
 function springBase(B) {
-  B.box(0.8, 0.02, 0.8, pal(C.ironDark), 0, 0, 0);
-  for (let i = 0; i < 4; i++) B.cyl(0.26 - (i % 2) * 0.05, 0.05, pal(C.coil), 0, 0.02 + i * 0.06, 0, 8);
+  B.box(0.84, 0.012, 0.84, pal(C.ironDark), 0, 0, 0);
+}
+function springCoil(B) {
+  for (let i = 0; i < 4; i++) B.cyl(0.2 - (i % 2) * 0.05, 0.05, pal(C.coil), 0, i * 0.06, 0, 8);
 }
 function turntable(B) {
   B.cyl(0.46, 0.05, pal(C.disc), 0, 0, 0, 16);
@@ -252,10 +254,22 @@ export function buildTraps(state, style) {
     } else if (t.kind === "t18") {
       const c = t.cells[0];
       place(bake((B) => springBase(B), light), c, 0.002);
-      const top = place(bake((B) => slab(B, 0.74, 0.06, C.slab), light), c, 0.26);
+      const coil = place(bake((B) => springCoil(B), light), c, 0.012);
+      const lid = bake((B) => slab(B, 0.74, 0.035, C.slab), light);
+      const hinge = new THREE.Group();
+      hinge.add(lid);
+      place(hinge, c, 0.012);
+      const axis = new THREE.Vector3(), H = 0.37;
       it.update = () => {
-        const b = t.boing;
-        top.position.y = Y(c) + (t.spent && b < 0 ? 0.02 : b >= 0 ? 0.26 + Math.sin(Math.min(1, b / 0.25) * Math.PI) * 0.45 : 0.26);
+        const b = t.boing, f = t.dir || [0, 1];
+        const a = b < 0 ? 0 : b < 0.08 ? b / 0.08 : Math.pow(1 - Math.min(1, (b - 0.08) / 0.52), 2);
+        hinge.position.set(c[0] + 0.5 - f[0] * H, Y(c) + 0.012, c[1] + 0.5 - f[1] * H);
+        lid.position.set(f[0] * H, 0, f[1] * H);
+        axis.set(f[1], 0, -f[0]).normalize();
+        hinge.quaternion.setFromAxisAngle(axis, -1.1 * a);
+        const lift = Math.sin(1.1 * a) * H;
+        coil.visible = lift > 0.02;
+        coil.scale.y = Math.max(0.01, lift / 0.22);
       };
     } else if (t.kind === "t22") {
       const c = t.cells[0];

@@ -307,6 +307,7 @@ defineTrap("t18", {
     if (!to) return;
     t.spent = true;
     t.boing = 0;
+    t.dir = [-d[0], -d[1]];
     ctx.fling(to, 0.5, t);
     ctx.emit(t, "boing");
   },
