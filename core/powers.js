@@ -8,7 +8,7 @@ export const CLASS_KEY = "isoworld:class";
 export const POWERS = {
   wanderer: { id: "ink-step", name: "Ink Step", hero: "Wretch", hint: "Dash two cells ahead" },
   aws: { id: "ward", name: "Ward", hero: "Gatekeeper", hint: "Absorb the next harmful trap" },
-  dutchie: { id: "waypoint-run", name: "Waypoint Run", hero: "Courier", passive: true, hint: "Tap a cell to run there" },
+  dutchie: { id: "rush", name: "Rush", hero: "Courier", hint: "Slow the world to half speed for 4 s" },
   nm: { id: "lantern", name: "Lantern", hero: "Modernizer", oil: true, hint: "Light the lantern to show traps nearby" },
 };
 
@@ -16,6 +16,10 @@ export const DASH_S = 0.2, AVOID_COST = 40;
 export const CHARGES = { stock: 2, cap: 3 };
 export const OIL = { flask: 20, stock: 1, cap: 3 };
 export const LANTERN_R = 2;
+export const RUSH = { secs: 4, scale: 0.5, ease: 0.35, out: 0.5 };
+export const TAP_WALK = "all";
+export const tapWalkMode = (params = {}) => (params.tapwalk === "courier" || params.tapwalk === "all" ? params.tapwalk : TAP_WALK);
+const smooth = (u) => { const v = Math.max(0, Math.min(1, u)); return v * v * (3 - 2 * v); };
 export const POWER_KEY = "isoworld:power";
 export const pickupKey = (name) => "isoworld:pickups:" + (name || "level");
 
@@ -53,7 +57,7 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
   const { state } = game;
   const listeners = new Set();
   const emit = (e) => { for (const f of [...listeners]) f(e); };
-  let later = null, cls = null, charges = CHARGES.stock, oil = OIL.flask * OIL.stock, lit = false, pending = false, hop = null, actor = null, lastCell = "", offs = [], taken = new Set(), levelName = null;
+  let rush = null, later = null, cls = null, charges = CHARGES.stock, oil = OIL.flask * OIL.stock, lit = false, pending = false, hop = null, actor = null, lastCell = "", offs = [], taken = new Set(), levelName = null;
   const power = () => POWERS[cls];
   const say = (text) => state.things?.say(text);
   const save = () => { try { storage?.setItem(POWER_KEY, JSON.stringify({ cls, charges, oil: Math.round(oil * 10) / 10 })); } catch {} };
@@ -65,6 +69,7 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
     if (c === cls) return;
     if (cls === "aws" && state.health?.warded) state.health.ward(false);
     if (lit) { lit = false; emit({ type: "douse" }); }
+    rush = null;
     const was = cls;
     cls = c;
     const s = load();
@@ -118,8 +123,15 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
     shine();
     return true;
   };
+  const doRush = () => {
+    rush = { t: 0 };
+    spend();
+    emit({ type: "rush" });
+    return true;
+  };
   const run = () => {
     if (busy()) return false;
+    if (cls === "dutchie") return doRush();
     if (cls === "wanderer") return doInk();
     if (cls === "aws") return doWard();
     return false;
@@ -165,7 +177,9 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
     get pending() { return pending; },
     get pickups() { return pickups(); },
     on(f) { listeners.add(f); return () => listeners.delete(f); },
-    canRoute() { syncClass(); return cls === "dutchie"; },
+    canRoute() { syncClass(); return tapWalkMode(state.params) === "all" || cls === "dutchie"; },
+    get rush() { return rush ? Math.max(0, RUSH.secs - rush.t) : 0; },
+    get scale() { if (!rush) return 1; return 1 - (1 - RUSH.scale) * smooth(rush.t / RUSH.ease) * smooth((RUSH.secs - rush.t) / RUSH.out); },
     avoid(x, z) {
       const t = state.traps?.at([x, z]);
       return t && t.revealed && !t.disarmed ? AVOID_COST : 0;
@@ -181,8 +195,10 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
         return toggleLantern();
       }
       if (cls === "aws" && state.health?.warded) { say("The ward is already raised."); emit({ type: "fail", power: p.id, why: "raised" }); return false; }
+      if (cls === "dutchie" && rush) { say("Rush is already running."); emit({ type: "fail", power: p.id, why: "running" }); return false; }
       if (charges <= 0) { say(`No charges for ${p.name}. Find one, open a chest or rest at a bonfire.`); emit({ type: "empty", power: p.id }); return false; }
       if (hop) return false;
+      if (cls === "dutchie") return busy() ? false : doRush();
       if (actor.path.length || actor.moving) { pending = true; actor.pause = true; state.route.cancel(); return true; }
       return run();
     },
@@ -225,6 +241,10 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
         shine();
         if (oil <= 0) { lit = false; say("The lantern gutters out."); emit({ type: "douse", dry: true }); }
         if (Math.floor(oil) !== Math.floor(oil + dt)) save();
+      }
+      if (rush) {
+        rush.t += dt;
+        if (rush.t >= RUSH.secs) { rush = null; emit({ type: "rush-end" }); }
       }
       if (hop) {
         hop.t = Math.min(DASH_S, hop.t + dt);

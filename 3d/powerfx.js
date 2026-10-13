@@ -2,11 +2,12 @@ import * as THREE from "three";
 import { Baker, bakedMaterial } from "./baker.js";
 import { kit } from "./prims.js";
 import { surfaceY, liftLevel } from "./terrain.js";
-import { LANTERN_R } from "../core/powers.js";
+import { LANTERN_R, RUSH } from "../core/powers.js";
 
 export const DASH = { streak: "#e9e2ff", core: "#ffffff", fade: 0.28, rows: [[0.22, 0.07, 0.55], [0.48, 0.1, 0.7], [0.74, 0.06, 0.45]] };
 export const WARD = { plate: "#4fc3e0", rim: "#ffd76a", n: 3, radius: 0.55, life: 0.7 };
 export const LANTERN = { brass: "#c9a24a", glass: "#ffd76a", flame: "#fff3b0", glow: "#ffe08a", glowOp: 0.34 };
+export const RUSH_FX = { tint: [0.56, 0.66, 0.86], wash: 0.16, edge: 0.42, pulse: 0.8, trail: 0.09, keep: 6, ghost: "#9fb8ff", ghostOp: 0.32 };
 export const CHARGE = { gem: "#ff4fa8", tip: "#ffd6ec", base: "#7a4dff", spin: 1.6 };
 
 const mesh = (build) => {
@@ -36,6 +37,18 @@ const shield = () => mesh((K) => {
   K.box(0.07, 0.34, 0.02, WARD.rim, 0, 0.06, 0.04);
   K.box(0.24, 0.07, 0.02, WARD.rim, 0, 0.26, 0.04);
 });
+
+const RUSH_VERT = "void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }";
+const RUSH_FRAG = `uniform vec2 uRes; uniform vec2 uCenter; uniform float uK; uniform float uPulse; uniform vec3 uTint; uniform vec2 uMix;
+void main() {
+  vec2 p = (gl_FragCoord.xy - uCenter) / min(uRes.x, uRes.y);
+  vec2 q = gl_FragCoord.xy / uRes - 0.5;
+  float edge = smoothstep(0.25, 0.75, length(q) * 1.25);
+  float a = uK * (uMix.x + uMix.y * edge);
+  float r = length(p);
+  float ring = uPulse < 1.0 ? (1.0 - uPulse) * smoothstep(0.05, 0.0, abs(r - uPulse * 0.9)) : 0.0;
+  gl_FragColor = vec4(mix(uTint, vec3(1.0), ring), clamp(a + ring * 0.55, 0.0, 0.85));
+}`;
 
 const lantern = () => scaled(1.6, (K) => {
   K.box(0.2, 0.03, 0.2, LANTERN.brass, 0, 0, 0);
@@ -73,6 +86,15 @@ export function createPowerFx(game, view) {
   const shields = [];
   for (let i = 0; i < WARD.n; i++) { const s = shield(); s.visible = false; group.add(s); shields.push(s); }
   group.add(gems, lamp, pool);
+  const rushU = { uRes: { value: new THREE.Vector2(1, 1) }, uCenter: { value: new THREE.Vector2() }, uK: { value: 0 }, uPulse: { value: 1 }, uTint: { value: new THREE.Vector3(...RUSH_FX.tint) }, uMix: { value: new THREE.Vector2(RUSH_FX.wash, RUSH_FX.edge) } };
+  const veil = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: rushU, vertexShader: RUSH_VERT, fragmentShader: RUSH_FRAG, transparent: true, depthTest: false, depthWrite: false }));
+  veil.frustumCulled = false;
+  veil.renderOrder = 999;
+  veil.name = "rush-veil";
+  veil.visible = false;
+  const trail = [];
+  const ghostMat = new THREE.MeshBasicMaterial({ color: RUSH_FX.ghost, transparent: true, opacity: RUSH_FX.ghostOp, depthWrite: false });
+  let rushAt = null, lastTrail = 0;
   let gemKey = "", burst = null;
   const now = () => S.time;
   const cellY = (c) => surfaceY(liftLevel(S.level), S.view, c[0], c[1]);
@@ -103,9 +125,10 @@ export function createPowerFx(game, view) {
     if (e.type === "land" && dash) dash.end = now();
     if (e.type === "absorb") burst = { t0: now() };
     if (e.type === "pickup") spawnSpark(e.cell);
+    if (e.type === "rush") rushAt = now();
   });
   return {
-    objects: [group],
+    objects: [group, veil],
     update(ctx) {
       if (!S.level || !S.actor) return;
       const t = now(), dy = view.drop || 0;
@@ -145,6 +168,36 @@ export function createPowerFx(game, view) {
           m.material.opacity = m.userData.op * k;
         });
       } else if (dash) { dash = null; view.ghost?.(false); for (const m of streaks) m.visible = false; }
+      const k = 1 - (S.timeScale ?? 1);
+      const rk = Math.min(1, k / (1 - RUSH.scale));
+      veil.visible = rk > 0.001 || (rushAt != null && t - rushAt < RUSH_FX.pulse);
+      if (veil.visible) {
+        rushU.uRes.value.set(ctx.w, ctx.h);
+        rushU.uCenter.value.set(ctx.sx, ctx.sy);
+        rushU.uK.value = rk;
+        rushU.uPulse.value = rushAt != null ? Math.min(1, (t - rushAt) / RUSH_FX.pulse) : 1;
+      }
+      const hero = view.hero;
+      if (rk > 0.05 && hero && ctx.hero && t - lastTrail >= RUSH_FX.trail && (S.actor.moving || S.actor.path.length)) {
+        lastTrail = t;
+        const stash = [];
+        hero.traverse((o) => { stash.push([o, o.userData]); o.userData = o.userData?.highlightPass ? { highlightPass: o.userData.highlightPass } : {}; });
+        let g;
+        try { g = hero.clone(true); } finally { for (const [o, u] of stash) o.userData = u; }
+        g.traverse((o) => { if (o.userData?.highlightPass) o.visible = false; else if (o.isMesh) o.material = ghostMat; });
+        g.userData.t0 = t;
+        group.parent?.add(g);
+        trail.push(g);
+        while (trail.length > RUSH_FX.keep) { const o = trail.shift(); o.parent?.remove(o); }
+      }
+      for (let i = trail.length - 1; i >= 0; i--) {
+        const g = trail[i], u = (t - g.userData.t0) / (RUSH_FX.trail * RUSH_FX.keep);
+        if (u >= 1) { g.parent?.remove(g); trail.splice(i, 1); continue; }
+        g.scale.setScalar(hero ? hero.scale.x * (1 - 0.15 * u) : 1);
+        g.visible = true;
+        g.userData.fade = 1 - u;
+      }
+      ghostMat.opacity = RUSH_FX.ghostOp * (trail.length ? 0.6 + 0.4 * rk : 0);
       const raised = !!S.powers?.raised && ctx.hero;
       const b = burst && t - burst.t0 < WARD.life ? (t - burst.t0) / WARD.life : null;
       if (!b) burst = null;

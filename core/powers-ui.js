@@ -1,7 +1,10 @@
+import { RUSH } from "./powers.js";
+
 export const GLYPHS = {
   "ink-step": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5C9 7 6 10.4 6 14a6 6 0 0 0 12 0c0-3.6-3-7-6-11.5Z" fill="#2a1f33"/><path d="M9.2 14.2a3 3 0 0 0 2.6 3.2" stroke="#fffaf0" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>',
   ward: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 4.5 5.4v5.8c0 4.6 3.2 8.6 7.5 10.3 4.3-1.7 7.5-5.7 7.5-10.3V5.4Z" fill="#2a1f33"/><path d="M12 6.2v11.6M7.6 10.4h8.8" stroke="#ffd76a" stroke-width="1.8" stroke-linecap="round"/></svg>',
   "waypoint-run": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-6.5 6.5c0 4.8 6.5 12.5 6.5 12.5S18.5 13.8 18.5 9A6.5 6.5 0 0 0 12 2.5Z" fill="#2a1f33"/><circle cx="12" cy="9" r="2.4" fill="#a6f04b"/></svg>',
+  rush: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11M6.5 21h11" stroke="#2a1f33" stroke-width="2.2" stroke-linecap="round"/><path d="M7.5 3.5c0 4.5 4.5 5.5 4.5 8.5s-4.5 4-4.5 8.5h9c0-4.5-4.5-5.5-4.5-8.5s4.5-4 4.5-8.5Z" fill="#2a1f33"/><path d="M10 18.5h4l-2-2.6Z" fill="#a6f04b"/></svg>',
   lantern: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3.5h6M12 3.5v2" stroke="#2a1f33" stroke-width="2" stroke-linecap="round"/><path d="M7.5 7h9l-1 12.5h-7Z" fill="#2a1f33"/><path d="M12 10.2c-1.6 1.9-2.2 3.1-2.2 4.2a2.2 2.2 0 0 0 4.4 0c0-1.1-.6-2.3-2.2-4.2Z" fill="#ffd76a"/></svg>',
 };
 
@@ -34,6 +37,7 @@ export function statusOf(powers) {
     return { text: `${powers.lit ? "lit, " : ""}${sec} s oil`, charge: powers.oil / powers.oilCap, wait: sec <= 0, up: powers.lit, badge: String(sec), pips: null };
   }
   const n = powers.charges, cap = powers.cap;
+  if (powers.rush > 0) return { text: `rush ${powers.rush.toFixed(1)} s`, charge: powers.rush / RUSH.secs, wait: false, up: true, badge: powers.rush.toFixed(1), pips: [n, cap] };
   if (powers.raised) return { text: "raised", charge: 1, wait: false, up: true, badge: String(n), pips: [n, cap] };
   return { text: n ? `${n} charge${n === 1 ? "" : "s"}` : "no charges", charge: n ? 1 : 0, wait: !n, up: false, badge: String(n), pips: [n, cap] };
 }
