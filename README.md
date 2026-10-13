@@ -33,6 +33,7 @@ W/A/S/D or the arrow keys step one cell; a click or tap walks to a cell; touch s
 | `controls` | `stick` swaps the compass rose for the old joystick |
 | `xray` | `0` turns off the see-through window around the hero |
 | `clouds` | `none` (or `0`) turns off the cloud bed every island floats on; reference shots use it |
+| `traps` | `0` loads the level without its traps; the ramp-climb check in `tools/qa-levels.mjs` uses it |
 | `view` | Root page: `both`, `3d` or `2d` |
 
 `docs/RUN.md` lists the camera and scale parameters.

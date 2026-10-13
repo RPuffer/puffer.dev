@@ -318,7 +318,7 @@ async function levelSuite(name) {
 
   if (!P.plateau) record(`${tag} ramp climb`, name === "hooks-test", "no ramp route to a higher cell, gates closed or open" + (name === "hooks-test" ? " (flat test level)" : ""));
   else {
-    const url = `${BASE}/3d/index.html?level=${name}`;
+    const url = `${BASE}/3d/index.html?level=${name}&traps=0`;
     const c = P.viaGate ? await openGated(url) : await open(url);
     const via = P.viaGate ? " (via gate)" : "";
     if (!c.done) record(`${tag} ramp climb page loads${via}`, false);
