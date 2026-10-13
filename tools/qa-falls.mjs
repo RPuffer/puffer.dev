@@ -68,12 +68,15 @@ const sim = (L, cell, o = {}) => {
   const s = sim(L, [1, 1]);
   s.press("n"); s.tick(2);
   record("first move toward the void teeters and stays put", !!s.actor.teeter && s.actor.teeter.dir === "n" && s.actor.cell.join() === "1,1" && !s.life.busy);
-  s.actor.held = "n"; s.tick(40);
-  record("holding the key toward the edge never commits", !s.life.busy && !!s.actor.teeter);
+  s.actor.held = "n"; s.tick(12);
+  record("a brief hold toward the edge only teeters", !s.life.busy && !!s.actor.teeter);
   s.actor.held = null; s.press("n"); s.tick(2);
   record("a second press in the same direction commits to the fall", s.life.busy === "fall" && s.ev.some((e) => e.type === "fall" && !e.forced));
   for (let i = 0; i < 300 && s.life.busy; i++) s.tick();
   record("a fall costs no heart and respawns with a pratfall", s.health.hearts === 3 && s.ev.some((e) => e.type === "respawn" && e.after === "fall") && s.actor.pratfall > 0 && !s.actor.locked);
+  const h = sim(L, [1, 1]);
+  h.press("n"); h.actor.held = "n"; h.tick(40);
+  record("holding past the teeter limit commits to the fall", h.life.busy === "fall" && h.ev.some((e) => e.type === "fall" && !e.forced && e.cause === "hold"));
   const c = sim(L, [1, 1]);
   c.press("n"); c.tick(2); c.press("s"); c.tick(30);
   record("moving away cancels the teeter", !c.actor.teeter && !c.life.busy && c.actor.cell.join() === "1,2");

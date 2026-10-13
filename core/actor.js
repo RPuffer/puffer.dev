@@ -1,6 +1,6 @@
 import { DIRS, canStep, surfaceHeight, edgeFall } from "./level.js";
 
-export const TEETER_S = 1.4, SLIDE_SPEED = 1.6;
+export const TEETER_S = 1.4, TEETER_HOLD_S = 0.45, SLIDE_SPEED = 1.6;
 const dirOf = (dx, dz) => Object.keys(DIRS).find((k) => DIRS[k][0] === dx && DIRS[k][1] === dz) || null;
 
 export function createActor(L, cell, { speed = 3.2 } = {}) {
@@ -45,10 +45,10 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
 
   a.edgeAt = (dir) => edgeFall(L, a.cell[0], a.cell[1], dir);
 
-  const teeterOrFall = (dir) => {
+  const teeterOrFall = (dir, held) => {
     const T = a.teeter;
     if (T && T.dir === dir) {
-      if (a.presses > T.press) { a.teeter = null; a.fall?.(dir, { forced: false, cause: "edge" }); }
+      if (a.presses > T.press || (held && T.t >= TEETER_HOLD_S)) { a.teeter = null; a.fall?.(dir, { forced: false, cause: held && a.presses === T.press ? "hold" : "edge" }); }
       return;
     }
     a.teeter = { dir, t: 0, press: a.presses };
@@ -74,13 +74,13 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
   const pull = () => {
     if (a.path.length || a.pause) return;
     if (a.slide) { slideOn(); return; }
-    const d = a.held || a.tapDir;
+    const d = a.held || a.tapDir, held = !!a.held;
     a.tapDir = null;
     const dirs = typeof d === "function" ? d() || [] : d ? [d] : [];
     if (!dirs.length) return;
     if (dirs.some((x) => a.stepDir(x))) { a.teeter = null; return; }
     const edge = dirs.find((x) => a.edgeAt(x));
-    if (edge) { teeterOrFall(edge); return; }
+    if (edge) { teeterOrFall(edge, held); return; }
     if (a.teeter && a.teeter.dir !== dirs[0]) a.teeter = null;
     a.blocked?.(dirs[0]);
   };
