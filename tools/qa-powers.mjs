@@ -392,7 +392,7 @@ async function trapSuite() {
       const { inkStep } = await import("/core/powers.js");
       const S = window.__game.state, L = S.level;
       const step = ["t03", "t02", "t21", "t24", "t25", "t26", "t33", "t40"];
-      for (const t of S.traps.all().sort((a, b) => step.indexOf(a.kind) - step.indexOf(b.kind))) {
+      for (const t of S.traps.all().sort((a, b) => ((step.indexOf(a.kind) + 100) % 100) - ((step.indexOf(b.kind) + 100) % 100))) {
         if (t.trigger !== "step" && t.trigger !== "timer") continue;
         for (const c of t.cells) for (const d of Object.keys(DIRS)) {
           const from = [c[0] - DIRS[d][0], c[1] - DIRS[d][1]];
