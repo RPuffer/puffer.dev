@@ -880,7 +880,7 @@ async function camSuite(size) {
   await settle(d.page, 300);
   const def = await span(d.page);
   await d.page.close();
-  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1&cam=close&class=dutchie`, size);
+  const { page, problems, done } = await open(`${BASE}/3d/index.html?level=${lvl}&reset=1&cam=close&class=dutchie&traps=0`, size);
   record(`${tag} page loads`, done);
   if (!done) { await page.close(); return; }
   await settle(page, 600);

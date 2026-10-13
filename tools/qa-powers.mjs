@@ -33,7 +33,7 @@ async function open(query, { width = 1200, height = 800, touch = false } = {}) {
   page.on("console", (m) => { if (m.type() === "error") problems.push("console " + m.text()); });
   page.on("requestfailed", (r) => problems.push("failed " + r.url()));
   await page.setViewport({ width, height, deviceScaleFactor: 1, ...(touch ? { isMobile: true, hasTouch: true } : {}) });
-  await page.goto(`${BASE}/3d/index.html?${query}&reset=1&clouds=none&seq=0`, { waitUntil: "load" });
+  await page.goto(`${BASE}/3d/index.html?${query}&reset=1&clouds=none&seq=0${query.includes("traps-showcase") ? "" : "&traps=0"}`, { waitUntil: "load" });
   const done = await page.waitForFunction(() => window.__done === true || !!window.__error, { timeout: 30000, polling: 100 }).then(() => true, () => false);
   if (done) await page.evaluate(() => { localStorage.removeItem("isoworld:hearts"); for (const k of Object.keys(localStorage)) if (k.startsWith("isoworld:traps:")) localStorage.removeItem(k); window.__game.state.health.refill?.("qa"); });
   return { page, problems, done };
