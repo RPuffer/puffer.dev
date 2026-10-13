@@ -12,11 +12,11 @@ const FPS = 20, SIZE = 720;
 fs.mkdirSync(OUT, { recursive: true });
 
 const SCENES = {
-  spikes: { secs: 4.5, start: [11, 12], steps: [[0, { walk: [5, 12] }]] },
-  arrows: { secs: 3.5, start: [20, 12], steps: [[0, { walk: [27, 12] }]] },
-  worn: { secs: 7.5, start: [17, 8], steps: [[0, { path: [[17, 7], [17, 6], [17, 5], [17, 4], [17, 5], [17, 6], [17, 7], [17, 8], [17, 7], [17, 6], [17, 5], [17, 4]] }]] },
-  boss: { secs: 5, start: [11, 14], steps: [[0, { walk: [11, 15] }], [20, { walk: [11, 22] }]] },
-  chariot: { secs: 5, start: [18, 14], steps: [[0, { path: [[18, 15], [19, 15], [19, 16], [19, 17], [19, 18], [19, 19], [19, 20], [19, 21], [19, 22], [19, 23]] }]] },
+  spikes: { secs: 6, start: [11, 12], steps: [[0, { walk: [4, 12] }], [50, { walk: [4, 12] }], [100, { act: true }]] },
+  arrows: { secs: 6, start: [20, 12], steps: [[0, { path: [[21, 12], [22, 12]] }], [30, { walk: [27, 12] }], [80, { act: true }]] },
+  worn: { secs: 7.5, start: [15, 9], steps: [[0, { path: [[15, 8], [15, 7], [15, 6], [15, 5], [15, 4], [15, 5], [15, 6], [15, 7], [15, 8], [15, 7], [15, 6], [15, 5], [15, 4]] }]] },
+  boss: { secs: 6, start: [12, 15], steps: [[0, { path: [[11, 15]] }], [12, { walk: [11, 22] }]] },
+  chariot: { secs: 6, start: [18, 14], steps: [[0, { path: [[18, 15], [19, 15], [19, 16], [19, 17], [19, 18], [20, 18]] }], [50, { path: [[19, 18], [19, 19], [19, 20], [19, 21], [20, 21]] }], [90, { path: [[19, 21], [19, 22], [19, 23]] }], [108, { act: true }]] },
   block: { secs: 5, start: [19, 9], steps: [[0, { walk: [24, 9] }], [40, { walk: [24, 9] }]] },
   fog: { secs: 5, start: [24, 9], steps: [[0, { walk: [26, 3] }]] },
   order: { secs: 10, start: [4, 8], steps: [[0, { path: [[4, 7], [4, 6], [4, 5]] }], [80, { path: [[3, 5]] }], [92, { path: [[3, 4], [3, 3]] }], [112, { path: [[3, 4], [4, 4], [5, 4], [5, 5]] }], [140, { path: [[5, 4], [5, 3]] }], [175, { path: [[4, 3], [4, 2]] }]] },
@@ -59,6 +59,7 @@ try {
           if (act.walk) { const p = findPath(S.level, a.cell, act.walk); if (p) a.setPath(p); }
           if (act.path) a.setPath(act.path);
           if (act.hurt) S.life.hurt(act.hurt, { cause: "demo" });
+          if (act.act) S.things.act();
         }
         window.__game.advance(1 / fps);
       }, acts, FPS);

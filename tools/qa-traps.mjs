@@ -2,9 +2,10 @@ import puppeteer from "puppeteer-core";
 import { screenOf, watchdog } from "./qa-lib.mjs";
 import path from "node:path";
 import fs from "node:fs";
-import { validateTraps, liftToLift, worstState } from "../core/traps/rules.js";
+import { validateTraps, liftToLift, worstState, mustGuard, guardProblems } from "../core/traps/rules.js";
 import { TRAP_CATALOG } from "../core/traps/catalog.js";
 import { KINDS } from "../core/traps/kinds.js";
+import { registerCatalog } from "../core/catalog.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const args = process.argv.slice(2);
@@ -15,21 +16,36 @@ const results = [];
 const alive = watchdog();
 const record = (name, ok, detail = "") => { alive(name); results.push({ name, ok }); console.log(`${ok ? "PASS" : "FAIL"} ${name}${detail ? " " + detail : ""}`); };
 const readLevel = (n) => JSON.parse(fs.readFileSync(path.join(root, "levels", `${n}.json`), "utf8"));
+const registered = new Set();
+const register = async (L) => {
+  for (const p of [...new Set([...(L.pieces || []), "pieces/kits.js"])]) {
+    if (registered.has(p)) continue;
+    registered.add(p);
+    const mod = await import(path.join(root, "3d", p));
+    if (mod.register) registerCatalog((await mod.register({ palette: L.palette || {} })).catalog || {});
+  }
+};
 
 record("catalog holds all 53 approved traps", TRAP_CATALOG.length === 53, `${TRAP_CATALOG.length}`);
 const POC = ["t02", "t03", "t21", "t24", "t25", "t26", "t33", "t40"];
 record("every PoC trap has a runtime", POC.every((k) => KINDS[k]), POC.filter((k) => !KINDS[k]).join(","));
 const show = readLevel(SHOW);
+await register(show);
 record("showcase holds one of each PoC trap", POC.every((k) => show.traps.some((t) => t.kind === k)));
 const sv = validateTraps(show);
 record("showcase traps pass the placement rules", !sv.length, sv.join("; "));
+record("validator rejects an unguarded obvious trap", validateTraps({ ...show, traps: show.traps.map((t) => t.kind === "t03" ? { ...t, guards: undefined } : t) }).some((p) => /must guard a reward/.test(p)));
+record("validator rejects a guard you can walk around", validateTraps({ ...show, traps: show.traps.map((t) => t.kind === "t03" ? { ...t, cells: [[9, 12]], guards: { chest: "arrows-chest" } } : t) }).some((p) => /walk around it|only approach|cannot be reached/.test(p)));
+for (const t of show.traps.filter((t) => mustGuard(t.kind))) record(`showcase ${t.kind} guards a chest with no way around`, !guardProblems(show, t).length && !!t.guards?.chest);
 record("validator rejects an excluded pair", validateTraps({ ...show, trapRules: undefined }).some((p) => /exclude each other/.test(p)));
 for (const [i, name] of RUN.entries()) {
   const L = readLevel(name);
   if (!L.traps?.length) continue;
+  await register(L);
   const p = validateTraps(L, { position: i + 1 });
   record(`run island ${i + 1} traps pass rules and budget`, !p.length, p.join("; "));
   record(`run island ${i + 1} lift to lift with traps at worst`, liftToLift(L, worstState(L).blocked) === true);
+  record(`run island ${i + 1} keeps a guarded optional reward`, L.traps.some((t) => t.guards && mustGuard(t.kind)));
 }
 
 const browser = await puppeteer.launch({
@@ -126,19 +142,23 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
   await q(page, () => { __qt.refill(); __qt.place([10, 12]); __qt.until(() => __qt.beat() === 2, 3); __qt.until(() => __qt.beat() === 3, 3); __qt.clear(); __qt.walk([5, 12]); });
   r = await q(page, () => ({ hearts: __qt.hearts(), cell: __qt.cell() }));
   record("t03 walking in time gets through untouched", r.hearts === 3 && r.cell[0] === 5, JSON.stringify(r));
+  r = await q(page, () => { __qt.walk([4, 12]); const T = window.__game.state.things; T.act(); __qt.tick(10); return T.byId["spikes-chest"].state; });
+  record("t03 guards a chest you reach by timing it", r === "open", r);
 
   await q(page, () => { __qt.refill(); __qt.place([21, 12]); __qt.clear(); __qt.walk([27, 12]); __qt.tick(30); });
   r = await q(page, () => ({ hearts: __qt.hearts(), ev: __qt.events().filter((e) => e.src === "trap").map((e) => e.type) }));
   record("t25 arrow plate fires a volley", r.ev.includes("click") && r.ev.includes("volley"), r.ev.join(","));
   record("t25 arrows cost one heart on the run", r.hearts === 2, `${r.hearts}`);
-  await q(page, () => { __qt.refill(); __qt.place([22, 12]); __qt.tick(60); __qt.clear(); __qt.path([[23, 12], [23, 13]]); __qt.tick(40); });
-  r = await q(page, () => ({ hearts: __qt.hearts(), ev: __qt.events().filter((e) => e.src === "trap").map((e) => e.type) }));
-  record("t25 ducking to the far shoulder dodges the volley", r.ev.includes("volley") && r.hearts === 3, JSON.stringify(r));
+  await q(page, () => { __qt.refill(); __qt.place([20, 12]); __qt.tick(80); __qt.clear(); __qt.path([[21, 12], [22, 12]]); __qt.tick(60); __qt.walk([27, 12]); __qt.tick(20); });
+  r = await q(page, () => ({ hearts: __qt.hearts(), cell: __qt.cell(), ev: __qt.events().filter((e) => e.src === "trap").map((e) => e.type) }));
+  record("t25 waiting on the plate lets the volley pass", r.ev.includes("volley") && r.hearts === 3 && r.cell[0] === 27, JSON.stringify(r));
+  r = await q(page, () => { const T = window.__game.state.things; T.act(); __qt.tick(10); return T.byId["arrows-chest"].state; });
+  record("t25 guards a chest at the end of the run", r === "open", r);
 
-  await q(page, () => { __qt.refill(); __qt.place([17, 8]); __qt.clear(); __qt.walk([17, 4]); });
+  await q(page, () => { __qt.refill(); __qt.place([15, 8]); __qt.clear(); __qt.walk([15, 4]); });
   r = await q(page, () => __qt.trap("worn"));
   record("t02 flagstones crack on the first crossing", r.crossings === 1 && !r.broken, JSON.stringify(r));
-  await q(page, () => { __qt.walk([17, 8]); __qt.walk([17, 4], 2.5); __qt.until(() => !window.__game.state.life.busy, 4); __qt.settle(); });
+  await q(page, () => { __qt.walk([15, 8]); __qt.walk([15, 4], 2.5); __qt.until(() => !window.__game.state.life.busy, 4); __qt.settle(); });
   r = await q(page, () => ({ ev: __qt.events().map((e) => e.src + ":" + e.type), cell: __qt.cell(), rest: __qt.rest(), hearts: __qt.hearts(), worn: __qt.trap("worn") }));
   record("t02 third crossing drops you off the island", r.ev.includes("trap:collapse") && r.ev.includes("life:knock"), r.ev.join(","));
   record("knock-off respawns at the bonfire", r.ev.includes("life:respawn") && r.cell[0] === r.rest[0] && r.cell[1] === r.rest[1], `${r.cell} vs ${r.rest}`);

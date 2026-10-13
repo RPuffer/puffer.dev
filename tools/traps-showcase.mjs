@@ -19,32 +19,24 @@ line([12, 12], [18, 12], road);
 line([15, 10], [15, 14], road);
 
 line([11, 12], [4, 12], road);
-rect(1, 11, 3, 13, (x, z) => land(x, z));
+land(3, 12, "stone");
 
 line([19, 12], [27, 12], road);
-line([22, 13], [26, 13], (x, z) => land(x, z));
-rect(28, 11, 30, 13, (x, z) => land(x, z));
+land(28, 12, "stone");
 
-line([15, 9], [15, 9], road);
-line([13, 9], [17, 9], road);
-line([13, 8], [13, 4], road);
-line([17, 8], [17, 4], road);
-line([14, 4], [16, 4], road);
-rect(14, 1, 16, 3, (x, z) => land(x, z));
+line([15, 9], [15, 4], road);
+land(15, 3, "stone");
 
 line([12, 15], [12, 15], road);
 line([11, 15], [11, 22], road);
 land(10, 18, "dirt");
-land(10, 17);
-land(10, 19);
-rect(9, 23, 13, 24, (x, z) => land(x, z));
-line([11, 23], [11, 23], road);
+land(11, 23, "stone");
 
 line([18, 15], [19, 15], road);
 line([19, 16], [19, 23], road);
 land(20, 18);
 land(20, 21);
-rect(21, 20, 23, 22, (x, z) => land(x, z));
+land(20, 23, "stone");
 
 line([19, 10], [19, 9], road);
 line([20, 9], [24, 9], road);
@@ -66,17 +58,10 @@ const decor = [
   { t: "torch", x: 20, z: 10, v: 0 },
   { t: "torch", x: 12, z: 11, v: 0 },
   { t: "torch", x: 18, z: 11, v: 0 },
-  { t: "tree-round", x: 1, z: 11, v: 0 },
-  { t: "rock", x: 3, z: 13, v: 1 },
-  { t: "tree-pine", x: 30, z: 11, v: 1 },
-  { t: "bush", x: 14, z: 1, v: 0 },
-  { t: "flower", x: 16, z: 2, v: 1 },
   { t: "waymark", x: 26, z: 5, rot: 0, v: 0 },
   { t: "waymark", x: 29, z: 5, rot: 0, v: 0 },
   { t: "lantern", x: 27, z: 2, v: 0 },
   { t: "tree-orange", x: 30, z: 6, v: 0 },
-  { t: "rock", x: 9, z: 24, v: 0 },
-  { t: "barrel", x: 23, z: 22, v: 0 },
 ];
 for (const d of decor) if (cells[d.z][d.x].s === "none") throw new Error(`decor ${d.t} at ${d.x},${d.z} over air`);
 
@@ -84,14 +69,19 @@ const things = [
   { id: "fire", kind: "bonfire", x: 16, z: 10, text: "Bonfire lit. Traps reset when you rest." },
   { id: "plate-gate", kind: "gate", x: 4, z: 2, span: "x", edge: [[4, 3], [4, 2]], blocks: [[4, 2]], open: "trap:order" },
   { id: "plate-chest", kind: "chest", x: 4, z: 1, rot: 2, text: "The order plates paid out." },
+  { id: "spikes-chest", kind: "chest", x: 3, z: 12, rot: 1, text: "You beat the spikes to it." },
+  { id: "arrows-chest", kind: "chest", x: 28, z: 12, rot: 3, text: "You waited out the volley." },
+  { id: "worn-chest", kind: "chest", x: 15, z: 3, rot: 2, text: "Worth the cracks. Mind the way back." },
+  { id: "kick-chest", kind: "chest", x: 11, z: 23, rot: 0, text: "The brute was guarding this." },
+  { id: "chariot-chest", kind: "chest", x: 20, z: 23, rot: 3, text: "The chariot's toll, unpaid." },
 ];
 
 const traps = [
-  { id: "spikes", kind: "t03", cells: [[9, 12], [8, 12], [7, 12], [6, 12]] },
-  { id: "arrows", kind: "t25", cells: [[22, 12], [23, 12], [24, 12], [25, 12], [26, 12]], plate: [23, 12], side: "n" },
-  { id: "worn", kind: "t02", cells: [[17, 7], [17, 6], [17, 5]] },
-  { id: "kick", kind: "t24", cells: [[11, 16], [11, 17], [11, 18], [11, 19], [11, 20]], kick: [11, 18], boss: [10, 18] },
-  { id: "chariot", kind: "t26", cells: [[19, 16], [19, 17], [19, 18], [19, 19], [19, 20], [19, 21], [19, 22], [19, 23]], plate: [19, 15], notches: [[20, 18], [20, 21]] },
+  { id: "spikes", kind: "t03", cells: [[9, 12], [8, 12], [7, 12], [6, 12]], guards: { chest: "spikes-chest" } },
+  { id: "arrows", kind: "t25", cells: [[22, 12], [23, 12], [24, 12], [25, 12], [26, 12]], plate: [22, 12], side: "n", guards: { chest: "arrows-chest" } },
+  { id: "worn", kind: "t02", cells: [[15, 7], [15, 6], [15, 5]], guards: { chest: "worn-chest" } },
+  { id: "kick", kind: "t24", cells: [[11, 16], [11, 17], [11, 18], [11, 19], [11, 20]], kick: [11, 18], boss: [10, 18], guards: { chest: "kick-chest" } },
+  { id: "chariot", kind: "t26", cells: [[19, 16], [19, 17], [19, 18], [19, 19], [19, 20], [19, 21], [19, 22], [19, 23]], plate: [19, 15], notches: [[20, 18], [20, 21]], guards: { chest: "chariot-chest" } },
   { id: "block", kind: "t21", cells: [[22, 9]] },
   { id: "fog", kind: "t33", zone: [23, 2, 30, 7], text: "Fog rolls in over the garden. You see three cells around you." },
   { id: "order", kind: "t40", cells: [[3, 3], [4, 3], [5, 3], [3, 4], [4, 4], [5, 4], [3, 5], [4, 5], [5, 5], [4, 6]], plates: [[3, 3], [5, 3], [3, 5], [5, 5]], lamps: [[-0.4, -0.4], [0.4, -0.4], [-0.4, 0.4], [0.4, 0.4]], order: [2, 0, 3, 1], gate: "plate-gate" },
