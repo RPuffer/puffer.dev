@@ -18,6 +18,7 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 | t26 | Chariot | local | step | telegraphed | knock-off | south-east lane, notches at 20,18 and 20,21, guards a chest |
 | t33 | Fog | debuff | arrival | obvious | none | the garden past the block |
 | t40 | Order plates | puzzle | step | telegraphed | none | north-west room, gate and chest behind it |
+| t52 | Ice rink (floor only) | puzzle | step | obvious | none | south spoke, 3x3 ice with open edges and one rock |
 
 ### How traps run
 
@@ -39,6 +40,8 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 - Worn-through flagstones guarding a dead end let you in and out once. A second visit drops you.
 - A level may set `"trapRules": "showcase"` to skip exclusions, spacing and the one-kind rule. Only the showcase uses it.
 - Fog takes an optional `zone` rectangle. The showcase uses it so fog covers the garden and leaves the other spokes readable. On a run island fog covers the whole island.
+- Ice (t52) ships as the floor alone, with no rail and no reward yet. A press onto ice slides you cell by cell until a wall, a solid prop or the end of the ice stops you, and an open edge drops you. Routing skips ice.
+- Forced movement carries you off edges with no teeter: a spring fling that lands over the void falls, and so does an ice slide. Knockback traps already knocked you off.
 - Sound is not built yet: no drum tick, slide whistle or raspberry audio.
 
 ## Game rules every trap respects
@@ -53,7 +56,7 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 ## Health and respawn
 
 - The hero starts each life with 3 hearts. A trap does not have to throw you off the island to matter: a spike, an arrow or a bonk costs one heart.
-- **Knock-off.** Leave the island by any edge and the hero windmills into the cloud bed with a slide whistle, then respawns at the last lit bonfire with 3 hearts. Losing the last heart does the same with a flop and a puff.
+- **Knock-off.** Leave the island by any edge and the hero falls into the cloud bed, then respawns at the last lit bonfire with 3 hearts. Walking off takes two presses: the first teeters, the second commits. A fall costs no heart and the ward does not stop it. Losing the last heart does the same with a flop and a puff.
 - **Last lit bonfire.** Each island's bonfire sits within three cells of spawn. Before you rest at it, you respawn beside it anyway. The walk back from the bonfire is why shortcuts are worth opening.
 - **What survives a respawn.** Opened shortcuts, the chest and the gate stay as they were. Traps reset to their starting state, and hidden ones hide again. A hidden trap that gets you twice before you rest shows a faint chalk outline until the next rest.
 - **Refills.** Resting at a bonfire refills all 3 hearts. A heart pickup is rare: at most one per island, on a reward spot (a lookout, an alcove or a puzzle prize), and it restores one heart up to 3. Nothing raises the cap.

@@ -77,6 +77,7 @@ Flanks grow outward from each path cell, one to three cells deep, at the owner's
 8. **Pockets.** Off-path land two or more cells from the path splits into pockets. The two largest get a camp; the rest get groves: one tall piece, mid pieces in the ring around it, low rocks at the edge. Groves sit five cells apart and stay three cells from any landmark.
 9. **Rim.** At most six tall spires, on convex corners of the rim only, five cells apart.
 10. **Shoulder.** Now and then a rock or star on a cell beside the path, where noise is high.
+11. **Fences.** After traps (`core/layout/fences.js`, called from the bake). Falling off an edge respawns you at the bonfire, so most edges stay open. Rails go in three places only: the shoulders of a heart-costing trap run on the route, so you cannot step around it; rim shoulders along the spine where a slip costs the longest walk back; and either side of a one-cell gap where a branch, lookout or alcove leaves a fenced stretch. Edges within three cells of a slide or ice trap stay open. The budget is 10 percent of the island's edge cells (land beside the void). Each island takes one material from `FENCE_BY_ISLAND`. A rail never sits within a cell of a thing, a pickup, a lift or a ramp, every run must pass `checkLevel`, and the pass drops runs until `checkRoute` and the trap rules report nothing new.
 
 Every rule yields to the route (`YIELD`):
 

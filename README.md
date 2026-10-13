@@ -87,6 +87,12 @@ The twelve picked islands form one run in the order of `levels/run.json`: each i
 
 The hero carries three hearts, shown top-left on desktop and top-right on touch. A trap can cost a heart or knock you off the island; losing the last heart or falling off respawns you beside the bonfire you last rested at, with hearts refilled. Resting at a bonfire refills them too. `docs/TRAPS.md` holds the 53 approved traps and marks the eight built so far; `http://localhost:8765/3d/index.html?level=traps-showcase` puts each of the eight on its own spoke, and `node tools/qa-traps.mjs` proves them.
 
+## Edges and fences
+
+You can walk off an island. The first press toward the cloud bed or open water makes the hero teeter, a second press in the same direction drops them, and a step away cancels. Holding the key only teeters. Slides, springs and knockbacks skip the teeter. A fall costs no heart: you respawn at the bonfire you last rested at and land on your backside. Each fall plays one of three tweens at random; `?fall=pause`, `spin` or `shrink` forces one. Ledges onto a lower tier stay blocked, and tap-to-walk never routes off an edge or onto ice. The showcase has an ice patch that slides you until something stops you.
+
+The bake fences a tenth of an island's edge cells at most, in the island's own material (hedge, rock wall, ruined masonry, coral, logs or bone). `?fences=0` hides them, `node tools/qa-falls.mjs` proves falls, ice and fences, and `node tools/fall-clips.mjs` records the animations into `out/falls/`.
+
 ## Spend
 
 Generative and vision spend for the project: $8.827, of which $2.835 went on 2d sprites and $5.992 on the art-to-island pipeline. `docs/SPEND.md` has the log.
