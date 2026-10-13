@@ -163,7 +163,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [] } 
   const showcase = raw.trapRules === "showcase";
   if (!showcase) for (const [a, b] of compatible(kinds)) problems.push(`${a} and ${b} exclude each other`);
   if (counts.debuff > 1) problems.push(`${counts.debuff} debuffs, at most 1`);
-  if (counts.puzzle > 1) problems.push(`${counts.puzzle} puzzles, at most 1`);
+  if (counts.puzzle > 1 && !showcase) problems.push(`${counts.puzzle} puzzles, at most 1`);
   if (!showcase) for (let i = 0; i < foot.length; i++) for (let j = i + 1; j < foot.length; j++) {
     const A = foot[i], B = foot[j];
     if (A.m.tier === "debuff" || B.m.tier === "debuff") continue;
