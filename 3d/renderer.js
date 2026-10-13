@@ -274,7 +274,8 @@ export function createRenderer(container = document.body) {
       if (!hero || !!on === !!ghostMats) return;
       if (on) {
         ghostMats = [];
-        hero.traverse((o) => { if (!o.isMesh || o.userData.highlightPass) return; for (const m of [].concat(o.material)) { ghostMats.push([m, m.transparent, m.opacity, m.depthWrite]); m.transparent = true; m.opacity = DASH_GHOST.body; m.depthWrite = false; m.needsUpdate = true; } });
+        const seen = new Set();
+        hero.traverse((o) => { if (!o.isMesh || o.userData.highlightPass) return; for (const m of [].concat(o.material)) { if (seen.has(m)) continue; seen.add(m); ghostMats.push([m, m.transparent, m.opacity, m.depthWrite]); m.transparent = true; m.opacity = DASH_GHOST.body; m.depthWrite = false; m.needsUpdate = true; } });
         highlight(hero, { outline: DASH_GHOST.outline });
       } else {
         for (const [m, t, op, dw] of ghostMats) { m.transparent = t; m.opacity = op; m.depthWrite = dw; m.needsUpdate = true; }

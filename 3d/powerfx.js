@@ -6,7 +6,7 @@ import { LANTERN_R } from "../core/powers.js";
 
 export const DASH = { streak: "#e9e2ff", core: "#ffffff", fade: 0.28, rows: [[0.22, 0.07, 0.55], [0.48, 0.1, 0.7], [0.74, 0.06, 0.45]] };
 export const WARD = { plate: "#4fc3e0", rim: "#ffd76a", n: 3, radius: 0.55, life: 0.7 };
-export const LANTERN = { brass: "#c9a24a", glass: "#ffd76a", flame: "#fff3b0", glow: "#ffe08a", glowOp: 0.22 };
+export const LANTERN = { brass: "#c9a24a", glass: "#ffd76a", flame: "#fff3b0", glow: "#ffe08a", glowOp: 0.34 };
 export const CHARGE = { gem: "#ff4fa8", tip: "#ffd6ec", base: "#7a4dff", spin: 1.6 };
 
 const mesh = (build) => {
@@ -14,6 +14,12 @@ const mesh = (build) => {
   build(K, B);
   const m = new THREE.Mesh(B.geometry(), bakedMaterial());
   m.frustumCulled = false;
+  return m;
+};
+
+const scaled = (k, build) => {
+  const m = mesh(build);
+  m.geometry.scale(k, k, k);
   return m;
 };
 
@@ -31,7 +37,7 @@ const shield = () => mesh((K) => {
   K.box(0.24, 0.07, 0.02, WARD.rim, 0, 0.26, 0.04);
 });
 
-const lantern = () => mesh((K) => {
+const lantern = () => scaled(1.6, (K) => {
   K.box(0.2, 0.03, 0.2, LANTERN.brass, 0, 0, 0);
   K.box(0.16, 0.2, 0.16, LANTERN.glass, 0, 0.03, 0);
   K.cone(0.05, 0, 0.12, LANTERN.flame, 0, 0.06, 0, 4);
@@ -48,7 +54,7 @@ const glow = () => {
   return m;
 };
 
-const charge = () => mesh((K) => {
+const charge = () => scaled(1.5, (K) => {
   K.cyl(0.13, 0.03, CHARGE.base, 0, 0, 0, 6);
   K.cone(0.11, 0, 0.16, CHARGE.gem, 0, 0.2, 0, 4);
   K.cone(0.11, 0, -0.14, CHARGE.gem, 0, 0.2, 0, 4);
