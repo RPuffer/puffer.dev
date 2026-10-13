@@ -19,7 +19,7 @@ Then open:
 - `http://localhost:8765/3d/index.html?level=cat-medium` for one island in the 3d build
 - `http://localhost:8765/compare.html` for the old 3d and 2d side by side
 
-W/A/S/D or the arrow keys step one cell; touch screens get a compass rose. `R` (or the round power button on touch) fires the class power: Ink Step for the Wretch, Ward for the Gatekeeper, Lantern for the Modernizer. Each use spends a charge (the Lantern burns oil); chests, glinting pickups and bonfires refill them. Only the Courier (`?class=dutchie`) walks to a clicked or tapped cell. `docs/CLASS-POWERS.md` lists the rules. The overlay holds one link, "islands", back to the start page. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
+W/A/S/D or the arrow keys step one cell; touch screens get a compass rose. `R` (or the round power button on touch) fires the class power: Ink Step for the Wretch, Ward for the Gatekeeper, Rush for the Courier, Lantern for the Modernizer. Each use spends a charge (the Lantern burns oil); chests, glinting pickups and bonfires refill them. A click or tap walks to a cell for every class; `?tapwalk=courier` limits that to the Courier. `docs/CLASS-POWERS.md` lists the rules. The overlay holds one link, "islands", back to the start page. `docs/RUN.md` holds every command, including render comparison and `tools/qa.mjs`.
 
 ## Query contract
 

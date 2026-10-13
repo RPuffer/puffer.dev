@@ -303,8 +303,8 @@ async function wardSuite() {
 }
 
 async function tapSuite() {
-  for (const cls of ["wanderer", "aws", "nm", "dutchie"]) {
-    const o = await open(`level=wizard-medium&class=${cls}`);
+  for (const [cls, mode] of [["wanderer", "all"], ["aws", "all"], ["wanderer", "courier"], ["aws", "courier"], ["nm", "courier"], ["dutchie", "courier"]]) {
+    const o = await open(`level=wizard-medium&class=${cls}${mode === "courier" ? "&tapwalk=courier" : ""}`);
     if (!o.done) { record(`tap ${cls} page loads`, false); await o.page.close(); continue; }
     const page = o.page;
     await wait(300);
@@ -328,14 +328,8 @@ async function tapSuite() {
     const mid = await P(page);
     await page.waitForFunction(() => { const a = window.__game.state.actor; return !a.path.length && !a.moving; }, { timeout: 8000, polling: 100 }).catch(() => {});
     const after = await P(page);
-    if (cls === "dutchie") record(`tap dutchie Waypoint Run walks to the tapped cell`, mid.route && after.cell.join() === target.join(), `target ${target} got ${after.cell}`);
-    else record(`tap ${cls} ignores a tap on the floor`, !mid.route && after.cell.join() === before.cell.join(), `target ${target} got ${after.cell}`);
-    if (cls === "dutchie") {
-      await page.keyboard.press("KeyR");
-      await wait(100);
-      const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
-      record(`tap dutchie R shows the Waypoint hint`, /Tap a cell/.test(toast), toast);
-    }
+    if (cls === "dutchie" || mode === "all") record(`tap ${cls} walks to the tapped cell with tapwalk=${mode}`, mid.route && after.cell.join() === target.join(), `target ${target} got ${after.cell}`);
+    else record(`tap ${cls} ignores a tap on the floor with tapwalk=courier`, !mid.route && after.cell.join() === before.cell.join(), `target ${target} got ${after.cell}`);
     await page.close();
   }
   for (const name of SHORTCUT_LEVELS) {
@@ -527,6 +521,54 @@ async function touchSuite() {
   await page.close();
 }
 
+async function rushSuite() {
+  const o = await open(`level=${TRAPS}&class=dutchie`);
+  record("rush page loads", o.done);
+  if (!o.done) return o.page.close();
+  const page = o.page;
+  const r = await page.evaluate(async () => {
+    const { RUSH } = await import("/core/powers.js");
+    const g = window.__game, S = g.state, W = g.powers, a = S.actor;
+    g.pause();
+    const spikes = S.traps.list.find((t) => t.kind === "t03");
+    const beats = (secs) => { const out = []; let last = spikes.beat; for (let i = 0; i < secs * 60; i++) { g.advance(1 / 60); if (spikes.beat !== last) { out.push(S.time); last = spikes.beat; } } return out; };
+    const gap = (ts) => { const d = ts.slice(1).map((v, i) => v - ts[i]); return d.length ? d.reduce((x, y) => x + y, 0) / d.length : null; };
+    const stepTicks = () => {
+      const D = { n: [0, -1], e: [1, 0], s: [0, 1], w: [-1, 0] };
+      const d = Object.keys(D).find((k) => a.stepDir(k));
+      a.path = [];
+      const c0 = a.cell.join();
+      a.stepDir(d);
+      let n = 0;
+      while (a.cell.join() === c0 && n < 200) { g.advance(1 / 60); n++; }
+      return n;
+    };
+    const normal = gap(beats(4));
+    const step0 = stepTicks();
+    const c0 = W.charges;
+    W.fire();
+    g.advance(RUSH.ease + 0.05);
+    const mid = { scale: S.timeScale, left: W.rush, chip: document.querySelector(".iw-power")?.textContent || "" };
+    const slow = gap(beats(2.2));
+    const step1 = stepTicks();
+    const again = W.fire();
+    g.advance(RUSH.secs);
+    const after = { scale: S.timeScale, left: W.rush, charges: W.charges };
+    W.fire(); g.advance(RUSH.secs + 0.2);
+    const none = W.fire();
+    const toast = document.querySelector(".iw-toast")?.textContent || "";
+    g.resume();
+    return { normal, slow, step0, step1, c0, mid, again, after, none, toast, charges: W.charges };
+  });
+  record("rush halves the beat-spike timer", r.normal && r.slow && Math.abs(r.slow / r.normal - 2) < 0.15, `beat gap ${r.normal?.toFixed(3)} s normal, ${r.slow?.toFixed(3)} s in Rush`);
+  record("rush keeps the hero's step time", Math.abs(r.step1 - r.step0) <= 1, `${r.step0} ticks normal, ${r.step1} in Rush`);
+  record("rush runs at half scale, spends a charge and shows the time left", Math.abs(r.mid.scale - 0.5) < 0.01 && r.after.charges === r.c0 - 1 && /rush \d\.\d s/.test(r.mid.chip) && !r.again, JSON.stringify(r.mid));
+  record("rush returns the world scale to 1 when it ends", r.after.scale === 1 && r.after.left === 0, JSON.stringify(r.after));
+  record("rush with no charges is refused with a toast", r.charges === 0 && !r.none && /No charges/.test(r.toast), r.toast);
+  record("rush no page errors", o.problems.length === 0, o.problems.slice(0, 3).join(" | "));
+  await page.close();
+}
+
 async function pickupSuite() {
   const levels = [...JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order, TRAPS];
   const { registerCatalog } = await import("../core/catalog.js");
@@ -589,7 +631,7 @@ async function pickupSuite() {
 }
 
 try {
-  for (const [cls, want] of [["wanderer", "Ink Step"], ["aws", "Ward"], ["dutchie", "Waypoint Run"], ["nm", "Lantern"]]) await hudSuite(cls, want);
+  for (const [cls, want] of [["wanderer", "Ink Step"], ["aws", "Ward"], ["dutchie", "Rush"], ["nm", "Lantern"]]) await hudSuite(cls, want);
   await inkSuite();
   await shortcutSuite();
   await wardSuite();
@@ -598,6 +640,7 @@ try {
   await touchSuite();
   await trapSuite();
   await pickupSuite();
+  await rushSuite();
 } finally {
   await browser.close();
 }

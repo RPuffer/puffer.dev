@@ -66,16 +66,21 @@ One power per class, chosen so the four play differently on the same trap slot:
 
 ### Built
 
-The starters shipped on 2026-10-12; Ryne's review that evening turned Ink Step into a dash, set the Ward rule, swapped Unjam for Lantern and moved every power from step recharge to collected charges. `core/powers.js` reads the class from `?class=` or `isoworld:class` (no class plays as the Wretch), `core/powers-ui.js` draws the HUD, `3d/powerfx.js` the effects, and `node tools/qa-powers.mjs` proves each one.
+The starters shipped on 2026-10-12; Ryne's review that evening turned Ink Step into a dash, set the Ward rule, swapped Unjam for Lantern and moved every power from step recharge to collected charges. His next pass gave the Courier Rush as its charge power and turned tap-to-walk back on for every class. `core/powers.js` reads the class from `?class=` or `isoworld:class` (no class plays as the Wretch), `core/powers-ui.js` draws the HUD, `3d/powerfx.js` the effects, and `node tools/qa-powers.mjs` proves each one.
 
 | Power | Key | Costs | What it does |
 | --- | --- | --- | --- |
 | Ink Step | `R`, touch power button | 1 charge | Dashes 0.2 s in a flat line two cells along the facing onto a non-ramp cell of the same tier or one down. The skipped cell may hold a trap (`traps.skip`) or be a one-cell gap. The body fades to 12% with a bright outline and a short smear along the path, then snaps back on landing. |
 | Ward | `R`, touch power button | 1 charge | Raises `health.ward()`. Three shield plates orbit the hero until the ward cracks. |
-| Waypoint Run | tap or click a cell | nothing | The only class that walks by tap. The router adds 40 to each revealed, live trap cell, so it walks around known traps when a detour exists and through unrevealed ones. `R` shows the hint. |
+| Rush (Courier) | `R`, touch power button | 1 charge | For 4 s the world runs at half speed while the hero keeps full speed. One world time scale (`state.timeScale`) drives trap timers and beats, creatures, interactables, wind sway, water and animations; it eases in over 0.35 s and out over 0.5 s. A cool wash, a soft vignette, a radial pulse at the start and a faint afterimage trail mark it. The chip and the button count down the seconds left. |
+| Waypoint Run (Courier) | tap or click a cell | nothing | Stays free and passive. The router adds 40 to each revealed, live trap cell, so it walks around known traps when a detour exists and through unrevealed ones. |
 | Lantern | `R` lights and douses | oil, 1 s per second lit | While lit it reveals every trap with a cell within 2 cells (Chebyshev) through `traps.reveal`. A brass lantern hangs at the hero's shoulder over a warm pool of light. It gutters out when the oil runs dry. |
 
 Unjam is retired.
+
+#### Tap to walk
+
+Tap-to-walk is on for every class while Ryne plays the islands. `TAP_WALK` in `core/powers.js` sets the default (`"all"`); change it to `"courier"`, or load `?tapwalk=courier`, to make tapping the floor a Courier-only power again. The router's trap-avoidance cost applies to every class.
 
 #### Charges
 
