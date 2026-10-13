@@ -1,9 +1,10 @@
 export const DEFAULT_VIEW = { pitch: 35.264, yaw: 45, tileH: 1, zoom: 0 };
+export const PLAY_PITCH = 45;
 
 const RAD = Math.PI / 180;
 
-export function viewFrom(level = {}, params = {}) {
-  const v = { ...DEFAULT_VIEW, ...(level.view || {}) };
+export function viewFrom(level = {}, params = {}, base = DEFAULT_VIEW) {
+  const v = { ...DEFAULT_VIEW, ...base, ...(level.view || {}) };
   for (const k of ["pitch", "yaw", "tileH", "zoom"]) if (params[k] != null && params[k] !== "" && !isNaN(+params[k])) v[k] = +params[k];
   return v;
 }

@@ -29,7 +29,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | --- | --- |
 | `level` | Level file under `levels/`, default `home` |
 | `seed` | Seed for per-cell colour jitter, default `1` |
-| `pitch`, `yaw` | Camera angles in degrees, default from the level's `view` block, then 35.264 and 45 |
+| `pitch`, `yaw` | Camera angles in degrees, default from the level's `view` block, then the renderer's base (pitch 45 in 3d, 35.264 in 2d) and yaw 45 |
 | `tileH` | World height of one stack level, default 1 |
 | `zoom` | Pixels per world unit; 0 or absent fits the level to the viewport |
 | `spawn` | `x,z` start cell override |

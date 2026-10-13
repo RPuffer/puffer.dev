@@ -4,7 +4,7 @@ import { buildTerrain } from "./terrain.js";
 import { buildDecor } from "./decor.js";
 import { buildCharacter } from "./character.js";
 import { heroClass } from "./heroes.js";
-import { levelScreenBounds } from "../core/iso.js";
+import { levelScreenBounds, PLAY_PITCH } from "../core/iso.js";
 import { xray } from "./xray.js";
 import { highlight, unhighlight } from "./highlight.js";
 import { liftAt } from "./terrain.js";
@@ -158,6 +158,7 @@ export function createRenderer(container = document.body) {
   };
 
   return {
+    viewBase: { pitch: PLAY_PITCH },
     element: gl.domElement,
     three: { gl, scene, camera },
     sky,

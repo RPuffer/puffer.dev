@@ -173,7 +173,7 @@ export function createGame(renderer, params = readParams()) {
       if (state.level && !keep) renderer.unmount?.(state);
       const p = { ...params, level: level.name, arrive, spawn, reset, from };
       for (const k of ["arrive", "spawn", "reset", "from"]) if (p[k] == null) delete p[k];
-      const view = viewFrom(level, p);
+      const view = viewFrom(level, p, renderer.viewBase);
       const carry = keep && state.view ? wrapYaw(state.turn ? state.turn.to : state.view.yaw) : null;
       const reference = p.hero === "0" || p.seq === "0";
       if (p.reset === "1" && carry == null) { try { globalThis.localStorage?.removeItem(storageKey(level.name)); } catch {} }
