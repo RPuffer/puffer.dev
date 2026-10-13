@@ -417,6 +417,8 @@ async function pickMap(page) {
 }
 
 async function clickTargets(page) {
+  await camStill(page).catch(() => {});
+  await camStill(page).catch(() => {});
   const map = await pickMap(page);
   return page.evaluate(async (map) => {
     const { routeTo, reachable } = await import("/core/path.js");
