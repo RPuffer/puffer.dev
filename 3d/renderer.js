@@ -19,6 +19,7 @@ import { buildTraps, heroFx } from "./traps.js";
 
 const FRAME = [351, 390];
 
+export const DASH_GHOST = { body: 0.12, outline: { color: "#f4f9ff", width: 5, through: true, inner: { color: "#7a4dff", width: 2 } } };
 export const HERO_OUTLINE = { color: "#12c4f0", width: 4, through: "hidden", inner: { color: "#1b1f27", width: 1.5 } };
 export const HERO_FILL = { color: "#12c4f0", opacity: 0.45, through: "hidden" };
 export const RIDE_GLOW = { outline: { color: "#ffffff", width: 5, through: true, effect: "rainbow", inner: { color: "#1b1f27", width: 1.5 } }, fill: { effect: "rainbow", color: "#ffffff", opacity: 0.32, through: true } };
@@ -63,7 +64,7 @@ export function createRenderer(container = document.body) {
   const sky = createSky();
   if (sky) scene.add(sky.mesh);
   let lift = 0, S, pickables = [], hero, bounds, zoom = 60, base = 60, things = null, ride = 0, mounted = [], adopted = [], traps = null;
-  let glowing = false, heroStyle = null;
+  let glowing = false, heroStyle = null, ghostMats = null;
   const heroHl = () => {
     if (!hero) return;
     if (glowing) highlight(hero, RIDE_GLOW);
@@ -269,6 +270,18 @@ export function createRenderer(container = document.body) {
       applyDrop();
     },
     get hero() { return hero; },
+    ghost(on) {
+      if (!hero || !!on === !!ghostMats) return;
+      if (on) {
+        ghostMats = [];
+        hero.traverse((o) => { if (!o.isMesh || o.userData.highlightPass) return; for (const m of [].concat(o.material)) { ghostMats.push([m, m.transparent, m.opacity, m.depthWrite]); m.transparent = true; m.opacity = DASH_GHOST.body; m.depthWrite = false; m.needsUpdate = true; } });
+        highlight(hero, { outline: DASH_GHOST.outline });
+      } else {
+        for (const [m, t, op, dw] of ghostMats) { m.transparent = t; m.opacity = op; m.depthWrite = dw; m.needsUpdate = true; }
+        ghostMats = null;
+        heroHl();
+      }
+    },
     swapHero(cls) {
       if (!hero || !S) return null;
       const old = hero, next = buildCharacter(1, heroStyle, cls);

@@ -2,10 +2,12 @@ import * as THREE from "three";
 import { Baker, bakedMaterial } from "./baker.js";
 import { kit } from "./prims.js";
 import { surfaceY, liftLevel } from "./terrain.js";
+import { LANTERN_R } from "../core/powers.js";
 
-export const INK = { puddle: "#3a2a5c", drop: "#5b3d8f", gloss: "#c59bff", life: 0.9 };
+export const DASH = { streak: "#e9e2ff", core: "#ffffff", fade: 0.28, rows: [[0.22, 0.07, 0.55], [0.48, 0.1, 0.7], [0.74, 0.06, 0.45]] };
 export const WARD = { plate: "#4fc3e0", rim: "#ffd76a", n: 3, radius: 0.55, life: 0.7 };
-export const BRASS = { plate: "#c9a24a", bolt: "#8a6a2a" };
+export const LANTERN = { brass: "#c9a24a", glass: "#ffd76a", flame: "#fff3b0", glow: "#ffe08a", glowOp: 0.22 };
+export const CHARGE = { gem: "#ff4fa8", tip: "#ffd6ec", base: "#7a4dff", spin: 1.6 };
 
 const mesh = (build) => {
   const B = new Baker(null), K = kit(B);
@@ -15,13 +17,13 @@ const mesh = (build) => {
   return m;
 };
 
-const puddle = () => mesh((K) => {
-  K.cyl(0.36, 0.03, INK.puddle, 0, 0, 0, 9);
-  K.cyl(0.13, 0.035, INK.gloss, -0.1, 0.005, -0.08, 6);
-  for (const [x, z, r] of [[0.38, 0.12, 0.07], [-0.3, 0.3, 0.06], [0.14, -0.4, 0.05]]) K.cyl(r, 0.03, INK.puddle, x, 0, z, 6);
-});
-
-const drop = () => mesh((K) => { K.cone(0.09, 0, 0.16, INK.drop, 0, 0.08, 0, 5); K.cone(0.09, 0.05, 0.08, INK.drop, 0, 0, 0, 5); });
+const streak = (hex) => {
+  const m = mesh((K) => K.box(1, 0.05, 0.05, hex, 0.5, -0.025, 0));
+  m.material = m.material.clone();
+  m.material.transparent = true;
+  m.material.depthWrite = false;
+  return m;
+};
 
 const shield = () => mesh((K) => {
   K.rbox(0.34, 0.46, 0.06, WARD.plate, 0, 0, 0);
@@ -29,63 +31,72 @@ const shield = () => mesh((K) => {
   K.box(0.24, 0.07, 0.02, WARD.rim, 0, 0.26, 0.04);
 });
 
-const plate = () => mesh((K) => {
-  K.rbox(0.78, 0.05, 0.78, BRASS.plate, 0, 0, 0);
-  for (const [x, z] of [[-0.3, -0.3], [0.3, -0.3], [-0.3, 0.3], [0.3, 0.3]]) K.cyl(0.05, 0.04, BRASS.bolt, x, 0.05, z, 6);
-  K.box(0.5, 0.02, 0.07, BRASS.bolt, 0, 0.05, 0);
+const lantern = () => mesh((K) => {
+  K.box(0.2, 0.03, 0.2, LANTERN.brass, 0, 0, 0);
+  K.box(0.16, 0.2, 0.16, LANTERN.glass, 0, 0.03, 0);
+  K.cone(0.05, 0, 0.12, LANTERN.flame, 0, 0.06, 0, 4);
+  K.cone(0.13, 0.04, 0.07, LANTERN.brass, 0, 0.23, 0, 4);
+  K.box(0.03, 0.08, 0.03, LANTERN.brass, 0, 0.3, 0);
+});
+
+const glow = () => {
+  const m = mesh((K) => K.cyl(LANTERN_R + 0.5, 0.01, LANTERN.glow, 0, 0, 0, 16));
+  m.material = m.material.clone();
+  m.material.transparent = true;
+  m.material.opacity = LANTERN.glowOp;
+  m.material.depthWrite = false;
+  return m;
+};
+
+const charge = () => mesh((K) => {
+  K.cyl(0.13, 0.03, CHARGE.base, 0, 0, 0, 6);
+  K.cone(0.11, 0, 0.16, CHARGE.gem, 0, 0.2, 0, 4);
+  K.cone(0.11, 0, -0.14, CHARGE.gem, 0, 0.2, 0, 4);
+  K.cone(0.04, 0, 0.06, CHARGE.tip, 0, 0.33, 0, 4);
 });
 
 export function createPowerFx(game, view) {
   const S = game.state;
   const group = new THREE.Group();
   group.name = "power-fx";
-  const plates = new THREE.Group();
-  plates.name = "unjam-plates";
+  const gems = new THREE.Group();
+  gems.name = "charge-pickups";
+  const lamp = lantern(), pool = glow();
+  lamp.visible = pool.visible = false;
   const live = [];
   const shields = [];
   for (let i = 0; i < WARD.n; i++) { const s = shield(); s.visible = false; group.add(s); shields.push(s); }
-  group.add(plates);
-  let plateKey = "", burst = null, seen = undefined;
+  group.add(gems, lamp, pool);
+  let gemKey = "", burst = null;
   const now = () => S.time;
   const cellY = (c) => surfaceY(liftLevel(S.level), S.view, c[0], c[1]);
   const spawn = (obj, life, step) => { group.add(obj); live.push({ obj, t0: now(), life, step }); };
-  const inkAt = (c, delay) => {
-    const p = puddle();
-    p.position.set(c[0] + 0.5, cellY(c) + 0.02, c[1] + 0.5);
-    p.scale.setScalar(0.001);
-    spawn(p, INK.life + delay, (u, age) => { const k = age < delay ? 0 : Math.min(1, (age - delay) / 0.12); p.scale.setScalar(Math.max(0.001, k * (1 - Math.max(0, (age - delay) / INK.life) ** 3))); });
+  const streaks = DASH.rows.map(([, , op], i) => { const m = streak(i === 1 ? DASH.core : DASH.streak); m.visible = false; m.userData.op = op; group.add(m); return m; });
+  let dash = null;
+  const spawnSpark = (c) => {
+    const g = charge();
+    const y = cellY(c);
+    g.position.set(c[0] + 0.5, y + 0.1, c[1] + 0.5);
+    spawn(g, 0.5, (u) => { g.position.y = y + 0.1 + 0.9 * u; g.rotation.y = u * 9; g.scale.setScalar(Math.max(0.001, 1 - u * u)); });
   };
-  const dropsAlong = (from, to) => {
-    for (let i = 0; i < 5; i++) {
-      const d = drop(), f = (i + 1) / 6;
-      const x = from[0] + 0.5 + (to[0] - from[0]) * f, z = from[1] + 0.5 + (to[1] - from[1]) * f;
-      const y0 = Math.max(cellY(from), cellY(to)) + 0.55 + 0.25 * Math.sin(f * Math.PI);
-      d.position.set(x, y0, z);
-      spawn(d, 0.55, (u) => { d.position.y = y0 - 0.9 * u * u; d.scale.setScalar(Math.max(0.001, 1 - u)); });
+  const syncGems = () => {
+    const list = S.powers?.pickups || [];
+    const k = (S.level?.name || "") + ":" + list.map((c) => c.id).join(",");
+    if (k === gemKey) return;
+    gemKey = k;
+    while (gems.children.length) { const c = gems.children.pop(); c.geometry.dispose(); c.material.dispose(); }
+    for (const c of list) {
+      const g = charge();
+      g.userData.cell = [c.x, c.z];
+      g.userData.phase = (c.x * 12.9898 + c.z * 78.233) % 6.2832;
+      gems.add(g);
     }
-  };
-  const syncPlates = () => {
-    const traps = S.traps, list = traps ? traps.all().filter((t) => t.disarmed) : [];
-    const k = (S.level?.name || "") + ":" + list.map((t) => t.id).join(",");
-    if (k === plateKey) return false;
-    plateKey = k;
-    while (plates.children.length) { const c = plates.children.pop(); c.geometry.dispose(); c.material.dispose(); }
-    const L = S.level;
-    for (const t of list) for (const c of t.cells) {
-      const cl = L.cells[c[1]]?.[c[0]];
-      if (!cl || cl.h < 1 || cl.s === "water" || cl.s === "none") continue;
-      const p = plate();
-      p.position.set(c[0] + 0.5, cellY(c) + 0.012, c[1] + 0.5);
-      p.userData.cell = c.slice();
-      p.userData.t0 = now();
-      plates.add(p);
-    }
-    return true;
   };
   game.powers.on((e) => {
-    if (e.type === "ink") { inkAt(e.from, 0); inkAt(e.to, 0.3); dropsAlong(e.from, e.to); }
+    if (e.type === "ink") dash = { from: e.from, to: e.to, end: null };
+    if (e.type === "land" && dash) dash.end = now();
     if (e.type === "absorb") burst = { t0: now() };
-    if (e.type === "unjam") { plateKey = ""; syncPlates(); for (const p of plates.children) if (p.userData.cell[0] === e.cell[0] && p.userData.cell[1] === e.cell[1]) p.userData.drop = now(); }
+    if (e.type === "pickup") spawnSpark(e.cell);
   });
   return {
     objects: [group],
@@ -93,17 +104,41 @@ export function createPowerFx(game, view) {
       if (!S.level || !S.actor) return;
       const t = now(), dy = view.drop || 0;
       group.position.y = dy;
-      if (S.traps !== seen) { seen = S.traps; plateKey = ""; syncPlates(); }
-      for (const p of plates.children) {
-        const a = p.userData.drop != null ? Math.min(1, (t - p.userData.drop) / 0.35) : 1;
-        p.position.y = cellY(p.userData.cell) + 0.012 + 0.6 * (1 - a) * (1 - a);
-        p.scale.setScalar(a < 1 ? 0.7 + 0.3 * a + 0.08 * Math.sin(a * Math.PI) : 1);
+      syncGems();
+      for (const g of gems.children) {
+        const [x, z] = g.userData.cell, ph = g.userData.phase;
+        g.position.set(x + 0.5, cellY(g.userData.cell) + 0.12 + 0.06 * Math.sin(t * 2.4 + ph), z + 0.5);
+        g.rotation.y = t * CHARGE.spin + ph;
+      }
+      const on = !!S.powers?.lit && ctx.hero;
+      lamp.visible = pool.visible = on;
+      if (on) {
+        const a = Math.atan2(Math.sin(S.actor.facing), Math.cos(S.actor.facing));
+        lamp.position.set(ctx.x + 0.32 * Math.sin(a + 1.2), ctx.y - dy + 0.95 + 0.03 * Math.sin(t * 5), ctx.z + 0.32 * Math.cos(a + 1.2));
+        lamp.rotation.z = 0.12 * Math.sin(t * 3.1);
+        pool.position.set(ctx.x, ctx.y - dy + 0.03, ctx.z);
+        pool.material.opacity = LANTERN.glowOp * (0.85 + 0.15 * Math.sin(t * 7.3) * Math.sin(t * 3.1));
       }
       for (let i = live.length - 1; i >= 0; i--) {
         const L = live[i], age = t - L.t0, u = Math.min(1, age / L.life);
         L.step(u, age);
         if (u >= 1) { group.remove(L.obj); L.obj.geometry.dispose(); L.obj.material.dispose(); live.splice(i, 1); }
       }
+      if (dash && (dash.end == null || t - dash.end < DASH.fade)) {
+        view.ghost?.(dash.end == null);
+        const k = dash.end == null ? 1 : 1 - (t - dash.end) / DASH.fade;
+        const fx = dash.from[0] + 0.5, fz = dash.from[1] + 0.5, hx = S.actor.pos.x, hz = S.actor.pos.z;
+        const sx = dash.end == null ? fx : fx + (hx - fx) * (1 - k), sz = dash.end == null ? fz : fz + (hz - fz) * (1 - k);
+        const len = Math.hypot(hx - sx, hz - sz), ang = Math.atan2(-(hz - sz), hx - sx);
+        streaks.forEach((m, i) => {
+          const [h, w] = DASH.rows[i];
+          m.visible = len > 0.02;
+          m.position.set(sx, ctx.y - dy + h, sz);
+          m.rotation.set(0, ang, 0);
+          m.scale.set(Math.max(0.001, len), w / 0.05, w / 0.05);
+          m.material.opacity = m.userData.op * k;
+        });
+      } else if (dash) { dash = null; view.ghost?.(false); for (const m of streaks) m.visible = false; }
       const raised = !!S.powers?.raised && ctx.hero;
       const b = burst && t - burst.t0 < WARD.life ? (t - burst.t0) / WARD.life : null;
       if (!b) burst = null;

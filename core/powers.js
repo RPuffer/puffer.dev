@@ -6,13 +6,18 @@ const ALIAS = { wretch: "wanderer" };
 export const CLASS_KEY = "isoworld:class";
 
 export const POWERS = {
-  wanderer: { id: "ink-step", name: "Ink Step", hero: "Wretch", recharge: 6, hint: "Jump two cells ahead" },
-  aws: { id: "ward", name: "Ward", hero: "Gatekeeper", recharge: 10, hint: "Absorb the next trap" },
-  dutchie: { id: "waypoint-run", name: "Waypoint Run", hero: "Courier", recharge: 0, passive: true, hint: "Tap a cell to run there" },
-  nm: { id: "unjam", name: "Unjam", hero: "Modernizer", recharge: 5, hint: "Disarm the trap ahead" },
+  wanderer: { id: "ink-step", name: "Ink Step", hero: "Wretch", hint: "Dash two cells ahead" },
+  aws: { id: "ward", name: "Ward", hero: "Gatekeeper", hint: "Absorb the next harmful trap" },
+  dutchie: { id: "waypoint-run", name: "Waypoint Run", hero: "Courier", passive: true, hint: "Tap a cell to run there" },
+  nm: { id: "lantern", name: "Lantern", hero: "Modernizer", oil: true, hint: "Light the lantern to show traps nearby" },
 };
 
-export const HOP_S = 0.42, HOP_H = 0.7, AVOID_COST = 40;
+export const DASH_S = 0.2, AVOID_COST = 40;
+export const CHARGES = { stock: 2, cap: 3 };
+export const OIL = { flask: 20, stock: 1, cap: 3 };
+export const LANTERN_R = 2;
+export const POWER_KEY = "isoworld:power";
+export const pickupKey = (name) => "isoworld:pickups:" + (name || "level");
 
 export function powerClass(params = {}, storage = globalThis.localStorage) {
   let v = params.class;
@@ -44,25 +49,39 @@ export function inkStep(L, from, dir) {
   return { mid, to, dir };
 }
 
-export function createPowers(game) {
+export function createPowers(game, { storage = globalThis.localStorage } = {}) {
   const { state } = game;
   const listeners = new Set();
   const emit = (e) => { for (const f of [...listeners]) f(e); };
-  let cls = null, since = 0, pending = false, hop = null, actor = null, lastCell = "", offs = [];
+  let later = null, cls = null, charges = CHARGES.stock, oil = OIL.flask * OIL.stock, lit = false, pending = false, hop = null, actor = null, lastCell = "", offs = [], taken = new Set(), levelName = null;
   const power = () => POWERS[cls];
   const say = (text) => state.things?.say(text);
+  const save = () => { try { storage?.setItem(POWER_KEY, JSON.stringify({ cls, charges, oil: Math.round(oil * 10) / 10 })); } catch {} };
+  const load = () => { try { return JSON.parse(storage?.getItem(POWER_KEY) || "null"); } catch { return null; } };
+  const oilCap = () => OIL.flask * OIL.cap;
+  const stock = () => { charges = CHARGES.stock; oil = OIL.flask * OIL.stock; };
   const syncClass = () => {
     const c = powerClass(state.params);
     if (c === cls) return;
     if (cls === "aws" && state.health?.warded) state.health.ward(false);
+    if (lit) { lit = false; emit({ type: "douse" }); }
+    const was = cls;
     cls = c;
-    since = POWERS[c].recharge;
+    const s = load();
+    if (was == null && s && s.cls === c) { charges = Math.min(CHARGES.cap, Math.max(0, s.charges | 0)); oil = Math.min(oilCap(), Math.max(0, +s.oil || 0)); }
+    else stock();
+    save();
     pending = false;
     if (actor) actor.pause = false;
     emit({ type: "class", cls });
   };
-  const ready = () => !power().passive && since >= power().recharge && !(cls === "aws" && state.health?.warded);
-  const spend = () => { since = 0; emit({ type: "spend", power: power().id }); };
+  const ready = () => {
+    const p = power();
+    if (p.passive) return true;
+    if (p.oil) return oil > 0;
+    return charges > 0 && !(cls === "aws" && state.health?.warded);
+  };
+  const spend = () => { charges = Math.max(0, charges - 1); save(); emit({ type: "spend", power: power().id, charges }); };
   const busy = () => !actor || actor.locked || !!state.life?.busy || !!hop;
   const cellNow = () => actor.cell.slice();
 
@@ -71,7 +90,7 @@ export function createPowers(game) {
     if (!r.to) { say(r.why); emit({ type: "fail", power: "ink-step", why: r.why }); return false; }
     state.route.cancel();
     actor.path = []; actor.tapDir = null;
-    state.traps?.skip([r.mid], HOP_S + 0.5);
+    state.traps?.skip([r.mid], DASH_S + 0.5);
     const y0 = actor.y, y1 = surfaceHeight(state.level, r.to[0] + 0.5, r.to[1] + 0.5);
     hop = { from: cellNow(), mid: r.mid, to: r.to, t: 0, y0, y1 };
     actor.pause = true;
@@ -82,56 +101,99 @@ export function createPowers(game) {
   const doWard = () => {
     if (!state.health) return false;
     state.health.ward(true);
-    since = 0;
+    spend();
     emit({ type: "ward" });
     return true;
   };
-  const doUnjam = () => {
-    const d = DIRS[facingDir(actor.facing)], at = [actor.cell[0] + d[0], actor.cell[1] + d[1]];
-    const t = state.traps?.at(at);
-    if (!t || t.disarmed) { const why = t ? "Already bolted down." : "Nothing jammed there."; say(why); emit({ type: "fail", power: "unjam", why }); return false; }
-    state.traps.disarm(t.id);
-    spend();
-    say(`Unjammed: ${t.name}.`);
-    emit({ type: "unjam", cell: at, trap: t.id });
+  const shine = () => {
+    const T = state.traps;
+    if (!T || !actor) return;
+    const [x, z] = actor.cell;
+    for (const t of T.all()) if (!t.revealed && !t.disarmed && t.cells.some((c) => Math.max(Math.abs(c[0] - x), Math.abs(c[1] - z)) <= LANTERN_R)) { T.reveal(t.id); emit({ type: "reveal", trap: t.id }); }
+  };
+  const toggleLantern = () => {
+    if (lit) { lit = false; save(); emit({ type: "douse" }); return true; }
+    lit = true;
+    emit({ type: "light" });
+    shine();
     return true;
   };
   const run = () => {
     if (busy()) return false;
     if (cls === "wanderer") return doInk();
     if (cls === "aws") return doWard();
-    if (cls === "nm") return doUnjam();
     return false;
+  };
+  const give = (what) => {
+    if (power().oil) {
+      if (oil >= oilCap() - 1e-6) return false;
+      oil = Math.min(oilCap(), oil + OIL.flask);
+    } else {
+      if (charges >= CHARGES.cap) return false;
+      charges++;
+    }
+    save();
+    emit({ type: "gain", what, charges, oil });
+    return true;
+  };
+  const gainText = (src) => power().oil ? `${src}: an oil flask. ${Math.round(oil)} s of light.` : `${src}: a power charge. ${charges} of ${CHARGES.cap}.`;
+  const pickups = () => (state.level?.charges || []).filter((c) => !taken.has(c.id));
+  const readTaken = () => { try { return new Set(JSON.parse(storage?.getItem(pickupKey(state.level?.name)) || "[]")); } catch { return new Set(); } };
+  const writeTaken = () => { try { storage?.setItem(pickupKey(state.level?.name), JSON.stringify([...taken])); } catch {} };
+  const collect = () => {
+    const [x, z] = actor.cell;
+    const k = pickups().find((c) => c.x === x && c.z === z);
+    if (!k) return;
+    if (!give("pickup")) { say(power().oil ? "Your oil is full." : `You carry ${CHARGES.cap} charges already.`); return; }
+    taken.add(k.id);
+    writeTaken();
+    say(gainText("Picked up"));
+    emit({ type: "pickup", id: k.id, cell: [x, z] });
   };
 
   const api = {
     get cls() { return cls; },
     get power() { return power(); },
-    get since() { return since; },
+    get charges() { return charges; },
+    get cap() { return CHARGES.cap; },
+    get oil() { return oil; },
+    get oilCap() { return oilCap(); },
+    get lit() { return lit; },
     get ready() { return ready(); },
-    get left() { return power().passive ? 0 : Math.max(0, power().recharge - since); },
-    get charge() { const p = power(); return p.passive ? 1 : (cls === "aws" && state.health?.warded) ? 1 : Math.min(1, since / p.recharge); },
     get raised() { return cls === "aws" && !!state.health?.warded; },
     get hop() { return hop; },
     get pending() { return pending; },
+    get pickups() { return pickups(); },
     on(f) { listeners.add(f); return () => listeners.delete(f); },
     canRoute() { syncClass(); return cls === "dutchie"; },
     avoid(x, z) {
       const t = state.traps?.at([x, z]);
       return t && t.revealed && !t.disarmed ? AVOID_COST : 0;
     },
+    give,
     fire() {
       syncClass();
       const p = power();
       if (!actor || actor.locked || state.life?.busy) return false;
       if (p.passive) { say(p.hint + "."); emit({ type: "hint", power: p.id }); return false; }
+      if (p.oil) {
+        if (!lit && oil <= 0) { say("The lantern is dry. Find an oil flask."); emit({ type: "empty", power: p.id }); return false; }
+        return toggleLantern();
+      }
       if (cls === "aws" && state.health?.warded) { say("The ward is already raised."); emit({ type: "fail", power: p.id, why: "raised" }); return false; }
-      if (!ready()) { const n = p.recharge - since; say(`${p.name} recharges in ${n} step${n === 1 ? "" : "s"}.`); emit({ type: "wait", power: p.id, left: n }); return false; }
+      if (charges <= 0) { say(`No charges for ${p.name}. Find one, open a chest or rest at a bonfire.`); emit({ type: "empty", power: p.id }); return false; }
       if (hop) return false;
       if (actor.path.length || actor.moving) { pending = true; actor.pause = true; state.route.cancel(); return true; }
       return run();
     },
-    refill() { since = power().recharge; emit({ type: "refill" }); },
+    refill() {
+      syncClass();
+      charges = Math.max(charges, CHARGES.stock);
+      oil = Math.max(oil, OIL.flask * OIL.stock);
+      save();
+      emit({ type: "refill", charges, oil });
+    },
+    reset() { stock(); save(); emit({ type: "refill", charges, oil }); },
     bind() {
       for (const f of offs) f();
       offs = [];
@@ -140,27 +202,41 @@ export function createPowers(game) {
       if (actor) actor.pause = false;
       lastCell = actor ? key(actor.cell[0], actor.cell[1]) : "";
       syncClass();
-      const t = state.things?.on?.((e) => { if (e.type === "lit" || e.type === "rest") api.refill(); });
+      if (state.level?.name !== levelName) { levelName = state.level?.name; if (lit) { lit = false; emit({ type: "douse" }); } }
+      if (state.params.reset === "1") { try { storage?.removeItem(pickupKey(state.level?.name)); } catch {} }
+      taken = readTaken();
+      const t = state.things?.on?.((e) => {
+        if (e.type === "lit" || e.type === "rest") api.refill();
+        if (e.type === "open" && e.thing?.kind === "chest" && give("chest")) later = gainText("Found in the chest");
+      });
       if (t) offs.push(t);
       const l = state.life?.on?.((e) => { if (e.type === "respawn") { hop = null; pending = false; if (actor) actor.pause = false; lastCell = key(actor.cell[0], actor.cell[1]); } });
       if (l) offs.push(l);
-      const h = state.health?.on?.((e) => { if (cls === "aws" && e.type === "absorb") { since = 0; emit({ type: "absorb" }); } });
+      const h = state.health?.on?.((e) => { if (cls === "aws" && e.type === "absorb") emit({ type: "absorb" }); });
       if (h) offs.push(h);
+      emit({ type: "bind" });
     },
     update(dt) {
       if (!actor || actor !== state.actor) return;
       syncClass();
+      if (later) { say(later); later = null; }
+      if (lit) {
+        oil = Math.max(0, oil - dt);
+        shine();
+        if (oil <= 0) { lit = false; say("The lantern gutters out."); emit({ type: "douse", dry: true }); }
+        if (Math.floor(oil) !== Math.floor(oil + dt)) save();
+      }
       if (hop) {
-        hop.t = Math.min(HOP_S, hop.t + dt);
-        const u = hop.t / HOP_S, e = u * u * (3 - 2 * u);
+        hop.t = Math.min(DASH_S, hop.t + dt);
+        const e = hop.t / DASH_S;
         actor.pos.x = hop.from[0] + 0.5 + (hop.to[0] - hop.from[0]) * e;
         actor.pos.z = hop.from[1] + 0.5 + (hop.to[1] - hop.from[1]) * e;
-        actor.y = hop.y0 + (hop.y1 - hop.y0) * e + HOP_H * 4 * u * (1 - u);
+        actor.y = hop.y0 + (hop.y1 - hop.y0) * e;
         actor.moving = false;
-        if (hop.t >= HOP_S) {
+        if (hop.t >= DASH_S) {
           actor.cell = hop.to.slice();
           actor.pos.x = hop.to[0] + 0.5; actor.pos.z = hop.to[1] + 0.5; actor.y = hop.y1;
-          lastCell = key(hop.to[0], hop.to[1]);
+          lastCell = "";
           emit({ type: "land", cell: hop.to.slice() });
           hop = null;
           actor.pause = false;
@@ -170,15 +246,12 @@ export function createPowers(game) {
       if (pending && !actor.path.length) {
         pending = false;
         actor.pause = false;
-        if (!run() && !hop) actor.pause = false;
+        run();
       }
       const k = key(actor.cell[0], actor.cell[1]);
       if (k !== lastCell) {
         lastCell = k;
-        if (!power().passive && !(cls === "aws" && state.health?.warded) && since < power().recharge) {
-          since++;
-          if (since === power().recharge) emit({ type: "ready", power: power().id });
-        }
+        collect();
         emit({ type: "step", cell: actor.cell.slice() });
       }
     },
