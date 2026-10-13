@@ -50,14 +50,17 @@ export function placeCharges(raw, { seed = 1, count = PICKUPS.count } = {}) {
     cands.push({ x, z, score, near: closed.has(k) });
   }));
   cands.sort((a, b) => b.score - a.score);
-  const picked = [];
+  const pinned = (raw.charges || []).filter((c) => c.pinned).map((c) => ({ ...c, near: closed.has(key(c.x, c.z)) }));
+  const picked = [...pinned];
   const far = (c) => picked.every((q) => Math.abs(q.x - c.x) + Math.abs(q.z - c.z) >= PICKUPS.spacing);
-  for (const c of cands) { if (picked.length >= count) break; if (far(c)) picked.push(c); }
+  const taken = (c) => picked.some((q) => q.x === c.x && q.z === c.z);
+  for (const c of cands) { if (picked.length >= Math.max(count, pinned.length)) break; if (far(c) && !taken(c)) picked.push(c); }
   if (picked.length && !picked.some((c) => c.near)) {
-    const n = cands.find((c) => c.near && picked.slice(0, -1).every((q) => Math.abs(q.x - c.x) + Math.abs(q.z - c.z) >= PICKUPS.spacing)) || cands.find((c) => c.near);
-    if (n) picked[picked.length - 1] = n;
+    const free = picked.length > pinned.length ? picked.length - 1 : picked.length;
+    const n = cands.find((c) => c.near && !taken(c) && picked.slice(0, free).every((q) => Math.abs(q.x - c.x) + Math.abs(q.z - c.z) >= PICKUPS.spacing)) || cands.find((c) => c.near && !taken(c));
+    if (n) picked[free] = n;
   }
-  return picked.map((c, i) => ({ id: "k" + (i + 1), x: c.x, z: c.z }));
+  return picked.map((c, i) => ({ id: c.pinned ? c.id || "k" + (i + 1) : "k" + (i + 1), x: c.x, z: c.z, ...(c.pinned ? { pinned: true } : {}) }));
 }
 
 export function checkCharges(raw) {
