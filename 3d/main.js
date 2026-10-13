@@ -41,7 +41,7 @@ const resetRegistry = () => {
 };
 
 async function prepare(name) {
-  const level = await loadLevel(name, { beforePrepare: async (raw) => { resetRegistry(); await loadPieces(raw); } });
+  const level = await loadLevel(name, { beforePrepare: async (raw) => { resetRegistry(); await loadPieces(raw); if (params.fences === "0") raw.decor = (raw.decor || []).filter((d) => !/^rail-/.test(d.t)); } });
   if (SKY !== "none") level.bg = SKY_BG;
   const style = makeStyle(level);
   await loadGlbs(level, style);

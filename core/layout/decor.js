@@ -22,6 +22,7 @@ export const MACHINES = [
   ["gateways", "a pair of waymarks where a road leaves a junction"],
   ["pockets", "a camp or a one-family grove in each off-path pocket, at least six cells apart, the largest pocket of each landmass first"],
   ["rim", "a few tall spires on convex corners of the rim, at least one on every landmass"],
+  ["fences", "after traps: sparse themed rails on trap-run flanks and the riskiest spine rims, with gaps at side paths (core/layout/fences.js)"],
 ];
 
 const SIDE_ROT = { s: 0, w: 1, n: 2, e: 3 };

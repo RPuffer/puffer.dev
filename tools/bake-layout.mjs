@@ -8,12 +8,15 @@ import { SHAPES, resolveTransforms } from "../core/layout/shapes/index.js";
 import { measure, checks } from "./variety-lib.mjs";
 import { placeTraps } from "../core/traps/place.js";
 import { placeCharges, checkCharges } from "../core/layout/pickups.js";
+import { placeFences } from "../core/layout/fences.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const args = process.argv.slice(2);
 const flag = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
 const baseName = flag("--base", "wizard-medium");
 const dry = args.includes("--dry");
+const fenced = flag("--fences", "all");
+const fenceOn = (b) => !!b.run && (fenced === "all" || fenced.split(",").includes(b.name));
 const ascii = args.includes("--ascii");
 if (ascii) fs.mkdirSync(path.join(root, flag("--ascii-dir", "out/layout")), { recursive: true });
 
@@ -143,10 +146,12 @@ for (const [i, b] of list.entries()) {
     level.charges = r.charges;
     problems.push(...r.problems);
   }
+  let fenceNote = "";
+  if (level && fenceOn(b)) { const f = placeFences(level, { seed: level.layout?.seed ?? b.seed }); fenceNote = `, fences ${f.material} ${f.cells} cells ${(f.share * 100).toFixed(1)}% of ${f.edges} edge cells`; }
   if (level) { level.charges = placeCharges(level, { seed: level.layout?.seed ?? b.seed, count: 2 + (level.charges?.length || 0) }); problems.push(...checkCharges(level)); }
   const dist = routeDistances(level).map((s) => `${s.id} ${s.locked}->${s.unlocked}`).join(", ");
   const land = level.cells.flat().filter((c) => c.s !== "none" && c.s !== "water").length;
-  console.log(`${b.name}: ${level.layout.shape} ${level.layout.transform} x${level.layout.scale} ${b.archetype}, seed ${b.seed}${best.variant ? ` variant ${best.variant}` : ""} attempt ${attempt}, size ${level.size.join("x")}, land ${land}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, pads ${level.things.filter((t) => t.kind === "pad").length / 2}, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}`);
+  console.log(`${b.name}: ${level.layout.shape} ${level.layout.transform} x${level.layout.scale} ${b.archetype}, seed ${b.seed}${best.variant ? ` variant ${best.variant}` : ""} attempt ${attempt}, size ${level.size.join("x")}, land ${land}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, pads ${level.things.filter((t) => t.kind === "pad").length / 2}, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}${fenceNote}`);
   if (args.includes("--why")) for (const [k, h] of (history || []).entries()) console.log(`  attempt ${k}: ${h.join(" | ")}`);
   if (problems.length) { failed++; console.log("  FAIL\n  " + problems.slice(0, 12).join("\n  ")); }
   if (ascii) fs.writeFileSync(path.join(flag("--ascii-dir", "out/layout"), `${b.name}.txt`), draw(level) + "\n" + problems.join("\n") + "\n");
