@@ -349,7 +349,8 @@ export function createRenderer(container = document.body) {
         for (const f of orients) f(state);
       }
       lift += (liftAt(state.level, a.pos.x, a.pos.z) - lift) * Math.min(1, dt * 12);
-      if (things) { things.update(state, dt); ride = things.rideOffset(state); }
+      const wdt = dt * (state.timeScale ?? 1);
+      if (things) { things.update(state, wdt); ride = things.rideOffset(state); }
       if (held && things?.kept) {
         const d = things.parts[things.kept], sh = things.shafts[things.kept], gy = things.group.position.y;
         if (d && sh) {
@@ -359,13 +360,13 @@ export function createRenderer(container = document.body) {
         }
       }
       hero.position.set(a.pos.x, (a.y + lift) * state.view.tileH + ride, a.pos.z);
-      if (traps) traps.update(state, dt);
+      if (traps) traps.update(state, wdt);
       heroFx(hero, a, state.view, hero.userData.baseScale ??= hero.scale.x);
       if (state.params.hero !== "0") hero.visible = !(a.blink > 0 && Math.floor(a.blink * 14) % 2);
       if (jitter > 0) hero.position.x += (Math.random() - 0.5) * 2 * jitter, hero.position.z += (Math.random() - 0.5) * 2 * jitter;
       hero.userData.animate(a, dt);
       line.update(state, dt, { clear: beamClear.value, drop, show: hero.visible && !a.locked && seqK === 0 });
-      stepMotion(dt);
+      stepMotion(wdt);
       if (mul !== mulTo) {
         mul += (mulTo - mul) * (dt > 0 ? 1 - Math.exp(-dt * 12) : 1);
         if (Math.abs(mul - mulTo) < 1e-3 * mulTo) mul = mulTo;

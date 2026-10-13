@@ -128,8 +128,9 @@ export function createGame(renderer, params = readParams()) {
     if (petal != null && state.actor.held !== petalHeld && state.time - petalAt >= HOLD - 1e-9 && !state.actor.locked) { state.actor.held = petalHeld; input.repeating(true); }
     state.actor.update(STEP);
     state.route.update();
-    state.things?.update(STEP);
-    state.traps?.update(STEP);
+    const W = STEP * (state.timeScale = powers.scale);
+    state.things?.update(W);
+    state.traps?.update(W);
     state.life?.update(STEP);
     powers.update(STEP);
     for (const f of tickers) f(STEP);
