@@ -66,17 +66,17 @@ defineTrap("t25", {
 });
 
 defineTrap("t22", {
-  hang: 1.5, fall: 0.12, rest: 0.45, rise: 0.8,
+  hang: 1.5, fall: 0.12, settle: 0.45, rise: 0.8,
   check(t) { return t.cells.length !== 1 ? ["the pancake stone covers one cell"] : []; },
   init(t) { t.phase = 0; t.drop = 0; t.slam = -1; },
   reset(t) { t.phase = 0; t.drop = 0; t.slam = -1; },
   disarm(t) { t.drop = 0; t.slam = -1; },
   update(t, dt, ctx) {
-    const cycle = this.hang + this.fall + this.rest + this.rise;
+    const cycle = this.hang + this.fall + this.settle + this.rise;
     const was = t.phase;
     t.phase = (t.phase + dt) % cycle;
     const p = t.phase;
-    t.drop = p < this.hang ? 0 : p < this.hang + this.fall ? (p - this.hang) / this.fall : p < this.hang + this.fall + this.rest ? 1 : 1 - (p - this.hang - this.fall - this.rest) / this.rise;
+    t.drop = p < this.hang ? 0 : p < this.hang + this.fall ? (p - this.hang) / this.fall : p < this.hang + this.fall + this.settle ? 1 : 1 - (p - this.hang - this.fall - this.settle) / this.rise;
     t.shadow = p < this.hang ? p / this.hang : t.drop;
     if (was < this.hang + this.fall && p >= this.hang + this.fall) { t.slam = 0; ctx.emit(t, "slam"); if (ctx.on(t.cells[0])) ctx.hurt(t, 2, { back: ctx.prev() }); }
     if (t.slam >= 0) { t.slam += dt; if (t.slam > 0.5) t.slam = -1; }

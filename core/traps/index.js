@@ -141,7 +141,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
       emit({ type: "reset" });
     },
     rest() {
-      for (const t of list) t.impl?.rest?.(t, ctx);
+      for (const t of list) if (typeof t.impl?.rest === "function") t.impl.rest(t, ctx);
       emit({ type: "rest" });
     },
     update(dt) {
