@@ -261,7 +261,7 @@ export function buildTraps(state, style) {
       place(hinge, c, 0.012);
       const axis = new THREE.Vector3(), H = 0.37;
       it.update = () => {
-        const b = t.boing, f = t.dir || [0, 1];
+        const b = t.boing, f = t.dir ? [-t.dir[0], -t.dir[1]] : [0, -1];
         const a = b < 0 ? 0 : b < 0.08 ? b / 0.08 : Math.pow(1 - Math.min(1, (b - 0.08) / 0.52), 2);
         hinge.position.set(c[0] + 0.5 - f[0] * H, Y(c) + 0.012, c[1] + 0.5 - f[1] * H);
         lid.position.set(f[0] * H, 0, f[1] * H);
