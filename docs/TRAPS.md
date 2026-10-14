@@ -1,24 +1,68 @@
 # Traps
 
-Design catalog for the booby-trapped islands. The operator approved all 53 entries. Eight of them run as a proof of concept (see Implemented). Each entry carries the tags procgen needs to mix traps without breaking an island: footprint, trigger, the rule it teaches or bends, visibility, pull, and exclusions. The machine-readable copy sits at the end of this file. Fortress card `puffer-isoworld-trap-concepts` holds the same set for review.
+Design catalog for the booby-trapped islands. The operator approved all 53 entries, and all 53 now run (see Implemented). Each entry carries the tags procgen needs to mix traps without breaking an island: footprint, trigger, the rule it teaches or bends, visibility, pull, and exclusions. The machine-readable copy sits at the end of this file. Fortress card `puffer-isoworld-trap-concepts` holds the same set for review.
 
 53 entries: 25 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzles. Visibility: 19 obvious, 19 telegraphed, 15 hidden.
 
 ## Implemented
 
-`?level=traps-showcase` puts one of each PoC trap on a spoke off a bonfire hub, and `node tools/qa-traps.mjs` proves them.
+`?level=traps-showcase` puts every trap on the map. The nine first-built traps sit on spokes off a bonfire hub; every other trap gets its own plot hanging off a grid of boulevards south of the hub, and the level's `plots` field maps each plot name to its origin cell. `node tools/qa-traps.mjs` proves each one: it fires the trap, checks what it costs, and walks the way past it or the puzzle's solution.
 
-| Id | Name | Tier | Trigger | Visibility | Health | Showcase spoke |
+| Id | Name | Tier | Trigger | Visibility | Health | Showcase spot |
 | --- | --- | --- | --- | --- | --- | --- |
+| t01 | Four-tile vanish, then the gate | sequence | step | hidden | knock-off | plot `vanish` |
 | t02 | Worn-through flagstones | local | step | telegraphed | knock-off | north spoke, guards a chest |
 | t03 | Beat spikes | local | timer | obvious | -1 heart | west spoke, guards a chest |
+| t04 | Goose plates | local | step | obvious | none | plot `goose` |
+| t05 | Banana scuff | local | step | telegraphed | knock-off | plot `banana` |
+| t06 | Sneeze dust | local | step | obvious | none | plot `sneeze` |
+| t07 | Mimic chest | local | interact | hidden | -1 heart | plot `mimic` |
+| t08 | Trapdoor chest | local | interact | hidden | -1 heart | plot `trapdoor` |
+| t09 | Prop decoys | local | interact | hidden | none | plot `decoys` |
+| t10 | The hole that scoots | local | step | hidden | knock-off | plot `scoot` |
+| t11 | Painted hole | local | camera | hidden | knock-off | plot `painted` |
+| t12 | Fake spur | local | step | telegraphed | none | plot `spur` |
+| t13 | Long-stride plate | local | step | telegraphed | -1 heart | plot `stride` |
+| t14 | Painted decoy | local | step | hidden | -1 heart | plot `decoy` |
+| t15 | Faith tiles | local | step | obvious | none | plot `faith` |
+| t16 | Nothing here | local | step | obvious | none | plot `nothing` |
+| t17 | Stone twin | local | look | telegraphed | none | plot `twin` |
+| t18 | Spring tile | local | step | telegraphed | none | plot `spring` |
+| t19 | Barrel lane | local | timer | obvious | -1 heart | plot `barrel` |
+| t20 | Rewind tile | local | step | hidden | none | plot `rewind` |
 | t21 | Invisible block | local | step | hidden | -1 heart | north-east road, cell 22,9 |
+| t22 | Pancake stone | local | timer | telegraphed | -2 hearts | plot `pancake` |
+| t23 | Turntable | local | step | telegraphed | none | plot `turntable` |
 | t24 | Boss kick | local | step | telegraphed | knock-off | south-west rim spoke, guards a chest |
 | t25 | Arrow plate | local | step | telegraphed | -1 heart | east spoke, plate at 22,12, cover at 24,13, guards a chest |
 | t26 | Chariot | local | step | telegraphed | knock-off | south-east lane, notches at 20,18 and 20,21, guards a chest |
+| t27 | Kind bridge, still bridge | sequence | step | hidden | knock-off | plot `bridges` |
+| t28 | Sign, then sign again | sequence | step | hidden | knock-off | plot `signs` |
+| t29 | Empty hall, then the bonk | sequence | step | hidden | -1 heart | plot `hall` |
+| t30 | Real chest, then the mimic | sequence | interact | hidden | -1 heart | plot `chests` |
+| t31 | Coin trail to a painted hole | sequence | step | hidden | knock-off | plot `coins` |
+| t32 | Mirror controls | debuff | arrival | obvious | none | plot `mirror` |
 | t33 | Fog | debuff | arrival | obvious | none | the garden past the block |
+| t34 | Nap timer | debuff | arrival | obvious | all hearts | plot `nap` |
+| t35 | Slick soles | debuff | arrival | obvious | none | plot `slick` |
+| t36 | Gusts | debuff | arrival | telegraphed | none | plot `gusts` |
+| t37 | Sticky soles | debuff | arrival | obvious | none | plot `sticky` |
+| t38 | Stuck camera | debuff | arrival | obvious | none | plot `stuck` |
+| t39 | Hiccups | debuff | arrival | telegraphed | none | plot `hiccups` |
 | t40 | Order plates | puzzle | step | telegraphed | none | north-west room, gate and chest behind it |
-| t52 | Ice rink (floor only) | puzzle | step | obvious | none | south spoke, 3x3 ice with open edges and one rock |
+| t41 | Crate push | puzzle | step | obvious | none | plot `crates` |
+| t42 | Lights-out floor | puzzle | step | obvious | none | plot `lights` |
+| t43 | One-visit floor | puzzle | step | obvious | none | plot `onevisit` |
+| t44 | Gaze bridge | puzzle | look | telegraphed | none | plot `gaze` |
+| t45 | Valve swap | puzzle | interact | telegraphed | none | plot `valves` |
+| t46 | One-angle bridge | puzzle | camera | telegraphed | none | plot `angle` |
+| t47 | Flash path | puzzle | step | hidden | none | plot `flash` |
+| t48 | Counting gate | puzzle | step | obvious | none | plot `counting` |
+| t49 | Mirror twin | puzzle | step | obvious | none | plot `mirrortwin` |
+| t50 | Pictogram gates | puzzle | step | telegraphed | none | plot `pictos` |
+| t51 | Fuse run | puzzle | timer | obvious | none | plot `fuse` |
+| t52 | Ice rink | puzzle | step | obvious | none | south spoke, 3x3 ice with open edges and one rock |
+| t53 | Conveyor knot | puzzle | timer | telegraphed | none | plot `belts` |
 
 ### How traps run
 
@@ -43,6 +87,14 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 - Ice (t52) ships as the floor alone, with no rail and no reward yet. A press onto ice slides you cell by cell until a wall, a solid prop or the end of the ice stops you, and an open edge drops you. Routing skips ice.
 - Forced movement carries you off edges with no teeter: a spring fling that lands over the void falls, and so does an ice slide. Knockback traps already knocked you off.
 - Sound is not built yet: no drum tick, slide whistle or raspberry audio.
+- Debuffs read an optional `zone` rectangle, like fog. The showcase gives each debuff its own garden; on a run island a debuff covers the whole island.
+- Trap props (the mimic chest, prop decoys, valve and fuse levers) are things with a `trap` field. The things renderer skips them, the trap draws them with the same chest and lever builders, and F on one raises a `trap-act` event instead of the usual action. Decoys and mimics glow on purpose.
+- Faith tiles, gaze glass, the one-angle bridge and the fuse drawbridge keep real floor in the level file and sink it when the trap loads, so layout checks see a reachable island. The trap raises a cell only while its rule holds: you stand beside it, the watcher watches, the camera sits at the bridge's angle, or the fuse burns.
+- Banana scuff needs a cell beside the run before the turn so you can cut the corner; the guard rule counts that cell as part of the trap.
+- The scooting hole moves once, on the first respawn after it drops you, and a chalk outline marks the cell it left.
+- The stone twin opts out of the reward guard: it never hurts, it only stands beside the gate approach.
+- Class traps (long-stride plate, painted decoy) run anywhere, but the bake never places them because a run has no class until you pick one. Long-stride reads Ink Step's skipped cell; painted decoy paints only its harmless cell when a reveal power finds it.
+- Puzzles open a gate thing whose `open` reads `trap:<id>`, like order plates. On a run island the counting gate puts its gate on the reward pocket and pins the charge behind it.
 
 ## Game rules every trap respects
 
@@ -562,9 +614,20 @@ The operator meets these blind. Keep them out of cards, commit subjects, README 
 
 | Island | Level | Traps |
 | --- | --- | --- |
-| 1 | cat-medium | t18 Spring tile on 20,13 guards the island chest c1; t03 Beat spikes on 16,24 to 16,27 guard charge kg2 at 16,28 |
-| 2 | wizard-medium | t22 Pancake stone on 12,39 guards charge kg1 at 12,40; t25 Arrow plate on 15,39 to 18,39, plate 15,39, cover 16,40, guards charge kg2 at 18,38 |
-| 3 | swallow-medium | t03 Beat spikes on 35,10 to 37,10 guard charge kg1 at 38,10; t02 Worn-through flagstones on 37,20 to 39,20 guard charge kg2 at 40,20 |
+| 1 | cat-medium | t18 Spring tile on 20,13 guards the island chest c1; t03 Beat spikes on 16,24 to 16,27 guards charge kg2 at 16,28 |
+| 2 | wizard-medium | t05 Banana scuff on 31,4, slides to 31,3, corner cut 30,5 guards charge kg1 at 30,3; t25 Arrow plate on 14,39 to 18,39, plate 14,39, cover 16,40 guards charge kg2 at 18,38 |
+| 3 | swallow-medium | t03 Beat spikes on 35,10 to 37,10 guards charge kg1 at 38,10; t02 Worn-through flagstones on 37,20 to 39,20 guards charge kg2 at 40,20 |
+| 4 | forest-volute | t37 Sticky soles over the whole island; t17 Stone twin on 11,6; t48 Counting gate on 15,8 to 15,4, gate g-t48-2 guards charge kg3 at 15,3; t04 Goose plates on 27,15 to 27,11, plates 28,14 26,11 guards charge kg4 at 28,10; t20 Rewind tile on 18,8 |
+| 5 | mindbloom-medium | t38 Stuck camera over the whole island; t06 Sneeze dust on 22,36 to 23,36 guards charge kg2 at 23,35; t16 Nothing here on 14,30 to 10,30 guards charge kg3 at 10,29; t10 The hole that scoots on 18,37 to 19,37 |
+| 6 | cosmos-frisket | t35 Slick soles over the whole island; t48 Counting gate on 33,13 to 33,18, gate g-t48-1 guards charge kg2 at 34,18; t12 Fake spur on 17,18 to 17,20 guards charge kg3 at 18,20; t22 Pancake stone on 33,29 guards charge kg4 at 34,29; t20 Rewind tile on 8,23 |
+| 7 | gremlin-subject | t32 Mirror controls over the whole island; t30 Real chest, then the mimic mimic at 27,39 after the real chest c1; t18 Spring tile on 20,39 guards charge kg3 at 21,39 |
+| 8 | eagle-composition | t39 Hiccups over the whole island; t07 Mimic chest mimic chest at 10,25; t19 Barrel lane on 29,37 to 25,37, dodge 28,38 guards charge kg3 at 24,37; t12 Fake spur on 42,37 to 44,37 guards charge kg4 at 45,37 |
+| 9 | dragon-medium | t36 Gusts over the whole island, wind from the west; t25 Arrow plate on 19,27 to 19,24, plate 19,27, cover 20,26 guards charge kg2 at 16,22; t29 Empty hall, then the bonk hall on 14,29 to 10,29, block at 10,27 guards charge kg3 at 6,26; t11 Painted hole on 18,30, seam at yaw 225 |
+| 10 | sharkbear-medium | t34 Nap timer over the whole island; t28 Sign, then sign again on 32,36 to 32,34, then on 33,33 to 35,33 guards charge kg2 at 37,32; t19 Barrel lane on 14,37 to 10,37, dodge 13,36 guards charge kg3 at 9,36; t20 Rewind tile on 25,39 |
+| 11 | chimera-medium | t33 Fog over the whole island; t30 Real chest, then the mimic mimic at 4,27 after the real chest c1; t25 Arrow plate on 49,42 to 46,42, plate 49,42, cover 48,41 guards charge kg3 at 46,43; t21 Invisible block on 49,38 |
+| 12 | ember-subject | t32 Mirror controls over the whole island; t31 Coin trail to a painted hole coins 38,28 38,27 38,26 37,26 37,27 36,27 36,28, painted hole at 36,28 guards charge kg2 at 31,26; t48 Counting gate on 38,23 to 42,23, gate g-t48-2 guards charge kg3 at 42,22; t12 Fake spur on 37,40 to 39,40 guards charge kg4 at 40,40; t04 Goose plates on 23,29 to 27,29, plates 23,28 23,30 24,28 guards charge kg5 at 30,28 |
+
+The bake leaves these traps off run islands: t01 (no pocket patch with a later gate slot and detour), t08 (no island chest pad sits beside a lower tier), t13 and t14 (class traps; the bake has no class), t23, t24 and t26 (the island budgets went to new kinds), t27 (the layout builds no bridges), and every puzzle but the counting gate (the layout builds no puzzle rooms with a reward gate behind them). Hidden locals may share a reward approach with a guard; they pin no charge of their own.
 
 Spring tile fires once per life and flings you two cells back the way you came. Pancake stone hangs over its cell on two posts; its shadow grows for 1.5 s, it slams for 2 hearts, rests and lifts. Every guarded reward is optional: lift to lift passes with the trap cells blocked.
 
