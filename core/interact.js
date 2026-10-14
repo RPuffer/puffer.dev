@@ -160,6 +160,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
   const usable = (t) => (t.kind === "gate" && leverGate(t)) || (t.kind === "bonfire") || (t.kind === "chest" && t.state === "closed") || (t.kind === "elevator" && t.state === "idle") || (t.kind === "door" && t.state === "closed") || (t.kind === "ladder" && t.state === "up") || (t.kind === "lever" && t.state === "up") || (t.kind === "pad" && t.state === "live" && !!byId[t.to]);
   const farSide = (t, c = actor.cell) => t.kind === "door" ? at(c, t.edge?.[1]) : t.kind === "ladder" ? at(c, [t.x, t.z]) : true;
   const verb = (t) => {
+    if (t.verb) return t.verb;
     if (t.kind === "bonfire") return VERB.bonfire[t.state === "lit" ? 1 : 0];
     if (t.kind === "door") return farSide(t) ? "Open the door" : "Try the door";
     if (t.kind === "ladder") return farSide(t) ? "Kick the ladder down" : "Reach for the ladder";
@@ -169,6 +170,7 @@ export function createInteract(level, { params = {}, storage = globalThis.localS
 
   const act = (t) => {
     if (!t || !usable(t) || !actor || actor.locked) return false;
+    if (t.trap) { emit({ type: "trap-act", thing: t }); return true; }
     if (t.kind === "bonfire") {
       const first = t.state !== "lit";
       t.state = "lit";

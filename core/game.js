@@ -162,6 +162,7 @@ export function createGame(renderer, params = readParams()) {
     zoom(step) { return !!(state.actor && game.canZoom() && renderer.zoomStep?.(step)); },
     rotate(step = 1) {
       if (!renderer.onOrient || !state.view || !state.actor || !step || !game.canRotate()) return false;
+      if (state.camLock) { state.things?.say("The camera is stuck. Q and E do nothing here."); return false; }
       const base = state.turn ? state.turn.to : state.view.yaw;
       const to = base + Math.sign(step) * 90;
       state.turn = { from: state.view.yaw, to, t: 0 };
@@ -196,7 +197,8 @@ export function createGame(renderer, params = readParams()) {
       const health = state.health;
       let traps = null;
       const life = createLife({ level, actor, things, health, variant: p.fall, onRespawn: () => { state.route.clear(); traps?.reset(); } });
-      traps = level.traps?.length && p.traps !== "0" ? createTraps(level, { actor, life, health, things, params: p, rotate: (step) => game.rotate(step) }) : null;
+      state.camLock = false;
+      traps = level.traps?.length && p.traps !== "0" ? createTraps(level, { actor, life, health, things, params: p, rotate: (step) => game.rotate(step), lockCamera: (on) => { state.camLock = !!on; }, yaw: () => game.yaw }) : null;
       things?.on((e) => { if (e.type === "lit" || e.type === "rest") { health.refill(e.type); traps?.rest(); } });
       Object.assign(state, { level, view, proj, actor, params: p, things, life, traps });
       powers.bind();

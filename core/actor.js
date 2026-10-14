@@ -74,11 +74,13 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
   const pull = () => {
     if (a.path.length || a.pause) return;
     if (a.slide) { slideOn(); return; }
-    const d = a.held || a.tapDir, held = !!a.held;
+    const d = (a.sticky ? null : a.held) || a.tapDir, held = !a.sticky && !!a.held;
     a.tapDir = null;
-    const dirs = typeof d === "function" ? d() || [] : d ? [d] : [];
+    const raw = typeof d === "function" ? d() || [] : d ? [d] : [];
+    const dirs = a.mapDir ? raw.map(a.mapDir) : raw;
     if (!dirs.length) return;
     if (dirs.some((x) => a.stepDir(x))) { a.teeter = null; return; }
+    if (a.push && dirs.some((x) => a.push(x) && a.stepDir(x))) { a.teeter = null; return; }
     const edge = dirs.find((x) => a.edgeAt(x));
     if (edge) { teeterOrFall(edge, held); return; }
     if (a.teeter && a.teeter.dir !== dirs[0]) a.teeter = null;
@@ -97,7 +99,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
       const [tx, tz] = a.path[0];
       const gx = tx + 0.5, gz = tz + 0.5;
       const dx = gx - a.pos.x, dz = gz - a.pos.z, d = Math.hypot(dx, dz);
-      if (d > 1e-6) a.facing = Math.atan2(dx, dz);
+      if (d > 1e-6) a.facing = a.backward ? Math.atan2(-dx, -dz) : Math.atan2(dx, dz);
       if (d <= budget) {
         const from = a.cell;
         a.pos.x = gx; a.pos.z = gz; a.cell = [tx, tz];

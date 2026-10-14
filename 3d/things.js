@@ -13,7 +13,7 @@ import { motion } from "./motion.js";
 export const RISE = 2.4;
 const t3 =(c) => (Array.isArray(c) ? tone(c[0], c[1] || c[0], c[2] || c[1] || c[0]) : tone(c, c, c));
 
-function lookOf(style) {
+export function lookOf(style) {
   const P = style.palette, T = P.things || {};
   const rock = P.rock || ["#e8e5e1", "#cbc5be", "#9c948b"];
   const wood = P.wood || {};
@@ -58,13 +58,13 @@ function bonfireFlame(B, k) {
   });
 }
 
-function chestBase(B, k) {
+export function chestBase(B, k) {
   B.rbox(0.62, 0.34, 0.42, 0.04, t3(k.wood), 0, 0, 0);
   for (const x of [-0.2, 0.2]) B.box(0.07, 0.35, 0.44, t3(k.metal), x, 0, 0);
   B.box(0.11, 0.12, 0.03, t3(k.metal), 0, 0.22, 0.22);
 }
 
-function chestLid(B, k) {
+export function chestLid(B, k) {
   B.rbox(0.64, 0.15, 0.44, 0.05, t3(k.wood), 0, 0, 0.22);
   for (const x of [-0.2, 0.2]) B.box(0.07, 0.16, 0.46, t3(k.metal), x, 0, 0.22);
 }
@@ -111,7 +111,7 @@ function dropLip(B, k) {
   for (const x of [-0.26, 0.26]) B.box(0.1, 0.18, 0.1, t3(k.post), x, 0.06, -0.02);
 }
 
-function leverBase(B, k) {
+export function leverBase(B, k) {
   B.rbox(0.42, 0.22, 0.32, 0.04, t3(k.stone), 0, 0, 0);
   B.box(0.16, 0.12, 0.24, t3(k.metal), 0, 0.2, 0);
 }
@@ -143,7 +143,7 @@ function padGlow(t) {
   return group;
 }
 
-function leverArm(B, k) {
+export function leverArm(B, k) {
   B.box(0.06, 0.62, 0.06, t3(k.wood), 0, 0, 0);
   B.rbox(0.14, 0.14, 0.14, 0.04, t3(k.metal), 0, 0.6, 0);
 }
@@ -180,6 +180,7 @@ function partMesh(build, light, k, at, rotY, reach = false) {
 export function bakeThingBases(S, L, view, style, P = S) {
   const LL = liftLevel(L), k = lookOf(style);
   for (const t of L.things || []) {
+    if (t.trap) continue;
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") S.at(x, y, z, r, () => bonfireBase(S, k));
     else if (t.kind === "chest") S.at(x, y, z, r, () => chestBase(S, k));
@@ -202,6 +203,7 @@ export function buildThings(L, view, style, decorGroup, live = null) {
   decorGroup?.traverse((o) => { if (o.userData?.live?.thing) heads[o.userData.live.thing] = o; });
   const byId = new Map((live || []).map((q) => [q.id, q]));
   for (const t of L.things || []) {
+    if (t.trap) continue;
     const st = byId.get(t.id)?.state ?? t.state;
     const y = surfaceY(LL, view, t.x, t.z), x = t.x + 0.5, z = t.z + 0.5, r = -(t.rot || 0) * (Math.PI / 2);
     if (t.kind === "bonfire") {

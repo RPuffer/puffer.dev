@@ -45,6 +45,7 @@ export function forbiddenCells(raw) {
   const near = (c, r, why) => { for (let dz = -r; dz <= r; dz++) for (let dx = -r; dx <= r; dx++) add([c[0] + dx, c[1] + dz], why); };
   if (raw.spawn) near(raw.spawn, 2, "near spawn");
   for (const t of raw.things || []) {
+    if (t.trap) continue;
     const kind = t.kind || t.t;
     const at = [t.x, t.z];
     if (kind === "bonfire") near(at, 2, "near bonfire");
@@ -66,7 +67,7 @@ export function forbiddenCells(raw) {
   return out;
 }
 
-export const mustGuard = (kind) => { const m = TRAP_BY_ID[kind]; return !!m && m.tier === "local" && m.visibility !== "hidden"; };
+export const mustGuard = (kind) => { const m = TRAP_BY_ID[kind]; return !!m && m.tier === "local" && m.visibility !== "hidden" && !KINDS[kind]?.free; };
 
 export function dangerCells(t) {
   const k = KINDS[t.kind];
@@ -144,7 +145,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [] } 
     const cells = trapCells(t);
     const own = (raw.things || []).find((q) => q.id && q.id === t.gate);
     const ownCells = new Set(own ? [...(own.edge || []), ...(own.threshold || []), ...(own.blocks || [])].map((c) => key(c[0], c[1])) : []);
-    const prize = t.guards?.chest && (raw.things || []).find((q) => q.id === t.guards.chest);
+    const prize = (t.guards?.chest || t.chest || t.real) && (raw.things || []).find((q) => q.id === (t.guards?.chest || t.chest || t.real));
     if (prize) for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) if (dx || dz) ownCells.add(key(prize.x + dx, prize.z + dz));
     for (const c of cells) {
       if (ownCells.has(key(c[0], c[1]))) continue;
@@ -162,7 +163,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [] } 
   }
   const showcase = raw.trapRules === "showcase";
   if (!showcase) for (const [a, b] of compatible(kinds)) problems.push(`${a} and ${b} exclude each other`);
-  if (counts.debuff > 1) problems.push(`${counts.debuff} debuffs, at most 1`);
+  if (counts.debuff > 1 && !showcase) problems.push(`${counts.debuff} debuffs, at most 1`);
   if (counts.puzzle > 1 && !showcase) problems.push(`${counts.puzzle} puzzles, at most 1`);
   if (!showcase) for (let i = 0; i < foot.length; i++) for (let j = i + 1; j < foot.length; j++) {
     const A = foot[i], B = foot[j];

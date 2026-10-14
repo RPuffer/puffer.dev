@@ -21,7 +21,7 @@ export function normalizeTrap(t, i = 0) {
   return { ...t, id: t.id || `${t.kind}-${i}`, meta };
 }
 
-export function createTraps(level, { actor, life = null, health = null, things = null, storage = globalThis.localStorage, params = {}, say = null, rotate = null } = {}) {
+export function createTraps(level, { actor, life = null, health = null, things = null, storage = globalThis.localStorage, params = {}, say = null, rotate = null, lockCamera = null, yaw = null } = {}) {
   const list = (level.traps || []).map(normalizeTrap).filter(Boolean);
   const byId = Object.fromEntries(list.map((t) => [t.id, t]));
   const skey = trapStorageKey(level.name);
@@ -51,6 +51,15 @@ export function createTraps(level, { actor, life = null, health = null, things =
     say: (text) => { if (text) (say || things?.say)?.(text); },
     reveal: (t) => api.reveal(t.id),
     rotate: (step) => rotate?.(step),
+    lockCamera: (on) => lockCamera?.(on),
+    yaw: () => (yaw ? yaw() : 45),
+    skipped: (c) => skipped(c),
+    sink: (c, on) => {
+      const k = key(c[0], c[1]);
+      if (on) { if (!sunk.has(k)) { sunk.set(k, level.cells[c[1]][c[0]]); level.cells[c[1]][c[0]] = { h: 0, s: "none" }; } }
+      else if (sunk.has(k)) { level.cells[c[1]][c[0]] = sunk.get(k); sunk.delete(k); }
+    },
+    block: (c, on) => { if (on) level.blocked.add(key(c[0], c[1])); else level.blocked.delete(key(c[0], c[1])); },
     solve: (t) => things?.solve?.(t.id),
     void: (c) => isVoid(level, c[0], c[1]),
     fling: (to, dur = 0.5, t = null) => {
@@ -63,6 +72,8 @@ export function createTraps(level, { actor, life = null, health = null, things =
     },
   };
   let hop = null;
+  const sunk = new Map();
+  const offThings = things?.on?.((e) => { for (const t of list) if (!t.disarmed && t.impl?.thing) t.impl.thing(t, e, ctx); });
   const stepHop = (dt) => {
     if (!hop) return;
     if (actor.fx !== hop) { hop = null; return; }
@@ -108,6 +119,8 @@ export function createTraps(level, { actor, life = null, health = null, things =
     t.impl?.init?.(t, ctx);
   }
   syncSlick();
+  const pushers = list.filter((t) => t.impl?.push);
+  if (pushers.length) actor.push = (dir) => pushers.some((t) => !t.disarmed && t.impl.push(t, dir, ctx));
   const pick = (ref) => {
     if (ref && typeof ref === "object" && !Array.isArray(ref)) return byId[ref.id] || null;
     if (typeof ref === "string") return byId[ref] || null;
@@ -173,8 +186,11 @@ export function createTraps(level, { actor, life = null, health = null, things =
     },
     dispose() {
       for (const t of list) t.impl?.dispose?.(t, ctx);
+      offThings?.();
+      for (const k of [...sunk.keys()]) { const [x, z] = k.split(",").map(Number); ctx.sink([x, z], false); }
       slick.clear();
       if (actor.slick) actor.slick = null;
+      if (pushers.length) actor.push = null;
       listeners.clear();
     },
   };
