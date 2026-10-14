@@ -104,6 +104,28 @@ function specks(B, x, z, y0, y1, hex, rnd) {
   }
 }
 
+const LIPS = { warm: "#fff8e6", mix: 0.55, w: 0.065 };
+
+const NEIGH = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+function lips(B, L, x, z, c, pts, y, hex) {
+  const rim = col(hex).clone().lerp(col(LIPS.warm), LIPS.mix);
+  const drops = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return !n || n.s === "none" || n.s === "water" || n.h < c.h; };
+  const cx = x + 0.5, cz = z + 0.5, n = pts.length;
+  const inner = (p) => { const dx = cx - p[0], dz = cz - p[1], k = LIPS.w / Math.max(Math.abs(dx), Math.abs(dz), 1e-6); return [p[0] + dx * k, p[1] + dz * k]; };
+  for (let i = 0; i < n; i++) {
+    const p = pts[i], q = pts[(i + 1) % n];
+    const ex = q[0] - p[0], ez = q[1] - p[1], l = Math.hypot(ex, ez);
+    if (l < 1e-6) continue;
+    let nx = ez / l, nz = -ex / l;
+    if (nx * ((p[0] + q[0]) / 2 - cx) + nz * ((p[1] + q[1]) / 2 - cz) < 0) { nx = -nx; nz = -nz; }
+    if (!NEIGH.some(([ax, az]) => ax * nx + az * nz > 0.38 && drops(ax, az))) continue;
+    const a = inner(p), b = inner(q), up = (a[1] - p[1]) * (b[0] - p[0]) - (a[0] - p[0]) * (b[1] - p[1]) > 0;
+    const v = [[p[0], y, p[1]], [a[0], y, a[1]], [b[0], y, b[1]], [q[0], y, q[1]]];
+    if (up) B.quad(v[0], v[1], v[2], v[3], rim); else B.quad(v[3], v[2], v[1], v[0], rim);
+  }
+}
+
 function column(B, x, z, y0, y1, upper) {
   if (y1 - y0 < 0.01) return;
   B.prism(roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), y0, y1, cliffPal(B.pal, upper), { top: false });
@@ -139,7 +161,9 @@ function wornCell(B, L, x, z, c, top, bot, upper, rnd) {
   column(B, x, z, bot, top - LIP, upper);
   const joined = (dx, dz) => { const n = cellAt(L, x + dx, z + dz); return !!n && !!n.p && n.s !== "ramp" && n.s !== "lift" && n.h === c.h; };
   const e = (dx, dz) => (joined(dx, dz) ? 0 : GAP);
-  B.prism([[x + 1 - e(1, 0), z + 1 - e(0, 1)], [x + 1 - e(1, 0), z + e(0, -1)], [x + e(-1, 0), z + e(0, -1)], [x + e(-1, 0), z + 1 - e(0, 1)]], top - LIP, top, tone(sh(WORN.grout), sh(WORN.side), sh(WORN.side * 0.9)));
+  const outline = [[x + 1 - e(1, 0), z + 1 - e(0, 1)], [x + 1 - e(1, 0), z + e(0, -1)], [x + e(-1, 0), z + e(0, -1)], [x + e(-1, 0), z + 1 - e(0, 1)]];
+  B.prism(outline, top - LIP, top, tone(sh(WORN.grout), sh(WORN.side), sh(WORN.side * 0.9)));
+  lips(B, L, x, z, c, outline, top + 0.006, sh(WORN.stone));
   const cut = 0.47 + (rnd() - 0.5) * 0.12, cutZ = 0.5 + (rnd() - 0.5) * 0.12, gap = 0.035, lift = 0.022;
   const slabs = rnd() < 0.5
     ? [[0.06, 0.06, cut, cutZ], [cut, 0.06, 0.94, 0.5], [0.06, cutZ, 0.55, 0.94], [0.55, 0.5, 0.94, 0.94]]
@@ -161,6 +185,7 @@ function landCell(B, L, x, z, c, T, F, rnd, far) {
     const GL = 0.2;
     column(B, x, z, bot, top - GL, upper || kind === "grass");
     slab(B, x, z, top - GL, top, tone(P.grass.top, P.grass.fringe, P.grass.fringeDark));
+    lips(B, L, x, z, c, roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), top + 0.007, P.grass.top);
     const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
     if (!(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - GL, "z", P.grass.fringe, rnd);
     if (!(isLand(nx) && nx.h >= c.h)) drips(B, x, z, top - GL, "x", P.grass.fringeDark, rnd);
@@ -185,6 +210,7 @@ function landCell(B, L, x, z, c, T, F, rnd, far) {
     if (!d(-1, 0)) B.prism([[x0, ez1], [x0, ez], [ex, ez], [ex, ez1]], top, top + rh, rim);
     if (!d(0, 1)) B.prism([[ex1, ez1], [ex1, z1], [ex, z1], [ex, ez1]], top, top + rh, rim);
     if (!d(0, -1)) B.prism([[ex1, z0], [ex1, ez], [ex, ez], [ex, z0]], top, top + rh, rim);
+    lips(B, L, x, z, c, [[ex1, ez1], [ex1, ez], [ex, ez], [ex, ez1]], top + rh + 0.004, P.sand.top);
     for (let i = 0; i < 6; i++) B.flat(circle(x + 0.15 + rnd() * 0.7, z + 0.15 + rnd() * 0.7, 0.09, 0.08, 8), top + 0.005, P.dirt.mottle);
     if (d(1, 0)) B.flat([[x + 1.008, z1], [x + 1.008, z0], [x + 0.992, z0], [x + 0.992, z1]], top + 0.006, P.dirt.mottle);
     if (d(0, 1)) B.flat([[x1, z + 1.008], [x1, z + 0.992], [x0, z + 0.992], [x0, z + 1.008]], top + 0.006, P.dirt.mottle);
@@ -193,10 +219,12 @@ function landCell(B, L, x, z, c, T, F, rnd, far) {
   if (kind === "stone") {
     column(B, x, z, bot, top - 0.12, upper);
     stoneSlab(B, x, z, top - 0.12, top + 0.04, rnd);
+    lips(B, L, x, z, c, roundRect(x + 0.04, z + 0.04, x + 0.96, z + 0.96, 0.15), top + 0.044, P.stone.top);
     return;
   }
   column(B, x, z, bot, top - LIP, upper);
   slab(B, x, z, top - LIP, top, tone(P.sand.top, P.sand.edge, P.sand.lip));
+  lips(B, L, x, z, c, roundRect(x + GAP, z + GAP, x + 1 - GAP, z + 1 - GAP, R), top + 0.007, P.sand.top);
   dots(B, x, z, top + 0.004, P.sand.dots, rnd, 3, 0.05);
   const nz = cellAt(L, x, z + 1), nx = cellAt(L, x + 1, z);
   if (rnd() < 0.35 && !(isLand(nz) && nz.h >= c.h)) drips(B, x, z, top - LIP, "z", P.sand.edge, rnd, 2);
