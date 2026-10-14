@@ -34,15 +34,15 @@ function spikeTips(B) {
 }
 function slab(B, w, h, col, y = 0) { B.rbox(w, h, w, 0.04, pal(col), 0, y, 0); }
 function arrow(B) {
-  B.box(0.03, 0.03, 0.5, pal(C.wood), 0, 0, 0);
-  B.cone(0.05, 0, 0.12, pal(C.steel), 0, 0, 0.25, 4);
-  B.box(0.09, 0.012, 0.08, pal(C.bone), 0, 0, -0.22);
+  B.box(0.045, 0.045, 0.56, pal(C.wood), 0, 0, 0);
+  B.cone(0.07, 0, 0.16, pal(C.steel), 0, 0, 0.28, 4);
+  B.box(0.14, 0.015, 0.1, pal(C.bone), 0, 0, -0.24);
+  B.box(0.015, 0.14, 0.1, pal(C.bone), 0, 0, -0.24);
 }
-function slitWall(B, n) {
-  for (let i = 0; i < n; i++) {
-    B.rbox(0.98, 0.5, 0.2, 0.03, pal(C.stone), i, 0, 0);
-    B.box(0.5, 0.06, 0.04, pal(C.ink), i, 0.24, 0.09);
-  }
+function arrowSlot(B) {
+  B.rbox(0.26, 0.56, 0.26, 0.04, pal(C.stone), 0, 0, 0);
+  B.rbox(0.3, 0.06, 0.3, 0.03, pal(C.stoneDark), 0, 0.56, 0);
+  B.box(0.16, 0.07, 0.03, pal(C.ink), 0, 0.36, 0.125);
 }
 function brute(B, part) {
   const body = pal(C.brute), dark = pal(C.bruteDark), hide = pal(C.hide), bone = pal(C.bone);
@@ -129,28 +129,35 @@ export function buildTraps(state, style) {
         for (const [i, m] of tips.entries()) m.position.y = Y(t.cells[i]) - 0.44 + up * 0.44 + warn;
       };
     } else if (t.kind === "t25") {
-      const d = dirOf(t.cells[0], t.cells[t.cells.length - 1]);
-      const side = DIRS[t.side] || [-d[1], d[0]];
-      const plate = place(bake((B) => slab(B, 0.78, 0.07, C.slab), light), t.plate, 0.0);
-      const wall = bake((B) => slitWall(B, t.cells.length), light);
-      const th = Math.atan2(-side[0], -side[1]), xd = [Math.cos(th), -Math.sin(th)];
-      const start = t.cells.slice().sort((p, q) => (p[0] * xd[0] + p[1] * xd[1]) - (q[0] * xd[0] + q[1] * xd[1]))[0];
-      wall.position.set(start[0] + 0.5 + side[0] * 0.4, Y(start), start[1] + 0.5 + side[1] * 0.4);
-      wall.rotation.y = th;
-      group.add(wall);
-      const glow = t.cells.map((c) => { const g = new THREE.Mesh(new THREE.BoxGeometry(d[0] ? 0.5 : 0.04, 0.06, d[0] ? 0.04 : 0.5), glowMat(C.ember)); g.position.set(c[0] + 0.5 + side[0] * 0.29, Y(c) + 0.24, c[1] + 0.5 + side[1] * 0.29); group.add(g); return g; });
-      const arrows = t.cells.map((c) => { const a = bake((B) => arrow(B), light); a.rotation.y = yawOf([-side[0], -side[1]]); a.position.set(c[0] + 0.5, Y(c) + 0.32, c[1] + 0.5); group.add(a); return a; });
+      const d = dirOf(t.cells[0], t.cells[1] || t.cells[0]);
+      const away = t.cover ? [Math.sign(t.cells[0][0] - t.cover[0]) * Math.abs(d[1]), Math.sign(t.cells[0][1] - t.cover[1]) * Math.abs(d[0])] : [0, 0];
+      const side = DIRS[t.side] || (away[0] || away[1] ? away : [-d[1], d[0]]);
+      const c0 = t.cells[0];
+      const plate = place(bake((B) => slab(B, 0.74, 0.07, C.slab), light), t.plate, 0.0);
+      const post = bake((B) => arrowSlot(B), light);
+      post.position.set(c0[0] + 0.5 - d[0] * 0.36 + side[0] * 0.36, Y(c0), c0[1] + 0.5 - d[1] * 0.36 + side[1] * 0.36);
+      post.rotation.y = yawOf(d);
+      group.add(post);
+      const slitGlow = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.07, 0.03), glowMat(C.ember));
+      slitGlow.position.set(0, 0.36, 0.12);
+      post.add(slitGlow);
+      const shot = bake((B) => arrow(B), light);
+      shot.name = "t25-arrow";
+      shot.rotation.y = yawOf(d);
+      shot.scale.setScalar(1.5);
+      group.add(shot);
+      const lane = t.cells.length;
+      const yAt = (s) => Y(t.cells[Math.max(0, Math.min(lane - 1, Math.round(s)))]);
       it.update = () => {
         plate.position.y = Y(t.plate) - (t.pressed ? 0.05 : 0);
-        const tell = t.fireAt != null;
-        for (const g of glow) g.visible = tell && Math.floor(T.time * 12) % 2 === 0;
-        const v = t.volley;
-        for (const [i, a] of arrows.entries()) {
-          a.visible = v >= 0 && v < 0.45 && !same(t.cells[i], t.plate);
-          const u = Math.max(0, v) / 0.35, c = t.cells[i];
-          a.position.x = c[0] + 0.5 + side[0] * (0.25 - u * 1.9);
-          a.position.z = c[1] + 0.5 + side[1] * (0.25 - u * 1.9);
-        }
+        slitGlow.visible = !t.disarmed && (t.fireAt != null ? Math.floor(T.time * 12) % 2 === 0 : t.arrow != null);
+        const s = t.arrow;
+        shot.visible = s != null && !t.disarmed;
+        if (!shot.visible) return;
+        const out = Math.max(0, s - lane + 0.5);
+        const lat = 0.15 + 0.21 * Math.max(0, Math.min(1, 0.5 - s));
+        shot.position.set(c0[0] + 0.5 + d[0] * s + side[0] * lat, yAt(s) + 0.36 - out * out * 2, c0[1] + 0.5 + d[1] * s + side[1] * lat);
+        shot.rotation.x = -out * 0.6;
       };
     } else if (t.kind === "t02") {
       const stages = t.cells.map((c, i) => [1, 2, 3].map((s) => { const m = place(bake((B) => cracks(B, s, i + c[0] * 7 + c[1] * 3), light), c, 0.006); m.visible = false; return m; }));

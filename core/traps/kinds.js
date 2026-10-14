@@ -41,27 +41,51 @@ defineTrap("t03", {
 });
 
 defineTrap("t25", {
-  windup: 0.55,
-  check(t) { return indexOf(t.cells, t.plate) < 0 ? ["the plate must sit on the run"] : !isStraight(t.cells) ? ["the arrow run must be straight"] : []; },
-  init(t) { t.fireAt = null; t.volley = -1; t.armed = true; t.pressed = 0; },
-  reset(t) { t.fireAt = null; t.volley = -1; t.armed = true; t.pressed = 0; },
+  arrowSpeed: 6, margin: 0.25, walk: 3.2,
+  cells(t) { return [...t.cells, ...(t.cover ? [t.cover] : [])]; },
+  danger(t) { return t.cells; },
+  coverAt(t) { return t.cover ? t.cells.findIndex((c) => Math.abs(c[0] - t.cover[0]) + Math.abs(c[1] - t.cover[1]) === 1) : -1; },
+  timing(t, walk = this.walk) {
+    const k = this.coverAt(t), v = this.arrowSpeed;
+    const reach = (k + 1) / walk + this.margin;
+    return { k, v, delay: Math.max(0.15, reach - (k + 0.1) / v) };
+  },
+  check(t, P) {
+    const out = [];
+    const n = t.cells.length, k = this.coverAt(t);
+    if (!same(t.plate, t.cells[0])) out.push("the plate must be the first lane cell");
+    if (!isStraight(t.cells)) out.push("the arrow lane must be straight");
+    if (!t.cover) out.push("the arrow lane needs a cover cell beside it");
+    else if (k < 1 || k > n - 3) out.push("the cover cell must sit beside lane cell 1 to n-3");
+    else if (indexOf(t.cells, t.cover) >= 0 || !isWalkable(P, t.cover[0], t.cover[1])) out.push("the cover cell must be a walkable cell off the lane");
+    else { const d = along(t.cells), o = sub(t.cover, t.cells[k]); if (o[0] * d[0] + o[1] * d[1] !== 0) out.push("the cover cell must sit out of the line of fire"); }
+    return out;
+  },
+  init(t, ctx) { Object.assign(t, this.timing(t, ctx?.actor?.speed || this.walk)); this.reset(t); },
+  reset(t) { t.fireAt = null; t.arrow = null; t.armed = true; t.pressed = 0; t.hit = -1; },
+  disarm(t) { t.fireAt = null; t.arrow = null; t.pressed = 0; },
   enter(t, c, prev, ctx) {
-    if (!same(c, t.plate) || !t.armed) return;
+    if (!same(c, t.plate) || !t.armed || (prev && indexOf(t.cells, prev) >= 0)) return;
     t.armed = false;
     t.pressed = 1;
-    t.fireAt = ctx.time + this.windup;
+    t.fireAt = ctx.time + t.delay;
     ctx.emit(t, "click");
   },
   update(t, dt, ctx) {
-    if (t.volley >= 0) t.volley += dt;
-    if (t.volley > 0.6) t.volley = -1;
-    if (t.fireAt != null && ctx.time >= t.fireAt) {
-      t.fireAt = null;
-      t.volley = 0;
-      ctx.emit(t, "volley");
-      if (ctx.onAny(t.cells.filter((c) => !same(c, t.plate)))) ctx.hurt(t, 1);
+    if (t.hit >= 0) { t.hit += dt; if (t.hit > 0.6) t.hit = -1; }
+    if (t.fireAt != null && ctx.time >= t.fireAt) { t.fireAt = null; t.arrow = -0.5; ctx.emit(t, "loose"); }
+    if (t.arrow != null) {
+      const was = t.arrow;
+      t.arrow += t.v * dt;
+      const fi = indexOf(t.cells, ctx.floor());
+      if (fi >= 0 && ctx.on(t.cells[fi]) && t.arrow >= fi - 0.5 && was <= fi + 0.5) {
+        t.arrow = null;
+        t.hit = 0;
+        ctx.emit(t, "arrow-hit");
+        ctx.hurt(t, 1);
+      } else if (t.arrow > t.cells.length + 0.5) { t.arrow = null; ctx.emit(t, "thunk"); }
     }
-    if (!t.armed && t.fireAt == null && t.volley < 0 && !ctx.on(t.plate)) { t.armed = true; t.pressed = 0; }
+    if (!t.armed && t.fireAt == null && t.arrow == null && !ctx.on(t.plate)) { t.armed = true; t.pressed = 0; }
   },
 });
 

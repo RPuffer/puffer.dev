@@ -30,6 +30,7 @@ land(16, 21);
 
 line([19, 12], [27, 12], road);
 land(28, 12, "stone");
+land(24, 13);
 
 line([15, 9], [15, 4], road);
 land(15, 3, "stone");
@@ -86,7 +87,7 @@ const things = [
 
 const traps = [
   { id: "spikes", kind: "t03", cells: [[9, 12], [8, 12], [7, 12], [6, 12]], guards: { chest: "spikes-chest" } },
-  { id: "arrows", kind: "t25", cells: [[22, 12], [23, 12], [24, 12], [25, 12], [26, 12]], plate: [22, 12], side: "n", guards: { chest: "arrows-chest" } },
+  { id: "arrows", kind: "t25", cells: [[22, 12], [23, 12], [24, 12], [25, 12], [26, 12]], plate: [22, 12], cover: [24, 13], guards: { chest: "arrows-chest" } },
   { id: "worn", kind: "t02", cells: [[15, 7], [15, 6], [15, 5]], guards: { chest: "worn-chest" } },
   { id: "kick", kind: "t24", cells: [[11, 16], [11, 17], [11, 18], [11, 19], [11, 20]], kick: [11, 18], boss: [10, 18], guards: { chest: "kick-chest" } },
   { id: "chariot", kind: "t26", cells: [[19, 16], [19, 17], [19, 18], [19, 19], [19, 20], [19, 21], [19, 22], [19, 23]], plate: [19, 15], notches: [[20, 18], [20, 21]], guards: { chest: "chariot-chest" } },

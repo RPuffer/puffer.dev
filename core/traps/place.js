@@ -21,9 +21,22 @@ const straight = (cells) => {
 
 const flat = (raw, cells) => cells.every(([x, z]) => raw.cells[z][x].s !== "ramp" && raw.cells[z][x].h === raw.cells[cells[0][1]][cells[0][0]].h);
 
+const onPath = (path, c) => path.some((q) => q[0] === c[0] && q[1] === c[1]);
+function coversFor(cells, { P, raw, free, path }) {
+  const d = [Math.sign(cells[1][0] - cells[0][0]), Math.sign(cells[1][1] - cells[0][1])];
+  const out = [];
+  for (let k = 1; k <= cells.length - 3; k++) for (const s of [1, -1]) {
+    const c = [cells[k][0] + d[1] * s, cells[k][1] - d[0] * s];
+    const h = raw.cells[c[1]]?.[c[0]];
+    if (!h || h.s === "ramp" || h.h !== raw.cells[cells[k][1]][cells[k][0]].h || !isWalkable(P, c[0], c[1]) || !free(c[0], c[1]) || onPath(path, c)) continue;
+    out.push(c);
+  }
+  return out;
+}
+
 export const GUARD_SHAPES = {
   t03: (w) => [4, 3, 2].flatMap((n) => w(n)).map((cells) => ({ cells })),
-  t25: (w) => [4, 3].flatMap((n) => w(n)).map((cells) => ({ cells, plate: cells[0] })),
+  t25: (w, path, i, o) => [5, 4, 6].flatMap((n) => w(n)).flatMap((cells) => coversFor(cells, o).map((cover) => ({ cells, plate: cells[0], cover }))),
   t02: (w) => w(3).map((cells) => ({ cells })),
   t18: (w, path, i) => w(1).filter(([c]) => { const j = path.findIndex((q) => q[0] === c[0] && q[1] === c[1]); return j >= 2 && straight(path.slice(j - 2, j + 1)); }).map((cells) => ({ cells })),
   t22: (w) => w(1).map((cells) => ({ cells })),
@@ -79,7 +92,7 @@ export function placeTraps(raw, kinds, { position = null, seed = raw.name } = {}
       const charge = spot.kind === "charge" ? { id: `kg${i + 1}`, x: spot.at[0], z: spot.at[1], pinned: true } : null;
       const guards = charge ? { charge: charge.id } : { chest: spot.id };
       const test = charge ? { ...raw, charges: [...(raw.charges || []), ...charges, charge] } : { ...raw, charges: [...(raw.charges || []), ...charges] };
-      for (const o of shape(w, path, i).slice(0, 24)) {
+      for (const o of shape(w, path, i, { P, raw, free, path }).slice(0, 24)) {
         const t = { id: `${kind}-${i}`, kind, ...o, guards };
         if (mustGuard(kind) && guardProblems(test, t, P).length) continue;
         if (validateTraps(test, { position, traps: [...placed, t] }).length) continue;

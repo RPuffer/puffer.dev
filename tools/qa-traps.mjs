@@ -2,7 +2,9 @@ import puppeteer from "puppeteer-core";
 import { screenOf, watchdog } from "./qa-lib.mjs";
 import path from "node:path";
 import fs from "node:fs";
-import { validateTraps, liftToLift, worstState, mustGuard, guardProblems } from "../core/traps/rules.js";
+import { validateTraps, liftToLift, worstState, mustGuard, guardProblems, rewardCells } from "../core/traps/rules.js";
+import { prepareLevel } from "../core/level.js";
+import { findPath } from "../core/path.js";
 import { TRAP_CATALOG } from "../core/traps/catalog.js";
 import { KINDS } from "../core/traps/kinds.js";
 import { registerCatalog } from "../core/catalog.js";
@@ -37,6 +39,16 @@ record("showcase traps pass the placement rules", !sv.length, sv.join("; "));
 record("validator rejects an unguarded obvious trap", validateTraps({ ...show, traps: show.traps.map((t) => t.kind === "t03" ? { ...t, guards: undefined } : t) }).some((p) => /must guard a reward/.test(p)));
 record("validator rejects a guard you can walk around", validateTraps({ ...show, traps: show.traps.map((t) => t.kind === "t03" ? { ...t, cells: [[9, 12]], guards: { chest: "arrows-chest" } } : t) }).some((p) => /walk around it|only approach|cannot be reached/.test(p)));
 for (const t of show.traps.filter((t) => mustGuard(t.kind))) record(`showcase ${t.kind} guards a chest with no way around`, !guardProblems(show, t).length && !!t.guards?.chest);
+const firstLaneTile = (L, t) => {
+  const P = prepareLevel(JSON.parse(JSON.stringify(L)));
+  const goals = rewardCells(L, t.guards, P) || [];
+  const p = goals.map((g) => findPath(P, L.spawn, g)).filter(Boolean).sort((a, b) => a.length - b.length)[0] || [];
+  const hit = p.find((c) => t.cells.some((q) => q[0] === c[0] && q[1] === c[1]));
+  const cover = KINDS.t25.coverAt(t);
+  return !!hit && hit[0] === t.plate[0] && hit[1] === t.plate[1] && t.cells[0][0] === t.plate[0] && t.cells[0][1] === t.plate[1] && cover >= 1 && cover <= t.cells.length - 3 && !KINDS.t25.check(t, P).length;
+};
+for (const n of RUN) await register(readLevel(n));
+for (const [n, L] of [[SHOW, show], ...RUN.map((n) => [n, readLevel(n)])]) for (const t of (L.traps || []).filter((t) => t.kind === "t25")) record(`${n === SHOW ? "showcase" : "a run island"} t25 trigger is the first lane tile and a cover cell sits off the line`, firstLaneTile(L, t));
 record("validator rejects an excluded pair", validateTraps({ ...show, trapRules: undefined }).some((p) => /exclude each other/.test(p)));
 for (const [i, name] of RUN.entries()) {
   const L = readLevel(name);
@@ -145,15 +157,29 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
   r = await q(page, () => { __qt.walk([4, 12]); const T = window.__game.state.things; T.act(); __qt.tick(10); return T.byId["spikes-chest"].state; });
   record("t03 guards a chest you reach by timing it", r === "open", r);
 
-  await q(page, () => { __qt.refill(); __qt.place([21, 12]); __qt.clear(); __qt.walk([27, 12]); __qt.tick(30); });
-  r = await q(page, () => ({ hearts: __qt.hearts(), ev: __qt.events().filter((e) => e.src === "trap").map((e) => e.type) }));
-  record("t25 arrow plate fires a volley", r.ev.includes("click") && r.ev.includes("volley"), r.ev.join(","));
-  record("t25 arrows cost one heart on the run", r.hearts === 2, `${r.hearts}`);
-  await q(page, () => { __qt.refill(); __qt.place([20, 12]); __qt.tick(80); __qt.clear(); __qt.path([[21, 12], [22, 12]]); __qt.tick(60); __qt.walk([27, 12]); __qt.tick(20); });
-  r = await q(page, () => ({ hearts: __qt.hearts(), cell: __qt.cell(), ev: __qt.events().filter((e) => e.src === "trap").map((e) => e.type) }));
-  record("t25 waiting on the plate lets the volley pass", r.ev.includes("volley") && r.hearts === 3 && r.cell[0] === 27, JSON.stringify(r));
+  const arrowRun = (cells) => q(page, (cells) => {
+    __qt.refill(); __qt.place([21, 12]); __qt.tick(90); __qt.clear();
+    const S = window.__game.state, t = S.traps.byId.arrows, shot = window.__game.renderer.traps.group.getObjectByName("t25-arrow");
+    S.actor.setPath(cells);
+    const seen = [];
+    for (let i = 0; i < 240; i++) { __qt.tick(); if (t.arrow != null) seen.push({ s: t.arrow, vis: shot.visible, x: shot.position.x, z: shot.position.z }); }
+    return { hearts: __qt.hearts(), cell: __qt.cell(), ev: __qt.events().filter((e) => e.src === "trap").map((e) => e.type), seen, k: t.k, delay: t.delay };
+  }, cells);
+  r = await arrowRun([[22, 12], [23, 12], [24, 12], [24, 13]]);
+  record("t25 stepping onto the first lane tile arms the plate", r.ev[0] === "click" && r.ev.includes("loose"), r.ev.join(","));
+  record("t25 the cover cell saves you when you reach it in time", r.hearts === 3 && r.ev.includes("thunk") && !r.ev.includes("arrow-hit") && r.cell[1] === 13, JSON.stringify({ h: r.hearts, cell: r.cell, ev: r.ev }));
+  const fly = r.seen;
+  record("t25 the arrow is visible for its whole flight", fly.length > 10 && fly.every((p) => p.vis), `${fly.length} frames, ${fly.filter((p) => !p.vis).length} hidden`);
+  record("t25 the arrow leaves the slot beside the plate and flies down the lane", fly.length > 10 && Math.abs(fly[0].x - 22.14) < 0.5 && fly.at(-1).x > fly[0].x + 4 && fly.every((p, i) => !i || p.x > fly[i - 1].x), `${fly[0]?.x.toFixed(2)} -> ${fly.at(-1)?.x.toFixed(2)}`);
+  r = await arrowRun([[22, 12]]);
+  record("t25 standing on the plate takes the arrow", r.hearts === 2 && r.ev.includes("arrow-hit"), JSON.stringify({ h: r.hearts, ev: r.ev }));
+  r = await arrowRun([[22, 12], [23, 12], [24, 12], [25, 12], [26, 12], [27, 12]]);
+  record("t25 running the lane without cover takes the arrow", r.hearts === 2 && r.ev.includes("arrow-hit"), JSON.stringify({ h: r.hearts, ev: r.ev }));
+  r = await arrowRun([[22, 12], [23, 12]]);
+  record("t25 dawdling short of the cover takes the arrow", r.hearts === 2, JSON.stringify({ h: r.hearts, ev: r.ev }));
+  await q(page, () => { __qt.refill(); __qt.place([24, 13]); __qt.tick(60); __qt.walk([27, 12]); __qt.tick(20); });
   r = await q(page, () => { const T = window.__game.state.things; T.act(); __qt.tick(10); return T.byId["arrows-chest"].state; });
-  record("t25 guards a chest at the end of the run", r === "open", r);
+  record("t25 guards a chest at the end of the lane", r === "open", r);
 
   await q(page, () => { __qt.refill(); __qt.place([15, 8]); __qt.clear(); __qt.walk([15, 4]); });
   r = await q(page, () => __qt.trap("worn"));

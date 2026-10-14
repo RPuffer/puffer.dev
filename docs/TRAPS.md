@@ -14,7 +14,7 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 | t03 | Beat spikes | local | timer | obvious | -1 heart | west spoke, guards a chest |
 | t21 | Invisible block | local | step | hidden | -1 heart | north-east road, cell 22,9 |
 | t24 | Boss kick | local | step | telegraphed | knock-off | south-west rim spoke, guards a chest |
-| t25 | Arrow plate | local | step | telegraphed | -1 heart | east spoke, plate at 22,12, guards a chest |
+| t25 | Arrow plate | local | step | telegraphed | -1 heart | east spoke, plate at 22,12, cover at 24,13, guards a chest |
 | t26 | Chariot | local | step | telegraphed | knock-off | south-east lane, notches at 20,18 and 20,21, guards a chest |
 | t33 | Fog | debuff | arrival | obvious | none | the garden past the block |
 | t40 | Order plates | puzzle | step | telegraphed | none | north-west room, gate and chest behind it |
@@ -35,7 +35,7 @@ Design catalog for the booby-trapped islands. The operator approved all 53 entri
 - Worn-through flagstones count a crossing each time you step onto the arc from off it. They heal on respawn with every other trap.
 - The boss winds up for 0.7 s when you come within two cells of the kick cell, kicks for 0.25 s, then hops for 1.4 s. Walk past during the hop.
 - The chariot charges 0.9 s after the plate and runs the lane at 5.5 cells a second, faster than the hero's 3.2. It keeps making passes until you are three cells clear of the lane for two seconds.
-- The arrow plate sits at the near end of the run. The wall fires across the run 0.55 s after you step on it, and the volley misses the plate itself, so you wait on the plate and walk on after the arrows pass.
+- The arrow plate is the first cell of a straight lane of 4 to 6 cells, so you cannot reach the reward without arming it. A stone slot beside the plate looses one arrow down the lane at 6 cells a second. One cover cell sits beside the lane, off the line of fire, beside lane cell 1 to n-3. The delay is set per lane so a hero who walks straight to the cover reaches it 0.25 s before the arrow does; stopping on the plate, dawdling short of the cover or running the whole lane takes the arrow for one heart. Stepping back off the plate also dodges it. The plate rearms once the arrow has passed and you are off it, and it only arms when you step onto the lane from outside it.
 - The boss kick shows a red "!" over the brute for the whole wind-up, a white swoosh on the kick, and a bouncing hop while it recovers.
 - Worn-through flagstones guarding a dead end let you in and out once. A second visit drops you.
 - A level may set `"trapRules": "showcase"` to skip exclusions, spacing and the one-kind rule. Only the showcase uses it.
@@ -148,7 +148,7 @@ One puzzle per island at most. A puzzle sits on a branch, an alcove, a lookout o
 | t22 | Pancake stone | local | slot cell under an overhang, r1 | timer | telegraphed | onto the path | -2 hearts | Teaches reading shadows on a step grid. | t19 |
 | t23 | Turntable | local | slot cell at a junction, 1 cell | step | telegraphed | neutral | none | Bends the camera: the island turns 90 degrees for you. | t32, t38 |
 | t24 | Boss kick | local | rim slot of 3 or more cells, boss on a shoulder cell, r1 | step | telegraphed | onto the path | knock-off | Teaches reading a wind-up: the kick follows a beat you can see. | t15, t26, t35, t36 |
-| t25 | Arrow plate | local | slot plus wall slits on one side, r2 | step | telegraphed | onto the path | -1 heart | Teaches the Souls pressure plate: a raised flagstone fires the slits. | none |
+| t25 | Arrow plate | local | straight slot of 4 to 6 cells, plate on its first cell, one cover cell beside it | step | telegraphed | onto the path | -1 heart | Teaches the Souls pressure plate: a raised flagstone looses an arrow you outrun to cover. | none |
 | t26 | Chariot | local | straight slot of 5 or more cells with a shoulder notch every 3 cells | step | telegraphed | off the path | knock-off | Teaches the notch: the run is a lane, and the safe cells sit beside it. | t03, t19, t24, t35, t36 |
 | t27 | Kind bridge, still bridge | sequence | two bridge segments on the spine, in route order | step | hidden | onto the path | knock-off | Teaches that wobble means safe, then breaks it. | t36 |
 | t28 | Sign, then sign again | sequence | two slots in route order, 3 cells each | step | hidden | off the path | knock-off | Teaches a warning, then plays it late. | t02, t43 |
@@ -386,7 +386,7 @@ A big brute stands on the shoulder of a run along the rim and lifts one foot as 
 
 Local trap | pulls onto the path | telegraphed | health: -1 heart | excludes none
 
-One flagstone in a run sits a hair higher than the rest. Step on it and the wall slits beside the run fire a volley along it; an arrow in the hat costs one heart. Step over the plate, or step on it and duck onto the far shoulder before the volley lands.
+The first flagstone of a straight run sits a hair higher than the rest, and a stone slot stands beside it. Step on it and the slot glows, then looses an arrow down the run; an arrow in the hat costs one heart. Race to the cover cell beside the run before the arrow arrives, or step back off the plate and let it fly.
 
 ### t26 Chariot
 
@@ -563,7 +563,7 @@ The operator meets these blind. Keep them out of cards, commit subjects, README 
 | Island | Level | Traps |
 | --- | --- | --- |
 | 1 | cat-medium | t18 Spring tile on 20,13 guards the island chest c1; t03 Beat spikes on 16,24 to 16,27 guard charge kg2 at 16,28 |
-| 2 | wizard-medium | t22 Pancake stone on 12,39 guards charge kg1 at 12,40; t25 Arrow plate on 26,9 to 26,7, plate 26,9, guards charge kg2 at 25,7 |
+| 2 | wizard-medium | t22 Pancake stone on 12,39 guards charge kg1 at 12,40; t25 Arrow plate on 15,39 to 18,39, plate 15,39, cover 16,40, guards charge kg2 at 18,38 |
 | 3 | swallow-medium | t03 Beat spikes on 35,10 to 37,10 guard charge kg1 at 38,10; t02 Worn-through flagstones on 37,20 to 39,20 guard charge kg2 at 40,20 |
 
 Spring tile fires once per life and flings you two cells back the way you came. Pancake stone hangs over its cell on two posts; its shadow grows for 1.5 s, it slams for 2 hearts, rests and lifts. Every guarded reward is optional: lift to lift passes with the trap cells blocked.
@@ -927,12 +927,12 @@ Spring tile fires once per life and flings you two cells back the way you came. 
   "id": "t25",
   "name": "Arrow plate",
   "tier": "local",
-  "footprint": "slot plus wall slits on one side, r2",
+  "footprint": "straight slot of 4 to 6 cells, plate on its first cell, one cover cell beside it",
   "trigger": "step",
   "visibility": "telegraphed",
   "health": "-1 heart",
   "pull": "onto the path",
-  "rule": "Teaches the Souls pressure plate: a raised flagstone fires the slits.",
+  "rule": "Teaches the Souls pressure plate: a raised flagstone looses an arrow you outrun to cover.",
   "excludes": []
  },
  {
