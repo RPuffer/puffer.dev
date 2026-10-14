@@ -145,7 +145,7 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
   let order = [], loaded = false, layer = null, closing = null, going = false, sheet = null, shown = null, landed = null, card = null, party = null;
   let center = 0, step = 80, size = 62, nodes = new Map(), raf = 0, drag = null, dragged = false, wheelAcc = 0;
   fetch(RUN_URL).then((r) => r.json()).then((j) => { order = Array.isArray(j.order) ? j.order : []; loaded = true; sync(); }).catch(() => {});
-  const list = () => ["@islands", ...order];
+  const list = () => ["@islands", ...order, "@traps"];
 
   const sync = () => {
     const cur = current();
@@ -248,6 +248,14 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
       b.innerHTML = MARK;
       tag.textContent = "all islands";
       b.setAttribute("aria-label", "all islands");
+    } else if (n === "@traps") {
+      const here = current() === "traps-showcase";
+      b.classList.add("sel");
+      if (here) b.classList.add("current");
+      b.dataset.level = "@traps";
+      b.innerHTML = MARK;
+      tag.textContent = "traps" + (here ? " · here" : "");
+      b.setAttribute("aria-label", "traps" + (here ? " (here)" : ""));
     } else {
       const here = n === current(), ok = here || reached(n);
       b.dataset.level = n;
@@ -329,6 +337,7 @@ function mountNavigator({ current = urlLevel, go = hop, busy = () => false, prel
     const i = +el.dataset.index, n = list()[i];
     if (Math.abs(i - center) > 2) return;
     if (i === 0) return openPanel();
+    if (n === "@traps") return current() === "traps-showcase" ? close() : jump("traps-showcase");
     if (n === current()) return close();
     if (!reached(n)) { el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); return; }
     jump(n);
