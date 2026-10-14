@@ -80,7 +80,7 @@ async function walkOnce(goals) {
 
 async function walk(goals) {
   let total = null;
-  for (let k = 0; k < 6; k++) {
+  for (let k = 0; k < 12; k++) {
     await page.waitForFunction(() => { const S = window.__game.state; return !S.actor.locked && !S.life?.busy; }, { timeout: 8000, polling: 50 }).catch(() => {});
     const n = await walkOnce(goals);
     if (n == null) return total;

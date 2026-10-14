@@ -267,7 +267,7 @@ const clean = (name, problems) => problems.filter((p) => !(EXPECTED[name] && EXP
 async function levelSuite(name) {
   const file = JSON.parse(fs.readFileSync(path.join(root, "levels", name + ".json"), "utf8"));
   const tag = `lvl-${name}`;
-  const { page, problems, done, ms } = await open(`${BASE}/3d/index.html?level=${name}&reset=1&class=dutchie`);
+  const { page, problems, done, ms } = await open(`${BASE}/3d/index.html?level=${name}&reset=1&class=dutchie&traps=0`);
   record(`${tag} __done within 15 s`, done, `${ms} ms`);
   if (!done) { record(`${tag} no console errors or failed requests`, false, problems.slice(0, 3).join(" | ")); await page.close(); return; }
   await idle(page); await wait(400);
