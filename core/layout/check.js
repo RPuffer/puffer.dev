@@ -29,26 +29,45 @@ export function world(P, open = new Set(), o = {}) {
   return { ...P, edges, links, blocked, pads: padLinks(P.things, open) };
 }
 
-export function distances(L, from) {
+export const SLIP_KINDS = new Set(["t35"]);
+
+export function slipOf(L) {
+  const slick = (L.traps || []).filter((t) => SLIP_KINDS.has(t.kind));
+  if (!slick.length) return null;
+  const zones = slick.map((t) => (Array.isArray(t.zone) && t.zone.length === 4 ? t.zone : null));
+  const grip = new Set(slick.flatMap((t) => t.grip || []).map((c) => key(c[0], c[1])));
+  return (x, z) => !!L.cells[z]?.[x] && !L.cells[z][x].p && !grip.has(key(x, z)) && zones.some((q) => !q || (x >= q[0] && x <= q[2] && z >= q[1] && z <= q[3]));
+}
+
+export function distances(L, from, { slip = slipOf(L) } = {}) {
   const d = new Map([[key(...from), 0]]);
+  const stand = new Map([[key(...from), 0]]);
   const buckets = [[from]];
   for (let g = 0; g < buckets.length; g++) {
     const list = buckets[g];
     if (!list) continue;
     for (const [x, z] of list) {
-      if (d.get(key(x, z)) !== g) continue;
+      if (stand.get(key(x, z)) !== g) continue;
       const next = [];
-      for (const dir of Object.keys(DIRS)) if (canStep(L, x, z, dir)) next.push([[x + DIRS[dir][0], z + DIRS[dir][1]], 1]);
+      for (const dir of Object.keys(DIRS)) {
+        if (!canStep(L, x, z, dir)) continue;
+        const [dx, dz] = DIRS[dir], f = [x + dx, z + dz];
+        if (slip && slip(f[0], f[1]) && canStep(L, f[0], f[1], dir)) next.push([[f[0] + dx, f[1] + dz], 2, f]);
+        else next.push([f, 1]);
+      }
       const jump = L.pads?.get(key(x, z));
       if (jump) next.push([jump, PAD_COST]);
-      for (const [n, w] of next) {
+      for (const [n, w, over] of next) {
         const k = key(...n), nd = g + w;
-        if (d.has(k) && d.get(k) <= nd) continue;
-        d.set(k, nd);
+        if (over) { const ko = key(...over); if (!d.has(ko) || d.get(ko) > g + 1) d.set(ko, g + 1); }
+        if (!d.has(k) || d.get(k) > nd) d.set(k, nd);
+        if (stand.has(k) && stand.get(k) <= nd) continue;
+        stand.set(k, nd);
         (buckets[nd] ||= []).push(n);
       }
     }
   }
+  if (slip) d.stand = stand;
   return d;
 }
 

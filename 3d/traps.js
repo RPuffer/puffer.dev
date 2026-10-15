@@ -692,10 +692,11 @@ export function buildTraps(state, style) {
       };
     } else if (t.kind === "t35") {
       const z = t.zone || [0, 0, L.size[0] - 1, L.size[1] - 1];
+      const grip = new Set((t.grip || []).map((c) => c[0] + "," + c[1]));
       const glaze = bake((B) => {
         for (let cz = z[1]; cz <= z[3]; cz++) for (let cx = z[0]; cx <= z[2]; cx++) {
           const c = L.cells[cz]?.[cx];
-          if (!c || c.p || c.s === "none" || c.s === "water" || c.h < 1) continue;
+          if (!c || c.p || grip.has(cx + "," + cz) || c.s === "none" || c.s === "water" || c.h < 1) continue;
           B.at(cx + 0.5, Y([cx, cz]) + 0.004, cz + 0.5, 0, () => B.box(0.9, 0.012, 0.9, pal(C.ice), 0, 0, 0));
         }
       }, light);

@@ -498,7 +498,7 @@ A sleepy sun counts down three minutes from arrival. At zero the hero yawns, dro
 
 Whole-island debuff | pulls onto the path | obvious | health: none | excludes t01, t05, t15, t24, t26, t41, t52, t53
 
-Every off-path cell is glazed with ice for the island. Step onto one and you slide one cell further, and the path flagstones are the only grip. Sliding into a rock or decor stops you with a bonk.
+Every off-path cell is glazed with ice for the island. Step onto one and you slide one cell further, and the path flagstones are the only grip. Sliding into a rock or decor stops you with a bonk. The bake leaves a bare-ground apron (the `grip` list) around every pickup, chest side and guarded trap, so the ice never puts a reward out of reach; `checkCharges` walks the island with the slides and fails the bake if a pickup or chest side cannot be reached.
 
 ### t36 Gusts
 

@@ -7,6 +7,7 @@ import { prepareLevel, canStep, DIRS } from "../core/level.js";
 import { createInteract, GATE_LIFT, ladderEnds } from "../core/interact.js";
 import { rampLandings } from "../core/procgen.js";
 import { checkRoute, routeDistances } from "../core/layout/check.js";
+import { checkCharges } from "../core/layout/pickups.js";
 import { routeFingerprint, fingerprintClash } from "../core/layout/topology.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
@@ -113,6 +114,8 @@ for (const name of LEVELS) {
   }
   const stray = problems.filter((p) => !CHECKS.some(([, re]) => re.test(p)));
   record(`${tag} no other route problems`, !stray.length, stray.slice(0, 3).join(" | "));
+  const lost = checkCharges(raw).filter((p) => /cannot be reached|no reachable side/.test(p));
+  record(`${tag} every pickup and chest is reachable under slides`, !lost.length, lost.slice(0, 3).join(" | "));
   const ramps = rampLandings(raw, new Set());
   record(`${tag} every ramp has open landings top and bottom`, !ramps.length, ramps.slice(0, 3).join(" | "));
   for (const s of routeDistances(raw)) record(`${tag} shortcut ${s.id} (${s.kind}) shortens the bonfire return`, s.unlocked < s.locked, `${s.locked} -> ${s.unlocked} steps from ${s.from}`);

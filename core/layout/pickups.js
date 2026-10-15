@@ -70,9 +70,12 @@ export function checkCharges(raw) {
   const problems = [];
   if (!list.length) problems.push("no charge pickups");
   if (list.length && !list.some((c) => closed.has(key(c.x, c.z)))) problems.push("no charge pickup reachable before any shortcut opens");
+  const all = distances(world(P, new Set(P.things.map((t) => t.id))), start), stand = all.stand || all;
   for (const c of list) {
+    if (!all.has(key(c.x, c.z))) problems.push(`pickup ${c.id} at ${c.x},${c.z} cannot be reached`);
     if (!isWalkable(P, c.x, c.z)) problems.push(`pickup ${c.id} at ${c.x},${c.z} is not walkable`);
     if (traps.has(key(c.x, c.z))) problems.push(`pickup ${c.id} at ${c.x},${c.z} sits on a trap cell`);
   }
+  for (const t of P.things) if (t.kind === "chest" && ![[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dz]) => stand.has(key(t.x + dx, t.z + dz)))) problems.push(`chest ${t.id} at ${t.x},${t.z} has no reachable side`);
   return problems;
 }

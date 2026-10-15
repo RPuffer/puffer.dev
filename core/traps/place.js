@@ -3,7 +3,7 @@ import { prepareLevel, isWalkable, isVoid, DIRS } from "../level.js";
 import { TRAP_BY_ID } from "./catalog.js";
 import { findPath } from "../path.js";
 import { world, distances } from "../layout/check.js";
-import { forbiddenCells, validateTraps, excluded, mustGuard, guardProblems } from "./rules.js";
+import { forbiddenCells, validateTraps, excluded, mustGuard, guardProblems, applyGrip } from "./rules.js";
 
 const key = (x, z) => x + "," + z;
 const N4 = Object.values(DIRS);
@@ -200,7 +200,8 @@ export function placeTraps(raw, kinds, { position = null, seed = raw.name } = {}
   const fromFire = distances(open, raw.spawn);
   const realChest = (raw.things || []).find((t) => t.kind === "chest" && !t.trap);
   const keep = (t, extra = [], charge = null) => {
-    const test = { ...raw, things: [...(raw.things || []), ...added, ...extra], charges: [...(raw.charges || []), ...charges, ...(charge ? [charge] : [])] };
+    const test = { ...raw, things: [...(raw.things || []), ...added, ...extra], charges: [...(raw.charges || []), ...charges, ...(charge ? [charge] : [])], traps: [...placed, t].map((q) => ({ ...q })) };
+    applyGrip(test);
     if (mustGuard(t.kind) && guardProblems(test, t, quiet(test)).length) return false;
     if (validateTraps(test, { position, traps: [...placed, t] }).length) return false;
     placed.push(t);

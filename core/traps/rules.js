@@ -1,7 +1,7 @@
 import { TRAP_BY_ID } from "./catalog.js";
 import { KINDS } from "./kinds.js";
 import { trapCells } from "./index.js";
-import { world, distances } from "../layout/check.js";
+import { world, distances, SLIP_KINDS } from "../layout/check.js";
 import { prepareLevel, isWalkable } from "../level.js";
 
 const key = (x, z) => x + "," + z;
@@ -68,6 +68,23 @@ export function forbiddenCells(raw) {
 }
 
 export const mustGuard = (kind) => { const m = TRAP_BY_ID[kind]; return !!m && m.tier === "local" && m.visibility !== "hidden" && !KINDS[kind]?.free; };
+
+export function applyGrip(raw) {
+  const slick = (raw.traps || []).filter((t) => SLIP_KINDS.has(t.kind));
+  if (!slick.length) return raw;
+  const N = [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]];
+  const seeds = [...(raw.charges || []).map((c) => [c.x, c.z])];
+  for (const t of raw.things || []) if ((t.kind || t.t) === "chest") seeds.push(...N.slice(1).map(([dx, dz]) => [t.x + dx, t.z + dz]));
+  for (const t of raw.traps || []) if (t.guards) seeds.push(...dangerCells(t));
+  const out = new Map();
+  for (const [x, z] of seeds) for (const [dx, dz] of N) {
+    const c = raw.cells[z + dz]?.[x + dx];
+    if (c && !c.p && c.s !== "none" && c.s !== "water" && c.h >= 1) out.set(key(x + dx, z + dz), [x + dx, z + dz]);
+  }
+  const grip = [...out.values()].sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+  for (const t of slick) { if (grip.length) t.grip = grip; else delete t.grip; }
+  return raw;
+}
 
 export function dangerCells(t) {
   const k = KINDS[t.kind];

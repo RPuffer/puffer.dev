@@ -7,6 +7,7 @@ import { prepareLevel } from "../core/level.js";
 import { SHAPES, resolveTransforms } from "../core/layout/shapes/index.js";
 import { measure, checks } from "./variety-lib.mjs";
 import { placeTraps } from "../core/traps/place.js";
+import { applyGrip, guardProblems, mustGuard } from "../core/traps/rules.js";
 import { placeCharges, checkCharges } from "../core/layout/pickups.js";
 import { placeFences } from "../core/layout/fences.js";
 
@@ -160,7 +161,7 @@ for (const [i, b] of list.entries()) {
   }
   let fenceNote = "";
   if (level && fenceOn(b)) { const f = placeFences(level, { seed: level.layout?.seed ?? b.seed }); fenceNote = `, fences ${f.material} ${f.cells} cells ${(f.share * 100).toFixed(1)}% of ${f.edges} edge cells`; }
-  if (level) { level.charges = placeCharges(level, { seed: level.layout?.seed ?? b.seed, count: 2 + (level.charges?.length || 0) }); problems.push(...checkCharges(level)); }
+  if (level) { level.charges = placeCharges(level, { seed: level.layout?.seed ?? b.seed, count: 2 + (level.charges?.length || 0) }); applyGrip(level); problems.push(...checkCharges(level), ...level.traps.filter((t) => t.guards && mustGuard(t.kind)).flatMap((t) => guardProblems(level, t).map((p) => `${t.id}: ${p}`))); }
   const dist = routeDistances(level).map((s) => `${s.id} ${s.locked}->${s.unlocked}`).join(", ");
   const land = level.cells.flat().filter((c) => c.s !== "none" && c.s !== "water").length;
   console.log(`${b.name}: ${level.layout.shape} ${level.layout.transform} x${level.layout.scale} ${b.archetype}, seed ${b.seed}${best.variant ? ` variant ${best.variant}` : ""} attempt ${attempt}, size ${level.size.join("x")}, land ${land}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, pads ${level.things.filter((t) => t.kind === "pad").length / 2}, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}${fenceNote}`);

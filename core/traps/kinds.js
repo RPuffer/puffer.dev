@@ -937,7 +937,7 @@ defineTrap("t34", {
 });
 
 defineTrap("t35", {
-  init(t) { t.on = false; t.told = false; t.slid = false; t.bonk = -1; },
+  init(t) { t.on = false; t.told = false; t.slid = false; t.bonk = -1; t.gripSet = new Set((t.grip || []).map((c) => c[0] + "," + c[1])); },
   reset(t) { t.slid = false; },
   update(t, dt, ctx) {
     tick(t, "bonk", dt, 0.6);
@@ -947,7 +947,7 @@ defineTrap("t35", {
     const was = stepped(t, ctx);
     if (!was) return;
     if (t.slid) { t.slid = false; return; }
-    if (!t.on || onPath(ctx, f) || !near1(was, f)) return;
+    if (!t.on || onPath(ctx, f) || t.gripSet?.has(f[0] + "," + f[1]) || !near1(was, f)) return;
     const d = sub(f, was), next = add(f, d);
     if (shove(ctx, f, d)) { t.slid = true; ctx.emit(t, "slip"); }
     else if (!isVoid(ctx.level, next[0], next[1])) { t.bonk = 0; ctx.emit(t, "bonk"); }
