@@ -27,10 +27,10 @@ export async function wire({ begin, cont, label }) {
   begin.href = play(order[0], true);
   begin.addEventListener("click", () => { for (const n of order) try { localStorage.removeItem(KEY(n)); } catch {} });
   const state = order.map(saved);
-  warm(order[0]);
   let at = -1;
   for (let i = 0; i < order.length; i++) if (lit(state[i])) at = i;
   if (at < 0) for (let i = 0; i < order.length; i++) if (state[i]) at = i;
+  warm(at >= 0 && cont ? order[at] : order[0]);
   if (at >= 0 && cont) {
     cont.href = play(order[at]);
     if (label) label.textContent = "island " + (at + 1) + ", " + order[at].split("-")[0];

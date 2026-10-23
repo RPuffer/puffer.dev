@@ -44,7 +44,15 @@ async function walk(key) {
   const deps = [...text.matchAll(SPEC)].map((m) => resolve(m[1], key)).filter(Boolean);
   const glbs = [...text.matchAll(GLB)].filter((m) => !m[1].includes("${")).map((m) => new URL(m[1], new URL("3d/hooks.js", ROOT))).filter((u) => u.origin === ROOT.origin);
   for (const g of glbs) get(g);
-  await Promise.allSettled(deps.map((d) => crawl(d)));
+  for (const d of deps) crawl(d);
+}
+
+async function crawlAll(url) {
+  crawl(url);
+  for (let n = -1; n !== crawled.size;) {
+    n = crawled.size;
+    await Promise.allSettled([...crawled.values()]);
+  }
 }
 
 export function rawLevel(name) {
@@ -67,7 +75,7 @@ export async function warmIsland(name, { modules = "import" } = {}) {
   const raw = await rawLevel(name);
   const pieces = (Array.isArray(raw.pieces) ? raw.pieces : []).map((p) => new URL(p, new URL("3d/hooks.js", ROOT)));
   if (modules === "import") await Promise.allSettled(pieces.map((u) => import(u.href)));
-  else await Promise.allSettled(pieces.map((u) => crawl(u)));
+  else await Promise.allSettled(pieces.map((u) => crawlAll(u)));
   return raw;
 }
 
@@ -76,6 +84,6 @@ export async function warmPage(name) {
   get(new URL("3d/index.html", ROOT));
   get(new URL("levels/run.json", ROOT));
   for (const c of CLOUDS) get(new URL(c, ROOT));
-  await Promise.allSettled([crawl(new URL("3d/main.js", ROOT)), warmIsland(name, { modules: "fetch" })]);
+  await Promise.allSettled([crawlAll(new URL("3d/main.js", ROOT)), warmIsland(name, { modules: "fetch" })]);
   return crawled.size;
 }

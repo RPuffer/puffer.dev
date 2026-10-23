@@ -49,6 +49,15 @@ W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S do
 
 The round button in the bottom-left of the touch band swaps the compass rose for the joystick and back, and the choice is saved under `isoworld:controls`.
 
+## Load speed
+
+Netlify serves JS and JSON with `max-age=0, must-revalidate`, so every request costs a round trip even when the browser already holds the file. Two things keep that off the critical path:
+
+- The landing page warms the island its Continue button points at (or island one when there is nothing to continue): page modules, the island's piece modules, the level JSON and the cloud atlas. `core/warm.js` crawls the module graph flat, since the graph has import cycles (`core/level.js` and `core/interact.js`, `3d/things.js` and `3d/beckon.js`).
+- `tools/deploy-site.sh` runs `tools/modulepreload.mjs` on `build/3d/index.html`. It adds a `modulepreload` link for every module reachable from `3d/main.js`, plus an inline script that reads `?level=` and preloads that level's JSON, `levels/run.json`, the atlas JSON and every piece module the level pulls in, so they all start in the first request wave. The source `3d/index.html` stays bare for local serving.
+
+Measured on the built site at 150 ms latency and 1.25 MB/s, Continue to island 10 in headless Chrome: 9.1 s cold and 6.9 s warmed before; 7.7 s cold and 5.9 s warmed after, with level plus pieces (`__bakes[0].loadMs`) down from 1297 ms to 6 ms. Most of what is left in those numbers is SwiftShader rendering, which a phone GPU does not pay.
+
 ## Status bubble
 
 `core/status.js` (`mountStatus`, exposed as `window.__status`) holds continuous information: anything true for as long as you stay somewhere. An island debuff announces itself once the elevator sequence has finished and the hero has been free to move for 0.6 s. Its card (pink frame, "Island debuff", name, rule) stays up for 3.2 s, then shrinks into a pill under the hearts: on the right on touch, on the left on desktop, matching the hearts. The pill shows the first item's name and `+N` for the rest. Tapping it opens the list with every item's name and rule; tapping anywhere else closes it. Each island load clears the bubble. The debuff's rule text goes to the card instead of the scroll toast. Other systems can call `announce(id, { title, text, kind })` for the card-then-dock flow, `set(id, { title, text })` to dock without a card, and `remove(id)` or `clear()`. `?ui=0` and `?hero=0` skip it.
