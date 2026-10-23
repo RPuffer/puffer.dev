@@ -13,8 +13,9 @@ export const POWERS = {
 };
 
 export const DASH_S = 0.2, AVOID_COST = 40;
-export const CHARGES = { stock: 2, cap: 3 };
-export const OIL = { flask: 20, stock: 1, cap: 3 };
+export const CHARGES = { cap: 3 };
+export const OIL = { flask: 20, cap: 3, need: 2 };
+export const fullCharges = () => ({ wanderer: CHARGES.cap, aws: CHARGES.cap, dutchie: CHARGES.cap, nm: OIL.flask * OIL.cap });
 export const LANTERN_R = 2;
 export const RUSH = { secs: 4, scale: 0.5, ease: 0.35, out: 0.5 };
 export const TAP_WALK = "all";
@@ -57,13 +58,15 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
   const { state } = game;
   const listeners = new Set();
   const emit = (e) => { for (const f of [...listeners]) f(e); };
-  let rush = null, later = null, cls = null, charges = CHARGES.stock, oil = OIL.flask * OIL.stock, lit = false, pending = false, hop = null, actor = null, lastCell = "", offs = [], taken = new Set(), levelName = null;
+  let rush = null, later = null, cls = null, pool = fullCharges(), lit = false, pending = false, hop = null, actor = null, lastCell = "", offs = [], taken = new Set(), levelName = null;
   const power = () => POWERS[cls];
   const say = (text) => state.things?.say(text);
-  const save = () => { try { storage?.setItem(POWER_KEY, JSON.stringify({ cls, charges, oil: Math.round(oil * 10) / 10 })); } catch {} };
+  const save = () => { try { storage?.setItem(POWER_KEY, JSON.stringify({ cls, pool: { ...pool, nm: Math.round(pool.nm * 10) / 10 } })); } catch {} };
   const load = () => { try { return JSON.parse(storage?.getItem(POWER_KEY) || "null"); } catch { return null; } };
   const oilCap = () => OIL.flask * OIL.cap;
-  const stock = () => { charges = CHARGES.stock; oil = OIL.flask * OIL.stock; };
+  const fill = () => { pool = fullCharges(); };
+  const charges = () => (cls === "nm" ? 0 : pool[cls] ?? 0);
+  const oilNow = () => pool.nm;
   const syncClass = () => {
     const c = powerClass(state.params);
     if (c === cls) return;
@@ -72,9 +75,10 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
     rush = null;
     const was = cls;
     cls = c;
-    const s = load();
-    if (was == null && s && s.cls === c) { charges = Math.min(CHARGES.cap, Math.max(0, s.charges | 0)); oil = Math.min(oilCap(), Math.max(0, +s.oil || 0)); }
-    else stock();
+    if (was == null) {
+      const s = load();
+      if (s?.pool) for (const k of CLASS_IDS) pool[k] = Math.min(k === "nm" ? oilCap() : CHARGES.cap, Math.max(0, +s.pool[k] || 0));
+    }
     save();
     pending = false;
     if (actor) actor.pause = false;
@@ -83,10 +87,10 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
   const ready = () => {
     const p = power();
     if (p.passive) return true;
-    if (p.oil) return oil > 0;
-    return charges > 0 && !(cls === "aws" && state.health?.warded);
+    if (p.oil) return pool.nm > 0;
+    return charges() > 0 && !(cls === "aws" && state.health?.warded);
   };
-  const spend = () => { charges = Math.max(0, charges - 1); save(); emit({ type: "spend", power: power().id, charges }); };
+  const spend = () => { pool[cls] = Math.max(0, charges() - 1); save(); emit({ type: "spend", power: power().id, charges: charges() }); };
   const busy = () => !actor || actor.locked || !!state.life?.busy || !!hop;
   const cellNow = () => actor.cell.slice();
 
@@ -138,17 +142,17 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
   };
   const give = (what) => {
     if (power().oil) {
-      if (oil >= oilCap() - 1e-6) return false;
-      oil = Math.min(oilCap(), oil + OIL.flask);
+      if (pool.nm >= oilCap() - 1e-6) return false;
+      pool.nm = Math.min(oilCap(), pool.nm + OIL.flask);
     } else {
-      if (charges >= CHARGES.cap) return false;
-      charges++;
+      if (charges() >= CHARGES.cap) return false;
+      pool[cls] = charges() + 1;
     }
     save();
-    emit({ type: "gain", what, charges, oil });
+    emit({ type: "gain", what, charges: charges(), oil: pool.nm });
     return true;
   };
-  const gainText = (src) => power().oil ? `${src}: an oil flask. ${Math.round(oil)} s of light.` : `${src}: a power charge. ${charges} of ${CHARGES.cap}.`;
+  const gainText = (src) => power().oil ? `${src}: an oil flask. ${Math.round(pool.nm)} s of light.` : `${src}: a power charge. ${charges()} of ${CHARGES.cap}.`;
   const pickups = () => (state.level?.charges || []).filter((c) => !taken.has(c.id));
   const readTaken = () => { try { return new Set(JSON.parse(storage?.getItem(pickupKey(state.level?.name)) || "[]")); } catch { return new Set(); } };
   const writeTaken = () => { try { storage?.setItem(pickupKey(state.level?.name), JSON.stringify([...taken])); } catch {} };
@@ -166,9 +170,10 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
   const api = {
     get cls() { return cls; },
     get power() { return power(); },
-    get charges() { return charges; },
+    get charges() { return charges(); },
+    get pool() { return { ...pool }; },
     get cap() { return CHARGES.cap; },
-    get oil() { return oil; },
+    get oil() { return oilNow(); },
     get oilCap() { return oilCap(); },
     get lit() { return lit; },
     get ready() { return ready(); },
@@ -191,25 +196,24 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
       if (!actor || actor.locked || state.life?.busy) return false;
       if (p.passive) { say(p.hint + "."); emit({ type: "hint", power: p.id }); return false; }
       if (p.oil) {
-        if (!lit && oil <= 0) { say("The lantern is dry. Find an oil flask."); emit({ type: "empty", power: p.id }); return false; }
+        if (!lit && pool.nm <= 0) { say("The lantern is dry. Rest at a bonfire to fill it."); emit({ type: "empty", power: p.id }); return false; }
         return toggleLantern();
       }
       if (cls === "aws" && state.health?.warded) { say("The ward is already raised."); emit({ type: "fail", power: p.id, why: "raised" }); return false; }
       if (cls === "dutchie" && rush) { say("Rush is already running."); emit({ type: "fail", power: p.id, why: "running" }); return false; }
-      if (charges <= 0) { say(`No charges for ${p.name}. Find one, open a chest or rest at a bonfire.`); emit({ type: "empty", power: p.id }); return false; }
+      if (charges() <= 0) { say(`No charges for ${p.name}. Rest at a bonfire to refill.`); emit({ type: "empty", power: p.id }); return false; }
       if (hop) return false;
       if (cls === "dutchie") return busy() ? false : doRush();
       if (actor.path.length || actor.moving) { pending = true; actor.pause = true; state.route.cancel(); return true; }
       return run();
     },
-    refill() {
+    refill(why = "rest") {
       syncClass();
-      charges = Math.max(charges, CHARGES.stock);
-      oil = Math.max(oil, OIL.flask * OIL.stock);
+      fill();
       save();
-      emit({ type: "refill", charges, oil });
+      emit({ type: "refill", why, charges: charges(), oil: pool.nm });
     },
-    reset() { stock(); save(); emit({ type: "refill", charges, oil }); },
+    reset() { fill(); save(); emit({ type: "refill", why: "reset", charges: charges(), oil: pool.nm }); },
     bind() {
       for (const f of offs) f();
       offs = [];
@@ -226,7 +230,7 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
         if (e.type === "open" && e.thing?.kind === "chest" && give("chest")) later = gainText("Found in the chest");
       });
       if (t) offs.push(t);
-      const l = state.life?.on?.((e) => { if (e.type === "respawn") { hop = null; pending = false; if (actor) actor.pause = false; lastCell = key(actor.cell[0], actor.cell[1]); } });
+      const l = state.life?.on?.((e) => { if (e.type === "respawn") { hop = null; pending = false; if (actor) actor.pause = false; lastCell = key(actor.cell[0], actor.cell[1]); if (lit) { lit = false; emit({ type: "douse" }); } api.refill("respawn"); } });
       if (l) offs.push(l);
       const h = state.health?.on?.((e) => { if (cls === "aws" && e.type === "absorb") emit({ type: "absorb" }); });
       if (h) offs.push(h);
@@ -237,10 +241,10 @@ export function createPowers(game, { storage = globalThis.localStorage } = {}) {
       syncClass();
       if (later) { say(later); later = null; }
       if (lit) {
-        oil = Math.max(0, oil - dt);
+        pool.nm = Math.max(0, pool.nm - dt);
         shine();
-        if (oil <= 0) { lit = false; say("The lantern gutters out."); emit({ type: "douse", dry: true }); }
-        if (Math.floor(oil) !== Math.floor(oil + dt)) save();
+        if (pool.nm <= 0) { lit = false; say("The lantern gutters out."); emit({ type: "douse", dry: true }); }
+        if (Math.floor(pool.nm) !== Math.floor(pool.nm + dt)) save();
       }
       if (rush) {
         rush.t += dt;
