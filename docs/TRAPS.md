@@ -967,12 +967,12 @@ Spring tile fires once per life and flings you two cells back the way you came. 
   "id": "t18",
   "name": "Spring tile",
   "tier": "local",
-  "footprint": "slot, 1 cell plus 2 cells behind",
+  "footprint": "slot on the walk, 1 cell, entered from a cell whose far side is open air",
   "trigger": "step",
   "visibility": "telegraphed",
-  "health": "none",
+  "health": "knock-off",
   "pull": "onto the path",
-  "rule": "Bends forward progress: this cell sends you back.",
+  "rule": "Bends forward progress: this cell sends you back, and on the walk back there is nothing behind you.",
   "excludes": [
    "t05"
   ]
@@ -1593,14 +1593,14 @@ Spring tile fires once per life and flings you two cells back the way you came. 
  },
  {
   "id": "t59",
-  "name": "Lantern plank",
+  "name": "Lantern block",
   "tier": "local",
   "footprint": "slot, 1 path cell",
   "trigger": "step",
   "visibility": "telegraphed",
   "health": "knock-off",
   "pull": "onto the path",
-  "rule": "Class gate: a rotten plank that holds only in lantern light. Class: Modernizer.",
+  "rule": "Class gate: an invisible block that turns solid only in lantern light within reach. Class: Modernizer.",
   "excludes": []
  },
  {
@@ -1613,6 +1613,18 @@ Spring tile fires once per life and flings you two cells back the way you came. 
   "health": "none",
   "pull": "off the path",
   "rule": "Class gate: a reward gate that opens for one class, marked with that class's sigil.",
+  "excludes": []
+ },
+ {
+  "id": "t61",
+  "name": "Rising block",
+  "tier": "local",
+  "footprint": "slot on the walk, 1 cell plus the trigger cell beside it",
+  "trigger": "step",
+  "visibility": "hidden",
+  "health": "none",
+  "pull": "off the path",
+  "rule": "Bends the open way: a flagstone rises into a pillar behind you or ahead of you, and you take the long way round.",
   "excludes": []
  }
 ]

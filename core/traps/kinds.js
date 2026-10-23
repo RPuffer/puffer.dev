@@ -1,4 +1,5 @@
 import { isWalkable, isVoid, DIRS, OPPOSITE, canStep } from "../level.js";
+import { LANTERN_R } from "../powers.js";
 
 export const CHALK_HITS = 3;
 export const KINDS = {};
@@ -110,11 +111,13 @@ defineTrap("t22", {
 });
 
 defineTrap("t02", {
+  fallaway: true,
+  tiles(t) { return t.cells; },
   worst(t) { return { blocked: t.cells }; },
   check(t) { return t.cells.length < 3 || t.cells.length > 5 ? ["worn flagstones cover 3 to 5 loop cells"] : []; },
   init(t) { t.crossings = 0; t.broken = false; t.dropAt = null; },
-  reset(t, ctx) { if (t.broken) for (const c of t.cells) block(ctx.level, c, false); t.crossings = 0; t.broken = false; t.dropAt = null; },
-  disarm(t, ctx) { if (t.broken) for (const c of t.cells) block(ctx.level, c, false); t.broken = false; t.dropAt = null; },
+  reset(t) { t.crossings = 0; t.broken = false; t.dropAt = null; },
+  disarm(t) { t.broken = false; t.dropAt = null; },
   enter(t, c, prev, ctx) {
     if (t.broken || (prev && indexOf(t.cells, prev) >= 0)) return;
     t.crossings++;
@@ -125,9 +128,7 @@ defineTrap("t02", {
     if (t.dropAt == null || ctx.time < t.dropAt) return;
     t.dropAt = null;
     t.broken = true;
-    for (const c of t.cells) block(ctx.level, c, true);
-    ctx.emit(t, "collapse");
-    if (ctx.onAny(t.cells)) ctx.knock(t, [0, 0]);
+    fallAway(t, t.cells, t.cells.find((c) => ctx.on(c)), ctx, "collapse");
   },
 });
 
@@ -318,7 +319,9 @@ defineTrap("t40", {
 });
 
 defineTrap("t18", {
-  check(t, P) { return []; },
+  route: true,
+  worst(t) { return { blocked: t.cells }; },
+  check(t) { return t.cells.length !== 1 ? ["the spring covers one cell"] : []; },
   init(t) { t.spent = false; t.boing = -1; },
   reset(t) { t.spent = false; t.boing = -1; },
   enter(t, c, prev, ctx) {
@@ -378,6 +381,12 @@ const stepped = (t, ctx) => {
   return was && !same(was, f) ? was : null;
 };
 const tick = (t, k, dt, max = 0.6) => { if (t[k] >= 0) { t[k] += dt; if (t[k] > max) t[k] = -1; } };
+const fallAway = (t, cells, ride, ctx, type, extra = {}) => {
+  for (const q of cells) ctx.tiles?.drop(q, { ride: !!ride && same(q, ride) });
+  ctx.emit(t, type, { at: ride || cells[0], ...extra });
+  if (ride) ctx.drop(t, ride);
+};
+
 const announce = (t, ctx, text) => {
   if (t.told || ctx.time <= 0.4) return;
   t.told = true;
@@ -567,23 +576,23 @@ defineTrap("t09", {
 });
 
 defineTrap("t10", {
+  fallaway: true,
+  tiles(t) { return t.cells; },
   worst(t) { return { blocked: t.cells }; },
   learn(t) { return [t.cells[t.at]]; },
   check(t) { return t.cells.length !== 2 || !near1(t.cells[0], t.cells[1]) ? ["the scooting hole covers two adjacent cells"] : []; },
   init(t) { t.at = 0; t.open = false; t.moved = false; t.drop = -1; t.chalkAt = null; },
-  reset(t, ctx) {
-    if (t.open) { block(ctx.level, t.cells[t.at], false); t.chalkAt = t.cells[t.at]; t.chalk = true; if (!t.moved) { t.at = 1; t.moved = true; } }
+  reset(t) {
+    if (t.open && !t.moved) { t.at = 1; t.moved = true; }
     t.open = false;
     t.drop = -1;
   },
-  rest(t) { t.chalk = false; },
-  disarm(t, ctx) { if (t.open) block(ctx.level, t.cells[t.at], false); t.open = false; },
+  disarm(t) { t.open = false; },
   enter(t, c, prev, ctx) {
     if (t.open || !same(c, t.cells[t.at])) return;
     t.open = true;
     t.drop = 0;
-    ctx.emit(t, "drop");
-    ctx.knock(t, [0, 0]);
+    fallAway(t, [c], c, ctx, "drop");
   },
   update(t, dt) { if (t.drop >= 0) t.drop += dt; },
 });
@@ -591,15 +600,17 @@ defineTrap("t10", {
 const paintedHole = {
   angle: 315,
   seen(t, ctx) { const y = ((ctx.yaw() - (t.angle ?? this.angle)) % 360 + 360) % 360; return y < 1 || y > 359; },
-  tear(t, ctx) { t.torn = true; t.rip = 0; ctx.emit(t, "tear"); ctx.knock(t, [0, 0]); },
+  tear(t, ctx, c) { t.torn = true; t.rip = 0; fallAway(t, [c], c, ctx, "tear"); },
 };
 defineTrap("t11", {
   ...paintedHole,
+  fallaway: true,
+  tiles(t) { return t.cells; },
   worst(t) { return { blocked: t.cells }; },
   check(t) { return t.cells.length !== 1 ? ["the painted hole covers one cell"] : []; },
   init(t) { t.torn = false; t.rip = -1; t.seam = false; },
   reset(t) { t.torn = false; t.rip = -1; },
-  enter(t, c, prev, ctx) { if (!t.torn) this.tear(t, ctx); },
+  enter(t, c, prev, ctx) { if (!t.torn) this.tear(t, ctx, c); },
   update(t, dt, ctx) { t.seam = this.seen(t, ctx); if (t.rip >= 0) t.rip += dt; },
 });
 
@@ -763,6 +774,8 @@ defineTrap("t20", {
 });
 
 defineTrap("t27", {
+  fallaway: true,
+  tiles(t) { return [t.cells[t.drop ?? 2]]; },
   cells(t) { return [...(t.kind1 || []), ...t.cells]; },
   worst(t) { return { blocked: [t.cells[t.drop ?? 2]] }; },
   check(t, P) {
@@ -773,7 +786,7 @@ defineTrap("t27", {
     return out;
   },
   init(t) { t.wob = (t.kind1 || []).map(() => 0); t.gone = false; t.fall = -1; },
-  reset(t, ctx) { if (t.gone) block(ctx.level, t.cells[t.drop ?? 2], false); t.gone = false; t.fall = -1; },
+  reset(t) { t.gone = false; t.fall = -1; },
   disarm(t, ctx) { this.reset(t, ctx); },
   enter(t, c, prev, ctx) {
     const k = indexOf(t.kind1 || [], c);
@@ -781,9 +794,7 @@ defineTrap("t27", {
     if (t.gone || !same(c, t.cells[t.drop ?? 2])) return;
     t.gone = true;
     t.fall = 0;
-    block(ctx.level, c, true);
-    ctx.emit(t, "snap");
-    ctx.knock(t, [0, 0]);
+    fallAway(t, [c], c, ctx, "snap");
   },
   update(t, dt) { t.wob = t.wob.map((w) => Math.max(0, w - dt * 1.4)); if (t.fall >= 0) t.fall += dt; },
 });
@@ -853,6 +864,8 @@ defineTrap("t30", {
 
 defineTrap("t31", {
   ...paintedHole,
+  fallaway: true,
+  tiles(t) { return [t.coins[t.coins.length - 1]]; },
   cells(t) { return t.coins || []; },
   worst(t) { return { blocked: [t.coins[t.coins.length - 1]] }; },
   check(t, P) {
@@ -867,13 +880,15 @@ defineTrap("t31", {
   reset(t) { t.got = 0; t.torn = false; t.rip = -1; },
   enter(t, c, prev, ctx) {
     const last = t.coins.length - 1;
-    if (same(c, t.coins[last]) && !t.torn) { this.tear(t, ctx); return; }
+    if (same(c, t.coins[last]) && !t.torn) { this.tear(t, ctx, c); return; }
     if (t.got < last && same(c, t.coins[t.got])) { t.got++; t.shine = 0; ctx.emit(t, "coin", { got: t.got }); }
   },
   update(t, dt, ctx) { t.seam = this.seen(t, ctx); if (t.rip >= 0) t.rip += dt; tick(t, "shine", dt, 0.5); },
 });
 
 defineTrap("t01", {
+  fallaway: true,
+  tiles(t) { return t.cells; },
   cells(t) { return [...t.cells, t.spring, t.gate].filter(Boolean); },
   worst(t) { return { blocked: [...t.cells, t.gate] }; },
   check(t, P) {
@@ -885,7 +900,6 @@ defineTrap("t01", {
   },
   init(t) { t.run = 0; t.gone = false; t.up = false; t.fall = -1; t.pop = -1; },
   reset(t, ctx) {
-    if (t.gone) for (const c of t.cells) block(ctx.level, c, false);
     if (t.up) block(ctx.level, t.gate, false);
     t.run = 0; t.gone = false; t.up = false; t.fall = -1; t.pop = -1;
   },
@@ -904,9 +918,7 @@ defineTrap("t01", {
     if (t.run < 4) return;
     t.gone = true;
     t.fall = 0;
-    for (const q of t.cells) block(ctx.level, q, true);
-    ctx.emit(t, "vanish");
-    ctx.knock(t, [0, 0]);
+    fallAway(t, t.cells, c, ctx, "vanish");
   },
   update(t, dt) { if (t.fall >= 0) t.fall += dt; tick(t, "pop", dt, 0.5); },
 });
@@ -1298,18 +1310,24 @@ defineTrap("t53", {
 });
 
 const dropAt = (t, c, ctx, type = "drop") => { t.open = c.slice(); t.drop = 0; ctx.emit(t, type, { at: c }); ctx.knock(t, [0, 0]); };
+const fallAt = (t, c, ctx, type = "drop") => { t.open = c.slice(); t.drop = 0; fallAway(t, [c], c, ctx, type); };
 
 defineTrap("t54", {
+  fallaway: true,
+  tiles(t) { return t.cells; },
   worst(t) { return { blocked: t.cells }; },
   check(t) { return t.cells.length !== 1 ? ["the false floor covers one cell"] : []; },
   init(t) { t.open = null; t.drop = -1; },
   reset(t) { t.open = null; t.drop = -1; },
-  enter(t, c, prev, ctx) { if (!t.open) dropAt(t, c, ctx); },
+  enter(t, c, prev, ctx) { if (!t.open) fallAt(t, c, ctx); },
   update(t, dt) { if (t.drop >= 0) t.drop += dt; },
 });
 
 defineTrap("t55", {
+  fallaway: true,
+  tiles(t) { return t.cells; },
   worst(t) { return { blocked: [t.cells[0]] }; },
+  worstAlts(t) { return t.cells.slice(1).map((c) => [c]); },
   danger(t) { return [t.cells[0]]; },
   learn(t) { return t.open ? [t.open] : [t.cells[0]]; },
   clear(t) { return t.prev && t.next ? t.cells.slice(1).flatMap((s) => { const p = sub(s, t.cells[0]); return [add(t.prev, p), add(t.next, p)]; }) : []; },
@@ -1330,10 +1348,10 @@ defineTrap("t55", {
   rest(t) { t.fell = 0; t.second = null; },
   enter(t, c, prev, ctx) {
     if (t.open) return;
-    if (same(c, t.cells[0])) { t.fell++; dropAt(t, c, ctx); return; }
+    if (same(c, t.cells[0])) { t.fell++; fallAt(t, c, ctx); return; }
     if (!t.fell) return;
     if (!t.second) t.second = c.slice();
-    if (same(c, t.second)) dropAt(t, c, ctx, "drop-second");
+    if (same(c, t.second)) fallAt(t, c, ctx, "drop-second");
   },
   update(t, dt) { if (t.drop >= 0) t.drop += dt; },
 });
@@ -1385,12 +1403,51 @@ defineTrap("t58", classGate("dutchie", {
 }));
 
 defineTrap("t59", classGate("nm", {
+  tiles(t) { return t.cells; },
+  solid(t, ctx) {
+    if (!ctx.power().lit) return false;
+    const a = ctx.actor, c = t.cells[0];
+    return Math.max(Math.abs(Math.floor(a.pos.x) - c[0]), Math.abs(Math.floor(a.pos.z) - c[1])) <= LANTERN_R;
+  },
+  slip(t, c, ctx) { t.open = c.slice(); t.drop = 0; ctx.emit(t, "slip", { at: c }); ctx.drop(t, c); },
   enter(t, c, prev, ctx) {
     if (t.open) return;
-    if (ctx.power().lit) { t.held = 0; ctx.emit(t, "hold"); return; }
-    dropAt(t, c, ctx, "snap");
+    if (this.solid(t, ctx)) { t.held = 0; ctx.emit(t, "hold"); return; }
+    this.slip(t, c, ctx);
+  },
+  update(t, dt, ctx) {
+    const was = !!t.solid;
+    t.solid = this.solid(t, ctx);
+    if (t.solid !== was) ctx.emit(t, t.solid ? "solid" : "fade");
+    if (!t.solid && !t.open && ctx.on(t.cells[0])) this.slip(t, t.cells[0], ctx);
   },
 }));
+
+defineTrap("t61", {
+  tiles(t) { return t.cells; },
+  cells(t) { return [t.cells[0], t.trigger].filter(Boolean); },
+  danger(t) { return []; },
+  worst(t) { return { blocked: t.cells }; },
+  check(t, P) {
+    const c = t.cells[0];
+    if (t.cells.length !== 1) return ["the rising block covers one cell"];
+    if (!t.trigger || !near1(t.trigger, c)) return ["the rising block rises from the cell beside its trigger"];
+    if (!["behind", "ahead"].includes(t.mode)) return ["the rising block rises behind you or ahead of you"];
+    return isWalkable(P, c[0], c[1]) && isWalkable(P, t.trigger[0], t.trigger[1]) ? [] : ["the rising block and its trigger sit on walkable cells"];
+  },
+  init(t) { t.up = false; t.grind = -1; },
+  reset(t, ctx) { if (t.up) ctx.tiles?.lower(t.cells[0]); t.up = false; t.grind = -1; },
+  disarm(t, ctx) { this.reset(t, ctx); },
+  enter(t, c, prev, ctx) {
+    if (t.up || !same(c, t.trigger) || ctx.on(t.cells[0])) return;
+    if (t.mode === "behind" && !same(prev, t.cells[0])) return;
+    t.up = true;
+    t.grind = 0;
+    ctx.tiles?.rise(t.cells[0]);
+    ctx.emit(t, "rise", { at: t.cells[0] });
+  },
+  update(t, dt) { tick(t, "grind", dt, 0.6); },
+});
 
 defineTrap("t60", {
   free: true,

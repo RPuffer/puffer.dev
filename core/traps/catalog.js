@@ -16,7 +16,7 @@ export const TRAP_CATALOG = [
   {"id":"t15","name":"Faith tiles","tier":"local","footprint":"2 to 4 cell gap between two path runs at one height","trigger":"step","visibility":"obvious","health":"none","pull":"onto the path","excludes":["t21","t24","t29","t35","t36"]},
   {"id":"t16","name":"Nothing here","tier":"local","footprint":"slot of 5 or more cells","trigger":"step","visibility":"obvious","health":"none","pull":"onto the path","excludes":[]},
   {"id":"t17","name":"Stone twin","tier":"local","footprint":"gate approach, 1 decor cell beside the path","trigger":"look","visibility":"telegraphed","health":"none","pull":"onto the path","excludes":["t44"]},
-  {"id":"t18","name":"Spring tile","tier":"local","footprint":"slot, 1 cell plus 2 cells behind","trigger":"step","visibility":"telegraphed","health":"none","pull":"onto the path","excludes":["t05"]},
+  {"id":"t18","name":"Spring tile","tier":"local","footprint":"slot on the walk, 1 cell, entered from a cell whose far side is open air","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":["t05"]},
   {"id":"t19","name":"Barrel lane","tier":"local","footprint":"slot of 4 or more cells plus 1 shoulder dodge cell","trigger":"timer","visibility":"obvious","health":"-1 heart","pull":"off the path","excludes":["t03","t22","t26"]},
   {"id":"t20","name":"Rewind tile","tier":"local","footprint":"slot, 1 cell","trigger":"step","visibility":"hidden","health":"none","pull":"neutral","excludes":["t02"]},
   {"id":"t21","name":"Invisible block","tier":"local","footprint":"path cell plus a walkable shoulder detour","trigger":"step","visibility":"hidden","health":"-1 heart","pull":"off the path","excludes":["t15"]},
@@ -57,8 +57,9 @@ export const TRAP_CATALOG = [
   {"id":"t56","name":"Ink pit","tier":"local","footprint":"slot, 1 path cell with a straight cell before and after","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":["t35"]},
   {"id":"t57","name":"Ward arch","tier":"local","footprint":"slot, 1 path cell","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":[]},
   {"id":"t58","name":"Gnasher","tier":"local","footprint":"slot, 1 path cell","trigger":"timer","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":["t36"]},
-  {"id":"t59","name":"Lantern plank","tier":"local","footprint":"slot, 1 path cell","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":[]},
+  {"id":"t59","name":"Lantern block","tier":"local","footprint":"slot, 1 path cell","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":[]},
   {"id":"t60","name":"Class seal","tier":"local","footprint":"dead end or pocket, 1 approach cell plus the reward gate","trigger":"step","visibility":"telegraphed","health":"none","pull":"off the path","excludes":[]},
+  {"id":"t61","name":"Rising block","tier":"local","footprint":"slot on the walk, 1 cell plus the trigger cell beside it","trigger":"step","visibility":"hidden","health":"none","pull":"off the path","excludes":[]},
 ];
 
 export const TRAP_BY_ID = Object.fromEntries(TRAP_CATALOG.map((t) => [t.id, t]));
