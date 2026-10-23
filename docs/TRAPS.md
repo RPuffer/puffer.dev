@@ -1,8 +1,8 @@
 # Traps
 
-Design catalog for the booby-trapped islands. The operator approved the first 53 entries; the gauntlet pass added seven more (two cruel hidden floors and five class gates), and all 60 run (see Implemented). Each entry carries the tags procgen needs to mix traps without breaking an island: footprint, trigger, the rule it teaches or bends, visibility, pull, and exclusions. The machine-readable copy sits at the end of this file. Fortress card `puffer-isoworld-trap-concepts` holds the same set for review.
+Design catalog for the booby-trapped islands. The operator approved the first 53 entries; the gauntlet pass added seven more (two cruel hidden floors and five class gates), the tile pass added the rising block, and all 61 run (see Implemented). Each entry carries the tags procgen needs to mix traps without breaking an island: footprint, trigger, the rule it teaches or bends, visibility, pull, and exclusions. The machine-readable copy sits at the end of this file. Fortress card `puffer-isoworld-trap-concepts` holds the same set for review.
 
-60 entries: 32 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzles. Visibility: 19 obvious, 24 telegraphed, 17 hidden. Five of the locals are class gates (t56 to t60).
+61 entries: 33 local traps, 6 sequences, 8 whole-island debuffs and 14 puzzles. Visibility: 19 obvious, 24 telegraphed, 18 hidden. Five of the locals are class gates (t56 to t60).
 
 ## Implemented
 
@@ -27,7 +27,7 @@ Design catalog for the booby-trapped islands. The operator approved the first 53
 | t15 | Faith tiles | local | step | obvious | none | plot `faith` |
 | t16 | Nothing here | local | step | obvious | none | plot `nothing` |
 | t17 | Stone twin | local | look | telegraphed | none | plot `twin` |
-| t18 | Spring tile | local | step | telegraphed | none | plot `spring` |
+| t18 | Spring tile | local | step | telegraphed | knock-off | plot `spring` (flings you back), plot `springedge` (flings you off the island) |
 | t19 | Barrel lane | local | timer | obvious | -1 heart | plot `barrel` |
 | t20 | Rewind tile | local | step | hidden | none | plot `rewind` |
 | t21 | Invisible block | local | step | hidden | -1 heart | north-east road, cell 22,9 |
@@ -68,22 +68,24 @@ Design catalog for the booby-trapped islands. The operator approved the first 53
 | t56 | Ink pit | local | step | telegraphed | knock-off | plot `inkpit` |
 | t57 | Ward arch | local | step | telegraphed | knock-off | plot `wardarch` |
 | t58 | Gnasher | local | timer | telegraphed | knock-off | plot `gnasher` |
-| t59 | Lantern plank | local | step | telegraphed | knock-off | plot `plank` |
+| t59 | Lantern block | local | step | telegraphed | knock-off | plot `plank` |
 | t60 | Class seal | local | step | telegraphed | none | plot `seal` |
+| t61 | Rising block | local | step | hidden | none | plot `rise` (one ahead, one behind) |
 
 ### How traps run
 
 - A level lists traps beside its things: `"traps": [{ "id", "kind": "t03", "cells": [[x, z], ...], ...kind fields }]`. The kind is the catalog id. `core/traps/catalog.js` holds all 53 rows; `node tools/trap-catalog.mjs` regenerates it from the machine-readable block below.
-- `core/traps/kinds.js` holds one runtime per kind with optional `enter`, `update`, `reset`, `reveal`, `disarm`, `worst` and `check` hooks. A new trap adds one entry there and one builder in `3d/traps.js`.
+- `core/traps/kinds.js` holds one runtime per kind with optional `enter`, `update`, `reset`, `reveal`, `disarm`, `worst`, `worstAlts`, `tiles` and `check` hooks. A new trap adds one entry there and one builder in `3d/traps.js`.
 - `core/traps/rules.js` enforces the composition rules: exclusions (a sequence inherits its members' lists), the repeat caps, one debuff and one puzzle, the budget by run position, the lull-then-betray shape, forbidden cells, footprint spacing, a landmark within four cells of a hidden trap, safe dodge cells, lift to lift with every trap at its worst state, and the clean memorized walk. `core/traps/place.js` picks footprints and keeps the first that passes.
 - `state.traps` exposes `at(cell)`, `all()`, `reveal(ref)`, `disarm(ref)` (stored under `isoworld:traps:<level>`), `skip(cells, seconds)` for a hop over a cell, and `on(f)`. `state.health.ward()` absorbs the next hit or knock-off.
+- `ctx.tiles` (`core/tiles.js`) animates single floor tiles. `drop(cell, { ride })` turns the cell to void for the rest of the island visit; `ctx.drop(t, cell)` sends the hero down with it on an unabsorbable knock. `rise(cell)` lifts the cell into a solid pillar a full tile high and `lower(cell)` sinks it. `isGone`, `isRisen`, `height` and `depth` read the state, and `traps.tiles` exposes it to the renderer. A kind lists the cells it animates in `tiles(t)`; `3d/terrain.js` bakes each of those cells as its own mesh and `3d/traps.js` moves it, along with any trap decoration on it.
 - Hearts persist under `isoworld:hearts`. `core/dev.js` `resetAll()` clears both keys.
 
 ### Rule changes from building it
 
 - Before you rest at any bonfire, you respawn beside the island bonfire, not at the entry lift. After a rest you respawn where you rested.
 - Beat spikes run on a 0.5 s beat. A continuous walk across four spike cells takes 1.4 s, so you clear them only by starting on the beat after they drop.
-- Worn-through flagstones count a crossing each time you step onto the arc from off it. They heal on respawn with every other trap.
+- Worn-through flagstones count a crossing each time you step onto the arc from off it. The crossing count resets on respawn; once the arc collapses its tiles stay gone.
 - The boss winds up for 0.7 s when you come within two cells of the kick cell, kicks for 0.25 s, then hops for 1.4 s. Walk past during the hop.
 - The chariot charges 0.9 s after the plate and runs the lane at 5.5 cells a second, faster than the hero's 3.2. It keeps making passes until you are three cells clear of the lane for two seconds.
 - The arrow plate is the first cell of a straight lane of 4 to 6 cells, so you cannot reach the reward without arming it. A stone slot beside the plate looses one arrow down the lane at 6 cells a second. One cover cell sits beside the lane, off the line of fire, beside lane cell 1 to n-3. The delay is set per lane so a hero who walks straight to the cover reaches it 0.25 s before the arrow does; stopping on the plate, dawdling short of the cover or running the whole lane takes the arrow for one heart. Stepping back off the plate also dodges it. The plate rearms once the arrow has passed and you are off it, and it only arms when you step onto the lane from outside it.
@@ -92,17 +94,19 @@ Design catalog for the booby-trapped islands. The operator approved the first 53
 - A level may set `"trapRules": "showcase"` to skip exclusions, spacing and the one-kind rule. Only the showcase uses it.
 - Fog takes an optional `zone` rectangle. The showcase uses it so fog covers the garden and leaves the other spokes readable. On a run island fog covers the whole island.
 - Ice (t52) ships as the floor alone, with no rail and no reward yet. A press onto ice slides you cell by cell until a wall, a solid prop or the end of the ice stops you, and an open edge drops you. Routing skips ice.
-- Forced movement carries you off edges: a spring fling that lands over the void falls, and so does an ice slide. Knockback traps already knocked you off.
+- Forced movement carries you off edges: a spring fling that lands over the void falls, and so does an ice slide. Knockback traps already knocked you off. On run islands the bake puts springs on the walk where the cell behind your approach is open air, so the fling kills; you see the coil and step around it.
 - Sound is not built yet: no drum tick, slide whistle or raspberry audio.
 - Debuffs read an optional `zone` rectangle, like fog. The showcase gives each debuff its own garden; on a run island a debuff covers the whole island.
 - Trap props (the mimic chest, prop decoys, valve and fuse levers) are things with a `trap` field. The things renderer skips them, the trap draws them with the same chest and lever builders, and F on one raises a `trap-act` event instead of the usual action. Decoys and mimics glow on purpose.
 - Faith tiles, gaze glass, the one-angle bridge and the fuse drawbridge keep real floor in the level file and sink it when the trap loads, so layout checks see a reachable island. The trap raises a cell only while its rule holds: you stand beside it, the watcher watches, the camera sits at the bridge's angle, or the fuse burns.
 - Banana scuff needs a cell beside the run before the turn so you can cut the corner; the guard rule counts that cell as part of the trap.
-- The scooting hole moves once, on the first respawn after it drops you, and a chalk outline marks the cell it left.
+- The scooting hole moves once, on the first respawn after it drops you. The tile you fell through stays gone, so the hole you remember is plain to see and the next cell drops too.
 - The stone twin opts out of the reward guard: it never hurts, it only stands beside the gate approach.
 - Long-stride plate and painted decoy still stay off run islands: they punish a class you may not be playing. Long-stride reads Ink Step's skipped cell; painted decoy paints only its harmless cell when a reveal power finds it.
-- Class gates (t56 to t60) do go on run islands. The character button swaps class at any time the hero is not mid-hop, mid-fall or mid-ride, so a gate only asks you to notice its tell and swap. Each gate wears its class's colour: an ink-stained crack with a violet sigil post (Wretch), a stone arch with a cyan shield crest (Gatekeeper), stone jaws beside a cyan hourglass (Courier), a rotten plank between two brass lantern hooks (Modernizer), and a sigil post in the class colour beside a seal gate. Ink pit, ward arch, gnasher and lantern plank sit on cells of the walk and knock off anyone who crosses without the right power; a class seal blocks a reward pocket outright until that class steps on its plate. Ink Step dashes over the pit, a raised Ward absorbs the arch, Rush slows the jaws from 0.29 s open per second to a 0.58 s window you cross in 0.31 s, and a lit lantern holds the plank. Swapping class restocks charges to 2 and oil to one flask, and every island has a bonfire that refills them.
-- False floor drops you the first time you step on it, like a painted hole with no seam. False detour drops you on its path cell; after that drop, the first shoulder you try around it drops you too, and only the other side holds. Resting clears its memory.
+- Class gates (t56 to t60) do go on run islands. The character button swaps class at any time the hero is not mid-hop, mid-fall or mid-ride, so a gate only asks you to notice its tell and swap. Each gate wears its class's colour: an ink-stained crack with a violet sigil post (Wretch), a stone arch with a cyan shield crest (Gatekeeper), stone jaws beside a cyan hourglass (Courier), an empty gap between two brass lantern hooks beside a brass sigil post (Modernizer), and a sigil post in the class colour beside a seal gate. Ink pit, ward arch, gnasher and lantern block sit on cells of the walk and knock off anyone who crosses without the right power; a class seal blocks a reward pocket outright until that class steps on its plate. Ink Step dashes over the pit, a raised Ward absorbs the arch, Rush slows the jaws from 0.29 s open per second to a 0.58 s window you cross in 0.31 s, and a lit lantern within 2 cells fills the gap with a solid brass block. Swapping class restocks nothing: each class keeps its own charges, and only a death or a bonfire rest refills them (`docs/CLASS-POWERS.md`). The validator requires the bonfire to be walkable from the cell before every gate with every trap at its worst.
+- False floor drops you the first time you step on it, like a painted hole with no seam. False detour drops you on its path cell; after that drop, the first shoulder you try around it drops you too, and only the other side holds. Both dropped tiles stay gone until the island reloads.
+- **Falling tiles.** False floors, false detours, scooting holes, painted holes, worn-through flagstones, the still bridge's plank, the coin trail's end and the four-tile vanish all drop their tile with the hero riding it, straight down and off the bottom of the screen, then respawn you. The tile stays gone for the rest of the island visit, through respawns and bonfire rests, so you see the hole when you come back; it returns only when the island reloads (riding a lift away and back). A raised Ward does not stop a falling floor. Timed holes (sign, then sign again) and puzzle floors still reset.
+- **Rising block (t61).** A hidden flagstone on the walk rises into a pillar one tile high, either behind you as you step off it or ahead of you as you step beside it. It costs nothing and sinks on respawn. The validator checks that the bonfire stays walkable from its trigger with every trap at its worst, so a pillar never seals you in, and lift to lift passes with the pillar up.
 - Puzzles open a gate thing whose `open` reads `trap:<id>`, like order plates. On a run island the counting gate puts its gate on the reward pocket and pins the charge behind it.
 
 ## Game rules every trap respects
@@ -119,7 +123,7 @@ Design catalog for the booby-trapped islands. The operator approved the first 53
 - The hero starts each life with 3 hearts. A trap does not have to throw you off the island to matter: a spike, an arrow or a bonk costs one heart.
 - **Knock-off.** Leave the island by any edge and the hero falls into the cloud bed, then respawns at the last lit bonfire with 3 hearts. One press toward the void drops you at once, and a held key that runs off the end of a path drops you too. The one exception: a key you keep holding through a camera turn (Q, E or the turntable) stops at the edge until you press it again, so the turn never walks you off. A fall costs no heart and the ward does not stop it. Losing the last heart does the same with a flop and a puff.
 - **Last lit bonfire.** Each island's bonfire sits within three cells of spawn. Before you rest at it, you respawn beside it anyway. The walk back from the bonfire is why shortcuts are worth opening.
-- **What survives a respawn.** Opened shortcuts, the chest and the gate stay as they were. Traps reset to their starting state, and hidden ones hide again. An invisible block that bonks you three times before you rest shows a faint chalk outline until the next rest (`CHALK_HITS` in `core/traps/kinds.js`). It took two hits before the gauntlet rebake; memorizing is the skill now, so the hint comes late. The scooting hole still chalks the cell it left, which is part of its joke.
+- **What survives a respawn.** Opened shortcuts, the chest and the gate stay as they were, and so do fallen floor tiles. Traps reset to their starting state, hidden ones hide again, and risen blocks sink. An invisible block that bonks you three times before you rest shows a faint chalk outline until the next rest (`CHALK_HITS` in `core/traps/kinds.js`). It took two hits before the gauntlet rebake; memorizing is the skill now, so the hint comes late. The scooting hole still chalks the cell it left, which is part of its joke.
 - **Refills.** Resting at a bonfire refills all 3 hearts. A heart pickup is rare: at most one per island, on a reward spot (a lookout, an alcove or a puzzle prize), and it restores one heart up to 3. Nothing raises the cap.
 - **Puzzles do not cost hearts.** A puzzle failure resets the puzzle with a raspberry or a cushion bounce and leaves your hearts alone.
 - **Health tags.** `none`, `-1 heart`, `-2 hearts`, `all hearts` (empties the hearts, so you respawn) or `knock-off` (respawn at the last lit bonfire). Only the slow, shadow-telegraphed pancake stone takes two; the rest cost one and stack up across an island.
@@ -128,17 +132,17 @@ Design catalog for the booby-trapped islands. The operator approved the first 53
 
 Hearts have no budget; deaths do. A first walk through an island is meant to end in respawns, and the cost of a death is the walk back from the bonfire. `core/traps/walk.js` runs two simulated players through the real trap runtime (`createTraps`, `createLife`, `createActor` headless, 60 ticks a second):
 
-- **Mindless walk.** Start at spawn. Walk the cheapest route to the core gate threshold, then to the exit lift, the way tap-walk routes it: path tiles first (an off-path cell costs 0.5 extra), revealed traps cost 40, the core gate counts as open, live connector pads hop, slick-soles slides are modelled. Use no power and swap no class. When a life ends (a knock-off, a fall or the last heart), remember only the trap that ended it, plus any trap that moved you in the 2.5 s before (a rewind or a spring that walked you into it): avoid its cells from then on, or for a timed trap wait for a safe window, or for a class gate swap to its class and use the power. Respawn at the bonfire and walk again. Stop at the exit lift, after 14 deaths, after 150 s in one life, or when the walker circles.
-- **Memorized walk.** The same walker knows every trap before it starts, avoids every harmful cell, waits out timed traps, swaps class at every gate, and burns a hiccup on a safe step. It must reach the exit lift with no deaths, and again when it reacts 5 frames late to every timed window, so no gate or sequence needs a frame-perfect input.
+- **Mindless walk.** Start at spawn. Walk the cheapest route to the core gate threshold, then to the exit lift, the way tap-walk routes it: path tiles first (an off-path cell costs 0.5 extra), revealed traps cost 40, the core gate opens once the walker stands on its threshold, live connector pads hop, slick-soles slides are modelled. Use no power and swap no class until a gate kills it. When a life ends (a knock-off, a fall or the last heart), remember only the trap that ended it, plus any trap that moved you in the 2.5 s before (a rewind or a spring that walked you into it): avoid its cells from then on, or for a timed trap wait for a safe window, or for a class gate swap to its class and use the power. Respawn at the bonfire, with every charge pool full, and walk again. Fallen tiles stay void, so the walker routes around holes it made. Stop at the exit lift, after 14 deaths, after 150 s in one life, or when the walker circles.
+- **Memorized walk.** The same walker knows every trap before it starts, avoids every harmful cell, waits out timed traps, swaps class at every gate, and burns a hiccup on a safe step. It carries the same per-class charge pools as the game and spends one per gate; when the pool for a gate's class is dry it walks back to the bonfire, rests and returns. qa-traps runs it from empty pools to prove the detour. It must reach the exit lift with no deaths, and again when it reacts 5 frames late to every timed window, so no gate or sequence needs a frame-perfect input.
 
-The bake (`tools/bake-layout.mjs`) and `validateTraps` with a run position reject an island whose mindless walk dies outside its band or whose memorized walk dies at all. The bake tunes toward the band by adding a false floor or dropping a repeat hidden trap.
+The bake (`tools/bake-layout.mjs`) and `validateTraps` with a run position reject an island whose mindless walk dies outside its band or whose memorized walk dies at all. The bake tunes toward the band by adding a false floor or dropping a lethal hidden trap, drops any trap the memorized walk dies on, and adds harmless hidden traps when an island falls under its trap floor.
 
 | Islands | Mindless deaths |
 | --- | --- |
-| 1 to 2 | 2 to 3 |
-| 3 to 4 | 3 to 4 |
-| 5 to 8 | 3 to 5 |
-| 9 to 12 | 4 to 6 |
+| 1 to 2 | 3 to 4 |
+| 3 to 4 | 4 to 5 |
+| 5 to 8 | 4 to 6 |
+| 9 to 12 | 5 to 7 |
 
 `DEATH_BAND` in `core/traps/walk.js` holds the numbers. `node tools/qa-traps.mjs --no-browser` prints each island's deaths, hearts and class swaps.
 
@@ -160,18 +164,18 @@ Procgen applies these after `checkRoute` passes and before decor, and rejects th
 
 ### Placement, every tier
 
-0. **Guard a reward.** An obvious or telegraphed local trap that costs a heart or knocks you off sits on the only approach to a chest, a charge pickup or an item, in a pocket or a dead end with no shoulder to step around it. You get the reward by timing the trap or by disarming it (order plates, a lever, a power). The reward stays optional: lift to lift still passes with the trap's cells blocked. Hidden traps, and visible traps that cost nothing, may sit on routes. `core/traps/rules.js` (`guardProblems`) enforces this, and a trap names its reward with `"guards": { "chest": id }`, `{ "charge": id }` or `{ "at": [x, z] }`.
+0. **Guard a reward.** An obvious or telegraphed local trap that costs a heart or knocks you off sits on the only approach to a chest, a charge pickup or an item, in a pocket or a dead end with no shoulder to step around it. You get the reward by timing the trap or by disarming it (order plates, a lever, a power). The reward stays optional: lift to lift still passes with the trap's cells blocked. Hidden traps, visible traps that cost nothing, and springs may sit on routes. A spring on the walk is the one visible trap that may kill you there: you see its coil and walk around it, and its worst state blocks its cell. `core/traps/rules.js` (`guardProblems`) enforces this, and a trap names its reward with `"guards": { "chest": id }`, `{ "charge": id }` or `{ "at": [x, z] }`.
 
 1. No trap cell on a shortcut cell, ramp landing, lock cell, gate threshold, lift tile or the plaza, and none within two cells of spawn or the bonfire. No trap cell on a teleporter pad or within two cells of an arrival pad, and no trap whose worst state blocks the only walk to a connector pad. A trap may guard the walk to a shortcut or reward pad; the risk is the price of the shortcut.
 2. Each trap declares a worst state (holes open, blocks solid, gates up). `checkRoute` runs again with every trap in its worst state, and lift to lift must still pass with only the core gate open. A dark shortcut pad counts as shut in that check.
 3. Two trap footprints keep one clear cell between them. Two hidden local traps may touch, so hidden traps can cluster; they never share a cell. Debuffs have no footprint.
-4. Each trap kind appears at most once per island, except the hidden step traps: the scooting hole, the painted hole and the rewind tile up to three times each, and the invisible block up to four times (`REPEAT` in `core/traps/rules.js`).
+4. Each trap kind appears at most once per island, except the hidden step traps: the scooting hole, the painted hole and the rewind tile up to three times each, the invisible block up to four times, the false floor up to six times, and the false detour and the rising block up to twice (`REPEAT` in `core/traps/rules.js`).
 5. A hidden trap gets a landmark within four cells (decor rule 4 in LEVEL-DESIGN), so you can remember the spot.
 6. Class-tagged traps that punish a class you may not be playing (t13, t14) stay off run islands. Class gates (t56 to t60) follow rule 10.
 7. **Clean memorized walk.** With every hidden local trap that costs a heart or knocks you off blocked, on top of every trap at its worst state, lift to lift still passes. A player who remembers each spot can always walk around it. Sequences sit outside this rule because each one is a crossing you learn to time.
 8. **Safe dodge cells.** Falls have no teeter, so a barrel dodge, an arrow cover or a chariot notch may not sit on an open edge in the direction you step into it; one held step too many would drop you for doing the right thing.
-9. **Lull, then betray.** No hidden trap sits within 6 walking steps of the bonfire (`HIDDEN_CLEAR`), and the hidden traps on an island sit farther from the bonfire on average than its visible ones. The bake fills reward approaches nearest the bonfire with visible traps first and puts hidden traps in clusters of three along the far stretch of the spine and the walks to the core gate and the exit lift.
-10. **Class gates.** A class gate sits on a cell of the walk, prefers a chokepoint, and needs a neighbouring walkable cell outside every other trap so you can stop and swap there. At most two gates per class per island (a class carries two charges between refills), and the island must have a bonfire. The gnasher must stay shut longer than a full-speed crossing and leave at least 8 frames of slack under Rush. Class gates count in their own budget column and toward neither visible nor hidden; worst state and the clean walk treat them as passable, because some class passes.
+9. **Lull, then betray.** No hidden trap sits within 6 walking steps of the bonfire (`HIDDEN_CLEAR`), and the harmful hidden traps on an island sit farther from the bonfire on average than its harmful visible ones. The bake fills reward approaches nearest the bonfire with visible traps first and puts hidden traps in clusters of three along the far stretch of the spine and the walks to the core gate and the exit lift.
+10. **Class gates.** A class gate sits on a cell of the walk, prefers a chokepoint, and needs a neighbouring walkable cell outside every other trap so you can stop and swap there. At most two gates per class per island, the island must have a bonfire, and the bonfire must be walkable from the cell before the gate with every trap at its worst (`bonfireProblems`), so a player who runs a class dry can walk back and rest. The gnasher must stay shut longer than a full-speed crossing and leave at least 8 frames of slack under Rush. Class gates count in their own budget column and toward neither visible nor hidden; worst state and the clean walk treat them as passable, because some class passes.
 11. **Mindless and memorized walks.** See Health budget: the mindless walk dies inside the island's band, and the memorized walk reaches the exit lift with no deaths, on time and 5 frames late.
 
 ### Exclusions
@@ -182,12 +186,12 @@ Two traps that list each other never share an island. The cap: no trap may exclu
 
 | Islands (run order) | Traps (no debuffs) | Visible | Hidden | Class gates | Sequences | Puzzles | Debuff |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 to 2 | 5 to 10 | up to 5 | up to 5 | up to 1 | 0 | 0 or 1 | none |
-| 3 to 4 | 7 to 13 | up to 5 | up to 7 | up to 2 | up to 1 | up to 1 | up to 1 |
-| 5 to 8 | 9 to 17 | up to 5 | up to 11 | up to 2 | up to 1 | up to 1 | up to 1 |
-| 9 to 12 | 12 to 21 | up to 5 | up to 14 | up to 3 | up to 2 | up to 1 | up to 1 |
+| 1 to 2 | 5 to 12 | up to 6 | up to 7 | up to 2 | 0 | 0 or 1 | none |
+| 3 to 4 | 7 to 15 | up to 6 | up to 9 | up to 3 | up to 1 | up to 1 | up to 1 |
+| 5 to 8 | 9 to 20 | up to 6 | up to 13 | up to 3 | up to 1 | up to 1 | up to 1 |
+| 9 to 12 | 12 to 25 | up to 6 | up to 17 | up to 4 | up to 2 | up to 1 | up to 1 |
 
-Visible means obvious or telegraphed local traps; a puzzle counts toward the total and toward neither column. A sequence counts once against the hidden budget. Island 1 may still open with visible traps near the bonfire as the false-safety beat, but nothing makes the visible ones outnumber the hidden ones any more (`LEAN_OBVIOUS_UPTO` is 0): the walk past them has to cost two or three lives. From island 5 on, hidden traps are the majority. Hidden traps may sit on the spine and on the only walk to the core gate wherever the worst-state and clean-walk checks still pass. A harmless visible trap (health `none`) may sit on the route with no reward behind it. Two islands next to each other in run order never roll the same debuff, puzzle or sequence. `BUDGET`, `REPEAT`, `CLASS_REPEAT`, `HIDDEN_MAJORITY_FROM` and `LEAN_OBVIOUS_UPTO` in `core/traps/rules.js` hold the numbers. False floor repeats up to four times per island and false detour up to twice.
+Visible means obvious or telegraphed local traps; a puzzle counts toward the total and toward neither column. A sequence counts once against the hidden budget. Island 1 may still open with visible traps near the bonfire as the false-safety beat, but nothing makes the visible ones outnumber the hidden ones any more (`LEAN_OBVIOUS_UPTO` is 0): the walk past them has to cost two or three lives. From island 5 on, hidden traps are the majority. Hidden traps may sit on the spine and on the only walk to the core gate wherever the worst-state and clean-walk checks still pass. A harmless visible trap (health `none`) may sit on the route with no reward behind it. Two islands next to each other in run order never roll the same debuff, puzzle or sequence. `BUDGET`, `REPEAT`, `CLASS_REPEAT`, `HIDDEN_MAJORITY_FROM` and `LEAN_OBVIOUS_UPTO` in `core/traps/rules.js` hold the numbers. Falling tiles are the commonest trap in the run bake: false floors lead `TRAP_PLAN`, and a false floor that finds no cell on the walk falls back to a route spot.
 
 ### Sequences
 
@@ -222,7 +226,7 @@ One puzzle per island at most. A puzzle sits on a branch, an alcove, a lookout o
 | t15 | Faith tiles | local | 2 to 4 cell gap between two path runs at one height | step | obvious | onto the path | none | Bends solid ground: the path builds itself under your foot. | t21, t24, t29, t35, t36 |
 | t16 | Nothing here | local | slot of 5 or more cells | step | obvious | onto the path | none | Teaches nothing, on purpose: the island earns your trust back. | none |
 | t17 | Stone twin | local | gate approach, 1 decor cell beside the path | look | telegraphed | onto the path | none | Teaches the watcher rule: the real one turns to face you. | t44 |
-| t18 | Spring tile | local | slot, 1 cell plus 2 cells behind | step | telegraphed | onto the path | none | Bends forward progress: this cell sends you back. | t05 |
+| t18 | Spring tile | local | slot on the walk, 1 cell, entered from a cell whose far side is open air | step | telegraphed | onto the path | knock-off | Bends forward progress: this cell sends you back, and on the walk back there is nothing behind you. | t05 |
 | t19 | Barrel lane | local | slot of 4 or more cells plus 1 shoulder dodge cell | timer | obvious | off the path | -1 heart | Teaches that the shoulder is a safe pocket on a timer. | t03, t22, t26 |
 | t20 | Rewind tile | local | slot, 1 cell | step | hidden | neutral | none | Bends the step count: three of your steps play backwards. | t02 |
 | t21 | Invisible block | local | path cell plus a walkable shoulder detour | step | hidden | off the path | -1 heart | Bends the open path: one path cell is solid. | t15 |
@@ -263,8 +267,9 @@ One puzzle per island at most. A puzzle sits on a branch, an alcove, a lookout o
 | t56 | Ink pit | local | slot, 1 path cell with a straight cell before and after | step | telegraphed | onto the path | knock-off | Class gate: an ink-stained crack only Ink Step dashes over. Class: Wretch. | t35 |
 | t57 | Ward arch | local | slot, 1 path cell | step | telegraphed | onto the path | knock-off | Class gate: a crackling arch that throws off anyone without a raised Ward. Class: Gatekeeper. | none |
 | t58 | Gnasher | local | slot, 1 path cell | timer | telegraphed | onto the path | knock-off | Class gate: stone jaws snap too fast to cross at full speed; Rush slows them enough. Class: Courier. | t36 |
-| t59 | Lantern plank | local | slot, 1 path cell | step | telegraphed | onto the path | knock-off | Class gate: a rotten plank that holds only in lantern light. Class: Modernizer. | none |
+| t59 | Lantern block | local | slot, 1 path cell | step | telegraphed | onto the path | knock-off | Class gate: an invisible block that turns solid only in lantern light within reach. Class: Modernizer. | none |
 | t60 | Class seal | local | dead end or pocket, 1 approach cell plus the reward gate | step | telegraphed | off the path | none | Class gate: a reward gate that opens for one class, marked with that class's sigil. | none |
+| t61 | Rising block | local | slot on the walk, 1 cell plus the trigger cell beside it | step | hidden | off the path | none | Bends the open way: a flagstone rises into a pillar behind you or ahead of you, and you take the long way round. | none |
 
 ## Exclusion pairs
 
@@ -387,7 +392,7 @@ A prop glows like an interactable as you come near, on purpose. It is a campfire
 
 Local trap | pushes off the path | hidden | health: knock-off | excludes none
 
-A path cell gives way and you flop. Come back and the hole has scooted one cell along the run, so the cell you avoided is now the hole. It only moves once.
+A path cell gives way and drops you with it. Come back and that hole is still there, and the trap has scooted one cell along the run, so the cell you step around it on drops you too. It only moves once.
 
 ### t11 Painted hole
 
@@ -433,9 +438,9 @@ A statue of the island's focal creature stands beside the gate approach, nearer 
 
 ### t18 Spring tile
 
-Local trap | pulls onto the path | telegraphed | health: none | excludes t05
+Local trap | pulls onto the path | telegraphed | health: knock-off | excludes t05
 
-A coil peeks from under one flagstone. Step on it and you boing two cells back the way you came and land in a pose. Step around it on the shoulder and it sulks.
+A coil peeks from under one flagstone. Step on it and you boing two cells back the way you came and land in a pose; if the path turned just before it, the second cell back is open air and the boing throws you off the island. Step around it on the shoulder and it sulks.
 
 ### t19 Barrel lane
 
@@ -651,7 +656,7 @@ Belt cells carry you one cell per beat in the direction of their arrows. A switc
 
 Local | pushes off the path | hidden | health: knock-off | excludes none
 
-Hidden, no tell. One ordinary path tile on the walk drops you the first time you step on it. It always has a detour around it, so once you know the tile you never need it.
+Hidden, no tell. One ordinary path tile on the walk drops away under you the first time you step on it, and you ride it down. The hole stays until the island reloads, and it always has a detour around it.
 
 ### t55 False detour
 
@@ -677,11 +682,11 @@ Local | pulls onto the path | telegraphed | health: knock-off | excludes t36
 
 Class gate for the Courier. Stone jaws on a cell of the walk, open 0.29 s of every second, beside a cyan hourglass post. A full-speed crossing takes 0.31 s, so the jaws always catch you. Under Rush they open for 0.58 s of real time and you walk through with time to spare.
 
-### t59 Lantern plank
+### t59 Lantern block
 
 Local | pulls onto the path | telegraphed | health: knock-off | excludes none
 
-Class gate for the Modernizer. A rotten plank between two brass lantern hooks on a cell of the walk. It gives way under you unless your lantern is lit.
+Class gate for the Modernizer. A gap in the walk between two brass lantern hooks, with a brass sigil post beside it. An invisible block fills it, and it turns solid only while your lantern burns and you stand within 2 cells of it; then a brass ghost block shows and you walk across. Douse the lantern on it and you fall.
 
 ### t60 Class seal
 
@@ -689,28 +694,34 @@ Local | pushes off the path | telegraphed | health: none | excludes none
 
 Class gate on a reward pocket. A plate in front of a reward gate, marked with a sigil post in one class's colour. Stepping on the plate as that class opens the gate for good; any other class gets a shake of the star and a line saying the seal wants someone else.
 
+### t61 Rising block
+
+Local | pushes off the path | hidden | health: none | excludes none
+
+Hidden, no tell until it moves. A flagstone on the walk grinds up into a pillar a full tile high: behind you as you step off it, so the way you came is shut, or ahead of you as you step beside it, so you go round. It sinks when you respawn. A pillar never seals you away from the bonfire.
+
 ## Run placements (spoilers)
 
-The operator meets these blind. Keep them out of cards, commit subjects, README and notifications. `tools/bake-layout.mjs` `TRAP_PLAN` sets the kinds; `placeTraps` puts each one on the only approach to a reward and pins a charge pickup when the reward is a pickup.
+The operator meets these blind. Keep them out of cards, commit subjects, README and notifications. `tools/bake-layout.mjs` `TRAP_PLAN` sets the kinds; `placeTraps` puts each one on the only approach to a reward and pins a charge pickup when the reward is a pickup; springs, false floors, false detours, rising blocks and class gates go on the walk itself.
 
 | Island | Level | Traps |
 | --- | --- | --- |
-| 1 | cat-medium | t18 Spring tile on 20,13 guards c1; t03 Beat spikes on 30,4 to 29,4 guards charge kg2 at 28,4; t16 Nothing here on 22,16 to 18,16 guards charge kg3 at 18,15; t06 Sneeze dust on 21,8 to 21,7 guards charge kg4 at 21,6; t20 Rewind tile on 5,32; t21 Invisible block on 11,30; t55 False detour on 15,23 to 15,22 |
-| 2 | wizard-medium | t05 Banana scuff on 31,4 guards charge kg1 at 30,3; t25 Arrow plate on 35,14 to 38,14 guards charge kg2 at 38,15; t04 Goose plates on 14,39 to 18,39 guards charge kg3 at 18,38; t22 Pancake stone on 26,7 guards charge kg4 at 25,7; t10 The hole that scoots on 4,30 to 4,29; t21 Invisible block on 6,37; t56 Ink pit on 5,35 (Wretch) |
-| 3 | swallow-medium | t03 Beat spikes on 36,20 to 39,20 guards charge kg1 at 40,20; t02 Worn-through flagstones on 35,10 to 37,10 guards charge kg2 at 38,10; t18 Spring tile on 24,8 guards charge kg3 at 24,7; t21 Invisible block on 9,14; t21 Invisible block on 9,13; t10 The hole that scoots on 11,7 to 11,8; t11 Painted hole on 15,7; t07 Mimic chest on 25,6; t58 Gnasher on 11,10 (Courier); t54 False floor on 32,15 |
-| 4 | forest-volute | t37 Sticky soles over the whole island; t17 Stone twin on 11,6; t48 Counting gate on 15,28 to 15,24 guards charge kg3 at 14,24; t04 Goose plates on 15,32 to 19,32 guards charge kg4 at 21,35; t20 Rewind tile on 5,5; t20 Rewind tile on 5,6; t21 Invisible block on 7,9; t21 Invisible block on 8,9; t55 False detour on 19,9 to 19,8; t57 Ward arch on 18,26 (Gatekeeper); t60 Class seal on 20,35 (Wretch) |
-| 5 | mindbloom-medium | t38 Stuck camera over the whole island; t06 Sneeze dust on 4,42 guards charge kg2 at 3,42; t16 Nothing here on 14,30 to 10,30 guards charge kg3 at 10,29; t03 Beat spikes on 20,36 to 23,36 guards charge kg4 at 23,35; t10 The hole that scoots on 9,5 to 8,5; t10 The hole that scoots on 11,5 to 10,5; t21 Invisible block on 11,6; t21 Invisible block on 11,7; t21 Invisible block on 35,11; t20 Rewind tile on 8,4; t20 Rewind tile on 35,12; t55 False detour on 31,9 to 32,9; t59 Lantern plank on 39,8 (Modernizer) |
-| 6 | cosmos-frisket | t35 Slick soles over the whole island; t48 Counting gate on 9,9 to 14,9 guards charge kg2 at 14,10; t12 Fake spur on 17,18 to 17,20 guards charge kg3 at 18,20; t22 Pancake stone on 6,16 guards charge kg4 at 6,17; t20 Rewind tile on 24,22; t20 Rewind tile on 25,22; t21 Invisible block on 25,21; t21 Invisible block on 25,20; t10 The hole that scoots on 20,16 to 21,16; t10 The hole that scoots on 18,16 to 19,16; t11 Painted hole on 19,17; t54 False floor on 32,10; t58 Gnasher on 8,16 (Courier) |
-| 7 | gremlin-subject | t32 Mirror controls over the whole island; t30 Real chest, then the mimic on 27,39; t18 Spring tile on 34,35 guards charge kg3 at 34,36; t03 Beat spikes on 34,30 to 35,30 guards charge kg4 at 36,30; t16 Nothing here on 15,27 to 15,23 guards charge kg5 at 13,23; t21 Invisible block on 16,19; t21 Invisible block on 16,20; t10 The hole that scoots on 17,23 to 17,22; t10 The hole that scoots on 25,27 to 24,27; t11 Painted hole on 5,9; t11 Painted hole on 19,28; t20 Rewind tile on 16,18; t55 False detour on 22,32 to 22,31; t56 Ink pit on 27,35 (Wretch); t60 Class seal on 19,21 (Courier) |
-| 8 | eagle-composition | t39 Hiccups over the whole island; t07 Mimic chest on 15,13; t19 Barrel lane on 29,37 to 25,37 guards charge kg3 at 24,37; t12 Fake spur on 42,37 to 44,37 guards charge kg4 at 45,37; t16 Nothing here on 40,29 to 40,25 guards charge kg5 at 41,25; t21 Invisible block on 5,6; t21 Invisible block on 12,11; t21 Invisible block on 13,11; t10 The hole that scoots on 13,13 to 13,12; t10 The hole that scoots on 12,20 to 12,19; t11 Painted hole on 14,14; t20 Rewind tile on 10,13; t20 Rewind tile on 12,17; t55 False detour on 42,33 to 42,34; t57 Ward arch on 42,30 (Gatekeeper) |
-| 9 | dragon-medium | t36 Gusts over the whole island; t25 Arrow plate on 14,31 to 11,31 guards charge kg2 at 10,31; t29 Empty hall, then the bonk on 17,29 to 13,29; t03 Beat spikes on 14,35 to 12,35 guards charge kg4 at 11,35; t22 Pancake stone on 17,22 guards charge kg5 at 16,22; t16 Nothing here on 39,8 to 39,12; t11 Painted hole on 18,31; t21 Invisible block on 39,6; t21 Invisible block on 38,6; t21 Invisible block on 37,6; t10 The hole that scoots on 23,27 to 24,27; t10 The hole that scoots on 22,28 to 22,27; t11 Painted hole on 13,25; t11 Painted hole on 14,25; t20 Rewind tile on 15,26; t54 False floor on 40,6; t59 Lantern plank on 22,30 (Modernizer); t56 Ink pit on 20,33 (Wretch) |
-| 10 | sharkbear-medium | t34 Nap timer over the whole island; t28 Sign, then sign again on 32,36 to 32,34 guards charge kg2 at 38,34; t19 Barrel lane on 14,37 to 10,37 guards charge kg3 at 9,36; t18 Spring tile on 25,39; t20 Rewind tile on 31,32; t21 Invisible block on 32,32; t21 Invisible block on 25,37; t21 Invisible block on 25,36; t10 The hole that scoots on 26,36 to 26,37; t11 Painted hole on 24,35; t11 Painted hole on 24,37; t11 Painted hole on 33,32; t20 Rewind tile on 24,36 |
-| 11 | chimera-medium | t33 Fog over the whole island; t30 Real chest, then the mimic on 4,27; t25 Arrow plate on 49,42 to 46,42 guards charge kg3 at 46,43; t18 Spring tile on 6,18; t16 Nothing here on 10,19 to 10,23; t21 Invisible block on 9,44; t21 Invisible block on 10,44; t21 Invisible block on 10,43; t21 Invisible block on 10,39; t10 The hole that scoots on 10,34 to 10,35; t20 Rewind tile on 10,30; t20 Rewind tile on 10,29; t20 Rewind tile on 6,26; t09 Prop decoys on 19,30; t55 False detour on 14,21 to 15,21; t59 Lantern plank on 49,26 (Modernizer); t57 Ward arch on 34,27 (Gatekeeper) |
-| 12 | ember-subject | t32 Mirror controls over the whole island; t31 Coin trail to a painted hole on 25,42 to 21,40 guards charge kg2 at 22,45; t48 Counting gate on 36,40 to 39,40 guards charge kg3 at 40,40; t12 Fake spur on 39,36 to 39,38 guards charge kg4 at 40,38; t04 Goose plates on 38,28 to 34,28 guards charge kg5 at 34,29; t21 Invisible block on 27,18; t21 Invisible block on 28,18; t21 Invisible block on 29,22; t21 Invisible block on 28,22; t10 The hole that scoots on 26,22 to 27,22; t10 The hole that scoots on 26,24 to 26,23; t10 The hole that scoots on 26,26 to 26,25; t20 Rewind tile on 26,27; t20 Rewind tile on 18,19; t20 Rewind tile on 18,20; t55 False detour on 35,34 to 35,35; t55 False detour on 34,34 to 34,35; t56 Ink pit on 30,38 (Wretch); t58 Gnasher on 30,36 (Courier); t60 Class seal on 22,44 (Modernizer) |
+| 1 | cat-medium | t18 Spring tile on 31,5; t03 Beat spikes on 21,8 to 21,7 guards charge kg2 at 21,6; t16 Nothing here on 22,16 to 18,16 guards charge kg3 at 18,15; t06 Sneeze dust on 29,4 guards charge kg4 at 28,4; t57 Ward arch on 25,8 (Gatekeeper); t61 Rising block on 23,14 to 23,13 (rises ahead you from 23,13); t20 Rewind tile on 5,32; t21 Invisible block on 11,30; t55 False detour on 9,23 to 9,22; t54 False floor on 23,11 |
+| 2 | wizard-medium | t05 Banana scuff on 31,4 to 30,5 guards charge kg1 at 30,3; t25 Arrow plate on 35,14 to 36,13 guards charge kg2 at 38,15; t04 Goose plates on 14,39 to 17,40 guards charge kg3 at 18,38; t22 Pancake stone on 26,7 guards charge kg4 at 25,7; t56 Ink pit on 5,35 (Wretch); t59 Lantern block on 22,16 (Modernizer); t61 Rising block on 13,26 to 13,27 (rises behind you from 13,27); t10 The hole that scoots on 4,30 to 4,29; t21 Invisible block on 6,37; t54 False floor on 13,25; t54 False floor on 4,31 |
+| 3 | swallow-medium | t03 Beat spikes on 36,20 to 39,20 guards charge kg1 at 40,20; t02 Worn-through flagstones on 35,10 to 37,10 guards charge kg2 at 38,10; t18 Spring tile on 35,12; t07 Mimic chest on 25,6; t58 Gnasher on 5,8 (Courier); t57 Ward arch on 15,8 (Gatekeeper); t61 Rising block on 9,13 to 9,14 (rises behind you from 9,14); t21 Invisible block on 11,8; t10 The hole that scoots on 11,6 to 11,7; t11 Painted hole on 16,4; t54 False floor on 12,5 |
+| 4 | forest-volute | t37 Sticky soles over the whole island; t17 Stone twin on 11,6; t48 Counting gate on 15,28 to 15,24 guards charge kg3 at 14,24; t04 Goose plates on 15,32 to 16,33 guards charge kg4 at 21,35; t54 False floor on 19,9; t54 False floor on 5,5; t57 Ward arch on 18,26 (Gatekeeper); t60 Class seal on 20,35 (Modernizer); t56 Ink pit on 21,9 (Wretch); t61 Rising block on 7,9 to 8,9 (rises ahead you from 8,9); t20 Rewind tile on 5,6; t21 Invisible block on 8,8 |
+| 5 | mindbloom-medium | t38 Stuck camera over the whole island; t06 Sneeze dust on 4,42 guards charge kg2 at 3,42; t16 Nothing here on 14,30 to 10,30 guards charge kg3 at 10,29; t03 Beat spikes on 20,36 to 23,36 guards charge kg4 at 23,35; t59 Lantern block on 11,37 (Modernizer); t58 Gnasher on 11,8 (Courier); t61 Rising block on 31,12 to 31,11 (rises behind you from 31,11); t10 The hole that scoots on 9,5 to 8,5; t10 The hole that scoots on 11,5 to 10,5; t21 Invisible block on 11,6; t54 False floor on 31,16; t20 Rewind tile on 8,4; t55 False detour on 31,9 to 32,9; t54 False floor on 31,10 |
+| 6 | cosmos-frisket | t35 Slick soles over the whole island; t48 Counting gate on 9,9 to 14,9 guards charge kg2 at 14,10; t12 Fake spur on 17,18 to 17,20 guards charge kg3 at 18,20; t22 Pancake stone on 6,16 guards charge kg4 at 6,17; t58 Gnasher on 8,16 (Courier); t57 Ward arch on 8,19 (Gatekeeper); t61 Rising block on 24,8 to 25,8 (rises behind you from 25,8); t20 Rewind tile on 24,22; t21 Invisible block on 25,22; t54 False floor on 8,11; t10 The hole that scoots on 25,20 to 25,21; t10 The hole that scoots on 20,16 to 21,16; t11 Painted hole on 19,17 |
+| 7 | gremlin-subject | t32 Mirror controls over the whole island; t30 Real chest, then the mimic on 27,39; t18 Spring tile on 16,20; t03 Beat spikes on 34,30 to 35,30 guards charge kg4 at 36,30; t16 Nothing here on 15,27 to 15,23 guards charge kg5 at 13,23; t56 Ink pit on 27,35 (Wretch); t60 Class seal on 34,35 (Courier); t59 Lantern block on 18,29 (Modernizer); t61 Rising block on 30,36 to 29,36 (rises behind you from 29,36); t21 Invisible block on 17,22; t10 The hole that scoots on 17,24 to 17,23; t10 The hole that scoots on 25,27 to 24,27; t11 Painted hole on 5,9; t11 Painted hole on 19,26; t20 Rewind tile on 16,18; t55 False detour on 30,35 to 29,35 |
+| 8 | eagle-composition | t39 Hiccups over the whole island; t07 Mimic chest on 15,13; t19 Barrel lane on 29,37 to 28,38 guards charge kg3 at 24,37; t12 Fake spur on 42,37 to 44,37 guards charge kg4 at 45,37; t16 Nothing here on 40,29 to 40,25 guards charge kg5 at 41,25; t57 Ward arch on 42,30 (Gatekeeper); t58 Gnasher on 5,5 (Courier); t61 Rising block on 19,23 to 19,22 (rises ahead you from 19,22); t21 Invisible block on 12,11; t54 False floor on 38,37; t10 The hole that scoots on 13,12 to 13,11; t10 The hole that scoots on 12,20 to 12,19; t11 Painted hole on 14,14; t20 Rewind tile on 10,13 |
+| 9 | dragon-medium | t36 Gusts over the whole island; t25 Arrow plate on 14,31 to 13,32 guards charge kg2 at 10,31; t29 Empty hall, then the bonk on 17,29 to 13,27; t03 Beat spikes on 14,35 to 12,35 guards charge kg4 at 11,35; t22 Pancake stone on 17,22 guards charge kg5 at 16,22; t16 Nothing here on 39,8 to 39,12; t59 Lantern block on 40,6 (Modernizer); t56 Ink pit on 38,5 (Wretch); t57 Ward arch on 22,29 (Gatekeeper); t61 Rising block on 22,26 to 22,27 (rises ahead you from 22,27); t11 Painted hole on 18,31; t21 Invisible block on 15,26; t54 False floor on 24,26; t10 The hole that scoots on 10,28 to 10,27; t10 The hole that scoots on 11,29 to 10,29; t10 The hole that scoots on 13,25 to 13,24; t11 Painted hole on 14,25; t20 Rewind tile on 24,27; t55 False detour on 23,26 to 23,27; t54 False floor on 19,31; t54 False floor on 7,26; t54 False floor on 8,26 |
+| 10 | sharkbear-medium | t34 Nap timer over the whole island; t28 Sign, then sign again on 32,36 to 36,34 guards charge kg2 at 38,34; t19 Barrel lane on 14,37 to 13,36 guards charge kg3 at 9,36; t18 Spring tile on 25,39; t20 Rewind tile on 31,32; t20 Rewind tile on 32,32; t21 Invisible block on 25,37; t21 Invisible block on 25,36; t21 Invisible block on 24,36; t10 The hole that scoots on 26,36 to 26,37; t11 Painted hole on 24,35; t11 Painted hole on 24,37; t11 Painted hole on 33,32 |
+| 11 | chimera-medium | t33 Fog over the whole island; t30 Real chest, then the mimic on 4,27; t25 Arrow plate on 49,42 to 48,41 guards charge kg3 at 46,43; t18 Spring tile on 49,39; t16 Nothing here on 10,15 to 6,15; t59 Lantern block on 49,26 (Modernizer); t57 Ward arch on 10,30 (Gatekeeper); t58 Gnasher on 34,27 (Courier); t61 Rising block on 44,32 to 44,31 (rises behind you from 44,31); t21 Invisible block on 9,44; t21 Invisible block on 10,44; t54 False floor on 45,38; t10 The hole that scoots on 10,34 to 10,35; t10 The hole that scoots on 6,25 to 6,26; t10 The hole that scoots on 6,23 to 6,24; t20 Rewind tile on 10,43; t20 Rewind tile on 7,23; t09 Prop decoys on 19,30 |
+| 12 | ember-subject | t32 Mirror controls over the whole island; t31 Coin trail to a painted hole on 25,42 to 21,40 guards charge kg2 at 22,45; t48 Counting gate on 36,40 to 39,40 guards charge kg3 at 40,40; t12 Fake spur on 39,36 to 39,38 guards charge kg4 at 40,38; t04 Goose plates on 38,28 to 36,27 guards charge kg5 at 34,29; t54 False floor on 30,36; t54 False floor on 36,34; t55 False detour on 35,34 to 35,35; t56 Ink pit on 33,34 (Wretch); t58 Gnasher on 30,38 (Courier); t60 Class seal on 22,44 (Wretch); t54 False floor on 29,22; t54 False floor on 28,22; t54 False floor on 27,22; t61 Rising block on 26,22 to 26,23 (rises ahead you from 26,23); t61 Rising block on 26,24 to 26,25 (rises ahead you from 26,25); t21 Invisible block on 18,19; t54 False floor on 18,20; t21 Invisible block on 18,21; t10 The hole that scoots on 26,27 to 26,26; t10 The hole that scoots on 26,29 to 26,28; t10 The hole that scoots on 24,29 to 25,29; t20 Rewind tile on 21,22; t20 Rewind tile on 20,22 |
 
 The bake leaves these traps off run islands: t01 (no pocket patch with a later gate slot and detour), t08 (no island chest pad sits beside a lower tier), t13 and t14 (they punish a class you may not be playing), t23 (it fits, and the plan spends visible slots on other kinds), t24 and t26 (no guard shape in the bake yet), t27 (the layout builds no bridges), and every puzzle but the counting gate (the layout builds no puzzle rooms with a reward gate behind them). Hidden locals may share a reward approach with a guard; they pin no charge of their own. The repeated hidden step traps form clusters of up to three along the far stretch of each island.
 
-Spring tile fires once per life and flings you two cells back the way you came. Pancake stone hangs over its cell on two posts; its shadow grows for 1.5 s, it slams for 2 hearts, rests and lifts. Every guarded reward is optional: lift to lift passes with the trap cells blocked.
+Spring tile fires once per life and flings you two cells back the way you came; each run spring sits where that throws you off the island. Pancake stone hangs over its cell on two posts; its shadow grows for 1.5 s, it slams for 2 hearts, rests and lifts. Every guarded reward is optional: lift to lift passes with the trap cells blocked.
 
 ## Machine-readable
 

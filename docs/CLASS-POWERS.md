@@ -84,16 +84,16 @@ Tap-to-walk is on for every class while Ryne plays the islands. `TAP_WALK` in `c
 
 #### Charges
 
-Powers no longer recharge on steps. You carry charges (oil for the Lantern) and refill them three ways:
+Each class keeps its own pool: Ink Step, Ward and Rush hold up to 3 charges each, and the Lantern holds up to 3 flasks of oil (60 s). Swapping class never restocks a pool, so the charges you burn on one class stay burnt when you swap away and back. Plan your charges: if you reach a gate whose class is dry, walk back to the bonfire and rest.
 
 | Source | Charge classes | Lantern |
 | --- | --- | --- |
-| Start of a run, and every bonfire light or rest | tops up to 2 charges | tops up to 1 flask (20 s) |
-| Opening a chest | +1 charge | +1 flask |
-| Walking onto a glinting pickup | +1 charge | +1 flask |
-| Carry cap | 3 charges | 3 flasks (60 s) |
+| Start of a run, a respawn (any death), a bonfire light or rest | every pool fills to 3 charges | fills to 3 flasks (60 s) |
+| Opening a chest | +1 charge for the class you play | +1 flask |
+| Walking onto a glinting pickup | +1 charge for the class you play | +1 flask |
+| Swapping class | nothing | nothing |
 
-A bonfire never takes away what you carry above the stock. A pickup stays on the ground when you are at the cap. Taken pickups stay gone per island (`isoworld:pickups:<level>`), and the satchel persists across islands (`isoworld:power`).
+Only death and rest refill a pool; a chest or a pickup adds one earned charge up to the cap. A pickup stays on the ground when you are at the cap. Taken pickups stay gone per island (`isoworld:pickups:<level>`), and the pools persist across islands (`isoworld:power`, `{ cls, pool }`). `fullCharges()` in `core/powers.js` holds the full pools.
 
 `core/layout/pickups.js` places two pickups per island off the worn path, scoring lookouts, alcoves and hills, cells behind a shortcut, and dead-end pockets, and keeps at least one reachable before any shortcut opens. `tools/bake-layout.mjs` calls it after trap placement, so a rebake keeps them; `node tools/place-pickups.mjs` adds them to existing levels without rebaking.
 
@@ -117,7 +117,7 @@ Run islands now carry obstacles that only one class passes (`docs/TRAPS.md`, t56
 | Ink pit (t56) | Wretch | Ink Step dashes over the cell from the one before | drops off the island |
 | Ward arch (t57) | Gatekeeper | a raised Ward absorbs the arch | thrown off the island |
 | Gnasher (t58) | Courier | Rush turns 0.29 s of open jaws into 0.58 s; a crossing takes 0.31 s | caught by the jaws |
-| Lantern plank (t59) | Modernizer | a lit lantern holds the plank | the plank gives way |
+| Lantern block (t59) | Modernizer | an invisible block turns solid while the lantern burns and the hero stands within 2 cells of it | the gap stays empty and you fall through |
 | Class seal (t60) | any one, by its sigil | stepping on the plate as that class opens the reward gate | the gate stays shut |
 
-Swapping class restocks the new class to 2 charges and one flask of oil (`syncClass` in `core/powers.js`), and every island's bonfire refills them, so no gate needs a charge you cannot get back on that island. The rules allow at most two gates per class per island and keep the cell before each gate free of other traps, so you can stop there to swap. Trap runtimes read the live class and lantern through `ctx.power()`, which `core/game.js` feeds from `powers.cls` and `powers.lit`.
+Swapping class keeps every pool as it was. The validator checks that the bonfire is walkable from the cell before every gate with each trap at its worst (no one-way drop, gone tile or risen block between them), so a player out of charges can always walk back and rest. The memorized walk in `core/traps/walk.js` spends one charge per gate from the same pools and detours to the bonfire when a pool runs dry. The rules allow at most two gates per class per island and keep the cell before each gate free of other traps, so you can stop there to swap. The lantern block shows as a gap between two brass lantern hooks with a Modernizer sigil post; lit lantern light within reach fills it with a brass ghost block you can walk on. Trap runtimes read the live class and lantern through `ctx.power()`, which `core/game.js` feeds from `powers.cls` and `powers.lit`.
