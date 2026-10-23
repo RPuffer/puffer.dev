@@ -39,6 +39,12 @@ async function open(query, { width = 1200, height = 800, touch = false } = {}) {
   return { page, problems, done };
 }
 
+async function lowered(page) {
+  await page.evaluate(() => { const W = window.__game.powers, pool = W.pool; for (const k of ["wanderer", "aws", "dutchie"]) pool[k] = W.cap - 1; pool.nm -= 20; localStorage.setItem("isoworld:power", JSON.stringify({ cls: W.cls, pool })); });
+  await page.reload({ waitUntil: "load" });
+  await page.waitForFunction(() => window.__done === true || !!window.__error, { timeout: 30000, polling: 100 });
+}
+
 const P = (page) => page.evaluate(() => { const g = window.__game, W = g.powers; return { cls: W.cls, id: W.power.id, ready: W.ready, charges: W.charges, oil: +W.oil.toFixed(2), lit: W.lit, pickups: W.pickups.length, raised: W.raised, cell: g.state.actor.cell.slice(), hearts: g.state.health.hearts, warded: g.state.health.warded, route: g.state.route.active }; });
 const advance = (page, s) => page.evaluate((s) => window.__game.advance(s), s);
 
@@ -166,15 +172,17 @@ async function inkSuite() {
   await place(page, fj.from, fj.dir);
   await page.evaluate(() => { const W = window.__game.powers; W.reset(); W.fire(); });
   await advance(page, 0.6);
-  await place(page, fj.from, fj.dir);
-  await page.evaluate(() => window.__game.powers.fire());
-  await advance(page, 0.6);
+  for (let i = 0; i < 2; i++) {
+    await place(page, fj.from, fj.dir);
+    await page.evaluate(() => window.__game.powers.fire());
+    await advance(page, 0.6);
+  }
   await place(page, fj.from, fj.dir);
   const s0 = await P(page);
   await fireKey(page);
   const s1 = await P(page);
   const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
-  record(`${tag} two charges spend, the third press is refused with a toast`, s0.charges === 0 && s1.cell.join() === s0.cell.join() && /No charges/.test(toast), `${JSON.stringify(s1)} toast "${toast}"`);
+  record(`${tag} three charges spend, the fourth press is refused with a toast`, s0.charges === 0 && s1.cell.join() === s0.cell.join() && /No charges/.test(toast), `${JSON.stringify(s1)} toast "${toast}"`);
   const hud = await page.evaluate(() => ({ chip: document.querySelector(".iw-power")?.textContent, pips: document.querySelectorAll(".iw-power .pips i").length, on: document.querySelectorAll(".iw-power .pips i.on").length }));
   record(`${tag} HUD shows charges held`, /no charges/.test(hud.chip || "") && hud.pips === 3 && hud.on === 0, JSON.stringify(hud));
   const cap = await page.evaluate(() => { const W = window.__game.powers; for (let i = 0; i < 6; i++) W.give("qa"); return W.charges; });
@@ -195,7 +203,7 @@ async function inkSuite() {
     await fireKey(page);
     const s3 = await P(page);
     const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
-    record(`${tag} refuses a climb and keeps its charge`, s3.cell.join() === blocked.from.join() && s3.charges === 2 && toast.length > 0, `${blocked.why} toast "${toast}"`);
+    record(`${tag} refuses a climb and keeps its charge`, s3.cell.join() === blocked.from.join() && s3.charges === 3 && toast.length > 0, `${blocked.why} toast "${toast}"`);
   } else record(`${tag} refuses a climb and keeps its charge`, false, "no blocked jump found");
   record(`${tag} no page errors`, o.problems.length === 0, o.problems.slice(0, 3).join(" | "));
   await page.close();
@@ -279,7 +287,7 @@ async function wardSuite() {
   await page.evaluate(() => window.__game.state.life.hurt(1, { cause: "qa" }));
   await advance(page, 0.2);
   const b = await P(page);
-  record(`${tag} absorbs a hit, ward cracks, one charge spent`, b.hearts === hearts0 && !b.warded && b.charges === 1, JSON.stringify(b));
+  record(`${tag} absorbs a hit, ward cracks, one charge spent`, b.hearts === hearts0 && !b.warded && b.charges === 2, JSON.stringify(b));
   await advance(page, 1.5);
   await page.evaluate(() => { const W = window.__game.powers; while (W.charges) { W.fire(); window.__game.state.health.ward(false); } });
   const c0 = await P(page);
@@ -297,7 +305,7 @@ async function wardSuite() {
     window.__game.advance(0.1);
     return window.__game.powers.charges;
   }, fireAt);
-  record(`${tag} resting at the bonfire refills to the stock of 2`, lit === 2, String(lit));
+  record(`${tag} resting at the bonfire refills to the full 3`, lit === 3, String(lit));
   record(`${tag} no page errors`, o.problems.length === 0, o.problems.slice(0, 3).join(" | "));
   await page.close();
 }
@@ -438,7 +446,7 @@ async function trapSuite() {
         if (!s.warded) hit = s;
         else await place(page, spot.from, spot.dir);
       }
-      record(`traps ward absorbs ${spot.kind}`, !!hit && hit.hearts === h0 && hit.charges === 1, JSON.stringify(hit));
+      record(`traps ward absorbs ${spot.kind}`, !!hit && hit.hearts === h0 && hit.charges === 2, JSON.stringify(hit));
     } else if (cls === "nm") {
       const block = await page.evaluate(() => window.__game.state.traps.all().find((t) => t.kind === "t21") || null);
       const far = await page.evaluate(() => window.__game.state.traps.all().filter((t) => !t.revealed && t.kind !== "t21").map((t) => t.id));
@@ -453,17 +461,17 @@ async function trapSuite() {
         const o2 = await P(page);
         const seen = await page.evaluate((id) => window.__game.state.traps.at(id).revealed, block.id) && !early;
         const still = await page.evaluate((ids) => ids.filter((id) => !window.__game.state.traps.at(id).revealed).length, far);
-        record(`traps lantern lights on R and drains oil by the clock`, o0.oil === 20 && o1.lit && o2.lit && o0.oil - o2.oil > 5 && o0.oil - o2.oil < 7.5 && o2.oil < o1.oil, `${o0.oil} -> ${o1.oil} -> ${o2.oil}`);
+        record(`traps lantern lights on R and drains oil by the clock`, o0.oil === 60 && o1.lit && o2.lit && o0.oil - o2.oil > 5 && o0.oil - o2.oil < 7.5 && o2.oil < o1.oil, `${o0.oil} -> ${o1.oil} -> ${o2.oil}`);
         record(`traps lantern reveals the hidden ${block.kind} at two cells, not at three`, !block.revealed && seen && still === far.length, `revealed at 2 ${seen}, far hidden ${still}/${far.length}`);
         const hud = await page.evaluate(() => document.querySelector(".iw-power")?.textContent || "");
-        record(`traps lantern HUD shows the oil left`, /lit, 1[45] s oil/.test(hud), hud);
+        record(`traps lantern HUD shows the oil left`, /lit, 5[345] s oil/.test(hud), hud);
         await fireKey(page);
         const d0 = await P(page);
         await advance(page, 3);
         const d1 = await P(page);
         record(`traps R douses the lantern and the oil holds`, !d0.lit && d0.oil === d1.oil, `${d0.oil} -> ${d1.oil}`);
         await fireKey(page);
-        await advance(page, 16);
+        await advance(page, d1.oil + 2);
         const e = await P(page);
         const ft = await page.evaluate(() => window.__game.powers.fire());
         const toast = await page.evaluate(() => document.querySelector(".iw-toast")?.textContent || "");
@@ -517,7 +525,7 @@ async function touchSuite() {
   record("touch power button fires Ink Step", s.cell.join() === j.to.join(), `${j.from} -> ${s.cell} want ${j.to}`);
   await advance(page, 0.2);
   const badge = await page.$eval(".iw-pow", (e) => ({ badge: e.querySelector("b").textContent, wait: e.classList.contains("wait"), c: e.style.getPropertyValue("--c") }));
-  record("touch button shows the charges left", badge.badge === "1" && !badge.wait, JSON.stringify(badge));
+  record("touch button shows the charges left", badge.badge === "2" && !badge.wait, JSON.stringify(badge));
   await page.close();
 }
 
@@ -554,7 +562,7 @@ async function rushSuite() {
     const again = W.fire();
     g.advance(RUSH.secs);
     const after = { scale: S.timeScale, left: W.rush, charges: W.charges };
-    W.fire(); g.advance(RUSH.secs + 0.2);
+    while (W.charges) { W.fire(); g.advance(RUSH.secs + 0.2); }
     const none = W.fire();
     const toast = document.querySelector(".iw-toast")?.textContent || "";
     g.resume();
@@ -589,6 +597,7 @@ async function pickupSuite() {
       const d = Object.keys(DIRS).find((d) => { const f = [k.x - DIRS[d][0], k.z - DIRS[d][1]]; return isWalkable(S.level, f[0], f[1]) && canStep(S.level, f[0], f[1], d); });
       return { k, from: [k.x - DIRS[d][0], k.z - DIRS[d][1]], dir: d };
     });
+    await lowered(page);
     await place(page, k.from, k.dir);
     const p0 = await P(page);
     const gems0 = await page.evaluate(() => window.__game.renderer.three.scene.getObjectByName("charge-pickups")?.children.length || 0);
@@ -600,11 +609,16 @@ async function pickupSuite() {
     else record(`pickups walking onto a glint grants a charge and removes it`, p1.charges === p0.charges + 1 && p1.pickups === p0.pickups - 1 && gems1 === gems0 - 1, `${p0.charges} -> ${p1.charges}, gems ${gems0} -> ${gems1}`);
     if (cls === "wanderer") {
       await page.evaluate(() => { const W = window.__game.powers; W.give("qa"); });
-      const back = await page.evaluate((k) => { const S = window.__game.state; const c = S.level.charges[1]; return c; });
-      await place(page, [back.x, back.z - 1], "s");
-      const okFrom = await page.evaluate(async (c) => { const { canStep } = await import("/core/level.js"); return canStep(window.__game.state.level, c.x, c.z - 1, "s"); }, back);
-      if (okFrom) {
-        await page.evaluate((c) => { window.__game.state.actor.path = [[c.x, c.z]]; }, back);
+      const back = await page.evaluate(async () => {
+        const { isWalkable, canStep, DIRS } = await import("/core/level.js");
+        const S = window.__game.state, k = S.level.charges[1];
+        const d = Object.keys(DIRS).find((d) => { const f = [k.x - DIRS[d][0], k.z - DIRS[d][1]]; return isWalkable(S.level, f[0], f[1]) && canStep(S.level, f[0], f[1], d); });
+        return d ? { k, from: [k.x - DIRS[d][0], k.z - DIRS[d][1]], dir: d } : null;
+      });
+      record(`pickups the second glint has an approach`, !!back, JSON.stringify(back));
+      if (back) {
+        await place(page, back.from, back.dir);
+        await page.evaluate((c) => { window.__game.state.actor.path = [[c.x, c.z]]; }, back.k);
         await advance(page, 0.8);
         const full = await P(page);
         record(`pickups a full satchel leaves the glint on the ground`, full.charges === 3 && full.pickups === 1, JSON.stringify(full));
@@ -613,6 +627,7 @@ async function pickupSuite() {
     await page.close();
   }
   const c = await open("level=wizard-medium&class=aws");
+  if (c.done) await lowered(c.page);
   if (c.done) {
     const r = await c.page.evaluate(async () => {
       const { isWalkable } = await import("/core/level.js");
