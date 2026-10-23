@@ -60,16 +60,60 @@ async function pathTo(goals) {
     const { findPath } = await import("/core/path.js");
     const { isWalkable } = await import("/core/level.js");
     const S = window.__game.state, a = S.actor;
-    const danger = new Set((S.traps?.all() || []).filter((t) => !t.disarmed && t.tier !== "debuff").flatMap((t) => t.cells.map((c) => c.join(","))));
+    const { KINDS } = await import("/core/traps/kinds.js");
+    const live = (S.traps?.list || []).filter((t) => !t.disarmed && t.meta.tier !== "debuff");
+    const gateAt = new Map(live.filter((t) => KINDS[t.kind]?.cls).map((t) => [t.footprint[0].join(","), t]));
+    const danger = new Set(live.filter((t) => !KINDS[t.kind]?.cls).flatMap((t) => (KINDS[t.kind]?.danger ? KINDS[t.kind].danger(t) : t.footprint).map((c) => c.join(","))));
     let best = null;
     for (const g of goals) {
       if (!isWalkable(S.level, g[0], g[1])) continue;
       const p = findPath(S.level, a.cell, g, { cost: (x, z) => (danger.has(x + "," + z) ? 400 : 0) });
       if (p && (!best || p.length < best.length)) best = p;
     }
-    if (best) a.setPath(best);
-    return best ? best.length - 1 : null;
+    if (!best) return null;
+    const j = best.findIndex((c) => gateAt.has(c.join(",")));
+    window.__gateAhead = j > 0 ? { id: gateAt.get(best[j].join(",")).id, at: best[j - 1], over: best[j], next: best[j + 1] || null } : null;
+    if (j > 0) best = best.slice(0, j);
+    a.setPath(best);
+    return best.length - 1;
   }, goals);
+}
+
+
+const gates = [];
+async function crossGate(g) {
+  const ok = await page.evaluate(async (g) => {
+    const { KINDS } = await import("/core/traps/kinds.js");
+    const G = window.__game, S = G.state, a = S.actor, t = S.traps.byId[g.id], cls = KINDS[t.kind].cls;
+    if (a.cell[0] !== g.at[0] || a.cell[1] !== g.at[1] || S.life.busy) return { skip: true };
+    const draw = G.renderer.render;
+    G.pause();
+    G.renderer.render = () => {};
+    const step = (n = 1) => { for (let i = 0; i < n; i++) G.advance(1 / 60); };
+    const until = (f, max = 600) => { for (let i = 0; i < max && !f(); i++) step(); return f(); };
+    const pick = (c) => { try { localStorage.setItem("isoworld:class", c); } catch {} S.params.class = c; G.renderer.swapHero?.(c); step(); };
+    try {
+      if (S.powers.cls === cls && !S.powers.ready) pick(cls === "nm" ? "aws" : "nm");
+      pick(cls);
+      const d = [g.over[0] - a.cell[0], g.over[1] - a.cell[1]];
+      a.facing = Math.atan2(d[0], d[1]);
+      const target = g.next || g.over;
+      if (cls === "wanderer") { S.powers.fire(); until(() => !S.powers.hop, 60); step(2); }
+      else {
+        S.powers.fire();
+        if (cls === "dutchie") {
+          until(() => S.powers.scale <= 0.51, 60);
+          const shut = () => KINDS.t58.closed(t, S.traps.time);
+          until(() => shut(), 300); until(() => !shut(), 300);
+        }
+        a.setPath([g.over, ...(g.next ? [g.next] : [])]);
+        until(() => (!a.path.length && !a.moving) || !!S.life.busy, 240);
+      }
+      const there = a.cell[0] === target[0] && a.cell[1] === target[1];
+      return { ok: there && !S.life.busy, cls, at: a.cell.slice(), busy: S.life.busy, charges: S.powers.charges };
+    } finally { G.renderer.render = draw; G.resume(); }
+  }, g);
+  return { ...ok, id: g.id, steps: 2 };
 }
 
 async function walkOnce(goals) {
@@ -86,6 +130,8 @@ async function walk(goals) {
     const n = await walkOnce(goals);
     if (n == null) return total;
     total = (total || 0) + n;
+    const g = await page.evaluate(() => window.__gateAhead);
+    if (g) { const r = await crossGate(g); if (!r.skip) gates.push(r); if (r.ok) total += r.steps; continue; }
     const s = await page.evaluate(() => ({ cell: window.__game.state.actor.cell.slice(), traps: !!window.__game.state.traps }));
     if (!s.traps || goals.some((g) => g[0] === s.cell[0] && g[1] === s.cell[1])) return total;
   }
@@ -139,7 +185,7 @@ async function reachExit(s, exit) {
       steps += m;
       await page.keyboard.press("KeyF");
     } else return { ok: false, steps, via, why: `gate ${gate.id} condition ${gate.open} not drivable` };
-    if (!(await gateOpen(gate.id))) return { ok: false, steps, via, why: `gate ${gate.id} stayed shut (${gate.open})` };
+    if (!(await gateOpen(gate.id))) return { ok: false, steps, via, why: `gate ${gate.id} stayed shut (${gate.open}) with the hero at ${(await snap()).cell}` };
   }
   return { ok: false, steps, via, why: "too many gates" };
 }
@@ -234,6 +280,7 @@ try {
   await browser.close();
 }
 
+for (const g of gates) record(g.ok ? "PASS" : "FAIL", `class gate ${g.id} crossed after a swap to ${g.cls}`, g.ok ? `at ${g.at}` : g.why || JSON.stringify(g));
 const n = (st) => results.filter((r) => r.status === st).length;
 console.log(`\n${n("PASS")} pass, ${n("FAIL")} fail, ${n("SKIP")} skip`);
 process.exitCode = n("FAIL") ? 1 : 0;
