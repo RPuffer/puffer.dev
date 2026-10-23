@@ -1,4 +1,4 @@
-import { DIRS, canStep, surfaceHeight, edgeFall } from "./level.js";
+import { DIRS, canStep, surfaceHeight, edgeFall, isWalkable } from "./level.js";
 
 export const SLIDE_SPEED = 1.6;
 const dirOf = (dx, dz) => Object.keys(DIRS).find((k) => DIRS[k][0] === dx && DIRS[k][1] === dz) || null;
@@ -88,6 +88,7 @@ export function createActor(L, cell, { speed = 3.2 } = {}) {
     const wasMoving = a.path.length > 0;
     while (budget > 0 && a.path.length) {
       const [tx, tz] = a.path[0];
+      if (!isWalkable(L, tx, tz) && Math.abs(a.pos.x - a.cell[0] - 0.5) < 1e-6 && Math.abs(a.pos.z - a.cell[1] - 0.5) < 1e-6) { a.path = []; break; }
       const gx = tx + 0.5, gz = tz + 0.5;
       const dx = gx - a.pos.x, dz = gz - a.pos.z, d = Math.hypot(dx, dz);
       if (d > 1e-6) a.facing = a.backward ? Math.atan2(-dx, -dz) : Math.atan2(dx, dz);
