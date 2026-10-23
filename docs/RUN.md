@@ -1110,3 +1110,21 @@ PP_PROFILE=.pp-profile-rot node tools/qa-ride-keys.mjs --yaw 135
 
 `--yaw=all` is the default (`--yaw=none` probes the saved yaw only) and marks each route cell `PASS` (default yaw), `TURN` (passes only after a turn), `WARN` (hidden at every yaw: a sneaky route) or `FAIL`, with the best yaw.
 Only a ramp the route must take, with no path around it, fails when hidden at every yaw; the run exits 1 on a fail or a load error, never on warns. `qa-ride-keys --yaw N` turns the first island to N, checks rotation is refused mid-ride and that every landing keeps N. `qa.mjs` adds a rotation suite. Notes: `docs/pass9/rotation.md`.
+
+## Traps, falls and deaths
+
+```sh
+node tools/bake-layout.mjs --base run
+node tools/qa-route.mjs $(node -e 'console.log(require("./levels/run.json").order.join(","))')
+PP_PROFILE=.pp-profile-traps-qa node tools/qa-traps.mjs
+PP_PROFILE=.pp-profile-falls node tools/qa-falls.mjs
+PP_PROFILE=.pp-profile-traps-run node tools/qa-run.mjs
+PP_PROFILE=.pp-profile-quips node tools/qa-quips.mjs
+```
+
+The bake places `TRAP_PLAN` on each run island with `placeTraps` and rejects the island if `validateTraps` fails for its run position. The rules and the budget live in `docs/TRAPS.md` under Composition rules. `qa-traps` checks each run island against them, lift to lift at worst state, and the showcase. `qa-route` with the run order also proves every pickup and chest under slides. `qa-run` rides the whole run and routes around every live trap footprint when another way exists, like a player who remembers where they died; it takes about 8 minutes.
+
+One press toward the void drops the hero at once. A held key that runs off the end of a path drops them too, except a key held through a camera turn: it stops at the edge until you press it again (`turnedPress` in `core/actor.js`, set by `orient` in `core/game.js`). `qa-falls` proves both.
+
+Each fall, knock-off or emptied heart bar shows a line from `core/quips-lines.js` for 3.6 s, through the respawn, at about a quarter of the screen height. Buckets: `edge` for falls and knock-offs, `heart` for the last heart, `generic` for either, `again` for a death within one cell of the last death on the same island, and milestones by island (5th, 10th, 25th, 50th) and by run (10th, 25th, 50th, 100th). A shuffle bag per bucket keeps a line from showing twice in a row. Counts and the last death cell per island live under `isoworld:deaths`; `resetAll()` in `core/dev.js` clears them with every other `isoworld:` key. Lines stay under 70 characters and never name a trap or a place. `qa-quips` checks the pool, the buckets, desktop and 390 px phone layout, the in-page elevator swap and the reset, and writes captures to `out/quips/`.
+

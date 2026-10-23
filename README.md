@@ -85,7 +85,7 @@ The twelve picked islands form one run in the order of `levels/run.json`: each i
 
 ## Hearts and traps
 
-The hero carries three hearts, shown top-left on desktop and top-right on touch. A trap can cost a heart or knock you off the island; losing the last heart or falling off respawns you beside the bonfire you last rested at, with hearts refilled. Resting at a bonfire refills them too. `docs/TRAPS.md` holds the 53 approved traps, and all 53 are built; `http://localhost:8765/3d/index.html?level=traps-showcase` puts each one on its own spoke or plot, and `node tools/qa-traps.mjs` proves them. Run islands 1 to 12 carry a mix of them under the composition rules.
+The hero carries three hearts, shown top-left on desktop and top-right on touch. A trap can cost a heart or knock you off the island; losing the last heart or falling off respawns you beside the bonfire you last rested at, with hearts refilled. Resting at a bonfire refills them too. `docs/TRAPS.md` holds the 53 approved traps, and all 53 are built; `http://localhost:8765/3d/index.html?level=traps-showcase` puts each one on its own spoke or plot, and `node tools/qa-traps.mjs` proves them. Run islands 1 to 12 carry 6 to 15 traps each under the composition rules, more of them hidden the deeper you go, so the run is a memorization gauntlet. Every death pops a line of mockery over the island (`core/quips-lines.js`), and `node tools/qa-quips.mjs` proves it.
 
 ## Edges and fences
 
