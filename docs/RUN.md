@@ -1117,12 +1117,17 @@ Only a ramp the route must take, with no path around it, fails when hidden at ev
 node tools/bake-layout.mjs --base run
 node tools/qa-route.mjs $(node -e 'console.log(require("./levels/run.json").order.join(","))')
 PP_PROFILE=.pp-profile-traps-qa node tools/qa-traps.mjs
+node tools/qa-traps.mjs --no-browser
 PP_PROFILE=.pp-profile-falls node tools/qa-falls.mjs
 PP_PROFILE=.pp-profile-traps-run node tools/qa-run.mjs
 PP_PROFILE=.pp-profile-quips node tools/qa-quips.mjs
 ```
 
-The bake places `TRAP_PLAN` on each run island with `placeTraps` and rejects the island if `validateTraps` fails for its run position. The rules and the budget live in `docs/TRAPS.md` under Composition rules. `qa-traps` checks each run island against them, lift to lift at worst state, and the showcase. `qa-route` with the run order also proves every pickup and chest under slides. `qa-run` rides the whole run and routes around every live trap footprint when another way exists, like a player who remembers where they died; it takes about 8 minutes.
+The bake places `TRAP_PLAN` on each run island with `placeTraps` and rejects the island if `validateTraps` fails for its run position. The rules and the budget live in `docs/TRAPS.md` under Composition rules. `qa-traps` checks each run island against them, lift to lift at worst state, and the showcase. `qa-route` with the run order also proves every pickup and chest under slides. `qa-run` rides the whole run and routes around every live trap's danger cells when another way exists, like a player who remembers where they died; at a class gate it stops on the cell before, swaps class the way the character button does, fires the power and crosses with the game paused and stepped frame by frame, and it reports one line per gate crossing. It takes about 4 minutes.
+
+The bake also runs `walkReport` from `core/traps/walk.js` on each island: the mindless walk must die inside the island's band and the memorized walk must reach the exit lift without dying, on time and 5 frames late (`docs/TRAPS.md`, Health budget). When the mindless walk dies too few times the bake adds a false floor to the plan and tries again; too many, it drops one; a class gate or false detour with no cell on the walk falls back to nothing or to a false floor. The bake log prints `mindless walk N deaths M hearts (wants a to b), memorized 0` per island. `qa-traps --no-browser` runs the rules, the headless class-gate and cruel-floor checks and both walks without Chrome in about 10 seconds.
+
+Fences (`core/layout/fences.js`) run after traps. They line rim shoulders along the spine and the entry walk, one cell from the path, with no other route roles. A lone lip cell may take a one-cell rail. When a rail breaks a route or trap rule, the placer removes the rail that caused it, not every rail placed after it; and it leaves free the bypass cells a false detour needs.
 
 One press toward the void drops the hero at once. A held key that runs off the end of a path drops them too, except a key held through a camera turn: it stops at the edge until you press it again (`turnedPress` in `core/actor.js`, set by `orient` in `core/game.js`). `qa-falls` proves both.
 

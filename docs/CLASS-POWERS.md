@@ -107,3 +107,17 @@ Other rules:
 - A refused power (no landing, no charges, dry lantern) keeps what you carry and says why in a toast.
 - Touch stacks the power button above the use button in the right column, so the compass rose keeps its clearance. The chip and the button show charges held (pips and a badge) or the seconds of oil left.
 - A power pressed mid-step waits for the hero to reach the cell centre (`actor.pause`).
+
+## Class gates
+
+Run islands now carry obstacles that only one class passes (`docs/TRAPS.md`, t56 to t60). The character button swaps class whenever the hero is not mid-hop, mid-fall or mid-ride (`character.busy` in `3d/main.js`), so a gate asks you to read its tell and swap, not to replay the run.
+
+| Gate | Class | Power that passes it | Everyone else |
+| --- | --- | --- | --- |
+| Ink pit (t56) | Wretch | Ink Step dashes over the cell from the one before | drops off the island |
+| Ward arch (t57) | Gatekeeper | a raised Ward absorbs the arch | thrown off the island |
+| Gnasher (t58) | Courier | Rush turns 0.29 s of open jaws into 0.58 s; a crossing takes 0.31 s | caught by the jaws |
+| Lantern plank (t59) | Modernizer | a lit lantern holds the plank | the plank gives way |
+| Class seal (t60) | any one, by its sigil | stepping on the plate as that class opens the reward gate | the gate stays shut |
+
+Swapping class restocks the new class to 2 charges and one flask of oil (`syncClass` in `core/powers.js`), and every island's bonfire refills them, so no gate needs a charge you cannot get back on that island. The rules allow at most two gates per class per island and keep the cell before each gate free of other traps, so you can stop there to swap. Trap runtimes read the live class and lantern through `ctx.power()`, which `core/game.js` feeds from `powers.cls` and `powers.lit`.
