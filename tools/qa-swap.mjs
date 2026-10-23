@@ -56,7 +56,7 @@ async function rideExit(name, next) {
 }
 
 try {
-  await page.goto(`${BASE}/3d/index.html?level=${ORDER[0]}&reset=1`, { waitUntil: "load" });
+  await page.goto(`${BASE}/3d/index.html?level=${ORDER[0]}&from=${ORDER[ORDER.length - 1]}&arrive=entry&reset=1`, { waitUntil: "load" });
   await page.waitForFunction(() => window.__done === true || !!window.__error, { timeout: 30000, polling: 100 });
   await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.startsWith("isoworld:things:")) localStorage.removeItem(k); });
   await frames(10);
