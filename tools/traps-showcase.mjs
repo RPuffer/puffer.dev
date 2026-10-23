@@ -414,6 +414,13 @@ const traps = [
   { id: "order", kind: "t40", cells: [[3, 3], [4, 3], [5, 3], [3, 4], [4, 4], [5, 4], [3, 5], [4, 5], [5, 5], [4, 6]], plates: [[3, 3], [5, 3], [3, 5], [5, 5]], lamps: [[-0.4, -0.4], [0.4, -0.4], [-0.4, 0.4], [0.4, 0.4]], order: [2, 0, 3, 1], gate: "plate-gate" },
 ];
 
+for (const t of traps) for (const c of [...(t.dodge ? [t.dodge] : []), ...(t.cover ? [t.cover] : []), ...(t.notches || [])]) for (const q of t.cells) {
+  const d = [c[0] - q[0], c[1] - q[1]];
+  if (Math.abs(d[0]) + Math.abs(d[1]) !== 1) continue;
+  const b = [c[0] + d[0], c[1] + d[1]];
+  if (cells[b[1]]?.[b[0]] && cells[b[1]][b[0]].s === "none" && cells[c[1]][c[0]].h === 1) land(b[0], b[1]);
+}
+
 const level = {
   name: "traps-showcase",
   concept: "trap showcase",
