@@ -61,13 +61,15 @@ async function pathTo(goals) {
     const { isWalkable } = await import("/core/level.js");
     const S = window.__game.state, a = S.actor;
     const { KINDS } = await import("/core/traps/kinds.js");
+    const { slipOf } = await import("/core/layout/check.js");
+    const slip = slipOf(S.level);
     const live = (S.traps?.list || []).filter((t) => !t.disarmed && t.meta.tier !== "debuff");
     const gateAt = new Map(live.filter((t) => KINDS[t.kind]?.cls).map((t) => [t.footprint[0].join(","), t]));
     const danger = new Set(live.filter((t) => !KINDS[t.kind]?.cls).flatMap((t) => (KINDS[t.kind]?.danger ? KINDS[t.kind].danger(t) : t.footprint).map((c) => c.join(","))));
     let best = null;
     for (const g of goals) {
       if (!isWalkable(S.level, g[0], g[1])) continue;
-      const p = findPath(S.level, a.cell, g, { cost: (x, z) => (danger.has(x + "," + z) ? 400 : 0) });
+      const p = findPath(S.level, a.cell, g, { cost: (x, z) => (danger.has(x + "," + z) ? 400 : 0) + (slip?.(x, z) ? 30 : 0) });
       if (p && (!best || p.length < best.length)) best = p;
     }
     if (!best) return null;
@@ -81,6 +83,26 @@ async function pathTo(goals) {
 
 
 const gates = [];
+let rests = 0, resting = false;
+async function restAtFire() {
+  const fire = await page.evaluate(() => { const f = window.__game.state.things.things.find((t) => t.kind === "bonfire"); return f ? [f.x, f.z] : null; });
+  if (!fire) return { full: false };
+  for (let k = 0; k < 4; k++) {
+    await walk(around({ x: fire[0], z: fire[1] }));
+    const near = await page.evaluate((f) => { const c = window.__game.state.actor.cell; return Math.max(Math.abs(c[0] - f[0]), Math.abs(c[1] - f[1])) <= 1; }, fire);
+    if (near) break;
+    const pad = await page.evaluate(async (f) => { const { nextPad } = await import("/core/path.js"); const S = window.__game.state; for (const [dx, dz] of [[1, 0], [0, 1], [-1, 0], [0, -1]]) { const p = nextPad(S.level, S.actor.cell, [f[0] + dx, f[1] + dz]); if (p) return p; } return null; }, fire);
+    if (!pad || (await walk([pad])) == null) break;
+    await page.waitForFunction(() => window.__game.state.things.focus?.kind === "pad", { timeout: 3000, polling: 50 }).catch(() => {});
+    await page.keyboard.press("KeyF");
+    await wait(1500);
+  }
+  await page.waitForFunction(() => window.__game.state.things.focus?.kind === "bonfire", { timeout: 2000, polling: 50 }).catch(() => {});
+  await page.keyboard.press("KeyF");
+  await wait(300);
+  rests++;
+  return page.evaluate(() => { const W = window.__game.state.powers, p = W.pool; return { full: p.wanderer === W.cap && p.aws === W.cap && p.dutchie === W.cap, at: window.__game.state.actor.cell.slice() }; });
+}
 async function crossGate(g) {
   const ok = await page.evaluate(async (g) => {
     const { KINDS } = await import("/core/traps/kinds.js");
@@ -93,8 +115,8 @@ async function crossGate(g) {
     const until = (f, max = 600) => { for (let i = 0; i < max && !f(); i++) step(); return f(); };
     const pick = (c) => { try { localStorage.setItem("isoworld:class", c); } catch {} S.params.class = c; G.renderer.swapHero?.(c); step(); };
     try {
-      if (S.powers.cls === cls && !S.powers.ready) pick(cls === "nm" ? "aws" : "nm");
       pick(cls);
+      if (!S.powers.ready && !S.powers.raised) return { ok: false, dry: true, cls, at: a.cell.slice(), charges: S.powers.charges };
       const d = [g.over[0] - a.cell[0], g.over[1] - a.cell[1]];
       a.facing = Math.atan2(d[0], d[1]);
       const target = g.next || g.over;
@@ -108,6 +130,7 @@ async function crossGate(g) {
         }
         a.setPath([g.over, ...(g.next ? [g.next] : [])]);
         until(() => (!a.path.length && !a.moving) || !!S.life.busy, 240);
+        if (cls === "nm" && S.powers.lit) S.powers.fire();
       }
       const there = a.cell[0] === target[0] && a.cell[1] === target[1];
       return { ok: there && !S.life.busy, cls, at: a.cell.slice(), busy: S.life.busy, charges: S.powers.charges };
@@ -131,7 +154,21 @@ async function walk(goals) {
     if (n == null) return total;
     total = (total || 0) + n;
     const g = await page.evaluate(() => window.__gateAhead);
-    if (g) { const r = await crossGate(g); if (!r.skip) gates.push(r); if (r.ok) total += r.steps; continue; }
+    if (g) {
+      let r = await crossGate(g);
+      if (r.dry && !resting) {
+        resting = true;
+        const ok = await restAtFire();
+        resting = false;
+        console.log(`rest before ${g.id}: ${JSON.stringify(ok)}`);
+        if (!ok.full) { gates.push({ ...r, why: "out of charges and could not rest" }); return null; }
+        const back = await walkOnce([g.at]);
+        r = back == null ? { ...r, why: "no way back to the gate after resting" } : await crossGate(g);
+      }
+      if (!r.skip) gates.push(r);
+      if (r.ok) total += r.steps;
+      continue;
+    }
     const s = await page.evaluate(() => ({ cell: window.__game.state.actor.cell.slice(), traps: !!window.__game.state.traps }));
     if (!s.traps || goals.some((g) => g[0] === s.cell[0] && g[1] === s.cell[1])) return total;
   }
@@ -246,6 +283,8 @@ try {
     const hop = next ? `hop ${name} -> ${next}` : `last exit stub ${name}`;
     if (!next && noEnds) { last = { i, name }; break; }
     if (!exit) { record("SKIP", hop, `${name} has no exit elevator yet`); last = { i, name }; continue; }
+    const topped = await page.evaluate(() => { const W = window.__game.state.powers, p = W.pool; return p.wanderer === W.cap && p.aws === W.cap && p.dutchie === W.cap && p.nm >= 20; });
+    if (!topped) { resting = true; const ok = await restAtFire(); resting = false; if (!ok.full) problems.push(`could not rest at the bonfire on arrival: ${JSON.stringify(ok)}`); }
     const r = await reachExit(s, exit);
     if (!r.ok) { record("FAIL", hop, `${r.why || "did not reach the exit"} (${r.steps} steps${r.via.length ? ", gates " + r.via.join(",") : ""})`); last = { i, name }; continue; }
     if (!next) { await stubCheck(await snap(), exit, hop); last = { i, name }; break; }
@@ -281,6 +320,7 @@ try {
 }
 
 for (const g of gates) record(g.ok ? "PASS" : "FAIL", `class gate ${g.id} crossed after a swap to ${g.cls}`, g.ok ? `at ${g.at}` : g.why || JSON.stringify(g));
+console.log(`bonfire rests to refill charges before a gate: ${rests}`);
 const n = (st) => results.filter((r) => r.status === st).length;
 console.log(`\n${n("PASS")} pass, ${n("FAIL")} fail, ${n("SKIP")} skip`);
 process.exitCode = n("FAIL") ? 1 : 0;
