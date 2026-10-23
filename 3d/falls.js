@@ -1,7 +1,5 @@
 import * as THREE from "three";
 import { PRAT_S } from "../core/life.js";
-import { TEETER_S } from "../core/actor.js";
-import { DIRS } from "../core/level.js";
 
 const STEP_OUT = 0.22;
 const ease = (u) => 1 - Math.pow(1 - Math.min(1, Math.max(0, u)), 3);
@@ -85,15 +83,6 @@ export function buildFalls(state) {
         return true;
       }
       hero.userData.fallPose = null;
-      if (a.teeter && !fx) {
-        const T = a.teeter, d = DIRS[T.dir] || [0, 0];
-        const fade = Math.min(1, (TEETER_S - T.t) / 0.25);
-        hero.position.x += d[0] * 0.24 * fade;
-        hero.position.z += d[1] * 0.24 * fade;
-        hero.userData.fallPose = { d, tilt: (0.42 + Math.sin(T.t * 13) * 0.26) * fade, spin: Math.sin(T.t * 7) * 0.25 * fade };
-        if (T.t < 1.0) { mark.visible = true; mark.position.set(hero.position.x, hero.position.y + 1.4 + Math.abs(Math.sin(T.t * 10)) * 0.12, hero.position.z); }
-        return true;
-      }
       if (a.pratfall > 0 && !fx) {
         const u = 1 - a.pratfall / PRAT_S;
         const drop = Math.max(0, 1 - u / 0.3);
@@ -110,22 +99,17 @@ export function buildFalls(state) {
       if (p) { lean(hero, p.d, p.tilt); if (p.spin) spin(hero, p.spin); }
       const J = hero.userData.joints;
       if (!J) return;
-      const fx = a.fx, falling = fx?.kind === "fall" || fx?.kind === "knock";
-      if (!falling && !a.teeter) return;
-      const t = falling ? fx.t : a.teeter.t;
-      const ph = t * (falling ? 22 : 15);
+      const fx = a.fx;
+      if (fx?.kind !== "fall" && fx?.kind !== "knock") return;
+      const t = fx.t;
+      const ph = t * 22;
       J.upperArmL?.rotation.set(0.2, 0, -ph);
       J.upperArmR?.rotation.set(0.2, 0, ph);
       J.lowerArmL?.rotation.set(0, 0, -0.6);
       J.lowerArmR?.rotation.set(0, 0, 0.6);
-      if (falling) {
-        J.upperLegL?.rotation.set(Math.sin(t * 24) * 0.9, 0, -0.2);
-        J.upperLegR?.rotation.set(-Math.sin(t * 24) * 0.9, 0, 0.2);
-        J.head?.rotation.set(-0.3, Math.sin(t * 9) * 0.4, 0);
-      } else {
-        J.upperLegL?.rotation.set(Math.max(0, Math.sin(t * 13)) * 0.5, 0, 0);
-        J.torso?.rotation.set(0, 0, Math.sin(t * 13) * 0.12);
-      }
+      J.upperLegL?.rotation.set(Math.sin(t * 24) * 0.9, 0, -0.2);
+      J.upperLegR?.rotation.set(-Math.sin(t * 24) * 0.9, 0, 0.2);
+      J.head?.rotation.set(-0.3, Math.sin(t * 9) * 0.4, 0);
     },
     update(dt) {
       cloud.visible = !!poof;

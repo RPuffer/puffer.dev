@@ -89,7 +89,7 @@ The hero carries three hearts, shown top-left on desktop and top-right on touch.
 
 ## Edges and fences
 
-You can walk off an island. The first press toward the cloud bed or open water makes the hero teeter, a second press in the same direction drops them, and a step away cancels. Keep holding the key past a short wobble and you go over. Slides, springs and knockbacks skip the teeter. A fall costs no heart: you respawn at the bonfire you last rested at and land on your backside. Each fall plays one of three tweens at random; `?fall=pause`, `spin` or `shrink` forces one. Ledges onto a lower tier stay blocked, and tap-to-walk never routes off an edge or onto ice. The showcase has an ice patch that slides you until something stops you.
+You can walk off an island. One press toward the cloud bed or open water drops the hero at once, with no warning, and so does a held key that runs you off the end of a path. A key you keep holding through a camera turn stops at the edge until you press it again. Slides, springs and knockbacks drop you too. A fall costs no heart: you respawn at the bonfire you last rested at and land on your backside. Each fall plays one of three tweens at random; `?fall=pause`, `spin` or `shrink` forces one. Ledges onto a lower tier stay blocked, and tap-to-walk never routes off an edge or onto ice. The showcase has an ice patch that slides you until something stops you.
 
 The bake fences a tenth of an island's edge cells at most, in the island's own material (hedge, rock wall, ruined masonry, coral, logs or bone). `?fences=0` hides them, `node tools/qa-falls.mjs` proves falls, ice and fences, and `node tools/fall-clips.mjs` records the animations into `out/falls/`.
 

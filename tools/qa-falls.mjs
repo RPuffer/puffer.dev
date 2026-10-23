@@ -67,24 +67,17 @@ const sim = (L, cell, o = {}) => {
   const L = mini(["......", ".ggg..", ".ggg..", "......"]);
   const s = sim(L, [1, 1]);
   s.press("n"); s.tick(2);
-  record("first move toward the void teeters and stays put", !!s.actor.teeter && s.actor.teeter.dir === "n" && s.actor.cell.join() === "1,1" && !s.life.busy);
-  s.actor.held = "n"; s.tick(12);
-  record("a brief hold toward the edge only teeters", !s.life.busy && !!s.actor.teeter);
-  s.actor.held = null; s.press("n"); s.tick(2);
-  record("a second press in the same direction commits to the fall", s.life.busy === "fall" && s.ev.some((e) => e.type === "fall" && !e.forced));
+  record("the first press toward the void falls at once", s.life.busy === "fall" && s.ev.some((e) => e.type === "fall" && !e.forced && e.cause === "edge") && s.actor.cell.join() === "1,1");
   for (let i = 0; i < 300 && s.life.busy; i++) s.tick();
   record("a fall costs no heart and respawns with a pratfall", s.health.hearts === 3 && s.ev.some((e) => e.type === "respawn" && e.after === "fall") && s.actor.pratfall > 0 && !s.actor.locked);
-  const h = sim(L, [1, 1]);
-  h.press("n"); h.actor.held = "n"; h.tick(40);
-  record("holding past the teeter limit commits to the fall", h.life.busy === "fall" && h.ev.some((e) => e.type === "fall" && !e.forced && e.cause === "hold"));
-  const c = sim(L, [1, 1]);
-  c.press("n"); c.tick(2); c.press("s"); c.tick(30);
-  record("moving away cancels the teeter", !c.actor.teeter && !c.life.busy && c.actor.cell.join() === "1,2");
-  c.press("w"); c.tick(2);
-  record("after a cancel the next edge press teeters again", !c.life.busy && !!c.actor.teeter);
-  const e = sim(L, [1, 1]);
-  e.press("n"); e.tick(100); e.press("n"); e.tick(2);
-  record("a teeter that runs out needs a fresh pair of presses", !e.life.busy && !!e.actor.teeter);
+  const h = sim(L, [2, 2]);
+  h.press("e"); h.actor.held = "e"; h.tick(60);
+  record("holding a key along a run carries you off its end", h.life.busy === "fall" && h.ev.some((e) => e.type === "fall" && !e.forced && e.cause === "hold"));
+  const t = sim(L, [2, 1]);
+  t.actor.held = "n"; t.actor.turnedPress = t.actor.presses; t.tick(30);
+  record("a key held through a camera turn never walks you off an edge", !t.life.busy && t.actor.cell.join() === "2,1");
+  t.press("n"); t.tick(2);
+  record("a fresh press after the turn falls as usual", t.life.busy === "fall");
   const seen = new Set();
   for (let i = 0; i < 40; i++) { const r = sim(L, [1, 1], { variant: null }); r.press("w"); r.tick(1); r.press("w"); r.tick(1); seen.add(r.life.busy && r.ev.find((x) => x.type === "fall")?.variant); }
   record("falls pick from the funny variants at random", FALL_VARIANTS.every((v) => seen.has(v)), [...seen].join(","));
@@ -94,15 +87,13 @@ const sim = (L, cell, o = {}) => {
   const P = mini([".......", ".gg##..", "......."], { traps: [{ id: "spring", kind: "t18", cells: [[3, 1]] }] });
   const s = sim(P, [4, 1]);
   s.actor.setPath([[3, 1]]);
-  let teetered = false;
-  for (let i = 0; i < 90 && !s.life.busy; i++) { s.tick(); teetered ||= !!s.actor.teeter; }
-  record("a spring fling that lands over the void falls with no teeter", s.life.busy === "fall" && !teetered && s.ev.some((e) => e.type === "fall" && e.forced && e.cause === "t18"), JSON.stringify(s.ev.map((e) => e.type)));
+  for (let i = 0; i < 90 && !s.life.busy; i++) s.tick();
+  record("a spring fling that lands over the void falls", s.life.busy === "fall" && s.ev.some((e) => e.type === "fall" && e.forced && e.cause === "t18"), JSON.stringify(s.ev.map((e) => e.type)));
   const I = mini(["........", ".gggg...", "........"], { traps: [{ id: "ice", kind: "t52", cells: [[2, 1], [3, 1], [4, 1]] }] });
   const k = sim(I, [1, 1]);
-  teetered = false;
   k.press("e");
-  for (let i = 0; i < 120 && !k.life.busy; i++) { k.tick(); teetered ||= !!k.actor.teeter; }
-  record("ice carries a single press off the edge with no teeter", k.life.busy === "fall" && !teetered && k.ev.some((e) => e.type === "fall" && e.forced && e.cause === "slide"));
+  for (let i = 0; i < 120 && !k.life.busy; i++) k.tick();
+  record("ice carries a single press off the edge", k.life.busy === "fall" && k.ev.some((e) => e.type === "fall" && e.forced && e.cause === "slide"));
   const R = mini(["........", ".ggggg..", "........"], { decor: [{ t: "rock", x: 5, z: 1 }], traps: [{ id: "ice", kind: "t52", cells: [[2, 1], [3, 1], [4, 1]] }] });
   const r = sim(R, [1, 1]);
   r.press("e"); r.tick(120);
@@ -172,12 +163,12 @@ async function open(query, { width = 1000, height = 800 } = {}) {
       S,
       place(c) {
         const a = S().actor;
-        a.path = []; a.held = null; a.tapDir = null; a.moving = false; a.locked = false; a.fx = null; a.teeter = null; a.slide = null;
+        a.path = []; a.held = null; a.tapDir = null; a.moving = false; a.locked = false; a.fx = null; a.slide = null;
         a.cell = [c[0], c[1]]; a.pos.x = c[0] + 0.5; a.pos.z = c[1] + 0.5;
         tick(2);
       },
       keyFor(dir) { for (const [k, s] of [["ArrowUp", "up"], ["ArrowDown", "down"], ["ArrowLeft", "left"], ["ArrowRight", "right"]]) if (screenToWorldDir(S().proj, s) === dir) return k; return null; },
-      state: () => { const a = S().actor; return { cell: a.cell.slice(), teeter: a.teeter && { ...a.teeter }, busy: S().life.busy, hearts: S().health.hearts, fx: a.fx && { kind: a.fx.kind, variant: a.fx.variant }, pratfall: a.pratfall, slide: a.slide }; },
+      state: () => { const a = S().actor; return { cell: a.cell.slice(), busy: S().life.busy, hearts: S().health.hearts, fx: a.fx && { kind: a.fx.kind, variant: a.fx.variant }, pratfall: a.pratfall, slide: a.slide }; },
       events: () => ev.slice(),
       clear: () => { ev.length = 0; },
     };
@@ -203,22 +194,24 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
   await page.keyboard.press(k);
   await q(page, () => __qf.tick(3));
   let s = await q(page, () => __qf.state());
-  record("a real key press toward the edge teeters", !!s.teeter && !s.busy && s.cell.join() === edge.cell.join(), JSON.stringify(s));
-  await q(page, () => __qf.tick(8, true));
-  await page.keyboard.press(k);
-  await q(page, () => __qf.tick(3));
-  s = await q(page, () => __qf.state());
-  record("a second real key press commits to the fall", s.busy === "fall" && s.fx?.kind === "fall", JSON.stringify(s));
+  record("one real key press toward the edge falls at once", s.busy === "fall" && s.fx?.kind === "fall" && s.cell.join() === edge.cell.join(), JSON.stringify(s));
   await q(page, () => __qf.tick(150, false));
   const r = await q(page, () => ({ st: __qf.state(), rest: __qf.S().life.respawnCell(), ev: __qf.events() }));
   record("the fall respawns at the bonfire rest cell", r.ev.some((e) => e.type === "respawn") && r.st.cell.join() === r.rest.join(), JSON.stringify(r.st.cell) + " vs " + JSON.stringify(r.rest));
   record("respawn after a fall keeps 3 hearts", r.st.hearts === 3);
 
+  await q(page, () => { __qf.place([16, 13]); __qf.clear(); });
+  const uk = await q(page, () => __qf.keyFor("n"));
+  await page.keyboard.down(uk);
+  const turned = await q(page, () => { const g = window.__game, a = g.state.actor, before = a.presses; g.rotate(1); __qf.tick(40); return { marked: a.turnedPress === a.presses, before, after: a.presses, held: typeof a.held }; });
+  await page.keyboard.up(uk);
+  await q(page, () => { window.__game.rotate(-1); __qf.tick(40); });
+  record("a camera turn marks the held key so it cannot walk you off an edge", turned.marked, JSON.stringify(turned));
   await q(page, () => { __qf.place([15, 17]); __qf.clear(); });
   const sk = await q(page, () => __qf.keyFor("s"));
   await page.keyboard.press(sk);
-  const slide = await q(page, () => { let teeter = false; for (let i = 0; i < 120 && !__qf.S().life.busy; i++) { __qf.tick(1); teeter ||= !!__qf.S().actor.teeter; } return { teeter, st: __qf.state(), ev: __qf.events() }; });
-  record("showcase ice slides the hero off the edge with no teeter", slide.st.busy === "fall" && !slide.teeter && slide.ev.some((e) => e.type === "fall" && e.forced && e.cause === "slide"), JSON.stringify(slide.st));
+  const slide = await q(page, () => { for (let i = 0; i < 120 && !__qf.S().life.busy; i++) __qf.tick(1); return { st: __qf.state(), ev: __qf.events() }; });
+  record("showcase ice slides the hero off the edge", slide.st.busy === "fall" && slide.ev.some((e) => e.type === "fall" && e.forced && e.cause === "slide"), JSON.stringify(slide.st));
   await q(page, () => __qf.tick(150));
   await q(page, () => { __qf.place([16, 18]); __qf.clear(); });
   await page.keyboard.press(sk);
@@ -253,7 +246,7 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
     await page.keyboard.press(fk); await q(page, () => __qf.tick(20));
     await page.keyboard.press(fk); await q(page, () => __qf.tick(20));
     s = await q(page, () => __qf.state());
-    record("a fence blocks movement and never teeters", s.cell.join() === fence.from.join() && !s.busy && !s.teeter, JSON.stringify(s));
+    record("a fence blocks movement and never drops you", s.cell.join() === fence.from.join() && !s.busy, JSON.stringify(s));
   }
 
   const tap = await q(page, async () => {

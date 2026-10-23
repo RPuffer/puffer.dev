@@ -24,7 +24,6 @@ export function createLife({ level, actor, things = null, health, onRespawn = nu
   const pickVariant = () => (FALLS[variant] ? variant : FALL_VARIANTS[Math.floor(random() * FALL_VARIANTS.length) % FALL_VARIANTS.length]);
   const begin = (kind, dir, cause, extra = {}) => {
     busy = { kind, t: 0, dur: kind === "knock" ? KNOCK_S : kind === "fall" ? FALLS[extra.variant] : FLOP_S, dir: dir ? dir.slice() : [0, 0], cause, from: [actor.pos.x, actor.pos.z], y: actor.y, ...extra };
-    actor.teeter = null;
     actor.slide = null;
     actor.path = [];
     actor.tapDir = null;
@@ -48,7 +47,6 @@ export function createLife({ level, actor, things = null, health, onRespawn = nu
     actor.tapDir = null;
     actor.moving = false;
     actor.locked = false;
-    actor.teeter = null;
     actor.slide = null;
     actor.pratfall = was === "fall" || was === "knock" ? PRAT_S : 0;
     invuln = INVULN_S;

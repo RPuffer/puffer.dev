@@ -13,7 +13,6 @@ fs.mkdirSync(OUT, { recursive: true });
 
 const EDGE = [[6, { press: "s" }], [22, { press: "s" }], [44, { press: "s" }]];
 const SCENES = {
-  teeter: { secs: 5, start: [16, 13], steps: [[6, { press: "s" }], [22, { press: "s" }], [62, { press: "n" }], [80, { press: "s" }], [96, { press: "s" }]] },
   pause: { secs: 5, start: [16, 13], fall: "pause", steps: EDGE },
   spin: { secs: 5, start: [16, 13], fall: "spin", steps: EDGE },
   shrink: { secs: 5, start: [16, 13], fall: "shrink", steps: EDGE },

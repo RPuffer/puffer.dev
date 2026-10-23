@@ -112,7 +112,10 @@ export function createGame(renderer, params = readParams()) {
   const tickers = new Set();
   const orient = () => {
     state.proj = makeProjection(state.view);
-    if (screenHeld && state.actor?.held) state.actor.held = screenToWorldDir(state.proj, screenHeld);
+    const a = state.actor;
+    if (!a) return;
+    if (screenHeld && a.held) { const was = a.held; a.held = screenToWorldDir(state.proj, screenHeld); if (a.held !== was) a.turnedPress = a.presses; }
+    else if (a.held === stickDirs) a.turnedPress = a.presses;
   };
   const stepTurn = (dt) => {
     const T = state.turn;
