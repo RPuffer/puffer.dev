@@ -9,6 +9,7 @@ import { loadPieces, loadGlbs, BUILDERS } from "./hooks.js";
 import { makeStyle } from "./style.js";
 import { mountUI } from "../core/ui.js";
 import { mountHearts } from "../core/hearts.js";
+import { mountStatus } from "../core/status.js";
 import { loadClouds } from "./clouds/index.js";
 import { createSequence } from "../core/sequence.js";
 import { CLIP_DATA, DANCES } from "./clips.js";
@@ -101,7 +102,23 @@ try {
   game.canZoom = () => !sequence.active;
   renderer.onOrient((state) => clouds?.orient(state));
   run.boot(first);
+  const q = new URLSearchParams(location.search);
+  const status = q.get("ui") === "0" || q.get("hero") === "0" ? null : mountStatus({ busy: () => sequence.active || !!game.state.actor?.locked });
+  window.__status = status;
   run.onLoad((state) => {
+    status?.clear();
+    const things = state.things, toast = things?.say?.bind(things);
+    let said = null;
+    if (status && things && toast) {
+      // Debuffs say their rule and then emit "banner" in the same tick; holding the toast for a microtask lets the banner claim the text for the status card instead of a duplicate toast.
+      things.say = (text) => { said = text; queueMicrotask(() => { if (said === text) toast(text); said = null; }); };
+    }
+    state.traps?.on((e) => {
+      if (e.type !== "banner" || !status) return;
+      const text = said;
+      said = null;
+      status.announce(e.trap.id, { title: e.trap.meta?.name || "Island debuff", text: text || "" });
+    });
     state.things?.on((e) => { if (e.type === "stub" && e.thing.role === "exit") window.__ui?.finale(); });
     if (params.nav === "0") return;
     const exit = state.things?.things.find((t) => t.kind === "elevator" && t.role === "exit");

@@ -47,6 +47,12 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 
 W/A/S/D or the arrow keys walk one cell per step: W up-right, D down-right, S down-left, A up-left. Click or tap a cell to path there. Touch devices get a compass rose: four petals fixed on the screen diagonals, one per grid direction, with sun, moon, star and eye glyphs on the rim that spring round with each camera turn. A tap on a petal takes one step; holding past the 0.42 s gold charge rim walks on. Q and E turn the island 90 degrees left and right (3d only); F (or Enter) interacts. The overlay's two arrow buttons turn it on touch.
 
+The round button in the bottom-left of the touch band swaps the compass rose for the joystick and back, and the choice is saved under `isoworld:controls`.
+
+## Status bubble
+
+`core/status.js` (`mountStatus`, exposed as `window.__status`) holds continuous information: anything true for as long as you stay somewhere. An island debuff announces itself once the elevator sequence has finished and the hero has been free to move for 0.6 s. Its card (pink frame, "Island debuff", name, rule) stays up for 3.2 s, then shrinks into a pill under the hearts: on the right on touch, on the left on desktop, matching the hearts. The pill shows the first item's name and `+N` for the rest. Tapping it opens the list with every item's name and rule; tapping anywhere else closes it. Each island load clears the bubble. The debuff's rule text goes to the card instead of the scroll toast. Other systems can call `announce(id, { title, text, kind })` for the card-then-dock flow, `set(id, { title, text })` to dock without a card, and `remove(id)` or `clear()`. `?ui=0` and `?hero=0` skip it.
+
 ## Render and compare
 
 ```sh
