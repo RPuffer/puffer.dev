@@ -9,6 +9,7 @@ import { loadPieces, loadGlbs, BUILDERS } from "./hooks.js";
 import { makeStyle } from "./style.js";
 import { mountUI } from "../core/ui.js";
 import { mountHearts } from "../core/hearts.js";
+import { mountQuips } from "../core/quips.js";
 import { mountStatus } from "../core/status.js";
 import { loadClouds } from "./clouds/index.js";
 import { createSequence } from "../core/sequence.js";
@@ -152,6 +153,7 @@ try {
     },
   });
   if (window.__ui) window.__hearts = mountHearts(game.state.health);
+  if (window.__ui) window.__quips = mountQuips(run);
   window.__powerHud = mountPowerHud(game);
   if (params.seq === "hold") holdAtExit(game, sequence);
   if (params.debug) msg.textContent = `${game.state.level.name} ${game.state.level.size.join("x")} pitch ${params.pitch || "default"}`;
