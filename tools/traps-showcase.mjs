@@ -381,8 +381,23 @@ plot("gnasher", (P) => {
 });
 plot("plank", (P) => {
   P.road([3, 0], [3, 6]);
-  P.chest("plank-chest", [3, 7], 0, "The plank held in the light.");
+  P.chest("plank-chest", [3, 7], 0, "The block held in the light.");
   P.trap({ id: "plank", kind: "t59", cells: P.at([[3, 3]]) });
+});
+plot("springedge", (P) => {
+  P.road([3, 0], [3, 2]);
+  P.road([4, 2], [4, 6]);
+  P.rect([5, 2], [5, 6]);
+  P.chest("edge-chest", [4, 7], 0, "You went round the spring.");
+  P.trap({ id: "springedge", kind: "t18", cells: P.at([[4, 3]]) });
+});
+plot("rise", (P) => {
+  P.road([3, 0], [3, 6]);
+  P.rect([4, 1], [4, 5]);
+  P.decor("rock", [5, 3]);
+  P.chest("rise-chest", [3, 7], 0, "Round the pillar.");
+  P.trap({ id: "rise", kind: "t61", cells: P.at([[3, 4]]), trigger: P.A([3, 3]), mode: "ahead" });
+  P.trap({ id: "riseback", kind: "t61", cells: P.at([[3, 1]]), trigger: P.A([3, 2]), mode: "behind" });
 });
 plot("seal", (P) => {
   P.road([3, 0], [3, 5]);
