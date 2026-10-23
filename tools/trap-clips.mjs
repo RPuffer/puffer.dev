@@ -44,6 +44,7 @@ try {
     await page.setViewport({ width: VW, height: VH, deviceScaleFactor: 1 });
     await page.goto(`${BASE}/3d/index.html?level=traps-showcase&reset=1&cam=${CAM}${sc.cls ? "&class=" + sc.cls : ""}`, { waitUntil: "load" });
     await page.waitForFunction(() => window.__done === true || !!window.__error, { timeout: 60000, polling: 100 });
+    if (args.includes("--clean")) await page.addStyleTag({ content: ".iw-toast{display:none!important}" });
     await page.evaluate((start, plot) => {
       try { localStorage.removeItem("isoworld:hearts"); } catch {}
       const g = window.__game, a = g.state.actor;
