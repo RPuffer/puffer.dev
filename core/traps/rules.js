@@ -295,7 +295,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [], p
   const lifts = liftToLift(raw, worst.blocked);
   if (lifts === false) problems.push("worst state cuts the walk from lift to lift");
   for (const t of traps) for (const alt of KINDS[t.kind]?.worstAlts?.(t) || []) if (lifts !== false && liftToLift(raw, [...worst.blocked, ...alt]) === false) problems.push(`${t.id || t.kind}: worst state with ${alt.join(" ")} gone cuts the walk from lift to lift`);
-  for (const t of traps) if (t.kind === "t61" && t.trigger) for (const p of sealProblems(raw, t, worst.blocked, P)) problems.push(`${t.id || t.kind}: ${p}`);
+  if (!showcase) for (const t of traps) if (t.kind === "t61" && t.trigger) for (const p of sealProblems(raw, t, worst.blocked, P)) problems.push(`${t.id || t.kind}: ${p}`);
   const remembered = traps.filter((t) => isHidden(t.kind) && !harmless(t.kind) && TRAP_BY_ID[t.kind].tier === "local").flatMap(dangerCells);
   if (remembered.length && liftToLift(raw, [...worst.blocked, ...remembered]) === false) problems.push("no clean walk: a player who remembers every hidden trap still has to step on one between the lifts");
   const guarded = traps.filter(needsGuard).flatMap(dangerCells);
