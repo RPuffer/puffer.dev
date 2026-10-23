@@ -155,6 +155,17 @@ export function liftToLift(raw, extraBlocked = []) {
   return distances(L, [entry.x, entry.z]).has(key(exit.x, exit.z));
 }
 
+export function coreReach(raw, extraBlocked = []) {
+  const P = quiet(raw);
+  const gate = P.things.find((t) => t.kind === "gate" && /^watcher:/.test(String(t.open || "")));
+  const fire = bonfireRestCell(P, null) || raw.spawn;
+  if (!gate?.threshold?.length || !fire) return null;
+  const L = world(P, new Set());
+  for (const [x, z] of extraBlocked) L.blocked.add(key(x, z));
+  const d = distances(L, fire);
+  return gate.threshold.some((c) => d.has(key(c[0], c[1])));
+}
+
 const DODGES = {
   t19: (t) => (t.dodge ? [t.dodge] : []),
   t25: (t) => (t.cover ? [t.cover] : []),
@@ -294,6 +305,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [], p
   const worst = worstState(raw, traps);
   const lifts = liftToLift(raw, worst.blocked);
   if (lifts === false) problems.push("worst state cuts the walk from lift to lift");
+  if (coreReach(raw, worst.blocked) === false) problems.push("worst state cuts the walk from the bonfire to the core gate threshold");
   for (const t of traps) for (const alt of KINDS[t.kind]?.worstAlts?.(t) || []) if (lifts !== false && liftToLift(raw, [...worst.blocked, ...alt]) === false) problems.push(`${t.id || t.kind}: worst state with ${alt.join(" ")} gone cuts the walk from lift to lift`);
   if (!showcase) for (const t of traps) if (t.kind === "t61" && t.trigger) for (const p of sealProblems(raw, t, worst.blocked, P)) problems.push(`${t.id || t.kind}: ${p}`);
   const remembered = traps.filter((t) => isHidden(t.kind) && !harmless(t.kind) && TRAP_BY_ID[t.kind].tier === "local").flatMap(dangerCells);

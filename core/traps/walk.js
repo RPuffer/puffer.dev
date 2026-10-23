@@ -73,8 +73,9 @@ function openCore(L) {
 
 export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, jitter = 0, trace = false, charges = null } = {}) {
   const L = quiet(raw);
-  openCore(L);
   const goals = walkGoals(L);
+  let coreShut = !!(L.things || []).find((t) => t.kind === "gate" && /^watcher:/.test(String(t.open || "")))?.threshold?.length;
+  if (!coreShut) openCore(L);
   const start = raw.spawn.slice();
   const actor = createActor(L, start);
   const health = createHealth({ storage: mem() });
@@ -156,6 +157,7 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
     const idleNow = free && !actor.path.length && !actor.moving;
     if (idleNow && same(actor.cell, goal) && !queue.length) {
       if (gi === restAt) { goals.splice(gi, 1); restAt = -1; Object.assign(pool, fullCharges()); out.rests++; continue; }
+      if (coreShut) { openCore(L); coreShut = false; }
       gi++;
       continue;
     }
@@ -263,7 +265,6 @@ export function walkReport(raw, { position = null } = {}) {
 
 export function walkPath(raw, { blocked = [] } = {}) {
   const L = quiet(raw);
-  openCore(L);
   for (const [x, z] of blocked) L.blocked.add(key(x, z));
   const pads = padLinks(L.things, new Set());
   const slip = slipOf(L);
@@ -276,6 +277,7 @@ export function walkPath(raw, { blocked = [] } = {}) {
     if (!best) return null;
     for (const seg of best.s) for (const c of seg) if (!same(c, out[out.length - 1])) out.push(c.slice());
     at = best.c;
+    openCore(L);
   }
   return out;
 }
