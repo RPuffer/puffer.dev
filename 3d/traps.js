@@ -6,6 +6,7 @@ import { ramp } from "./prims.js";
 import { surfaceY, liftLevel } from "./terrain.js";
 import { DIRS } from "../core/level.js";
 import { BEAT, KINDS } from "../core/traps/kinds.js";
+import { dropDepth, TILE } from "../core/tiles.js";
 import { lookOf, chestBase, chestLid, leverBase, leverArm } from "./things.js";
 
 const pal = (hex) => { const r = ramp(hex); return tone(r[2], r[1], r[0]); };
@@ -238,19 +239,19 @@ function hourglass(B) {
   B.cone(0.01, 0.1, 0.12, pal("#7fd6ff"), 0, 0.74, 0, 8);
   B.box(0.22, 0.03, 0.22, pal(C.wood), 0, 0.86, 0);
 }
-function rottenPlank(B) {
-  B.rbox(0.9, 0.05, 0.28, 0.02, pal("#5b4a3a"), 0, 0, -0.3);
-  B.rbox(0.9, 0.05, 0.26, 0.02, pal("#4a3b2e"), 0.03, 0, 0);
-  B.rbox(0.8, 0.05, 0.26, 0.02, pal("#5b4a3a"), -0.04, 0, 0.3);
-  B.box(0.04, 0.012, 0.5, pal(C.ink), 0.18, 0.05, 0.05);
-}
 function lanternHook(B) {
   B.box(0.06, 0.8, 0.06, pal(C.iron), 0, 0, 0);
   B.box(0.24, 0.04, 0.04, pal(C.iron), 0.1, 0.8, 0);
   B.rbox(0.12, 0.16, 0.12, 0.03, pal(C.gold), 0.2, 0.6, 0);
 }
 
-export function buildTraps(state, style) {
+export function tileKeys(T) {
+  const out = new Set();
+  for (const t of T?.list || []) for (const c of KINDS[t.kind]?.tiles?.(t) || []) out.add(c[0] + "," + c[1]);
+  return out;
+}
+
+export function buildTraps(state, style, tileMeshes = new Map()) {
   const L = state.level, view = state.view, light = style.light;
   const LL = liftLevel(L);
   const T = state.traps;
@@ -258,7 +259,21 @@ export function buildTraps(state, style) {
   group.name = "traps";
   const items = [];
   const Y = (c) => surfaceY(LL, view, c[0], c[1]);
-  const place = (m, c, dy = 0, rot = 0) => { m.position.set(c[0] + 0.5, Y(c) + dy, c[1] + 0.5); m.rotation.y = rot; group.add(m); return m; };
+  const riders = [];
+  const tileSet = tileKeys(T);
+  const place = (m, c, dy = 0, rot = 0) => { m.position.set(c[0] + 0.5, Y(c) + dy, c[1] + 0.5); m.rotation.y = rot; group.add(m); if (tileSet.has(c[0] + "," + c[1])) riders.push({ m, k: c[0] + "," + c[1], dy: 0 }); return m; };
+  const hiddenTiles = new Set();
+  const tileShift = (k) => {
+    const g = T.tiles.gone.get(k);
+    if (g) {
+      const a = state.actor, rideK = a.fx?.ride ? a.fx.ride[0] + "," + a.fx.ride[1] : null;
+      const t = rideK === k && a.fx ? a.fx.t : g.t;
+      return { dy: -dropDepth(t), shown: t < TILE.drop - 1e-6 };
+    }
+    const r = T.tiles.risen.get(k);
+    if (r) return { dy: T.tiles.height(r.cell) * view.tileH, shown: true };
+    return { dy: 0, shown: true };
+  };
   const yawOf = (d) => Math.atan2(d[0], d[1]);
   const dirOf = (a, b) => [Math.sign(b[0] - a[0]), Math.sign(b[1] - a[1])];
   let fog = null, puff = null;
@@ -347,21 +362,9 @@ export function buildTraps(state, style) {
       };
     } else if (t.kind === "t02") {
       const stages = t.cells.map((c, i) => [1, 2, 3].map((s) => { const m = place(bake((B) => cracks(B, s, i + c[0] * 7 + c[1] * 3), light), c, 0.006); m.visible = false; return m; }));
-      const holes = t.cells.map((c) => { const m = place(bake((B) => { B.box(0.94, 0.02, 0.94, pal(C.void), 0, 0, 0); }, light), c, 0.008); m.visible = false; return m; });
-      const debris = t.cells.flatMap((c, i) => [0, 1, 2].map((j) => { const m = place(bake((B) => B.rbox(0.28, 0.12, 0.24, 0.03, pal(C.stone), 0, 0, 0), light), c, 0); m.userData.c = c; m.userData.o = [(j - 1) * 0.25, ((i + j) % 3 - 1) * 0.2]; m.visible = false; return m; }));
-      let fall = -1;
-      T.on((e) => { if (e.trap === t && e.type === "collapse") fall = 0; if (e.type === "reset") fall = -1; });
-      it.update = (dt) => {
+      it.update = () => {
         const k = t.broken ? 3 : Math.min(3, t.crossings || 0);
-        stages.forEach((s) => s.forEach((m, i) => { m.visible = !t.broken && k >= i + 1; }));
-        for (const h of holes) h.visible = !!t.broken;
-        if (fall >= 0) fall += dt;
-        for (const m of debris) {
-          m.visible = fall >= 0 && fall < 1.6;
-          const c = m.userData.c, o = m.userData.o;
-          m.position.set(c[0] + 0.5 + o[0], Y(c) - 4 * fall * fall, c[1] + 0.5 + o[1]);
-          m.rotation.x = fall * 4;
-        }
+        stages.forEach((s) => s.forEach((m, i) => { m.visible = k >= i + 1; }));
       };
     } else if (t.kind === "t24") {
       const face = dirOf(t.boss, t.kick);
@@ -578,16 +581,9 @@ export function buildTraps(state, style) {
         smoke.show(t.fx >= 0 && t.prop !== "lever" ? c : null, t.fx / 1.6, 0.4 + t.fx * 0.5);
       };
     } else if (t.kind === "t10") {
-      const pits = t.cells.map((c) => place(bake((B) => holeTile(B), light), c, 0.006));
-      const chalk = outline("#f4efe4");
-      it.update = () => {
-        pits.forEach((m, i) => { m.visible = !!t.open && i === t.at; });
-        chalk.visible = !!t.chalk && !!t.chalkAt;
-        if (chalk.visible) chalk.position.set(t.chalkAt[0] + 0.5, Y(t.chalkAt) + 0.02, t.chalkAt[1] + 0.5);
-      };
+      it.update = null;
     } else if (t.kind === "t54" || t.kind === "t55") {
-      const pits = t.cells.map((c) => place(bake((B) => holeTile(B), light), c, 0.006));
-      it.update = () => { t.cells.forEach((c, i) => { pits[i].visible = !!t.open && same(t.open, c); }); };
+      it.update = null;
     } else if (t.kind === "t56") {
       const c = t.cells[0];
       place(bake((B) => inkPit(B, c[0] * 3 + c[1]), light), c, 0.004);
@@ -622,16 +618,37 @@ export function buildTraps(state, style) {
         post.rotation.y = T.time * 2;
       };
     } else if (t.kind === "t59") {
-      const c = t.cells[0];
+      const c = t.cells[0], k = c[0] + "," + c[1];
+      hiddenTiles.add(k);
       const P = state.level, lane = (P.cells[c[1]]?.[c[0] + 1]?.p || P.cells[c[1]]?.[c[0] - 1]?.p) ? [1, 0] : [0, 1];
-      const plankM = place(bake((B) => rottenPlank(B), light), c, 0.012, lane[0] ? Math.PI / 2 : 0);
-      const pit = place(bake((B) => holeTile(B), light), c, 0.007);
+      const block = tileMeshes.get(k)?.clone() || null;
+      if (block) {
+        block.material = new THREE.MeshBasicMaterial({ color: "#f0c438", transparent: true, opacity: 0, depthWrite: false });
+        block.renderOrder = 3;
+        group.add(block);
+      }
+      const edges = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(0.94, 0.3, 0.94)), new THREE.LineBasicMaterial({ color: "#f0c438", transparent: true, opacity: 0 }));
+      edges.position.set(c[0] + 0.5, Y(c) - 0.15, c[1] + 0.5);
+      group.add(edges);
       for (const s of [1, -1]) {
         const h = bake((B) => lanternHook(B), light);
         h.position.set(c[0] + 0.5 + lane[0] * s * 0.5 + lane[1] * 0.45, Y(c), c[1] + 0.5 + lane[1] * s * 0.5 + lane[0] * 0.45);
         group.add(h);
       }
-      it.update = () => { plankM.visible = !t.open; pit.visible = !!t.open; plankM.position.y = Y(c) + 0.012 - (t.held >= 0 ? 0.03 : 0); };
+      const side = [lane[1], lane[0]];
+      place(bake((B) => sigilPost(B, SIGIL.nm), light), c).position.set(c[0] + 0.5 + side[0] * 0.62, Y(c), c[1] + 0.5 + side[1] * 0.62);
+      let glow = 0;
+      it.update = (dt) => {
+        const lit = !!state.powers?.lit || !!T.ctx.power().lit;
+        const want = t.solid ? 1 : lit ? 0.25 : 0;
+        glow += (want - glow) * Math.min(1, (dt || 0) * 10);
+        if (block) { block.material.opacity = glow * 0.75; block.visible = glow > 0.01; }
+        edges.material.opacity = glow;
+        edges.visible = glow > 0.01;
+      };
+    } else if (t.kind === "t61") {
+      const dust = puffs("#cdbfa3");
+      it.update = () => dust.show(t.grind >= 0 ? t.cells[0] : null, t.grind / 0.6, 0.1);
     } else if (t.kind === "t60") {
       const c = t.cells[0];
       place(bake((B) => tileSlab(B, SIGIL[t.cls] || C.slab), light), c, 0.004);
@@ -647,11 +664,9 @@ export function buildTraps(state, style) {
     } else if (t.kind === "t11") {
       const c = t.cells[0];
       const lines = place(bake((B) => seam(B), light), c, 0.006);
-      const pit = place(bake((B) => holeTile(B), light), c, 0.007);
       const shreds = puffs("#e8dcc4");
       it.update = () => {
         lines.visible = !!t.seam && !t.torn && !t.disarmed;
-        pit.visible = !!t.torn;
         shreds.show(t.rip >= 0 && t.rip < 1 ? c : null, t.rip, 0.1 - t.rip * 0.8);
       };
     } else if (t.kind === "t12") {
@@ -725,10 +740,7 @@ export function buildTraps(state, style) {
       const di = t.drop ?? 2;
       it.update = () => {
         wob.forEach((m, i) => { m.rotation.z = Math.sin(T.time * 26 + i) * 0.09 * (t.wob?.[i] || 0); });
-        const u = t.fall >= 0 ? t.fall : -1, m = still[di], c = t.cells[di];
-        m.visible = !t.gone || (u >= 0 && u < 1.5);
-        m.position.y = Y(c) + 0.01 - (t.gone && u >= 0 ? 4 * u * u : 0);
-        m.rotation.x = t.gone && u >= 0 ? u * 3 : 0;
+        still[di].rotation.x = 0;
       };
     } else if (t.kind === "t28") {
       for (const run of [t.cells, t.second]) {
@@ -747,23 +759,19 @@ export function buildTraps(state, style) {
       group.add(coin);
       const c = t.coins[last];
       const lines = place(bake((B) => seam(B), light), c, 0.006);
-      const pit = place(bake((B) => holeTile(B), light), c, 0.007);
       it.update = () => {
         const q = t.coins[Math.min(t.got || 0, last)];
         coin.visible = !t.torn && !t.disarmed;
         coin.position.set(q[0] + 0.5, Y(q) + 0.45 + Math.sin(T.time * 3) * 0.05, q[1] + 0.5);
         coin.rotation.y = T.time * 3;
         lines.visible = !!t.seam && !t.torn;
-        pit.visible = !!t.torn;
       };
     } else if (t.kind === "t01") {
-      const pits = t.cells.map((c) => place(bake((B) => holeTile(B), light), c, 0.006));
       const bars = bake((B) => gateBarsTrap(B, C.iron), light);
       const gd = dirOf(t.spring, t.gate);
       bars.rotation.y = yawOf([gd[1], -gd[0]]) + Math.PI / 2;
       group.add(bars);
       it.update = () => {
-        pits.forEach((m) => { m.visible = !!t.gone; });
         const u = t.up ? (t.pop >= 0 ? Math.min(1, t.pop / 0.2) : 1) : 0;
         bars.visible = u > 0;
         bars.position.set(t.gate[0] + 0.5, Y(t.gate) - 1.1 * (1 - u), t.gate[1] + 0.5);
@@ -1024,7 +1032,10 @@ export function buildTraps(state, style) {
   return {
     group,
     update(S, dt) {
+      for (const r of riders) r.m.position.y -= r.dy;
       for (const it of items) if (it.update) it.update(dt);
+      for (const [k, m] of tileMeshes) { const f = tileShift(k); m.position.y = f.dy; m.visible = f.shown && !hiddenTiles.has(k); }
+      for (const r of riders) { const f = tileShift(r.k); r.dy = f.dy; r.m.position.y += f.dy; if (!f.shown) r.m.visible = false; }
       if (puff) {
         puff.t += dt;
         const u = (puff.t - 0.7) / 0.6;
@@ -1087,6 +1098,15 @@ export function heroFx(hero, a, view, base) {
   if (!fx) return;
   const u = Math.min(1, fx.t / fx.dur);
   if (fx.kind === "hop") { hero.position.y += (fx.lift || 0) * view.tileH; return; }
+  if (fx.kind === "knock" && fx.ride) {
+    hero.position.x = fx.ride[0] + 0.5;
+    hero.position.z = fx.ride[1] + 0.5;
+    hero.position.y -= dropDepth(fx.t);
+    const w = Math.max(0, 1 - fx.t / TILE.wobble);
+    hero.rotation.z = Math.sin(fx.t * 60) * 0.12 * w;
+    hero.rotation.x = Math.min(1, Math.max(0, fx.t - TILE.wobble) * 2) * 0.35;
+    return;
+  }
   if (fx.kind === "knock") {
     const [dx, dz] = fx.dir || [0, 0];
     const push = Math.min(u * 3, 1) * 1.6 + u * 1.2;

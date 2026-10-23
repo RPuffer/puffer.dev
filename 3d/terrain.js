@@ -361,11 +361,13 @@ function bridgeCell(B, L, x, z, c, T, rnd) {
   }
 }
 
-export function buildTerrain(L, view, seed, style = makeStyle(L)) {
+export function buildTerrain(L, view, seed, style = makeStyle(L), { loose = null } = {}) {
   L = liftLevel(L);
   const T = view.tileH, F = floorLevel(L);
-  const B = new Baker(style.light), Wb = new Baker(style.light);
-  B.pal = Wb.pal = style.palette;
+  const main = new Baker(style.light), Wb = new Baker(style.light);
+  main.pal = Wb.pal = style.palette;
+  const own = new Map();
+  let B = main;
   const [W, D] = L.size;
   const lowestWater = (x, z) => {
     let y = null;
@@ -381,6 +383,9 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
     const key = hashSeed(seed) ^ Math.imul(x + 1, 73856093) ^ Math.imul(z + 1, 19349663);
     const rnd = mulberry32(key);
     if (c.s === "none") continue;
+    const k = x + "," + z;
+    if (loose?.has(k) && c.s !== "water" && c.h > 0) { B = new Baker(style.light); B.pal = style.palette; own.set(k, B); }
+    else B = main;
     if (c.s === "water" || (c.h === 0 && c.s !== "bridge")) { waterCell(Wb, L, x, z, c.h, T, rnd, c.h > 0 ? (lowestWater(x, z) ?? (overVoid(x, z) ? c.h * T - WATER_DROP - DEPTH : c.h * T - 0.4)) : null); continue; }
     if (c.s === "bridge") {
       if (c.w != null) waterCell(Wb, L, x, z, c.w, T, rnd, c.w > 0 ? (lowestWater(x, z) ?? c.w * T - 0.4) : null);
@@ -392,9 +397,12 @@ export function buildTerrain(L, view, seed, style = makeStyle(L)) {
     landCell(B, L, x, z, c, T, F, rnd, mulberry32(key ^ 0x5bd1e995));
   }
   const group = new THREE.Group();
-  const landMesh = new THREE.Mesh(B.geometry(), applyXray(bakedMaterial()));
+  const landMat = applyXray(bakedMaterial());
+  const landMesh = new THREE.Mesh(main.geometry(), landMat);
   const waterMesh = new THREE.Mesh(Wb.geometry(), applyMotion(bakedMaterial()));
   landMesh.name = "land"; waterMesh.name = "water";
   group.add(landMesh, waterMesh);
-  return { group, pickables: [landMesh, waterMesh] };
+  const tiles = new Map();
+  for (const [k, b] of own) { const m = new THREE.Mesh(b.geometry(), landMat); m.name = "tile " + k; tiles.set(k, m); group.add(m); }
+  return { group, pickables: [landMesh, waterMesh, ...tiles.values()], tiles };
 }

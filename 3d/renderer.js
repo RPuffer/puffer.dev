@@ -15,7 +15,7 @@ import { beamClear } from "./lift.js";
 import { CLEAR } from "./speedlines.js";
 import { GLBS } from "./hooks.js";
 import { createPathLine } from "./pathline.js";
-import { buildTraps, heroFx } from "./traps.js";
+import { buildTraps, heroFx, tileKeys } from "./traps.js";
 import { buildFalls } from "./falls.js";
 
 const FRAME = [351, 390];
@@ -172,7 +172,7 @@ export function createRenderer(container = document.body) {
       initMotion(state.params);
       const L = state.level, seed = state.params.seed;
       scene.background = new THREE.Color(style.bg);
-      const terrain = buildTerrain(L, state.view, seed, style);
+      const terrain = buildTerrain(L, state.view, seed, style, { loose: state.traps ? tileKeys(state.traps) : null });
       scene.add(terrain.group);
       pickables = terrain.pickables;
       const hasThings = !!L.things?.length;
@@ -189,7 +189,7 @@ export function createRenderer(container = document.body) {
       }
       traps = null;
       if (state.traps) {
-        traps = buildTraps(state, style);
+        traps = buildTraps(state, style, terrain.tiles);
         scene.add(traps.group);
         mounted.push(traps.group);
       }
