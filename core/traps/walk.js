@@ -12,10 +12,10 @@ import { TRAP_BY_ID } from "./catalog.js";
 const MOVES = new Set(["rewind", "boing", "slip", "hic", "carry", "gust", "kick", "fling"]);
 export const WALK = { dt: 1 / 60, deaths: 14, life: 150, stuck: 6, avoid: 40, offPath: 0.5, loop: 12, moved: 2.5, jitter: 5 };
 export const DEATH_BAND = [
-  { upto: 2, deaths: [2, 3] },
-  { upto: 4, deaths: [3, 4] },
-  { upto: 8, deaths: [3, 5] },
-  { upto: 12, deaths: [4, 6] },
+  { upto: 2, deaths: [3, 4] },
+  { upto: 4, deaths: [4, 5] },
+  { upto: 8, deaths: [4, 6] },
+  { upto: 12, deaths: [5, 7] },
 ];
 export const deathBandFor = (position) => (position == null ? null : (DEATH_BAND.find((b) => position <= b.upto) || DEATH_BAND[DEATH_BAND.length - 1]).deaths);
 
@@ -35,9 +35,9 @@ function route(V, pads, from, to, cost, slip = null) {
     if (d > dist.get(k)) continue;
     if (k === goal) break;
     const next = neighbours(V, x, z).map(([nx, nz, dir]) => {
-      if (slip?.(nx, nz) && canStep(V, nx, nz, dir)) { const d = DIRS[dir]; return [nx + d[0], nz + d[1], 2 + cost(nx + d[0], nz + d[1]), false]; }
+      if (slip?.(nx, nz) && canStep(V, nx, nz, dir)) { const d = DIRS[dir]; return V.blocked.has(key(nx + d[0], nz + d[1])) ? null : [nx + d[0], nz + d[1], 2 + cost(nx + d[0], nz + d[1]), false]; }
       return [nx, nz, 1 + cost(nx, nz), false];
-    });
+    }).filter(Boolean);
     const j = pads.get(k);
     if (j && isWalkable(V, j[0], j[1])) next.push([j[0], j[1], PAD_COST, true]);
     for (const [nx, nz, c, hop] of next) {
@@ -123,8 +123,8 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
     return (t && (t.revealed || full) && !t.disarmed && !classOf(t.kind) ? WALK.avoid : 0) + (L.cells[z]?.[x]?.p ? 0 : WALK.offPath);
   };
   const pads = padLinks(L.things, new Set());
-  const plan = (to) => {
-    const V = { ...L, blocked: new Set([...L.blocked, ...[...learned].filter((k) => k !== key(to[0], to[1]) && k !== key(actor.cell[0], actor.cell[1]))]) };
+  const plan = (to, avoid = true) => {
+    const V = avoid ? { ...L, blocked: new Set([...L.blocked, ...[...learned].filter((k) => k !== key(to[0], to[1]) && k !== key(actor.cell[0], actor.cell[1]))]) } : L;
     return route(V, pads, actor.cell, to, avoidCost, slip);
   };
   const visits = new Map();
@@ -167,7 +167,7 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
         if (segs.length && !same(actor.cell, segEnd)) segs = [];
         if (segs.length) { const sg = segs.shift(); hop(sg[0]); queue = sg.slice(1); segEnd = sg[sg.length - 1]; }
         else {
-          const p = plan(goal);
+          const p = plan(goal) || plan(goal, false);
           if (!p) { out.stuck = `no way to ${goal} from ${actor.cell}`; break; }
           queue = p[0].slice(same(p[0][0], actor.cell) ? 1 : 0);
           segEnd = p[0].length ? p[0][p[0].length - 1] : actor.cell.slice();

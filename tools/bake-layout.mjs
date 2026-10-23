@@ -7,8 +7,9 @@ import { prepareLevel } from "../core/level.js";
 import { SHAPES, resolveTransforms } from "../core/layout/shapes/index.js";
 import { measure, checks } from "./variety-lib.mjs";
 import { placeTraps } from "../core/traps/place.js";
-import { applyGrip, guardProblems, mustGuard, validateTraps } from "../core/traps/rules.js";
+import { applyGrip, guardProblems, mustGuard, validateTraps, budgetFor, REPEAT } from "../core/traps/rules.js";
 import { walkReport } from "../core/traps/walk.js";
+import { TRAP_BY_ID } from "../core/traps/catalog.js";
 import { placeCharges, checkCharges } from "../core/layout/pickups.js";
 import { placeFences } from "../core/layout/fences.js";
 
@@ -24,6 +25,8 @@ if (ascii) fs.mkdirSync(path.join(root, flag("--ascii-dir", "out/layout")), { re
 
 const PHASE = { pads: true, deck: true, mask: true };
 const TUNE = 6;
+const TRIM = ["t54", "t10", "t11", "t55", "t18"];
+const FILL = ["t61", "t21", "t20", "t11", "t10"];
 
 export const BAKES = {
   "wizard-medium": [
@@ -56,18 +59,18 @@ export const RUN_PLAN = [
 ];
 const runOrder = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
 const TRAP_PLAN = [
-  ["t18", "t03", "t16", "t06", "t20", "t21", "t55"],
-  ["t05", "t25", "t04", "t22", "t10", "t21", "t56"],
-  ["t03", "t02", "t18", "t21", "t21", "t10", "t11", "t07", "t58", "t55"],
-  ["t37", "t17", "t48", "t04", "t20", "t20", "t21", "t21", "t10", "t55", "t57", "t60"],
-  ["t38", "t06", "t16", "t03", "t10", "t10", "t21", "t21", "t21", "t20", "t20", "t55", "t59"],
-  ["t35", "t48", "t12", "t22", "t20", "t20", "t21", "t21", "t10", "t10", "t11", "t54", "t58"],
-  ["t32", "t30", "t18", "t03", "t16", "t21", "t21", "t10", "t10", "t11", "t11", "t20", "t55", "t56", "t60"],
-  ["t39", "t07", "t19", "t12", "t16", "t21", "t21", "t21", "t10", "t10", "t11", "t20", "t20", "t55", "t57"],
-  ["t36", "t25", "t29", "t03", "t22", "t16", "t11", "t21", "t21", "t21", "t10", "t10", "t10", "t11", "t11", "t20", "t55", "t59", "t56"],
-  ["t34", "t28", "t19", "t18", "t20", "t21", "t21", "t21", "t10", "t11", "t11", "t11", "t20", "t55", "t57", "t58", "t60"],
-  ["t33", "t30", "t25", "t18", "t16", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20", "t09", "t55", "t59", "t57"],
-  ["t32", "t31", "t48", "t12", "t04", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20", "t55", "t55", "t56", "t58", "t60"],
+  ["t18", "t03", "t16", "t06", "t57", "t61", "t20", "t21", "t55", "t54", "t54"],
+  ["t05", "t25", "t04", "t22", "t56", "t59", "t61", "t10", "t21", "t54", "t54"],
+  ["t03", "t02", "t18", "t07", "t58", "t57", "t61", "t21", "t10", "t11", "t55", "t54", "t54"],
+  ["t37", "t17", "t48", "t04", "t54", "t54", "t57", "t60", "t56", "t61", "t20", "t21", "t10", "t55", "t54"],
+  ["t38", "t06", "t16", "t03", "t59", "t58", "t61", "t10", "t10", "t21", "t54", "t20", "t55", "t54", "t54"],
+  ["t35", "t48", "t12", "t22", "t58", "t57", "t61", "t20", "t21", "t54", "t10", "t10", "t11", "t54", "t54", "t54"],
+  ["t32", "t30", "t18", "t03", "t16", "t56", "t60", "t59", "t61", "t21", "t10", "t10", "t11", "t11", "t20", "t55", "t54", "t54"],
+  ["t39", "t07", "t19", "t12", "t16", "t57", "t58", "t61", "t21", "t54", "t10", "t10", "t11", "t20", "t55", "t54", "t54", "t54"],
+  ["t36", "t25", "t29", "t03", "t22", "t16", "t59", "t56", "t57", "t61", "t11", "t21", "t54", "t10", "t10", "t10", "t11", "t20", "t55", "t54", "t54", "t54"],
+  ["t34", "t28", "t19", "t18", "t20", "t20", "t21", "t21", "t21", "t10", "t10", "t11", "t11", "t11", "t55", "t54", "t54", "t57", "t58", "t61", "t56", "t60"],
+  ["t33", "t30", "t25", "t18", "t16", "t59", "t57", "t58", "t61", "t21", "t21", "t54", "t10", "t10", "t10", "t20", "t20", "t09", "t55", "t54", "t54", "t54"],
+  ["t32", "t31", "t48", "t12", "t04", "t54", "t54", "t55", "t56", "t58", "t57", "t59", "t60", "t55", "t54", "t54", "t61", "t61", "t21", "t54", "t21", "t10", "t10", "t10", "t20", "t20"],
 ];
 BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, ...(TRAP_PLAN[i] ? { traps: TRAP_PLAN[i] } : {}), ninths: [(i * 4) % 9, (i * 4 + 6) % 9], ...RUN_PLAN[i % RUN_PLAN.length], pads: PHASE.pads && i >= 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
 for (const list of Object.values(BAKES)) for (const b of list) Object.assign(b, { windows: PHASE.deck ? undefined : false, reward: PHASE.deck, mask: PHASE.mask, ...(PHASE.pads ? {} : { pads: false }), ...b });
@@ -176,19 +179,32 @@ for (const [i, b] of list.entries()) {
   if (level) {
     const bare = JSON.stringify(level);
     let kinds = b.traps ? b.traps.slice() : null, extra = 0;
+    const tried = new Set();
     for (let tries = 0; ; tries++) {
       level = JSON.parse(bare);
       const got = dress(level, kinds);
       if (!kinds) { problems.push(...got); break; }
       const rep = walkReport(level, { position: i + 1 });
       const m = rep.runs[0].mind, [lo, hi] = rep.band;
-      walkNote = `, mindless walk ${m.deaths} deaths ${m.hearts} hearts (wants ${lo} to ${hi}), memorized ${rep.runs[0].sure.deaths}, kinds ${kinds.length}`;
-      const miss = got.map((p) => /^(t5[4-9]|t60): no (cell on the walk|reward approach)/.exec(p)?.[1]).find(Boolean);
-      if (miss && tries < TUNE * 2) { const j = kinds.lastIndexOf(miss); kinds.splice(j, 1, ...(miss === "t55" ? ["t54"] : [])); continue; }
+      walkNote = `, mindless walk ${m.deaths} deaths ${m.hearts} hearts (wants ${lo} to ${hi}), memorized ${rep.runs[0].sure.deaths}, kinds ${kinds.length}${args.includes("--kills") ? ` [${m.kills.map((k) => k.kind || k.cause).join(" ")}]` : ""}`;
+      if (args.includes("--trace-tune")) console.log(`  ${b.name} try ${tries}: ${kinds.join(" ")} -> ${m.deaths} deaths${m.done ? "" : " stuck " + m.stuck}; ${got.slice(0, 4).join(" | ")}`);
+      const miss = got.map((p) => /^(t\d\d): no (cell on the walk|reward approach|spot|pocket)/.exec(p)?.[1]).find(Boolean);
+      if (miss && tries < TUNE * 2) { const j = kinds.lastIndexOf(miss); kinds.splice(j, 1, ...(miss === "t55" || miss === "t18" ? ["t54"] : [])); continue; }
+      const sure = rep.runs[0].sure, late = rep.runs[0].late, bad = sure.kills[0] || late.kills[0];
+      if (bad?.kind && tries < TUNE * 2 && kinds.includes(bad.kind)) { kinds.splice(kinds.lastIndexOf(bad.kind), 1); continue; }
+      if (!m.done && tries < TUNE * 2) { const j = Math.max(...TRIM.map((k) => kinds.lastIndexOf(k))); if (j >= 0) { kinds.splice(j, 1); continue; } }
       const tune = tries < TUNE * 2 && m.done && !got.length;
+      const placed = level.traps.filter((t) => TRAP_BY_ID[t.kind]?.tier !== "debuff").length, low = budgetFor(i + 1).total[0];
+      const fill = FILL.find((k) => kinds.filter((q) => q === k).length < (REPEAT[k] || 1) && !tried.has(k + kinds.length));
+      if (tune && placed < low && fill) { tried.add(fill + kinds.length); kinds.push(fill); continue; }
       if (tune && m.deaths < lo) { kinds.push("t54"); extra++; continue; }
-      if (tune && m.deaths > hi) { const j = kinds.lastIndexOf(extra ? "t54" : "t10"); if (j >= 0) { kinds.splice(j, 1); if (extra) extra--; continue; } }
-      problems.push(...got, ...validateTraps(level, { position: i + 1 }));
+      if (tune && m.deaths > hi) {
+        const j = extra ? kinds.lastIndexOf("t54") : Math.max(...TRIM.map((k) => kinds.lastIndexOf(k)));
+        if (j >= 0) { kinds.splice(j, 1); if (extra) extra--; continue; }
+      }
+      const late2 = validateTraps(level, { position: i + 1 });
+      if (tries < TUNE * 2 && late2.some((p) => /hidden traps average/.test(p))) { const j = kinds.lastIndexOf("t20"); if (j >= 0) kinds.splice(j, 1); else kinds.push("t54"); continue; }
+      problems.push(...got, ...late2);
       break;
     }
   }

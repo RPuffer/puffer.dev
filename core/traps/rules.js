@@ -11,14 +11,14 @@ const key = (x, z) => x + "," + z;
 const cheb = (a, b) => Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1]));
 
 export const BUDGET = [
-  { upto: 2, visible: 5, hidden: 5, sequence: 0, puzzle: 1, debuff: 0, gates: 1, total: [5, 10] },
-  { upto: 4, visible: 5, hidden: 7, sequence: 1, puzzle: 1, debuff: 1, gates: 2, total: [7, 13] },
-  { upto: 8, visible: 5, hidden: 11, sequence: 1, puzzle: 1, debuff: 1, gates: 2, total: [9, 17] },
-  { upto: 12, visible: 5, hidden: 14, sequence: 2, puzzle: 1, debuff: 1, gates: 3, total: [12, 21] },
+  { upto: 2, visible: 6, hidden: 7, sequence: 0, puzzle: 1, debuff: 0, gates: 2, total: [5, 12] },
+  { upto: 4, visible: 6, hidden: 9, sequence: 1, puzzle: 1, debuff: 1, gates: 3, total: [7, 15] },
+  { upto: 8, visible: 6, hidden: 13, sequence: 1, puzzle: 1, debuff: 1, gates: 3, total: [9, 20] },
+  { upto: 12, visible: 6, hidden: 17, sequence: 2, puzzle: 1, debuff: 1, gates: 4, total: [12, 25] },
 ];
 export const CLASS_REPEAT = 2, WALK_SPEED = 3.2, GATE_SLACK = 8 / 60;
 
-export const REPEAT = { t10: 3, t11: 3, t20: 3, t21: 4, t54: 4, t55: 2 };
+export const REPEAT = { t10: 3, t11: 3, t20: 3, t21: 4, t54: 6, t55: 2, t61: 2 };
 export const HIDDEN_MAJORITY_FROM = 5;
 export const LEAN_OBVIOUS_UPTO = 0;
 export const HIDDEN_CLEAR = 6;
@@ -187,6 +187,15 @@ export function bonfireProblems(raw, t, blocked, P) {
   return out;
 }
 
+export function sealProblems(raw, t, blocked, P) {
+  const fire = bonfireRestCell(P, null);
+  if (!fire) return [];
+  const core = P.things.filter((q) => q.kind === "gate" && /^watcher:/.test(String(q.open || ""))).map((q) => q.id);
+  const L = world(P, new Set(core));
+  for (const [x, z] of blocked) L.blocked.add(key(x, z));
+  return distances(L, t.trigger).has(key(fire[0], fire[1])) ? [] : ["the risen block seals you away from the bonfire"];
+}
+
 export function classGateProblems(raw, t, traps, P, blocked = []) {
   const out = [];
   const c = trapCells(t)[0];
@@ -277,7 +286,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [], p
     if (!partial && position <= LEAN_OBVIOUS_UPTO && counts.hidden >= counts.visible) problems.push(`${counts.hidden} hidden against ${counts.visible} visible; islands 1 to ${LEAN_OBVIOUS_UPTO} lean on traps you can see`);
     const dist = trapDistances(raw, traps, P);
     const hid = [], vis = [];
-    traps.forEach((t, i) => { const m = TRAP_BY_ID[t.kind]; if (!m || m.tier === "debuff" || m.tier === "puzzle" || dist[i] == null || isClassGate(t.kind)) return; (m.visibility === "hidden" ? hid : vis).push(dist[i]); });
+    traps.forEach((t, i) => { const m = TRAP_BY_ID[t.kind]; if (!m || m.tier === "debuff" || m.tier === "puzzle" || dist[i] == null || isClassGate(t.kind) || harmless(t.kind)) return; (m.visibility === "hidden" ? hid : vis).push(dist[i]); });
     for (const [i, t] of traps.entries()) if (isHidden(t.kind) && dist[i] != null && dist[i] < HIDDEN_CLEAR) problems.push(`${t.id || t.kind}: hidden trap ${dist[i]} steps from the bonfire, at least ${HIDDEN_CLEAR}`);
     const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
     if (!partial && hid.length && vis.length && mean(hid) <= mean(vis)) problems.push(`hidden traps average ${mean(hid).toFixed(1)} steps from the bonfire against ${mean(vis).toFixed(1)} for visible ones; the hidden ones sit farther along`);
@@ -286,6 +295,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [], p
   const lifts = liftToLift(raw, worst.blocked);
   if (lifts === false) problems.push("worst state cuts the walk from lift to lift");
   for (const t of traps) for (const alt of KINDS[t.kind]?.worstAlts?.(t) || []) if (lifts !== false && liftToLift(raw, [...worst.blocked, ...alt]) === false) problems.push(`${t.id || t.kind}: worst state with ${alt.join(" ")} gone cuts the walk from lift to lift`);
+  for (const t of traps) if (t.kind === "t61" && t.trigger) for (const p of sealProblems(raw, t, worst.blocked, P)) problems.push(`${t.id || t.kind}: ${p}`);
   const remembered = traps.filter((t) => isHidden(t.kind) && !harmless(t.kind) && TRAP_BY_ID[t.kind].tier === "local").flatMap(dangerCells);
   if (remembered.length && liftToLift(raw, [...worst.blocked, ...remembered]) === false) problems.push("no clean walk: a player who remembers every hidden trap still has to step on one between the lifts");
   const guarded = traps.filter(needsGuard).flatMap(dangerCells);

@@ -76,6 +76,8 @@ export const GUARD_SHAPES = {
   t18: (w, path, i) => w(1).filter(([c]) => { const j = path.findIndex((q) => q[0] === c[0] && q[1] === c[1]); return j >= 2 && straight(path.slice(j - 2, j + 1)); }).map((cells) => ({ cells })),
   t22: (w) => w(1).map((cells) => ({ cells })),
   t21: (w) => w(1).map((cells) => ({ cells })),
+  t54: (w) => w(1).map((cells) => ({ cells })),
+  t61: (w) => w(2).map(([a, b]) => ({ cells: [b], trigger: a.slice(), mode: "ahead" })),
   t23: (w) => w(1).map((cells) => ({ cells })),
   t04: (w, path, i, o) => [5, 4, 6].flatMap((n) => w(n)).map((cells) => ({ cells, plates: shoulders(cells, o, cells.map((_, k) => k)).slice(0, 3) })).filter((t) => t.plates.length >= 2),
   t05: (w, path, i, o) => {
@@ -163,6 +165,16 @@ export const WALK_SHAPES = {
     const dir = Object.keys(DIRS).find((k) => DIRS[k][0] === c[0] - a[0] && DIRS[k][1] === c[1] - a[1]);
     const r = inkStep(o.P, a, dir);
     return r.to && same(r.to, b) ? [{ cells: [c] }] : [];
+  },
+  t18: (j, path, o) => {
+    const a = path[j - 1], c = path[j];
+    if (!adj(a, c) || !level(o.raw, a, c)) return [];
+    const d = step(a, c), two = [a[0] - d[0], a[1] - d[1]];
+    return isVoid(o.P, two[0], two[1]) && !isWalkable(o.P, two[0], two[1]) ? [{ cells: [c] }] : [];
+  },
+  t61: (j, path, o) => {
+    const mode = o.i % 2 ? "ahead" : "behind", trigger = mode === "behind" ? path[j + 1] : path[j - 1];
+    return trigger && adj(trigger, path[j]) && o.free(trigger[0], trigger[1]) ? [{ cells: [path[j]], trigger: trigger.slice(), mode }] : [];
   },
   t57: (j, path) => [{ cells: [path[j]] }],
   t58: (j, path, o) => [{ cells: [path[j]], phase: +((o.i * 0.37) % 1).toFixed(2) }],
@@ -315,8 +327,8 @@ export function placeTraps(raw, kinds, { position = null, seed = raw.name } = {}
         }
         if (done) break;
       }
-      if (!done) problems.push(`${kind}: no cell on the walk fits`);
-      continue;
+      if (done) continue;
+      if (!GUARD_SHAPES[kind]) { problems.push(`${kind}: no cell on the walk fits`); continue; }
     }
     const shape = GUARD_SHAPES[kind];
     if (!shape) { problems.push(`${kind}: no guard shape`); continue; }
