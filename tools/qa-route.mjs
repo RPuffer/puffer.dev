@@ -51,6 +51,7 @@ function interactProbe(raw) {
   const it = createInteract(L, { params: { hero: "0" }, storage: null, dom: false });
   const tick = (a, s = 0.05) => { it.bind(a); it.update(s); };
   for (const t of it.things) {
+    if (t.trap) continue;
     if (t.kind === "door") {
       const [near, far] = t.edge, d = dirTo(near, far);
       const a = fakeActor(near); tick(a);
@@ -185,6 +186,7 @@ if (live) {
         out.push({ id: t.id, kind: `pad (${t.role}${wake ? ", woken at " + o.id : ""})`, stand: [t.x, t.z], pad: true, arrived: a.cell.join() === [o.x, o.z].join(), to: [o.x, o.z], at: a.cell.slice(), state: t.state, prompt });
       }
       for (const t of it.things) {
+        if (t.trap) continue;
         let stand = null;
         if (t.kind === "door") stand = t.edge[1];
         else if (t.kind === "ladder") stand = [t.x, t.z];

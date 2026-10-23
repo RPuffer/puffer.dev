@@ -60,10 +60,11 @@ async function pathTo(goals) {
     const { findPath } = await import("/core/path.js");
     const { isWalkable } = await import("/core/level.js");
     const S = window.__game.state, a = S.actor;
+    const danger = new Set((S.traps?.all() || []).filter((t) => !t.disarmed && t.tier !== "debuff").flatMap((t) => t.cells.map((c) => c.join(","))));
     let best = null;
     for (const g of goals) {
       if (!isWalkable(S.level, g[0], g[1])) continue;
-      const p = findPath(S.level, a.cell, g);
+      const p = findPath(S.level, a.cell, g, { cost: (x, z) => (danger.has(x + "," + z) ? 400 : 0) });
       if (p && (!best || p.length < best.length)) best = p;
     }
     if (best) a.setPath(best);
