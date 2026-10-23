@@ -36,7 +36,7 @@ The server listens on `http://localhost:8765/` (set `PORT=` to change it). Open:
 | `hero` | `0` hides the hero, for reference comparisons; the camera then centres on `center` |
 | `center` | `x,y,z` world point the camera centres on when `hero=0`, else the level's `view.center` |
 | `dpad` | `1` forces the touch band and compass rose |
-| `controls` | `stick` swaps the compass rose for the old joystick |
+| `controls` | `stick` or `rose` forces that pad for this load; otherwise the pad comes from the in-band swap button, saved under `isoworld:controls` (default `rose`) |
 | `xray` | `0` switches off the see-through window around the hero (both builds) |
 | `t` | Freezes the wind clock at `t` seconds (3d); `hero=0` and `prefers-reduced-motion` freeze it at 0 |
 | `ui` | `0` hides the seed overlay |

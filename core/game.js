@@ -55,7 +55,7 @@ export function createGame(renderer, params = readParams()) {
   const state = { level: null, view: null, proj: null, actor: null, params, things: null, time: 0, frame: 0, turn: null, route: createRoute(), mark: null, health: createHealth(), life: null, traps: null };
   let screenHeld = null;
 
-  const input = createInput(renderer.element || document.body, { touch: params.dpad === "1" || params.touch === "1" ? true : "auto", controls: params.controls === "stick" ? "stick" : "rose" });
+  const input = createInput(renderer.element || document.body, { touch: params.dpad === "1" || params.touch === "1" ? true : "auto", controls: params.controls });
   let petal = null, petalAt = 0;
   const petalDir = (i) => ROSE_DIRS[(((i - Math.round((game.yaw - 45) / 90)) % 4) + 4) % 4];
   const petalHeld = () => (petal == null ? null : [petalDir(petal)]);

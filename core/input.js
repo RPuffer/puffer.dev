@@ -12,7 +12,13 @@ export const ROSE_DIRS = ["n", "e", "s", "w"];
 export const HOME = new URL("../landing/index.html", import.meta.url).href;
 export const BUST = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0z"/></svg>';
 
+const SWAP_STICK = '<svg viewBox="-12 -12 24 24" aria-hidden="true"><circle r="10" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="2.5" cy="-2.5" r="4.6" fill="currentColor"/></svg>';
+const SWAP_ROSE = '<svg viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0 -11L2.6 -2.6L11 0L2.6 2.6L0 11L-2.6 2.6L-11 0L-2.6 -2.6Z" fill="currentColor"/></svg>';
 const BAND_CSS = `
+.iw-pad{display:contents}
+.iw-swap{position:absolute;left:max(12px,env(safe-area-inset-left,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));width:40px;height:40px;padding:0;border:0;border-radius:50%;background:#262c37;color:#5fe3ff;box-shadow:0 0 0 3px rgba(18,196,240,.45),0 5px 0 3px rgba(20,24,31,.6);touch-action:none;-webkit-tap-highlight-color:transparent;transition:transform .12s,box-shadow .12s;z-index:2}
+.iw-swap svg{display:block;width:22px;height:22px;margin:9px}
+.iw-swap:active{transform:translateY(3px);box-shadow:0 0 0 3px rgba(18,196,240,.45),0 2px 0 3px rgba(20,24,31,.6)}
 .iw-band{--g:min(132px,19vh);--a:calc(var(--g) * .56);--m:max(16px,env(safe-area-inset-right,0px));position:fixed;left:0;right:0;bottom:0;height:max(25vh,150px);z-index:12;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;background:linear-gradient(to top,rgba(8,14,24,.52),rgba(8,14,24,.2) 72%,rgba(8,14,24,0));box-shadow:inset 0 2px 0 rgba(18,196,240,.22);transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s}
 @supports ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{-webkit-backdrop-filter:brightness(.62) saturate(1.7);backdrop-filter:brightness(.62) saturate(1.7);border-top:2px solid rgba(18,196,240,.35)}}
 @supports not ((backdrop-filter:brightness(1)) or (-webkit-backdrop-filter:brightness(1))){.iw-band{background:rgba(10,16,30,.6);border-top:2px solid rgba(18,196,240,.35)}}
@@ -55,7 +61,13 @@ html[data-iw-act="1"] .iw-act{animation:iw-glow 1.1s ease-in-out infinite altern
 @media (prefers-reduced-motion:reduce){.iw-knob,.iw-band{transition-duration:.01s}html[data-iw-act="1"] .iw-act{animation:none;box-shadow:0 0 0 5px #12c4f0,0 8px 0 5px rgba(20,24,31,.8)}}
 `;
 
-export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
+export const CONTROLS_KEY = "isoworld:controls";
+export function savedControls(storage = globalThis.localStorage) {
+  try { const v = storage?.getItem(CONTROLS_KEY); return v === "stick" || v === "rose" ? v : null; } catch { return null; }
+}
+
+export function createInput(el, { touch = "auto", controls } = {}) {
+  controls = controls === "stick" || controls === "rose" ? controls : savedControls() || "rose";
   const listeners = new Set();
   const emit = (intent) => { for (const f of listeners) f(intent); };
   const held = [];
@@ -135,7 +147,7 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
   el.addEventListener("pointercancel", onPointerCancel);
 
   const STICK_DEAD = 0.22, STICK_CROSS = 14 * Math.PI / 180;
-  const useStick = controls === "stick";
+  let useStick = controls === "stick", yawNow = null;
   let band = null, knob = null, sector = null, stickId = null, busy = false;
   let petals = null, ringEl = null, petal = null, petalId = null;
   const stickTo = (s) => {
@@ -164,6 +176,7 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
     ringRaf = requestAnimationFrame(springRing);
   };
   const setYaw = (yaw) => {
+    if (yaw != null) yawNow = yaw;
     if (yaw == null || yaw === ringYaw) return;
     if (ringYaw == null) { ringTo = ringAt = yaw - 45; ringYaw = yaw; drawRing(); return; }
     ringTo += ((yaw - ringYaw + 540) % 360) - 180;
@@ -183,17 +196,39 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
     const pets = [0, 1, 2, 3].map((i) => `<g class="iw-petal" data-i="${i}"><path class="side" transform="translate(0 8) ${plane(45 + 90 * i)}" d="${leaf}"/><g class="lift"><path class="pet" transform="${plane(45 + 90 * i)}" d="${leaf}"/><path class="chg" pathLength="100" transform="${plane(45 + 90 * i)}" d="${leaf}"/></g></g>`).join("");
     return `<div class="iw-rose" style="--hold:${HOLD}s"><svg viewBox="-140 -84 280 178" aria-hidden="true"><defs><linearGradient id="iw-pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fa8"/><stop offset=".5" stop-color="#7a4dff"/><stop offset="1" stop-color="#12c4f0"/></linearGradient><radialGradient id="iw-rg"><stop offset="0" stop-color="#2a1c5a"/><stop offset="1" stop-color="#120a30"/></radialGradient></defs><ellipse cx="0" cy="9" rx="137" ry="${(137 * ROSE_TILT).toFixed(1)}" fill="rgba(6,4,20,.7)"/><g transform="${plane(45)}"><circle r="134" fill="url(#iw-rg)" stroke="#1a1230" stroke-width="5"/><circle r="104" fill="none" stroke="#5fe3ff" stroke-width="2" stroke-dasharray="3 8" opacity=".8"/><circle r="62" fill="none" stroke="#ffd76a" stroke-width="2" opacity=".55"/><g class="ring">${ring}</g></g>${pets}<ellipse rx="13" ry="${(13 * ROSE_TILT).toFixed(1)}" fill="#1a1230"/><ellipse rx="6" ry="${(6 * ROSE_TILT).toFixed(1)}" fill="#fff"/></svg><div class="hit-r" role="group" aria-label="compass rose"></div></div>`;
   };
+  let styled = false;
   const showBand = () => {
     if (band) return;
     document.documentElement.classList.add("iw-touch");
-    const style = document.createElement("style");
-    style.textContent = BAND_CSS;
-    document.head.appendChild(style);
+    if (!styled) {
+      styled = true;
+      const style = document.createElement("style");
+      style.textContent = BAND_CSS;
+      document.head.appendChild(style);
+    }
     band = document.createElement("div");
-    band.className = "iw-band" + (busy ? " off" : "") + (useStick ? " stick" : " rose");
-    const pad = useStick ? `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div>` : roseMarkup();
-    band.innerHTML = `${pad}<button type="button" class="iw-pow" aria-label="power"><i></i><b></b></button><button type="button" class="iw-act" aria-label="use">✦</button>`;
+    band.className = "iw-band" + (busy ? " off" : "");
+    band.innerHTML = `<div class="iw-pad"></div><button type="button" class="iw-pow" aria-label="power"><i></i><b></b></button><button type="button" class="iw-act" aria-label="use">✦</button><button type="button" class="iw-swap"></button>`;
+    mountPad();
     const act = band.querySelector(".iw-act");
+    const pow = band.querySelector(".iw-pow");
+    act.addEventListener("pointerdown", (e) => { e.preventDefault(); act.classList.add("on"); emit({ kind: "act" }); });
+    pow.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); pow.classList.add("on"); emit({ kind: "power" }); });
+    for (const ev of ["pointerup", "pointercancel", "pointerleave"]) pow.addEventListener(ev, () => pow.classList.remove("on"));
+    for (const ev of ["pointerup", "pointercancel", "pointerleave"]) act.addEventListener(ev, () => act.classList.remove("on"));
+    band.querySelector(".iw-swap").addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); setControls(useStick ? "rose" : "stick"); });
+    band.addEventListener("contextmenu", (e) => e.preventDefault());
+    document.body.appendChild(band);
+  };
+  const mountPad = () => {
+    const box = band.querySelector(".iw-pad"), swap = band.querySelector(".iw-swap");
+    band.classList.toggle("stick", useStick);
+    band.classList.toggle("rose", !useStick);
+    band.classList.remove("held");
+    swap.setAttribute("aria-label", useStick ? "switch to compass" : "switch to joystick");
+    swap.innerHTML = useStick ? SWAP_ROSE : SWAP_STICK;
+    box.innerHTML = useStick ? `<div class="iw-stick" aria-hidden="true"><div class="gate"></div><div class="iw-knob"></div></div><div class="hit" role="slider" aria-label="joystick"></div>` : roseMarkup();
+    knob = petals = ringEl = null;
     if (useStick) {
       knob = band.querySelector(".iw-knob");
       const stick = band.querySelector(".iw-stick"), hit = band.querySelector(".hit");
@@ -226,13 +261,20 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
       hit.addEventListener("pointerup", letGo);
       hit.addEventListener("pointercancel", letGo);
     }
-    act.addEventListener("pointerdown", (e) => { e.preventDefault(); act.classList.add("on"); emit({ kind: "act" }); });
-    const pow = band.querySelector(".iw-pow");
-    pow.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); pow.classList.add("on"); emit({ kind: "power" }); });
-    for (const ev of ["pointerup", "pointercancel", "pointerleave"]) pow.addEventListener(ev, () => pow.classList.remove("on"));
-    for (const ev of ["pointerup", "pointercancel", "pointerleave"]) act.addEventListener(ev, () => act.classList.remove("on"));
-    band.addEventListener("contextmenu", (e) => e.preventDefault());
-    document.body.appendChild(band);
+  };
+  const setControls = (mode, { save = true } = {}) => {
+    const stickNext = mode === "stick";
+    if (save) { try { localStorage.setItem(CONTROLS_KEY, stickNext ? "stick" : "rose"); } catch {} }
+    if (stickNext === useStick) return;
+    stickTo(null);
+    petalTo(null);
+    stickId = petalId = null;
+    useStick = stickNext;
+    sector = null;
+    if (!band) return;
+    ringYaw = null;
+    mountPad();
+    setYaw(yawNow);
   };
   const coarse = matchMedia?.("(pointer: coarse)").matches || "ontouchstart" in window;
   if (touch === true || (touch === "auto" && coarse)) showBand();
@@ -243,7 +285,8 @@ export function createInput(el, { touch = "auto", controls = "rose" } = {}) {
     on(f) { listeners.add(f); return () => listeners.delete(f); },
     showBand,
     get band() { return band; },
-    controls: useStick ? "stick" : "rose",
+    get controls() { return useStick ? "stick" : "rose"; },
+    setControls,
     setYaw,
     repeating(on) { if (petal != null) petals?.[petal]?.classList.toggle("rep", !!on); },
     setBusy(b) {
