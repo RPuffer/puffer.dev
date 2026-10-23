@@ -54,16 +54,18 @@ export const RUN_PLAN = [
 ];
 const runOrder = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
 const TRAP_PLAN = [
-  ["t18", "t03"], ["t05", "t25"], ["t03", "t02"],
-  ["t37", "t17", "t48", "t04", "t20"],
-  ["t38", "t06", "t16", "t10"],
-  ["t35", "t48", "t12", "t22", "t20"],
-  ["t32", "t30", "t18"],
-  ["t39", "t07", "t19", "t12"],
-  ["t36", "t25", "t29", "t11"],
-  ["t34", "t28", "t19", "t20"],
-  ["t33", "t30", "t25", "t21"],
-  ["t32", "t31", "t48", "t12", "t04"],
+  ["t18", "t03", "t16", "t06", "t20", "t21"],
+  ["t05", "t25", "t04", "t22", "t10", "t21"],
+  ["t03", "t02", "t18", "t21", "t21", "t10", "t11", "t07"],
+  ["t37", "t17", "t48", "t04", "t20", "t20", "t21", "t21", "t10"],
+  ["t38", "t06", "t16", "t03", "t10", "t10", "t21", "t21", "t21", "t20", "t20"],
+  ["t35", "t48", "t12", "t22", "t20", "t20", "t21", "t21", "t10", "t10", "t11"],
+  ["t32", "t30", "t18", "t03", "t16", "t21", "t21", "t10", "t10", "t11", "t11", "t20"],
+  ["t39", "t07", "t19", "t12", "t16", "t21", "t21", "t21", "t10", "t10", "t11", "t20", "t20"],
+  ["t36", "t25", "t29", "t03", "t22", "t16", "t11", "t21", "t21", "t21", "t10", "t10", "t10", "t11", "t11", "t20"],
+  ["t34", "t28", "t19", "t18", "t20", "t21", "t21", "t21", "t10", "t11", "t11", "t11", "t20"],
+  ["t33", "t30", "t25", "t18", "t16", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20", "t09"],
+  ["t32", "t31", "t48", "t12", "t04", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20"],
 ];
 BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, ...(TRAP_PLAN[i] ? { traps: TRAP_PLAN[i] } : {}), ninths: [(i * 4) % 9, (i * 4 + 6) % 9], ...RUN_PLAN[i % RUN_PLAN.length], pads: PHASE.pads && i >= 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
 for (const list of Object.values(BAKES)) for (const b of list) Object.assign(b, { windows: PHASE.deck ? undefined : false, reward: PHASE.deck, mask: PHASE.mask, ...(PHASE.pads ? {} : { pads: false }), ...b });
