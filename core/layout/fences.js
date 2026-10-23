@@ -5,11 +5,13 @@ import { checkRoute } from "./check.js";
 import { trapCellSet } from "./pickups.js";
 import { reservedCells } from "./decor.js";
 import { validateTraps } from "../traps/rules.js";
+import { KINDS } from "../traps/kinds.js";
 import { N4, DIR, key } from "./grid.js";
 import { createRng, hashSeed } from "../rng.js";
 
-export const FENCE = { share: 0.1, run: 4, slideRadius: 3, thingRadius: 1 };
+export const FENCE = { share: 0.1, run: 4, min: 1, slideRadius: 3, thingRadius: 1 };
 export const FENCE_BY_ISLAND = { cat: "rockwall", wizard: "masonry", swallow: "logs", forest: "hedge", mindbloom: "hedge", cosmos: "rockwall", gremlin: "coral", eagle: "logs", dragon: "bone", sharkbear: "coral", chimera: "masonry", ember: "bone", traps: "hedge" };
+const WALKED = new Set(["spine", "entry"]);
 export const FLANK_KINDS = new Set(["t03", "t25", "t02", "t22"]);
 export const SLIDE_KINDS = new Set(["t52", "t18", "t05", "t35"]);
 export const RULES = [
@@ -117,6 +119,7 @@ export function placeFences(level, { seed = level.layout?.seed ?? 1, share = FEN
   for (const d of level.decor || []) for (const m of maskCells(d.t, d.x, d.z, d.rot || 0)) taken.add(key(m.x, m.z));
   const res = level.things ? reservedCells(level) : new Set();
   const keep = new Set([...res, ...trapCellSet(level.traps || [])]);
+  for (const t of level.traps || []) for (const [x, z] of KINDS[t.kind]?.clear?.(t) || []) keep.add(key(x, z));
   const near = (c, r) => { for (let dz = -r; dz <= r; dz++) for (let dx = -r; dx <= r; dx++) keep.add(key(c[0] + dx, c[1] + dz)); };
   for (const t of level.things || []) if (t.kind !== "watcher" && t.kind !== "gate") near([t.x, t.z], FENCE.thingRadius);
   for (const c of level.charges || []) near([c.x, c.z], FENCE.thingRadius);
@@ -127,7 +130,7 @@ export function placeFences(level, { seed = level.layout?.seed ?? 1, share = FEN
 
   const segs = level.route?.segments || [];
   const spine = new Set(), branch = new Set();
-  for (const s of segs) for (const [x, z] of s.cells || []) if (at(x, z)?.p) (s.role === "spine" ? spine : branch).add(key(x, z));
+  for (const s of segs) for (const [x, z] of s.cells || []) if (at(x, z)?.p) (WALKED.has(s.role) ? spine : branch).add(key(x, z));
   for (const k of spine) branch.delete(k);
   const gapAt = new Set();
   for (const k of branch) { const [x, z] = k.split(",").map(Number); if (N4.some(([dx, dz]) => spine.has(key(x + dx, z + dz)))) for (const [dx, dz] of N4) gapAt.add(key(x + dx, z + dz)); }
@@ -167,7 +170,7 @@ export function placeFences(level, { seed = level.layout?.seed ?? 1, share = FEN
     }
   }
   for (const r of sliceRuns(uniqC(rim), FENCE.run, hOf)) {
-    if (r.cells.length < 2) continue;
+    if (r.cells.length < FENCE.min) continue;
     const ends = [r.cells[0], r.cells[r.cells.length - 1]];
     const step = r.axis === "x" ? [1, 0] : [0, 1];
     const marks = [[ends[0][0] - step[0], ends[0][1] - step[1]], [ends[1][0] + step[0], ends[1][1] + step[1]]].filter((c) => gapAt.has(key(...c)) && land(at(...c)));
@@ -197,11 +200,22 @@ export function placeFences(level, { seed = level.layout?.seed ?? 1, share = FEN
     if (g.marks) report.gaps += g.marks;
   }
   const fresh = () => [...checkRoute(level).filter((p) => !baseProblems.has(p)), ...(level.traps?.length ? validateTraps(level).filter((p) => !baseTraps.has(p)) : [])];
-  for (let p = fresh(); p.length && placed.length; p = fresh()) {
-    const d = placed.pop();
+  const drop = (d, p) => {
+    placed.splice(placed.indexOf(d), 1);
     level.decor.splice(level.decor.indexOf(d), 1);
     report.reasons[why.get(d)]--;
-    report.dropped.push(`${why.get(d)} at ${d.x},${d.z}: ${p[0]}`);
+    report.dropped.push(`${why.get(d)} at ${d.x},${d.z}: ${p}`);
+  };
+  for (let p = fresh(); p.length && placed.length; p = fresh()) {
+    let culprit = null;
+    for (const d of [...placed].reverse()) {
+      const i = level.decor.indexOf(d);
+      level.decor.splice(i, 1);
+      const left = fresh().length;
+      level.decor.splice(i, 0, d);
+      if (left < p.length) { culprit = d; break; }
+    }
+    drop(culprit || placed[placed.length - 1], p[0]);
   }
   report.runs = placed.length;
   report.cells = placed.reduce((s, d) => s + d.fw * d.fd, 0);
