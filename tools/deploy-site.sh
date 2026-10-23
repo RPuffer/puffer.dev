@@ -16,6 +16,8 @@ cat > "$REPO/netlify.toml" <<'TOML'
 [build]
   publish = "build"
   command = "echo static site, no build"
+[build.environment]
+  NODE_VERSION = "22"
 
 [[headers]]
   for = "/*"
