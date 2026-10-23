@@ -1,6 +1,7 @@
 import { TRAP_BY_ID } from "./catalog.js";
 import { KINDS } from "./kinds.js";
 import { surfaceHeight, isWalkable, isVoid } from "../level.js";
+import { createTiles } from "../tiles.js";
 
 export { TRAP_CATALOG, TRAP_BY_ID } from "./catalog.js";
 export { KINDS } from "./kinds.js";
@@ -38,8 +39,9 @@ export function createTraps(level, { actor, life = null, health = null, things =
   const floorCell = () => [Math.floor(actor.pos.x), Math.floor(actor.pos.z)];
   const skipped = (c) => { const e = skips.get(key(c[0], c[1])); return e != null && e > time; };
   const airborne = (c) => !!actor.airborne || skipped(c);
+  const tiles = createTiles(level);
   const ctx = {
-    level, actor, things, health, life,
+    level, actor, things, health, life, tiles,
     get time() { return time; },
     floor: () => floor,
     prev: () => prev,
@@ -47,6 +49,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
     onAny: (cells) => cells.some((c) => ctx.on(c)),
     hurt: (t, n = 1, opts = {}) => life?.hurt(n, { cause: t.kind, ...opts }),
     knock: (t, dir) => life?.knock(dir, t.kind),
+    drop: (t, c) => life?.knock([0, 0], t.kind, { ride: c }),
     emit: (t, type, extra = {}) => emit({ type, trap: t, ...extra }),
     say: (text) => { if (text) (say || things?.say)?.(text); },
     reveal: (t) => api.reveal(t.id),
@@ -133,6 +136,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
     list,
     byId,
     ctx,
+    tiles,
     get time() { return time; },
     on(f) { listeners.add(f); return () => listeners.delete(f); },
     at(cell) { return view(pick(cell)); },
@@ -176,6 +180,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
     update(dt) {
       time += dt;
       stepHop(dt);
+      tiles.update(dt);
       for (const [k, e] of skips) if (e <= time) skips.delete(k);
       const f = floorCell();
       if (!floor || f[0] !== floor[0] || f[1] !== floor[1]) {
@@ -189,6 +194,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
       for (const t of list) t.impl?.dispose?.(t, ctx);
       offThings?.();
       for (const k of [...sunk.keys()]) { const [x, z] = k.split(",").map(Number); ctx.sink([x, z], false); }
+      tiles.dispose();
       slick.clear();
       if (actor.slick) actor.slick = null;
       if (pushers.length) actor.push = null;

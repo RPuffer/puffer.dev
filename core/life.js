@@ -82,10 +82,10 @@ export function createLife({ level, actor, things = null, health, onRespawn = nu
       begin("fall", d, cause, { forced: !!forced, variant: pickVariant() });
       return true;
     },
-    knock(dir = [0, 0], cause = null) {
+    knock(dir = [0, 0], cause = null, { ride = null } = {}) {
       if (busy) return false;
-      if (health.absorb(cause)) { invuln = INVULN_S; emit({ type: "absorb", cause }); return "absorbed"; }
-      begin("knock", dir, cause);
+      if (!ride && health.absorb(cause)) { invuln = INVULN_S; emit({ type: "absorb", cause }); return "absorbed"; }
+      begin("knock", dir, cause, ride ? { ride: [ride[0], ride[1]] } : {});
       return true;
     },
     update(dt) {
