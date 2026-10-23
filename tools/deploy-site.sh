@@ -8,7 +8,7 @@ rsync -a --delete --exclude='.git' --exclude='netlify.toml' --exclude='README.md
   --exclude='*.mjs' --exclude='*.py' --exclude='*.md' --exclude='.DS_Store' \
   --include='/index.html' --include='/islands.html' \
   --include='/core/***' --include='/3d/***' --include='/landing/***' --include='/assets/***' \
-  --include='/levels/' --include='/levels/run.json' $(node -e 'for (const n of require(process.argv[1]).order) process.stdout.write(" --include=/levels/" + n + ".json")' "$SRC/levels/run.json") --include='/levels/home.json' \
+  --include='/levels/' --include='/levels/run.json' $(node -e 'for (const n of require(process.argv[1]).order) process.stdout.write(" --include=/levels/" + n + ".json")' "$SRC/levels/run.json") --include='/levels/home.json' --include='/levels/traps-showcase.json' \
   --exclude='*' "$SRC/" "$OUT/"
 node "$SRC/tools/modulepreload.mjs" "$OUT"
 [ "$2" = "--no-toml" ] && exit 0
