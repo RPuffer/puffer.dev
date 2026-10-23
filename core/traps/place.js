@@ -3,6 +3,9 @@ import { prepareLevel, isWalkable, isVoid, canStep, DIRS } from "../level.js";
 import { TRAP_BY_ID } from "./catalog.js";
 import { findPath } from "../path.js";
 import { world, distances } from "../layout/check.js";
+import { walkPath } from "./walk.js";
+import { KINDS } from "./kinds.js";
+import { inkStep } from "../powers.js";
 import { forbiddenCells, validateTraps, excluded, mustGuard, guardProblems, applyGrip, isHidden, harmless, needsGuard, HIDDEN_CLEAR } from "./rules.js";
 
 const CLUSTER = 3;
@@ -128,10 +131,42 @@ export const GUARD_SHAPES = {
     }
     return out;
   },
+  t60: (w, path, i, o) => o.spot.kind !== "charge" ? [] : w(1).filter(([c]) => same(c, path[path.length - 2])).map((cells) => {
+    const at = o.spot.at, gid = `g-${o.id}`, last = cells[0];
+    return { cells, cls: CLASS_SEAL[(i + o.raw.name.length) % 4], gate: gid, things: [{ id: gid, kind: "gate", x: at[0], z: at[1], span: last[0] === at[0] ? "x" : "z", edge: [last.slice(), at.slice()], blocks: [at.slice()], open: `trap:${o.id}` }] };
+  }),
   t48: (w, path, i, o) => o.spot.kind !== "charge" ? [] : [6, 5, 4].flatMap((n) => w(n)).filter((cells) => same(cells[cells.length - 1], path[path.length - 2])).map((cells) => {
     const at = o.spot.at, gid = `g-${o.id}`;
     return { cells, gate: gid, things: [{ id: gid, kind: "gate", x: at[0], z: at[1], span: cells[cells.length - 1][0] === at[0] ? "x" : "z", edge: [cells[cells.length - 1].slice(), at.slice()], blocks: [at.slice()], open: `trap:${o.id}` }] };
   }),
+};
+
+const adj = (a, b) => !!a && !!b && Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) === 1;
+const CLASS_SEAL = ["nm", "dutchie", "aws", "wanderer"];
+
+export const WALK_SHAPES = {
+  t54: (j, path, o) => [{ cells: [path[j]] }],
+  t55: (j, path, o) => {
+    const a = path[j - 1], c = path[j], b = path[j + 1];
+    if (!adj(a, c) || !adj(c, b) || !same(step(a, c), step(c, b)) || !level(o.raw, a, c) || !level(o.raw, c, b)) return [];
+    const d = step(a, c), p = [d[1], -d[0]], h = o.raw.cells[c[1]][c[0]].h;
+    const sides = [[c[0] + p[0], c[1] + p[1]], [c[0] - p[0], c[1] - p[1]]];
+    const ok = (q, path_ok) => { const r = o.raw.cells[q[1]]?.[q[0]]; return !!r && r.s !== "ramp" && r.h === h && isWalkable(o.P, q[0], q[1]) && o.free(q[0], q[1]) && (path_ok || !r.p); };
+    if (!sides.every((s) => ok(s, false))) return [];
+    for (const s of [1, -1]) for (const q of [[a[0] + p[0] * s, a[1] + p[1] * s], [b[0] + p[0] * s, b[1] + p[1] * s]]) if (!ok(q, true)) return [];
+    if (path.some((q) => sides.some((s) => same(q, s)))) return [];
+    return [{ cells: [c, ...sides], prev: a.slice(), next: b.slice() }];
+  },
+  t56: (j, path, o) => {
+    const a = path[j - 1], c = path[j], b = path[j + 1];
+    if (!adj(a, c) || !adj(c, b) || !same(step(a, c), step(c, b))) return [];
+    const dir = Object.keys(DIRS).find((k) => DIRS[k][0] === c[0] - a[0] && DIRS[k][1] === c[1] - a[1]);
+    const r = inkStep(o.P, a, dir);
+    return r.to && same(r.to, b) ? [{ cells: [c] }] : [];
+  },
+  t57: (j, path) => [{ cells: [path[j]] }],
+  t58: (j, path, o) => [{ cells: [path[j]], phase: +((o.i * 0.37) % 1).toFixed(2) }],
+  t59: (j, path) => [{ cells: [path[j]] }],
 };
 
 const PROP_SHAPES = {
@@ -259,6 +294,28 @@ export function placeTraps(raw, kinds, { position = null, seed = raw.name } = {}
         if (keep({ id, kind, ...rest }, things)) { used.add(spot); done = true; }
       }
       if (!done) problems.push(`${kind}: no pocket fits`);
+      continue;
+    }
+    if (WALK_SHAPES[kind]) {
+      const test = { ...raw, things: [...(raw.things || []), ...added], charges: [...(raw.charges || []), ...charges], traps: placed.map((q) => ({ ...q })) };
+      const path = walkPath(test);
+      if (!path) { problems.push(`${kind}: no walk from spawn to the exit lift`); continue; }
+      const hidden = isHidden(kind), from = Math.max(1, hidden ? HIDDEN_CLEAR + 1 : 4);
+      const idx = [];
+      for (let j = path.length - 3; j >= from; j--) if (adj(path[j - 1], path[j]) && adj(path[j], path[j + 1]) && free(path[j][0], path[j][1]) && path.findIndex((q) => same(q, path[j])) === j) idx.push(j);
+      const lane = Math.floor(rng.float(0, Math.max(1, idx.length)));
+      let order = [...idx.slice(lane), ...idx.slice(0, lane)];
+      if (KINDS[kind]?.cls) { const choke = (j) => !walkPath(test, { blocked: [path[j]] }); order = [...order.filter(choke), ...order.filter((j) => !choke(j))]; }
+      let done = false;
+      for (const j of order) {
+        for (const o of WALK_SHAPES[kind](j, path, { P, raw, free, i, id })) {
+          const t = { id, kind, ...o };
+          if (!walkPath(test, { blocked: KINDS[kind]?.cls ? [] : (KINDS[kind]?.worst?.(t)?.blocked || t.cells) })) continue;
+          if (keep(t)) { done = true; break; }
+        }
+        if (done) break;
+      }
+      if (!done) problems.push(`${kind}: no cell on the walk fits`);
       continue;
     }
     const shape = GUARD_SHAPES[kind];

@@ -7,7 +7,8 @@ import { prepareLevel } from "../core/level.js";
 import { SHAPES, resolveTransforms } from "../core/layout/shapes/index.js";
 import { measure, checks } from "./variety-lib.mjs";
 import { placeTraps } from "../core/traps/place.js";
-import { applyGrip, guardProblems, mustGuard } from "../core/traps/rules.js";
+import { applyGrip, guardProblems, mustGuard, validateTraps } from "../core/traps/rules.js";
+import { walkReport } from "../core/traps/walk.js";
 import { placeCharges, checkCharges } from "../core/layout/pickups.js";
 import { placeFences } from "../core/layout/fences.js";
 
@@ -22,6 +23,7 @@ const ascii = args.includes("--ascii");
 if (ascii) fs.mkdirSync(path.join(root, flag("--ascii-dir", "out/layout")), { recursive: true });
 
 const PHASE = { pads: true, deck: true, mask: true };
+const TUNE = 6;
 
 export const BAKES = {
   "wizard-medium": [
@@ -54,18 +56,18 @@ export const RUN_PLAN = [
 ];
 const runOrder = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
 const TRAP_PLAN = [
-  ["t18", "t03", "t16", "t06", "t20", "t21"],
-  ["t05", "t25", "t04", "t22", "t10", "t21"],
-  ["t03", "t02", "t18", "t21", "t21", "t10", "t11", "t07"],
-  ["t37", "t17", "t48", "t04", "t20", "t20", "t21", "t21", "t10"],
-  ["t38", "t06", "t16", "t03", "t10", "t10", "t21", "t21", "t21", "t20", "t20"],
-  ["t35", "t48", "t12", "t22", "t20", "t20", "t21", "t21", "t10", "t10", "t11"],
-  ["t32", "t30", "t18", "t03", "t16", "t21", "t21", "t10", "t10", "t11", "t11", "t20"],
-  ["t39", "t07", "t19", "t12", "t16", "t21", "t21", "t21", "t10", "t10", "t11", "t20", "t20"],
-  ["t36", "t25", "t29", "t03", "t22", "t16", "t11", "t21", "t21", "t21", "t10", "t10", "t10", "t11", "t11", "t20"],
-  ["t34", "t28", "t19", "t18", "t20", "t21", "t21", "t21", "t10", "t11", "t11", "t11", "t20"],
-  ["t33", "t30", "t25", "t18", "t16", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20", "t09"],
-  ["t32", "t31", "t48", "t12", "t04", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20"],
+  ["t18", "t03", "t16", "t06", "t20", "t21", "t55"],
+  ["t05", "t25", "t04", "t22", "t10", "t21", "t56"],
+  ["t03", "t02", "t18", "t21", "t21", "t10", "t11", "t07", "t58", "t55"],
+  ["t37", "t17", "t48", "t04", "t20", "t20", "t21", "t21", "t10", "t55", "t57", "t60"],
+  ["t38", "t06", "t16", "t03", "t10", "t10", "t21", "t21", "t21", "t20", "t20", "t55", "t59"],
+  ["t35", "t48", "t12", "t22", "t20", "t20", "t21", "t21", "t10", "t10", "t11", "t54", "t58"],
+  ["t32", "t30", "t18", "t03", "t16", "t21", "t21", "t10", "t10", "t11", "t11", "t20", "t55", "t56", "t60"],
+  ["t39", "t07", "t19", "t12", "t16", "t21", "t21", "t21", "t10", "t10", "t11", "t20", "t20", "t55", "t57"],
+  ["t36", "t25", "t29", "t03", "t22", "t16", "t11", "t21", "t21", "t21", "t10", "t10", "t10", "t11", "t11", "t20", "t55", "t59", "t56"],
+  ["t34", "t28", "t19", "t18", "t20", "t21", "t21", "t21", "t10", "t11", "t11", "t11", "t20", "t55", "t57", "t58", "t60"],
+  ["t33", "t30", "t25", "t18", "t16", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20", "t09", "t55", "t59", "t57"],
+  ["t32", "t31", "t48", "t12", "t04", "t21", "t21", "t21", "t21", "t10", "t10", "t10", "t20", "t20", "t20", "t55", "t55", "t56", "t58", "t60"],
 ];
 BAKES.run = runOrder.map((name, i) => ({ base: name, name, seed: 101 + i, ...(TRAP_PLAN[i] ? { traps: TRAP_PLAN[i] } : {}), ninths: [(i * 4) % 9, (i * 4 + 6) % 9], ...RUN_PLAN[i % RUN_PLAN.length], pads: PHASE.pads && i >= 2, features: RUN_RECIPES[i % RUN_RECIPES.length], run: true }));
 for (const list of Object.values(BAKES)) for (const b of list) Object.assign(b, { windows: PHASE.deck ? undefined : false, reward: PHASE.deck, mask: PHASE.mask, ...(PHASE.pads ? {} : { pads: false }), ...b });
@@ -152,25 +154,52 @@ if (list.every((b) => b.run)) {
 }
 for (const [i, b] of list.entries()) {
   const best = variant(i, pick[i]);
-  const { level, attempt, history } = best;
+  const { attempt, history } = best;
   const problems = [...best.problems];
-  if (b.traps && level) {
-    const r = placeTraps(level, b.traps, { position: i + 1 });
-    level.traps = r.traps;
-    level.charges = r.charges;
-    level.things.push(...r.things);
-    problems.push(...r.problems);
+  let fenceNote = "", walkNote = "";
+  const dress = (L, kinds) => {
+    const out = [];
+    if (kinds) {
+      const r = placeTraps(L, kinds, { position: i + 1 });
+      L.traps = r.traps;
+      L.charges = r.charges;
+      L.things.push(...r.things);
+      out.push(...r.problems);
+    }
+    if (fenceOn(b)) { const f = placeFences(L, { seed: L.layout?.seed ?? b.seed }); fenceNote = `, fences ${f.material} ${f.cells} cells ${(f.share * 100).toFixed(1)}% of ${f.edges} edge cells`; }
+    L.charges = placeCharges(L, { seed: L.layout?.seed ?? b.seed, count: 2 + (L.charges?.length || 0) });
+    applyGrip(L);
+    out.push(...checkCharges(L), ...L.traps.filter((t) => t.guards && mustGuard(t.kind)).flatMap((t) => guardProblems(L, t).map((p) => `${t.id}: ${p}`)));
+    return out;
+  };
+  let level = best.level;
+  if (level) {
+    const bare = JSON.stringify(level);
+    let kinds = b.traps ? b.traps.slice() : null, extra = 0;
+    for (let tries = 0; ; tries++) {
+      level = JSON.parse(bare);
+      const got = dress(level, kinds);
+      if (!kinds) { problems.push(...got); break; }
+      const rep = walkReport(level, { position: i + 1 });
+      const m = rep.runs[0].mind, [lo, hi] = rep.band;
+      walkNote = `, mindless walk ${m.deaths} deaths ${m.hearts} hearts (wants ${lo} to ${hi}), memorized ${rep.runs[0].sure.deaths}, kinds ${kinds.length}`;
+      const miss = got.map((p) => /^(t5[4-9]|t60): no (cell on the walk|reward approach)/.exec(p)?.[1]).find(Boolean);
+      if (miss && tries < TUNE * 2) { const j = kinds.lastIndexOf(miss); kinds.splice(j, 1, ...(miss === "t55" ? ["t54"] : [])); continue; }
+      const tune = tries < TUNE * 2 && m.done && !got.length;
+      if (tune && m.deaths < lo) { kinds.push("t54"); extra++; continue; }
+      if (tune && m.deaths > hi) { const j = kinds.lastIndexOf(extra ? "t54" : "t10"); if (j >= 0) { kinds.splice(j, 1); if (extra) extra--; continue; } }
+      problems.push(...got, ...validateTraps(level, { position: i + 1 }));
+      break;
+    }
   }
-  let fenceNote = "";
-  if (level && fenceOn(b)) { const f = placeFences(level, { seed: level.layout?.seed ?? b.seed }); fenceNote = `, fences ${f.material} ${f.cells} cells ${(f.share * 100).toFixed(1)}% of ${f.edges} edge cells`; }
-  if (level) { level.charges = placeCharges(level, { seed: level.layout?.seed ?? b.seed, count: 2 + (level.charges?.length || 0) }); applyGrip(level); problems.push(...checkCharges(level), ...level.traps.filter((t) => t.guards && mustGuard(t.kind)).flatMap((t) => guardProblems(level, t).map((p) => `${t.id}: ${p}`))); }
   const dist = routeDistances(level).map((s) => `${s.id} ${s.locked}->${s.unlocked}`).join(", ");
   const land = level.cells.flat().filter((c) => c.s !== "none" && c.s !== "water").length;
-  console.log(`${b.name}: ${level.layout.shape} ${level.layout.transform} x${level.layout.scale} ${b.archetype}, seed ${b.seed}${best.variant ? ` variant ${best.variant}` : ""} attempt ${attempt}, size ${level.size.join("x")}, land ${land}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, pads ${level.things.filter((t) => t.kind === "pad").length / 2}, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}${fenceNote}`);
+  console.log(`${b.name}: ${level.layout.shape} ${level.layout.transform} x${level.layout.scale} ${b.archetype}, seed ${b.seed}${best.variant ? ` variant ${best.variant}` : ""} attempt ${attempt}, size ${level.size.join("x")}, land ${land}, ${level.decor.length} decor, path ${level.cells.flat().filter((c) => c.p).length} cells, pads ${level.things.filter((t) => t.kind === "pad").length / 2}, features ${(level.route.features || []).map((f) => f.kind).join("+")}; shortcuts ${dist}${fenceNote}${walkNote}`);
   if (args.includes("--why")) for (const [k, h] of (history || []).entries()) console.log(`  attempt ${k}: ${h.join(" | ")}`);
   if (problems.length) { failed++; console.log("  FAIL\n  " + problems.slice(0, 12).join("\n  ")); }
   if (ascii) fs.writeFileSync(path.join(flag("--ascii-dir", "out/layout"), `${b.name}.txt`), draw(level) + "\n" + problems.join("\n") + "\n");
   if (!dry && !problems.length) fs.writeFileSync(path.join(root, "levels", `${b.name}.json`), JSON.stringify(level) + "\n");
+  if (flag("--out", null)) fs.writeFileSync(path.join(flag("--out", null), `${b.name}.json`), JSON.stringify(level) + "\n");
 }
 process.exitCode = failed ? 1 : 0;
 
