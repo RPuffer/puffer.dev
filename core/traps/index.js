@@ -21,7 +21,7 @@ export function normalizeTrap(t, i = 0) {
   return { ...t, id: t.id || `${t.kind}-${i}`, meta };
 }
 
-export function createTraps(level, { actor, life = null, health = null, things = null, storage = globalThis.localStorage, params = {}, say = null, rotate = null, lockCamera = null, yaw = null } = {}) {
+export function createTraps(level, { actor, life = null, health = null, things = null, storage = globalThis.localStorage, params = {}, say = null, rotate = null, lockCamera = null, yaw = null, power = null } = {}) {
   const list = (level.traps || []).map(normalizeTrap).filter(Boolean);
   const byId = Object.fromEntries(list.map((t) => [t.id, t]));
   const skey = trapStorageKey(level.name);
@@ -53,6 +53,7 @@ export function createTraps(level, { actor, life = null, health = null, things =
     rotate: (step) => rotate?.(step),
     lockCamera: (on) => lockCamera?.(on),
     yaw: () => (yaw ? yaw() : 45),
+    power: () => power?.() || {},
     skipped: (c) => skipped(c),
     sink: (c, on) => {
       const k = key(c[0], c[1]);

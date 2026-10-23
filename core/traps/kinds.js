@@ -568,6 +568,7 @@ defineTrap("t09", {
 
 defineTrap("t10", {
   worst(t) { return { blocked: t.cells }; },
+  learn(t) { return [t.cells[t.at]]; },
   check(t) { return t.cells.length !== 2 || !near1(t.cells[0], t.cells[1]) ? ["the scooting hole covers two adjacent cells"] : []; },
   init(t) { t.at = 0; t.open = false; t.moved = false; t.drop = -1; t.chalkAt = null; },
   reset(t, ctx) {
@@ -794,6 +795,7 @@ defineTrap("t28", {
   init(t) { t.holes = new Map(); t.creak = -1; },
   reset(t) { t.holes = new Map(); t.creak = -1; },
   holeAt(t, c, now) { const h = t.holes.get(key(c[0], c[1])); return !!h && now >= h.from && now < h.to; },
+  unsafe(t, c, ctx, from, to) { const h = t.holes.get(key(c[0], c[1])); return !!h && h.to > ctx.time + from && h.from < ctx.time + to; },
   enter(t, c, prev, ctx) {
     if (this.holeAt(t, c, ctx.time)) { ctx.emit(t, "plunge"); ctx.knock(t, [0, 0]); return; }
     const i = indexOf(t.second, c);
@@ -1293,4 +1295,114 @@ defineTrap("t53", {
     if (i < 0 || a.path.length || a.moving || a.fx || a.locked) return;
     if (shove(ctx, f, this.dirAt(t, i))) ctx.emit(t, "carry");
   },
+});
+
+const dropAt = (t, c, ctx, type = "drop") => { t.open = c.slice(); t.drop = 0; ctx.emit(t, type, { at: c }); ctx.knock(t, [0, 0]); };
+
+defineTrap("t54", {
+  worst(t) { return { blocked: t.cells }; },
+  check(t) { return t.cells.length !== 1 ? ["the false floor covers one cell"] : []; },
+  init(t) { t.open = null; t.drop = -1; },
+  reset(t) { t.open = null; t.drop = -1; },
+  enter(t, c, prev, ctx) { if (!t.open) dropAt(t, c, ctx); },
+  update(t, dt) { if (t.drop >= 0) t.drop += dt; },
+});
+
+defineTrap("t55", {
+  worst(t) { return { blocked: [t.cells[0]] }; },
+  danger(t) { return [t.cells[0]]; },
+  learn(t) { return t.open ? [t.open] : [t.cells[0]]; },
+  clear(t) { return t.prev && t.next ? t.cells.slice(1).flatMap((s) => { const p = sub(s, t.cells[0]); return [add(t.prev, p), add(t.next, p)]; }) : []; },
+  check(t, P) {
+    const out = [];
+    const [a, ...sides] = t.cells;
+    if (sides.length !== 2) return ["the false detour is one path cell and its two shoulders"];
+    for (const s of sides) if (!near1(a, s) || !isWalkable(P, s[0], s[1])) out.push(`shoulder ${s} must be a walkable cell beside ${a}`);
+    if (!t.prev || !t.next || !near1(t.prev, a) || !near1(t.next, a) || !same(sub(a, t.prev), sub(t.next, a))) out.push("the false detour sits on a straight run, entered from prev and left by next");
+    else for (const s of sides) {
+      const p = sub(s, a);
+      for (const q of [add(t.prev, p), add(t.next, p)]) if (!isWalkable(P, q[0], q[1])) out.push(`the detour past ${s} needs ${q} walkable`);
+    }
+    return out;
+  },
+  init(t) { t.open = null; t.drop = -1; t.fell = 0; t.second = null; },
+  reset(t) { t.open = null; t.drop = -1; },
+  rest(t) { t.fell = 0; t.second = null; },
+  enter(t, c, prev, ctx) {
+    if (t.open) return;
+    if (same(c, t.cells[0])) { t.fell++; dropAt(t, c, ctx); return; }
+    if (!t.fell) return;
+    if (!t.second) t.second = c.slice();
+    if (same(c, t.second)) dropAt(t, c, ctx, "drop-second");
+  },
+  update(t, dt) { if (t.drop >= 0) t.drop += dt; },
+});
+
+const classGate = (cls, impl) => ({
+  cls,
+  check(t, P) {
+    const c = t.cells[0];
+    if (t.cells.length !== 1) return ["a class gate covers one cell"];
+    return isWalkable(P, c[0], c[1]) ? [] : ["a class gate sits on a walkable cell"];
+  },
+  init(t) { t.open = null; t.drop = -1; t.held = -1; },
+  reset(t) { t.open = null; t.drop = -1; t.held = -1; },
+  ...impl,
+  update(t, dt, ctx) { if (t.drop >= 0) t.drop += dt; tick(t, "held", dt, 0.8); impl.update?.call(this, t, dt, ctx); },
+});
+
+defineTrap("t56", classGate("wanderer", {
+  check(t, P) {
+    const c = t.cells[0];
+    if (t.cells.length !== 1) return ["the ink pit covers one cell"];
+    const jumps = N4.some((d) => { const from = sub(c, d), to = add(c, d); return isWalkable(P, from[0], from[1]) && isWalkable(P, to[0], to[1]) && P.cells[from[1]][from[0]].s !== "ramp" && P.cells[to[1]][to[0]].s !== "ramp" && [0, 1].includes(P.cells[from[1]][from[0]].h - P.cells[to[1]][to[0]].h) && P.cells[c[1]][c[0]].h <= P.cells[from[1]][from[0]].h; });
+    return jumps ? [] : ["Ink Step must be able to dash over the ink pit"];
+  },
+  enter(t, c, prev, ctx) { if (!t.open) dropAt(t, c, ctx, "sink"); },
+}));
+
+defineTrap("t57", classGate("aws", {
+  enter(t, c, prev, ctx) {
+    if (t.open) return;
+    const r = ctx.knock(t, [0, 0]);
+    if (r === "absorbed") { t.held = 0; ctx.emit(t, "hold"); return; }
+    t.open = c.slice(); t.drop = 0; ctx.emit(t, "zap", { at: c });
+  },
+}));
+
+defineTrap("t58", classGate("dutchie", {
+  period: 1, opening: 0.29,
+  closed(t, now) { return ((now + (t.phase || 0)) % this.period + this.period) % this.period >= this.opening; },
+  unsafe(t, c, ctx, from, to) {
+    if (!same(c, t.cells[0])) return false;
+    for (let u = from; u <= to + 1e-9; u += 1 / 240) if (this.closed(t, ctx.time + u)) return true;
+    return false;
+  },
+  update(t, dt, ctx) {
+    t.shut = this.closed(t, ctx.time) ? 1 : 0;
+    if (t.shut && !t.open && ctx.on(t.cells[0])) { t.open = t.cells[0].slice(); t.drop = 0; ctx.emit(t, "chomp"); ctx.knock(t, [0, 0]); }
+  },
+}));
+
+defineTrap("t59", classGate("nm", {
+  enter(t, c, prev, ctx) {
+    if (t.open) return;
+    if (ctx.power().lit) { t.held = 0; ctx.emit(t, "hold"); return; }
+    dropAt(t, c, ctx, "snap");
+  },
+}));
+
+defineTrap("t60", {
+  free: true,
+  check(t) { return !t.gate ? ["the class seal needs its gate"] : !["wanderer", "aws", "dutchie", "nm"].includes(t.cls) ? ["the class seal names one class"] : t.cells.length !== 1 ? ["the class seal is read from one cell"] : []; },
+  init(t, ctx) { t.solved = solvedGate(t, ctx); t.nope = -1; t.told = false; },
+  reset(t) { t.told = false; },
+  enter(t, c, prev, ctx) {
+    if (t.solved || !same(c, t.cells[0])) return;
+    if (ctx.power().cls === t.cls) { solveWith(t, ctx, t.text || "The seal knows you. The gate swings open."); return; }
+    t.nope = 0;
+    ctx.emit(t, "nope");
+    if (!t.told) { t.told = true; ctx.say(t.hint || "The seal stays shut. It wants someone else."); }
+  },
+  update(t, dt) { tick(t, "nope", dt, 0.6); },
 });

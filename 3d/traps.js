@@ -5,7 +5,7 @@ import { applyMotion } from "./motion.js";
 import { ramp } from "./prims.js";
 import { surfaceY, liftLevel } from "./terrain.js";
 import { DIRS } from "../core/level.js";
-import { BEAT } from "../core/traps/kinds.js";
+import { BEAT, KINDS } from "../core/traps/kinds.js";
 import { lookOf, chestBase, chestLid, leverBase, leverArm } from "./things.js";
 
 const pal = (hex) => { const r = ramp(hex); return tone(r[2], r[1], r[0]); };
@@ -208,6 +208,47 @@ function beltTile(B) { B.rbox(0.92, 0.06, 0.92, 0.04, pal(C.ironDark), 0, 0, 0);
 function beltArrow(B) { B.box(0.08, 0.02, 0.3, pal(C.gold), 0, 0, -0.06); B.rot([1, 0, 0], Math.PI / 2, 0, 0.01, 0.08); B.cone(0.14, 0, 0.2, pal(C.gold), 0, 0, 0, 3); B.pop(); }
 function fuseBit(B) { B.box(0.06, 0.06, 1.0, pal("#3a3036"), 0, 0, 0); }
 function ghostBlob(B) { B.ball(0.24, pal("#cfe8ff"), 0, 0.3, 0, 1.3, 1); B.ball(0.18, pal("#cfe8ff"), 0, 0.72, 0, 1, 1); }
+
+
+const SIGIL = { wanderer: "#5d4fb0", aws: "#a8f8ff", dutchie: "#7fd6ff", nm: "#f0c438" };
+function sigilPost(B, col) {
+  B.box(0.07, 0.72, 0.07, pal(C.iron), 0, 0, 0);
+  B.rbox(0.3, 0.3, 0.06, 0.06, pal(C.ironDark), 0, 0.72, 0);
+  B.cyl(0.1, 0.02, pal(col), 0, 0.86, 0.035, 10);
+}
+function inkPit(B, seed) {
+  B.cyl(0.36, 0.01, pal("#2b2148"), 0, 0, 0, 12);
+  B.cyl(0.24, 0.012, pal(C.ink), 0.04, 0, -0.03, 10);
+  cracks(B, 2, seed);
+  for (let i = 0; i < 4; i++) B.ball(0.04, pal("#3b3470"), Math.cos(i * 1.7 + seed) * 0.34, 0, Math.sin(i * 1.7 + seed) * 0.34, 0.4, 0);
+}
+function wardArch(B) {
+  for (const x of [-0.42, 0.42]) B.rbox(0.12, 1.1, 0.16, 0.03, pal(C.stoneDark), x, 0, 0);
+  B.rbox(0.98, 0.16, 0.18, 0.04, pal(C.stone), 0, 1.1, 0);
+  B.rbox(0.26, 0.3, 0.06, 0.05, pal("#3c4a5a"), 0, 0.98, 0.1);
+  B.box(0.04, 0.2, 0.01, pal("#a8f8ff"), 0, 1.03, 0.135);
+}
+function jaw(B) {
+  B.rbox(0.9, 0.34, 0.2, 0.05, pal(C.stoneDark), 0, 0, 0);
+  for (let i = 0; i < 4; i++) B.cone(0.05, 0, 0.14, pal(C.bone), -0.33 + i * 0.22, 0.12, 0.12, 4);
+}
+function hourglass(B) {
+  B.box(0.06, 0.62, 0.06, pal(C.iron), 0, 0, 0);
+  B.cone(0.1, 0.01, 0.12, pal("#7fd6ff"), 0, 0.62, 0, 8);
+  B.cone(0.01, 0.1, 0.12, pal("#7fd6ff"), 0, 0.74, 0, 8);
+  B.box(0.22, 0.03, 0.22, pal(C.wood), 0, 0.86, 0);
+}
+function rottenPlank(B) {
+  B.rbox(0.9, 0.05, 0.28, 0.02, pal("#5b4a3a"), 0, 0, -0.3);
+  B.rbox(0.9, 0.05, 0.26, 0.02, pal("#4a3b2e"), 0.03, 0, 0);
+  B.rbox(0.8, 0.05, 0.26, 0.02, pal("#5b4a3a"), -0.04, 0, 0.3);
+  B.box(0.04, 0.012, 0.5, pal(C.ink), 0.18, 0.05, 0.05);
+}
+function lanternHook(B) {
+  B.box(0.06, 0.8, 0.06, pal(C.iron), 0, 0, 0);
+  B.box(0.24, 0.04, 0.04, pal(C.iron), 0.1, 0.8, 0);
+  B.rbox(0.12, 0.16, 0.12, 0.03, pal(C.gold), 0.2, 0.6, 0);
+}
 
 export function buildTraps(state, style) {
   const L = state.level, view = state.view, light = style.light;
@@ -544,6 +585,65 @@ export function buildTraps(state, style) {
         chalk.visible = !!t.chalk && !!t.chalkAt;
         if (chalk.visible) chalk.position.set(t.chalkAt[0] + 0.5, Y(t.chalkAt) + 0.02, t.chalkAt[1] + 0.5);
       };
+    } else if (t.kind === "t54" || t.kind === "t55") {
+      const pits = t.cells.map((c) => place(bake((B) => holeTile(B), light), c, 0.006));
+      it.update = () => { t.cells.forEach((c, i) => { pits[i].visible = !!t.open && same(t.open, c); }); };
+    } else if (t.kind === "t56") {
+      const c = t.cells[0];
+      place(bake((B) => inkPit(B, c[0] * 3 + c[1]), light), c, 0.004);
+      const pit = place(bake((B) => holeTile(B), light), c, 0.007);
+      const d = N4.find(([dx, dz]) => !state.level.cells[c[1] + dz]?.[c[0] + dx]?.p) || [1, 0];
+      place(bake((B) => sigilPost(B, SIGIL.wanderer), light), [c[0], c[1]]).position.set(c[0] + 0.5 + d[0] * 0.45, Y(c), c[1] + 0.5 + d[1] * 0.45);
+      it.update = () => { pit.visible = !!t.open; };
+    } else if (t.kind === "t57") {
+      const c = t.cells[0];
+      const P = state.level, across = (P.cells[c[1]]?.[c[0] + 1]?.p || P.cells[c[1]]?.[c[0] - 1]?.p) ? Math.PI / 2 : 0;
+      place(bake((B) => wardArch(B), light), c, 0, across);
+      const field = new THREE.Mesh(new THREE.PlaneGeometry(0.72, 0.95), new THREE.MeshBasicMaterial({ color: "#a8f8ff", transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false }));
+      place(field, c, 0.55, across);
+      it.update = () => {
+        const k = t.held >= 0 ? 1 - t.held / 0.8 : 0;
+        field.material.opacity = t.open ? 0.8 : 0.22 + 0.1 * Math.sin(T.time * 9) + 0.4 * k;
+        field.material.color.set(t.held >= 0 ? "#ffffff" : t.open ? "#ff5a6a" : "#a8f8ff");
+      };
+    } else if (t.kind === "t58") {
+      const c = t.cells[0];
+      const P = state.level, lane = (P.cells[c[1]]?.[c[0] + 1]?.p || P.cells[c[1]]?.[c[0] - 1]?.p) ? [1, 0] : [0, 1];
+      const side = [lane[1], lane[0]];
+      const jaws = [1, -1].map((s) => { const m = bake((B) => jaw(B), light); m.rotation.y = yawOf(side) + (s > 0 ? Math.PI : 0); group.add(m); return { m, s }; });
+      const post = bake((B) => hourglass(B), light);
+      post.position.set(c[0] + 0.5 - lane[0] * 0.45 + side[0] * 0.5, Y(c), c[1] + 0.5 - lane[1] * 0.45 + side[1] * 0.5);
+      group.add(post);
+      const K = KINDS.t58;
+      it.update = () => {
+        const u = ((T.time + (t.phase || 0)) % K.period + K.period) % K.period;
+        const shut = u >= K.opening ? Math.min(1, (u - K.opening) / 0.08) * Math.min(1, (K.period - u) / 0.12) : 0;
+        for (const { m, s } of jaws) { const o = 0.18 + 0.32 * (1 - shut); m.position.set(c[0] + 0.5 + side[0] * s * o, Y(c), c[1] + 0.5 + side[1] * s * o); }
+        post.rotation.y = T.time * 2;
+      };
+    } else if (t.kind === "t59") {
+      const c = t.cells[0];
+      const P = state.level, lane = (P.cells[c[1]]?.[c[0] + 1]?.p || P.cells[c[1]]?.[c[0] - 1]?.p) ? [1, 0] : [0, 1];
+      const plankM = place(bake((B) => rottenPlank(B), light), c, 0.012, lane[0] ? Math.PI / 2 : 0);
+      const pit = place(bake((B) => holeTile(B), light), c, 0.007);
+      for (const s of [1, -1]) {
+        const h = bake((B) => lanternHook(B), light);
+        h.position.set(c[0] + 0.5 + lane[0] * s * 0.5 + lane[1] * 0.45, Y(c), c[1] + 0.5 + lane[1] * s * 0.5 + lane[0] * 0.45);
+        group.add(h);
+      }
+      it.update = () => { plankM.visible = !t.open; pit.visible = !!t.open; plankM.position.y = Y(c) + 0.012 - (t.held >= 0 ? 0.03 : 0); };
+    } else if (t.kind === "t60") {
+      const c = t.cells[0];
+      place(bake((B) => tileSlab(B, SIGIL[t.cls] || C.slab), light), c, 0.004);
+      const g = (state.level.things || []).find((q) => q.id === t.gate);
+      const at = g ? [g.x, g.z] : c, d = dirOf(c, at), side = [d[1], d[0]];
+      const s = bake((B) => sigilPost(B, SIGIL[t.cls] || C.gold), light);
+      s.position.set(c[0] + 0.5 + side[0] * 0.42 + d[0] * 0.3, Y(c), c[1] + 0.5 + side[1] * 0.42 + d[1] * 0.3);
+      s.rotation.y = yawOf([-d[0], -d[1]]);
+      group.add(s);
+      const no = bake((B) => star(B), light);
+      group.add(no);
+      it.update = () => { no.visible = t.nope >= 0; if (no.visible) { no.scale.setScalar(0.4 + t.nope); no.position.set(c[0] + 0.5, Y(c) + 1.1, c[1] + 0.5); } };
     } else if (t.kind === "t11") {
       const c = t.cells[0];
       const lines = place(bake((B) => seam(B), light), c, 0.006);

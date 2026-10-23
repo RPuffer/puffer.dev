@@ -201,7 +201,7 @@ export function createGame(renderer, params = readParams()) {
       let traps = null;
       const life = createLife({ level, actor, things, health, variant: p.fall, onRespawn: () => { state.route.clear(); traps?.reset(); } });
       state.camLock = false;
-      traps = level.traps?.length && p.traps !== "0" ? createTraps(level, { actor, life, health, things, params: p, rotate: (step) => game.rotate(step), lockCamera: (on) => { state.camLock = !!on; }, yaw: () => game.yaw }) : null;
+      traps = level.traps?.length && p.traps !== "0" ? createTraps(level, { actor, life, health, things, params: p, rotate: (step) => game.rotate(step), lockCamera: (on) => { state.camLock = !!on; }, yaw: () => game.yaw, power: () => ({ cls: powers.cls, lit: powers.lit }) }) : null;
       things?.on((e) => { if (e.type === "lit" || e.type === "rest") { health.refill(e.type); traps?.rest(); } });
       Object.assign(state, { level, view, proj, actor, params: p, things, life, traps });
       powers.bind();

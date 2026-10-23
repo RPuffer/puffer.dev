@@ -6,7 +6,7 @@ import { placeFences } from "../core/layout/fences.js";
 import { lightsOutStart } from "../core/traps/kinds.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
-const COLS = 7, ROWS = 7, PITCH = 11, BLVD = 28;
+const COLS = 7, ROWS = 8, PITCH = 11, BLVD = 28;
 const W = 4 + 9 * COLS, D = BLVD + PITCH * (ROWS - 1) + 11;
 const cells = Array.from({ length: D }, () => Array.from({ length: W }, () => ({ h: 0, s: "none" })));
 const land = (x, z, s = "grass") => { cells[z][x] = { h: 1, s }; };
@@ -349,6 +349,47 @@ plot("turntable", (P) => {
   P.road([4, 3], [5, 3]);
   P.chest("turn-chest", [3, 7], 0, "Still facing the right way.");
   P.trap({ id: "turntable", kind: "t23", cells: P.at([[3, 3]]), guards: { chest: "turn-chest" } });
+});
+
+plot("falsefloor", (P) => {
+  P.road([3, 0], [3, 6]);
+  P.rect([4, 2], [4, 4]);
+  P.decor("rock", [5, 3]);
+  P.trap({ id: "falsefloor", kind: "t54", cells: P.at([[3, 3]]) });
+});
+plot("falsedetour", (P) => {
+  P.road([3, 0], [3, 6]);
+  P.rect([2, 2], [2, 4]);
+  P.rect([4, 2], [4, 4]);
+  P.decor("rock", [6, 3]);
+  P.trap({ id: "falsedetour", kind: "t55", cells: P.at([[3, 3], [4, 3], [2, 3]]), prev: P.A([3, 2]), next: P.A([3, 4]) });
+});
+plot("inkpit", (P) => {
+  P.road([3, 0], [3, 6]);
+  P.chest("ink-chest", [3, 7], 0, "Over the ink.");
+  P.trap({ id: "inkpit", kind: "t56", cells: P.at([[3, 3]]) });
+});
+plot("wardarch", (P) => {
+  P.road([3, 0], [3, 6]);
+  P.chest("ward-chest", [3, 7], 0, "The ward took the shock.");
+  P.trap({ id: "wardarch", kind: "t57", cells: P.at([[3, 3]]) });
+});
+plot("gnasher", (P) => {
+  P.road([3, 0], [3, 6]);
+  P.chest("gnash-chest", [3, 7], 0, "Faster than the jaws.");
+  P.trap({ id: "gnasher", kind: "t58", cells: P.at([[3, 3]]), phase: 0 });
+});
+plot("plank", (P) => {
+  P.road([3, 0], [3, 6]);
+  P.chest("plank-chest", [3, 7], 0, "The plank held in the light.");
+  P.trap({ id: "plank", kind: "t59", cells: P.at([[3, 3]]) });
+});
+plot("seal", (P) => {
+  P.road([3, 0], [3, 5]);
+  P.cell([3, 6], { h: 1, s: "stone" });
+  P.thing({ id: "seal-gate", kind: "gate", ...P.xz([3, 6]), span: "x", edge: P.at([[3, 5], [3, 6]]), blocks: P.at([[3, 6]]), open: "trap:seal" });
+  P.chest("seal-chest", [3, 7], 0, "The seal knew you.");
+  P.trap({ id: "seal", kind: "t60", cells: P.at([[3, 5]]), cls: "aws", gate: "seal-gate" });
 });
 
 if (PLOTS.length > ROWS * COLS) throw new Error(`${PLOTS.length} plots, room for ${ROWS * COLS}`);

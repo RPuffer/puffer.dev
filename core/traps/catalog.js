@@ -33,8 +33,8 @@ export const TRAP_CATALOG = [
   {"id":"t32","name":"Mirror controls","tier":"debuff","footprint":"whole island","trigger":"arrival","visibility":"obvious","health":"none","pull":"neutral","excludes":["t23","t49"]},
   {"id":"t33","name":"Fog","tier":"debuff","footprint":"whole island, sight r3","trigger":"arrival","visibility":"obvious","health":"none","pull":"onto the path","excludes":["t11","t31","t46","t47"]},
   {"id":"t34","name":"Nap timer","tier":"debuff","footprint":"whole island","trigger":"arrival","visibility":"obvious","health":"all hearts","pull":"onto the path","excludes":["t41","t42","t45","t51"]},
-  {"id":"t35","name":"Slick soles","tier":"debuff","footprint":"whole island except path cells","trigger":"arrival","visibility":"obvious","health":"none","pull":"onto the path","excludes":["t01","t05","t15","t24","t26","t41","t52","t53"]},
-  {"id":"t36","name":"Gusts","tier":"debuff","footprint":"whole island","trigger":"arrival","visibility":"telegraphed","health":"none","pull":"onto the path","excludes":["t15","t24","t26","t27","t41","t48","t49"]},
+  {"id":"t35","name":"Slick soles","tier":"debuff","footprint":"whole island except path cells","trigger":"arrival","visibility":"obvious","health":"none","pull":"onto the path","excludes":["t01","t05","t15","t24","t26","t41","t52","t53","t55","t56"]},
+  {"id":"t36","name":"Gusts","tier":"debuff","footprint":"whole island","trigger":"arrival","visibility":"telegraphed","health":"none","pull":"onto the path","excludes":["t15","t24","t26","t27","t41","t48","t49","t58"]},
   {"id":"t37","name":"Sticky soles","tier":"debuff","footprint":"whole island","trigger":"arrival","visibility":"obvious","health":"none","pull":"neutral","excludes":[]},
   {"id":"t38","name":"Stuck camera","tier":"debuff","footprint":"whole island","trigger":"arrival","visibility":"obvious","health":"none","pull":"neutral","excludes":["t11","t23","t31","t46"]},
   {"id":"t39","name":"Hiccups","tier":"debuff","footprint":"whole island","trigger":"arrival","visibility":"telegraphed","health":"none","pull":"neutral","excludes":["t41","t42","t43","t47","t48","t53"]},
@@ -52,6 +52,13 @@ export const TRAP_CATALOG = [
   {"id":"t51","name":"Fuse run","tier":"puzzle","footprint":"branch lever plus a drawbridge of up to 6 cells","trigger":"timer","visibility":"obvious","health":"none","pull":"off the path","excludes":["t34"]},
   {"id":"t52","name":"Ice rink","tier":"puzzle","footprint":"5x5 ice room with a low rail","trigger":"step","visibility":"obvious","health":"none","pull":"off the path","excludes":["t35"]},
   {"id":"t53","name":"Conveyor knot","tier":"puzzle","footprint":"4x4 belt grid plus a switch","trigger":"timer","visibility":"telegraphed","health":"none","pull":"off the path","excludes":["t35","t39"]},
+  {"id":"t54","name":"False floor","tier":"local","footprint":"slot, 1 path cell with a detour around it","trigger":"step","visibility":"hidden","health":"knock-off","pull":"off the path","excludes":[]},
+  {"id":"t55","name":"False detour","tier":"local","footprint":"straight slot, 1 path cell plus both shoulders, each with a 3-cell bypass","trigger":"step","visibility":"hidden","health":"knock-off","pull":"off the path","excludes":["t35"]},
+  {"id":"t56","name":"Ink pit","tier":"local","footprint":"slot, 1 path cell with a straight cell before and after","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":["t35"]},
+  {"id":"t57","name":"Ward arch","tier":"local","footprint":"slot, 1 path cell","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":[]},
+  {"id":"t58","name":"Gnasher","tier":"local","footprint":"slot, 1 path cell","trigger":"timer","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":["t36"]},
+  {"id":"t59","name":"Lantern plank","tier":"local","footprint":"slot, 1 path cell","trigger":"step","visibility":"telegraphed","health":"knock-off","pull":"onto the path","excludes":[]},
+  {"id":"t60","name":"Class seal","tier":"local","footprint":"dead end or pocket, 1 approach cell plus the reward gate","trigger":"step","visibility":"telegraphed","health":"none","pull":"off the path","excludes":[]},
 ];
 
 export const TRAP_BY_ID = Object.fromEntries(TRAP_CATALOG.map((t) => [t.id, t]));
