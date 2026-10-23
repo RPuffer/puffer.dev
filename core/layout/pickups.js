@@ -15,8 +15,8 @@ export function trapCellSet(traps = []) {
   const out = new Set();
   const add = (c) => { if (Array.isArray(c) && typeof c[0] === "number") out.add(key(c[0], c[1])); };
   for (const t of traps) {
-    for (const f of ["cells", "plates", "notches"]) for (const c of t[f] || []) add(c);
-    for (const f of ["plate", "kick", "boss", "cover"]) add(t[f]);
+    for (const f of ["cells", "plates", "notches", "coins", "kind1", "second"]) for (const c of t[f] || []) add(c);
+    for (const f of ["plate", "kick", "boss", "cover", "trigger", "block", "spring", "gate", "dodge"]) add(t[f]);
     if (Array.isArray(t.zone) && t.zone.length === 4) for (let z = t.zone[1]; z <= t.zone[3]; z++) for (let x = t.zone[0]; x <= t.zone[2]; x++) out.add(key(x, z));
   }
   return out;
