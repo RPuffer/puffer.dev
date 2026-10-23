@@ -1,5 +1,6 @@
 import { isWalkable, isVoid, DIRS, OPPOSITE, canStep } from "../level.js";
 
+export const CHALK_HITS = 3;
 export const KINDS = {};
 
 export function defineTrap(id, impl) {
@@ -223,7 +224,7 @@ defineTrap("t21", {
   },
   init(t) { t.solid = false; t.hits = 0; t.star = -1; },
   reveal(t, ctx) { if (!t.solid) { t.solid = true; block(ctx.level, t.cells[0], true); } },
-  reset(t, ctx) { if (t.solid) block(ctx.level, t.cells[0], false); t.solid = false; t.chalk = t.hits >= 2; if (t.chalk) t.revealed = true; },
+  reset(t, ctx) { if (t.solid) block(ctx.level, t.cells[0], false); t.solid = false; t.chalk = t.hits >= CHALK_HITS; if (t.chalk) t.revealed = true; },
   disarm(t, ctx) { if (t.solid) block(ctx.level, t.cells[0], false); t.solid = false; },
   rest(t) { t.hits = 0; t.chalk = false; },
   update(t, dt, ctx) {

@@ -1,9 +1,11 @@
 import { createRng, hashSeed } from "../rng.js";
-import { prepareLevel, isWalkable, isVoid, DIRS } from "../level.js";
+import { prepareLevel, isWalkable, isVoid, canStep, DIRS } from "../level.js";
 import { TRAP_BY_ID } from "./catalog.js";
 import { findPath } from "../path.js";
 import { world, distances } from "../layout/check.js";
-import { forbiddenCells, validateTraps, excluded, mustGuard, guardProblems, applyGrip } from "./rules.js";
+import { forbiddenCells, validateTraps, excluded, mustGuard, guardProblems, applyGrip, isHidden, harmless, needsGuard, HIDDEN_CLEAR } from "./rules.js";
+
+const CLUSTER = 3;
 
 const key = (x, z) => x + "," + z;
 const N4 = Object.values(DIRS);
@@ -153,6 +155,33 @@ function rewardSpots(raw, P, free, rng) {
     if (exits === 1) pockets.push([x, z]);
   }));
   for (const c of rng.shuffle(pockets)) out.push({ kind: "charge", at: c, goals: [c] });
+  const gate = P.things.find((t) => t.kind === "gate" && /^watcher:/.test(String(t.open || "")));
+  if (gate?.threshold?.length) out.push({ kind: "route", id: "gate", goals: gate.threshold.map((c) => c.slice()) });
+  const exit = P.things.find((t) => t.kind === "elevator" && t.role === "exit");
+  if (exit) out.push({ kind: "route", id: "exit", goals: N4.map(([dx, dz]) => [exit.x + dx, exit.z + dz]).filter(([x, z]) => isWalkable(P, x, z)) });
+  for (const sg of raw.route?.segments || []) {
+    if ((sg.role !== "spine" && sg.role !== "branch") || sg.cells.length < 3) continue;
+    const end = sg.cells[sg.cells.length - 1];
+    if (isWalkable(P, end[0], end[1]) && open.has(key(end[0], end[1]))) out.push({ kind: "route", id: sg.id, goals: [end.slice()] });
+  }
+  const far = (sp) => Math.min(...sp.goals.map((g) => open.get(key(g[0], g[1])) ?? Infinity));
+  for (const sp of out) sp.far = far(sp);
+  return out.sort((a, b) => a.far - b.far);
+}
+
+function walkBack(P, d, goal) {
+  let at = goal, n = d.get(key(goal[0], goal[1]));
+  if (n == null) return null;
+  const out = [goal.slice()];
+  while (n > 0) {
+    const opts = Object.entries(DIRS).map(([name, [dx, dz]]) => [at[0] - dx, at[1] - dz, name]).filter(([x, z, name]) => d.get(key(x, z)) === n - 1 && canStep(P, x, z, name));
+    const prev = opts.find(([x, z]) => P.cells[z][x].p) || opts[0];
+    if (!prev) break;
+    at = [prev[0], prev[1]];
+    n--;
+    out.unshift(at);
+  }
+  out.start = n;
   return out;
 }
 
@@ -202,8 +231,8 @@ export function placeTraps(raw, kinds, { position = null, seed = raw.name } = {}
   const keep = (t, extra = [], charge = null) => {
     const test = { ...raw, things: [...(raw.things || []), ...added, ...extra], charges: [...(raw.charges || []), ...charges, ...(charge ? [charge] : [])], traps: [...placed, t].map((q) => ({ ...q })) };
     applyGrip(test);
-    if (mustGuard(t.kind) && guardProblems(test, t, quiet(test)).length) return false;
-    if (validateTraps(test, { position, traps: [...placed, t] }).length) return false;
+    if (needsGuard(t) && guardProblems(test, t, quiet(test)).length) return false;
+    if (validateTraps(test, { position, traps: [...placed, t], partial: true }).length) return false;
     placed.push(t);
     added.push(...extra);
     if (charge) charges.push(charge);
@@ -236,14 +265,24 @@ export function placeTraps(raw, kinds, { position = null, seed = raw.name } = {}
     if (!shape) { problems.push(`${kind}: no guard shape`); continue; }
     let done = false;
     const shares = !mustGuard(kind) && TRAP_BY_ID[kind]?.tier === "local";
-    for (const spot of spots) {
+    let order = [...spots.filter((sp) => sp.kind !== "route"), ...spots.filter((sp) => sp.kind === "route")];
+    if (shares && isHidden(kind)) {
+      order = [...spots.filter((sp) => sp.kind === "route").reverse(), ...spots.filter((sp) => sp.kind !== "route").reverse()];
+      const n = placed.filter((t) => isHidden(t.kind)).length, r = Math.floor(n / CLUSTER) % order.length;
+      order = [...order.slice(r), ...order.slice(0, r)];
+    }
+    for (const spot of order) {
       if (done) break;
+      const loose = spot.kind === "route" && !shares;
+      if (loose && !harmless(kind)) continue;
       if (used.has(spot) && !shares) continue;
       if (spot.kind === "chest" && !shares && placed.some((t) => t.guards?.chest === spot.id)) continue;
       let path = null;
-      for (const g of spot.goals) { const p = findPath(open, raw.spawn, g); if (p && (!path || p.length < path.length)) path = p; }
+      for (const g of spot.goals) { const p = spot.kind === "route" ? walkBack(P, fromFire, g) : findPath(open, raw.spawn, g); if (p && (!path || p.length < path.length)) path = p; }
       if (!path || path.length < 6) continue;
-      const tail = path.slice(Math.max(1, path.length - 14), path.length - (spot.kind === "charge" ? 1 : 0));
+      path.start ||= 0;
+      const cut = Math.floor((path.length + path.start) * 0.35) - path.start;
+      const tail = spot.kind === "route" ? (isHidden(kind) ? path.slice(Math.max(0, Math.max(HIDDEN_CLEAR - path.start, cut)), path.length - 1) : path.slice(Math.max(1, 3 - path.start), path.length - 1)) : path.slice(Math.max(1, path.length - 14), path.length - (spot.kind === "charge" ? 1 : 0));
       const w = (n) => {
         const out = [];
         for (let j = tail.length - n; j >= 0; j--) {
@@ -252,12 +291,12 @@ export function placeTraps(raw, kinds, { position = null, seed = raw.name } = {}
         }
         return out;
       };
-      const charge = spot.kind === "charge" && !shares && !used.has(spot) ? { id: `kg${i + 1}`, x: spot.at[0], z: spot.at[1], pinned: true } : null;
+      const charge = spot.kind === "charge" && !shares && !loose && !used.has(spot) ? { id: `kg${i + 1}`, x: spot.at[0], z: spot.at[1], pinned: true } : null;
       const guards = charge ? { charge: charge.id } : { chest: spot.id };
       const tailIdx = tail.map((c) => path.findIndex((q) => same(q, c)));
       for (const o of shape(w, path, i, { P, raw, free, path, tail, tailIdx, spot, id, goals: spot.goals }).slice(0, 40)) {
         const { things, ...rest } = o;
-        const t = { id, kind, ...rest, ...(mustGuard(kind) || charge ? { guards } : {}) };
+        const t = { id, kind, ...rest, ...((mustGuard(kind) && !loose) || charge ? { guards } : {}) };
         if (!keep(t, things || [], charge)) continue;
         if (!shares) used.add(spot);
         done = true;
