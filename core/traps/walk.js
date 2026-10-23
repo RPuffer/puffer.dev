@@ -3,7 +3,7 @@ import { createActor } from "../actor.js";
 import { createHealth } from "../health.js";
 import { createLife, bonfireRestCell } from "../life.js";
 import { edgeKey, padLinks, PAD_COST } from "../interact.js";
-import { inkStep, DASH_S, RUSH } from "../powers.js";
+import { inkStep, DASH_S, RUSH, CHARGES, OIL, fullCharges } from "../powers.js";
 import { createTraps, trapCells } from "./index.js";
 import { KINDS } from "./kinds.js";
 import { slipOf } from "../layout/check.js";
@@ -71,7 +71,7 @@ function openCore(L) {
   }
 }
 
-export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, jitter = 0, trace = false } = {}) {
+export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, jitter = 0, trace = false, charges = null } = {}) {
   const L = quiet(raw);
   openCore(L);
   const goals = walkGoals(L);
@@ -82,11 +82,14 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
   const params = { class: cls };
   const life = createLife({ level: L, actor, health, variant: "pause", random: () => 0, onRespawn: () => traps?.reset() });
   traps = L.traps?.length ? createTraps(L, { actor, life, health, storage: mem(), params, power: () => ({ cls: params.class, lit }) }) : null;
-  const out = { deaths: 0, hearts: 0, kills: [], time: 0, done: false, stuck: null, cls, swaps: 0, killCells: new Set() };
+  const out = { deaths: 0, hearts: 0, kills: [], time: 0, done: false, stuck: null, cls, swaps: 0, killCells: new Set(), rests: 0, spent: 0 };
+  const pool = { ...fullCharges(), ...(charges || {}) };
+  const restCell = bonfireRestCell(L, null);
+  let restAt = -1, litGate = null;
   if (!goals.length) { out.stuck = "no core gate or exit lift"; return out; }
   if (traps) {
     const ctx = traps.ctx;
-    for (const k of ["hurt", "knock", "fling"]) {
+    for (const k of ["hurt", "knock", "fling", "drop"]) {
       const f = ctx[k];
       ctx[k] = (...a) => { const t = k === "fling" ? a[2] : a[0]; if (t?.kind) lastHit = t; return f(...a); };
     }
@@ -112,7 +115,7 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
       if (t) learnTrap(t);
       if (mover && out.time - mover.at < WALK.moved && mover.t !== t && TRAP_BY_ID[mover.t.kind]?.tier !== "debuff") learnTrap(mover.t);
     }
-    if (e.type === "respawn") { killer = null; lastHit = null; lit = false; rush = 0; }
+    if (e.type === "respawn") { killer = null; lastHit = null; lit = false; litGate = null; rush = 0; Object.assign(pool, fullCharges()); }
   });
   const slip = slipOf(L);
   const avoidCost = (x, z) => {
@@ -131,6 +134,7 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
     actor.update(dt);
     const scale = rush > 0 ? RUSH.scale : 1;
     if (rush > 0) rush = Math.max(0, rush - dt);
+    if (lit) { pool.nm = Math.max(0, pool.nm - dt); if (pool.nm <= 0) lit = false; }
     traps?.update(dt * scale);
     life.update(dt);
     out.time += dt;
@@ -150,10 +154,15 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
     const free = !life.busy && !actor.locked;
     if (!free) { segs = []; queue = []; }
     const idleNow = free && !actor.path.length && !actor.moving;
-    if (idleNow && same(actor.cell, goal) && !queue.length) { gi++; continue; }
+    if (idleNow && same(actor.cell, goal) && !queue.length) {
+      if (gi === restAt) { goals.splice(gi, 1); restAt = -1; Object.assign(pool, fullCharges()); out.rests++; continue; }
+      gi++;
+      continue;
+    }
+    if (lit && litGate && !life.busy && !actor.moving && !same(actor.cell, litGate) && Math.abs(actor.cell[0] - litGate[0]) + Math.abs(actor.cell[1] - litGate[1]) > 1) { lit = false; litGate = null; }
     let hold = false;
     if (idleNow) {
-      if (queue.length && !near1(actor.cell, queue[0])) queue = [];
+      if (queue.length && (!near1(actor.cell, queue[0]) || L.blocked.has(key(...queue[0])) || !isWalkable(L, queue[0][0], queue[0][1]))) { queue = []; segs = []; }
       if (!queue.length) {
         if (segs.length && !same(actor.cell, segEnd)) segs = [];
         if (segs.length) { const sg = segs.shift(); hop(sg[0]); queue = sg.slice(1); segEnd = sg[sg.length - 1]; }
@@ -168,13 +177,23 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
       const n = queue[0];
       if (n) {
         const on = live().filter((t) => trapCells(t).some((c) => same(c, n)));
+        let dry = false;
         for (const t of on) {
           const k = KINDS[t.kind];
           if (!gates.has(t.id)) continue;
+          const need = k.cls === "nm" ? !lit && pool.nm < OIL.need : k.cls === "aws" ? !health.warded && pool.aws < 1 : k.cls === "dutchie" ? rush <= 0 && pool.dutchie < 1 : k.cls === "wanderer" ? pool.wanderer < 1 : false;
+          if (need) { dry = true; continue; }
           if (params.class !== k.cls) { params.class = k.cls; out.swaps++; }
-          if (k.cls === "nm") lit = true;
-          if (k.cls === "aws" && !health.warded) health.ward(true);
-          if (k.cls === "dutchie" && rush <= 0) rush = RUSH.secs;
+          if (k.cls === "nm") { lit = true; litGate = t.cells[0].slice(); }
+          if (k.cls === "aws" && !health.warded) { health.ward(true); pool.aws--; out.spent++; }
+          if (k.cls === "dutchie" && rush <= 0) { rush = RUSH.secs; pool.dutchie--; out.spent++; }
+        }
+        if (dry) {
+          if (!restCell || restAt >= 0) { out.stuck = `out of charges at ${actor.cell} with no bonfire to rest at`; break; }
+          goals.splice(gi, 0, restCell.slice());
+          restAt = gi;
+          queue = []; segs = [];
+          continue;
         }
         const scale = rush > 0 ? RUSH.scale : 1, from = (0.5 / actor.speed - 2 * WALK.dt) * scale, to = (1.5 / actor.speed + 3 * WALK.dt) * scale;
         const waits = live().filter((t) => KINDS[t.kind].unsafe && (timed.has(t.id) || gates.has(t.id)));
@@ -192,6 +211,7 @@ export function walkIsland(raw, { cls = "wanderer", knows = null, full = false, 
         if (ink && !hold) {
           const r = inkStep(L, actor.cell, dirTo(actor.cell, n));
           if (r.to) {
+            pool.wanderer--; out.spent++;
             traps.skip([r.mid], DASH_S + 0.5);
             const at = queue.findIndex((c) => same(c, r.to));
             queue = at >= 0 ? queue.slice(at + 1) : [];

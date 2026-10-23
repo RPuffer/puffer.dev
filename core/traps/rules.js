@@ -5,6 +5,7 @@ import { KINDS } from "./kinds.js";
 import { trapCells } from "./index.js";
 import { world, distances, SLIP_KINDS } from "../layout/check.js";
 import { prepareLevel, isWalkable, edgeFall, DIRS } from "../level.js";
+import { bonfireRestCell } from "../life.js";
 
 const key = (x, z) => x + "," + z;
 const cheb = (a, b) => Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1]));
@@ -78,7 +79,7 @@ export function forbiddenCells(raw) {
 
 export const harmless = (kind) => TRAP_BY_ID[kind]?.health === "none";
 export const isClassGate = (kind) => !!KINDS[kind]?.cls;
-export const mustGuard = (kind) => { const m = TRAP_BY_ID[kind]; return !!m && m.tier === "local" && m.visibility !== "hidden" && !KINDS[kind]?.free && !isClassGate(kind); };
+export const mustGuard = (kind) => { const m = TRAP_BY_ID[kind]; return !!m && m.tier === "local" && m.visibility !== "hidden" && !KINDS[kind]?.free && !KINDS[kind]?.route && !isClassGate(kind); };
 export const needsGuard = (t) => mustGuard(t.kind) && (!!t.guards || !harmless(t.kind));
 
 export function applyGrip(raw) {
@@ -170,7 +171,23 @@ export function luckProblems(t, P) {
   return out;
 }
 
-export function classGateProblems(raw, t, traps, P) {
+export function bonfireProblems(raw, t, blocked, P) {
+  const fire = bonfireRestCell(P, null);
+  if (!fire) return [];
+  const c = trapCells(t)[0];
+  const core = P.things.filter((q) => q.kind === "gate" && /^watcher:/.test(String(q.open || ""))).map((q) => q.id);
+  const L = world(P, new Set(core));
+  for (const [x, z] of blocked) L.blocked.add(key(x, z));
+  const gateKey = key(c[0], c[1]);
+  const fromFire = distances({ ...L, blocked: new Set([...L.blocked, gateKey]) }, fire);
+  const before = Object.values(DIRS).map(([dx, dz]) => [c[0] + dx, c[1] + dz]).filter(([x, z]) => isWalkable(P, x, z) && fromFire.has(key(x, z)) && !L.blocked.has(key(x, z)));
+  if (!before.length) return ["the cell before a class gate cannot be reached from the bonfire without crossing it"];
+  const out = [];
+  for (const b of before) if (!distances(L, b).has(key(fire[0], fire[1]))) out.push(`the bonfire is not walkable from ${b}, the cell before the gate, once traps are at their worst`);
+  return out;
+}
+
+export function classGateProblems(raw, t, traps, P, blocked = []) {
   const out = [];
   const c = trapCells(t)[0];
   if (!c) return ["a class gate needs its cell"];
@@ -184,6 +201,7 @@ export function classGateProblems(raw, t, traps, P) {
     if (k.opening >= cross) out.push(`its jaws stay open ${k.opening} s, long enough to cross at full speed`);
     if (slack < GATE_SLACK) out.push(`under Rush its window leaves ${slack.toFixed(2)} s of slack, under ${GATE_SLACK} s`);
   }
+  out.push(...bonfireProblems(raw, t, blocked, P));
   return out;
 }
 
@@ -203,6 +221,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [], p
   const showcase = raw.trapRules === "showcase";
   const forbidden = forbiddenCells(raw);
   const foot = [];
+  const worstNow = worstState(raw, traps).blocked;
   for (const [i, t] of traps.entries()) {
     const m = TRAP_BY_ID[t.kind];
     const name = `${t.id || t.kind + "-" + i} (${t.kind})`;
@@ -217,7 +236,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [], p
       const cls = KINDS[t.kind].cls;
       byClass[cls] = (byClass[cls] || 0) + 1;
       if (byClass[cls] === CLASS_REPEAT + 1) problems.push(`${name}: more than ${CLASS_REPEAT} gates for one class; a run carries ${CLASS_REPEAT} charges between refills`);
-      for (const p of classGateProblems(raw, t, traps, P)) problems.push(`${name}: ${p}`);
+      for (const p of classGateProblems(raw, t, traps, P, worstNow)) problems.push(`${name}: ${p}`);
     }
     const cells = trapCells(t);
     const own = (raw.things || []).find((q) => q.id && q.id === t.gate);
@@ -266,6 +285,7 @@ export function validateTraps(raw, { position = null, traps = raw.traps || [], p
   const worst = worstState(raw, traps);
   const lifts = liftToLift(raw, worst.blocked);
   if (lifts === false) problems.push("worst state cuts the walk from lift to lift");
+  for (const t of traps) for (const alt of KINDS[t.kind]?.worstAlts?.(t) || []) if (lifts !== false && liftToLift(raw, [...worst.blocked, ...alt]) === false) problems.push(`${t.id || t.kind}: worst state with ${alt.join(" ")} gone cuts the walk from lift to lift`);
   const remembered = traps.filter((t) => isHidden(t.kind) && !harmless(t.kind) && TRAP_BY_ID[t.kind].tier === "local").flatMap(dangerCells);
   if (remembered.length && liftToLift(raw, [...worst.blocked, ...remembered]) === false) problems.push("no clean walk: a player who remembers every hidden trap still has to step on one between the lifts");
   const guarded = traps.filter(needsGuard).flatMap(dangerCells);
