@@ -2,7 +2,7 @@ import puppeteer from "puppeteer-core";
 import { screenOf, watchdog } from "./qa-lib.mjs";
 import path from "node:path";
 import fs from "node:fs";
-import { validateTraps, liftToLift, worstState, mustGuard, guardProblems, rewardCells } from "../core/traps/rules.js";
+import { validateTraps, liftToLift, worstState, mustGuard, guardProblems, rewardCells, bonfireProblems } from "../core/traps/rules.js";
 import { prepareLevel } from "../core/level.js";
 import { findPath } from "../core/path.js";
 import { TRAP_CATALOG } from "../core/traps/catalog.js";
@@ -12,7 +12,8 @@ import { createActor } from "../core/actor.js";
 import { createHealth } from "../core/health.js";
 import { createLife } from "../core/life.js";
 import { createTraps } from "../core/traps/index.js";
-import { walkReport, deathBandFor, WALK } from "../core/traps/walk.js";
+import { walkReport, deathBandFor, WALK, memorizedWalk } from "../core/traps/walk.js";
+import { isWalkable } from "../core/level.js";
 import { inkStep, DASH_S, RUSH, CLASS_IDS } from "../core/powers.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
@@ -34,7 +35,7 @@ const register = async (L) => {
   }
 };
 
-record("catalog holds all 60 approved traps", TRAP_CATALOG.length === 60, `${TRAP_CATALOG.length}`);
+record("catalog holds all 61 traps", TRAP_CATALOG.length === 61, `${TRAP_CATALOG.length}`);
 const POC = TRAP_CATALOG.map((t) => t.id);
 record("every approved trap has a runtime", POC.every((k) => KINDS[k]), POC.filter((k) => !KINDS[k]).join(","));
 const show = readLevel(SHOW);
@@ -99,6 +100,11 @@ const lost = (s) => s.ev.some((e) => e === "life:knock" || e === "life:fall" || 
   const s = sim(mini(lane, [{ id: "ff", kind: "t54", cells: [[3, 1]] }]), [1, 1]);
   s.walk([[2, 1], [3, 1], [4, 1]]);
   record("t54 false floor drops you off the island", s.ev.includes("trap:drop") && s.ev.includes("life:knock"), s.ev.join(","));
+  const ride = s.actor.fx?.ride;
+  record("t54 the hero rides the falling tile down", !!ride && ride.join() === "3,1" && s.traps.tiles.isGone([3, 1]), JSON.stringify(ride));
+  for (let i = 0; i < 300 && s.life.busy; i++) s.tick();
+  s.traps.rest(); s.traps.reset();
+  record("t54 the tile stays gone after respawn and rest", s.ev.includes("life:respawn") && s.traps.tiles.isGone([3, 1]) && !isWalkable(s.traps.ctx.level, 3, 1), s.ev.join(","));
 }
 {
   const rows = [".......", ".ggggg.", ".#####.", ".ggggg.", "......."];
@@ -118,9 +124,39 @@ const lost = (s) => s.ev.some((e) => e === "life:knock" || e === "life:fall" || 
   const third = lost(s);
   record("t55 the path cell drops you, then the first shoulder you try, and the other shoulder holds", first && second && !third && s.actor.cell.join() === "5,2", `${first} ${second} ${third} ${s.actor.cell}`);
   s.traps.rest(); s.traps.reset(); s.ev.length = 0;
+  record("t55 after a rest the dropped path tile and shoulder stay gone", s.traps.tiles.isGone([3, 2]) && s.traps.tiles.isGone([3, 1]) && !s.traps.tiles.isGone([3, 3]), [...s.traps.tiles.gone.keys()].join(" "));
   s.actor.cell = [2, 2]; s.actor.pos.x = 2.5; s.actor.pos.z = 2.5;
-  s.walk([[2, 1], [3, 1], [4, 1]]);
-  record("t55 after a rest both shoulders hold until the path cell drops you again", !lost(s), s.ev.join(","));
+  s.walk([[2, 3], [3, 3], [4, 3]]);
+  record("t55 after a rest the other shoulder still holds", !lost(s) && s.actor.cell.join() === "4,3", s.ev.join(","));
+}
+{
+  const rows = [".......", ".#####.", ".ggggg.", "......."];
+  for (const mode of ["behind", "ahead"]) {
+    const L = mini(rows, [{ id: "r", kind: "t61", cells: [mode === "behind" ? [2, 1] : [4, 1]], trigger: [3, 1], mode }]);
+    const s = sim(L, [1, 1]);
+    s.walk([[2, 1], [3, 1]]);
+    s.tick(30);
+    const c = mode === "behind" ? [2, 1] : [4, 1];
+    const up = s.traps.tiles.isRisen(c) && L.blocked.has(c.join(",")) && s.traps.tiles.height(c) > 0.99;
+    s.walk([c]);
+    const held = s.actor.cell.join() === "3,1" && !s.actor.stepDir(mode === "behind" ? "w" : "e");
+    s.traps.reset(); s.tick(30);
+    record(`t61 a block rises ${mode} you, stands solid, and sinks on respawn`, up && held && !lost(s) && !L.blocked.has(c.join(",")) && !s.traps.tiles.isRisen(c), `${up} ${held} ${s.ev.join(",")}`);
+  }
+}
+{
+  const rows = ["......", "......", ".##...", "..#...", "..#...", "......"];
+  const s = sim(mini(rows, [{ id: "sp", kind: "t18", cells: [[2, 3]] }]), [1, 2]);
+  s.walk([[2, 2], [2, 3]]);
+  for (let i = 0; i < 120 && !lost(s); i++) s.tick();
+  record("t18 a spring flings you off the walk when the way back runs off an edge", s.ev.includes("trap:boing") && s.ev.includes("life:fall"), s.ev.join(","));
+}
+{
+  const rows = [".......", ".#####.", "......."];
+  const L = mini(rows, [{ id: "g", kind: "t57", cells: [[4, 1]] }], { things: [{ id: "f", kind: "bonfire", x: 1, z: 0 }] });
+  const t = L.traps[0];
+  const clean = bonfireProblems(L, t, [], L), cut = bonfireProblems(L, t, [[2, 1]], L);
+  record("validator wants the bonfire walkable from the cell before each class gate", !clean.length && cut.length === 1, `${clean.join(";")} / ${cut.join(";")}`);
 }
 const GATES = { t56: "wanderer", t57: "aws", t58: "dutchie", t59: "nm" };
 for (const [kind, owner] of Object.entries(GATES)) {
@@ -158,6 +194,13 @@ for (const cls of CLASS_IDS) {
   const s = sim(L, [2, 1], { cls });
   s.walk([[3, 1]]);
   record(`t60 class seal ${cls === "nm" ? "opens for its class" : `stays shut for ${cls}`}`, cls === "nm" ? s.solved.includes("seal") : !s.solved.length && s.ev.includes("trap:nope"), s.ev.join(","));
+}
+{
+  const gated = RUN.map((n, i) => [i, readLevel(n)]).filter(([, L]) => (L.traps || []).some((t) => KINDS[t.kind]?.cls));
+  const [gi, GL] = gated[0];
+  await register(GL);
+  const w = memorizedWalk(GL, { charges: { wanderer: 0, aws: 0, dutchie: 0, nm: 0 } });
+  record(`memorized walk out of charges detours to the bonfire on run island ${gi + 1} and still never dies`, w.done && !w.deaths && w.rests >= 1, `rests ${w.rests}, deaths ${w.deaths}, ${w.stuck || ""}`);
 }
 for (const [i, name] of RUN.entries()) {
   const L = readLevel(name);
@@ -490,7 +533,7 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
     return { first, at, safe, second: __tq.ev() };
   });
   record("t10 a hidden hole drops you", r.first.includes("trap:drop") && r.first.includes("life:knock"), r.first.join(","));
-  record("t10 the hole scoots once: the old cell holds and the next one drops", r.at === 1 && r.safe.at && !r.safe.ev.includes("trap:drop") && r.second.includes("trap:drop"), JSON.stringify(r));
+  record("t10 the hole stays open after respawn and the next cell drops too", r.at === 1 && !r.safe.at && !r.safe.ev.includes("trap:drop") && r.second.includes("trap:drop"), JSON.stringify(r));
 
   r = await run(() => {
     const P = (x, z) => __tq.P("painted", x, z), g = window.__game;
@@ -894,6 +937,72 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
   record("showcase t18 spring flings you two cells back", r.spring.ev.includes("trap:boing") && r.spring.at, JSON.stringify(r.spring));
   record("showcase t22 pancake stone slams for two hearts", r.pancake === 1, `${r.pancake}`);
   record("showcase t23 turntable turns the camera", r.turn.ev.includes("trap:turn") && r.turn.yaw, JSON.stringify(r.turn));
+
+  r = await run(() => {
+    const g = window.__game, S = g.state, a = S.actor, R = g.renderer;
+    const P = (n, x, z) => __tq.P(n, x, z), key = (c) => c.join(",");
+    __tq.fresh(); __qt.place(P("falsefloor", 3, 1)); __qt.clear();
+    const c = P("falsefloor", 3, 3), tile = R.three.scene.getObjectByName("tile " + key(c));
+    a.setPath([P("falsefloor", 3, 2), c]);
+    let ride = null;
+    for (let i = 0; i < 200 && !ride; i++) { __qt.tick(); if (S.life.busy && tile.position.y < -2) ride = { tile: tile.position.y, hero: R.hero.position.y, x: R.hero.position.x - c[0] - 0.5, z: R.hero.position.z - c[1] - 0.5 }; }
+    __tq.wait(); S.traps.rest(); S.traps.reset(); __qt.tick(5);
+    const gone = { visible: tile.visible, cell: S.level.cells[c[1]][c[0]].s, walk: __tq.walkable(c) };
+    __tq.fresh(); __qt.place(P("rise", 3, 2)); __qt.clear(); __qt.path([P("rise", 3, 3), P("rise", 3, 4)]); __qt.tick(30);
+    const rc = P("rise", 3, 4), pillar = R.three.scene.getObjectByName("tile " + key(rc));
+    const rise = { ev: __tq.ev("trap"), at: __tq.at(P("rise", 3, 3)), solid: !__tq.walkable(rc), up: pillar.position.y };
+    S.traps.reset(); __qt.tick(40);
+    rise.after = { solid: !__tq.walkable(rc), y: pillar.position.y };
+    __tq.fresh(); __qt.place(P("springedge", 3, 2)); __qt.clear(); __qt.path([P("springedge", 4, 2), P("springedge", 4, 3)]); __qt.until(() => __tq.ev("life").includes("life:fall"), 3);
+    const spring = __tq.ev(); __tq.wait();
+    return { ride, gone, rise, spring, tileY: S.view.tileH };
+  });
+  record("tile animation: the false floor tile falls with the hero riding it", !!r.ride && Math.abs(r.ride.hero - r.ride.tile - r.tileY) < 0.05 && Math.abs(r.ride.x) < 0.01 && Math.abs(r.ride.z) < 0.01, JSON.stringify(r.ride));
+  record("tile animation: the fallen tile is gone after respawn and rest", !r.gone.visible && r.gone.cell === "none" && !r.gone.walk, JSON.stringify(r.gone));
+  record("tile animation: the rising block lifts a pillar that stops you", r.rise.ev.includes("trap:rise") && r.rise.at && r.rise.solid && r.rise.up > 0.9 * r.tileY, JSON.stringify(r.rise));
+  record("tile animation: the risen block sinks on respawn", !r.rise.after.solid && r.rise.after.y < 0.01, JSON.stringify(r.rise.after));
+  record("showcase t18 the edge spring flings you off the island", r.spring.includes("trap:boing") && r.spring.includes("life:fall"), r.spring.join(","));
+
+  r = await run(() => {
+    const g = window.__game, S = g.state, a = S.actor;
+    const P = (x, z) => __tq.P("plank", x, z);
+    const pick = (c) => { localStorage.setItem("isoworld:class", c); S.params.class = c; g.renderer.swapHero?.(c); __qt.tick(2); };
+    const cross = (cls, light) => {
+      __tq.fresh(); pick(cls); if (g.powers.lit) g.powers.fire(); g.powers.reset(); __qt.place(P(3, 1)); __qt.clear();
+      if (light) g.powers.fire();
+      __qt.tick(5);
+      const solid = !!__tq.t("plank").solid;
+      __qt.path([P(3, 2), P(3, 3), P(3, 4)]); __qt.tick(30);
+      const out = { solid, at: __tq.at(P(3, 4)), lost: __tq.ev("life").includes("life:knock") };
+      __tq.wait(); if (g.powers.lit) g.powers.fire();
+      return out;
+    };
+    return { nm: cross("nm", true), dark: cross("nm", false), wanderer: cross("wanderer", false) };
+  });
+  record("t59 the lantern block turns solid in lantern light and the Modernizer crosses", r.nm.solid && r.nm.at && !r.nm.lost, JSON.stringify(r.nm));
+  record("t59 without the lantern lit the block is not there", !r.dark.solid && r.dark.lost && !r.wanderer.solid && r.wanderer.lost, JSON.stringify(r));
+
+  r = await run(() => {
+    const g = window.__game, S = g.state, W = g.powers;
+    const pick = (c) => { localStorage.setItem("isoworld:class", c); S.params.class = c; g.renderer.swapHero?.(c); __qt.tick(2); };
+    __tq.fresh(); pick("aws"); W.reset(); __qt.place([15, 12]);
+    W.fire(); __qt.tick(5);
+    const spent = W.charges;
+    S.health.ward(false);
+    pick("wanderer"); const other = W.charges;
+    pick("aws"); const back = W.charges;
+    W.fire(); __qt.tick(5); S.health.ward(false); const low = W.charges;
+    S.life.knock([0, 0], "qa"); __tq.wait();
+    const died = W.charges;
+    W.fire(); __qt.tick(5); S.health.ward(false);
+    const before = W.charges;
+    const fire = S.things.things.find((t) => t.kind === "bonfire");
+    __qt.place(S.life.respawnCell()); __tq.act();
+    return { spent, other, back, low, died, before, rested: W.charges, cap: W.cap, fire: fire?.state };
+  });
+  record("charges: swapping class keeps each class's own count, no restock", r.spent === r.cap - 1 && r.other === r.cap && r.back === r.cap - 1 && r.low === r.cap - 2, JSON.stringify(r));
+  record("charges: dying refills every pool", r.died === r.cap, JSON.stringify(r));
+  record("charges: resting at the bonfire refills every pool", r.before === r.cap - 1 && r.rested === r.cap, JSON.stringify(r));
 
   r = await run(() => {
     const T = window.__game.state.traps, R = window.__game.renderer.traps;
