@@ -36,6 +36,7 @@ export function disposeTree(root, keep = new Set()) {
     if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose();
     for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
       for (const u of Object.values(m.uniforms || {})) if (u?.value?.isDataTexture) u.value.dispose();
+      for (const v of Object.values(m)) if (v?.isCanvasTexture || v?.isDataTexture) v.dispose();
       m.dispose();
     }
   });
