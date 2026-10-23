@@ -108,17 +108,10 @@ try {
   window.__status = status;
   run.onLoad((state) => {
     status?.clear();
-    const things = state.things, toast = things?.say?.bind(things);
-    let said = null;
-    if (status && things && toast) {
-      // Debuffs say their rule and then emit "banner" in the same tick; holding the toast for a microtask lets the banner claim the text for the status card instead of a duplicate toast.
-      things.say = (text) => { said = text; queueMicrotask(() => { if (said === text) toast(text); said = null; }); };
-    }
     state.traps?.on((e) => {
       if (e.type !== "banner" || !status) return;
-      const text = said;
-      said = null;
-      status.announce(e.trap.id, { title: e.trap.meta?.name || "Island debuff", text: text || "" });
+      if (e.line) e.line.shown = true;
+      status.announce(e.trap.id, { title: e.trap.meta?.name || "Island debuff", text: e.line?.text || "" });
     });
     state.things?.on((e) => { if (e.type === "stub" && e.thing.role === "exit") window.__ui?.finale(); });
     if (params.nav === "0") return;

@@ -253,7 +253,7 @@ defineTrap("t33", {
   update(t, dt, ctx) {
     t.on = this.inZone(t, ctx.floor());
     t.thick += ((t.on ? 1 : 0) - t.thick) * Math.min(1, dt * 3);
-    if (t.on && !t.told && ctx.time > 0.4) { t.told = true; ctx.say(t.text || "Fog rolls in. You see three cells around you."); ctx.emit(t, "banner"); }
+    if (t.on) announce(t, ctx, "Fog rolls in. You see three cells around you.");
   },
   disarm(t) { t.on = false; t.thick = 0; },
 });
@@ -378,7 +378,13 @@ const stepped = (t, ctx) => {
   return was && !same(was, f) ? was : null;
 };
 const tick = (t, k, dt, max = 0.6) => { if (t[k] >= 0) { t[k] += dt; if (t[k] > max) t[k] = -1; } };
-const announce = (t, ctx, text) => { if (!t.told && ctx.time > 0.4) { t.told = true; ctx.say(t.text || text); ctx.emit(t, "banner"); } };
+const announce = (t, ctx, text) => {
+  if (t.told || ctx.time <= 0.4) return;
+  t.told = true;
+  const line = { text: t.text || text, shown: false };
+  ctx.emit(t, "banner", { line });
+  if (!line.shown) ctx.say(line.text);
+};
 const cushion = (t, ctx, to, type = "cushion") => { ctx.fling(to, 0.6, t); ctx.emit(t, type); };
 
 defineTrap("t04", {
