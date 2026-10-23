@@ -8,10 +8,16 @@ import { findPath } from "../core/path.js";
 import { TRAP_CATALOG } from "../core/traps/catalog.js";
 import { KINDS } from "../core/traps/kinds.js";
 import { registerCatalog } from "../core/catalog.js";
+import { createActor } from "../core/actor.js";
+import { createHealth } from "../core/health.js";
+import { createLife } from "../core/life.js";
+import { createTraps } from "../core/traps/index.js";
+import { walkReport, deathBandFor, WALK } from "../core/traps/walk.js";
+import { inkStep, DASH_S, RUSH, CLASS_IDS } from "../core/powers.js";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const args = process.argv.slice(2);
-const BASE = (args[0] || "http://localhost:8765").replace(/\/$/, "");
+const BASE = (args.find((a) => /^https?:/.test(a)) || "http://localhost:8765").replace(/\/$/, "");
 const SHOW = "traps-showcase";
 const RUN = JSON.parse(fs.readFileSync(path.join(root, "levels/run.json"), "utf8")).order;
 const results = [];
@@ -28,7 +34,7 @@ const register = async (L) => {
   }
 };
 
-record("catalog holds all 53 approved traps", TRAP_CATALOG.length === 53, `${TRAP_CATALOG.length}`);
+record("catalog holds all 60 approved traps", TRAP_CATALOG.length === 60, `${TRAP_CATALOG.length}`);
 const POC = TRAP_CATALOG.map((t) => t.id);
 record("every approved trap has a runtime", POC.every((k) => KINDS[k]), POC.filter((k) => !KINDS[k]).join(","));
 const show = readLevel(SHOW);
@@ -60,6 +66,112 @@ for (const [i, name] of RUN.entries()) {
   record(`run island ${i + 1} keeps a guarded optional reward`, L.traps.some((t) => t.guards && mustGuard(t.kind)));
 }
 
+const mem = () => { const m = new Map(); return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k) }; };
+const mini = (rows, traps, extra = {}) => {
+  const cells = rows.map((r) => r.split("").map((ch) => (ch === "." ? { h: 0, s: "none" } : ch === "#" ? { h: 1, s: "stone", p: 1 } : { h: 1, s: "grass" })));
+  return prepareLevel({ name: "mini", size: [cells[0].length, cells.length], cells, decor: [], spawn: [1, 1], things: [{ id: "f", kind: "bonfire", x: 0, z: 0 }], trapRules: "showcase", traps, ...extra });
+};
+const sim = (L, cell, { cls = "wanderer" } = {}) => {
+  const actor = createActor(L, cell), health = createHealth({ storage: mem() });
+  let traps = null;
+  const life = createLife({ level: L, actor, health, variant: "pause", random: () => 0, onRespawn: () => traps?.reset() });
+  const power = { cls, lit: false };
+  const solved = [];
+  traps = createTraps(L, { actor, life, health, storage: mem(), power: () => power, things: { solve: (id) => solved.push(id), byId: {}, on: () => () => {} } });
+  const ev = [];
+  life.on((e) => ev.push("life:" + e.type));
+  traps.on((e) => ev.push("trap:" + e.type));
+  let scale = 1;
+  const tick = (n = 1) => { for (let i = 0; i < n; i++) { actor.update(1 / 60); traps.update(scale / 60); life.update(1 / 60); } };
+  const walk = (cells, max = 240) => { actor.path = cells.map((c) => c.slice()); for (let i = 0; i < max && (actor.path.length || actor.moving) && !life.busy; i++) tick(); };
+  const use = () => {
+    if (cls === "wanderer") return (from, dir) => { const r = inkStep(L, from, dir); if (!r.to) return false; traps.skip([r.mid], DASH_S + 0.5); tick(Math.round(DASH_S * 60)); actor.cell = r.to.slice(); actor.pos.x = r.to[0] + 0.5; actor.pos.z = r.to[1] + 0.5; tick(2); return true; };
+    if (cls === "aws") return () => health.ward(true);
+    if (cls === "dutchie") return () => { scale = RUSH.scale; return true; };
+    return () => { power.lit = true; return true; };
+  };
+  return { actor, health, life, traps, ev, tick, walk, use, power, solved, set scale(v) { scale = v; } };
+};
+const lane = ["......", ".####.", "......"];
+const lost = (s) => s.ev.some((e) => e === "life:knock" || e === "life:fall" || e === "life:flop");
+
+{
+  const s = sim(mini(lane, [{ id: "ff", kind: "t54", cells: [[3, 1]] }]), [1, 1]);
+  s.walk([[2, 1], [3, 1], [4, 1]]);
+  record("t54 false floor drops you off the island", s.ev.includes("trap:drop") && s.ev.includes("life:knock"), s.ev.join(","));
+}
+{
+  const rows = [".......", ".ggggg.", ".#####.", ".ggggg.", "......."];
+  const L = mini(rows, [{ id: "fd", kind: "t55", cells: [[3, 2], [3, 1], [3, 3]], prev: [2, 2], next: [4, 2] }]);
+  const s = sim(L, [1, 2]);
+  s.walk([[2, 2], [3, 2]]);
+  const first = lost(s);
+  for (let i = 0; i < 300 && s.life.busy; i++) s.tick();
+  s.ev.length = 0;
+  s.actor.cell = [2, 2]; s.actor.pos.x = 2.5; s.actor.pos.z = 2.5;
+  s.walk([[2, 1], [3, 1]]);
+  const second = lost(s);
+  for (let i = 0; i < 300 && s.life.busy; i++) s.tick();
+  s.ev.length = 0;
+  s.actor.cell = [2, 2]; s.actor.pos.x = 2.5; s.actor.pos.z = 2.5;
+  s.walk([[2, 3], [3, 3], [4, 3], [4, 2], [5, 2]]);
+  const third = lost(s);
+  record("t55 the path cell drops you, then the first shoulder you try, and the other shoulder holds", first && second && !third && s.actor.cell.join() === "5,2", `${first} ${second} ${third} ${s.actor.cell}`);
+  s.traps.rest(); s.traps.reset(); s.ev.length = 0;
+  s.actor.cell = [2, 2]; s.actor.pos.x = 2.5; s.actor.pos.z = 2.5;
+  s.walk([[2, 1], [3, 1], [4, 1]]);
+  record("t55 after a rest both shoulders hold until the path cell drops you again", !lost(s), s.ev.join(","));
+}
+const GATES = { t56: "wanderer", t57: "aws", t58: "dutchie", t59: "nm" };
+for (const [kind, owner] of Object.entries(GATES)) {
+  for (const cls of CLASS_IDS) {
+    let passed = 0;
+    const tries = kind === "t58" ? 12 : 1;
+    for (let k = 0; k < tries; k++) {
+      const L = mini(lane, [{ id: "g", kind, cells: [[3, 1]], phase: k / tries }]);
+      const s = sim(L, [2, 1], { cls });
+      s.tick(1);
+      if (cls === owner) {
+        const use = s.use();
+        if (cls === "wanderer") use([2, 1], "e");
+        else use();
+        if (kind === "t58") {
+          const shut = () => KINDS.t58.closed(s.traps.byId.g, s.traps.ctx.time);
+          for (let i = 0; i < 240 && !shut(); i++) s.tick();
+          for (let i = 0; i < 240 && shut(); i++) s.tick();
+          s.tick(WALK.jitter);
+        }
+      }
+      if (cls !== "wanderer" || cls !== owner) s.walk([[3, 1], [4, 1]]);
+      else s.walk([[4, 1]]);
+      if (!lost(s) && s.actor.cell.join() === "4,1") passed++;
+    }
+    record(`${kind} ${KINDS[kind].cls === cls ? "lets its own class through" : `stops ${cls}`}`, cls === owner ? passed === tries : passed === 0, `${passed}/${tries}`);
+  }
+}
+{
+  const K = KINDS.t58, cross = 1 / 3.2;
+  record("t58 jaws stay shut too long to cross at full speed, and Rush leaves a window", K.opening < cross && K.opening / RUSH.scale - cross >= 8 / 60, `${K.opening} s open, ${(K.opening / RUSH.scale - cross).toFixed(2)} s slack under Rush`);
+}
+for (const cls of CLASS_IDS) {
+  const L = mini(["......", ".####.", "......"], [{ id: "seal", kind: "t60", cells: [[3, 1]], cls: "nm", gate: "sg" }]);
+  const s = sim(L, [2, 1], { cls });
+  s.walk([[3, 1]]);
+  record(`t60 class seal ${cls === "nm" ? "opens for its class" : `stays shut for ${cls}`}`, cls === "nm" ? s.solved.includes("seal") : !s.solved.length && s.ev.includes("trap:nope"), s.ev.join(","));
+}
+for (const [i, name] of RUN.entries()) {
+  const L = readLevel(name);
+  await register(L);
+  const r = walkReport(L, { position: i + 1 }), m = r.runs[0].mind, band = deathBandFor(i + 1);
+  record(`run island ${i + 1} mindless walk dies ${band[0]} to ${band[1]} times`, m.done && m.deaths >= band[0] && m.deaths <= band[1], `${m.deaths} deaths, ${m.hearts} hearts, ${m.swaps} class swaps`);
+  record(`run island ${i + 1} memorized walk reaches the exit lift without dying, on time and ${WALK.jitter} frames late`, r.runs[0].sure.done && !r.runs[0].sure.deaths && r.runs[0].late.done && !r.runs[0].late.deaths, `${r.runs[0].sure.deaths}/${r.runs[0].late.deaths}`);
+}
+
+if (args.includes("--no-browser")) {
+  const failed = results.filter((r) => !r.ok).length;
+  console.log(`\n${results.length - failed}/${results.length} passed`);
+  process.exit(failed ? 1 : 0);
+}
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   headless: true,
@@ -787,7 +899,7 @@ const q = (page, f, ...a) => page.evaluate(f, ...a);
     const T = window.__game.state.traps, R = window.__game.renderer.traps;
     return { kinds: [...new Set(T.list.map((t) => t.kind))].length, meshes: R.group.children.length };
   });
-  record("showcase builds visuals for all 53 trap kinds", r.kinds === 53 && r.meshes > 300, JSON.stringify(r));
+  record(`showcase builds visuals for all ${TRAP_CATALOG.length} trap kinds`, r.kinds === TRAP_CATALOG.length && r.meshes > 300, JSON.stringify(r));
   await page.close();
 }
 
